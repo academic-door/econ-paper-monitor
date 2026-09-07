@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 import unittest
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 
 
@@ -18,6 +18,8 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertIn('cron: "15,30,45 * * * *"', text)
         self.assertIn('cron: "0 0-3,5-9,11-15,17-21,23 * * *"', text)
         self.assertIn("--tier hourly_crossref_priority", text)
+        self.assertIn("git add data/seen.json data/daily", text)
+        self.assertNotIn("git add data\n", text)
         self.assertNotIn("DEEPSEEK_API_KEY", text)
         self.assertNotIn("should_run_monitor.py", text)
 
@@ -55,12 +57,19 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertEqual(due.hour, 0)
         self.assertEqual(due.minute, 0)
 
+    def test_full_run_is_valid_core_freshness_evidence(self) -> None:
+        light = datetime(2026, 9, 7, 3, 7, tzinfo=UTC)
+        full = datetime(2026, 9, 7, 4, 32, tzinfo=UTC)
+        self.assertEqual(should_dispatch_monitor.latest_discovery_finish(light, full), full)
+
     def test_ai_enrichment_is_independent_and_explicitly_uses_v4_flash(self) -> None:
         text = (ROOT / ".github" / "workflows" / "ai-enrichment.yml").read_text(encoding="utf-8")
         self.assertIn('cron: "15 5,11,17,23 * * *"', text)
         self.assertIn("DEEPSEEK_MODEL: deepseek-v4-flash", text)
         self.assertIn("scripts/translate.py", text)
         self.assertIn("scripts/ai_china_relevance.py", text)
+        self.assertIn("git add data/seen.json data/daily data/translation_cache.json data/china_relevance_cache.json data/ai_cost_usage.json", text)
+        self.assertNotIn("git add data\n", text)
         self.assertIn("group: paper-monitor-main-writer", text)
 
     def test_all_writer_lanes_share_one_serial_writer_group(self) -> None:
