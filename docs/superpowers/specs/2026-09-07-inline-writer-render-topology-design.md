@@ -132,12 +132,21 @@ Extend `tests/test_monitor_cadence_contract.py` with static topology contracts:
 - all canonical data writers still use `paper-monitor-main-writer` and `cancel-in-progress: false`;
 - Update/Fast/AI contain `bash scripts/render_published_site.sh` behind their data-change gate;
 - Update/Fast/AI do not contain `gh workflow run render-site.yml`;
-- Fast/AI no longer declare `actions: write`; Update no longer declares it if unused;
+- Update/Fast/AI no longer declare `actions: write`;
 - standalone Render uses the shared render script;
 - standalone Render does not trigger on `data/**`;
 - watchdog contains the 40-minute Fast fallback;
 - watchdog considers `pending`, `requested`, `queued`, `waiting`, and `in_progress` active;
 - watchdog filters freshness to `conclusion == success`.
+
+Migrate the existing `tests/test_display_layer_boundary.py` executable contract from the old topology to the approved topology:
+
+- standalone Render must **not** listen to `data/**`;
+- standalone Render delegates to `scripts/render_published_site.sh`;
+- the shared publisher stages/commits only `docs/**` and never stages canonical `data/**`;
+- Update stages canonical data and invokes the shared publisher inline;
+- Update must not dispatch `render-site.yml` as a child workflow;
+- neither side may use a `docs/**` push trigger that can form a render loop.
 
 Add a focused test that runs `bash -n scripts/render_published_site.sh` so shell syntax is part of CI.
 
