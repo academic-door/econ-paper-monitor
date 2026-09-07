@@ -13,6 +13,7 @@ from common import DATA_DIR, read_json, stable_id, today_str, write_json
 
 
 CEPR_NUMBER = re.compile(r"/dp(\d+)(?:\D|$)", flags=re.I)
+ISO_DATE = re.compile(r"20\d{2}-\d{2}-\d{2}")
 
 
 def is_historical_cepr(record: dict[str, Any]) -> bool:
@@ -20,6 +21,32 @@ def is_historical_cepr(record: dict[str, Any]) -> bool:
         return False
     match = CEPR_NUMBER.search(str(record.get("url") or ""))
     return bool(match and int(match.group(1)) < 10000)
+
+
+def has_first_discovery_anchor(record: dict[str, Any], bucket_date: str) -> bool:
+    """Return True when the record is durably anchored to this Daily bucket.
+
+    Metadata enrichment may later reveal an official publication date months or
+    years before Academic Door first discovered a paper.  That evidence must
+    not rewrite the already accepted first-discovery timeline.  Keep this rule
+    intentionally narrow: the explicit ``first_seen`` date prefix must match
+    the existing bucket.  Unanchored catalogue/backfill items therefore retain
+    the historical-cleanup behavior below.
+
+    This helper deliberately preserves the repository's existing bucket
+    contract; it does not perform a timezone migration or reinterpret old
+    ``first_seen`` values.
+    """
+    first_seen = str(record.get("first_seen") or "").strip()
+    first_seen_date = first_seen[:10]
+    if not ISO_DATE.fullmatch(first_seen_date) or not ISO_DATE.fullmatch(bucket_date):
+        return False
+    try:
+        date.fromisoformat(first_seen_date)
+        date.fromisoformat(bucket_date)
+    except ValueError:
+        return False
+    return first_seen_date == bucket_date
 
 
 def is_historical_working_paper(record: dict[str, Any], *, run_date: str, max_age_days: int) -> bool:
@@ -32,7 +59,7 @@ def is_historical_record(record: dict[str, Any], *, run_date: str, max_age_days:
     if str(record.get("date_confidence") or "") in {"F", "unknown"}:
         return False
     official = str(record.get("available_online") or record.get("published_online") or record.get("issue_date") or "")[:10]
-    if not re.fullmatch(r"20\d{2}-\d{2}-\d{2}", official):
+    if not ISO_DATE.fullmatch(official):
         return False
     try:
         return (date.fromisoformat(run_date) - date.fromisoformat(official)).days > max_age_days
@@ -62,8 +89,10 @@ def main() -> None:
             historical_reason = None
             if isinstance(record, dict) and is_historical_cepr(record):
                 historical_reason = "historical CEPR catalogue item without a current online date"
-            elif isinstance(record, dict) and is_historical_record(
-                record, run_date=path.stem, max_age_days=args.max_age_days
+            elif (
+                isinstance(record, dict)
+                and not has_first_discovery_anchor(record, path.stem)
+                and is_historical_record(record, run_date=path.stem, max_age_days=args.max_age_days)
             ):
                 historical_reason = "record has an official date older than the public discovery window"
             if historical_reason:
