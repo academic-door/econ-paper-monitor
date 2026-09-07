@@ -1,6 +1,6 @@
 {
   "categories": {},
-  "checked_at": "2026-09-07T23:12:29.116753+08:00",
+  "checked_at": "2026-09-07T23:47:40.119059+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
@@ -9,13 +9,18 @@
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Journal of Comparative Economics: 5; American Journal of Agricultural Economics: 5; Food Policy: 40; Journal of Agricultural Economics: 13; Agricultural Economics: 8; Journ",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
       "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical So",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=25/41; Journal of Finance: 38 via official-generated; Journal of Financial Economics: 15 via official-generated; Journal of Development Economics: 43 via official-generated; Economic Development",
+      "sample_error": "feeds=53/104; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 62 via official-generated; Applied Economic Perspectives ",
       "source": "rss"
     },
     {
@@ -27,12 +32,17 @@
       "category": "permanently_unavailable",
       "sample_error": "HTTPError: HTTP Error 404: Not Found",
       "source": "working-paper:bis-working-papers"
+    },
+    {
+      "category": "permanently_unavailable",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 19 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
+      "source": "working-papers"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 7
   },
   "total_degraded": 0
 }
