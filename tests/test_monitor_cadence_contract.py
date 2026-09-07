@@ -50,6 +50,8 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertIn("--workflow fast-discovery.yml", text)
         self.assertIn("Dispatch fast discovery fallback", text)
         self.assertIn("gh workflow run fast-discovery.yml", text)
+        self.assertIn('.status == "pending"', text)
+        self.assertIn('.status == "requested"', text)
 
     def test_full_watchdog_grace_preserves_original_slot_for_freshness(self) -> None:
         windows = should_dispatch_monitor.parse_full_times("00:00,06:00,12:00,18:00")
