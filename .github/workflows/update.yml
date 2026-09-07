@@ -31,7 +31,6 @@ on:
     - cron: "0 10 * * *"
 
 permissions:
-  actions: write
   contents: write
   issues: write
 
@@ -476,8 +475,6 @@ jobs:
           echo "Failed to push generated updates after retries."
           exit 1
 
-      - name: Trigger display render
+      - name: Render published site inline
         if: steps.commit.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run render-site.yml --repo "${{ github.repository }}" --ref main
+        run: bash scripts/render_published_site.sh
