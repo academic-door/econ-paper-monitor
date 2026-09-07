@@ -19,14 +19,14 @@ def read_ai_workflow() -> str:
 def test_full_schedule_is_even_six_hour_discovery_cadence() -> None:
     text = read_discovery_workflow()
     for cron in (
-        '- cron: "30 18 * * *"',
-        '- cron: "30 0 * * *"',
-        '- cron: "30 6 * * *"',
-        '- cron: "30 12 * * *"',
+        '- cron: "0 16 * * *"',
+        '- cron: "0 22 * * *"',
+        '- cron: "0 4 * * *"',
+        '- cron: "0 10 * * *"',
     ):
         assert cron in text
-    assert 'FULL_SCHEDULES: "30 18 * * *|30 0 * * *|30 6 * * *|30 12 * * *"' in text
-    assert "Beijing 02:30, 08:30, 14:30, and 20:30" in text
+    assert 'FULL_SCHEDULES: "0 16 * * *|0 22 * * *|0 4 * * *|0 10 * * *"' in text
+    assert "Beijing 00:00, 06:00, 12:00, and 18:00" in text
 
 
 def test_deepseek_model_is_pinned_in_independent_ai_workflow() -> None:
