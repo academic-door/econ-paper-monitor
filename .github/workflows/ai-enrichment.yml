@@ -64,6 +64,11 @@ jobs:
           git add data/seen.json data/daily data/translation_cache.json data/china_relevance_cache.json data/ai_cost_usage.json
           echo 'changed=true' >> "$GITHUB_OUTPUT"
           git commit -m "AI enrichment update"
+          if ! git diff --quiet; then
+            echo "Discarding non-published tracked changes before rebase:"
+            git status --short
+            git restore --worktree .
+          fi
           for attempt in 1 2 3; do
             if git pull --rebase -X theirs origin main && git push; then
               exit 0

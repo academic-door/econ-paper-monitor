@@ -87,6 +87,11 @@ jobs:
           git add data/seen.json data/daily
           echo 'changed=true' >> "$GITHUB_OUTPUT"
           git commit -m "Fast discovery update"
+          if ! git diff --quiet; then
+            echo "Discarding non-published tracked changes before rebase:"
+            git status --short
+            git restore --worktree .
+          fi
           for attempt in 1 2 3; do
             if git pull --rebase -X theirs origin main && git push; then
               exit 0
