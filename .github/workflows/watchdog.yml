@@ -33,6 +33,63 @@ jobs:
           echo "Monitor freshness: $DECISION"
       - name: Check local CNKI freshness
         run: python scripts/audit_local_cnki_status.py --max-age-hours 30
+      - name: Check Fast discovery freshness
+        id: fast
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          FAST_MAX_AGE_MINUTES=40
+          if ! RUNS="$(gh run list \
+            --repo "${{ github.repository }}" \
+            --workflow fast-discovery.yml \
+            --limit 20 \
+            --json createdAt,status 2>/tmp/fast-run-list.err)"; then
+            echo "::warning::Unable to query Fast Discovery history; skipping Fast fallback this watchdog run."
+            cat /tmp/fast-run-list.err || true
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+            echo "active=unknown" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          ACTIVE="$(printf '%s' "$RUNS" | jq '[.[] | select(.status == "in_progress" or .status == "queued" or .status == "waiting")] | length')"
+          LATEST_CREATED="$(printf '%s' "$RUNS" | jq -r '.[0].createdAt // ""')"
+          if [ -z "$LATEST_CREATED" ]; then
+            echo "No Fast Discovery run history found; fallback is due."
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+            echo "active=$ACTIVE" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          LATEST_EPOCH="$(date -u -d "$LATEST_CREATED" +%s 2>/dev/null || true)"
+          if [ -z "$LATEST_EPOCH" ]; then
+            echo "::warning::Could not parse latest Fast Discovery timestamp '$LATEST_CREATED'; skipping Fast fallback."
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+            echo "active=$ACTIVE" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          NOW_EPOCH="$(date -u +%s)"
+          AGE_MINUTES=$(( (NOW_EPOCH - LATEST_EPOCH) / 60 ))
+          if [ "$AGE_MINUTES" -ge "$FAST_MAX_AGE_MINUTES" ]; then
+            STALE=true
+          else
+            STALE=false
+          fi
+          echo "stale=$STALE" >> "$GITHUB_OUTPUT"
+          echo "active=$ACTIVE" >> "$GITHUB_OUTPUT"
+          echo "Latest Fast Discovery age: ${AGE_MINUTES}m; active=${ACTIVE}; stale=${STALE}"
+      - name: Dispatch fast discovery fallback
+        if: steps.fast.outputs.stale == 'true' && steps.fast.outputs.active == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run fast-discovery.yml \
+            --repo "${{ github.repository }}" \
+            --ref main
+      - name: Skip active Fast discovery
+        if: steps.fast.outputs.stale == 'true' && steps.fast.outputs.active != '0'
+        run: echo "A Fast Discovery run is already active; Fast fallback skipped."
       - name: Check active monitor run
         id: active
         if: steps.freshness.outputs.decision == 'light' || steps.freshness.outputs.decision == 'full'
