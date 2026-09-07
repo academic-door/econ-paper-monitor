@@ -4,33 +4,48 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKFLOW = ROOT / ".github" / "workflows" / "update.yml"
+DISCOVERY_WORKFLOW = ROOT / ".github" / "workflows" / "update.yml"
+AI_WORKFLOW = ROOT / ".github" / "workflows" / "ai-enrichment.yml"
 
 
-def read_workflow() -> str:
-    return WORKFLOW.read_text(encoding="utf-8")
+def read_discovery_workflow() -> str:
+    return DISCOVERY_WORKFLOW.read_text(encoding="utf-8")
 
 
-def test_full_schedule_moved_off_beijing_peak() -> None:
-    text = read_workflow()
-    assert '- cron: "30 11 * * *"' in text
-    assert '- cron: "30 6 * * *"' not in text
-    assert 'FULL_SCHEDULES: "30 18 * * *|30 0 * * *|30 11 * * *|30 12 * * *"' in text
-    assert "Beijing 02:30, 08:30, 19:30, and 20:30" in text
+def read_ai_workflow() -> str:
+    return AI_WORKFLOW.read_text(encoding="utf-8")
 
 
-def test_deepseek_model_is_pinned_for_llm_steps() -> None:
-    text = read_workflow()
-    assert text.count("DEEPSEEK_MODEL: deepseek-chat") >= 2
+def test_full_schedule_is_even_six_hour_discovery_cadence() -> None:
+    text = read_discovery_workflow()
+    for cron in (
+        '- cron: "0 16 * * *"',
+        '- cron: "0 22 * * *"',
+        '- cron: "0 4 * * *"',
+        '- cron: "0 10 * * *"',
+    ):
+        assert cron in text
+    assert 'FULL_SCHEDULES: "0 16 * * *|0 22 * * *|0 4 * * *|0 10 * * *"' in text
+    assert "Beijing 00:00, 06:00, 12:00, and 18:00" in text
 
 
-def test_light_mode_disables_translation() -> None:
-    text = read_workflow()
-    assert 'TRANSLATE_LIMIT="0"' in text
-    assert 'TRANSLATE_LIMIT="160"' in text
-    assert "steps.mode.outputs.translate_limit != '0'" in text
+def test_deepseek_model_is_pinned_in_independent_ai_workflow() -> None:
+    discovery = read_discovery_workflow()
+    ai = read_ai_workflow()
+    assert "DEEPSEEK_API_KEY" not in discovery
+    assert "DEEPSEEK_MODEL: deepseek-v4-flash" in ai
+    assert ai.count("DEEPSEEK_MODEL: deepseek-v4-flash") >= 2
 
 
-def test_ai_china_relevance_runs_only_in_full() -> None:
-    text = read_workflow()
-    assert "steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')" in text
+def test_discovery_never_runs_paid_translation() -> None:
+    discovery = read_discovery_workflow()
+    ai = read_ai_workflow()
+    assert "scripts/translate.py" not in discovery
+    assert "scripts/ai_china_relevance.py" not in discovery
+    assert "scripts/translate.py" in ai
+    assert "scripts/ai_china_relevance.py" in ai
+
+
+def test_rule_based_china_relevance_remains_in_discovery() -> None:
+    discovery = read_discovery_workflow()
+    assert "scripts/enrich_china_relevance.py --all" in discovery

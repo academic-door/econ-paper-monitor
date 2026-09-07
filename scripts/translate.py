@@ -1,7 +1,9 @@
 """Translate missing English paper titles.
 
 The script uses an OpenAI-compatible chat completions endpoint when configured.
-Translations are cached by DOI/id/title to avoid repeated API cost.
+Translations are cached by DOI/id/title to avoid repeated API cost.  DeepSeek
+requests are additionally guarded at call time so a long run cannot drift into
+a peak-pricing window.
 """
 
 from __future__ import annotations
@@ -16,6 +18,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
+from ai_cost_control import paid_call_allowed, prepare_chat_payload, record_ai_usage
 from common import DATA_DIR, ROOT, read_json, stable_id, write_json
 from public_integrity import strip_title_prefix
 from status import record_source
@@ -53,19 +56,31 @@ def load_local_env() -> None:
 def api_settings() -> tuple[str | None, str, str]:
     load_local_env()
     deepseek_key = os.environ.get("DEEPSEEK_API_KEY")
-    key = deepseek_key or os.environ.get("OPENAI_API_KEY") or os.environ.get("TRANSLATION_API_KEY")
-    base_url = (
-        os.environ.get("DEEPSEEK_BASE_URL")
-        or os.environ.get("OPENAI_BASE_URL")
-        or os.environ.get("TRANSLATION_BASE_URL")
-        or ("https://api.deepseek.com/v1" if deepseek_key else "https://api.openai.com/v1")
-    )
-    model = (
-        os.environ.get("TRANSLATION_MODEL")
-        or os.environ.get("DEEPSEEK_MODEL")
-        or os.environ.get("OPENAI_MODEL")
-        or ("deepseek-chat" if deepseek_key else "gpt-4o-mini")
-    )
+    translation_key = os.environ.get("TRANSLATION_API_KEY")
+    if deepseek_key:
+        key = deepseek_key
+        base_url = (
+            os.environ.get("DEEPSEEK_BASE_URL")
+            or os.environ.get("TRANSLATION_BASE_URL")
+            or "https://api.deepseek.com/v1"
+        )
+        model = (
+            os.environ.get("TRANSLATION_MODEL")
+            or os.environ.get("DEEPSEEK_MODEL")
+            or "deepseek-v4-flash"
+        )
+    else:
+        key = os.environ.get("OPENAI_API_KEY") or translation_key
+        base_url = (
+            os.environ.get("OPENAI_BASE_URL")
+            or os.environ.get("TRANSLATION_BASE_URL")
+            or "https://api.openai.com/v1"
+        )
+        model = (
+            os.environ.get("TRANSLATION_MODEL")
+            or os.environ.get("OPENAI_MODEL")
+            or "gpt-4o-mini"
+        )
     return key, base_url.rstrip("/"), model
 
 
@@ -78,17 +93,21 @@ def cache_key(record: dict[str, Any]) -> str:
 
 
 def translate_title(title: str, key: str, base_url: str, model: str, timeout: int) -> str:
-    payload = {
-        "model": model,
-        "messages": [
-            {
-                "role": "system",
-                "content": "你是经济学论文标题翻译助手。只输出一个忠实、简洁、学术风格的中文标题，不要解释。",
-            },
-            {"role": "user", "content": title},
-        ],
-        "temperature": 0.1,
-    }
+    payload = prepare_chat_payload(
+        {
+            "model": model,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "你是经济学论文标题翻译助手。只输出一个忠实、简洁、学术风格的中文标题，不要解释。",
+                },
+                {"role": "user", "content": title},
+            ],
+            "temperature": 0.1,
+        },
+        base_url,
+        model,
+    )
     request = urllib.request.Request(
         f"{base_url}/chat/completions",
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
@@ -97,25 +116,30 @@ def translate_title(title: str, key: str, base_url: str, model: str, timeout: in
     )
     with urllib.request.urlopen(request, timeout=timeout) as response:
         data = json.loads(response.read().decode("utf-8"))
+    record_ai_usage("translation", data, base_url=base_url, model=model)
     translated = data["choices"][0]["message"]["content"].strip()
     return translated.strip("\"'“”")
 
 
 def translate_abstract(abstract: str, key: str, base_url: str, model: str, timeout: int) -> str:
-    payload = {
-        "model": model,
-        "messages": [
-            {
-                "role": "system",
-                "content": (
-                    "你是经济学论文摘要翻译助手。请忠实翻译为流畅、严谨的学术中文，保留专有名词、"
-                    "缩写、模型名称和因果语义，不增加原文没有的信息。只输出中文摘要，不要解释。"
-                ),
-            },
-            {"role": "user", "content": abstract},
-        ],
-        "temperature": 0.1,
-    }
+    payload = prepare_chat_payload(
+        {
+            "model": model,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": (
+                        "你是经济学论文摘要翻译助手。请忠实翻译为流畅、严谨的学术中文，保留专有名词、"
+                        "缩写、模型名称和因果语义，不增加原文没有的信息。只输出中文摘要，不要解释。"
+                    ),
+                },
+                {"role": "user", "content": abstract},
+            ],
+            "temperature": 0.1,
+        },
+        base_url,
+        model,
+    )
     request = urllib.request.Request(
         f"{base_url}/chat/completions",
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
@@ -124,6 +148,7 @@ def translate_abstract(abstract: str, key: str, base_url: str, model: str, timeo
     )
     with urllib.request.urlopen(request, timeout=timeout) as response:
         data = json.loads(response.read().decode("utf-8"))
+    record_ai_usage("translation", data, base_url=base_url, model=model)
     translated = data["choices"][0]["message"]["content"].strip()
     return translated.strip("\"'“”")
 
@@ -146,13 +171,13 @@ def translate_records(
     title_limit: int,
     abstract_limit: int,
     deadline: float | None,
-) -> tuple[int, int, int, int, int]:
+) -> tuple[int, int, int, int, int, int]:
     records_to_translate = sorted(
         records,
         key=lambda record: str(record.get("detected_at") or record.get("first_seen") or ""),
         reverse=True,
     )
-    changed = title_attempted = abstract_attempted = title_cached = abstract_cached = 0
+    changed = title_attempted = abstract_attempted = title_cached = abstract_cached = peak_deferred = 0
     for record in records_to_translate:
         if deadline and time.monotonic() >= deadline:
             break
@@ -175,20 +200,23 @@ def translate_records(
             changed += 1
             title_cached += 1
         elif title and not record.get("title_zh") and title_attempted < title_limit:
-            title_attempted += 1
-            try:
-                if args.sleep > 0 and title_attempted + abstract_attempted > 1:
-                    time.sleep(args.sleep)
-                title_zh = translate_title(title, key, base_url, model, args.timeout)
-                record["title_zh"] = title_zh
-                record["translation_status"] = "title_translated"
-                cached_value.update({"title": title, "title_zh": title_zh, "model": model})
-                cache_records[key_id] = cached_value
-                changed += 1
-            except (KeyError, urllib.error.URLError, TimeoutError, ValueError) as exc:
-                record["translation_status"] = f"title_failed: {exc}"
-                if args.stop_on_error:
-                    raise
+            if not paid_call_allowed(base_url, model):
+                peak_deferred += 1
+            else:
+                title_attempted += 1
+                try:
+                    if args.sleep > 0 and title_attempted + abstract_attempted > 1:
+                        time.sleep(args.sleep)
+                    title_zh = translate_title(title, key, base_url, model, args.timeout)
+                    record["title_zh"] = title_zh
+                    record["translation_status"] = "title_translated"
+                    cached_value.update({"title": title, "title_zh": title_zh, "model": model})
+                    cache_records[key_id] = cached_value
+                    changed += 1
+                except (KeyError, urllib.error.URLError, TimeoutError, ValueError) as exc:
+                    record["translation_status"] = f"title_failed: {exc}"
+                    if args.stop_on_error:
+                        raise
 
         if record.get("title_zh") and clean_title_zh(record):
             changed += 1
@@ -204,6 +232,9 @@ def translate_records(
             abstract_cached += 1
             continue
         if abstract_attempted >= abstract_limit or (deadline and time.monotonic() >= deadline):
+            continue
+        if not paid_call_allowed(base_url, model):
+            peak_deferred += 1
             continue
         abstract_attempted += 1
         try:
@@ -226,7 +257,7 @@ def translate_records(
             record["translation_status"] = f"abstract_failed: {exc}"
             if args.stop_on_error:
                 raise
-    return title_attempted, abstract_attempted, changed, title_cached, abstract_cached
+    return title_attempted, abstract_attempted, changed, title_cached, abstract_cached, peak_deferred
 
 
 def translate_daily_file(
@@ -240,7 +271,7 @@ def translate_daily_file(
     title_limit: int,
     abstract_limit: int,
     deadline: float | None,
-) -> tuple[int, int, int, int, int]:
+) -> tuple[int, int, int, int, int, int]:
     records = read_json(path, [])
     result = translate_records(
         records,
@@ -281,7 +312,7 @@ def main() -> None:
     cache = read_json(CACHE_PATH, {"records": {}})
     cache_records = cache.setdefault("records", {})
     total_title_attempted = total_abstract_attempted = total_changed = 0
-    total_title_cached = total_abstract_cached = 0
+    total_title_cached = total_abstract_cached = total_peak_deferred = 0
     deadline = time.monotonic() + args.max_seconds if args.max_seconds else None
     seen_payload = read_json(args.seen, {"papers": {}})
     seen_papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else None
@@ -298,7 +329,14 @@ def main() -> None:
             abstract_limit=args.abstract_limit,
             deadline=deadline,
         )
-        total_title_attempted, total_abstract_attempted, changed, total_title_cached, total_abstract_cached = result
+        (
+            total_title_attempted,
+            total_abstract_attempted,
+            changed,
+            total_title_cached,
+            total_abstract_cached,
+            total_peak_deferred,
+        ) = result
         total_changed += changed
         if changed and not args.dry_run:
             write_json(args.seen, seen_payload)
@@ -309,7 +347,7 @@ def main() -> None:
         abstract_remaining = max(0, args.abstract_limit - total_abstract_attempted)
         if title_remaining == 0 and abstract_remaining == 0:
             break
-        title_attempted, abstract_attempted, changed, title_cached, abstract_cached = translate_daily_file(
+        title_attempted, abstract_attempted, changed, title_cached, abstract_cached, peak_deferred = translate_daily_file(
             path,
             args,
             key,
@@ -325,11 +363,13 @@ def main() -> None:
         total_changed += changed
         total_title_cached += title_cached
         total_abstract_cached += abstract_cached
+        total_peak_deferred += peak_deferred
     if not args.dry_run:
         write_json(CACHE_PATH, cache)
     message = (
         f"title_attempted={total_title_attempted} abstract_attempted={total_abstract_attempted} "
-        f"changed={total_changed} title_cached={total_title_cached} abstract_cached={total_abstract_cached}"
+        f"changed={total_changed} title_cached={total_title_cached} abstract_cached={total_abstract_cached} "
+        f"peak_deferred={total_peak_deferred}"
     )
     record_source("translation", ok=True, count=total_changed, message=message)
     print(f"translation {message}")

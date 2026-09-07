@@ -1,7 +1,8 @@
 """Use a low-cost LLM pass to resolve China-relevance candidates.
 
 Only candidate records are sent. Results are cached by DOI/id, so the same
-paper is not charged repeatedly.
+paper is not charged repeatedly. DeepSeek calls are deferred during published
+peak-pricing windows while cached decisions remain usable at any time.
 """
 
 from __future__ import annotations
@@ -14,6 +15,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
+from ai_cost_control import paid_call_allowed, prepare_chat_payload, record_ai_usage
 from common import DATA_DIR, read_json, stable_id, today_str, write_json
 from status import record_source
 from translate import api_settings
@@ -92,24 +94,27 @@ def ask_model(record: dict[str, Any], key: str, base_url: str, model: str, timeo
         "如果明确不是中国研究，verdict=no。\n\n"
         + candidate_payload(record)
     )
+    payload = prepare_chat_payload(
+        {
+            "model": model,
+            "messages": [
+                {"role": "system", "content": "你是严谨的经济学文献分类助手，只输出有效 JSON。"},
+                {"role": "user", "content": prompt},
+            ],
+            "temperature": 0,
+        },
+        base_url,
+        model,
+    )
     request = urllib.request.Request(
         f"{base_url}/chat/completions",
-        data=json.dumps(
-            {
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": "你是严谨的经济学文献分类助手，只输出有效 JSON。"},
-                    {"role": "user", "content": prompt},
-                ],
-                "temperature": 0,
-            },
-            ensure_ascii=False,
-        ).encode("utf-8"),
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
         headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
         method="POST",
     )
     with urllib.request.urlopen(request, timeout=timeout) as response:
         data = json.loads(response.read().decode("utf-8"))
+    record_ai_usage("china_relevance", data, base_url=base_url, model=model)
     return parse_json_response(data["choices"][0]["message"]["content"])
 
 
@@ -182,7 +187,7 @@ def main() -> None:
 
     cache = read_json(CACHE_PATH, {"records": {}})
     cache_records = cache.setdefault("records", {})
-    attempted = changed = confirmed = auto_no = 0
+    attempted = changed = confirmed = auto_no = peak_deferred = 0
     date_filter = None if args.all else args.date
     changed_paths = []
     for path in daily_paths(args.daily_dir, date_filter, args.latest_days):
@@ -199,6 +204,9 @@ def main() -> None:
             try:
                 decision = cache_records.get(key_id)
                 if not decision:
+                    if not paid_call_allowed(base_url, model):
+                        peak_deferred += 1
+                        continue
                     decision = ask_model(record, key, base_url, model, args.timeout)
                     cache_records[key_id] = decision
                     attempted += 1
@@ -219,8 +227,15 @@ def main() -> None:
             break
 
     write_json(CACHE_PATH, cache)
-    record_source("ai-china-relevance", ok=True, count=confirmed, message=f"attempted={attempted} changed={changed} auto_no={auto_no} files={len(changed_paths)}")
-    print(f"ai china relevance attempted={attempted} changed={changed} confirmed={confirmed} auto_no={auto_no}")
+    message = (
+        f"attempted={attempted} changed={changed} auto_no={auto_no} files={len(changed_paths)} "
+        f"peak_deferred={peak_deferred}"
+    )
+    record_source("ai-china-relevance", ok=True, count=confirmed, message=message)
+    print(
+        f"ai china relevance attempted={attempted} changed={changed} confirmed={confirmed} "
+        f"auto_no={auto_no} peak_deferred={peak_deferred}"
+    )
 
 
 if __name__ == "__main__":

@@ -1,0 +1,81 @@
+name: AI Enrichment
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Post-full enrichment slots, all outside DeepSeek weekday peak windows.
+    # Beijing: 01:15, 07:15, 13:15, 19:15.
+    - cron: "15 5,11,17,23 * * *"
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: paper-monitor-main-writer
+  cancel-in-progress: false
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sync latest main
+        run: git pull --ff-only origin main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Refresh deterministic China relevance candidates
+        run: python scripts/enrich_china_relevance.py --all
+      - name: Resolve China relevance candidates with paid AI
+        run: python scripts/ai_china_relevance.py --all --latest-days 14 --limit 80 --timeout 25
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          DEEPSEEK_MODEL: deepseek-v4-flash
+      - name: Translate recent paper metadata
+        run: python scripts/translate.py --limit 240 --abstract-limit 24 --max-seconds 300 --timeout 25 --sleep 0.05
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          DEEPSEEK_MODEL: deepseek-v4-flash
+      - name: Normalize AI-enriched records
+        run: python scripts/normalize_records.py
+      - name: Repair public data integrity
+        run: python scripts/public_integrity.py
+      - name: Enforce release gate
+        run: python scripts/release_gate.py
+      - name: Commit only durable AI enrichment changes
+        id: commit
+        shell: bash
+        run: |
+          if git diff --quiet -- data/seen.json data/daily data/translation_cache.json data/china_relevance_cache.json data/ai_cost_usage.json; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            echo "No durable AI enrichment change; transient status timestamps are not committed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/seen.json data/daily data/translation_cache.json data/china_relevance_cache.json data/ai_cost_usage.json
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
+          git commit -m "AI enrichment update"
+          for attempt in 1 2 3; do
+            if git pull --rebase -X theirs origin main && git push; then
+              exit 0
+            fi
+            git rebase --abort || true
+            echo "Push attempt ${attempt} failed; retrying after a short wait."
+            sleep $((attempt * 8))
+          done
+          echo "Failed to publish AI enrichment after retries."
+          exit 1
+      - name: Trigger display render
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run render-site.yml --repo "${{ github.repository }}" --ref main
