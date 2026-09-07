@@ -46,6 +46,10 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertIn("--full-times 00:00,06:00,12:00,18:00", text)
         self.assertIn("--full-grace-minutes 15", text)
         self.assertIn("Dispatch core monitor fallback", text)
+        self.assertIn("FAST_MAX_AGE_MINUTES=40", text)
+        self.assertIn("--workflow fast-discovery.yml", text)
+        self.assertIn("Dispatch fast discovery fallback", text)
+        self.assertIn("gh workflow run fast-discovery.yml", text)
 
     def test_full_watchdog_grace_preserves_original_slot_for_freshness(self) -> None:
         windows = should_dispatch_monitor.parse_full_times("00:00,06:00,12:00,18:00")
