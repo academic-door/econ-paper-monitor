@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import tempfile
 import unittest
@@ -44,6 +45,32 @@ class AiCostControlTests(unittest.TestCase):
                 "https://api.openai.com/v1", "gpt-4o-mini", peak
             )
         )
+
+    def test_api_settings_use_deepseek_model_only_with_deepseek_key(self) -> None:
+        env = {
+            "DEEPSEEK_API_KEY": "deepseek-secret",
+            "DEEPSEEK_MODEL": "deepseek-v4-flash",
+            "OPENAI_API_KEY": "openai-secret",
+            "OPENAI_MODEL": "gpt-test",
+        }
+        with patch.dict(os.environ, env, clear=True), patch.object(translate, "load_local_env"):
+            key, base_url, model = translate.api_settings()
+        self.assertEqual(key, "deepseek-secret")
+        self.assertEqual(base_url, "https://api.deepseek.com/v1")
+        self.assertEqual(model, "deepseek-v4-flash")
+
+    def test_api_settings_ignore_deepseek_model_when_falling_back_to_openai(self) -> None:
+        env = {
+            "DEEPSEEK_MODEL": "deepseek-v4-flash",
+            "OPENAI_API_KEY": "openai-secret",
+            "OPENAI_BASE_URL": "https://example.openai.test/v1",
+            "OPENAI_MODEL": "gpt-test",
+        }
+        with patch.dict(os.environ, env, clear=True), patch.object(translate, "load_local_env"):
+            key, base_url, model = translate.api_settings()
+        self.assertEqual(key, "openai-secret")
+        self.assertEqual(base_url, "https://example.openai.test/v1")
+        self.assertEqual(model, "gpt-test")
 
     def test_deepseek_payload_disables_thinking_without_touching_fallback(self) -> None:
         payload = {"model": "deepseek-v4-flash", "messages": []}
