@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: scheduled-agent-checkin
+  group: paper-monitor-main-writer
   cancel-in-progress: false
 
 jobs:
@@ -89,4 +89,35 @@ jobs:
 
           git add "$log_file"
           git commit -F commit-message.txt
-          git push
+
+          published=false
+          for attempt in 1 2 3; do
+            git fetch origin main
+
+            # A concurrent successful check-in makes this run idempotently complete.
+            if git show origin/main:"$log_file" 2>/dev/null | grep -q "^${today},"; then
+              echo "Agent check-in already published for ${today}."
+              published=true
+              break
+            fi
+
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "Check-in rebase attempt ${attempt}/3 failed."
+            elif git push origin HEAD:main; then
+              echo "Published scheduled agent check-in for ${today}."
+              published=true
+              break
+            else
+              echo "Check-in push attempt ${attempt}/3 raced with another main writer."
+            fi
+
+            if [ "$attempt" -lt 3 ]; then
+              sleep $((attempt * 5))
+            fi
+          done
+
+          if [ "$published" != true ]; then
+            echo "::error::Failed to publish scheduled agent check-in after 3 attempts."
+            exit 1
+          fi
