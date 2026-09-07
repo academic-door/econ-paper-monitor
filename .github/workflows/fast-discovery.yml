@@ -3,10 +3,10 @@ name: Fast Discovery
 on:
   workflow_dispatch:
   schedule:
-    # True 15-minute TOP/A+ discovery. The :30 slot is replaced by Full
-    # Discovery at UTC 00/06/12/18, so we do not duplicate the same writer slot.
-    - cron: "0,15,45 * * * *"
-    - cron: "30 1-5,7-11,13-17,19-23 * * *"
+    # True 15-minute TOP/A+ discovery. The :00 slot is replaced by Full
+    # Discovery at UTC 04/10/16/22 (Beijing 12/18/00/06).
+    - cron: "15,30,45 * * * *"
+    - cron: "0 0-3,5-9,11-15,17-21,23 * * *"
 
 permissions:
   actions: write
