@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import subprocess
 import sys
 import unittest
 from datetime import UTC, datetime
@@ -46,6 +47,11 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertIn("--full-times 00:00,06:00,12:00,18:00", text)
         self.assertIn("--full-grace-minutes 15", text)
         self.assertIn("Dispatch core monitor fallback", text)
+        self.assertIn("FAST_MAX_AGE_MINUTES=40", text)
+        self.assertIn("gh workflow run fast-discovery.yml", text)
+        for status in ("pending", "requested", "queued", "waiting", "in_progress"):
+            self.assertIn(f'.status == "{status}"', text)
+        self.assertIn('.conclusion == "success"', text)
 
     def test_full_watchdog_grace_preserves_original_slot_for_freshness(self) -> None:
         windows = should_dispatch_monitor.parse_full_times("00:00,06:00,12:00,18:00")
@@ -77,6 +83,24 @@ class MonitorCadenceContractTests(unittest.TestCase):
             text = (ROOT / ".github" / "workflows" / workflow).read_text(encoding="utf-8")
             self.assertIn("group: paper-monitor-main-writer", text)
             self.assertIn("cancel-in-progress: false", text)
+
+    def test_writer_lanes_render_inline_without_child_render_dispatch(self) -> None:
+        for workflow in ("fast-discovery.yml", "update.yml", "ai-enrichment.yml"):
+            text = (ROOT / ".github" / "workflows" / workflow).read_text(encoding="utf-8")
+            self.assertIn("bash scripts/render_published_site.sh", text)
+            self.assertNotIn("gh workflow run render-site.yml", text)
+            self.assertNotIn("actions: write", text)
+
+    def test_standalone_render_is_operator_lane_not_data_push_child(self) -> None:
+        text = (ROOT / ".github" / "workflows" / "render-site.yml").read_text(encoding="utf-8")
+        self.assertIn("group: paper-monitor-main-writer", text)
+        self.assertIn("bash scripts/render_published_site.sh", text)
+        self.assertNotIn('- "data/**"', text)
+
+    def test_render_publisher_shell_syntax(self) -> None:
+        script = ROOT / "scripts" / "render_published_site.sh"
+        result = subprocess.run(["bash", "-n", str(script)], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
 
 if __name__ == "__main__":

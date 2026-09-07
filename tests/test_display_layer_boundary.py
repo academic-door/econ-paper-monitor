@@ -15,16 +15,19 @@ def test_only_homepage_generator_can_target_root_homepage():
     assert 'ROOT / "docs" / "index.html"' in homepage
 
 
-def test_display_workflow_reads_data_and_commits_docs_only():
+def test_display_workflow_delegates_to_docs_only_publisher():
     workflow = (ROOT / ".github" / "workflows" / "render-site.yml").read_text(encoding="utf-8")
-    assert 'paths:\n      - "data/**"' in workflow
+    publisher = (ROOT / "scripts" / "render_published_site.sh").read_text(encoding="utf-8")
+    assert 'paths:\n      - "data/**"' not in workflow
+    assert "scripts/render_published_site.sh" in workflow
     assert "scripts/render_site.py" in workflow
     assert "scripts/build_daily_vnext.py" in workflow
     assert "scripts/display_contract.py" in workflow
     assert "scripts/build_feed.py" in workflow
-    assert "git add docs" in workflow
-    assert "git add data" not in workflow
-    assert "git push origin HEAD:main" in workflow
+    assert "bash scripts/render_published_site.sh" in workflow
+    assert "git add docs" in publisher
+    assert "git add data" not in publisher
+    assert "git push origin HEAD:main" in publisher
 
 
 def test_monitor_and_display_workflows_cannot_form_a_push_loop():
@@ -32,7 +35,9 @@ def test_monitor_and_display_workflows_cannot_form_a_push_loop():
     display = (ROOT / ".github" / "workflows" / "render-site.yml").read_text(encoding="utf-8")
     assert "git add data docs" not in monitor
     assert "git add data" in monitor
-    assert 'paths:\n      - "data/**"' in display
+    assert "bash scripts/render_published_site.sh" in monitor
+    assert "gh workflow run render-site.yml" not in monitor
+    assert 'paths:\n      - "data/**"' not in display
     assert '      - "docs/**"' not in display
 
 

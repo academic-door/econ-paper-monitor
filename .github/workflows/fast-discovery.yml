@@ -9,7 +9,6 @@ on:
     - cron: "0 0-3,5-9,11-15,17-21,23 * * *"
 
 permissions:
-  actions: write
   contents: write
 
 concurrency:
@@ -102,8 +101,6 @@ jobs:
           done
           echo "Failed to publish fast discovery after retries."
           exit 1
-      - name: Trigger display render
+      - name: Render published site inline
         if: steps.commit.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run render-site.yml --repo "${{ github.repository }}" --ref main
+        run: bash scripts/render_published_site.sh
