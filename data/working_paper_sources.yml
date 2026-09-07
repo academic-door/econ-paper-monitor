@@ -277,11 +277,11 @@ sources:
     chinese_name: 国际清算银行工作论文
     type: working_paper
     stage: 2
-    homepage: https://www.bis.org/list/wpapers/index.htm
-    feed: https://www.bis.org/doclist/rss_all_categories.rss
-    url_pattern: "/publ/work\\d+"
+    homepage: https://www.bis.org/publications/working-paper
+    feed: https://www.bis.org/doclist/bis_fsi_publs.rss
+    url_pattern: "/publications/working-paper-\\d+"
     url_contains:
-      - /publ/work
+      - /publications/working-paper-
     fields:
       - finance
       - macro
