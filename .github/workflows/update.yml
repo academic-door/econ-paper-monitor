@@ -20,14 +20,14 @@ on:
         required: false
         default: "150"
   schedule:
-    # Fast monitor wakeup: every 15 minutes; the script skips recent duplicate runs.
-    - cron: "*/15 * * * *"
-    # Date rollover: Beijing 00:05, force-render the new today page.
-    - cron: "5 16 * * *"
-    # Full monitor: Beijing 02:30, 08:30, 19:30, and 20:30.
+    # Core discovery: broader priority tier once per hour, offset from the
+    # dedicated 15-minute Fast Discovery workflow.
+    - cron: "7 * * * *"
+    # Full discovery: all formal journals every six hours.
+    # Beijing 02:30, 08:30, 14:30, and 20:30.
     - cron: "30 18 * * *"
     - cron: "30 0 * * *"
-    - cron: "30 11 * * *"
+    - cron: "30 6 * * *"
     - cron: "30 12 * * *"
 
 permissions:
@@ -36,7 +36,7 @@ permissions:
   issues: write
 
 env:
-  FULL_SCHEDULES: "30 18 * * *|30 0 * * *|30 11 * * *|30 12 * * *"
+  FULL_SCHEDULES: "30 18 * * *|30 0 * * *|30 6 * * *|30 12 * * *"
 
 concurrency:
   group: paper-monitor-main-writer
@@ -64,7 +64,7 @@ jobs:
           RECOVERY_LIMIT="${{ github.event.inputs.recovery_limit || '150' }}"
           if [ "${{ github.event_name }}" = "schedule" ]; then
             case "${{ github.event.schedule }}" in
-              "30 18 * * *"|"30 0 * * *"|"30 11 * * *"|"30 12 * * *")
+              "30 18 * * *"|"30 0 * * *"|"30 6 * * *"|"30 12 * * *")
                 MODE="full"
                 DAYS="45"
                 ;;
@@ -86,8 +86,6 @@ jobs:
             ROWS="40"
             DETAIL_LIMIT="120"
             CN_DETAIL_LIMIT="0"
-            TRANSLATE_LIMIT="160"
-            TRANSLATE_SECONDS="240"
             TIER=""
             CROSSREF_WALL_TIMEOUT="25m"
             CROSSREF_REQUEST_TIMEOUT="12"
@@ -96,8 +94,6 @@ jobs:
           if [ "$MODE" = "single" ]; then
             ROWS="60"
             DETAIL_LIMIT="25"
-            TRANSLATE_LIMIT="80"
-            TRANSLATE_SECONDS="180"
             TIER=""
             CROSSREF_WALL_TIMEOUT="15m"
             CROSSREF_REQUEST_TIMEOUT="12"
@@ -115,21 +111,13 @@ jobs:
           echo "crossref_wall_timeout=$CROSSREF_WALL_TIMEOUT" >> "$GITHUB_OUTPUT"
           echo "crossref_request_timeout=$CROSSREF_REQUEST_TIMEOUT" >> "$GITHUB_OUTPUT"
           echo "crossref_retries=$CROSSREF_RETRIES" >> "$GITHUB_OUTPUT"
-      - name: Scheduled light watchdog
+      - name: Scheduled core admission
         id: watchdog
         if: github.event_name == 'schedule' && !contains(env.FULL_SCHEDULES, github.event.schedule)
         shell: bash
         run: |
-          if [ "${{ github.event.schedule }}" = "5 16 * * *" ]; then
-            DECISION="run"
-          else
-            DECISION="$(python scripts/should_run_monitor.py --min-minutes 50)"
-          fi
-          echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
-          echo "Scheduled light watchdog: $DECISION"
-      - name: Skip recent scheduled light run
-        if: github.event_name == 'schedule' && !contains(env.FULL_SCHEDULES, github.event.schedule) && startsWith(steps.watchdog.outputs.decision, 'skip:')
-        run: echo "Recent light monitor exists; skipping this watchdog wakeup."
+          echo "decision=run" >> "$GITHUB_OUTPUT"
+          echo "Scheduled core discovery: run"
       - name: Check Elsevier secrets configured
         run: |
           echo "elsevier_api_key_configured=${{ secrets.ELSEVIER_API_KEY != '' }}"
@@ -419,24 +407,8 @@ jobs:
       - name: Enrich China relevance
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py --all
-      - name: Resolve China relevance candidates with AI
-        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
-        run: python scripts/ai_china_relevance.py --all --latest-days 14 --limit 80
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
-          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-          DEEPSEEK_MODEL: deepseek-chat
-      - name: Translate paper titles
-        if: steps.mode.outputs.translate_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
-        run: python scripts/translate.py --limit ${{ steps.mode.outputs.translate_limit }} --max-seconds ${{ steps.mode.outputs.translate_seconds }} --timeout 25 --sleep 0.05
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
-          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-          DEEPSEEK_MODEL: deepseek-chat
+      # Paid AI enrichment is intentionally absent from discovery. Translation
+      # and AI China-relevance run in ai-enrichment.yml under call-time cost guards.
       - name: Reconcile durable ingestion retries
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/reconcile_retry_queues.py
