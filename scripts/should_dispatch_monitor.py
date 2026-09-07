@@ -64,6 +64,12 @@ def latest_due_full_window(
     return None
 
 
+def latest_discovery_finish(last_light: datetime | None, last_full: datetime | None) -> datetime | None:
+    """A full run is stronger freshness evidence than a core/light run."""
+    candidates = [value for value in (last_light, last_full) if value is not None]
+    return max(candidates) if candidates else None
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--light-min-minutes", type=int, default=50)
@@ -86,11 +92,12 @@ def main() -> None:
         return
 
     last_light = parse_dt(str(workflow.get("last_light_finished_at", "")))
-    if last_light is None:
+    last_discovery = latest_discovery_finish(last_light, last_full)
+    if last_discovery is None:
         print("light")
         return
 
-    age = now_utc - last_light.astimezone(UTC)
+    age = now_utc - last_discovery.astimezone(UTC)
     if age >= timedelta(minutes=args.light_min_minutes):
         print("light")
     else:
