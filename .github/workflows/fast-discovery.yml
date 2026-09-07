@@ -1,0 +1,96 @@
+name: Fast Discovery
+
+on:
+  workflow_dispatch:
+  schedule:
+    # True 15-minute TOP/A+ discovery. The :30 slot is replaced by Full
+    # Discovery at UTC 00/06/12/18, so we do not duplicate the same writer slot.
+    - cron: "0,15,45 * * * *"
+    - cron: "30 1-5,7-11,13-17,19-23 * * *"
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: paper-monitor-main-writer
+  cancel-in-progress: false
+
+jobs:
+  fast-discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sync latest main
+        run: git pull --ff-only origin main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Ensure Beijing today file exists
+        run: python scripts/ensure_today_daily.py
+      - name: Fetch TOP/A+ RSS feeds
+        run: python scripts/fetch_rss.py --tier hourly_crossref_priority
+      - name: Fetch TOP/A+ AEA TOCs
+        run: timeout 3m python scripts/fetch_aea.py --tier hourly_crossref_priority --detail-limit 4 --max-items-per-journal 20
+      - name: Fetch narrow priority publisher TOCs
+        shell: bash
+        env:
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+        run: |
+          if timeout 5m python scripts/fetch_priority_toc.py --detail-limit 0 --max-items-per-source 25; then
+            echo "Priority publisher TOCs completed."
+          else
+            echo "::warning::Priority publisher TOCs timed out or failed; continuing with RSS/AEA/Crossref."
+          fi
+      - name: Fetch TOP/A+ Crossref guardrail
+        shell: bash
+        run: |
+          mkdir -p data/raw/crossref-priority
+          TODAY=$(python -c "from scripts.common import today_str; print(today_str())")
+          if timeout 5m python scripts/fetch_crossref.py --tier hourly_crossref_priority --days 7 --created-days 7 --rows 12 --sleep 0.05 --timeout 12 --retries 1 --output data/raw/crossref-priority/${TODAY}.json; then
+            echo "Priority Crossref fetch completed."
+          else
+            echo "::warning::Priority Crossref fetch timed out or failed; publisher sources remain available."
+          fi
+      - name: Dedupe new papers
+        run: python scripts/dedupe.py
+      - name: Remove non-paper navigation records
+        run: python scripts/clean_nonpaper_records.py
+      - name: Apply manual overrides
+        run: python scripts/apply_overrides.py
+      - name: Normalize daily records
+        run: python scripts/normalize_records.py
+      - name: Remove already-seen RSS backflow
+        run: python scripts/remove_seen_backflow.py
+      - name: Enforce existing release gate
+        run: python scripts/release_gate.py
+      - name: Commit discovery only when canonical paper data changed
+        id: commit
+        shell: bash
+        run: |
+          if git diff --quiet -- data/seen.json data/daily; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            echo "No canonical discovery change; ephemeral fast-fetch status is not committed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
+          git commit -m "Fast discovery update"
+          for attempt in 1 2 3; do
+            if git pull --rebase -X theirs origin main && git push; then
+              exit 0
+            fi
+            git rebase --abort || true
+            echo "Push attempt ${attempt} failed; retrying after a short wait."
+            sleep $((attempt * 8))
+          done
+          echo "Failed to publish fast discovery after retries."
+          exit 1
+      - name: Trigger display render
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run render-site.yml --repo "${{ github.repository }}" --ref main
