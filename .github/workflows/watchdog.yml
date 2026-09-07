@@ -25,7 +25,10 @@ jobs:
         id: freshness
         shell: bash
         run: |
-          DECISION="$(python scripts/should_dispatch_monitor.py --light-min-minutes 50 --full-times 02:30,08:30,14:30,20:30)"
+          # Core discovery is scheduled independently at :07 every hour.
+          # Wait 75 minutes before fallback dispatch so a healthy hourly lane
+          # is never duplicated, while a missed cron is still recovered.
+          DECISION="$(python scripts/should_dispatch_monitor.py --light-min-minutes 75 --full-times 02:30,08:30,14:30,20:30)"
           echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
           echo "Monitor freshness: $DECISION"
       - name: Check local CNKI freshness
@@ -43,7 +46,7 @@ jobs:
           ACTIVE=$((IN_PROGRESS + QUEUED + WAITING))
           echo "count=$ACTIVE" >> "$GITHUB_OUTPUT"
           echo "Active Update Paper Monitor runs: $ACTIVE"
-      - name: Dispatch monitor update
+      - name: Dispatch core monitor fallback
         if: steps.freshness.outputs.decision == 'light' && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -52,7 +55,7 @@ jobs:
             --repo "${{ github.repository }}" \
             -f mode=light \
             -f days=14
-      - name: Dispatch full monitor update
+      - name: Dispatch full monitor fallback
         if: steps.freshness.outputs.decision == 'full' && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -63,7 +66,7 @@ jobs:
             -f days=45
       - name: Skip active monitor
         if: (steps.freshness.outputs.decision == 'light' || steps.freshness.outputs.decision == 'full') && steps.active.outputs.count != '0'
-        run: echo "An update workflow is already active; watchdog dispatch skipped."
+        run: echo "An update workflow is already active; watchdog fallback skipped."
       - name: Skip fresh monitor
         if: startsWith(steps.freshness.outputs.decision, 'skip:')
-        run: echo "Recent light monitor exists; watchdog dispatch skipped."
+        run: echo "Recent core monitor exists; watchdog fallback skipped."
