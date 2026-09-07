@@ -84,25 +84,25 @@ class AiCostControlTests(unittest.TestCase):
         )
         self.assertNotIn("thinking", fallback)
 
-    def test_flash_cost_estimate_uses_cache_hit_miss_and_output_rates(self) -> None:
+    def test_flash_cost_estimate_uses_official_usd_rates(self) -> None:
         tokens = {
             "prompt_cache_hit_tokens": 200,
             "prompt_cache_miss_tokens": 800,
             "completion_tokens": 500,
         }
         self.assertAlmostEqual(
-            ai_cost_control.estimate_deepseek_cost_cny(
+            ai_cost_control.estimate_deepseek_cost_usd(
                 "deepseek-v4-flash", tokens, "off_peak"
             ),
-            0.00346,
-            places=8,
+            0.0005074,
+            places=10,
         )
         self.assertAlmostEqual(
-            ai_cost_control.estimate_deepseek_cost_cny(
+            ai_cost_control.estimate_deepseek_cost_usd(
                 "deepseek-v4-flash", tokens, "peak"
             ),
-            0.00692,
-            places=8,
+            0.0010148,
+            places=10,
         )
 
     def test_usage_telemetry_persists_daily_and_rolling_totals(self) -> None:
@@ -127,10 +127,12 @@ class AiCostControlTests(unittest.TestCase):
             )
             payload = json.loads(path.read_text(encoding="utf-8"))
         day = payload["days"]["2026-09-07"]["translation"]
+        self.assertEqual(payload["currency"], "USD")
+        self.assertEqual(payload["pricing_source"], ai_cost_control.PRICING_SOURCE)
         self.assertEqual(day["requests"], 1)
         self.assertEqual(day["off_peak_requests"], 1)
         self.assertEqual(day["reasoning_tokens"], 0)
-        self.assertAlmostEqual(day["estimated_cost_cny"], 0.00346, places=8)
+        self.assertAlmostEqual(day["estimated_cost_usd"], 0.0005074, places=10)
         self.assertEqual(payload["rolling_30d"]["total"]["requests"], 1)
 
     def test_translation_cache_still_applies_when_paid_calls_are_deferred(self) -> None:
