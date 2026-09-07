@@ -89,6 +89,7 @@ class MonitorCadenceContractTests(unittest.TestCase):
             text = (ROOT / ".github" / "workflows" / workflow).read_text(encoding="utf-8")
             self.assertIn("bash scripts/render_published_site.sh", text)
             self.assertNotIn("gh workflow run render-site.yml", text)
+            self.assertNotIn("actions: write", text)
 
     def test_standalone_render_is_operator_lane_not_data_push_child(self) -> None:
         text = (ROOT / ".github" / "workflows" / "render-site.yml").read_text(encoding="utf-8")
