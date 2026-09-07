@@ -1,11 +1,11 @@
 {
   "categories": {},
-  "checked_at": "2026-09-08T03:14:54.294947+08:00",
+  "checked_at": "2026-09-08T03:55:40.230905+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -15,24 +15,19 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=25/41; Journal of Finance: 38 via official-generated; Journal of Financial Economics: 16 via official-generated; Journal of Development Economics: 43 via official-generated; Economic Development",
+      "sample_error": "feeds=54/103; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 6",
       "source": "rss"
     },
     {
       "category": "needs_investigation",
       "sample_error": "journals=28 failures=28 jina_key=on; Journal of Monetary Economics: HTTPError: HTTP Error 402: Payment Required; Review of Economic Dynamics: HTTPError: HTTP Error 402: Payment Required; Journal of Ec",
       "source": "sciencedirect-search"
-    },
-    {
-      "category": "permanently_unavailable",
-      "sample_error": "HTTPError: HTTP Error 404: Not Found",
-      "source": "working-paper:bis-working-papers"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 4
   },
   "total_degraded": 0
 }

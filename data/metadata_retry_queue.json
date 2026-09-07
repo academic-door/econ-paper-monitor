@@ -10,39 +10,13 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 51,
-    "missing_authors": 1,
+    "missing_abstract": 50,
     "weak_date_evidence": 497
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 516,
+  "recent_candidates_before_limit": 517,
   "recent_window_start": "2026-08-10",
   "records": [
-    {
-      "date_confidence": "F",
-      "doi": null,
-      "first_seen": "2026-09-07T19:14:21+00:00",
-      "historical_backfill": false,
-      "identity": "url:https://cepr.org/publications/dp21261",
-      "journal": "CEPR Discussion Papers",
-      "official_date": null,
-      "priority": [
-        0,
-        0,
-        0,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "missing_authors",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "first_seen",
-      "source_id": "cepr-dp",
-      "source_type": "working_paper",
-      "title": "The Costs of Counterparty Risk in Long-Term Contracts",
-      "url": "https://cepr.org/publications/dp21261"
-    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -1311,6 +1285,29 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1016/j.econlet.2026.113218",
+      "first_seen": "2026-09-07T18:54:12+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.econlet.2026.113218",
+      "journal": "Economics Letters",
+      "official_date": "2026-09-07",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Fiscal decentralization and the FDI–growth nexus",
+      "url": "https://doi.org/10.1016/j.econlet.2026.113218"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1016/j.econlet.2026.113233",
       "first_seen": "2026-09-07T15:41:59+00:00",
       "historical_backfill": false,
@@ -1331,6 +1328,29 @@
       "source_type": "journal",
       "title": "Cryptocurrency Denomination and NFT Pricing",
       "url": "https://doi.org/10.1016/j.econlet.2026.113233"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.jcorpfin.2026.103081",
+      "first_seen": "2026-09-07T18:55:01+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jcorpfin.2026.103081",
+      "journal": "Journal of Corporate Finance",
+      "official_date": "2026-09-07",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The expert’s edge? Bank lending specialization and informational advantages for credit risk assessment",
+      "url": "https://doi.org/10.1016/j.jcorpfin.2026.103081"
     },
     {
       "date_confidence": "C",
@@ -11563,32 +11583,9 @@
       "source_type": "aggregator",
       "title": "Running the Risk: Immunity and Mobility in Response to a Pandemic",
       "url": "https://econpapers.repec.org/RePEc:cpr:ceprdp:20238"
-    },
-    {
-      "date_confidence": "D",
-      "doi": null,
-      "first_seen": "2026-08-11T19:30:24+00:00",
-      "historical_backfill": false,
-      "identity": "url:https://econpapers.repec.org/repec:dem:wpaper:wp-2026-036",
-      "journal": "RePEc NEP Health Economics",
-      "official_date": "2026-08-10",
-      "priority": [
-        0,
-        1,
-        1,
-        29
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": "repec-nep-hea",
-      "source_type": "aggregator",
-      "title": "From laggard to leader: Malawi’s life expectancy transformation in Sub-Saharan African context, 1950–2023",
-      "url": "https://econpapers.repec.org/RePEc:dem:wpaper:wp-2026-036"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4162,
+  "total_candidates_before_limit": 4163,
   "truncated": true
 }
