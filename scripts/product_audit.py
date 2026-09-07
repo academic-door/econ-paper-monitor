@@ -15,6 +15,7 @@ from typing import Any
 
 from common import DATA_DIR, load_journals, read_json, today_str, write_json
 from dedupe import is_source_navigation_noise, record_match_keys
+from metadata_expectations import expected_missing_reason
 
 
 CN_JOURNAL_IDS = {
@@ -180,6 +181,13 @@ def record_label(record: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def expected_gap_label(record: dict[str, Any], field: str) -> dict[str, Any]:
+    return {
+        **record_label(record),
+        "expectation_reason": expected_missing_reason(record, field),
+    }
+
+
 def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = None) -> dict[str, Any]:
     today = today_str()
     today_date = date.fromisoformat(today)
@@ -191,10 +199,23 @@ def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = N
     by_source = Counter(str(record.get("source") or record.get("source_id") or "unknown") for record in records)
     missing_abstract = [record for record in records if not str(record.get("abstract") or "").strip()]
     missing_abstract_today = [record for record in today_records if not str(record.get("abstract") or "").strip()]
-    missing_abstract_recent = [record for record in records[:500] if not str(record.get("abstract") or "").strip()]
+    recent_records = records[:500]
+    missing_abstract_recent = [record for record in recent_records if not str(record.get("abstract") or "").strip()]
+    missing_abstract_recent_expected = [
+        record for record in missing_abstract_recent if expected_missing_reason(record, "abstract")
+    ]
+    missing_abstract_recent_actionable = [
+        record for record in missing_abstract_recent if not expected_missing_reason(record, "abstract")
+    ]
     missing_authors = [record for record in records if not record.get("authors")]
     missing_authors_today = [record for record in today_records if not record.get("authors")]
-    missing_authors_recent = [record for record in records[:500] if not record.get("authors")]
+    missing_authors_recent = [record for record in recent_records if not record.get("authors")]
+    missing_authors_recent_expected = [
+        record for record in missing_authors_recent if expected_missing_reason(record, "authors")
+    ]
+    missing_authors_recent_actionable = [
+        record for record in missing_authors_recent if not expected_missing_reason(record, "authors")
+    ]
     missing_authors_today_journals = [record for record in journal_today if not record.get("authors")]
     missing_abstract_by_journal = Counter(str(record.get("journal") or record.get("source_id") or "unknown") for record in missing_abstract)
 
@@ -231,6 +252,7 @@ def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = N
     ]
     nonpaper_records = [record for record in records if is_source_navigation_noise(record)]
     required_fields = ("id", "title", "authors", "journal", "source", "source_type", "url", "fields")
+
     def missing_schema_fields(record: dict[str, Any]) -> list[str]:
         missing = [field for field in required_fields if field not in record]
         missing.extend(
@@ -261,7 +283,7 @@ def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = N
     ]
     untranslated_recent = [
         record
-        for record in records[:500]
+        for record in recent_records
         if record.get("title") and not has_chinese(str(record.get("title"))) and not record.get("title_zh")
     ]
     china_candidates = [record for record in records if record.get("china_relevance_status") == "candidate"]
@@ -289,6 +311,7 @@ def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = N
             "today_records": len(today_records),
             "today_journal_records": len(journal_today),
             "today_working_papers": len(working_today),
+            "recent_sample_records": len(recent_records),
             "china_related_public": len(china_public),
             "china_candidates": len(china_candidates),
             "duplicates_by_url_or_doi": len(duplicates),
@@ -298,10 +321,14 @@ def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = N
             "missing_abstract": len(missing_abstract),
             "missing_abstract_today": len(missing_abstract_today),
             "missing_abstract_recent": len(missing_abstract_recent),
+            "missing_abstract_recent_actionable": len(missing_abstract_recent_actionable),
+            "missing_abstract_recent_expected": len(missing_abstract_recent_expected),
             "missing_authors": len(missing_authors),
             "missing_authors_today": len(missing_authors_today),
             "missing_authors_today_journals": len(missing_authors_today_journals),
             "missing_authors_recent": len(missing_authors_recent),
+            "missing_authors_recent_actionable": len(missing_authors_recent_actionable),
+            "missing_authors_recent_expected": len(missing_authors_recent_expected),
             "historical_records_in_bucket": len(historical_records),
             "future_official_date_in_bucket": len(future_official_records),
             "nonpaper_records": len(nonpaper_records),
@@ -320,8 +347,12 @@ def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = N
             "untranslated_recent": [record_label(record) for record in untranslated_recent[:50]],
             "missing_abstract_today": [record_label(record) for record in missing_abstract_today[:50]],
             "missing_abstract_recent": [record_label(record) for record in missing_abstract_recent[:50]],
+            "missing_abstract_recent_actionable": [record_label(record) for record in missing_abstract_recent_actionable[:50]],
+            "missing_abstract_recent_expected": [expected_gap_label(record, "abstract") for record in missing_abstract_recent_expected[:50]],
             "missing_authors_today": [record_label(record) for record in missing_authors_today[:50]],
             "missing_authors_recent": [record_label(record) for record in missing_authors_recent[:50]],
+            "missing_authors_recent_actionable": [record_label(record) for record in missing_authors_recent_actionable[:50]],
+            "missing_authors_recent_expected": [expected_gap_label(record, "authors") for record in missing_authors_recent_expected[:50]],
             "duplicate_examples": [[record_label(record) for record in group[:5]] for group in duplicates[:20]],
             "malformed_dates": [
                 {**record_label(record), "fields": malformed_dates(record)}
@@ -344,6 +375,9 @@ def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = N
             "available": len(records) - len(missing_abstract),
             "missing_rate": round(len(missing_abstract) / len(records), 4) if records else 0,
             "missing_today": len(missing_abstract_today),
+            "missing_recent": len(missing_abstract_recent),
+            "missing_recent_actionable": len(missing_abstract_recent_actionable),
+            "missing_recent_expected": len(missing_abstract_recent_expected),
             "missing_by_journal_top": dict(missing_abstract_by_journal.most_common(30)),
         },
         "authors": {
@@ -353,6 +387,8 @@ def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = N
             "missing_today": len(missing_authors_today),
             "missing_today_journals": len(missing_authors_today_journals),
             "missing_recent": len(missing_authors_recent),
+            "missing_recent_actionable": len(missing_authors_recent_actionable),
+            "missing_recent_expected": len(missing_authors_recent_expected),
         },
         "risk_signals": {
             "crossref_created_today": [record_label(record) for record in crossref_created_today[:50]],
