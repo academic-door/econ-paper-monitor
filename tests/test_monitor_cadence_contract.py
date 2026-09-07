@@ -32,6 +32,12 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertNotIn("scripts/translate.py", text)
         self.assertNotIn("scripts/ai_china_relevance.py", text)
 
+    def test_watchdog_is_fallback_not_second_hourly_lane(self) -> None:
+        text = (ROOT / ".github" / "workflows" / "watchdog.yml").read_text(encoding="utf-8")
+        self.assertIn("--light-min-minutes 75", text)
+        self.assertIn("--full-times 02:30,08:30,14:30,20:30", text)
+        self.assertIn("Dispatch core monitor fallback", text)
+
     def test_ai_enrichment_is_independent_and_explicitly_uses_v4_flash(self) -> None:
         text = (ROOT / ".github" / "workflows" / "ai-enrichment.yml").read_text(encoding="utf-8")
         self.assertIn('cron: "15 0,4,10,13,19 * * *"', text)
