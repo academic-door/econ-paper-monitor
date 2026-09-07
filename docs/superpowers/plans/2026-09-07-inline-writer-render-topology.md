@@ -27,202 +27,43 @@
 
 **Files:**
 - Modify: `tests/test_monitor_cadence_contract.py`
-- Test: `tests/test_monitor_cadence_contract.py`
 
 **Interfaces:**
 - Consumes: current workflow text contracts.
 - Produces: failing assertions that define the approved topology before production YAML changes.
 
-- [ ] **Step 1: Add writer-topology assertions**
+- [ ] Add assertions that Update/Fast/AI retain `paper-monitor-main-writer` + `cancel-in-progress: false`, invoke `bash scripts/render_published_site.sh`, do not invoke `gh workflow run render-site.yml`, and do not declare unnecessary `actions: write`.
+- [ ] Add standalone Render assertions requiring delegation to `scripts/render_published_site.sh` and forbidding a `data/**` trigger.
+- [ ] Add Fast fallback assertions for `FAST_MAX_AGE_MINUTES=40`, active statuses `pending/requested/queued/waiting/in_progress`, and success-only freshness (`.conclusion == "success"`).
+- [ ] Add `bash -n scripts/render_published_site.sh` syntax coverage.
+- [ ] Run authoritative regression and require a clean RED caused only by the missing approved topology.
 
-Add a test equivalent to:
-
-```python
-def test_writer_lanes_render_inline_without_child_render_dispatch(self) -> None:
-    for workflow in ("fast-discovery.yml", "update.yml", "ai-enrichment.yml"):
-        text = (ROOT / ".github" / "workflows" / workflow).read_text(encoding="utf-8")
-        self.assertIn("group: paper-monitor-main-writer", text)
-        self.assertIn("cancel-in-progress: false", text)
-        self.assertIn("bash scripts/render_published_site.sh", text)
-        self.assertNotIn("gh workflow run render-site.yml", text)
-```
-
-Add a standalone Render contract equivalent to:
-
-```python
-def test_standalone_render_is_operator_lane_not_data_push_child(self) -> None:
-    text = (ROOT / ".github" / "workflows" / "render-site.yml").read_text(encoding="utf-8")
-    self.assertIn("group: paper-monitor-main-writer", text)
-    self.assertIn("bash scripts/render_published_site.sh", text)
-    self.assertNotIn('- "data/**"', text)
-```
-
-- [ ] **Step 2: Add Fast fallback assertions**
-
-Extend `test_watchdog_is_fallback_not_second_hourly_lane` with:
-
-```python
-for status in ("pending", "requested", "queued", "waiting", "in_progress"):
-    self.assertIn(f'.status == "{status}"', text)
-self.assertIn('.conclusion == "success"', text)
-self.assertIn("FAST_MAX_AGE_MINUTES=40", text)
-self.assertIn("gh workflow run fast-discovery.yml", text)
-```
-
-- [ ] **Step 3: Add render-script syntax test**
-
-Add:
-
-```python
-def test_render_publisher_shell_syntax(self) -> None:
-    script = ROOT / "scripts" / "render_published_site.sh"
-    result = subprocess.run(["bash", "-n", str(script)], capture_output=True, text=True)
-    self.assertEqual(result.returncode, 0, result.stderr)
-```
-
-and import `subprocess`.
-
-- [ ] **Step 4: Run the focused test and verify RED**
-
-Run:
-
-```bash
-python -m pytest -q tests/test_monitor_cadence_contract.py
-```
-
-Expected: failures for the missing shared render script / inline calls / watchdog Fast contract, with no unrelated test errors.
-
-- [ ] **Step 5: Commit RED contract**
-
-```bash
-git add tests/test_monitor_cadence_contract.py
-git commit -m "test(monitor): define inline writer render topology"
-```
+Observed RED evidence on PR #166 head `ad3a453b5eb93176e1d044c70435a96af5cdfcb4`: `542 passed / 4 failed / 32 subtests passed`; the four failures were exactly missing shared render script, old standalone Render topology, missing Fast fallback, and child Render dispatch.
 
 ---
 
-### Task 2: Extract the shared render publisher and simplify standalone Render
+### Task 2: Extract the shared render publisher and migrate display-layer contracts
 
 **Files:**
 - Create: `scripts/render_published_site.sh`
 - Modify: `.github/workflows/render-site.yml`
+- Modify: `tests/test_display_layer_boundary.py`
 - Test: `tests/test_monitor_cadence_contract.py`
 
 **Interfaces:**
 - Consumes: repository root working tree, configured Git credentials, Python 3.11, current canonical `data/daily/YYYY-MM-DD.json`.
 - Produces: generated `docs/**` commit pushed to `main` when docs change; exit code `0` when unchanged or published successfully.
 
-- [ ] **Step 1: Create `scripts/render_published_site.sh`**
+- [ ] Create `scripts/render_published_site.sh` with `set -euo pipefail`.
+- [ ] Resolve Beijing date and validate the canonical Daily input is an existing list of record objects.
+- [ ] Reproduce the existing rendering sequence: clear lazy paper index, render secondary pages, build root + Daily vNext from one canonical input, build feed, render Semantic Scholar usage.
+- [ ] Reproduce the existing public output-boundary assertions exactly.
+- [ ] Stage only `docs/**`; no-op if unchanged; otherwise commit `Render paper monitor site` and publish with three bounded fetch/rebase/push attempts.
+- [ ] Simplify `render-site.yml` to checkout main, set up Python, and run the shared publisher.
+- [ ] Remove `data/**` from standalone Render push paths; retain render implementation/contract paths and `workflow_dispatch`.
+- [ ] Migrate `tests/test_display_layer_boundary.py` from the old `data/** -> standalone Render` contract to the approved topology: standalone Render does not listen to data; shared publisher stages docs only; Update stages data and calls publisher inline; Update does not dispatch child Render; no `docs/**` trigger loop.
 
-Use this structure:
-
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-DAILY_DATE="$(python - <<'PY'
-from datetime import datetime
-from zoneinfo import ZoneInfo
-print(datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d"))
-PY
-)"
-
-python - "$DAILY_DATE" <<'PY'
-import json
-import sys
-from pathlib import Path
-path = Path("data/daily") / f"{sys.argv[1]}.json"
-if not path.exists():
-    raise SystemExit(f"canonical daily file is missing: {path}")
-payload = json.loads(path.read_text(encoding="utf-8"))
-if not isinstance(payload, list) or any(not isinstance(item, dict) for item in payload):
-    raise SystemExit(f"canonical daily file is not a list of records: {path}")
-print(f"Canonical input validated: {path} ({len(payload)} records)")
-PY
-
-rm -rf docs/paper-index
-python scripts/render_site.py
-python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output docs/index.html --report "$RUNNER_TEMP/daily-home-report.json"
-python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output docs/daily-vnext/index.html --report "$RUNNER_TEMP/daily-vnext-report.json"
-python scripts/build_feed.py --site-url https://academic-door.github.io/econ-paper-monitor/
-python scripts/render_semantic_scholar_usage.py
-```
-
-Then reproduce the existing Render workflow output-boundary assertions exactly, followed by:
-
-```bash
-git config user.name "github-actions[bot]"
-git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-git add docs
-if git diff --cached --quiet; then
-  echo "No generated site changes to commit."
-  exit 0
-fi
-
-git commit -m "Render paper monitor site"
-for attempt in 1 2 3; do
-  if git pull --rebase -X theirs origin main && git push origin HEAD:main; then
-    exit 0
-  fi
-  git rebase --abort || true
-  echo "Render publish attempt ${attempt} failed; retrying."
-  sleep $((attempt * 8))
-done
-
-echo "Failed to publish generated site after retries."
-exit 1
-```
-
-- [ ] **Step 2: Replace standalone Render body with the shared script**
-
-Keep checkout, Python setup, `contents: write`, and:
-
-```yaml
-concurrency:
-  group: paper-monitor-main-writer
-  cancel-in-progress: false
-```
-
-Change push paths to rendering implementation only:
-
-```yaml
-on:
-  push:
-    branches: [main]
-    paths:
-      - "scripts/render_published_site.sh"
-      - "scripts/build_daily_vnext.py"
-      - "scripts/display_contract.py"
-      - "scripts/render_site.py"
-      - "scripts/build_feed.py"
-      - "scripts/render_semantic_scholar_usage.py"
-      - "scripts/templates/daily_vnext.html"
-      - ".github/workflows/render-site.yml"
-  workflow_dispatch:
-```
-
-The job implementation becomes:
-
-```yaml
-- name: Render and publish site
-  run: bash scripts/render_published_site.sh
-```
-
-- [ ] **Step 3: Run shell syntax and focused tests**
-
-```bash
-bash -n scripts/render_published_site.sh
-python -m pytest -q tests/test_monitor_cadence_contract.py
-```
-
-Expected: standalone Render and shell-syntax assertions pass; writer-inline and watchdog assertions remain RED until later tasks.
-
-- [ ] **Step 4: Commit**
-
-```bash
-git add scripts/render_published_site.sh .github/workflows/render-site.yml tests/test_monitor_cadence_contract.py
-git commit -m "refactor(render): extract serialized site publisher"
-```
+During GREEN verification, exact-head regression exposed the two old display boundary assertions as the only failures (`544 passed / 2 failed / 32 subtests passed`). They were stale contracts for the topology being intentionally replaced, not production implementation regressions; the test migration above is therefore part of the approved architectural change.
 
 ---
 
@@ -238,9 +79,7 @@ git commit -m "refactor(render): extract serialized site publisher"
 - Consumes: `steps.commit.outputs.changed` from each existing canonical-data commit step and `scripts/render_published_site.sh` from Task 2.
 - Produces: one serialized workflow execution that publishes canonical data, renders docs, and only then releases `paper-monitor-main-writer`.
 
-- [ ] **Step 1: Replace child Render dispatch in all three workflows**
-
-Replace the current `Trigger display render` step with:
+- [ ] Replace each `Trigger display render` child-dispatch step with:
 
 ```yaml
 - name: Render published site inline
@@ -248,39 +87,10 @@ Replace the current `Trigger display render` step with:
   run: bash scripts/render_published_site.sh
 ```
 
-Do this in Update, Fast, and AI.
-
-- [ ] **Step 2: Remove no-longer-required action-dispatch permission**
-
-Fast and AI permissions become:
-
-```yaml
-permissions:
-  contents: write
-```
-
-Update permissions become:
-
-```yaml
-permissions:
-  contents: write
-  issues: write
-```
-
-- [ ] **Step 3: Run focused topology tests**
-
-```bash
-python -m pytest -q tests/test_monitor_cadence_contract.py
-```
-
-Expected: inline writer topology assertions pass. Watchdog fallback assertions may remain RED until Task 4.
-
-- [ ] **Step 4: Commit**
-
-```bash
-git add .github/workflows/update.yml .github/workflows/fast-discovery.yml .github/workflows/ai-enrichment.yml tests/test_monitor_cadence_contract.py
-git commit -m "fix(monitor): render inside canonical writer jobs"
-```
+- [ ] Remove `actions: write` from Fast and AI, retaining `contents: write`.
+- [ ] Remove `actions: write` from Update, retaining `contents: write` + `issues: write`.
+- [ ] Preserve existing data commit/publish logic, including the #160 selective-writer cleanup/rebase protocol for Fast and AI.
+- [ ] Inspect PR patches to verify Update/Fast/AI diffs contain no unrelated discovery/source/data behavior changes.
 
 ---
 
@@ -294,93 +104,24 @@ git commit -m "fix(monitor): render inside canonical writer jobs"
 - Consumes: GitHub Actions run history for `fast-discovery.yml` through `gh run list`.
 - Produces: `steps.fast.outputs.stale` and `steps.fast.outputs.active`; dispatches one Fast workflow only when stale and inactive.
 
-- [ ] **Step 1: Add Fast run-history check after local CNKI freshness**
-
-Use one query:
-
-```bash
-FAST_MAX_AGE_MINUTES=40
-if ! RUNS="$(gh run list \
-  --repo "${{ github.repository }}" \
-  --workflow fast-discovery.yml \
-  --limit 30 \
-  --json createdAt,updatedAt,status,conclusion 2>/tmp/fast-run-list.err)"; then
-  echo "::warning::Unable to query Fast Discovery history; skipping Fast fallback this watchdog run."
-  cat /tmp/fast-run-list.err || true
-  echo "stale=false" >> "$GITHUB_OUTPUT"
-  echo "active=unknown" >> "$GITHUB_OUTPUT"
-  exit 0
-fi
-
-ACTIVE="$(printf '%s' "$RUNS" | jq '[.[] | select(
-  .status == "pending" or
-  .status == "requested" or
-  .status == "queued" or
-  .status == "waiting" or
-  .status == "in_progress"
-)] | length')"
-LATEST_SUCCESS="$(printf '%s' "$RUNS" | jq -r '[.[] | select(.conclusion == "success")] | sort_by(.updatedAt) | last | .updatedAt // ""')"
-```
-
-If `LATEST_SUCCESS` is empty, set `stale=true`. Otherwise parse it with `date -u -d`, compute age in minutes, and set stale when age is at least 40. Timestamp parse failure must set `stale=false` and warn.
-
-- [ ] **Step 2: Add bounded dispatch**
-
-```yaml
-- name: Dispatch fast discovery fallback
-  if: steps.fast.outputs.stale == 'true' && steps.fast.outputs.active == '0'
-  env:
-    GH_TOKEN: ${{ github.token }}
-  run: |
-    gh workflow run fast-discovery.yml \
-      --repo "${{ github.repository }}" \
-      --ref main
-```
-
-Add a companion skip step when stale but active is nonzero/unknown.
-
-- [ ] **Step 3: Run focused tests**
-
-```bash
-python -m pytest -q tests/test_monitor_cadence_contract.py
-```
-
-Expected: all cadence/topology tests pass.
-
-- [ ] **Step 4: Run full regression locally/CI-equivalent**
-
-```bash
-python -m pytest -q
-```
-
-Expected: all tests pass.
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add .github/workflows/watchdog.yml tests/test_monitor_cadence_contract.py
-git commit -m "fix(monitor): recover stale Fast discovery from watchdog"
-```
+- [ ] Query up to 30 recent Fast runs with `createdAt,updatedAt,status,conclusion`.
+- [ ] On query failure, warn, set `stale=false`, set `active=unknown`, and do not dispatch.
+- [ ] Treat `pending`, `requested`, `queued`, `waiting`, and `in_progress` as active.
+- [ ] Use the most recent `.conclusion == "success"` run `updatedAt` as freshness evidence.
+- [ ] If no successful run exists, mark stale; if timestamp parsing fails, fail closed (`stale=false`).
+- [ ] Mark stale when the latest success is at least 40 minutes old.
+- [ ] Dispatch `fast-discovery.yml --ref main` only when `stale == true` and `active == 0`.
+- [ ] Preserve all existing core/full watchdog semantics.
 
 ---
 
 ### Task 5: PR gate, exact-head merge, and production acceptance
 
 **Files:**
-- Verify all files above.
-- No new implementation files unless a gate exposes a defect.
+- Verify only the approved topology/contract files below.
+- No additional implementation files unless an exact gate exposes a real defect.
 
-**Interfaces:**
-- Consumes: GitHub PR mergeability, exact-head Actions, natural Fast/Watchdog/Update production runs.
-- Produces: merged topology with evidence-backed acceptance status.
-
-- [ ] **Step 1: Open PR from `fix/inline-writer-render-topology` to `main`**
-
-PR body must record the observed Fast cancellation chain and state that #165 is superseded.
-
-- [ ] **Step 2: Verify changed-file boundary**
-
-Expected changed files only:
+**Expected changed files:**
 
 ```text
 .github/workflows/update.yml
@@ -390,36 +131,23 @@ Expected changed files only:
 .github/workflows/watchdog.yml
 scripts/render_published_site.sh
 tests/test_monitor_cadence_contract.py
+tests/test_display_layer_boundary.py
 docs/superpowers/specs/2026-09-07-inline-writer-render-topology-design.md
 docs/superpowers/plans/2026-09-07-inline-writer-render-topology.md
 ```
 
-- [ ] **Step 3: Require exact-head Test Paper Monitor success**
+- [ ] Confirm PR changed-file boundary exactly matches the ten files above.
+- [ ] Require exact-head `Test Paper Monitor` conclusion `success`; partial step success is insufficient.
+- [ ] Require applicable exact-head Browser/Public smoke success.
+- [ ] Re-read execution-time `main`, PR head, and mergeability immediately before merge.
+- [ ] If main advanced, verify no incompatible writer/render workflow changes landed after PR base.
+- [ ] Squash merge with expected-head protection.
+- [ ] Verify merge-head regression/smoke workflows.
 
-Do not merge on partial step success. Require the workflow conclusion `success` for the current PR head SHA.
+**Production acceptance:**
 
-- [ ] **Step 4: Re-read execution-time main and PR mergeability**
-
-If main advanced, ensure GitHub reports the PR mergeable and no incompatible writer/render workflow change landed after the branch base.
-
-- [ ] **Step 5: Squash merge with expected head SHA**
-
-Use exact-head merge protection.
-
-- [ ] **Step 6: Verify merge-head regression/public smoke**
-
-Require post-merge Test/Render/Public/Browser evidence applicable to the merge head.
-
-- [ ] **Step 7: Verify first post-merge Fast execution**
-
-Acceptance requires a Fast run that receives a real job. It must not repeat the prior `created -> zero jobs -> cancelled` pattern.
-
-If the run changes canonical data, confirm the same Fast job executes `Render published site inline` successfully and no child `Render Paper Monitor Site` workflow is created by that Fast run.
-
-- [ ] **Step 8: Verify watchdog non-duplication**
-
-After a successful Fast run, inspect the next Watchdog run. It must see recent success and avoid a redundant Fast fallback.
-
-- [ ] **Step 9: Verify BIS source restoration on a post-#164 working-paper fetch**
-
-Read durable `data/status.json`. `working-paper:bis-working-papers` must no longer report the historical HTTP 404 before BIS restoration is marked production-healthy.
+- [ ] A post-merge natural or watchdog-fallback Fast run is created and receives a real job; it must not repeat `created -> zero jobs -> cancelled`.
+- [ ] Fast reaches its canonical commit step successfully under the #160 selective-writer protocol.
+- [ ] If Fast changes canonical data, the same Fast job executes `Render published site inline` successfully and does not create a child `Render Paper Monitor Site` workflow.
+- [ ] The next Watchdog run treats a recent successful Fast as fresh and does not dispatch a redundant Fast fallback.
+- [ ] A post-#164 working-paper fetch updates `working-paper:bis-working-papers` without the historical HTTP 404 before BIS restoration is marked production-healthy.
