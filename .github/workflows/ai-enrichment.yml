@@ -3,9 +3,9 @@ name: AI Enrichment
 on:
   workflow_dispatch:
   schedule:
-    # These UTC slots are always outside DeepSeek's weekday peak windows.
-    # Beijing: 08:15, 12:15, 18:15, 21:15, 03:15.
-    - cron: "15 0,4,10,13,19 * * *"
+    # Post-full enrichment slots, all outside DeepSeek weekday peak windows.
+    # Beijing: 01:15, 07:15, 13:15, 19:15.
+    - cron: "15 5,11,17,23 * * *"
 
 permissions:
   actions: write
