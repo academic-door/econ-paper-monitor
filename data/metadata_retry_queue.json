@@ -10,13 +10,39 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 50,
+    "missing_abstract": 51,
+    "missing_authors": 1,
     "weak_date_evidence": 497
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 515,
+  "recent_candidates_before_limit": 516,
   "recent_window_start": "2026-08-10",
   "records": [
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-09-07T19:14:21+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://cepr.org/publications/dp21261",
+      "journal": "CEPR Discussion Papers",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "missing_authors",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": "cepr-dp",
+      "source_type": "working_paper",
+      "title": "The Costs of Counterparty Risk in Long-Term Contracts",
+      "url": "https://cepr.org/publications/dp21261"
+    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -11560,32 +11586,9 @@
       "source_type": "aggregator",
       "title": "From laggard to leader: Malawi’s life expectancy transformation in Sub-Saharan African context, 1950–2023",
       "url": "https://econpapers.repec.org/RePEc:dem:wpaper:wp-2026-036"
-    },
-    {
-      "date_confidence": "D",
-      "doi": null,
-      "first_seen": "2026-08-10T07:40:22+00:00",
-      "historical_backfill": false,
-      "identity": "url:https://econpapers.repec.org/repec:een:camaaa:2026-61",
-      "journal": "RePEc NEP International Finance",
-      "official_date": "2026-08-10",
-      "priority": [
-        0,
-        1,
-        1,
-        29
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": "repec-nep-ifn",
-      "source_type": "aggregator",
-      "title": "US Monetary Spillovers, Foreign Exchange, and Gold Reserves at Times of Geopolitical Fragmentation",
-      "url": "https://econpapers.repec.org/RePEc:een:camaaa:2026-61"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4161,
+  "total_candidates_before_limit": 4162,
   "truncated": true
 }
