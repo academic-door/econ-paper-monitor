@@ -56,19 +56,31 @@ def load_local_env() -> None:
 def api_settings() -> tuple[str | None, str, str]:
     load_local_env()
     deepseek_key = os.environ.get("DEEPSEEK_API_KEY")
-    key = deepseek_key or os.environ.get("OPENAI_API_KEY") or os.environ.get("TRANSLATION_API_KEY")
-    base_url = (
-        os.environ.get("DEEPSEEK_BASE_URL")
-        or os.environ.get("OPENAI_BASE_URL")
-        or os.environ.get("TRANSLATION_BASE_URL")
-        or ("https://api.deepseek.com/v1" if deepseek_key else "https://api.openai.com/v1")
-    )
-    model = (
-        os.environ.get("TRANSLATION_MODEL")
-        or os.environ.get("DEEPSEEK_MODEL")
-        or os.environ.get("OPENAI_MODEL")
-        or ("deepseek-v4-flash" if deepseek_key else "gpt-4o-mini")
-    )
+    translation_key = os.environ.get("TRANSLATION_API_KEY")
+    if deepseek_key:
+        key = deepseek_key
+        base_url = (
+            os.environ.get("DEEPSEEK_BASE_URL")
+            or os.environ.get("TRANSLATION_BASE_URL")
+            or "https://api.deepseek.com/v1"
+        )
+        model = (
+            os.environ.get("TRANSLATION_MODEL")
+            or os.environ.get("DEEPSEEK_MODEL")
+            or "deepseek-v4-flash"
+        )
+    else:
+        key = os.environ.get("OPENAI_API_KEY") or translation_key
+        base_url = (
+            os.environ.get("OPENAI_BASE_URL")
+            or os.environ.get("TRANSLATION_BASE_URL")
+            or "https://api.openai.com/v1"
+        )
+        model = (
+            os.environ.get("TRANSLATION_MODEL")
+            or os.environ.get("OPENAI_MODEL")
+            or "gpt-4o-mini"
+        )
     return key, base_url.rstrip("/"), model
 
 
