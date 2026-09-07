@@ -1,8 +1,8 @@
 """Shared paid-AI cost controls for Daily Door.
 
-DeepSeek peak pricing is time-of-request, not workflow-start based.  Keep the
+DeepSeek peak pricing is time-of-request, not workflow-start based. Keep the
 policy here so translation and classification cannot drift into a peak window
-mid-run.  Local/cached work never calls this guard and therefore remains
+mid-run. Local/cached work never calls this guard and therefore remains
 available at any time.
 """
 
@@ -16,17 +16,18 @@ from common import BEIJING_TZ, DATA_DIR, read_json, write_json
 
 
 AI_USAGE_PATH = DATA_DIR / "ai_cost_usage.json"
-PRICING_VERSION = "deepseek-v4-2026-08-17"
+PRICING_VERSION = "deepseek-pricing-2026-09-07"
+PRICING_SOURCE = "https://api-docs.deepseek.com/quick_start/pricing/"
 
-# CNY per 1M tokens from the DeepSeek V4 peak/off-peak pricing table.
-DEEPSEEK_PRICES_CNY = {
+# USD per 1M tokens from DeepSeek's published V4 pricing table.
+DEEPSEEK_PRICES_USD = {
     "deepseek-v4-flash": {
-        "off_peak": {"cache_hit": 0.05, "cache_miss": 1.5, "output": 4.5},
-        "peak": {"cache_hit": 0.10, "cache_miss": 3.0, "output": 9.0},
+        "off_peak": {"cache_hit": 0.007, "cache_miss": 0.22, "output": 0.66},
+        "peak": {"cache_hit": 0.014, "cache_miss": 0.44, "output": 1.32},
     },
     "deepseek-v4-pro": {
-        "off_peak": {"cache_hit": 0.15, "cache_miss": 4.5, "output": 13.5},
-        "peak": {"cache_hit": 0.30, "cache_miss": 9.0, "output": 27.0},
+        "off_peak": {"cache_hit": 0.022, "cache_miss": 0.66, "output": 1.98},
+        "peak": {"cache_hit": 0.044, "cache_miss": 1.32, "output": 3.96},
     },
 }
 
@@ -49,7 +50,7 @@ def is_deepseek(base_url: str, model: str) -> bool:
 def deepseek_pricing_window(now: datetime | None = None) -> str:
     """Return peak/off_peak using DeepSeek's published UTC weekday windows.
 
-    Peak is Monday-Friday [01:00, 04:00) and [06:00, 10:00) UTC.  Weekends
+    Peak is Monday-Friday [01:00, 04:00) and [06:00, 10:00) UTC. Weekends
     and every other time are off-peak.
     """
     current = _as_utc(now)
@@ -94,8 +95,8 @@ def usage_tokens(response_data: dict[str, Any]) -> dict[str, int]:
     }
 
 
-def estimate_deepseek_cost_cny(model: str, tokens: dict[str, int], window: str) -> float | None:
-    prices = DEEPSEEK_PRICES_CNY.get(model.casefold())
+def estimate_deepseek_cost_usd(model: str, tokens: dict[str, int], window: str) -> float | None:
+    prices = DEEPSEEK_PRICES_USD.get(model.casefold())
     if not prices or window not in prices:
         return None
     rate = prices[window]
@@ -104,7 +105,7 @@ def estimate_deepseek_cost_cny(model: str, tokens: dict[str, int], window: str) 
         + tokens.get("prompt_cache_miss_tokens", 0) * rate["cache_miss"]
         + tokens.get("completion_tokens", 0) * rate["output"]
     ) / 1_000_000
-    return round(cost, 8)
+    return round(cost, 10)
 
 
 def _empty_task_bucket() -> dict[str, Any]:
@@ -115,7 +116,7 @@ def _empty_task_bucket() -> dict[str, Any]:
         "prompt_cache_miss_tokens": 0,
         "completion_tokens": 0,
         "reasoning_tokens": 0,
-        "estimated_cost_cny": 0.0,
+        "estimated_cost_usd": 0.0,
         "unknown_cost_requests": 0,
         "peak_requests": 0,
         "off_peak_requests": 0,
@@ -137,8 +138,8 @@ def _add_bucket(target: dict[str, Any], source: dict[str, Any]) -> None:
         "off_peak_requests",
     ):
         target[key] = int(target.get(key) or 0) + int(source.get(key) or 0)
-    target["estimated_cost_cny"] = round(
-        float(target.get("estimated_cost_cny") or 0.0) + float(source.get("estimated_cost_cny") or 0.0), 8
+    target["estimated_cost_usd"] = round(
+        float(target.get("estimated_cost_usd") or 0.0) + float(source.get("estimated_cost_usd") or 0.0), 10
     )
     for mapping_key in ("providers", "models"):
         target.setdefault(mapping_key, {})
@@ -180,14 +181,15 @@ def record_ai_usage(
     provider = "deepseek" if is_deepseek(base_url, model) else "other"
     window = deepseek_pricing_window(current) if provider == "deepseek" else "not_applicable"
     tokens = usage_tokens(response_data)
-    cost = estimate_deepseek_cost_cny(model, tokens, window) if provider == "deepseek" else None
+    cost = estimate_deepseek_cost_usd(model, tokens, window) if provider == "deepseek" else None
 
     payload = read_json(path, {})
     if not isinstance(payload, dict):
         payload = {}
     payload["version"] = 1
-    payload["currency"] = "CNY"
+    payload["currency"] = "USD"
     payload["pricing_version"] = PRICING_VERSION
+    payload["pricing_source"] = PRICING_SOURCE
     payload["updated_at"] = current.replace(microsecond=0).isoformat()
     days = payload.setdefault("days", {})
     day_key = current.astimezone(BEIJING_TZ).date().isoformat()
@@ -198,7 +200,7 @@ def record_ai_usage(
     delta["requests"] = 1
     for key, value in tokens.items():
         delta[key] = value
-    delta["estimated_cost_cny"] = float(cost or 0.0)
+    delta["estimated_cost_usd"] = float(cost or 0.0)
     delta["unknown_cost_requests"] = 1 if cost is None else 0
     if window == "peak":
         delta["peak_requests"] = 1
