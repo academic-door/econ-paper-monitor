@@ -10,6 +10,7 @@ from typing import Any
 
 from common import DATA_DIR, read_json, today_str, write_json
 from dedupe import is_source_navigation_noise
+from metadata_expectations import expected_missing_reason
 
 
 WEAK_DATE_CONFIDENCE = {"", "C", "D", "F", "unknown"}
@@ -61,19 +62,43 @@ def queue_item(record: dict[str, Any], anchor: date, recent_start: date) -> dict
     if is_source_navigation_noise(record) or not (missing_abstract or missing_authors or weak_date):
         return None
 
-    reasons = []
+    expected_gaps: dict[str, str] = {}
+    reasons: list[str] = []
+
     if missing_abstract:
-        reasons.append("missing_abstract")
+        expected = expected_missing_reason(record, "abstract")
+        if expected:
+            expected_gaps["abstract"] = expected
+        else:
+            reasons.append("missing_abstract")
     if missing_authors:
-        reasons.append("missing_authors")
+        expected = expected_missing_reason(record, "authors")
+        if expected:
+            expected_gaps["authors"] = expected
+        else:
+            reasons.append("missing_authors")
     if weak_date:
         reasons.append("weak_date_evidence")
 
-    # Lower values are processed first: fresh records and missing abstracts
-    # affect the public detail experience most directly.
+    # A record with only confidently expected metadata gaps does not need retry
+    # capacity. Independent actionable reasons (for example weak date evidence)
+    # still keep the record in the queue.
+    if not reasons:
+        return None
+
+    actionable_missing_abstract = "missing_abstract" in reasons
+    actionable_missing_authors = "missing_authors" in reasons
+
+    # Lower values are processed first: fresh records and actionable missing
+    # abstracts affect the public detail experience most directly.
     age_days = (anchor - (official_date or first_seen or anchor)).days
-    priority = (0 if recent else 1, 0 if missing_abstract else 1, 0 if missing_authors else 1, max(age_days, 0))
-    return {
+    priority = (
+        0 if recent else 1,
+        0 if actionable_missing_abstract else 1,
+        0 if actionable_missing_authors else 1,
+        max(age_days, 0),
+    )
+    item = {
         "identity": record_identity(record),
         "priority": list(priority),
         "reasons": reasons,
@@ -98,6 +123,9 @@ def queue_item(record: dict[str, Any], anchor: date, recent_start: date) -> dict
         ),
         "date_confidence": record.get("date_confidence"),
     }
+    if expected_gaps:
+        item["expected_metadata_gaps"] = expected_gaps
+    return item
 
 
 def build_queue(
@@ -116,6 +144,11 @@ def build_queue(
     all_items.sort(key=lambda item: (tuple(item["priority"]), item["identity"]))
     items = all_items[: max(0, limit)]
     reason_counts = Counter(reason for item in items for reason in item["reasons"])
+    expected_gap_counts = Counter(
+        f"{field}:{reason}"
+        for item in items
+        for field, reason in (item.get("expected_metadata_gaps") or {}).items()
+    )
     recent_count = sum(1 for item in items if tuple(item["priority"])[0] == 0)
     return {
         "generated_for": anchor.isoformat(),
@@ -127,8 +160,13 @@ def build_queue(
         "recent_candidates_before_limit": sum(tuple(item["priority"])[0] == 0 for item in all_items),
         "historical_backfill_candidates": sum(bool(item["historical_backfill"]) for item in items),
         "reason_counts": dict(sorted(reason_counts.items())),
+        "expected_metadata_gap_counts": dict(sorted(expected_gap_counts.items())),
         "records": items,
-        "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence.",
+        "note": (
+            "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. "
+            "Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records "
+            "that are queued for another actionable reason."
+        ),
     }
 
 
