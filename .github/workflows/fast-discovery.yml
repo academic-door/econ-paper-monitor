@@ -33,15 +33,23 @@ jobs:
         run: python scripts/fetch_rss.py --tier hourly_crossref_priority
       - name: Fetch TOP/A+ AEA TOCs
         run: timeout 3m python scripts/fetch_aea.py --tier hourly_crossref_priority --detail-limit 4 --max-items-per-journal 20
-      - name: Fetch narrow priority publisher TOCs
+      - name: Fetch TOP/A+ priority publisher TOCs
         shell: bash
         env:
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
         run: |
-          if timeout 5m python scripts/fetch_priority_toc.py --detail-limit 0 --max-items-per-source 25; then
-            echo "Priority publisher TOCs completed."
+          if timeout 5m python scripts/fetch_priority_toc.py \
+            --journal review-of-economic-studies \
+            --journal econometrica \
+            --journal quarterly-journal-of-economics \
+            --journal economic-journal \
+            --journal journal-of-the-european-economic-association \
+            --journal review-of-financial-studies \
+            --detail-limit 0 \
+            --max-items-per-source 25; then
+            echo "TOP/A+ priority publisher TOCs completed."
           else
-            echo "::warning::Priority publisher TOCs timed out or failed; continuing with RSS/AEA/Crossref."
+            echo "::warning::TOP/A+ publisher TOCs timed out or failed; continuing with RSS/AEA/Crossref."
           fi
       - name: Fetch TOP/A+ Crossref guardrail
         shell: bash
