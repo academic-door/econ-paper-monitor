@@ -42,12 +42,6 @@ AEA_JOURNALS = {
 # official config stays in place so local/residential runs can still use it.
 # Verified 2026-08-06 from CI logs (HTTPError 403 / ParseError after retry).
 SUPPLEMENTAL_CLOSED_NOTES = {
-    "quarterly-journal-of-economics": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
-    "economic-journal": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
-    "journal-of-the-european-economic-association": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
-    "journal-of-law-economics-and-organization": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
-    "review-of-financial-studies": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
-    "european-review-of-agricultural-economics": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
     "review-of-economics-and-statistics": "MIT Press 无官方 RSS；direct.mit.edu 在 CI 被 403 拦截，Crossref fallback 兜底",
     "journal-of-political-economy": "UChicago etoc RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底；本地任务持续补录",
     "journal-of-labor-economics": "UChicago etoc RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底；本地任务持续补录",
