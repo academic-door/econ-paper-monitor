@@ -1,26 +1,26 @@
 {
   "counts": {
     "duplicates": 0,
-    "external_sentinel_broader_relevant_candidates": 22,
-    "external_sentinel_econ_expand_candidates": 20,
+    "external_sentinel_broader_relevant_candidates": 26,
+    "external_sentinel_econ_expand_candidates": 22,
     "external_sentinel_missing": 4,
-    "external_sentinel_out_of_scope_references": 1,
+    "external_sentinel_out_of_scope_references": 4,
     "formal_journal_missing": 0,
     "formal_journals": 97,
     "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 7996,
+    "seen": 8000,
     "source_crossref_only": 0,
-    "source_degraded": 0,
-    "source_healthy": 77,
+    "source_degraded": 1,
+    "source_healthy": 76,
     "today": 0
   },
   "date": "2026-09-09",
   "failures": [],
-  "generated_at": "2026-09-08T19:38:31+00:00",
+  "generated_at": "2026-09-08T21:14:40+00:00",
   "local_cnki": {
-    "age_hours": 3.45,
+    "age_hours": 5.05,
     "count": 97,
     "fresh": true,
     "freshness_code": "fresh",
@@ -37,14 +37,14 @@
   "sentinel": {
     "checked_at": null,
     "counts": {
-      "broader_relevant_candidates": 22,
-      "econ_expand_candidates": 20,
+      "broader_relevant_candidates": 26,
+      "econ_expand_candidates": 22,
       "formal_scope_missing": 4,
-      "out_of_scope_references": 1
+      "out_of_scope_references": 4
     }
   },
   "source_health": {
-    "checked_at": "2026-09-08T19:32:55+00:00",
+    "checked_at": "2026-09-08T21:14:02+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -249,7 +249,17 @@
           ]
         }
       ],
-      "single_path_degraded": []
+      "single_path_degraded": [
+        {
+          "journal": "数量经济技术经济研究",
+          "journal_id": "journal-edcb877d78",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "cnki-rss",
+            "openalex-recall"
+          ]
+        }
+      ]
     }
   },
   "warnings": [

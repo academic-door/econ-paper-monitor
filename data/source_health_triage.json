@@ -1,7 +1,9 @@
 {
-  "categories": {},
-  "checked_at": "2026-09-09T03:32:55.669638+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-09-09T05:14:02.391260+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -9,8 +11,18 @@
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Journal of Finance: 1; Journal of Financial Economics: 9; Review of Financial Studies: 3; Journal of Development Economics: 14; Economic Development and Cultural Change: 0;",
+      "source": "crossref"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Explorations in Economic History: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematica",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=60/110; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 6",
+      "sample_error": "feeds=29/45; Journal of Financial Economics: 17 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 43 via official-generated; Economic Development",
       "source": "rss"
     },
     {
@@ -19,10 +31,26 @@
       "source": "sciencedirect-search"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 3
+    "degraded_source_failures": 5
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
