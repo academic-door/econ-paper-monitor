@@ -1,21 +1,16 @@
 {
   "categories": {},
-  "checked_at": "2026-09-08T11:58:43.459725+08:00",
+  "checked_at": "2026-09-08T15:22:04.383535+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 10",
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 3; Journal of Financial Economics: 9; Review of Financial Studies: 3; Journal of Development Economics: 14; Economic Development and Cultural Change: 0;",
-      "source": "crossref"
-    },
-    {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical So",
+      "sample_error": "attempted=9; proxy_abstract_attempted=0; seen 中国工业经济: abstract-present; seen 管理世界: abstract-present; 2026-09-08 VoxEU / CEPR Columns: abstract-present; 2026-09-08 VoxEU / CEPR Columns: abstract-presen",
       "source": "publisher-detail"
     },
     {
@@ -27,22 +22,12 @@
       "category": "transient_network",
       "sample_error": "journals=28 failures=28 jina_key=on; Journal of Monetary Economics: TimeoutError: The read operation timed out; Review of Economic Dynamics: HTTPError: HTTP Error 500: Internal Server Error; Journal o",
       "source": "sciencedirect-search"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "HTTPError: HTTP Error 504: Gateway Time-out",
-      "source": "working-paper:imf-working-papers"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: HTTPError: HTTP Error 504: Gateway Time-out; cepr-dp: 11 via sp",
-      "source": "working-papers"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 7
+    "degraded_source_failures": 4
   },
   "total_degraded": 0
 }
