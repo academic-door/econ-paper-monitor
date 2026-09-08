@@ -1,11 +1,11 @@
 {
   "categories": {},
-  "checked_at": "2026-09-08T15:22:04.383535+08:00",
+  "checked_at": "2026-09-08T16:53:48.702179+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 10",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -15,12 +15,12 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=25/41; Journal of Finance: 38 via official-generated; Journal of Financial Economics: 16 via official-generated; Journal of Development Economics: 43 via official-generated; Economic Development",
+      "sample_error": "feeds=53/104; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 62 via official-generated; Applied Economic Perspectives ",
       "source": "rss"
     },
     {
-      "category": "transient_network",
-      "sample_error": "journals=28 failures=28 jina_key=on; Journal of Monetary Economics: TimeoutError: The read operation timed out; Review of Economic Dynamics: HTTPError: HTTP Error 500: Internal Server Error; Journal o",
+      "category": "needs_investigation",
+      "sample_error": "journals=28 failures=28 jina_key=on; Journal of Monetary Economics: HTTPError: HTTP Error 402: Payment Required; Review of Economic Dynamics: HTTPError: HTTP Error 402: Payment Required; Journal of Ec",
       "source": "sciencedirect-search"
     }
   ],
