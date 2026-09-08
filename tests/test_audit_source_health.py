@@ -80,7 +80,8 @@ class InspectJournalTests(unittest.TestCase):
 
     def test_crossref_only_with_supplemental_closure_is_closed_not_degraded(self):
         entry = registry_entry()
-        row = self._row(entry, journal=PRIORITY_JOURNAL, journal_id="quarterly-journal-of-economics")
+        journal = {"id": "review-of-economics-and-statistics", "title": "Review of Economics and Statistics", "publisher": "MIT Press"}
+        row = self._row(entry, journal=journal, journal_id="review-of-economics-and-statistics")
         self.assertEqual(row["level"], "supplemental-closed")
         self.assertIsNotNone(row["supplemental_closed_note"])
 
