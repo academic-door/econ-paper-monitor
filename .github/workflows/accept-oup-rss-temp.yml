@@ -1,0 +1,59 @@
+name: Accept OUP RSS on GitHub runner
+
+on:
+  push:
+    branches:
+      - accept/oup-rss-production
+
+permissions:
+  contents: read
+
+jobs:
+  accept:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 4fe1864a0c411925f5a0d9c5966879340b993c83
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Fetch six verified OUP Advance RSS feeds
+        run: >-
+          python scripts/fetch_rss.py
+          --only quarterly-journal-of-economics
+          --only economic-journal
+          --only journal-of-the-european-economic-association
+          --only journal-of-law-economics-and-organization
+          --only review-of-financial-studies
+          --only european-review-of-agricultural-economics
+          --max-items-per-feed 120
+      - name: Assert per-journal RSS evidence
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          ids = [
+              "quarterly-journal-of-economics",
+              "economic-journal",
+              "journal-of-the-european-economic-association",
+              "journal-of-law-economics-and-organization",
+              "review-of-financial-studies",
+              "european-review-of-agricultural-economics",
+          ]
+          registry = json.loads(Path("data/source_registry.json").read_text(encoding="utf-8"))
+          for journal_id in ids:
+              row = registry["journals"][journal_id]
+              count = int(row.get("last_rss_count") or 0)
+              error = row.get("last_rss_error")
+              status = row.get("last_rss_status")
+              print(f"{journal_id}: status={status} count={count} error={error}")
+              if status not in {"configured", "feed", "official-generated"}:
+                  raise SystemExit(f"unexpected RSS status for {journal_id}: {status}")
+              if count <= 0:
+                  raise SystemExit(f"RSS returned no items for {journal_id}")
+              if error:
+                  raise SystemExit(f"RSS error for {journal_id}: {error}")
+          PY
