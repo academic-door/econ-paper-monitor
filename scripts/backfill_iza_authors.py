@@ -14,7 +14,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 from common import DATA_DIR, read_json, today_str, write_json
-from fetch_preprints import enrich_record_from_detail, load_sources
+from fetch_preprints import enrich_record_from_detail, enrich_record_from_proxy, load_sources
 
 
 SCHEDULED_SOURCE_IDS = {"iza", "cepr-dp"}
@@ -51,6 +51,17 @@ def normalize_authors(values: list[str]) -> list[str]:
     return normalized[:12]
 
 
+def needs_scheduled_repair(record: dict, source_id: str) -> bool:
+    """Return whether the scheduled source contract has an actionable metadata gap."""
+    missing_authors = not record.get("authors")
+    missing_abstract = not str(record.get("abstract") or "").strip()
+    if source_id == "iza":
+        return missing_authors
+    if source_id == "cepr-dp":
+        return missing_authors or missing_abstract
+    return False
+
+
 def apply_metadata_state(record: dict) -> None:
     if record.get("authors"):
         record["authors"] = normalize_authors(list(record["authors"]))
@@ -63,8 +74,8 @@ def apply_metadata_state(record: dict) -> None:
         record["abstract_enrichment_status"] = "available"
 
 
-def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bool]:
-    """Repair one missing-author record and report (changed, authors_enriched)."""
+def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bool, bool]:
+    """Repair one scheduled record and report changed/author/abstract enrichment."""
     source_id = str(source.get("id") or "")
     before_authors = list(record.get("authors") or [])
     before_abstract = str(record.get("abstract") or "")
@@ -76,6 +87,8 @@ def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bo
         record["url"] = canonical_url
 
     updated = enrich_record_from_detail(record, source, timeout=timeout)
+    if source_id == "cepr-dp" and not str(updated.get("abstract") or "").strip():
+        updated = enrich_record_from_proxy(updated, source_id, timeout=timeout)
     if original_title:
         updated["title"] = original_title
     apply_metadata_state(updated)
@@ -88,7 +101,9 @@ def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bo
         or after_abstract != before_abstract
         or after_url != before_url
     )
-    return changed, bool(after_authors and after_authors != before_authors)
+    authors_enriched = bool(after_authors and after_authors != before_authors)
+    abstract_enriched = bool(after_abstract.strip() and after_abstract != before_abstract)
+    return changed, authors_enriched, abstract_enriched
 
 
 def main() -> None:
@@ -114,8 +129,10 @@ def main() -> None:
     changed_files = 0
     checked = 0
     enriched = 0
+    abstracts_enriched = 0
     per_source_checked = {source_id: 0 for source_id in sources}
     per_source_enriched = {source_id: 0 for source_id in sources}
+    per_source_abstracts_enriched = {source_id: 0 for source_id in sources}
 
     seen_payload = read_json(args.seen, {"papers": {}})
     papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else {}
@@ -133,19 +150,22 @@ def main() -> None:
                 break
             source_id = str(record.get("source_id") or "")
             source = sources.get(source_id)
-            if source is None or record.get("authors") or not record.get("url"):
+            if source is None or not record.get("url") or not needs_scheduled_repair(record, source_id):
                 continue
 
             checked += 1
             per_source_checked[source_id] += 1
-            record_changed, authors_enriched = repair_record(record, source, timeout=args.timeout)
+            record_changed, authors_added, abstract_added = repair_record(record, source, timeout=args.timeout)
             if not record_changed:
                 continue
 
             changed = True
-            if authors_enriched:
+            if authors_added:
                 enriched += 1
                 per_source_enriched[source_id] += 1
+            if abstract_added:
+                abstracts_enriched += 1
+                per_source_abstracts_enriched[source_id] += 1
 
             seen_key = str(record.get("id") or "")
             if seen_key and isinstance(papers, dict) and seen_key in papers:
@@ -162,11 +182,12 @@ def main() -> None:
 
     details = ", ".join(
         f"{source_id}:checked={per_source_checked[source_id]}/enriched={per_source_enriched[source_id]}"
+        f"/abstracts={per_source_abstracts_enriched[source_id]}"
         for source_id in sorted(sources)
     )
     print(
         f"working-paper metadata backfill: checked={checked} enriched={enriched} "
-        f"files={changed_files}; {details}"
+        f"abstracts_enriched={abstracts_enriched} files={changed_files}; {details}"
     )
 
 
