@@ -1,0 +1,59 @@
+name: Verify final JARE acceptance 170
+
+on:
+  push:
+    branches:
+      - probe/jare-accept-final-170
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run production JARE acquisition and acceptance
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="$RUNNER_TEMP/jare-final.json"
+          python scripts/fetch_priority_toc.py \
+            --journal journal-of-agricultural-and-resource-economics \
+            --output "$OUT" \
+            --timeout 30 \
+            --detail-limit 0 \
+            --max-items-per-source 50 \
+            --workers 1
+          python - "$OUT" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          journal_id = "journal-of-agricultural-and-resource-economics"
+          records = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          assert records, "final JARE acquisition returned zero records"
+          assert all(r.get("source") == "priority_toc" for r in records), records[:2]
+          assert all(r.get("source_url") == "https://jareonline.org/preprint-online/" for r in records), records[:2]
+          assert all("ageconsearch.umn.edu/" in str(r.get("url") or "") for r in records), records[:2]
+
+          dated = sum(bool(r.get("published_online")) for r in records)
+          authored = sum(bool(r.get("authors")) for r in records)
+          abstracted = sum(bool(r.get("abstract")) for r in records)
+          assert dated == len(records), (dated, len(records))
+          assert authored == len(records), (authored, len(records))
+          assert abstracted == len(records), (abstracted, len(records))
+
+          status = json.loads(Path("data/status.json").read_text(encoding="utf-8"))
+          journal = (((status.get("sources") or {}).get("priority-toc") or {}).get("journals") or {}).get(journal_id) or {}
+          assert journal.get("ok") is True, journal
+          assert journal.get("publisher_ok") is True, journal
+          assert int(journal.get("count") or 0) == len(records), journal
+          assert int(journal.get("fallback_count") or 0) == 0, journal
+
+          print(f"JARE_FINAL_LIVE count={len(records)} dated={dated} authored={authored} abstracted={abstracted}")
+          print("JARE_STATUS", json.dumps(journal, sort_keys=True))
+          PY
