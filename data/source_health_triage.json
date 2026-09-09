@@ -1,6 +1,6 @@
 {
   "categories": {},
-  "checked_at": "2026-09-09T12:44:30.774815+08:00",
+  "checked_at": "2026-09-09T13:19:14.266205+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
@@ -10,29 +10,19 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=29/45; Journal of Financial Economics: 17 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 43 via official-generated; Economic Development",
+      "sample_error": "feeds=60/109; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 6",
       "source": "rss"
     },
     {
       "category": "needs_investigation",
       "sample_error": "journals=28 failures=28 jina_key=on; Journal of Monetary Economics: HTTPError: HTTP Error 402: Payment Required; Review of Economic Dynamics: HTTPError: HTTP Error 402: Payment Required; Journal of Ec",
       "source": "sciencedirect-search"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "URLError: <urlopen error timed out>",
-      "source": "working-paper:world-bank-prwp"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: URLError: <urlopen error timed out>; imf-working-papers: 12 via html; cepr-dp: 12 via specialized-html",
-      "source": "working-papers"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 3
   },
   "total_degraded": 0
 }

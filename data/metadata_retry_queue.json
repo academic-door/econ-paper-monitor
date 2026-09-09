@@ -10,12 +10,12 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 76,
+    "missing_abstract": 75,
     "missing_authors": 3,
-    "weak_date_evidence": 489
+    "weak_date_evidence": 490
   },
-  "recent_candidates": 477,
-  "recent_candidates_before_limit": 477,
+  "recent_candidates": 478,
+  "recent_candidates_before_limit": 478,
   "recent_window_start": "2026-08-11",
   "records": [
     {
@@ -1381,11 +1381,11 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.chieco.2026.102770",
-      "first_seen": "2026-09-08T19:28:07+00:00",
+      "doi": "10.1016/j.econlet.2026.113220",
+      "first_seen": "2026-09-09T00:08:07+00:00",
       "historical_backfill": false,
-      "identity": "doi:10.1016/j.chieco.2026.102770",
-      "journal": "China Economic Review",
+      "identity": "doi:10.1016/j.econlet.2026.113220",
+      "journal": "Economics Letters",
       "official_date": "2026-09-08",
       "priority": [
         0,
@@ -1399,8 +1399,8 @@
       "recency_basis": "official_date",
       "source_id": null,
       "source_type": "journal",
-      "title": "From two heads to one: Electoral and governance consequences of political recentralization",
-      "url": "https://doi.org/10.1016/j.chieco.2026.102770"
+      "title": "The difficulty of telling signal from noise when noise lingers",
+      "url": "https://doi.org/10.1016/j.econlet.2026.113220"
     },
     {
       "date_confidence": "C",
@@ -1539,6 +1539,29 @@
       "source_type": "journal",
       "title": "Electoral results affect beliefs about the past: Evidence from Chile",
       "url": "https://doi.org/10.1016/j.jpubeco.2026.105761"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.mathsocsci.2026.102583",
+      "first_seen": "2026-09-09T00:08:26+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.mathsocsci.2026.102583",
+      "journal": "Mathematical Social Sciences",
+      "official_date": "2026-09-08",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Matching with Learning: A Bayesian Assignment Game Approach",
+      "url": "https://doi.org/10.1016/j.mathsocsci.2026.102583"
     },
     {
       "date_confidence": "C",
@@ -11582,32 +11605,9 @@
       "source_type": "journal",
       "title": "The Tragedy of the Commons in the Presence of Regime Shift Risk",
       "url": "https://doi.org/10.1007/s10640-026-01111-3"
-    },
-    {
-      "date_confidence": "A",
-      "doi": "10.1016/j.euroecorev.2026.105451",
-      "first_seen": "2026-08-01T07:52:58+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.euroecorev.2026.105451",
-      "journal": "European Economic Review",
-      "official_date": "2026-08-01",
-      "priority": [
-        1,
-        0,
-        1,
-        39
-      ],
-      "reasons": [
-        "missing_abstract"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Introduction to the special issue on market power: A search-theoretic approach",
-      "url": "https://doi.org/10.1016/j.euroecorev.2026.105451"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4180,
+  "total_candidates_before_limit": 4181,
   "truncated": true
 }
