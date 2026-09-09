@@ -10,21 +10,21 @@
     "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 8106,
+    "seen": 8140,
     "source_crossref_only": 0,
-    "source_degraded": 0,
+    "source_degraded": 1,
     "source_healthy": 79,
     "today": 0
   },
   "date": "2026-09-10",
   "failures": [],
-  "generated_at": "2026-09-09T16:12:03+00:00",
+  "generated_at": "2026-09-09T17:54:06+00:00",
   "local_cnki": {
-    "age_hours": 6.0,
+    "age_hours": 1.7,
     "count": 99,
     "fresh": true,
     "freshness_code": "fresh",
-    "last_success_at": "2026-09-09T10:12:18+00:00",
+    "last_success_at": "2026-09-09T16:12:13+00:00",
     "ok": true,
     "source_health": {
       "failed_sources": 0,
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-09-09T15:16:10+00:00",
+    "checked_at": "2026-09-09T17:48:30+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -139,16 +139,6 @@
           ]
         },
         {
-          "journal": "Applied Economics",
-          "journal_id": "applied-economics",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "Informa UK (Taylor & Francis)",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Journal of Economic Growth",
           "journal_id": "journal-of-economic-growth",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -209,6 +199,16 @@
           ]
         },
         {
+          "journal": "Journal of Agricultural and Resource Economics",
+          "journal_id": "journal-of-agricultural-and-resource-economics",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Western Agricultural Economics Association",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
           "journal": "Review of Accounting Studies",
           "journal_id": "review-of-accounting-studies",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -229,7 +229,17 @@
           ]
         }
       ],
-      "single_path_degraded": []
+      "single_path_degraded": [
+        {
+          "journal": "Journal of Agricultural and Resource Economics",
+          "journal_id": "journal-of-agricultural-and-resource-economics",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        }
+      ]
     }
   },
   "warnings": [
