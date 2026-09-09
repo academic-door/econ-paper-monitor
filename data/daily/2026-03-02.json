@@ -1,5 +1,57 @@
 [
   {
+    "abstract": "This paper develops a simple and new approach for testing linear hypotheses about autocorrelations for time series with general stationary serial correlation structures. A practically important special case is the computation of robust confidence intervals for individual autocorrelations that do not require resampling methods. Inference is heteroskedasticity and autocorrelation robust (HAR) and allows innovations to be uncorrelated but not necessarily independent and identically distributed (iid). It is well known that the classic Bartlett (1946) formula can provide invalid inference when innovations are not (iid). Romano and Thombs (1996) derive the asymptotic distribution of sample autocorrelations under weak assumptions but avoid estimation of the variances of sample autocorrelations and suggest resampling schemes to obtain confidence intervals. As an alternative we provide an easy to implement regression approach for estimating autocorrelations and their variance matrices. The asymptotic variance takes a sandwich form which can be estimated using well known HAR variance estimators. Resulting test statistics can be implemented with fixed-smoothing critical values which reduce finite sample size distortions. Monte Carlo simulations show our approach is robust to innovations that are not iid and works reasonably well across various serial correlation structures. An empirical illustration using robust confidence intervals for autocorrelations of S&P 500 index returns shows that conclusions about market efficiency and volatility clustering during pre and post-Covid periods using our approach contrast with conclusions using traditional (and often incorrectly used) methods. We provide a Python implementation for practitioners that implements our approach: https://eastlansing.github.io/Robust_CI_Acf/",
+    "abstract_completeness": "full",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Tae‐Yoon Hwang",
+      "Timothy J. Vogelsang"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-03-02",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "rss_published",
+    "detail_key": "robust-confidence-intervals-for-autocorrelations-of-stationary-time-series-1447af752c3d",
+    "detected_at": "2026-09-09T14:34:01+00:00",
+    "doi": "10.1080/07350015.2025.2561749",
+    "fields": [
+      "econometrics"
+    ],
+    "first_seen": "2026-09-09T14:34:01+00:00",
+    "id": "doi:10.1080/07350015.2025.2561749",
+    "identity_aliases": [
+      "10.1080/07350015.2025.2561749",
+      "https://www.tandfonline.com/doi/full/10.1080/07350015.2025.2561749?af=R",
+      "robust-confidence-intervals-for-autocorrelations-of-stationary-time-series-1447af752c3d"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Business & Economic Statistics",
+    "journal_id": "journal-of-business-and-economic-statistics",
+    "journal_short": "JBES",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-03-02",
+    "publisher": "Taylor & Francis",
+    "raw_data": {
+      "pii": null,
+      "rss_feed_url": "https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=ubes20",
+      "rss_guid": null
+    },
+    "source": "rss",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=ubes20",
+    "title": "Robust Confidence Intervals for Autocorrelations of Stationary Time Series",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.tandfonline.com/doi/full/10.1080/07350015.2025.2561749?af=R"
+  },
+  {
     "abstract": "Agents frequently engage with multiple principals simultaneously – for example, when borrowing from several banks or peers. In such settings, principals typically possess less information about the agent’s ability or intentions (e.g., to repay a loan) and must rely on trust. This paper presents experimental evidence from trust games framed in a credit market context to examine the role of reciprocity in interactions involving multiple principals (lenders) and a single agent (borrower). Agents were asked to decide whether to act trustworthily and repay, or to default and act selfishly, after receiving the same credit amount from either one or multiple principals. The results show that reciprocity declines when the number of trusting principals increases. A key mechanism appears to be the reduced marginal harm that an agent’s default imposes on each individual principal. Additionally, agents seem less sensitive to the negative consequences of their actions when multiple principals are affected. These findings suggest that interactions involving multiple principals are behaviorally riskier than bilateral ones. The results have implications for the design of incentive structures in multi-principal-agent environments, such as crowdlending platforms.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
