@@ -4,7 +4,7 @@
     "abstract_completeness": "full",
     "abstract_source": "openalex",
     "abstract_status_code": "available",
-    "abstract_zh": null,
+    "abstract_zh": "本文提出了一种简单新颖的方法，用于检验具有一般平稳序列相关结构的时间序列自相关的线性假设。一个实际重要的特例是计算单个自相关的稳健置信区间，无需重采样方法。推断具有异方差性和自相关稳健性（HAR），允许创新项不相关但不一定独立同分布（iid）。众所周知，当创新项非iid时，经典的Bartlett（1946）公式可能导致无效推断。Romano和Thombs（1996）在弱假设下推导了样本自相关的渐近分布，但避免估计样本自相关的方差，并建议采用重采样方案以获得置信区间。作为替代，我们提供了一种易于实现的回归方法来估计自相关及其方差矩阵。渐近方差采用三明治形式，可利用众所周知的HAR方差估计器进行估计。所得检验统计量可采用固定平滑临界值实施，以减少有限样本尺寸失真。蒙特卡洛模拟表明，我们的方法对非iid创新项具有稳健性，并在各种序列相关结构下表现良好。一项实证示例使用S&P 500指数收益自相关的稳健置信区间显示，采用我们的方法得出的关于疫情前后市场效率和波动聚集性的结论，与传统（且常被误用）方法得出的结论形成对比。我们为实践者提供了实现该方法的Python代码：https://eastlansing.github.io/Robust_CI_Acf/",
     "accepted_date": null,
     "ai_tags": [],
     "authors": [
@@ -47,8 +47,8 @@
     "source_type": "journal",
     "source_url": "https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=ubes20",
     "title": "Robust Confidence Intervals for Autocorrelations of Stationary Time Series",
-    "title_zh": null,
-    "translation_status": "missing_abstract",
+    "title_zh": "平稳时间序列自相关的稳健置信区间",
+    "translation_status": "abstract_translated_cached",
     "url": "https://www.tandfonline.com/doi/full/10.1080/07350015.2025.2561749?af=R"
   },
   {
