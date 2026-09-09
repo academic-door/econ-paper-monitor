@@ -19,76 +19,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path('scripts/fetch_priority_toc.py')
-          text = path.read_text(encoding='utf-8')
-
-          jare_start = text.index('    "journal-of-agricultural-and-resource-economics": [{')
-          jare_end = text.index('    "journal-of-human-resources": [', jare_start)
-          jare_block = text[jare_start:jare_end]
-          old_line = '        "fallback_issn": "1068-5502",\n'
-          if jare_block.count(old_line) != 1:
-              raise SystemExit(f'JARE fallback line count={jare_block.count(old_line)}')
-          jare_block = jare_block.replace(old_line, '        "publisher_attempts": 3,\n', 1)
-          text = text[:jare_start] + jare_block + text[jare_end:]
-
-          func_start = text.index('def fetch_target_with_fallback(')
-          body_start = text.index('    label = f"{journal.get(\'id\')}/{target[\'kind\']}"', func_start)
-          func_end = text.index('\n\ndef main() -> None:', body_start)
-          new_body = '''    label = f"{journal.get('id')}/{target['kind']}"
-    publisher_attempts = max(1, int(target.get("publisher_attempts") or 1))
-    last_error: Exception | None = None
-    for attempt in range(publisher_attempts):
-        try:
-            fetched = fetch_target(
-                journal,
-                target,
-                timeout=timeout,
-                detail_limit=detail_limit,
-                max_items=max_items,
-            )
-            if fetched:
-                return fetched, 0, True, [f"{label}: {len(fetched)}"], False
-            fallback = fetch_crossref_fallback(
-                journal, target, timeout=timeout, max_items=max_items
-            )
-            return (
-                fallback,
-                len(fallback),
-                False,
-                [f"{label}: 0", f"{label}: crossref fallback {len(fallback)}"],
-                not fallback,
-            )
-        except Exception as exc:  # noqa: BLE001 - bounded source retry before fallback.
-            last_error = exc
-            if attempt + 1 < publisher_attempts:
-                time.sleep(2.0)
-                continue
-            break
-    exc = last_error or RuntimeError("publisher fetch failed without an exception")
-    try:
-        fallback = fetch_crossref_fallback(
-            journal, target, timeout=timeout, max_items=max_items
-        )
-        fallback_message = f"{label}: {type(exc).__name__}; crossref fallback {len(fallback)}"
-        return fallback, len(fallback), False, [fallback_message], not fallback
-    except Exception as fallback_exc:  # noqa: BLE001 - preserve both errors.
-        return (
-            [],
-            0,
-            False,
-            [
-                f"{label}: {type(exc).__name__}; crossref fallback "
-                f"{type(fallback_exc).__name__}: {fallback_exc}"
-            ],
-            True,
-        )
-'''
-          text = text[:body_start] + new_body + text[func_end:]
-          path.write_text(text, encoding='utf-8')
-          PY
+          python -c "import base64; exec(base64.b64decode('CmZyb20gcGF0aGxpYiBpbXBvcnQgUGF0aAoKcGF0aCA9IFBhdGgoInNjcmlwdHMvZmV0Y2hfcHJpb3JpdHlfdG9jLnB5IikKdGV4dCA9IHBhdGgucmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpCgpqYXJlX3N0YXJ0ID0gdGV4dC5pbmRleCgnICAgICJqb3VybmFsLW9mLWFncmljdWx0dXJhbC1hbmQtcmVzb3VyY2UtZWNvbm9taWNzIjogW3snKQpqYXJlX2VuZCA9IHRleHQuaW5kZXgoJyAgICAiam91cm5hbC1vZi1odW1hbi1yZXNvdXJjZXMiOiBbJywgamFyZV9zdGFydCkKamFyZV9ibG9jayA9IHRleHRbamFyZV9zdGFydDpqYXJlX2VuZF0Kb2xkX2xpbmUgPSAnICAgICAgICAiZmFsbGJhY2tfaXNzbiI6ICIxMDY4LTU1MDIiLFxuJwppZiBqYXJlX2Jsb2NrLmNvdW50KG9sZF9saW5lKSAhPSAxOgogICAgcmFpc2UgU3lzdGVtRXhpdChmIkpBUkUgZmFsbGJhY2sgbGluZSBjb3VudD17amFyZV9ibG9jay5jb3VudChvbGRfbGluZSl9IikKamFyZV9ibG9jayA9IGphcmVfYmxvY2sucmVwbGFjZShvbGRfbGluZSwgJyAgICAgICAgInB1Ymxpc2hlcl9hdHRlbXB0cyI6IDMsXG4nLCAxKQp0ZXh0ID0gdGV4dFs6amFyZV9zdGFydF0gKyBqYXJlX2Jsb2NrICsgdGV4dFtqYXJlX2VuZDpdCgpmdW5jX3N0YXJ0ID0gdGV4dC5pbmRleCgiZGVmIGZldGNoX3RhcmdldF93aXRoX2ZhbGxiYWNrKCIpCmJvZHlfc3RhcnQgPSB0ZXh0LmluZGV4KCcgICAgbGFiZWwgPSBmIntqb3VybmFsLmdldChcJ2lkXCcpfS97dGFyZ2V0W1wna2luZFwnXX0iJywgZnVuY19zdGFydCkKZnVuY19lbmQgPSB0ZXh0LmluZGV4KCJcblxuZGVmIG1haW4oKSAtPiBOb25lOiIsIGJvZHlfc3RhcnQpCm5ld19ib2R5ID0gIiIiICAgIGxhYmVsID0gZiJ7am91cm5hbC5nZXQoJ2lkJyl9L3t0YXJnZXRbJ2tpbmQnXX0iCiAgICBwdWJsaXNoZXJfYXR0ZW1wdHMgPSBtYXgoMSwgaW50KHRhcmdldC5nZXQoInB1Ymxpc2hlcl9hdHRlbXB0cyIpIG9yIDEpKQogICAgbGFzdF9lcnJvcjogRXhjZXB0aW9uIHwgTm9uZSA9IE5vbmUKICAgIGZvciBhdHRlbXB0IGluIHJhbmdlKHB1Ymxpc2hlcl9hdHRlbXB0cyk6CiAgICAgICAgdHJ5OgogICAgICAgICAgICBmZXRjaGVkID0gZmV0Y2hfdGFyZ2V0KAogICAgICAgICAgICAgICAgam91cm5hbCwKICAgICAgICAgICAgICAgIHRhcmdldCwKICAgICAgICAgICAgICAgIHRpbWVvdXQ9dGltZW91dCwKICAgICAgICAgICAgICAgIGRldGFpbF9saW1pdD1kZXRhaWxfbGltaXQsCiAgICAgICAgICAgICAgICBtYXhfaXRlbXM9bWF4X2l0ZW1zLAogICAgICAgICAgICApCiAgICAgICAgICAgIGlmIGZldGNoZWQ6CiAgICAgICAgICAgICAgICByZXR1cm4gZmV0Y2hlZCwgMCwgVHJ1ZSwgW2Yie2xhYmVsfToge2xlbihmZXRjaGVkKX0iXSwgRmFsc2UKICAgICAgICAgICAgZmFsbGJhY2sgPSBmZXRjaF9jcm9zc3JlZl9mYWxsYmFjaygKICAgICAgICAgICAgICAgIGpvdXJuYWwsIHRhcmdldCwgdGltZW91dD10aW1lb3V0LCBtYXhfaXRlbXM9bWF4X2l0ZW1zCiAgICAgICAgICAgICkKICAgICAgICAgICAgcmV0dXJuICgKICAgICAgICAgICAgICAgIGZhbGxiYWNrLAogICAgICAgICAgICAgICAgbGVuKGZhbGxiYWNrKSwKICAgICAgICAgICAgICAgIEZhbHNlLAogICAgICAgICAgICAgICAgW2Yie2xhYmVsfTogMCIsIGYie2xhYmVsfTogY3Jvc3NyZWYgZmFsbGJhY2sge2xlbihmYWxsYmFjayl9Il0sCiAgICAgICAgICAgICAgICBub3QgZmFsbGJhY2ssCiAgICAgICAgICAgICkKICAgICAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGV4YzogICMgbm9xYTogQkxFMDAxIC0gYm91bmRlZCBzb3VyY2UgcmV0cnkgYmVmb3JlIGZhbGxiYWNrLgogICAgICAgICAgICBsYXN0X2Vycm9yID0gZXhjCiAgICAgICAgICAgIGlmIGF0dGVtcHQgKyAxIDwgcHVibGlzaGVyX2F0dGVtcHRzOgogICAgICAgICAgICAgICAgdGltZS5zbGVlcCgyLjApCiAgICAgICAgICAgICAgICBjb250aW51ZQogICAgICAgICAgICBicmVhawogICAgZXhjID0gbGFzdF9lcnJvciBvciBSdW50aW1lRXJyb3IoInB1Ymxpc2hlciBmZXRjaCBmYWlsZWQgd2l0aG91dCBhbiBleGNlcHRpb24iKQogICAgdHJ5OgogICAgICAgIGZhbGxiYWNrID0gZmV0Y2hfY3Jvc3NyZWZfZmFsbGJhY2soCiAgICAgICAgICAgIGpvdXJuYWwsIHRhcmdldCwgdGltZW91dD10aW1lb3V0LCBtYXhfaXRlbXM9bWF4X2l0ZW1zCiAgICAgICAgKQogICAgICAgIGZhbGxiYWNrX21lc3NhZ2UgPSBmIntsYWJlbH06IHt0eXBlKGV4YykuX19uYW1lX199OyBjcm9zc3JlZiBmYWxsYmFjayB7bGVuKGZhbGxiYWNrKX0iCiAgICAgICAgcmV0dXJuIGZhbGxiYWNrLCBsZW4oZmFsbGJhY2spLCBGYWxzZSwgW2ZhbGxiYWNrX21lc3NhZ2VdLCBub3QgZmFsbGJhY2sKICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZmFsbGJhY2tfZXhjOiAgIyBub3FhOiBCTEUwMDEgLSBwcmVzZXJ2ZSBib3RoIGVycm9ycy4KICAgICAgICByZXR1cm4gKAogICAgICAgICAgICBbXSwKICAgICAgICAgICAgMCwKICAgICAgICAgICAgRmFsc2UsCiAgICAgICAgICAgIFsKICAgICAgICAgICAgICAgIGYie2xhYmVsfToge3R5cGUoZXhjKS5fX25hbWVfX307IGNyb3NzcmVmIGZhbGxiYWNrICIKICAgICAgICAgICAgICAgIGYie3R5cGUoZmFsbGJhY2tfZXhjKS5fX25hbWVfX306IHtmYWxsYmFja19leGN9IgogICAgICAgICAgICBdLAogICAgICAgICAgICBUcnVlLAogICAgICAgICkKIiIiCnRleHQgPSB0ZXh0Wzpib2R5X3N0YXJ0XSArIG5ld19ib2R5ICsgdGV4dFtmdW5jX2VuZDpdCnBhdGgud3JpdGVfdGV4dCh0ZXh0LCBlbmNvZGluZz0idXRmLTgiKQo='))"
           python -m py_compile scripts/fetch_priority_toc.py
           rm .github/workflows/apply-jare-retry-temp.yml
           git config user.name "github-actions[bot]"
