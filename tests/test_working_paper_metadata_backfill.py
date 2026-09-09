@@ -103,7 +103,7 @@ class ScheduledBackfillTests(unittest.TestCase):
         self.assertEqual(record["abstract_enrichment_status"], "available")
         self.assertEqual(record["first_seen"], "2026-09-03T21:27:47+00:00")
 
-    def test_repair_record_enriches_abstract_without_changing_existing_authors(self):
+    def test_repair_record_uses_cepr_proxy_for_abstract_only_gap(self):
         record = {
             "id": "url:example",
             "source_id": "cepr-dp",
@@ -115,15 +115,25 @@ class ScheduledBackfillTests(unittest.TestCase):
         }
         source = {"id": "cepr-dp"}
 
-        def fake_enrich(updated, source_config, *, timeout):
+        def fake_detail(updated, source_config, *, timeout):
             self.assertEqual(source_config["id"], "cepr-dp")
+            self.assertEqual(timeout, 10)
+            return updated
+
+        def fake_proxy(updated, source_id, *, timeout):
+            self.assertEqual(source_id, "cepr-dp")
+            self.assertEqual(timeout, 10)
             updated["abstract"] = "Authoritative CEPR abstract text. " * 8
             updated["abstract_source"] = "cepr_proxy_markdown"
             return updated
 
-        with patch("backfill_iza_authors.enrich_record_from_detail", side_effect=fake_enrich):
+        with (
+            patch("backfill_iza_authors.enrich_record_from_detail", side_effect=fake_detail),
+            patch("backfill_iza_authors.enrich_record_from_proxy", side_effect=fake_proxy) as proxy,
+        ):
             changed, authors_enriched, abstract_enriched = repair_record(record, source, timeout=10)
 
+        proxy.assert_called_once()
         self.assertTrue(changed)
         self.assertFalse(authors_enriched)
         self.assertTrue(abstract_enriched)
