@@ -14,7 +14,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 from common import DATA_DIR, read_json, today_str, write_json
-from fetch_preprints import enrich_record_from_detail, load_sources
+from fetch_preprints import enrich_record_from_detail, enrich_record_from_proxy, load_sources
 
 
 SCHEDULED_SOURCE_IDS = {"iza", "cepr-dp"}
@@ -87,6 +87,8 @@ def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bo
         record["url"] = canonical_url
 
     updated = enrich_record_from_detail(record, source, timeout=timeout)
+    if source_id == "cepr-dp" and not str(updated.get("abstract") or "").strip():
+        updated = enrich_record_from_proxy(updated, source_id, timeout=timeout)
     if original_title:
         updated["title"] = original_title
     apply_metadata_state(updated)
