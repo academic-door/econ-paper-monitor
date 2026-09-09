@@ -16,35 +16,41 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Probe direct and Jina acquisition
+      - name: Probe Springer RSS with production parser
         shell: bash
         run: |
           python - <<'PY'
-          import re
           import sys
           sys.path.insert(0, 'scripts')
-          from fetch_priority_toc import TARGETS, article_links, fetch_one
+          from common import load_journals
+          from fetch_rss import fetch_journal_feed
 
-          ids = ['public-choice', 'economic-theory', 'social-choice-and-welfare']
-          for journal_id in ids:
-              target = TARGETS[journal_id][0]
-              url = target['url']
-              print(f'=== {journal_id} ===')
-              try:
-                  text = fetch_one(url, 30)
-                  direct_hits = len(re.findall(r'/article/10\.1007/', text, flags=re.I))
-                  direct_links = article_links(text, url)
-                  print(f'direct_len={len(text)} direct_doi_href_hits={direct_hits} parser_links={len(direct_links)}')
-              except Exception as exc:
-                  print(f'direct_error={type(exc).__name__}: {exc}')
-              jina = 'https://r.jina.ai/http://' + url.removeprefix('https://')
-              try:
-                  text = fetch_one(jina, 30)
-                  jina_hits = len(re.findall(r'10\.1007/', text, flags=re.I))
-                  jina_links = article_links(text, url)
-                  print(f'jina_len={len(text)} jina_doi_hits={jina_hits} parser_links={len(jina_links)}')
-                  for link, title in jina_links[:3]:
-                      print(f'sample={title[:100]} | {link}')
-              except Exception as exc:
-                  print(f'jina_error={type(exc).__name__}: {exc}')
+          springer_ids = {
+              'international-journal-of-game-theory': '182',
+              'economic-theory': '199',
+              'review-of-economic-design': '10058',
+              'social-choice-and-welfare': '355',
+              'public-choice': '11127',
+              'international-tax-and-public-finance': '10797',
+              'journal-of-economic-growth': '10887',
+              'journal-of-population-economics': '148',
+              'environmental-and-resource-economics': '10640',
+              'review-of-accounting-studies': '11142',
+              'journal-of-risk-and-uncertainty': '11166',
+          }
+          journals = {j['id']: j for j in load_journals('data/journals.yml')}
+          failures = []
+          for journal_id, springer_id in springer_ids.items():
+              journal = journals[journal_id]
+              url = f'https://link.springer.com/search.rss?query=&search-within=Journal&facet-journal-id={springer_id}'
+              records, error = fetch_journal_feed(journal, {'url': url})
+              print(f'{journal_id}: count={len(records)} error={error}')
+              if records:
+                  first = records[0]
+                  print(f"sample={first.get('title')} | {first.get('doi')} | {first.get('published_online')}")
+              if error or not records:
+                  failures.append((journal_id, error, len(records)))
+          print(f'failures={failures}')
+          if failures:
+              raise SystemExit(1)
           PY
