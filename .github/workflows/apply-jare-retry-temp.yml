@@ -25,114 +25,68 @@ jobs:
           path = Path('scripts/fetch_priority_toc.py')
           text = path.read_text(encoding='utf-8')
 
-          old_target = '''    "journal-of-agricultural-and-resource-economics": [{
-              "kind": "jare_advance",
-              "url": "https://jareonline.org/preprint-online/",
-              "fallback_issn": "1068-5502",
-              "date_source": "jare_published_online",
-              "date_confidence": "B",
-          }],'''.replace('          ', '')
-          new_target = '''    "journal-of-agricultural-and-resource-economics": [{
-              "kind": "jare_advance",
-              "url": "https://jareonline.org/preprint-online/",
-              "publisher_attempts": 3,
-              "date_source": "jare_published_online",
-              "date_confidence": "B",
-          }],'''.replace('          ', '')
-          if text.count(old_target) != 1:
-              raise SystemExit(f'JARE target anchor count={text.count(old_target)}')
-          text = text.replace(old_target, new_target, 1)
+          jare_start = text.index('    "journal-of-agricultural-and-resource-economics": [{')
+          jare_end = text.index('    "journal-of-human-resources": [', jare_start)
+          jare_block = text[jare_start:jare_end]
+          old_line = '        "fallback_issn": "1068-5502",\n'
+          if jare_block.count(old_line) != 1:
+              raise SystemExit(f'JARE fallback line count={jare_block.count(old_line)}')
+          jare_block = jare_block.replace(old_line, '        "publisher_attempts": 3,\n', 1)
+          text = text[:jare_start] + jare_block + text[jare_end:]
 
-          old_fetch = '''    label = f"{journal.get('id')}/{target['kind']}"
-              try:
-                  fetched = fetch_target(
-                      journal,
-                      target,
-                      timeout=timeout,
-                      detail_limit=detail_limit,
-                      max_items=max_items,
-                  )
-                  if fetched:
-                      return fetched, 0, True, [f"{label}: {len(fetched)}"], False
-                  fallback = fetch_crossref_fallback(
-                      journal, target, timeout=timeout, max_items=max_items
-                  )
-                  return (
-                      fallback,
-                      len(fallback),
-                      False,
-                      [f"{label}: 0", f"{label}: crossref fallback {len(fallback)}"],
-                      not fallback,
-                  )
-              except Exception as exc:  # noqa: BLE001 - source health is reported below.
-                  try:
-                      fallback = fetch_crossref_fallback(
-                          journal, target, timeout=timeout, max_items=max_items
-                      )
-                      fallback_message = f"{label}: {type(exc).__name__}; crossref fallback {len(fallback)}"
-                      return fallback, len(fallback), False, [fallback_message], not fallback
-                  except Exception as fallback_exc:  # noqa: BLE001 - preserve both errors.
-                      return (
-                          [],
-                          0,
-                          False,
-                          [
-                              f"{label}: {type(exc).__name__}; crossref fallback "
-                              f"{type(fallback_exc).__name__}: {fallback_exc}"
-                          ],
-                          True,
-                      )'''.replace('              ', '')
-          new_fetch = '''    label = f"{journal.get('id')}/{target['kind']}"
-              publisher_attempts = max(1, int(target.get("publisher_attempts") or 1))
-              last_error: Exception | None = None
-              for attempt in range(publisher_attempts):
-                  try:
-                      fetched = fetch_target(
-                          journal,
-                          target,
-                          timeout=timeout,
-                          detail_limit=detail_limit,
-                          max_items=max_items,
-                      )
-                      if fetched:
-                          return fetched, 0, True, [f"{label}: {len(fetched)}"], False
-                      fallback = fetch_crossref_fallback(
-                          journal, target, timeout=timeout, max_items=max_items
-                      )
-                      return (
-                          fallback,
-                          len(fallback),
-                          False,
-                          [f"{label}: 0", f"{label}: crossref fallback {len(fallback)}"],
-                          not fallback,
-                      )
-                  except Exception as exc:  # noqa: BLE001 - bounded source retry before fallback.
-                      last_error = exc
-                      if attempt + 1 < publisher_attempts:
-                          time.sleep(2.0)
-                          continue
-                      break
-              exc = last_error or RuntimeError("publisher fetch failed without an exception")
-              try:
-                  fallback = fetch_crossref_fallback(
-                      journal, target, timeout=timeout, max_items=max_items
-                  )
-                  fallback_message = f"{label}: {type(exc).__name__}; crossref fallback {len(fallback)}"
-                  return fallback, len(fallback), False, [fallback_message], not fallback
-              except Exception as fallback_exc:  # noqa: BLE001 - preserve both errors.
-                  return (
-                      [],
-                      0,
-                      False,
-                      [
-                          f"{label}: {type(exc).__name__}; crossref fallback "
-                          f"{type(fallback_exc).__name__}: {fallback_exc}"
-                      ],
-                      True,
-                  )'''.replace('              ', '')
-          if text.count(old_fetch) != 1:
-              raise SystemExit(f'fetch_target_with_fallback anchor count={text.count(old_fetch)}')
-          text = text.replace(old_fetch, new_fetch, 1)
+          func_start = text.index('def fetch_target_with_fallback(')
+          body_start = text.index('    label = f"{journal.get(\'id\')}/{target[\'kind\']}"', func_start)
+          func_end = text.index('\n\ndef main() -> None:', body_start)
+          new_body = '''    label = f"{journal.get('id')}/{target['kind']}"
+    publisher_attempts = max(1, int(target.get("publisher_attempts") or 1))
+    last_error: Exception | None = None
+    for attempt in range(publisher_attempts):
+        try:
+            fetched = fetch_target(
+                journal,
+                target,
+                timeout=timeout,
+                detail_limit=detail_limit,
+                max_items=max_items,
+            )
+            if fetched:
+                return fetched, 0, True, [f"{label}: {len(fetched)}"], False
+            fallback = fetch_crossref_fallback(
+                journal, target, timeout=timeout, max_items=max_items
+            )
+            return (
+                fallback,
+                len(fallback),
+                False,
+                [f"{label}: 0", f"{label}: crossref fallback {len(fallback)}"],
+                not fallback,
+            )
+        except Exception as exc:  # noqa: BLE001 - bounded source retry before fallback.
+            last_error = exc
+            if attempt + 1 < publisher_attempts:
+                time.sleep(2.0)
+                continue
+            break
+    exc = last_error or RuntimeError("publisher fetch failed without an exception")
+    try:
+        fallback = fetch_crossref_fallback(
+            journal, target, timeout=timeout, max_items=max_items
+        )
+        fallback_message = f"{label}: {type(exc).__name__}; crossref fallback {len(fallback)}"
+        return fallback, len(fallback), False, [fallback_message], not fallback
+    except Exception as fallback_exc:  # noqa: BLE001 - preserve both errors.
+        return (
+            [],
+            0,
+            False,
+            [
+                f"{label}: {type(exc).__name__}; crossref fallback "
+                f"{type(fallback_exc).__name__}: {fallback_exc}"
+            ],
+            True,
+        )
+'''
+          text = text[:body_start] + new_body + text[func_end:]
           path.write_text(text, encoding='utf-8')
           PY
           python -m py_compile scripts/fetch_priority_toc.py
