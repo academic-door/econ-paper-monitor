@@ -239,7 +239,7 @@ TARGETS = {
     "journal-of-agricultural-and-resource-economics": [{
         "kind": "jare_advance",
         "url": "https://jareonline.org/preprint-online/",
-        "fallback_issn": "1068-5502",
+        "publisher_attempts": 3,
         "date_source": "jare_published_online",
         "date_confidence": "B",
     }],
@@ -926,44 +926,53 @@ def fetch_target_with_fallback(
 ) -> tuple[list[dict], int, bool, list[str], bool]:
     """Fetch one target without allowing it to block its sibling targets."""
     label = f"{journal.get('id')}/{target['kind']}"
-    try:
-        fetched = fetch_target(
-            journal,
-            target,
-            timeout=timeout,
-            detail_limit=detail_limit,
-            max_items=max_items,
-        )
-        if fetched:
-            return fetched, 0, True, [f"{label}: {len(fetched)}"], False
-        fallback = fetch_crossref_fallback(
-            journal, target, timeout=timeout, max_items=max_items
-        )
-        return (
-            fallback,
-            len(fallback),
-            False,
-            [f"{label}: 0", f"{label}: crossref fallback {len(fallback)}"],
-            not fallback,
-        )
-    except Exception as exc:  # noqa: BLE001 - source health is reported below.
+    publisher_attempts = max(1, int(target.get("publisher_attempts") or 1))
+    last_error: Exception | None = None
+    for attempt in range(publisher_attempts):
         try:
+            fetched = fetch_target(
+                journal,
+                target,
+                timeout=timeout,
+                detail_limit=detail_limit,
+                max_items=max_items,
+            )
+            if fetched:
+                return fetched, 0, True, [f"{label}: {len(fetched)}"], False
             fallback = fetch_crossref_fallback(
                 journal, target, timeout=timeout, max_items=max_items
             )
-            fallback_message = f"{label}: {type(exc).__name__}; crossref fallback {len(fallback)}"
-            return fallback, len(fallback), False, [fallback_message], not fallback
-        except Exception as fallback_exc:  # noqa: BLE001 - preserve both errors.
             return (
-                [],
-                0,
+                fallback,
+                len(fallback),
                 False,
-                [
-                    f"{label}: {type(exc).__name__}; crossref fallback "
-                    f"{type(fallback_exc).__name__}: {fallback_exc}"
-                ],
-                True,
+                [f"{label}: 0", f"{label}: crossref fallback {len(fallback)}"],
+                not fallback,
             )
+        except Exception as exc:  # noqa: BLE001 - bounded source retry before fallback.
+            last_error = exc
+            if attempt + 1 < publisher_attempts:
+                time.sleep(2.0)
+                continue
+            break
+    exc = last_error or RuntimeError("publisher fetch failed without an exception")
+    try:
+        fallback = fetch_crossref_fallback(
+            journal, target, timeout=timeout, max_items=max_items
+        )
+        fallback_message = f"{label}: {type(exc).__name__}; crossref fallback {len(fallback)}"
+        return fallback, len(fallback), False, [fallback_message], not fallback
+    except Exception as fallback_exc:  # noqa: BLE001 - preserve both errors.
+        return (
+            [],
+            0,
+            False,
+            [
+                f"{label}: {type(exc).__name__}; crossref fallback "
+                f"{type(fallback_exc).__name__}: {fallback_exc}"
+            ],
+            True,
+        )
 
 
 def main() -> None:
