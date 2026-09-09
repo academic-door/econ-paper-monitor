@@ -49,7 +49,6 @@ SUPPLEMENTAL_CLOSED_NOTES = {
     "journal-of-law-and-economics": "UChicago etoc RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底；本地任务持续补录",
     "applied-economics": "T&F RSS 在 CI IP 被 403 拦截（重试后仍失败），Crossref 兜底",
     "journal-of-the-association-of-environmental-and-resource-economists": "UChicago 平台未提供 JAERE 的 etoc RSS（jc=jaere 404），Crossref + OpenAlex recall 兜底",
-    "journal-of-agricultural-and-resource-economics": "官方站 jareonline.org 的 WordPress feed 为空，Crossref + OpenAlex recall 兜底",
     "journal-of-human-resources": "UW Press 无官方 RSS；jhr.uwpress.org early/current TOC 页在 CI 偶发 503，Crossref 兜底；本地/住宅 IP 可抓取",
     "management-science": "INFORMS pubsonline RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底",
     "journal-of-business-and-economic-statistics": "T&F showFeed 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底",
@@ -97,6 +96,7 @@ PRIORITY_TOC_JOURNALS = {
     "journal-of-economic-growth",
     "journal-of-population-economics",
     "environmental-and-resource-economics",
+    "journal-of-agricultural-and-resource-economics",
     "journal-of-human-resources",
 }
 
