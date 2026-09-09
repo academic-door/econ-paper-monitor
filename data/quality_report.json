@@ -1,6 +1,6 @@
 {
   "abstracts": {
-    "available": 5763,
+    "available": 5766,
     "missing": 545,
     "missing_by_journal_top": {
       "American Economic Review": 4,
@@ -39,31 +39,31 @@
     "missing_recent_actionable": 18,
     "missing_recent_expected": 7,
     "missing_today": 0,
-    "total": 6308
+    "total": 6311
   },
   "authors": {
-    "available": 6303,
+    "available": 6306,
     "missing": 5,
     "missing_recent": 3,
     "missing_recent_actionable": 0,
     "missing_recent_expected": 3,
     "missing_today": 0,
     "missing_today_journals": 0,
-    "total": 6308
+    "total": 6311
   },
   "date_confidence": {
-    "A": 3520,
+    "A": 3522,
     "B": 48,
-    "C": 1900,
+    "C": 1901,
     "D": 489,
     "F": 351
   },
   "date_source_top": {
     "cnki_rss_pubdate": 215,
     "crossref_doi_created": 21,
-    "crossref_doi_elsevier_created_online": 247,
+    "crossref_doi_elsevier_created_online": 241,
     "crossref_doi_published": 26,
-    "crossref_doi_published_online": 195,
+    "crossref_doi_published_online": 197,
     "crossref_elsevier_created_online": 531,
     "crossref_issue": 60,
     "crossref_published": 11,
@@ -71,12 +71,12 @@
     "iza_detail_month": 47,
     "nep_first_seen_issue_date": 13,
     "nep_issue_date": 406,
-    "openalex+crossref_crossvalidated": 386,
-    "openalex_publication_date": 25,
+    "openalex+crossref_crossvalidated": 383,
+    "openalex_publication_date": 33,
     "publisher_detail": 749,
     "publisher_published_online": 65,
     "rss_description_online": 593,
-    "rss_published": 1855,
+    "rss_published": 1856,
     "unknown": 342,
     "world_bank_detail_api": 29
   },
@@ -324,7 +324,7 @@
       {
         "date": "2026-08-27",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "openalex_publication_date",
         "journal": "Public Choice",
         "official_date": "2026-08-27",
         "source_issue": null,
@@ -516,7 +516,7 @@
       {
         "date": "2026-08-27",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "openalex_publication_date",
         "journal": "Public Choice",
         "official_date": "2026-08-27",
         "source_issue": null,
@@ -701,6 +701,26 @@
     "untranslated_recent": [
       {
         "date": "2026-09-09",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_published_online",
+        "journal": "Journal of Risk and Uncertainty",
+        "official_date": "2026-09-09",
+        "source_issue": null,
+        "title": "Lessons learned from the COVID-19 pandemic: The role of self-control, risk aversion, and fear of infection in shaping compliance with preventive measures",
+        "url": "https://doi.org/10.1007/s11166-026-09507-8"
+      },
+      {
+        "date": "2026-09-09",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_published_online",
+        "journal": "Journal of Population Economics",
+        "official_date": "2026-09-09",
+        "source_issue": null,
+        "title": "The effect of job loss on labor supply, wealth, and spousal labor supply for older workers",
+        "url": "https://doi.org/10.1007/s00148-026-01205-8"
+      },
+      {
+        "date": "2026-09-09",
         "date_confidence": "A",
         "date_source": "rss_published",
         "journal": "VoxEU / CEPR Columns",
@@ -708,6 +728,16 @@
         "source_issue": null,
         "title": "Plus ça change. AI and the future of economic research: From Galileo back to Socrates",
         "url": "https://cepr.org/voxeu/columns/plus-ca-change-ai-and-future-economic-research-galileo-back-socrates"
+      },
+      {
+        "date": "2026-09-08",
+        "date_confidence": "A",
+        "date_source": "rss_published",
+        "journal": "Economic History Review",
+        "official_date": "2026-09-08",
+        "source_issue": null,
+        "title": "The first bear raid and squeeze: Isaac Le Maire and the Dutch East India Company",
+        "url": "https://onlinelibrary.wiley.com/doi/10.1111/ehr.70142?af=R"
       },
       {
         "date": "2026-09-08",
@@ -731,8 +761,8 @@
       },
       {
         "date": "2026-09-08",
-        "date_confidence": "C",
-        "date_source": "crossref_doi_elsevier_created_online",
+        "date_confidence": "A",
+        "date_source": "elsevier_article_api",
         "journal": "Economics Letters",
         "official_date": "2026-09-08",
         "source_issue": null,
@@ -824,16 +854,37 @@
   "risk_signals": {
     "cnki_rss_today": [],
     "crossref_created_today": [],
-    "crossref_fallback_today": []
+    "crossref_fallback_today": [
+      {
+        "date": "2026-09-09",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_published_online",
+        "journal": "Journal of Risk and Uncertainty",
+        "official_date": "2026-09-09",
+        "source_issue": null,
+        "title": "Lessons learned from the COVID-19 pandemic: The role of self-control, risk aversion, and fear of infection in shaping compliance with preventive measures",
+        "url": "https://doi.org/10.1007/s11166-026-09507-8"
+      },
+      {
+        "date": "2026-09-09",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_published_online",
+        "journal": "Journal of Population Economics",
+        "official_date": "2026-09-09",
+        "source_issue": null,
+        "title": "The effect of job loss on labor supply, wealth, and spousal labor supply for older workers",
+        "url": "https://doi.org/10.1007/s00148-026-01205-8"
+      }
+    ]
   },
   "source_top": {
     "aea_toc": 104,
     "cn-official": 26,
     "cnki-rss": 191,
-    "crossref": 2754,
+    "crossref": 2756,
     "priority_crossref_fallback": 50,
     "priority_toc": 26,
-    "rss": 1691,
+    "rss": 1692,
     "sciencedirect_search": 31,
     "working_papers": 1435
   },
@@ -842,7 +893,7 @@
     "china_related_public": 944,
     "cnki_rss_today": 0,
     "crossref_created_today": 0,
-    "crossref_fallback_today": 0,
+    "crossref_fallback_today": 2,
     "duplicates_by_url_or_doi": 0,
     "future_official_date_in_bucket": 0,
     "historical_records_in_bucket": 2,
@@ -862,10 +913,10 @@
     "missing_required_fields": 0,
     "nonpaper_records": 0,
     "recent_sample_records": 500,
-    "records": 6308,
+    "records": 6311,
     "source_type_errors": 0,
-    "today_journal_records": 0,
-    "today_records": 1,
+    "today_journal_records": 2,
+    "today_records": 3,
     "today_working_papers": 1
   }
 }
