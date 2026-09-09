@@ -1,4 +1,4 @@
-name: Verify final JARE live source
+name: Diagnose final JARE live source
 
 on:
   push:
@@ -16,40 +16,31 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Run production JARE acquisition
+      - name: Inspect JARE publisher response and production parser
         shell: bash
         run: |
           set -euo pipefail
-          OUT="$RUNNER_TEMP/jare-final.json"
-          python scripts/fetch_priority_toc.py \
-            --journal journal-of-agricultural-and-resource-economics \
-            --output "$OUT" \
-            --timeout 30 \
-            --detail-limit 0 \
-            --max-items-per-source 50 \
-            --workers 1
-          python - "$OUT" <<'PY'
+          python - <<'PY'
           import json
+          import re
           import sys
-          from pathlib import Path
+          sys.path.insert(0, 'scripts')
+          import fetch_priority_toc as f
 
-          records = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
-          assert records, 'final JARE acquisition returned zero records'
-          assert all(r.get('source') == 'priority_toc' for r in records)
-          assert all(r.get('source_url') == 'https://jareonline.org/preprint-online/' for r in records)
-          assert all('ageconsearch.umn.edu/' in str(r.get('url') or '') for r in records)
-          dated = sum(bool(r.get('published_online')) for r in records)
-          authored = sum(bool(r.get('authors')) for r in records)
-          abstracted = sum(bool(r.get('abstract')) for r in records)
-          assert dated == len(records), (dated, len(records))
-          assert authored == len(records), (authored, len(records))
-          assert abstracted == len(records), (abstracted, len(records))
-          status = json.loads(Path('data/status.json').read_text(encoding='utf-8'))
-          entry = (status.get('sources') or {}).get('priority-toc') or {}
-          journal = (entry.get('journals') or {}).get('journal-of-agricultural-and-resource-economics') or {}
-          assert journal.get('ok') is True, journal
-          assert journal.get('publisher_ok') is True, journal
-          assert int(journal.get('count') or 0) == len(records), journal
-          print(f'JARE_FINAL_LIVE count={len(records)} dated={dated} authored={authored} abstracted={abstracted}')
-          print('JARE_STATUS', json.dumps(journal, sort_keys=True))
+          url = 'https://jareonline.org/preprint-online/'
+          text = f.fetch_toc_text(url, timeout=30)
+          compact = re.sub(r'\s+', ' ', text[:1500]).strip()
+          markers = {
+              'length': len(text),
+              'title': (re.search(r'<title[^>]*>(.*?)</title>', text, flags=re.I|re.S).group(1).strip() if re.search(r'<title[^>]*>(.*?)</title>', text, flags=re.I|re.S) else None),
+              'agecon_links': len(re.findall(r'ageconsearch\.umn\.edu', text, flags=re.I)),
+              'elementor_titles': len(re.findall(r'elementor-heading-title', text, flags=re.I)),
+              'published_online': len(re.findall(r'Published Online', text, flags=re.I)),
+              'preprint': len(re.findall(r'preprint', text, flags=re.I)),
+              'challenge': len(re.findall(r'challenge|captcha|access denied|verify you are human|just a moment|cf-chl', text, flags=re.I)),
+              'is_challenge_page': f.is_challenge_page(text),
+              'parsed_blocks': len(f.jare_advance_blocks(text, url)),
+          }
+          print('JARE_DIAG', json.dumps(markers, ensure_ascii=False, sort_keys=True))
+          print('JARE_HEAD', compact)
           PY
