@@ -1,12 +1,12 @@
 {
   "latest": {
     "candidates": 150,
-    "checked_at": "2026-09-09T19:28:00+00:00",
+    "checked_at": "2026-09-09T22:54:16+00:00",
     "providers": {
       "crossref": {
         "attempts": 150,
-        "available": 101,
-        "empty": 49,
+        "available": 107,
+        "empty": 43,
         "empty_burst": false,
         "failed": 0,
         "rate_limited": 0,
@@ -17,8 +17,8 @@
       "elsevier": {
         "api_key_configured": true,
         "attempts": 150,
-        "available": 32,
-        "empty": 118,
+        "available": 34,
+        "empty": 116,
         "empty_burst": false,
         "failed": 0,
         "inst_token_configured": true,
@@ -26,7 +26,7 @@
         "retried_after_empty": false,
         "skipped": 0,
         "statuses": {
-          "available": 32
+          "available": 34
         }
       },
       "openalex": {
@@ -47,82 +47,21 @@
         "empty": 0,
         "empty_burst": false,
         "failed": 58,
-        "rate_limited": 3,
+        "rate_limited": 6,
         "retried_after_empty": false,
         "skipped": 0,
         "statuses": {
-          "not_found": 55,
-          "rate_limited": 3
+          "not_found": 52,
+          "rate_limited": 6
         }
       }
     },
     "recovered": {
-      "abstract": 1,
-      "date": 42
+      "abstract": 3,
+      "date": 45
     }
   },
   "runs": [
-    {
-      "candidates": 150,
-      "checked_at": "2026-09-07T03:23:05+00:00",
-      "providers": {
-        "crossref": {
-          "attempts": 150,
-          "available": 99,
-          "empty": 51,
-          "empty_burst": false,
-          "failed": 0,
-          "rate_limited": 0,
-          "retried_after_empty": false,
-          "skipped": 0,
-          "statuses": {}
-        },
-        "elsevier": {
-          "api_key_configured": true,
-          "attempts": 150,
-          "available": 31,
-          "empty": 119,
-          "empty_burst": false,
-          "failed": 0,
-          "inst_token_configured": true,
-          "rate_limited": 0,
-          "retried_after_empty": false,
-          "skipped": 0,
-          "statuses": {
-            "available": 31
-          }
-        },
-        "openalex": {
-          "attempts": 150,
-          "available": 98,
-          "empty": 52,
-          "empty_burst": false,
-          "failed": 0,
-          "rate_limited": 0,
-          "retried_after_empty": false,
-          "skipped": 0,
-          "statuses": {}
-        },
-        "semantic-scholar": {
-          "api_key_configured": true,
-          "attempts": 150,
-          "available": 93,
-          "empty": 0,
-          "empty_burst": false,
-          "failed": 57,
-          "rate_limited": 0,
-          "retried_after_empty": false,
-          "skipped": 0,
-          "statuses": {
-            "not_found": 57
-          }
-        }
-      },
-      "recovered": {
-        "abstract": 2,
-        "date": 42
-      }
-    },
     {
       "candidates": 150,
       "checked_at": "2026-09-07T05:21:46+00:00",
@@ -1301,6 +1240,68 @@
       "recovered": {
         "abstract": 1,
         "date": 42
+      }
+    },
+    {
+      "candidates": 150,
+      "checked_at": "2026-09-09T22:54:16+00:00",
+      "providers": {
+        "crossref": {
+          "attempts": 150,
+          "available": 107,
+          "empty": 43,
+          "empty_burst": false,
+          "failed": 0,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {}
+        },
+        "elsevier": {
+          "api_key_configured": true,
+          "attempts": 150,
+          "available": 34,
+          "empty": 116,
+          "empty_burst": false,
+          "failed": 0,
+          "inst_token_configured": true,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {
+            "available": 34
+          }
+        },
+        "openalex": {
+          "attempts": 150,
+          "available": 100,
+          "empty": 50,
+          "empty_burst": false,
+          "failed": 0,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {}
+        },
+        "semantic-scholar": {
+          "api_key_configured": true,
+          "attempts": 150,
+          "available": 92,
+          "empty": 0,
+          "empty_burst": false,
+          "failed": 58,
+          "rate_limited": 6,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {
+            "not_found": 52,
+            "rate_limited": 6
+          }
+        }
+      },
+      "recovered": {
+        "abstract": 3,
+        "date": 45
       }
     }
   ]
