@@ -27,7 +27,8 @@ jobs:
 
           url = 'https://jareonline.org/preprint-online/'
           text = fetch_text(url, timeout=30)
-          print(f'length={len(text)} agecon_links={len(re.findall(r"ageconsearch\.umn\.edu", text, flags=re.I))}')
+          agecon_links = len(re.findall(r'ageconsearch\.umn\.edu', text, flags=re.I))
+          print(f'length={len(text)} agecon_links={agecon_links}')
           print('has_heading=', 'Published Online' in text)
           for needle in ['Willingness to Pay for Water Quality Improvements', 'ageconsearch.umn.edu']:
               pos = text.find(needle)
