@@ -44,6 +44,14 @@ class JareAdvanceSourceTests(unittest.TestCase):
     def test_numeric_publisher_date_is_normalized(self) -> None:
         self.assertEqual(fetch_priority_toc.parse_date("8/24/2026"), "2026-08-24")
 
+    def test_siteground_captcha_meta_refresh_is_rejected_as_challenge(self) -> None:
+        challenge = (
+            '<html><head><link rel="icon" href="data:;">'
+            '<meta http-equiv="refresh" content="0;/.well-known/sgcaptcha/?r=%2Fpreprint-online%2F&y=ipr:9.234.149.177:1788946938.997">'
+            '</meta></head></html>'
+        )
+        self.assertTrue(fetch_priority_toc.is_challenge_page(challenge))
+
     def test_jare_advance_card_extracts_title_authors_date_abstract_and_pdf(self) -> None:
         blocks = fetch_priority_toc.jare_advance_blocks(
             JARE_HTML,
