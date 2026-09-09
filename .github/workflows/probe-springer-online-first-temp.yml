@@ -16,42 +16,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Probe Springer RSS with production parser
+      - name: Inspect Springer RSS lexical defect
         shell: bash
         run: |
           python - <<'PY'
           import sys
-          from pathlib import Path
           sys.path.insert(0, 'scripts')
-          from common import load_journals
-          from fetch_rss import fetch_journal_feed
+          from common import fetch_text
 
-          springer_ids = {
-              'international-journal-of-game-theory': '182',
-              'economic-theory': '199',
-              'review-of-economic-design': '10058',
-              'social-choice-and-welfare': '355',
-              'public-choice': '11127',
-              'international-tax-and-public-finance': '10797',
-              'journal-of-economic-growth': '10887',
-              'journal-of-population-economics': '148',
-              'environmental-and-resource-economics': '10640',
-              'review-of-accounting-studies': '11142',
-              'journal-of-risk-and-uncertainty': '11166',
-          }
-          journals = {j['id']: j for j in load_journals(Path('data/journals.yml'))}
-          failures = []
-          for journal_id, springer_id in springer_ids.items():
-              journal = journals[journal_id]
-              url = f'https://link.springer.com/search.rss?query=&search-within=Journal&facet-journal-id={springer_id}'
-              records, error = fetch_journal_feed(journal, {'url': url})
-              print(f'{journal_id}: count={len(records)} error={error}')
-              if records:
-                  first = records[0]
-                  print(f"sample={first.get('title')} | {first.get('doi')} | {first.get('published_online')}")
-              if error or not records:
-                  failures.append((journal_id, error, len(records)))
-          print(f'failures={failures}')
-          if failures:
-              raise SystemExit(1)
+          url = 'https://link.springer.com/search.rss?query=&search-within=Journal&facet-journal-id=11127'
+          text = fetch_text(url, timeout=30)
+          print(f'length={len(text)}')
+          lines = text.splitlines()
+          for n in range(1, min(22, len(lines)) + 1):
+              print(f'{n:02d}: {lines[n-1]!r}')
+          print('line14_codepoints=', [hex(ord(ch)) for ch in lines[13][:80]] if len(lines) >= 14 else None)
           PY
