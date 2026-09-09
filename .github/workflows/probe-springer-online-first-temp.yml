@@ -21,6 +21,7 @@ jobs:
         run: |
           python - <<'PY'
           import sys
+          from pathlib import Path
           sys.path.insert(0, 'scripts')
           from common import load_journals
           from fetch_rss import fetch_journal_feed
@@ -38,7 +39,7 @@ jobs:
               'review-of-accounting-studies': '11142',
               'journal-of-risk-and-uncertainty': '11166',
           }
-          journals = {j['id']: j for j in load_journals('data/journals.yml')}
+          journals = {j['id']: j for j in load_journals(Path('data/journals.yml'))}
           failures = []
           for journal_id, springer_id in springer_ids.items():
               journal = journals[journal_id]
