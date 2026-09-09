@@ -1,0 +1,46 @@
+name: Probe Springer Online First from CI
+
+on:
+  push:
+    branches:
+      - probe/springer-online-first-ci
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Probe direct and Jina acquisition
+        shell: bash
+        run: |
+          python - <<'PY'
+          import re
+          import sys
+          sys.path.insert(0, 'scripts')
+          from fetch_priority_toc import TARGETS, article_links, fetch_one
+
+          ids = ['public-choice', 'economic-theory', 'social-choice-and-welfare']
+          for journal_id in ids:
+              target = TARGETS[journal_id][0]
+              url = target['url']
+              print(f'=== {journal_id} ===')
+              try:
+                  text = fetch_one(url, 30)
+                  print(f'direct_len={len(text)} direct_doi_href_hits={len(re.findall(r"/article/10\\.1007/", text, flags=re.I))} parser_links={len(article_links(text, url))}')
+              except Exception as exc:
+                  print(f'direct_error={type(exc).__name__}: {exc}')
+              jina = 'https://r.jina.ai/http://' + url.removeprefix('https://')
+              try:
+                  text = fetch_one(jina, 30)
+                  print(f'jina_len={len(text)} jina_doi_hits={len(re.findall(r"10\\.1007/", text, flags=re.I))} parser_links={len(article_links(text, url))}')
+                  for link, title in article_links(text, url)[:3]:
+                      print(f'sample={title[:100]} | {link}')
+              except Exception as exc:
+                  print(f'jina_error={type(exc).__name__}: {exc}')
+          PY
