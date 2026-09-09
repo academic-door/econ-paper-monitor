@@ -26,10 +26,15 @@ def target_dates(days: int) -> set[str]:
 
 
 def canonical_detail_url(source_id: str, url: str) -> str:
-    """Canonicalize known legacy CEPR detail paths; leave other URLs untouched."""
+    """Canonicalize known legacy detail paths; leave unrelated URLs untouched."""
+    parsed = urlparse(url)
+    if source_id == "oecd-working-papers":
+        host = parsed.netloc.casefold()
+        if host in {"oecd-ilibrary.org", "www.oecd-ilibrary.org"} and parsed.path.startswith("/en/publications/"):
+            return parsed._replace(scheme="https", netloc="www.oecd.org", query="", fragment="").geturl().rstrip("/")
+        return url
     if source_id != "cepr-dp":
         return url
-    parsed = urlparse(url)
     decoded_path = unquote(parsed.path)
     match = re.search(r"/publications/dp\d+", decoded_path, flags=re.I)
     if not match:
