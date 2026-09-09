@@ -319,6 +319,7 @@ def is_challenge_page(text: str) -> bool:
         "verify you are human",
         "enable javascript and cookies to continue",
         "cf-chl-",
+        "sgcaptcha",
     )
     return len(lowered) < 5000 and any(marker in lowered for marker in strong_markers)
 
