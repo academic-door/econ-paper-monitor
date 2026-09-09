@@ -38,7 +38,8 @@ class JareAdvanceSourceTests(unittest.TestCase):
         target = fetch_priority_toc.TARGETS[JARE_ID][0]
         self.assertEqual(target["kind"], "jare_advance")
         self.assertEqual(target["url"], "https://jareonline.org/preprint-online/")
-        self.assertEqual(target["fallback_issn"], "1068-5502")
+        self.assertEqual(target.get("publisher_attempts"), 3)
+        self.assertIsNone(target.get("fallback_issn"))
 
     def test_numeric_publisher_date_is_normalized(self) -> None:
         self.assertEqual(fetch_priority_toc.parse_date("8/24/2026"), "2026-08-24")
@@ -75,7 +76,6 @@ class JareAdvanceSourceTests(unittest.TestCase):
             "url": "https://jareonline.org/preprint-online/",
             "date_source": "jare_published_online",
             "date_confidence": "B",
-            "fallback_issn": "1068-5502",
         }
         with mock.patch.object(fetch_priority_toc, "fetch_toc_text", return_value=JARE_HTML), \
                 mock.patch.object(fetch_priority_toc, "enrich_detail") as enrich_detail:
@@ -96,6 +96,33 @@ class JareAdvanceSourceTests(unittest.TestCase):
         self.assertEqual(record["date_source"], "jare_published_online")
         self.assertEqual(record["raw_data"]["priority_toc_kind"], "jare_advance")
         self.assertIsNone(record.get("doi"))
+
+    def test_jare_target_retries_transient_publisher_failure_before_fallback(self) -> None:
+        journal = {"id": JARE_ID, "title": "Journal of Agricultural and Resource Economics"}
+        target = fetch_priority_toc.TARGETS[JARE_ID][0]
+        records = [{"title": "Recovered live record"}]
+
+        with mock.patch.object(
+            fetch_priority_toc,
+            "fetch_target",
+            side_effect=[RuntimeError("transient publisher failure"), records],
+        ) as fetch_target, mock.patch.object(
+            fetch_priority_toc, "fetch_crossref_fallback"
+        ) as fallback, mock.patch.object(fetch_priority_toc.time, "sleep"):
+            result = fetch_priority_toc.fetch_target_with_fallback(
+                journal,
+                target,
+                timeout=5,
+                detail_limit=0,
+                max_items=10,
+            )
+
+        self.assertEqual(fetch_target.call_count, 2)
+        fallback.assert_not_called()
+        self.assertEqual(result[0], records)
+        self.assertEqual(result[1], 0)
+        self.assertTrue(result[2])
+        self.assertFalse(result[4])
 
     def test_source_health_treats_jare_priority_toc_as_reliable_not_closed(self) -> None:
         self.assertIn(JARE_ID, audit_source_health.PRIORITY_TOC_JOURNALS)
