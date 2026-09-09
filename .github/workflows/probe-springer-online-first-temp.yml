@@ -32,14 +32,18 @@ jobs:
               print(f'=== {journal_id} ===')
               try:
                   text = fetch_one(url, 30)
-                  print(f'direct_len={len(text)} direct_doi_href_hits={len(re.findall(r"/article/10\\.1007/", text, flags=re.I))} parser_links={len(article_links(text, url))}')
+                  direct_hits = len(re.findall(r'/article/10\.1007/', text, flags=re.I))
+                  direct_links = article_links(text, url)
+                  print(f'direct_len={len(text)} direct_doi_href_hits={direct_hits} parser_links={len(direct_links)}')
               except Exception as exc:
                   print(f'direct_error={type(exc).__name__}: {exc}')
               jina = 'https://r.jina.ai/http://' + url.removeprefix('https://')
               try:
                   text = fetch_one(jina, 30)
-                  print(f'jina_len={len(text)} jina_doi_hits={len(re.findall(r"10\\.1007/", text, flags=re.I))} parser_links={len(article_links(text, url))}')
-                  for link, title in article_links(text, url)[:3]:
+                  jina_hits = len(re.findall(r'10\.1007/', text, flags=re.I))
+                  jina_links = article_links(text, url)
+                  print(f'jina_len={len(text)} jina_doi_hits={jina_hits} parser_links={len(jina_links)}')
+                  for link, title in jina_links[:3]:
                       print(f'sample={title[:100]} | {link}')
               except Exception as exc:
                   print(f'jina_error={type(exc).__name__}: {exc}')
