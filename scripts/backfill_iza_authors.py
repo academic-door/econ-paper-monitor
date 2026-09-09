@@ -1,8 +1,8 @@
 """Scheduled backfill for recent priority working-paper metadata.
 
 The filename is retained because the production workflow already invokes this
-entrypoint. It repairs recent IZA and CEPR records from their official detail
-pages without changing first-discovery timestamps or Daily bucket identity.
+entrypoint. It repairs recent IZA, CEPR, and OECD records from their official
+detail pages without changing first-discovery timestamps or Daily bucket identity.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ from common import DATA_DIR, read_json, today_str, write_json
 from fetch_preprints import enrich_record_from_detail, load_sources
 
 
-SCHEDULED_SOURCE_IDS = {"iza", "cepr-dp"}
+SCHEDULED_SOURCE_IDS = {"iza", "cepr-dp", "oecd-working-papers"}
 
 
 def target_dates(days: int) -> set[str]:
