@@ -236,6 +236,13 @@ TARGETS = {
         "date_source": "springer_online_first",
         "date_confidence": "B",
     }],
+    "journal-of-agricultural-and-resource-economics": [{
+        "kind": "jare_advance",
+        "url": "https://jareonline.org/preprint-online/",
+        "fallback_issn": "1068-5502",
+        "date_source": "jare_published_online",
+        "date_confidence": "B",
+    }],
     "journal-of-human-resources": [
         {
             "kind": "jhr_early_recent",
@@ -361,6 +368,13 @@ def parse_date(value: str | None) -> str | None:
     match = re.search(r"(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})", text)
     if match:
         return f"{int(match.group(1)):04d}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
+    match = re.search(r"\b(\d{1,2})/(\d{1,2})/(20\d{2})\b", text)
+    if match:
+        month, day, year = (int(match.group(1)), int(match.group(2)), int(match.group(3)))
+        try:
+            return date(year, month, day).isoformat()
+        except ValueError:
+            pass
     months = {
         "jan": 1,
         "january": 1,
@@ -607,6 +621,50 @@ def jhr_article_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
     return blocks
 
 
+def jare_advance_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
+    """Parse official JARE Published Online cards without fetching the PDF host."""
+    pattern = re.compile(
+        r'<h1[^>]*class=["\'][^"\']*elementor-heading-title[^"\']*["\'][^>]*>\s*'
+        r'<a[^>]+href=["\'](?P<href>https?://ageconsearch\.umn\.edu/[^"\']+)["\'][^>]*>(?P<title>.*?)</a>\s*</h1>',
+        flags=re.I | re.S,
+    )
+    matches = list(pattern.finditer(html_text))
+    blocks: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for index, match in enumerate(matches):
+        end = matches[index + 1].start() if index + 1 < len(matches) else len(html_text)
+        context = html_text[match.start():end]
+        title = clean_text(match.group("title"))
+        url = urljoin(base_url, html.unescape(match.group("href")).strip())
+        if not title or len(title) < 8 or url in seen:
+            continue
+        seen.add(url)
+        plain = clean_text(context)
+        date_match = re.search(r"\b(\d{1,2}/\d{1,2}/20\d{2})\b", plain)
+        published = parse_date(date_match.group(1)) if date_match else None
+        authors: list[str] = []
+        if date_match:
+            author_match = re.search(r"\bBy:\s*(.+)$", plain[:date_match.start()].strip(), flags=re.I)
+            if author_match:
+                authors = [clean_text(author) for author in author_match.group(1).split(";")]
+                authors = [author for author in authors if author][:12]
+        abstract_match = re.search(
+            r"\bAbstract\b\s*(.+?)(?:\s+Download Full Article\b|$)",
+            plain,
+            flags=re.I | re.S,
+        )
+        abstract = clean_text(abstract_match.group(1)) if abstract_match else None
+        blocks.append({
+            "url": url,
+            "title": title,
+            "authors": authors,
+            "published_online": published,
+            "abstract": abstract,
+            "doi": None,
+        })
+    return blocks
+
+
 def restud_author_map(html_text: str, base_url: str) -> dict[str, list[str]]:
     """Read the clean author-short field from the official REStud cards."""
     if "restud.com" not in base_url.lower():
@@ -733,6 +791,29 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
                     source_url=page_url,
                     doi=block["doi"],
                     authors=block["authors"] or [],
+                    published_online=block["published_online"],
+                    available_online=block["published_online"],
+                    date_source=target["date_source"],
+                    date_confidence=target["date_confidence"],
+                    raw_data={"priority_toc_kind": target["kind"]},
+                )
+            )
+            if len(records) >= max_items:
+                break
+        return records
+    if target["kind"] == "jare_advance":
+        records: list[dict] = []
+        for block in jare_advance_blocks(html_text, page_url):
+            records.append(
+                article_record(
+                    journal,
+                    title=block["title"],
+                    url=block["url"],
+                    source="priority_toc",
+                    source_url=page_url,
+                    doi=None,
+                    authors=block["authors"],
+                    abstract=block["abstract"],
                     published_online=block["published_online"],
                     available_online=block["published_online"],
                     date_source=target["date_source"],
