@@ -98,6 +98,25 @@ jobs:
           assert "data-count=\"" in html
           print(f"Daily vNext validated: {rendered} entries")
           PY
+          python - <<'PY'
+          import sys
+          from pathlib import Path
+
+          sys.path.insert(0, str(Path("scripts").resolve()))
+          from build_daily_vnext import search_text
+
+          probe = {
+              "title": "Visible title",
+              "url": "https://example.test/article/abstract?id=123",
+              "abstract": "ABSTRACT_LEAK_SENTINEL",
+              "summary": "SUMMARY_LEAK_SENTINEL",
+          }
+          value = search_text(probe, [])
+          assert "abstract_leak_sentinel" not in value
+          assert "summary_leak_sentinel" not in value
+          assert "article/abstract" in value
+          print("Daily vNext search contract validated: hidden summary fields excluded; URL tokens allowed")
+          PY
           node - <<'NODE'
           const fs = require('fs');
           const html = fs.readFileSync(process.env.RUNNER_TEMP + '/daily-vnext.html', 'utf8');
@@ -105,7 +124,6 @@ jobs:
           scripts.forEach(script => new Function(script));
           if (!html.includes('class="hero-lede"')) throw new Error('Hero lede missing');
           if (!html.includes('[data-motion="hero"]')) throw new Error('Hero motion target missing');
-          if (html.match(/data-search="[^"]*abstract|data-search="[^"]*summary/i)) throw new Error('Abstract leaked into data-search');
           if (html.includes('<div class="tags"></div>')) throw new Error('Empty tags container rendered');
           console.log(`Daily vNext JavaScript validated: ${scripts.length} inline scripts`);
           NODE
@@ -142,6 +160,7 @@ jobs:
           assert result.returncode != 0, result.stdout + result.stderr
           assert probe.read_text(encoding="utf-8") == "previous-valid-page"
           print("Empty Daily protection validated: previous HTML preserved")
+          PY
       - name: Verify valid empty Daily renders calmly
         run: |
           python - <<'PY'
