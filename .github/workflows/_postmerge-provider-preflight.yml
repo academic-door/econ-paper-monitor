@@ -1,4 +1,4 @@
-name: Postmerge provider preflight
+name: S2 live-rate calibration
 on:
   push:
     paths:
@@ -6,98 +6,59 @@ on:
 permissions:
   contents: read
 jobs:
-  preflight:
+  calibrate:
     runs-on: ubuntu-latest
     env:
       S2_API_KEY: ${{ secrets.S2_API_KEY }}
       SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
-      ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
-      ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - name: Semantic Scholar bounded recovery preflight
+      - name: Bounded legitimate recovery calibration
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           import json
           import sys
+          import time
           from pathlib import Path
           sys.path.insert(0, str(Path('scripts').resolve()))
+          import enrich_metadata as em
           import recover_metadata_batch as rmb
-          report = rmb.run_recovery(
-              data_dir=Path('data'),
-              limit=12,
-              recent_days=30,
-              timeout=15,
-              workers=4,
-              dry_run=True,
+
+          _, records_by_doi, _ = rmb.load_daily_candidates(
+              Path('data/daily'), limit=14, recent_days=30
           )
-          health = report.get('provider_health', {}).get('semantic-scholar', {})
-          control = health.get('control', {})
-          safe = {
-              'candidates': report.get('candidates'),
-              'attempts': health.get('attempts'),
-              'available': health.get('available'),
-              'statuses': health.get('statuses'),
-              'rate_limited': health.get('rate_limited'),
-              'skipped': health.get('skipped'),
-              'failed': health.get('failed'),
-              'api_key_configured': health.get('api_key_configured'),
-              'control': control,
-          }
-          print('S2_PREFLIGHT ' + json.dumps(safe, sort_keys=True))
-          assert health.get('api_key_configured') is True, safe
-          assert control.get('client_target_rps') == 0.8, safe
-          assert float(control.get('min_interval_seconds') or 0) >= 1.25, safe
-          assert control.get('configured_concurrency') == 'shared_global_start_gate', safe
-          PY
-      - name: Elsevier JDE native early-discovery preflight
-        shell: bash
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          import json
-          import sys
-          from pathlib import Path
-          sys.path.insert(0, str(Path('scripts').resolve()))
-          import fetch_sciencedirect_search as sd
-          journal = {
-              'id': 'journal-of-development-economics',
-              'title': 'Journal of Development Economics',
-              'short_name': 'JDE',
-              'publisher': 'Elsevier',
-              'priority_private': 'A',
-              'issn': '0304-3878',
-              'fields': ['development'],
-          }
-          records, message = sd.fetch_journal_via_api(
-              journal,
-              days=4,
-              timeout=20,
-              max_items=15,
-          )
-          target_doi = '10.1016/j.jdeveco.2026.103924'
-          target = next((item for item in records if str(item.get('doi') or '').casefold() == target_doi), None)
-          control = sd.elsevier_search_telemetry()
-          safe = {
-              'count': len(records),
-              'message': message,
-              'target_found': target is not None,
-              'target_pii': ((target or {}).get('raw_data') or {}).get('pii'),
-              'target_route': ((target or {}).get('raw_data') or {}).get('sciencedirect_search_route'),
-              'target_available_online': (target or {}).get('available_online'),
-              'target_published_online': (target or {}).get('published_online'),
-              'target_has_first_seen': 'first_seen' in (target or {}),
-              'control': control,
-          }
-          print('ELSEVIER_PREFLIGHT ' + json.dumps(safe, sort_keys=True))
-          assert target is not None, safe
-          assert safe['target_pii'] == 'S0304387826002075', safe
-          assert safe['target_route'] == 'official_api_v2_put_title_wildcard', safe
-          assert safe['target_has_first_seen'] is False, safe
-          assert safe['target_published_online'] is None, safe
-          assert control.get('client_target_rps') == 1.6, safe
-          assert float(control.get('min_interval_seconds') or 0) >= 0.625, safe
-          assert control.get('quota_exceeded_429') == 0, safe
+          dois = list(records_by_doi)[:14]
+          assert len(dois) >= 10, len(dois)
+
+          def phase(label, interval, subset):
+              em.reset_semantic_scholar_throttle()
+              em.SS_KEY_MIN_INTERVAL_SECONDS = interval
+              em.SS_RATE_LIMIT_SKIP_AFTER = 999
+              em.SS_PRESSURE_MIN_SAMPLES = 999
+              counts = {}
+              for doi in subset:
+                  result = em.semantic_scholar_doi_metadata(doi, timeout=15, retries=0)
+                  status = str(result.get('_status') or ('available' if result else 'empty'))
+                  counts[status] = counts.get(status, 0) + 1
+              state = em.semantic_scholar_throttle_state()
+              safe = {
+                  'label': label,
+                  'interval_seconds': interval,
+                  'client_rps': round(1.0 / interval, 4),
+                  'requests': len(subset),
+                  'statuses': counts,
+                  'recent_rate_limited': state.get('recent_rate_limited'),
+                  'recent_rate_limited_ratio': state.get('recent_rate_limited_ratio'),
+              }
+              print('S2_CALIBRATION ' + json.dumps(safe, sort_keys=True))
+              return safe
+
+          # Cool down before measuring rather than immediately sampling a prior burst.
+          time.sleep(15)
+          first = phase('0.4rps', 2.5, dois[:6])
+          if int(first['recent_rate_limited'] or 0) > 1:
+              time.sleep(20)
+              phase('0.2rps', 5.0, dois[6:12])
           PY
