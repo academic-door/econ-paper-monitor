@@ -1,8 +1,8 @@
 """Scheduled backfill for recent priority working-paper metadata.
 
 The filename is retained because the production workflow already invokes this
-entrypoint. It repairs recent IZA and CEPR records from their official detail
-pages without changing first-discovery timestamps or Daily bucket identity.
+entrypoint. It repairs recent IZA, CEPR, and OECD records from their official
+detail pages without changing first-discovery timestamps or Daily bucket identity.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ from common import DATA_DIR, read_json, today_str, write_json
 from fetch_preprints import enrich_record_from_detail, enrich_record_from_proxy, load_sources
 
 
-SCHEDULED_SOURCE_IDS = {"iza", "cepr-dp"}
+SCHEDULED_SOURCE_IDS = {"iza", "cepr-dp", "oecd-working-papers"}
 
 
 def target_dates(days: int) -> set[str]:
@@ -25,11 +25,43 @@ def target_dates(days: int) -> set[str]:
     return {(today - timedelta(days=offset)).isoformat() for offset in range(max(days, 1))}
 
 
+def queued_oecd_targets() -> dict[str, set[str]]:
+    """Return retry-queued OECD identities keyed by their original Daily bucket."""
+    payload = read_json(DATA_DIR / "metadata_retry_queue.json", {"records": []})
+    records = payload.get("records") if isinstance(payload, dict) else []
+    targets: dict[str, set[str]] = {}
+    if not isinstance(records, list):
+        return targets
+
+    for entry in records:
+        if not isinstance(entry, dict):
+            continue
+        if str(entry.get("source_id") or "") != "oecd-working-papers":
+            continue
+        if bool(entry.get("historical_backfill")):
+            continue
+        identity = str(entry.get("identity") or "").strip().casefold()
+        first_seen = str(entry.get("first_seen") or "")
+        if not identity or len(first_seen) < 10:
+            continue
+        try:
+            bucket = date.fromisoformat(first_seen[:10]).isoformat()
+        except ValueError:
+            continue
+        targets.setdefault(bucket, set()).add(identity)
+    return targets
+
+
 def canonical_detail_url(source_id: str, url: str) -> str:
-    """Canonicalize known legacy CEPR detail paths; leave other URLs untouched."""
+    """Canonicalize known legacy detail paths; leave unrelated URLs untouched."""
+    parsed = urlparse(url)
+    if source_id == "oecd-working-papers":
+        host = parsed.netloc.casefold()
+        if host in {"oecd-ilibrary.org", "www.oecd-ilibrary.org"} and parsed.path.startswith("/en/publications/"):
+            return parsed._replace(scheme="https", netloc="www.oecd.org", query="", fragment="").geturl().rstrip("/")
+        return url
     if source_id != "cepr-dp":
         return url
-    parsed = urlparse(url)
     decoded_path = unquote(parsed.path)
     match = re.search(r"/publications/dp\d+", decoded_path, flags=re.I)
     if not match:
@@ -57,7 +89,7 @@ def needs_scheduled_repair(record: dict, source_id: str) -> bool:
     missing_abstract = not str(record.get("abstract") or "").strip()
     if source_id == "iza":
         return missing_authors
-    if source_id == "cepr-dp":
+    if source_id in {"cepr-dp", "oecd-working-papers"}:
         return missing_authors or missing_abstract
     return False
 
@@ -126,6 +158,7 @@ def main() -> None:
         return
 
     wanted = target_dates(args.days)
+    queued_oecd = queued_oecd_targets()
     changed_files = 0
     checked = 0
     enriched = 0
@@ -139,7 +172,9 @@ def main() -> None:
     seen_changed = False
 
     for path in sorted(args.daily_dir.glob("*.json"), reverse=True):
-        if path.stem not in wanted or checked >= args.limit:
+        is_recent = path.stem in wanted
+        queued_identities = queued_oecd.get(path.stem, set())
+        if (not is_recent and not queued_identities) or checked >= args.limit:
             continue
         payload = read_json(path, [])
         if not isinstance(payload, list):
@@ -152,6 +187,10 @@ def main() -> None:
             source = sources.get(source_id)
             if source is None or not record.get("url") or not needs_scheduled_repair(record, source_id):
                 continue
+            if not is_recent:
+                identity = f"url:{str(record.get('url') or '').casefold()}"
+                if source_id != "oecd-working-papers" or identity not in queued_identities:
+                    continue
 
             checked += 1
             per_source_checked[source_id] += 1
