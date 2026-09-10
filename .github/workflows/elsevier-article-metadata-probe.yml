@@ -13,44 +13,69 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Probe official ScienceDirect RSS
+      - name: Probe native Search v2 wildcard with existing credentials
+        env:
+          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
+          ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
         run: |
           python - <<'PY'
-          import re
+          import json
+          import os
+          import urllib.error
           import urllib.request
-          import xml.etree.ElementTree as ET
 
-          feed_url = "https://rss.sciencedirect.com/publication/science/03043878"
-          target_doi = "10.1016/j.jdeveco.2026.103924"
-          target_title = "political career incentives and the environmental costs"
-          request = urllib.request.Request(
-              feed_url,
-              headers={"User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)"},
-          )
-          with urllib.request.urlopen(request, timeout=30) as response:
-              payload = response.read()
-              print(f"HTTP status={response.status} content_type={response.headers.get('Content-Type')} bytes={len(payload)} final_url={response.geturl()}")
+          endpoint = "https://api.elsevier.com/content/search/sciencedirect"
+          target = "10.1016/j.jdeveco.2026.103924"
+          headers = {
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+              "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
+              "X-ELS-APIKey": os.environ["ELSEVIER_API_KEY"],
+          }
+          token = os.environ.get("ELSEVIER_INST_TOKEN", "")
+          if token:
+              headers["X-ELS-Insttoken"] = token
 
-          root = ET.fromstring(payload)
-          items = root.findall(".//item")
-          print(f"RSS items={len(items)}")
-          hit = False
-          for idx, item in enumerate(items):
-              title = (item.findtext("title") or "").strip()
-              link = (item.findtext("link") or "").strip()
-              guid = (item.findtext("guid") or "").strip()
-              description = (item.findtext("description") or "").strip()
-              pubdate = (item.findtext("pubDate") or "").strip()
-              haystack = " ".join((title, link, guid, description)).casefold()
-              doi_match = re.search(r"10\.1016/j\.jdeveco\.2026\.\d+", haystack, flags=re.I)
-              pii_match = re.search(r"S03043878\d+", haystack, flags=re.I)
-              if idx < 12:
-                  print(f"ITEM idx={idx} pubDate={pubdate} doi={doi_match.group(0) if doi_match else ''} pii={pii_match.group(0) if pii_match else ''} title={title[:180]}")
-              if target_doi in haystack or target_title in haystack:
-                  hit = True
-                  print(f"TARGET_HIT idx={idx} pubDate={pubdate} title={title[:220]} link={link[:260]} guid={guid[:220]}")
-
-          print(f"RESULT target_hit={hit}")
-          if not hit:
-              raise SystemExit("Target JDE article is not present in official ScienceDirect RSS")
+          variants = [
+              ("qs-star", {"qs": "*"}),
+              ("title-star", {"title": "*"}),
+              ("qs-a-star", {"qs": "a*"}),
+          ]
+          any_hit = False
+          for label, search_field in variants:
+              body = {
+                  **search_field,
+                  "pub": "Journal of Development Economics",
+                  "loadedAfter": "2026-09-06T00:00:00Z",
+                  "display": {"offset": 0, "show": 100, "sortBy": "date"},
+              }
+              req = urllib.request.Request(endpoint, data=json.dumps(body).encode(), headers=headers, method="PUT")
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as response:
+                      payload = json.loads(response.read().decode())
+                      rate = {
+                          "limit": response.headers.get("X-RateLimit-Limit"),
+                          "remaining": response.headers.get("X-RateLimit-Remaining"),
+                      }
+              except urllib.error.HTTPError as exc:
+                  text = exc.read().decode(errors="replace")[:600]
+                  print(f"VARIANT {label} HTTP={exc.code} status={exc.headers.get('X-ELS-Status')} body={text}")
+                  continue
+              results = payload.get("results") if isinstance(payload, dict) else None
+              if not isinstance(results, list):
+                  print(f"VARIANT {label} invalid-results message={payload.get('message') if isinstance(payload, dict) else ''}")
+                  continue
+              hit = False
+              print(f"VARIANT {label} results={len(results)} rate={rate}")
+              for idx, item in enumerate(results):
+                  if not isinstance(item, dict):
+                      continue
+                  doi = str(item.get("doi") or "").casefold()
+                  if target in doi:
+                      hit = True
+                      any_hit = True
+                      print(f"TARGET_HIT variant={label} idx={idx} doi={doi} pii={item.get('pii')} loadDate={item.get('loadDate')} title={str(item.get('title') or '')[:220]}")
+              print(f"RESULT variant={label} target_hit={hit}")
+          if not any_hit:
+              raise SystemExit("No native wildcard variant discovered the target")
           PY
