@@ -1,0 +1,43 @@
+name: CIE detail HTML probe
+on:
+  push:
+    paths:
+      - .github/workflows/_cie-detail-html-probe.yml
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect one official detail page
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, re, sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('scripts').resolve()))
+          import fetch_cn_journals as cn
+          url='http://ciejournal.ajcass.com/Magazine/Show?id=123518'
+          text=cn.fetch_text_partial(url, timeout=20, max_bytes=300000)
+          meta=cn.parse_meta(text)
+          clean=cn.clean_text(text)
+          pos=clean.find('摘要')
+          snippet=clean[max(0,pos-120):pos+900] if pos>=0 else ''
+          print('CIE_HTML_PROBE '+json.dumps({
+            'bytes': len(text.encode('utf-8', errors='ignore')),
+            'meta_keys': sorted(meta.keys()),
+            'citation_abstract_len': len(meta.get('citation_abstract','')),
+            'dc_description_len': len(meta.get('dc.description','')),
+            'description_len': len(meta.get('description','')),
+            'has_abstract_marker': pos>=0,
+            'abstract_marker_snippet': snippet,
+            'has_known_title': '世界大变局下的中国产业链韧性' in clean,
+            'html_class_matches': sorted(set(re.findall(r'class=[\"\'][^\"\']*(?:abstract|zhaiyao|summary)[^\"\']*[\"\']', text, flags=re.I)))[:20],
+          }, ensure_ascii=False))
+          PY
