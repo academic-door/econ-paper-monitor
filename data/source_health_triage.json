@@ -1,29 +1,23 @@
 {
   "categories": {
-    "needs_investigation": 14,
-    "permanently_unavailable": 1
+    "needs_investigation": 1
   },
-  "checked_at": "2026-09-10T09:09:39.212468+08:00",
-  "source_health_degraded_count": 15,
+  "checked_at": "2026-09-10T13:35:47.755626+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 13; Economic Development and Cultural Change: 0;",
-      "source": "crossref"
-    },
-    {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical So",
+      "sample_error": "attempted=14; proxy_abstract_attempted=0; seen Econometrica: abstract-route-missing; seen Econometrica: abstract-route-missing; seen 中国工业经济: abstract-present; seen 数量经济技术经济研究: abstract-present; seen 数",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=29/45; Journal of Financial Economics: 17 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 44 via official-generated; Economic Development",
+      "sample_error": "feeds=62/109; Environmental and Resource Economics: ParseError: not well-formed (invalid token): line 14, column 4; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricult",
       "source": "rss"
     },
     {
@@ -38,230 +32,20 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "agricultural-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Agricultural Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "economic-theory/springer_online_first: crossref fallback 7; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; public-choice/spri",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
         "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "applied-economic-perspectives-and-policy",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Applied Economic Perspectives and Policy",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "australian-journal-of-agricultural-and-resource-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Australian Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "canadian-journal-of-agricultural-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Canadian Journal of Agricultural Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "canadian-journal-of-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Canadian Journal of Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "economic-history-review",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Economic History Review",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "economic-inquiry",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Economic Inquiry",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "economica",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Economica",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Agricultural Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-applied-econometrics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Applied Econometrics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-economics-and-management-strategy",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Economics & Management Strategy",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-industrial-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Industrial Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-money-credit-and-banking",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Money, Credit and Banking",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "scandinavian-journal-of-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Scandinavian Journal of Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "permanently_unavailable",
-      "category_counts": {
-        "permanently_unavailable": 1
-      },
-      "journal_id": "journal-379b4022ce",
-      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
-      "source": "管理世界",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
-        "cnki-rss",
         "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 4
   },
-  "total_degraded": 15
+  "total_degraded": 1
 }
