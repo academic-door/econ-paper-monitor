@@ -1,0 +1,41 @@
+name: CIE official abstract probe
+on:
+  push:
+    paths:
+      - .github/workflows/_cie-abstract-probe.yml
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch bounded CIE detail sample
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/fetch_cn_journals.py \
+            --only journal-bf2aa9381f \
+            --limit-per-journal 12 \
+            --detail-limit 12 \
+            --output "$RUNNER_TEMP/cie-probe.json"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          rows = json.loads((Path(os.environ['RUNNER_TEMP']) / 'cie-probe.json').read_text(encoding='utf-8'))
+          safe=[]
+          for row in rows:
+              safe.append({
+                  'title': row.get('title'),
+                  'url': row.get('url'),
+                  'authors': len(row.get('authors') or []),
+                  'abstract_len': len(row.get('abstract') or ''),
+                  'has_abstract_zh': bool(row.get('abstract_zh')),
+                  'issue': row.get('source_issue'),
+              })
+          print('CIE_DETAIL_PROBE ' + json.dumps({'count': len(rows), 'with_abstract': sum(bool(r.get('abstract')) for r in rows), 'rows': safe}, ensure_ascii=False))
+          PY
