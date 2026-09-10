@@ -1,4 +1,8 @@
-"""Regression contract for Parent Decision 0015 shared-key pressure and circuit safety."""
+"""Regression contract for Parent Decision 0015 shared-key pressure and circuit safety.
+
+The conservative keyed probe rate, no-retry mode, race-safe gate, and fast-trip
+thresholds are grounded in the 2026-09-10 bounded live calibration on #177.
+"""
 
 from __future__ import annotations
 
@@ -22,10 +26,11 @@ class SemanticScholarThrottleTests(unittest.TestCase):
     def tearDown(self) -> None:
         em.reset_semantic_scholar_throttle()
 
-    def test_keyed_target_is_eighty_percent_of_official_one_rps(self) -> None:
+    def test_keyed_target_uses_conservative_live_pressure_probe_rate(self) -> None:
         self.assertEqual(em.SS_PROVIDER_KEY_LIMIT_RPS, 1.0)
-        self.assertEqual(em.SS_CLIENT_TARGET_RPS, 0.8)
-        self.assertGreaterEqual(em.SS_KEY_MIN_INTERVAL_SECONDS, 1.25)
+        self.assertLessEqual(em.SS_CLIENT_TARGET_RPS, 0.8)
+        self.assertEqual(em.SS_CLIENT_TARGET_RPS, 0.2)
+        self.assertGreaterEqual(em.SS_KEY_MIN_INTERVAL_SECONDS, 5.0)
 
     def test_retry_after_429_reenters_same_gate(self) -> None:
         headers = Message()
@@ -37,7 +42,9 @@ class SemanticScholarThrottleTests(unittest.TestCase):
         }
         with patch.object(em, "_semantic_scholar_gate", return_value=True) as gate, patch.object(
             em, "fetch_json_retry", side_effect=[too_many, payload]
-        ) as fetch, patch.object(em.time, "sleep") as sleep:
+        ) as fetch, patch.object(em.time, "sleep") as sleep, patch.dict(
+            em.os.environ, {"S2_API_KEY": "", "SEMANTIC_SCHOLAR_API_KEY": ""}, clear=False
+        ):
             result = em.semantic_scholar_doi_metadata("10.1234/example", 1, retries=1)
         self.assertEqual(result.get("abstract_source"), "semantic_scholar")
         self.assertEqual(gate.call_count, 2)
@@ -45,8 +52,48 @@ class SemanticScholarThrottleTests(unittest.TestCase):
         self.assertTrue(any(call.args and call.args[0] >= 2 for call in sleep.call_args_list))
         state = em.semantic_scholar_throttle_state()
         self.assertEqual(state["rate_limited_count"], 0)
+        self.assertEqual(state["consecutive_terminal_rate_limited"], 0)
         self.assertEqual(state["recent_rate_limited"], 1)
         self.assertEqual(state["last_retry_after_seconds"], 2.0)
+
+    def test_keyed_429_is_terminal_without_hidden_retries(self) -> None:
+        too_many = urllib.error.HTTPError("https://example", 429, "Too Many Requests", Message(), None)
+        with patch.dict(em.os.environ, {"SEMANTIC_SCHOLAR_API_KEY": "secret-value"}, clear=False), patch.object(
+            em, "_semantic_scholar_gate", return_value=True
+        ) as gate, patch.object(em, "fetch_json_retry", side_effect=too_many) as fetch, patch.object(
+            em.time, "sleep"
+        ) as sleep:
+            result = em.semantic_scholar_doi_metadata("10.1234/keyed-pressure", 1, retries=2)
+            state = em.semantic_scholar_throttle_state()
+        self.assertEqual(result.get("_status"), "rate_limited")
+        self.assertEqual(fetch.call_count, 1)
+        self.assertEqual(gate.call_count, 1)
+        sleep.assert_not_called()
+        self.assertEqual(state["keyed_max_retries"], 0)
+        self.assertEqual(state["rate_limited_count"], 1)
+        self.assertEqual(state["consecutive_terminal_rate_limited"], 1)
+        self.assertEqual(state["recent_rate_limited"], 1)
+
+    def test_gate_releases_state_lock_while_waiting_and_rechecks_circuit(self) -> None:
+        observed = {"state_lock_available": False}
+
+        def observe_wait(_seconds: float) -> None:
+            acquired = em._SS_LOCK.acquire(blocking=False)
+            observed["state_lock_available"] = acquired
+            if acquired:
+                em._SS_LOCK.release()
+
+        em._SS_LAST_REQUEST = 100.0
+        with patch.object(em, "_semantic_scholar_api_key", return_value=True), patch.object(
+            em, "_semantic_scholar_circuit_open_locked", side_effect=[False, True]
+        ) as circuit, patch.object(em.time, "monotonic", return_value=101.0), patch.object(
+            em.time, "sleep", side_effect=observe_wait
+        ) as sleep:
+            allowed = em._semantic_scholar_gate()
+        self.assertFalse(allowed)
+        self.assertTrue(observed["state_lock_available"])
+        self.assertEqual(circuit.call_count, 2)
+        sleep.assert_called_once_with(4.0)
 
     def test_success_does_not_erase_recent_throttle_pressure(self) -> None:
         for outcome in ["rate_limited", "success", "success", "success"]:
@@ -57,11 +104,61 @@ class SemanticScholarThrottleTests(unittest.TestCase):
         self.assertEqual(before["rate_limited_count"], 1)
         self.assertEqual(after["rate_limited_count"], 1)
         self.assertEqual(after["recent_rate_limited"], 1)
+        self.assertEqual(after["consecutive_terminal_rate_limited"], 0)
+
+    def test_two_consecutive_terminal_429s_fast_trip_before_rolling_window(self) -> None:
+        em._record_semantic_scholar_outcome("rate_limited")
+        first = em.semantic_scholar_throttle_state()
+        self.assertFalse(first["circuit_open"])
+        self.assertEqual(first["consecutive_terminal_rate_limited"], 1)
+
+        em._record_semantic_scholar_outcome("rate_limited")
+        second = em.semantic_scholar_throttle_state()
+        self.assertTrue(second["circuit_open"])
+        self.assertEqual(second["fast_trip_after_consecutive_rate_limits"], 2)
+        self.assertEqual(second["consecutive_terminal_rate_limited"], 2)
+        self.assertEqual(second["recent_attempts"], 2)
+
+        with patch.object(em, "fetch_json_retry") as fetch:
+            result = em.semantic_scholar_doi_metadata("10.1234/fast-skipped", 1, retries=0)
+        self.assertEqual(result.get("_status"), "skipped_rate_limited")
+        fetch.assert_not_called()
+
+    def test_terminal_429_budget_trips_even_when_successes_break_consecutive_streak(self) -> None:
+        for outcome in [
+            "rate_limited", "success",
+            "rate_limited", "success",
+            "rate_limited", "success",
+        ]:
+            em._record_semantic_scholar_outcome(outcome)
+        before = em.semantic_scholar_throttle_state()
+        self.assertFalse(before["circuit_open"])
+        self.assertEqual(before["rate_limited_count"], 3)
+        self.assertEqual(before["consecutive_terminal_rate_limited"], 0)
+
+        em._record_semantic_scholar_outcome("rate_limited")
+        after = em.semantic_scholar_throttle_state()
+        self.assertTrue(after["circuit_open"])
+        self.assertEqual(after["fast_trip_terminal_rate_limit_budget"], 4)
+        self.assertEqual(after["rate_limited_count"], 4)
+        self.assertEqual(after["consecutive_terminal_rate_limited"], 1)
+
+    def test_non_rate_limited_terminal_outcome_resets_fast_trip_streak(self) -> None:
+        em._record_semantic_scholar_outcome("rate_limited")
+        em._record_semantic_scholar_outcome("not_found")
+        em._record_semantic_scholar_outcome("rate_limited")
+        state = em.semantic_scholar_throttle_state()
+        self.assertFalse(state["circuit_open"])
+        self.assertEqual(state["consecutive_terminal_rate_limited"], 1)
 
     def test_rolling_rate_limit_pressure_opens_circuit_and_skips_network(self) -> None:
-        for outcome in ["rate_limited"] * 3 + ["success"] * 7:
+        for outcome in ["rate_limited", "success", "rate_limited", "success", "rate_limited"] + ["success"] * 5:
             em._record_semantic_scholar_outcome(outcome)
-        self.assertTrue(em.semantic_scholar_throttle_state()["circuit_open"])
+        state = em.semantic_scholar_throttle_state()
+        self.assertTrue(state["circuit_open"])
+        self.assertEqual(state["recent_attempts"], 10)
+        self.assertEqual(state["recent_rate_limited"], 3)
+        self.assertEqual(state["consecutive_terminal_rate_limited"], 0)
         with patch.object(em, "fetch_json_retry") as fetch:
             result = em.semantic_scholar_doi_metadata("10.1234/skipped", 1, retries=1)
         self.assertEqual(result.get("_status"), "skipped_rate_limited")
@@ -76,6 +173,7 @@ class SemanticScholarThrottleTests(unittest.TestCase):
         self.assertEqual(result.get("_status"), "provider_error")
         state = em.semantic_scholar_throttle_state()
         self.assertEqual(state["rate_limited_count"], 0)
+        self.assertEqual(state["consecutive_terminal_rate_limited"], 0)
 
     def test_control_telemetry_is_safe_and_embedded_in_provider_health(self) -> None:
         with patch.dict(em.os.environ, {"S2_API_KEY": "secret-value"}, clear=False):
@@ -83,12 +181,16 @@ class SemanticScholarThrottleTests(unittest.TestCase):
         self.assertEqual(state["endpoint_class"], "academic_graph_paper_details")
         self.assertEqual(state["workload_class"], "metadata_recovery")
         self.assertEqual(state["configured_concurrency"], "shared_global_start_gate")
+        self.assertEqual(state["client_target_rps"], 0.2)
+        self.assertEqual(state["fast_trip_after_consecutive_rate_limits"], 2)
+        self.assertEqual(state["fast_trip_terminal_rate_limit_budget"], 4)
+        self.assertEqual(state["keyed_max_retries"], 0)
         self.assertNotIn("secret-value", repr(state))
         with patch.object(rmb, "semantic_scholar_throttle_state", return_value=state):
             health = rmb.summarize_provider_health(
                 {"10.1/a": {"semantic-scholar": {"_status": "skipped_rate_limited"}}}
             )
-        self.assertEqual(health["semantic-scholar"]["control"]["client_target_rps"], 0.8)
+        self.assertEqual(health["semantic-scholar"]["control"]["client_target_rps"], 0.2)
         self.assertEqual(health["semantic-scholar"]["skipped"], 1)
 
 
