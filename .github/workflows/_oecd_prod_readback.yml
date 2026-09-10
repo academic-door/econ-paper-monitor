@@ -1,0 +1,44 @@
+name: OECD production readback probe
+
+on:
+  push:
+    branches:
+      - brain/p1-5-oecd-prod-readback
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Read original and current OECD placement
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin 1cffab1dac4420d8eff63ce4e7d84a25a17f6539
+          git show 1cffab1dac4420d8eff63ce4e7d84a25a17f6539:data/metadata_retry_queue.json > /tmp/pre_oecd_queue.json
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          pre=json.loads(Path('/tmp/pre_oecd_queue.json').read_text())
+          targets=[r for r in pre.get('records',[]) if r.get('source_id')=='oecd-working-papers']
+          pending=json.loads(Path('data/pending_date_records.json').read_text(encoding='utf-8-sig'))
+          seen=json.loads(Path('data/seen.json').read_text(encoding='utf-8-sig')).get('papers',{})
+          for t in targets:
+              suffix=t['url'].rsplit('/',1)[-1]
+              old=subprocess.run(['git','grep','-l',suffix,'1cffab1dac4420d8eff63ce4e7d84a25a17f6539','--','data/daily'],text=True,capture_output=True).stdout.strip().splitlines()
+              pend=[]
+              for r in pending:
+                  if suffix in str(r.get('url') or '') or r.get('title')==t.get('title'):
+                      pend.append({k:r.get(k) for k in ('id','title','url','first_seen','authors','abstract_completeness','abstract_source','doi','pending_reason') } | {'abstract_len':len(str(r.get('abstract') or ''))})
+              seen_matches=[]
+              for key,r in seen.items():
+                  if suffix in str(r.get('url') or '') or r.get('title')==t.get('title'):
+                      seen_matches.append({'key':key, **{k:r.get(k) for k in ('title','url','first_seen','authors','abstract_completeness','abstract_source','doi')}, 'abstract_len':len(str(r.get('abstract') or ''))})
+              print('OECD_PLACEMENT',json.dumps({'pre':t,'old_daily_paths':old,'pending':pend,'seen':seen_matches},ensure_ascii=False))
+          PY
