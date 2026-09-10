@@ -1,0 +1,38 @@
+name: CIE response shape probe
+on:
+  push:
+    paths:
+      - .github/workflows/_cie-response-shape-probe.yml
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect official response shape
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,re,sys
+          from pathlib import Path
+          sys.path.insert(0,str(Path('scripts').resolve()))
+          import fetch_cn_journals as cn
+          url='http://ciejournal.ajcass.com/Magazine/Show?id=123518'
+          html=cn.fetch_text_partial(url,timeout=20,max_bytes=50000)
+          clean=cn.clean_text(html)
+          def vals(pat): return re.findall(pat,html,flags=re.I)[:20]
+          print('CIE_RESPONSE_SHAPE '+json.dumps({
+            'title': vals(r'<title[^>]*>([\s\S]*?)</title>'),
+            'forms': vals(r'<form[^>]+action=["\']([^"\']+)["\']'),
+            'iframes': vals(r'<iframe[^>]+src=["\']([^"\']+)["\']'),
+            'meta_refresh': vals(r'<meta[^>]+http-equiv=["\']refresh["\'][^>]+content=["\']([^"\']+)["\']'),
+            'links': vals(r'<a[^>]+href=["\']([^"\']+)["\']'),
+            'text_prefix': clean[:1200],
+          },ensure_ascii=False))
+          PY
