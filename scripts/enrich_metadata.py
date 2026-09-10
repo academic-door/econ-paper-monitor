@@ -578,11 +578,11 @@ def semantic_scholar_throttle_state() -> dict[str, Any]:
         }
 
 
-def _semantic_scholar_gate() -> bool:
-    """Re-enter the aggregate rate/circuit gate before every network attempt."""
+def _semantic_scholar_gate(*, allow_when_tripped: bool = False) -> bool:
+    """Re-enter pacing before every attempt; only new DOI calls honor an open circuit."""
     global _SS_LAST_REQUEST
     with _SS_LOCK:
-        if _semantic_scholar_circuit_open_locked():
+        if not allow_when_tripped and _semantic_scholar_circuit_open_locked():
             return False
         interval = (
             SS_KEY_MIN_INTERVAL_SECONDS if _semantic_scholar_api_key() else SS_MIN_INTERVAL_SECONDS
@@ -603,11 +603,17 @@ def _semantic_scholar_retry_after(headers: Any) -> float:
         return 0.0
 
 
-def _record_semantic_scholar_outcome(outcome: str, *, retry_after: float = 0.0) -> None:
+def _record_semantic_scholar_outcome(
+    outcome: str,
+    *,
+    retry_after: float = 0.0,
+    terminal_rate_limit: bool = True,
+) -> None:
+    """Record attempt-level pressure; absolute count tracks exhausted DOI calls."""
     global _SS_RATE_LIMITED_COUNT, _SS_LAST_RETRY_AFTER_SECONDS
     with _SS_LOCK:
         _SS_RECENT_OUTCOMES.append(outcome)
-        if outcome == "rate_limited":
+        if outcome == "rate_limited" and terminal_rate_limit:
             _SS_RATE_LIMITED_COUNT += 1
         if retry_after > 0:
             _SS_LAST_RETRY_AFTER_SECONDS = retry_after
@@ -634,7 +640,7 @@ def semantic_scholar_doi_metadata(doi: str, timeout: int, *, retries: int = 2) -
     attempts = max(0, retries) + 1
     payload: dict[str, Any] = {}
     for attempt in range(attempts):
-        if not _semantic_scholar_gate():
+        if not _semantic_scholar_gate(allow_when_tripped=attempt > 0):
             return {
                 "_status": "skipped_rate_limited",
                 "_provider": "semantic-scholar",
@@ -655,8 +661,13 @@ def semantic_scholar_doi_metadata(doi: str, timeout: int, *, retries: int = 2) -
                 return {"_status": "not_found", "_provider": "semantic-scholar"}
             if exc.code == 429:
                 retry_after = _semantic_scholar_retry_after(exc.headers)
-                _record_semantic_scholar_outcome("rate_limited", retry_after=retry_after)
-                if attempt + 1 >= attempts:
+                exhausted = attempt + 1 >= attempts
+                _record_semantic_scholar_outcome(
+                    "rate_limited",
+                    retry_after=retry_after,
+                    terminal_rate_limit=exhausted,
+                )
+                if exhausted:
                     return {
                         "_status": "rate_limited",
                         "_status_code": exc.code,
