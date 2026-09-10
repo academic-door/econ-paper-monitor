@@ -1,6 +1,6 @@
 {
   "categories": {},
-  "checked_at": "2026-09-11T00:30:58.046765+08:00",
+  "checked_at": "2026-09-11T02:03:16.433663+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
@@ -10,19 +10,14 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=29/45; Journal of Financial Economics: 19 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 45 via official-generated; Economic Development",
+      "sample_error": "feeds=62/108; Land Use Policy: 81 via official-generated; European Review of Agricultural Economics: 2 via configured; Environmental and Resource Economics: ParseError: not well-formed (invalid token)",
       "source": "rss"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "journals=28 failures=28 elsevier_api_key=on jina_key=on; Journal of Monetary Economics: RuntimeError: official-api=RuntimeError: HTTP 400 Bad Request X-ELS-Status=INVALID_INPUT - Unable to translate q",
-      "source": "sciencedirect-search"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 3
+    "degraded_source_failures": 2
   },
   "total_degraded": 0
 }
