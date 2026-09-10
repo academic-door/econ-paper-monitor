@@ -44,7 +44,8 @@ class SemanticScholarThrottleTests(unittest.TestCase):
         self.assertEqual(fetch.call_count, 2)
         self.assertTrue(any(call.args and call.args[0] >= 2 for call in sleep.call_args_list))
         state = em.semantic_scholar_throttle_state()
-        self.assertEqual(state["rate_limited_count"], 1)
+        self.assertEqual(state["rate_limited_count"], 0)
+        self.assertEqual(state["recent_rate_limited"], 1)
         self.assertEqual(state["last_retry_after_seconds"], 2.0)
 
     def test_success_does_not_erase_recent_throttle_pressure(self) -> None:
