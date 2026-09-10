@@ -111,6 +111,75 @@
     "url": "https://www.nber.org/papers/w35397"
   },
   {
+    "abstract": "This article investigates factor-augmented sparse MIDAS (Mixed Data Sampling) regressions for high-dimensional time series data, which may be observed at different frequencies. Our novel approach integrates sparse and dense dimensionality reduction techniques. We derive the convergence rate of our estimator under misspecification due to the MIDAS approximation error, τ-mixing dependence, and polynomial tails. Our method’s finite sample performance is assessed via Monte Carlo simulations. We apply the methodology to nowcasting U.S. GDP growth and demonstrate that it outperforms both sparse regression and standard factor-augmented regression during the COVID-19 pandemic. These findings indicate that the growth through this period was influenced by both idiosyncratic (sparse) and common (dense) shocks. The approach is implemented in the midasml R package, available on CRAN.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Jad Beyhum",
+      "Jonas Striaukas"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-07-07",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "rss_published",
+    "detail_key": "factor-augmented-sparse-midas-regressions-with-an-application-to-nowcasting-a216c8fcc914",
+    "detected_at": "2026-09-09T14:34:01+00:00",
+    "doi": "10.1080/07350015.2026.2649055",
+    "fields": [
+      "econometrics"
+    ],
+    "first_seen": "2026-09-09T14:34:01+00:00",
+    "id": "doi:10.1080/07350015.2026.2649055",
+    "identity_aliases": [
+      "10.1080/07350015.2026.2649055",
+      "factor-augmented-sparse-midas-regressions-with-an-application-to-nowcasting-a216c8fcc914",
+      "https://www.tandfonline.com/doi/full/10.1080/07350015.2026.2649055?af=R"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Business & Economic Statistics",
+    "journal_id": "journal-of-business-and-economic-statistics",
+    "journal_short": "JBES",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-07-07",
+    "publisher": "Taylor & Francis",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-07-07",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-07-07",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-07-07",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-07-07",
+          "source": "openalex"
+        }
+      ],
+      "pii": null,
+      "rss_feed_url": "https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=ubes20",
+      "rss_guid": null
+    },
+    "source": "rss",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=ubes20",
+    "title": "Factor-Augmented Sparse MIDAS Regressions with an Application to Nowcasting",
+    "title_zh": "因子增强的稀疏MIDAS回归及其在即时预测中的应用",
+    "translation_status": "title_translated_cached",
+    "url": "https://www.tandfonline.com/doi/full/10.1080/07350015.2026.2649055?af=R"
+  },
+  {
     "abstract": "Survey-based social science research increasingly depends on digital questionnaires, browserbased data collection, automated statistical workflows, and reproducible reports. Yet the integrity of the research objects that connect these stages remains weak in many projects. Questionnaire files, response datasets, analysis scripts, and reports are often stored as separate artefacts, and when any one of them is changed after fieldwork or after submission, reviewers and institutions may lack a simple way to verify whether the file is identical to the version used earlier. This paper proposes Social Science Research 6.0 as a proof-of-integrity framework for tamper-evident survey workflows. The framework uses SHA-256 hashing to assign verifiable digests to survey instruments, response datasets, analysis plans, scripts, and report outputs, and records them in a structured manifest that can be verified at any later point. The approach is demonstrated using surveyframe, an open-source R package that represents a questionnaire as a typed survey object, saves it as a hashed .sframe file, validates item and scale structure, reads response data, checks quality, scores scales, prepares analysis plans, and generates reproducible reports. A synthetic proof-of-concept confirms that the framework detects instrument modification, response tampering, and analysis-plan drift in all tested scenarios. The contribution is a low-cost, software-only method for improving trust, transparency, and auditability in digital social science research without requiring blockchain infrastructure or proprietary survey platforms.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",

@@ -217,12 +217,18 @@ def extract_page_metadata(html: str) -> dict[str, Any]:
                 result["published_online"] = parsed
             result["date_source"] = f"publisher_{field}"
             result["date_confidence"] = "A"
-    for key in ("citation_abstract", "dc.description", "description", "og:description"):
-        abstract = clean_abstract_text(meta.get(key))
-        if len(abstract) > 80:
-            result.setdefault("abstract", abstract)
-            result.setdefault("abstract_source", f"publisher_meta:{key}")
-            break
+    citation_abstract = clean_abstract_text(meta.get("citation_abstract"))
+    if len(citation_abstract) > 80:
+        result.setdefault("abstract", citation_abstract)
+        result.setdefault("abstract_source", "publisher_meta:citation_abstract")
+    if "abstract" not in result:
+        for key in ("dc.description", "description", "og:description"):
+            abstract = clean_abstract_text(meta.get(key))
+            visibly_truncated = bool(re.search(r"(?:\.{3,}|…+)\s*$", abstract))
+            if len(abstract) > 80 and not visibly_truncated:
+                result.setdefault("abstract", abstract)
+                result.setdefault("abstract_source", f"publisher_meta:{key}")
+                break
     if "abstract" not in result:
         abstract_patterns = (
             r'<div\b[^>]*class=["\'][^"\']*\babstract\b[^"\']*["\'][^>]*>[\s\S]*?<h[1-6]\b[^>]*>\s*Abstract\s*</h[1-6]>([\s\S]*?)</div>\s*</div>',
@@ -750,6 +756,7 @@ def candidate_urls(record: dict[str, Any]) -> list[str]:
         doi = str(doi).strip()
         urls.append(f"https://doi.org/{doi}")
         if doi.startswith("10.1080/"):
+            urls.append(f"https://www.tandfonline.com/doi/abs/{doi}")
             urls.append(f"https://www.tandfonline.com/doi/full/{doi}")
         if doi.startswith("10.1016/"):
             pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))

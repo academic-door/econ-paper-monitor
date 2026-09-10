@@ -1,5 +1,109 @@
 [
   {
+    "abstract": "In recent years, orthogonal statistical learning has been widely recognized for its ability to reduce sensitivity with respect to nuisance parameters to estimate the target parameter, making it an important tool in causal inference, particularly in the estimation of the conditional average treatment effect (CATE). However, its application on conditional quantile treatment effect (CQTE), which offers a more comprehensive perspective on treatment effects than CATE, has not yet been explored comprehensively. In this article, we propose a novel method for learning CQTE. This method shares Neyman-orthogonal property, which produces CQTE estimators that are insensitive to small perturbations of nuisance functions. We first model the CQTE nonparametrically and use deep learning to estimate it. We establish the convergence rate of the neural network estimator, demonstrating that it achieves the minimax optimal rate of convergence (up to a polylogarithmic factor). This highlights deep learning’s ability to identify low-dimensional structures in high-dimensional data. Additionally, we then model CQTE linearly to facilitate interpretation and statistical inference. We prove that the corresponding coefficient and CQTE estimators achieve root-n consistency and asymptotic normality, even if the estimators of the nuisance parameters converge at a slower rate. Through empirical evaluation for numerical studies, we demonstrate the superiority of our method compared to competing methods.",
+    "abstract_completeness": "full",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
+    "abstract_zh": "近年来，正交统计学习因其能够降低对干扰参数的敏感性以估计目标参数而广受认可，成为因果推断中的重要工具，尤其是在条件平均处理效应（CATE）的估计中。然而，其在条件分位数处理效应（CQTE）上的应用——这一效应相比CATE提供了对处理效应更全面的视角——尚未得到深入探索。在本文中，我们提出了一种学习CQTE的新方法。该方法具有Neyman-正交性质，使得所得到的CQTE估计量对干扰函数的微小扰动不敏感。我们首先对CQTE进行非参数建模，并利用深度学习进行估计。我们建立了神经网络估计器的收敛速率，证明其达到了极小极大最优收敛速率（至多相差一个多项式对数因子）。这凸显了深度学习在高维数据中识别低维结构的能力。此外，我们随后对CQTE进行线性建模，以促进解释和统计推断。我们证明，即使干扰参数的估计量以较慢速率收敛，相应的系数和CQTE估计量也能实现根号n一致性和渐近正态性。通过数值研究的实证评估，我们展示了我们方法相较于竞争方法的优越性。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Qixian Zhong"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-01-20",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "rss_published",
+    "detail_key": "deep-orthogonal-learner-for-conditional-quantile-treatment-effect-estimation-903a0a8de634",
+    "detected_at": "2026-09-09T14:34:01+00:00",
+    "doi": "10.1080/07350015.2025.2569483",
+    "fields": [
+      "econometrics"
+    ],
+    "first_seen": "2026-09-09T14:34:01+00:00",
+    "id": "doi:10.1080/07350015.2025.2569483",
+    "identity_aliases": [
+      "10.1080/07350015.2025.2569483",
+      "deep-orthogonal-learner-for-conditional-quantile-treatment-effect-estimation-903a0a8de634",
+      "https://www.tandfonline.com/doi/full/10.1080/07350015.2025.2569483?af=R"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Business & Economic Statistics",
+    "journal_id": "journal-of-business-and-economic-statistics",
+    "journal_short": "JBES",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-01-20",
+    "publisher": "Taylor & Francis",
+    "raw_data": {
+      "pii": null,
+      "rss_feed_url": "https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=ubes20",
+      "rss_guid": null
+    },
+    "source": "rss",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=ubes20",
+    "title": "Deep Orthogonal Learner for Conditional Quantile Treatment Effect Estimation",
+    "title_zh": "面向条件分位数处理效应估计的深度正交学习器",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://www.tandfonline.com/doi/full/10.1080/07350015.2025.2569483?af=R"
+  },
+  {
+    "abstract": "This paper examines the joint-hypothesis-testing problem that arises when comparing two competing forecast methods across multiple horizons. We focus on the concept of uniform Superior Predictive Ability (uSPA) and investigate the asymptotic properties of the corresponding test statistic. Under standard regularity conditions, the asymptotic distribution under the null hypothesis is derived, ensuring that the test maintains the correct size and exhibits consistency. Monte Carlo simulations are used to assess the test’s finite-sample performance. An empirical application replicates and extends earlier studies, providing inference for multi-horizon comparisons between direct and iterative forecasting approaches.",
+    "abstract_completeness": "full",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
+    "abstract_zh": "本文探讨了在多个预测期限上比较两种竞争性预测方法时所出现的联合假设检验问题。我们聚焦于一致优越预测能力（uSPA）这一概念，并研究相应检验统计量的渐近性质。在标准正则条件下，推导了原假设下的渐近分布，确保检验具有正确的显著性水平并表现出一致性。蒙特卡洛模拟用于评估检验的有限样本表现。一项实证应用复现并扩展了早期研究，为直接预测与迭代预测方法之间的多期限比较提供了推断依据。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Verena Monschang",
+      "Mark Trede",
+      "Bernd Wilfling"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-01-20",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "rss_published",
+    "detail_key": "multi-horizon-uniform-superior-predictive-ability-revisited-b96c37a12dee",
+    "detected_at": "2026-09-09T14:34:01+00:00",
+    "doi": "10.1080/07350015.2025.2569479",
+    "fields": [
+      "econometrics"
+    ],
+    "first_seen": "2026-09-09T14:34:01+00:00",
+    "id": "doi:10.1080/07350015.2025.2569479",
+    "identity_aliases": [
+      "10.1080/07350015.2025.2569479",
+      "https://www.tandfonline.com/doi/full/10.1080/07350015.2025.2569479?af=R",
+      "multi-horizon-uniform-superior-predictive-ability-revisited-b96c37a12dee"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Business & Economic Statistics",
+    "journal_id": "journal-of-business-and-economic-statistics",
+    "journal_short": "JBES",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-01-20",
+    "publisher": "Taylor & Francis",
+    "raw_data": {
+      "pii": null,
+      "rss_feed_url": "https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=ubes20",
+      "rss_guid": null
+    },
+    "source": "rss",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=ubes20",
+    "title": "Multi-Horizon Uniform Superior Predictive Ability Revisited",
+    "title_zh": "多水平一致优越预测能力再探",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://www.tandfonline.com/doi/full/10.1080/07350015.2025.2569479?af=R"
+  },
+  {
     "abstract": "Drawing on the literature on cultural adaptations to historical disease exposure, we investigate differences in government containment policies during the COVID-19 pandemic. We hypothesize that a higher historical exposure to disease resulted in a stronger government response to recent COVID deaths, particularly during the first year of the pandemic characterized by fundamental uncertainty. Our empirical analysis confirms this hypothesis, both for differences in government responses to disease dynamics between countries and for differences in state-level containment policies within the United States. Our results suggest that the impact of historical health legacies on contemporary policy may be conditional on the character of the public health risk at hand. Deep cultural norms, determined by historical experiences, may play a minor role most of the time but are activated in times of fundamental uncertainty. • High historic pathogen prevalence (HPP) may trigger strong intuitive disease response. • Countries with high HPP had stronger COVID-19 policy responses in 2020. • The same pattern appeared across U.S. states. • Early on, people in high HPP-countries were more anxious and supportive of curfews. • Historical behavioral norms seem to matter more in times of fundamental uncertainty.",
     "abstract_completeness": "full",
     "abstract_source": "openalex",
