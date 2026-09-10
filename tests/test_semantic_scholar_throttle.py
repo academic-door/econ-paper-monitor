@@ -1,7 +1,7 @@
 """Regression contract for Parent Decision 0015 shared-key pressure and circuit safety.
 
-The conservative keyed probe rate, no-retry mode, and fast-trip thresholds are
-grounded in the 2026-09-10 bounded live calibration recorded on #177.
+The conservative keyed probe rate, no-retry mode, race-safe gate, and fast-trip
+thresholds are grounded in the 2026-09-10 bounded live calibration on #177.
 """
 
 from __future__ import annotations
