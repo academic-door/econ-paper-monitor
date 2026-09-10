@@ -539,6 +539,8 @@ def _semantic_scholar_api_key() -> str:
 
 
 def _semantic_scholar_circuit_open_locked() -> bool:
+    if _SS_RATE_LIMITED_COUNT >= SS_RATE_LIMIT_SKIP_AFTER:
+        return True
     samples = len(_SS_RECENT_OUTCOMES)
     if samples < SS_RATE_LIMIT_MIN_SAMPLES:
         return False
