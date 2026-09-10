@@ -9,11 +9,10 @@ import os
 import re
 import ssl
 import time
-import urllib.error
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -204,8 +203,8 @@ def api_result_record(item: dict[str, Any], journal: dict[str, Any]) -> dict[str
 
     publication_date = parse_iso_date(str(item.get("publicationDate") or ""))
     load_date = parse_iso_date(str(item.get("loadDate") or ""))
-    evidence_date = publication_date or load_date
-    date_source = "sciencedirect_api_publication_date" if publication_date else "sciencedirect_api_load_date"
+    available_online = load_date or publication_date
+    date_source = "sciencedirect_api_load_date" if load_date else "sciencedirect_api_publication_date"
 
     return article_record(
         journal,
@@ -215,10 +214,10 @@ def api_result_record(item: dict[str, Any], journal: dict[str, Any]) -> dict[str
         source_url=SCIENCEDIRECT_API_URL,
         doi=doi,
         authors=authors[:12],
-        published_online=evidence_date,
-        available_online=evidence_date,
+        published_online=publication_date,
+        available_online=available_online,
         date_source=date_source,
-        date_confidence="B" if evidence_date else "F",
+        date_confidence="B" if available_online else "F",
         raw_data={
             "pii": pii or None,
             "sciencedirect_search_route": "official_api_v2",
@@ -411,12 +410,18 @@ def fetch_journal(journal: dict[str, Any], *, days: int, timeout: int, max_items
                 max_items=max_items,
             )
         except Exception as api_exc:  # noqa: BLE001 - preserve current fallback path.
-            records, message = fetch_journal_via_proxy(
-                journal,
-                days=days,
-                timeout=timeout,
-                max_items=max_items,
-            )
+            try:
+                records, message = fetch_journal_via_proxy(
+                    journal,
+                    days=days,
+                    timeout=timeout,
+                    max_items=max_items,
+                )
+            except Exception as proxy_exc:  # noqa: BLE001 - retain both failure layers.
+                raise RuntimeError(
+                    f"official-api={type(api_exc).__name__}: {api_exc}; "
+                    f"readonly-proxy={type(proxy_exc).__name__}: {proxy_exc}"
+                ) from proxy_exc
             return records, f"{message}; api_fallback={type(api_exc).__name__}: {api_exc}"
     return fetch_journal_via_proxy(
         journal,
