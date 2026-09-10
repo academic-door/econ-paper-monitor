@@ -1,0 +1,48 @@
+name: CIE public API surface probe
+on:
+  push:
+    paths:
+      - .github/workflows/_cie-api-surface-probe.yml
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect shell and bounded JS bundles
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, re, sys, urllib.parse
+          from pathlib import Path
+          sys.path.insert(0, str(Path('scripts').resolve()))
+          import fetch_cn_journals as cn
+          page='http://ciejournal.ajcass.com/Magazine/Show?id=123518'
+          html=cn.fetch_text_partial(page, timeout=20, max_bytes=120000)
+          srcs=re.findall(r'<script[^>]+src=["\']([^"\']+)["\']', html, flags=re.I)
+          resolved=[urllib.parse.urljoin(page,s) for s in srcs]
+          out={'script_srcs':resolved,'bundles':[]}
+          for url in resolved[:8]:
+              try:
+                  text=cn.fetch_text_partial(url, timeout=20, max_bytes=800000)
+              except Exception as exc:
+                  out['bundles'].append({'url':url,'error':type(exc).__name__})
+                  continue
+              strings=[]
+              for pat in [r'https?://[^"\'\s]+', r'[A-Za-z0-9_/-]*(?:Magazine|Article|Paper|Content|Abstract|Detail)[A-Za-z0-9_/?=&.-]*']:
+                  for m in re.findall(pat,text,flags=re.I):
+                      if any(k in m.lower() for k in ('api','magazine','article','paper','content','abstract','detail')):
+                          strings.append(m[:300])
+              dedup=[]
+              for s in strings:
+                  if s not in dedup:
+                      dedup.append(s)
+              out['bundles'].append({'url':url,'bytes':len(text.encode('utf-8',errors='ignore')),'signals':dedup[:80]})
+          print('CIE_API_SURFACE '+json.dumps(out,ensure_ascii=False))
+          PY
