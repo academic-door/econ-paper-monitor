@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Probe paginated Article Metadata API with existing credentials
+      - name: Probe Article Metadata load-date discovery with existing credentials
         env:
           ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
           ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
@@ -39,22 +39,13 @@ jobs:
               headers["X-ELS-Insttoken"] = inst_token
 
           base = "https://api.elsevier.com/content/metadata/article"
-          query = "srctitle(Journal of Development Economics) AND pub-date AFT 20260906"
           target_doi = "10.1016/j.jdeveco.2026.103924"
-          target_hit = False
-          seen = 0
-          total = None
 
-          for start in (0, 25, 50):
-              params = urllib.parse.urlencode({
-                  "query": query,
-                  "count": "25",
-                  "start": str(start),
-                  "view": "STANDARD",
-              })
-              request = urllib.request.Request(f"{base}?{params}", headers=headers, method="GET")
+          def request(query, start=0):
+              params = urllib.parse.urlencode({"query": query, "count": "25", "start": str(start), "view": "STANDARD"})
+              req = urllib.request.Request(f"{base}?{params}", headers=headers, method="GET")
               try:
-                  with urllib.request.urlopen(request, timeout=30) as response:
+                  with urllib.request.urlopen(req, timeout=30) as response:
                       payload = json.loads(response.read().decode("utf-8"))
                       rate = {
                           "limit": response.headers.get("X-RateLimit-Limit"),
@@ -63,36 +54,49 @@ jobs:
                       }
               except urllib.error.HTTPError as exc:
                   body = exc.read().decode("utf-8", errors="replace")[:500]
-                  raise SystemExit(
-                      f"page start={start}: HTTP {exc.code} status={exc.headers.get('X-ELS-Status')} body={body}"
-                  ) from exc
-
+                  print(f"QUERY_ERROR query={query} HTTP={exc.code} status={exc.headers.get('X-ELS-Status')} body={body}")
+                  return None, [], None
               search = payload.get("search-results") if isinstance(payload, dict) else None
               if not isinstance(search, dict):
-                  raise SystemExit(f"page start={start}: missing search-results")
+                  print(f"QUERY_ERROR query={query} missing-search-results")
+                  return None, [], rate
               entries = search.get("entry") or []
               if not isinstance(entries, list):
                   entries = []
-              total = search.get("opensearch:totalResults")
-              seen += len(entries)
-              print(f"PAGE start={start} total={total} entries={len(entries)} rate={rate}")
+              return search.get("opensearch:totalResults"), entries, rate
+
+          exact_total, exact_entries, exact_rate = request(f"doi({target_doi})")
+          exact_hit = any(target_doi in str(item.get("prism:doi") or item.get("dc:identifier") or "").casefold() for item in exact_entries if isinstance(item, dict))
+          print(f"EXACT total={exact_total} entries={len(exact_entries)} target_hit={exact_hit} rate={exact_rate}")
+
+          load_query = "srctitle(Journal of Development Economics) AND orig-load-date AFT 20260906"
+          load_hit = False
+          load_seen = 0
+          load_total = None
+          for start in (0, 25, 50, 75):
+              total, entries, rate = request(load_query, start)
+              if total is None:
+                  break
+              load_total = total
+              load_seen += len(entries)
+              print(f"LOAD_PAGE start={start} total={total} entries={len(entries)} rate={rate}")
               for item in entries:
                   if not isinstance(item, dict):
                       continue
                   doi = str(item.get("prism:doi") or item.get("dc:identifier") or "")
                   if target_doi in doi.casefold():
-                      target_hit = True
+                      load_hit = True
                       pii = str(item.get("pii") or "")
                       title = str(item.get("dc:title") or "")[:200]
                       cover = str(item.get("prism:coverDate") or "")
-                      source = str(item.get("prism:publicationName") or "")
-                      print(
-                          f"TARGET_HIT start={start} doi={target_doi} pii={pii} cover={cover} source={source} title={title}"
-                      )
+                      load_date = str(item.get("load-date") or "")
+                      print(f"LOAD_TARGET_HIT start={start} doi={target_doi} pii={pii} cover={cover} load_date={load_date} title={title}")
               if len(entries) < 25:
                   break
 
-          print(f"RESULT seen={seen} total={total} target_hit={target_hit}")
-          if not target_hit:
-              raise SystemExit("Target JDE DOI not found across recent Article Metadata pages")
+          print(f"RESULT exact_hit={exact_hit} load_total={load_total} load_seen={load_seen} load_hit={load_hit}")
+          if not exact_hit:
+              raise SystemExit("Target DOI is not searchable in Article Metadata API")
+          if not load_hit:
+              raise SystemExit("Target DOI is searchable exactly but not discoverable by orig-load-date query")
           PY
