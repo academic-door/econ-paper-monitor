@@ -1,0 +1,55 @@
+name: S2 fast-trip live check v3
+on:
+  push:
+    paths:
+      - .github/workflows/_s2-fast-trip-livecheck-v3.yml
+permissions:
+  contents: read
+jobs:
+  livecheck:
+    runs-on: ubuntu-latest
+    env:
+      S2_API_KEY: ${{ secrets.S2_API_KEY }}
+      SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run bounded recent metadata recovery dry-run
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('scripts').resolve()))
+          import recover_metadata_batch as rmb
+
+          report = rmb.run_recovery(
+              data_dir=Path('data'),
+              limit=12,
+              recent_days=30,
+              timeout=15,
+              workers=4,
+              dry_run=True,
+          )
+          health = report.get('provider_health', {}).get('semantic-scholar', {})
+          control = health.get('control', {}) or {}
+          safe = {
+              'candidates': report.get('candidates'),
+              'attempts': health.get('attempts'),
+              'available': health.get('available'),
+              'statuses': health.get('statuses'),
+              'rate_limited': health.get('rate_limited'),
+              'skipped': health.get('skipped'),
+              'failed': health.get('failed'),
+              'control': control,
+          }
+          print('S2_FAST_TRIP_LIVECHECK_V3 ' + json.dumps(safe, sort_keys=True))
+          assert control.get('client_target_rps') == 0.2, safe
+          assert control.get('fast_trip_after_consecutive_rate_limits') == 2, safe
+          assert control.get('fast_trip_terminal_rate_limit_budget') == 4, safe
+          assert control.get('keyed_max_retries') == 0, safe
+          assert float(control.get('min_interval_seconds') or 0) >= 5.0, safe
+          assert int(control.get('recent_rate_limited') or 0) <= 4, safe
+          assert int(control.get('rate_limited_count') or 0) <= 4, safe
+          PY
