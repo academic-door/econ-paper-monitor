@@ -1,33 +1,40 @@
 {
-  "already_seen_candidates": 2068,
-  "covered_candidates": 91,
+  "already_seen_candidates": 490,
+  "covered_candidates": 8,
   "daily_by_source": {
     "aea_toc": 4,
     "cn_journals": 6,
-    "cnki-rss": 3,
+    "cnki-rss": 4,
     "crossref": 48,
     "rss": 2,
     "working_papers": 20
   },
-  "daily_records": 83,
+  "daily_records": 84,
   "dates": [
     "2026-09-10",
     "2026-09-09",
     "2026-09-08"
   ],
-  "eligible_missing_candidates": 0,
-  "missing_by_source": [],
-  "other_archive_date_candidates": 2,
+  "eligible_missing_candidates": 6,
+  "missing_by_source": [
+    {
+      "count": 6,
+      "examples": [
+        "数量经济技术经济研究: 重复截面数据下的计量分析工具——拟事件研究法的理论逻辑与中国实践",
+        "数量经济技术经济研究: 中国企业标准国际化与供应链出海",
+        "数量经济技术经济研究: 新型灵活就业如何影响家庭收入流动？——来自网络招聘大数据的分析",
+        "数量经济技术经济研究: 双重差分模型下政策异质性效应的识别和估计",
+        "数量经济技术经济研究: 人工智能技术前沿与中国企业创新"
+      ],
+      "reason": "raw candidate was not seen before and should belong to the recent 72-hour window, but is absent from public daily files",
+      "source": "数量经济技术经济研究"
+    }
+  ],
+  "other_archive_date_candidates": 0,
   "raw_by_source": {
-    "aea_toc": 243,
-    "cn_journals": 133,
-    "crossref": 366,
-    "openalex_recall": 75,
-    "priority_crossref_fallback": 124,
-    "priority_toc": 97,
-    "rss": 1136,
-    "working_papers": 60
+    "cnki-rss": 297,
+    "rss": 225
   },
-  "raw_candidates": 2234,
-  "suppressed_candidates": 73
+  "raw_candidates": 522,
+  "suppressed_candidates": 18
 }
