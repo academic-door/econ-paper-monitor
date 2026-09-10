@@ -24,6 +24,18 @@ from status import record_source
 
 SEARCH_BASE = "https://r.jina.ai/http://www.sciencedirect.com/search"
 SCIENCEDIRECT_API_URL = "https://api.elsevier.com/content/search/sciencedirect"
+ELSEVIER_SEARCH_PROVIDER_RPS = 2.0
+ELSEVIER_SEARCH_CLIENT_TARGET_RPS = 1.6
+ELSEVIER_SEARCH_MIN_INTERVAL_SECONDS = 1.0 / ELSEVIER_SEARCH_CLIENT_TARGET_RPS
+_ELSEVIER_SEARCH_TELEMETRY: dict[str, Any] = {
+    "quota_limit": None,
+    "quota_remaining_min": None,
+    "quota_reset": None,
+    "last_x_els_status": None,
+    "last_retry_after": None,
+    "quota_exceeded_429": 0,
+    "throttled_429": 0,
+}
 BROWSER_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126 Safari/537.36",
     "Accept": "text/plain,text/markdown;q=0.9,*/*;q=0.8",
@@ -149,6 +161,63 @@ def _header_value(headers: Any, name: str) -> str | None:
     return str(value).strip() if value not in (None, "") else None
 
 
+def reset_elsevier_search_telemetry() -> None:
+    _ELSEVIER_SEARCH_TELEMETRY.update(
+        {
+            "quota_limit": None,
+            "quota_remaining_min": None,
+            "quota_reset": None,
+            "last_x_els_status": None,
+            "last_retry_after": None,
+            "quota_exceeded_429": 0,
+            "throttled_429": 0,
+        }
+    )
+
+
+def _record_elsevier_search_rate(headers: Any, *, status_code: int | None = None) -> None:
+    limit = _header_value(headers, "X-RateLimit-Limit")
+    remaining = _header_value(headers, "X-RateLimit-Remaining")
+    reset = _header_value(headers, "X-RateLimit-Reset")
+    els_status = _header_value(headers, "X-ELS-Status")
+    retry_after = _header_value(headers, "Retry-After")
+    if limit is not None:
+        _ELSEVIER_SEARCH_TELEMETRY["quota_limit"] = limit
+    if remaining is not None:
+        try:
+            numeric = int(remaining)
+        except ValueError:
+            numeric = None
+        if numeric is not None:
+            current = _ELSEVIER_SEARCH_TELEMETRY.get("quota_remaining_min")
+            if current is None or numeric < int(current):
+                _ELSEVIER_SEARCH_TELEMETRY["quota_remaining_min"] = numeric
+    if reset is not None:
+        _ELSEVIER_SEARCH_TELEMETRY["quota_reset"] = reset
+    if els_status is not None:
+        _ELSEVIER_SEARCH_TELEMETRY["last_x_els_status"] = els_status
+    if retry_after is not None:
+        _ELSEVIER_SEARCH_TELEMETRY["last_retry_after"] = retry_after
+    if status_code == 429:
+        if (els_status or "").upper() == "QUOTA_EXCEEDED":
+            _ELSEVIER_SEARCH_TELEMETRY["quota_exceeded_429"] += 1
+        else:
+            _ELSEVIER_SEARCH_TELEMETRY["throttled_429"] += 1
+
+
+def elsevier_search_telemetry() -> dict[str, Any]:
+    return {
+        "provider": "elsevier",
+        "endpoint_class": "sciencedirect_search_v2",
+        "workload_class": "early_discovery",
+        "route": "official_api_v2_put_title_wildcard",
+        "provider_rate_limit_rps": ELSEVIER_SEARCH_PROVIDER_RPS,
+        "client_target_rps": ELSEVIER_SEARCH_CLIENT_TARGET_RPS,
+        "min_interval_seconds": ELSEVIER_SEARCH_MIN_INTERVAL_SECONDS,
+        **dict(_ELSEVIER_SEARCH_TELEMETRY),
+    }
+
+
 def describe_http_error(exc: urllib.error.HTTPError) -> str:
     parts = [f"HTTP {exc.code} {exc.reason}"]
     for name in ("X-ELS-Status", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset", "Retry-After"):
@@ -188,6 +257,7 @@ def fetch_sciencedirect_api(
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 response_payload = json.loads(response.read().decode("utf-8"))
+                _record_elsevier_search_rate(response.headers)
             if not isinstance(response_payload, dict):
                 raise ValueError("sciencedirect-api-invalid-response")
             results = response_payload.get("results")
@@ -196,6 +266,7 @@ def fetch_sciencedirect_api(
                 raise ValueError(f"sciencedirect-api-invalid-results{': ' + message if message else ''}")
             return [item for item in results if isinstance(item, dict)], SCIENCEDIRECT_API_URL
         except urllib.error.HTTPError as exc:
+            _record_elsevier_search_rate(exc.headers, status_code=exc.code)
             last_error = RuntimeError(describe_http_error(exc))
             quota_exceeded = (_header_value(exc.headers, "X-ELS-Status") or "").upper() == "QUOTA_EXCEEDED"
             if exc.code == 429 and attempt == 0 and not quota_exceeded:
@@ -480,10 +551,21 @@ def run_journal(
 def build_status_message(journal_count: int, failures: int, messages: list[str]) -> str:
     jina_key = os.environ.get("JINA_API_KEY") or ""
     elsevier_key = os.environ.get("ELSEVIER_API_KEY") or ""
+    control = elsevier_search_telemetry()
     return (
         f"journals={journal_count} failures={failures} "
         f"elsevier_api_key={'on' if elsevier_key else 'off'} "
-        f"jina_key={'on' if jina_key else 'off'}; " + "; ".join(messages[-12:])
+        f"jina_key={'on' if jina_key else 'off'} "
+        f"endpoint={control['endpoint_class']} route={control['route']} "
+        f"provider_rps={control['provider_rate_limit_rps']} "
+        f"client_target_rps={control['client_target_rps']} "
+        f"min_interval_seconds={control['min_interval_seconds']:.3f} "
+        f"quota_limit={control.get('quota_limit') or 'unknown'} "
+        f"quota_remaining_min={control.get('quota_remaining_min') if control.get('quota_remaining_min') is not None else 'unknown'} "
+        f"quota_reset={control.get('quota_reset') or 'unknown'} "
+        f"quota_exceeded_429={control.get('quota_exceeded_429', 0)} "
+        f"throttled_429={control.get('throttled_429', 0)}; "
+        + "; ".join(messages[-12:])
     )
 
 
@@ -523,7 +605,7 @@ def main() -> None:
             messages.append(message)
             failures += int(error is not None)
             if os.environ.get("ELSEVIER_API_KEY"):
-                time.sleep(0.25)
+                time.sleep(ELSEVIER_SEARCH_MIN_INTERVAL_SECONDS)
 
     unique: dict[str, dict[str, Any]] = {}
     for record in records:
