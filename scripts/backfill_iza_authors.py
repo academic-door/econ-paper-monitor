@@ -25,6 +25,33 @@ def target_dates(days: int) -> set[str]:
     return {(today - timedelta(days=offset)).isoformat() for offset in range(max(days, 1))}
 
 
+def queued_oecd_targets() -> dict[str, set[str]]:
+    """Return retry-queued OECD identities keyed by their original Daily bucket."""
+    payload = read_json(DATA_DIR / "metadata_retry_queue.json", {"records": []})
+    records = payload.get("records") if isinstance(payload, dict) else []
+    targets: dict[str, set[str]] = {}
+    if not isinstance(records, list):
+        return targets
+
+    for entry in records:
+        if not isinstance(entry, dict):
+            continue
+        if str(entry.get("source_id") or "") != "oecd-working-papers":
+            continue
+        if bool(entry.get("historical_backfill")):
+            continue
+        identity = str(entry.get("identity") or "").strip().casefold()
+        first_seen = str(entry.get("first_seen") or "")
+        if not identity or len(first_seen) < 10:
+            continue
+        try:
+            bucket = date.fromisoformat(first_seen[:10]).isoformat()
+        except ValueError:
+            continue
+        targets.setdefault(bucket, set()).add(identity)
+    return targets
+
+
 def canonical_detail_url(source_id: str, url: str) -> str:
     """Canonicalize known legacy detail paths; leave unrelated URLs untouched."""
     parsed = urlparse(url)
@@ -116,6 +143,7 @@ def main() -> None:
         return
 
     wanted = target_dates(args.days)
+    queued_oecd = queued_oecd_targets()
     changed_files = 0
     checked = 0
     enriched = 0
@@ -127,7 +155,9 @@ def main() -> None:
     seen_changed = False
 
     for path in sorted(args.daily_dir.glob("*.json"), reverse=True):
-        if path.stem not in wanted or checked >= args.limit:
+        is_recent = path.stem in wanted
+        queued_identities = queued_oecd.get(path.stem, set())
+        if (not is_recent and not queued_identities) or checked >= args.limit:
             continue
         payload = read_json(path, [])
         if not isinstance(payload, list):
@@ -140,6 +170,10 @@ def main() -> None:
             source = sources.get(source_id)
             if source is None or record.get("authors") or not record.get("url"):
                 continue
+            if not is_recent:
+                identity = f"url:{str(record.get('url') or '').casefold()}"
+                if source_id != "oecd-working-papers" or identity not in queued_identities:
+                    continue
 
             checked += 1
             per_source_checked[source_id] += 1
