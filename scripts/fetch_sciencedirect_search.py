@@ -22,6 +22,7 @@ from status import record_source
 
 
 SEARCH_BASE = "https://r.jina.ai/http://www.sciencedirect.com/search"
+SCIENCEDIRECT_API_URL = "https://api.elsevier.com/content/search/sciencedirect"
 BROWSER_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126 Safari/537.36",
     "Accept": "text/plain,text/markdown;q=0.9,*/*;q=0.8",
@@ -76,6 +77,19 @@ def parse_online_date(value: str | None) -> str | None:
     return f"{int(match.group(3)):04d}-{month:02d}-{int(match.group(1)):02d}"
 
 
+def parse_iso_date(value: str | None) -> str | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    match = re.match(r"^(20\d{2}-\d{2}-\d{2})", text)
+    if not match:
+        return None
+    try:
+        return date.fromisoformat(match.group(1)).isoformat()
+    except ValueError:
+        return None
+
+
 def fetch_text(url: str, timeout: int) -> str:
     headers = dict(BROWSER_HEADERS)
     jina_key = os.environ.get("JINA_API_KEY") or ""
@@ -100,6 +114,146 @@ def fetch_text(url: str, timeout: int) -> str:
     if last_error is not None:
         raise last_error
     raise RuntimeError("ScienceDirect search fetch returned no response")
+
+
+def elsevier_api_headers() -> dict[str, str]:
+    api_key = os.environ.get("ELSEVIER_API_KEY") or ""
+    if not api_key:
+        raise RuntimeError("sciencedirect-api-key-missing")
+    headers = {
+        "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "X-ELS-APIKey": api_key,
+    }
+    inst_token = os.environ.get("ELSEVIER_INST_TOKEN") or ""
+    if inst_token:
+        headers["X-ELS-Insttoken"] = inst_token
+    return headers
+
+
+def api_show_limit(max_items: int) -> int:
+    requested = max(1, int(max_items or 1))
+    for candidate in (10, 25, 50, 100):
+        if requested <= candidate:
+            return candidate
+    return 100
+
+
+def sciencedirect_api_payload(journal: dict[str, Any], *, days: int, max_items: int) -> dict[str, Any]:
+    cutoff = date.fromisoformat(today_str()) - timedelta(days=max(1, days) - 1)
+    return {
+        "pub": str(journal["title"]),
+        "loadedAfter": f"{cutoff.isoformat()}T00:00:00Z",
+        "display": {
+            "offset": 0,
+            "show": api_show_limit(max_items),
+            "sortBy": "date",
+        },
+    }
+
+
+def fetch_sciencedirect_api(journal: dict[str, Any], *, days: int, timeout: int, max_items: int) -> list[dict[str, Any]]:
+    body = json.dumps(
+        sciencedirect_api_payload(journal, days=days, max_items=max_items),
+        ensure_ascii=False,
+    ).encode("utf-8")
+    request = urllib.request.Request(
+        SCIENCEDIRECT_API_URL,
+        data=body,
+        headers=elsevier_api_headers(),
+        method="PUT",
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("sciencedirect-api-invalid-response")
+    results = payload.get("results")
+    if not isinstance(results, list):
+        message = clean_markdown(payload.get("message"))
+        raise ValueError(f"sciencedirect-api-invalid-results{': ' + message if message else ''}")
+    return [item for item in results if isinstance(item, dict)]
+
+
+def api_result_record(item: dict[str, Any], journal: dict[str, Any]) -> dict[str, Any] | None:
+    source_title = clean_markdown(item.get("sourceTitle"))
+    if source_title and normalized_name(source_title) != normalized_name(str(journal.get("title") or "")):
+        return None
+
+    pii = clean_markdown(item.get("pii")).upper()
+    doi = clean_markdown(item.get("doi")).casefold() or None
+    title = clean_markdown(item.get("title"))
+    if not title or (not pii and not doi):
+        return None
+
+    uri = str(item.get("uri") or "").strip()
+    if not uri and pii:
+        uri = f"https://www.sciencedirect.com/science/article/pii/{pii}"
+    if uri.startswith("http://"):
+        uri = "https://" + uri[len("http://"):]
+
+    authors: list[str] = []
+    for entry in item.get("authors") or []:
+        if isinstance(entry, dict):
+            author = clean_markdown(entry.get("name"))
+        else:
+            author = clean_markdown(entry)
+        if author and author not in authors:
+            authors.append(author)
+
+    publication_date = parse_iso_date(str(item.get("publicationDate") or ""))
+    load_date = parse_iso_date(str(item.get("loadDate") or ""))
+    available_online = load_date or publication_date
+    date_source = "sciencedirect_api_load_date" if load_date else "sciencedirect_api_publication_date"
+
+    return article_record(
+        journal,
+        title=title,
+        url=uri or None,
+        source="sciencedirect_search",
+        source_url=SCIENCEDIRECT_API_URL,
+        doi=doi,
+        authors=authors[:12],
+        published_online=publication_date,
+        available_online=available_online,
+        date_source=date_source,
+        date_confidence="B" if available_online else "F",
+        raw_data={
+            "pii": pii or None,
+            "sciencedirect_search_route": "official_api_v2",
+            "sciencedirect_search_journal": journal["title"],
+            "sciencedirect_search_issn": journal.get("issn"),
+            "sciencedirect_api_publication_date": publication_date,
+            "sciencedirect_api_load_date": str(item.get("loadDate") or "").strip() or None,
+        },
+    )
+
+
+def fetch_journal_via_api(
+    journal: dict[str, Any],
+    *,
+    days: int,
+    timeout: int,
+    max_items: int,
+) -> tuple[list[dict[str, Any]], str]:
+    raw = fetch_sciencedirect_api(journal, days=days, timeout=timeout, max_items=max_items)
+    records: list[dict[str, Any]] = []
+    cutoff = date.fromisoformat(today_str()) - timedelta(days=max(1, days) - 1)
+    for item in raw:
+        load_date = parse_iso_date(str(item.get("loadDate") or ""))
+        if load_date:
+            try:
+                if date.fromisoformat(load_date) < cutoff:
+                    continue
+            except ValueError:
+                continue
+        record = api_result_record(item, journal)
+        if record is None:
+            continue
+        records.append(record)
+        if len(records) >= max_items:
+            break
+    return records, f"{journal['title']}: {len(records)} via official-api-v2"
 
 
 def parse_search_results(markdown: str, journal: dict[str, Any]) -> list[dict[str, Any]]:
@@ -149,13 +303,17 @@ def parse_search_results(markdown: str, journal: dict[str, Any]) -> list[dict[st
 
 def elsevier_core_metadata(pii: str, timeout: int) -> dict[str, str]:
     url = f"https://api.elsevier.com/content/article/pii/{urllib.parse.quote(pii)}?httpAccept=application%2Fjson"
-    request = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
-            "Accept": "application/json",
-        },
-    )
+    headers = {
+        "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
+        "Accept": "application/json",
+    }
+    api_key = os.environ.get("ELSEVIER_API_KEY") or ""
+    if api_key:
+        headers["X-ELS-APIKey"] = api_key
+    inst_token = os.environ.get("ELSEVIER_INST_TOKEN") or ""
+    if inst_token:
+        headers["X-ELS-Insttoken"] = inst_token
+    request = urllib.request.Request(url, headers=headers)
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             payload = json.loads(response.read().decode("utf-8"))
@@ -188,7 +346,13 @@ def target_journals(journals: list[dict[str, Any]], only: set[str]) -> list[dict
     return targets
 
 
-def fetch_journal(journal: dict[str, Any], *, days: int, timeout: int, max_items: int) -> tuple[list[dict[str, Any]], str]:
+def fetch_journal_via_proxy(
+    journal: dict[str, Any],
+    *,
+    days: int,
+    timeout: int,
+    max_items: int,
+) -> tuple[list[dict[str, Any]], str]:
     query = urllib.parse.urlencode({"pub": journal["title"], "show": "100", "sortBy": "date"})
     source_url = f"{SEARCH_BASE}?{query}"
     markdown = fetch_text(source_url, timeout)
@@ -225,6 +389,7 @@ def fetch_journal(journal: dict[str, Any], *, days: int, timeout: int, max_items
                 date_confidence="B",
                 raw_data={
                     "pii": item["pii"],
+                    "sciencedirect_search_route": "readonly_proxy",
                     "sciencedirect_search_journal": journal["title"],
                     "sciencedirect_search_issn": journal.get("issn"),
                 },
@@ -232,7 +397,38 @@ def fetch_journal(journal: dict[str, Any], *, days: int, timeout: int, max_items
         )
         if len(records) >= max_items:
             break
-    return records, f"{journal['title']}: {len(records)}"
+    return records, f"{journal['title']}: {len(records)} via readonly-proxy"
+
+
+def fetch_journal(journal: dict[str, Any], *, days: int, timeout: int, max_items: int) -> tuple[list[dict[str, Any]], str]:
+    if os.environ.get("ELSEVIER_API_KEY"):
+        try:
+            return fetch_journal_via_api(
+                journal,
+                days=days,
+                timeout=timeout,
+                max_items=max_items,
+            )
+        except Exception as api_exc:  # noqa: BLE001 - preserve current fallback path.
+            try:
+                records, message = fetch_journal_via_proxy(
+                    journal,
+                    days=days,
+                    timeout=timeout,
+                    max_items=max_items,
+                )
+            except Exception as proxy_exc:  # noqa: BLE001 - retain both failure layers.
+                raise RuntimeError(
+                    f"official-api={type(api_exc).__name__}: {api_exc}; "
+                    f"readonly-proxy={type(proxy_exc).__name__}: {proxy_exc}"
+                ) from proxy_exc
+            return records, f"{message}; api_fallback={type(api_exc).__name__}: {api_exc}"
+    return fetch_journal_via_proxy(
+        journal,
+        days=days,
+        timeout=timeout,
+        max_items=max_items,
+    )
 
 
 def run_journal(
@@ -256,10 +452,12 @@ def run_journal(
 
 
 def build_status_message(journal_count: int, failures: int, messages: list[str]) -> str:
-    """Compose the source-health status message with the JINA key state."""
+    """Compose source-health status with current official-API and proxy capability."""
     jina_key = os.environ.get("JINA_API_KEY") or ""
+    elsevier_key = os.environ.get("ELSEVIER_API_KEY") or ""
     return (
         f"journals={journal_count} failures={failures} "
+        f"elsevier_api_key={'on' if elsevier_key else 'off'} "
         f"jina_key={'on' if jina_key else 'off'}; " + "; ".join(messages[-12:])
     )
 
