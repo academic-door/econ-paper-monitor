@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   patch:
-    if: github.event.head_commit.message == 'chore: apply bounded #176 patch via branch executor'
+    if: ${{ github.event.head_commit.message == 'chore: arm bounded T&F patch executor' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
