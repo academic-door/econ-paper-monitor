@@ -50,10 +50,10 @@ class TaylorFrancisAbstractRecoveryTests(unittest.TestCase):
 
         self.assertNotIn("abstract", metadata)
 
-    def test_citation_abstract_remains_authoritative_even_if_it_contains_ellipsis(self) -> None:
+    def test_citation_abstract_remains_authoritative_even_if_it_ends_with_ellipsis(self) -> None:
         abstract = (
             "This citation abstract is an authoritative publisher abstract field and is intentionally long "
-            "enough to remain accepted even when its prose legitimately contains an ellipsis ... at the end."
+            "enough to remain accepted even when the publisher-supplied abstract itself ends with an ellipsis..."
         )
         html = f'<html><head><meta name="citation_abstract" content="{abstract}"></head><body></body></html>'
 
