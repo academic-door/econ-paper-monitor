@@ -16,7 +16,7 @@ import threading
 import time
 import urllib.parse
 import urllib.request
-from collections import Counter
+from collections import Counter, deque
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, date, timedelta, timezone
 from pathlib import Path
@@ -73,11 +73,21 @@ DATE_CAPTURE = (
 )
 
 SS_MIN_INTERVAL_SECONDS = 0.25
-SS_KEY_MIN_INTERVAL_SECONDS = 1.0  # Semantic Scholar API-key tier: 1 request per second
-SS_RATE_LIMIT_SKIP_AFTER = 20
+SS_PROVIDER_KEY_LIMIT_RPS = 1.0
+SS_CLIENT_TARGET_RPS = 0.8
+# Parent Decision 0015 caps automated keyed clients at <=80% of the
+# provider-published 1 RPS introductory limit.
+SS_KEY_MIN_INTERVAL_SECONDS = 1.0 / SS_CLIENT_TARGET_RPS
+SS_RATE_LIMIT_SKIP_AFTER = 20  # backward-compatible absolute pressure telemetry
+SS_RATE_LIMIT_WINDOW = 20
+SS_RATE_LIMIT_MIN_SAMPLES = 10
+SS_RATE_LIMIT_OPEN_RATIO = 0.30
+SS_MAX_RETRY_BACKOFF_SECONDS = 30.0
 _SS_LOCK = threading.Lock()
 _SS_LAST_REQUEST = 0.0
 _SS_RATE_LIMITED_COUNT = 0
+_SS_RECENT_OUTCOMES: deque[str] = deque(maxlen=SS_RATE_LIMIT_WINDOW)
+_SS_LAST_RETRY_AFTER_SECONDS = 0.0
 
 
 def clean_text(value: str) -> str:
@@ -510,23 +520,13 @@ def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
 
 
 def reset_semantic_scholar_throttle() -> None:
-    """Reset Semantic Scholar throttle state (tests and targeted retries)."""
-    global _SS_LAST_REQUEST, _SS_RATE_LIMITED_COUNT
+    """Reset process-local Semantic Scholar pacing/circuit state."""
+    global _SS_LAST_REQUEST, _SS_RATE_LIMITED_COUNT, _SS_LAST_RETRY_AFTER_SECONDS
     with _SS_LOCK:
         _SS_LAST_REQUEST = 0.0
         _SS_RATE_LIMITED_COUNT = 0
-
-
-def semantic_scholar_throttle_state() -> dict[str, Any]:
-    with _SS_LOCK:
-        return {
-            "key_configured": bool(_semantic_scholar_api_key()),
-            "min_interval_seconds": (
-                SS_KEY_MIN_INTERVAL_SECONDS if _semantic_scholar_api_key() else SS_MIN_INTERVAL_SECONDS
-            ),
-            "rate_limited_count": _SS_RATE_LIMITED_COUNT,
-            "skip_after": SS_RATE_LIMIT_SKIP_AFTER,
-        }
+        _SS_RECENT_OUTCOMES.clear()
+        _SS_LAST_RETRY_AFTER_SECONDS = 0.0
 
 
 def _semantic_scholar_api_key() -> str:
@@ -538,11 +538,51 @@ def _semantic_scholar_api_key() -> str:
     ).strip()
 
 
-def _semantic_scholar_gate() -> bool:
-    """Return True when a request may proceed; False when the burst is skipped."""
+def _semantic_scholar_circuit_open_locked() -> bool:
+    if _SS_RATE_LIMITED_COUNT >= SS_RATE_LIMIT_SKIP_AFTER:
+        return True
+    samples = len(_SS_RECENT_OUTCOMES)
+    if samples < SS_RATE_LIMIT_MIN_SAMPLES:
+        return False
+    limited = sum(1 for outcome in _SS_RECENT_OUTCOMES if outcome == "rate_limited")
+    return (limited / samples) >= SS_RATE_LIMIT_OPEN_RATIO
+
+
+def semantic_scholar_throttle_state() -> dict[str, Any]:
+    """Return non-secret owner-local control telemetry for the shared S2 key."""
+    with _SS_LOCK:
+        key_configured = bool(_semantic_scholar_api_key())
+        samples = len(_SS_RECENT_OUTCOMES)
+        recent_limited = sum(
+            1 for outcome in _SS_RECENT_OUTCOMES if outcome == "rate_limited"
+        )
+        return {
+            "provider": "semantic-scholar",
+            "endpoint_class": "academic_graph_paper_details",
+            "workload_class": "metadata_recovery",
+            "key_configured": key_configured,
+            "provider_rate_limit_rps": SS_PROVIDER_KEY_LIMIT_RPS if key_configured else None,
+            "client_target_rps": SS_CLIENT_TARGET_RPS if key_configured else None,
+            "min_interval_seconds": (
+                SS_KEY_MIN_INTERVAL_SECONDS if key_configured else SS_MIN_INTERVAL_SECONDS
+            ),
+            "configured_concurrency": "shared_global_start_gate",
+            "rate_limited_count": _SS_RATE_LIMITED_COUNT,
+            "skip_after": SS_RATE_LIMIT_SKIP_AFTER,
+            "recent_window": SS_RATE_LIMIT_WINDOW,
+            "recent_attempts": samples,
+            "recent_rate_limited": recent_limited,
+            "recent_rate_limited_ratio": round(recent_limited / samples, 4) if samples else 0.0,
+            "circuit_open": _semantic_scholar_circuit_open_locked(),
+            "last_retry_after_seconds": _SS_LAST_RETRY_AFTER_SECONDS or None,
+        }
+
+
+def _semantic_scholar_gate(*, allow_when_tripped: bool = False) -> bool:
+    """Re-enter pacing before every attempt; only new DOI calls honor an open circuit."""
     global _SS_LAST_REQUEST
     with _SS_LOCK:
-        if _SS_RATE_LIMITED_COUNT >= SS_RATE_LIMIT_SKIP_AFTER:
+        if not allow_when_tripped and _semantic_scholar_circuit_open_locked():
             return False
         interval = (
             SS_KEY_MIN_INTERVAL_SECONDS if _semantic_scholar_api_key() else SS_MIN_INTERVAL_SECONDS
@@ -555,41 +595,121 @@ def _semantic_scholar_gate() -> bool:
     return True
 
 
-def _record_semantic_scholar_throttle() -> None:
-    global _SS_RATE_LIMITED_COUNT
+def _semantic_scholar_retry_after(headers: Any) -> float:
+    value = headers.get("Retry-After") if headers else None
+    try:
+        return max(0.0, float(str(value or "").strip()))
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def _record_semantic_scholar_outcome(
+    outcome: str,
+    *,
+    retry_after: float = 0.0,
+    terminal_rate_limit: bool = True,
+) -> None:
+    """Record attempt-level pressure; absolute count tracks exhausted DOI calls."""
+    global _SS_RATE_LIMITED_COUNT, _SS_LAST_RETRY_AFTER_SECONDS
     with _SS_LOCK:
-        _SS_RATE_LIMITED_COUNT += 1
+        _SS_RECENT_OUTCOMES.append(outcome)
+        if outcome == "rate_limited" and terminal_rate_limit:
+            _SS_RATE_LIMITED_COUNT += 1
+        if retry_after > 0:
+            _SS_LAST_RETRY_AFTER_SECONDS = retry_after
+
+
+def _record_semantic_scholar_throttle() -> None:
+    """Backward-compatible helper used by focused tests."""
+    _record_semantic_scholar_outcome("rate_limited")
 
 
 def _reset_semantic_scholar_throttle_burst() -> None:
-    global _SS_RATE_LIMITED_COUNT
-    with _SS_LOCK:
-        _SS_RATE_LIMITED_COUNT = 0
+    """Compatibility no-op: one success must not erase recent throttle pressure."""
+    return None
 
 
 def semantic_scholar_doi_metadata(doi: str, timeout: int, *, retries: int = 2) -> dict[str, Any]:
     fields = urllib.parse.urlencode({"fields": "abstract,authors,publicationDate,externalIds"})
     api_key = _semantic_scholar_api_key()
     headers = {"x-api-key": api_key} if api_key else {}
-    if not _semantic_scholar_gate():
-        return {"_status": "skipped_rate_limited", "_provider": "semantic-scholar"}
-    try:
-        payload = fetch_json_retry(
-            f"https://api.semanticscholar.org/graph/v1/paper/DOI:{urllib.parse.quote(doi)}?{fields}",
-            timeout=timeout,
-            retries=retries,
-            headers=headers,
-        )
-        _reset_semantic_scholar_throttle_burst()
-    except urllib.error.HTTPError as exc:
-        if exc.code == 404:
-            return {"_status": "not_found", "_provider": "semantic-scholar"}
-        if exc.code in {429, 500, 502, 503, 504}:
-            _record_semantic_scholar_throttle()
-            return {"_status": "rate_limited", "_status_code": exc.code, "_provider": "semantic-scholar"}
-        return {"_status": "http_error", "_status_code": exc.code, "_provider": "semantic-scholar"}
-    except Exception as exc:  # noqa: BLE001
-        return {"_status": "error", "_error": f"{type(exc).__name__}: {exc}", "_provider": "semantic-scholar"}
+    url = (
+        f"https://api.semanticscholar.org/graph/v1/paper/"
+        f"DOI:{urllib.parse.quote(doi)}?{fields}"
+    )
+    attempts = max(0, retries) + 1
+    payload: dict[str, Any] = {}
+    for attempt in range(attempts):
+        if not _semantic_scholar_gate(allow_when_tripped=attempt > 0):
+            return {
+                "_status": "skipped_rate_limited",
+                "_provider": "semantic-scholar",
+                "_circuit_open": True,
+            }
+        try:
+            payload = fetch_json_retry(
+                url,
+                timeout=timeout,
+                retries=0,
+                headers=headers,
+            )
+            _record_semantic_scholar_outcome("success")
+            break
+        except urllib.error.HTTPError as exc:
+            if exc.code == 404:
+                _record_semantic_scholar_outcome("not_found")
+                return {"_status": "not_found", "_provider": "semantic-scholar"}
+            if exc.code == 429:
+                retry_after = _semantic_scholar_retry_after(exc.headers)
+                exhausted = attempt + 1 >= attempts
+                _record_semantic_scholar_outcome(
+                    "rate_limited",
+                    retry_after=retry_after,
+                    terminal_rate_limit=exhausted,
+                )
+                if exhausted:
+                    return {
+                        "_status": "rate_limited",
+                        "_status_code": exc.code,
+                        "_provider": "semantic-scholar",
+                        "_retry_after_seconds": retry_after or None,
+                    }
+                wait = max(1.5 * (2**attempt), retry_after)
+                time.sleep(min(wait, SS_MAX_RETRY_BACKOFF_SECONDS))
+                continue
+            if exc.code in {500, 502, 503, 504}:
+                _record_semantic_scholar_outcome("provider_error")
+                if attempt + 1 < attempts:
+                    time.sleep(min(1.5 * (2**attempt), SS_MAX_RETRY_BACKOFF_SECONDS))
+                    continue
+                return {
+                    "_status": "provider_error",
+                    "_status_code": exc.code,
+                    "_provider": "semantic-scholar",
+                }
+            _record_semantic_scholar_outcome("http_error")
+            return {
+                "_status": "http_error",
+                "_status_code": exc.code,
+                "_provider": "semantic-scholar",
+            }
+        except urllib.error.URLError as exc:
+            _record_semantic_scholar_outcome("network_error")
+            if attempt + 1 < attempts:
+                time.sleep(min(1.5 * (2**attempt), SS_MAX_RETRY_BACKOFF_SECONDS))
+                continue
+            return {
+                "_status": "error",
+                "_error": f"{type(exc).__name__}: {exc}",
+                "_provider": "semantic-scholar",
+            }
+        except Exception as exc:  # noqa: BLE001
+            _record_semantic_scholar_outcome("error")
+            return {
+                "_status": "error",
+                "_error": f"{type(exc).__name__}: {exc}",
+                "_provider": "semantic-scholar",
+            }
     result: dict[str, Any] = {}
     abstract = clean_abstract_text(payload.get("abstract"))
     if len(abstract) > 80:
@@ -606,7 +726,6 @@ def semantic_scholar_doi_metadata(doi: str, timeout: int, *, retries: int = 2) -
     if published:
         result["published_online"] = published
     return result
-
 
 def crossref_title_metadata(title: str, timeout: int) -> dict[str, Any]:
     query = urllib.parse.urlencode({"query.title": title, "rows": 3})

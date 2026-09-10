@@ -44,6 +44,7 @@ def _aggregate(
             "rate_limited": 0,
             "skipped": 0,
             "http_error": 0,
+            "provider_error": 0,
             "runs": 0,
         }
     )
@@ -55,6 +56,7 @@ def _aggregate(
         "rate_limited": 0,
         "skipped": 0,
         "http_error": 0,
+        "provider_error": 0,
         "runs": 0,
     }
     last_used_at: str | None = None
@@ -90,6 +92,7 @@ def _aggregate(
             "rate_limited": int(statuses.get("rate_limited") or 0),
             "skipped": int(statuses.get("skipped_rate_limited") or 0),
             "http_error": int(statuses.get("http_error") or 0),
+            "provider_error": int(statuses.get("provider_error") or 0),
         }
         day = _beijing_date(checked)
         if day is not None:
