@@ -1,4 +1,4 @@
-"""Regression contract for Parent Decision 0015 shared-key pressure handling."""
+"""Regression contract for Parent Decision 0015 shared-key pressure and circuit safety."""
 
 from __future__ import annotations
 
