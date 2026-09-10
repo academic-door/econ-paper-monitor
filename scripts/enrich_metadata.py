@@ -86,11 +86,15 @@ SS_RATE_LIMIT_WINDOW = 20
 SS_RATE_LIMIT_MIN_SAMPLES = 10
 SS_RATE_LIMIT_OPEN_RATIO = 0.30
 SS_FAST_TRIP_CONSECUTIVE_RATE_LIMITS = 2
+SS_FAST_TRIP_TERMINAL_RATE_LIMIT_BUDGET = 4
 # Under the current keyed shared-bucket pressure, hidden retries amplify 429s
 # before the circuit can protect later DOI calls. Keep unkeyed behavior
 # backward-compatible, but make a keyed 429 terminal for this optional source.
 SS_KEY_MAX_RETRIES = 0
 SS_MAX_RETRY_BACKOFF_SECONDS = 30.0
+# Start pacing and circuit-state mutation use different locks: the start gate
+# may wait, but provider responses must still be able to update circuit state.
+_SS_GATE_LOCK = threading.Lock()
 _SS_LOCK = threading.Lock()
 _SS_LAST_REQUEST = 0.0
 _SS_RATE_LIMITED_COUNT = 0
@@ -551,6 +555,8 @@ def _semantic_scholar_api_key() -> str:
 def _semantic_scholar_circuit_open_locked() -> bool:
     if _SS_CONSECUTIVE_TERMINAL_RATE_LIMITS >= SS_FAST_TRIP_CONSECUTIVE_RATE_LIMITS:
         return True
+    if _SS_RATE_LIMITED_COUNT >= SS_FAST_TRIP_TERMINAL_RATE_LIMIT_BUDGET:
+        return True
     if _SS_RATE_LIMITED_COUNT >= SS_RATE_LIMIT_SKIP_AFTER:
         return True
     samples = len(_SS_RECENT_OUTCOMES)
@@ -582,6 +588,7 @@ def semantic_scholar_throttle_state() -> dict[str, Any]:
             "rate_limited_count": _SS_RATE_LIMITED_COUNT,
             "consecutive_terminal_rate_limited": _SS_CONSECUTIVE_TERMINAL_RATE_LIMITS,
             "fast_trip_after_consecutive_rate_limits": SS_FAST_TRIP_CONSECUTIVE_RATE_LIMITS,
+            "fast_trip_terminal_rate_limit_budget": SS_FAST_TRIP_TERMINAL_RATE_LIMIT_BUDGET,
             "keyed_max_retries": SS_KEY_MAX_RETRIES if key_configured else None,
             "skip_after": SS_RATE_LIMIT_SKIP_AFTER,
             "recent_window": SS_RATE_LIMIT_WINDOW,
@@ -594,19 +601,26 @@ def semantic_scholar_throttle_state() -> dict[str, Any]:
 
 
 def _semantic_scholar_gate(*, allow_when_tripped: bool = False) -> bool:
-    """Re-enter pacing before every attempt; only new DOI calls honor an open circuit."""
+    """Serialize starts without blocking provider outcomes from updating circuit state."""
     global _SS_LAST_REQUEST
-    with _SS_LOCK:
-        if not allow_when_tripped and _semantic_scholar_circuit_open_locked():
-            return False
-        interval = (
-            SS_KEY_MIN_INTERVAL_SECONDS if _semantic_scholar_api_key() else SS_MIN_INTERVAL_SECONDS
-        )
+    with _SS_GATE_LOCK:
+        with _SS_LOCK:
+            if not allow_when_tripped and _semantic_scholar_circuit_open_locked():
+                return False
+            interval = (
+                SS_KEY_MIN_INTERVAL_SECONDS if _semantic_scholar_api_key() else SS_MIN_INTERVAL_SECONDS
+            )
+            last_request = _SS_LAST_REQUEST
         now = time.monotonic()
-        wait = interval - (now - _SS_LAST_REQUEST)
+        wait = interval - (now - last_request)
         if wait > 0:
             time.sleep(wait)
-        _SS_LAST_REQUEST = time.monotonic()
+        # A response from the prior start can arrive while this worker waits.
+        # Recheck after the wait so queued workers cannot outrun the circuit.
+        with _SS_LOCK:
+            if not allow_when_tripped and _semantic_scholar_circuit_open_locked():
+                return False
+            _SS_LAST_REQUEST = time.monotonic()
     return True
 
 
