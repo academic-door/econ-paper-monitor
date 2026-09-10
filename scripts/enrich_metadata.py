@@ -74,18 +74,23 @@ DATE_CAPTURE = (
 
 SS_MIN_INTERVAL_SECONDS = 0.25
 SS_PROVIDER_KEY_LIMIT_RPS = 1.0
-SS_CLIENT_TARGET_RPS = 0.8
-# Parent Decision 0015 caps automated keyed clients at <=80% of the
-# provider-published 1 RPS introductory limit.
+# Live calibration on 2026-09-10 remained heavily rate-limited at both
+# 0.4 RPS and 0.2 RPS.  Under active shared-key pressure, 0.2 RPS is a
+# conservative probe rate rather than a claim that this rate is currently
+# sustainable; the fast circuit below stops optional S2 work quickly when
+# the shared bucket remains backpressured.
+SS_CLIENT_TARGET_RPS = 0.2
 SS_KEY_MIN_INTERVAL_SECONDS = 1.0 / SS_CLIENT_TARGET_RPS
 SS_RATE_LIMIT_SKIP_AFTER = 20  # backward-compatible absolute pressure telemetry
 SS_RATE_LIMIT_WINDOW = 20
 SS_RATE_LIMIT_MIN_SAMPLES = 10
 SS_RATE_LIMIT_OPEN_RATIO = 0.30
+SS_FAST_TRIP_CONSECUTIVE_RATE_LIMITS = 2
 SS_MAX_RETRY_BACKOFF_SECONDS = 30.0
 _SS_LOCK = threading.Lock()
 _SS_LAST_REQUEST = 0.0
 _SS_RATE_LIMITED_COUNT = 0
+_SS_CONSECUTIVE_TERMINAL_RATE_LIMITS = 0
 _SS_RECENT_OUTCOMES: deque[str] = deque(maxlen=SS_RATE_LIMIT_WINDOW)
 _SS_LAST_RETRY_AFTER_SECONDS = 0.0
 
@@ -521,10 +526,11 @@ def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
 
 def reset_semantic_scholar_throttle() -> None:
     """Reset process-local Semantic Scholar pacing/circuit state."""
-    global _SS_LAST_REQUEST, _SS_RATE_LIMITED_COUNT, _SS_LAST_RETRY_AFTER_SECONDS
+    global _SS_LAST_REQUEST, _SS_RATE_LIMITED_COUNT, _SS_CONSECUTIVE_TERMINAL_RATE_LIMITS, _SS_LAST_RETRY_AFTER_SECONDS
     with _SS_LOCK:
         _SS_LAST_REQUEST = 0.0
         _SS_RATE_LIMITED_COUNT = 0
+        _SS_CONSECUTIVE_TERMINAL_RATE_LIMITS = 0
         _SS_RECENT_OUTCOMES.clear()
         _SS_LAST_RETRY_AFTER_SECONDS = 0.0
 
@@ -539,6 +545,8 @@ def _semantic_scholar_api_key() -> str:
 
 
 def _semantic_scholar_circuit_open_locked() -> bool:
+    if _SS_CONSECUTIVE_TERMINAL_RATE_LIMITS >= SS_FAST_TRIP_CONSECUTIVE_RATE_LIMITS:
+        return True
     if _SS_RATE_LIMITED_COUNT >= SS_RATE_LIMIT_SKIP_AFTER:
         return True
     samples = len(_SS_RECENT_OUTCOMES)
@@ -568,6 +576,8 @@ def semantic_scholar_throttle_state() -> dict[str, Any]:
             ),
             "configured_concurrency": "shared_global_start_gate",
             "rate_limited_count": _SS_RATE_LIMITED_COUNT,
+            "consecutive_terminal_rate_limited": _SS_CONSECUTIVE_TERMINAL_RATE_LIMITS,
+            "fast_trip_after_consecutive_rate_limits": SS_FAST_TRIP_CONSECUTIVE_RATE_LIMITS,
             "skip_after": SS_RATE_LIMIT_SKIP_AFTER,
             "recent_window": SS_RATE_LIMIT_WINDOW,
             "recent_attempts": samples,
@@ -610,11 +620,17 @@ def _record_semantic_scholar_outcome(
     terminal_rate_limit: bool = True,
 ) -> None:
     """Record attempt-level pressure; absolute count tracks exhausted DOI calls."""
-    global _SS_RATE_LIMITED_COUNT, _SS_LAST_RETRY_AFTER_SECONDS
+    global _SS_RATE_LIMITED_COUNT, _SS_CONSECUTIVE_TERMINAL_RATE_LIMITS, _SS_LAST_RETRY_AFTER_SECONDS
     with _SS_LOCK:
         _SS_RECENT_OUTCOMES.append(outcome)
-        if outcome == "rate_limited" and terminal_rate_limit:
-            _SS_RATE_LIMITED_COUNT += 1
+        if outcome == "rate_limited":
+            if terminal_rate_limit:
+                _SS_RATE_LIMITED_COUNT += 1
+                _SS_CONSECUTIVE_TERMINAL_RATE_LIMITS += 1
+        else:
+            # Reset only the fast terminal-429 streak. Rolling pressure and
+            # the absolute exhausted-DOI counter remain auditable.
+            _SS_CONSECUTIVE_TERMINAL_RATE_LIMITS = 0
         if retry_after > 0:
             _SS_LAST_RETRY_AFTER_SECONDS = retry_after
 
