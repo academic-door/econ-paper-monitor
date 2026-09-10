@@ -21,6 +21,7 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
+
           path = Path('scripts/enrich_metadata.py')
           text = path.read_text(encoding='utf-8')
           replacements = [
@@ -43,6 +44,14 @@ jobs:
                   raise SystemExit(f'patch precondition failed: expected one match, got {count}: {old[:90]!r}')
               text = text.replace(old, new, 1)
           path.write_text(text, encoding='utf-8')
+
+          test_path = Path('tests/test_semantic_scholar_throttle.py')
+          test = test_path.read_text(encoding='utf-8')
+          old = '''        ) as sleep:\n            result = em.semantic_scholar_doi_metadata("10.1234/keyed-pressure", 1, retries=2)\n        self.assertEqual(result.get("_status"), "rate_limited")\n        self.assertEqual(fetch.call_count, 1)\n        self.assertEqual(gate.call_count, 1)\n        sleep.assert_not_called()\n        state = em.semantic_scholar_throttle_state()\n'''
+          new = '''        ) as sleep:\n            result = em.semantic_scholar_doi_metadata("10.1234/keyed-pressure", 1, retries=2)\n            state = em.semantic_scholar_throttle_state()\n        self.assertEqual(result.get("_status"), "rate_limited")\n        self.assertEqual(fetch.call_count, 1)\n        self.assertEqual(gate.call_count, 1)\n        sleep.assert_not_called()\n'''
+          if test.count(old) != 1:
+              raise SystemExit(f'test patch precondition failed: expected one match, got {test.count(old)}')
+          test_path.write_text(test.replace(old, new, 1), encoding='utf-8')
           PY
       - name: Run focused S2 regression
         run: |
@@ -55,6 +64,6 @@ jobs:
           rm .github/workflows/_s2-keyed-no-retry-patcher.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add scripts/enrich_metadata.py .github/workflows/_s2-keyed-no-retry-patcher.yml
+          git add scripts/enrich_metadata.py tests/test_semantic_scholar_throttle.py .github/workflows/_s2-keyed-no-retry-patcher.yml
           git commit -m 'fix(s2): stop keyed retries under sustained pressure'
           git push origin HEAD:brain/p1-s2-backpressure-fast-trip
