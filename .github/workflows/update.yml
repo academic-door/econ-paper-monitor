@@ -164,6 +164,8 @@ jobs:
           fi
         env:
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
+          ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
       - name: Fetch Crossref priority metadata
         if: steps.mode.outputs.mode == 'light' && (github.event_name != 'schedule' || steps.watchdog.outputs.decision == 'run')
         shell: bash
