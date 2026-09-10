@@ -1,0 +1,47 @@
+name: Apply bounded T&F patch
+
+on:
+  push:
+    branches:
+      - brain/p1-5c-tandf-abstract-route
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.head_commit.message == 'chore: apply bounded #176 patch via branch executor'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: brain/p1-5c-tandf-abstract-route
+          fetch-depth: 0
+      - name: Apply exact bounded replacements
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/enrich_metadata.py')
+          text = path.read_text(encoding='utf-8')
+
+          old_meta = '''    for key in ("citation_abstract", "dc.description", "description", "og:description"):\n        abstract = clean_abstract_text(meta.get(key))\n        if len(abstract) > 80:\n            result.setdefault("abstract", abstract)\n            result.setdefault("abstract_source", f"publisher_meta:{key}")\n            break\n'''
+          new_meta = '''    citation_abstract = clean_abstract_text(meta.get("citation_abstract"))\n    if len(citation_abstract) > 80:\n        result.setdefault("abstract", citation_abstract)\n        result.setdefault("abstract_source", "publisher_meta:citation_abstract")\n    if "abstract" not in result:\n        for key in ("dc.description", "description", "og:description"):\n            abstract = clean_abstract_text(meta.get(key))\n            visibly_truncated = bool(re.search(r"(?:\\.{3,}|…+)\\s*$", abstract))\n            if len(abstract) > 80 and not visibly_truncated:\n                result.setdefault("abstract", abstract)\n                result.setdefault("abstract_source", f"publisher_meta:{key}")\n                break\n'''
+          old_route = '''        if doi.startswith("10.1080/"):\n            urls.append(f"https://www.tandfonline.com/doi/full/{doi}")\n'''
+          new_route = '''        if doi.startswith("10.1080/"):\n            urls.append(f"https://www.tandfonline.com/doi/abs/{doi}")\n            urls.append(f"https://www.tandfonline.com/doi/full/{doi}")\n'''
+
+          assert text.count(old_meta) == 1, 'expected metadata block exactly once'
+          assert text.count(old_route) == 1, 'expected T&F route block exactly once'
+          text = text.replace(old_meta, new_meta).replace(old_route, new_route)
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Remove branch-only executor and commit production patch
+        shell: bash
+        run: |
+          git rm .github/workflows/_apply_tandf_patch.yml
+          git add scripts/enrich_metadata.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix(tandf): prefer abstract pages and reject truncated meta"
+          git push origin HEAD:brain/p1-5c-tandf-abstract-route
