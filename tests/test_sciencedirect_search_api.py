@@ -1,4 +1,4 @@
-"""Regression contract for Elsevier native early discovery under Parent Decision 0015."""
+"""Regression contract for Elsevier native early discovery and quota telemetry under Parent Decision 0015."""
 
 from __future__ import annotations
 
@@ -80,6 +80,8 @@ class ScienceDirectApiTests(unittest.TestCase):
         self.assertEqual(request.headers.get("X-els-insttoken"), "inst-token")
         self.assertEqual(source_url, sd.SCIENCEDIRECT_API_URL)
         control = sd.elsevier_search_telemetry()
+        self.assertEqual(control["provider_rate_limit_rps"], 2.0)
+        self.assertEqual(control["client_target_rps"], 1.6)
         self.assertEqual(control["quota_limit"], "20000")
         self.assertEqual(control["quota_remaining_min"], 19969)
         self.assertEqual(control["quota_reset"], "1789056000")
