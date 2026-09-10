@@ -1,13 +1,11 @@
 {
-  "categories": {
-    "needs_investigation": 1
-  },
-  "checked_at": "2026-09-10T14:03:38.143197+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-09-10T17:10:25.929484+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=3/6; 中国农村经济: 9; 世界经济: 0; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -17,35 +15,19 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=29/45; Journal of Financial Economics: 17 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 44 via official-generated; Economic Development",
+      "sample_error": "feeds=62/108; Land Use Policy: 77 via official-generated; European Review of Agricultural Economics: 2 via configured; Environmental and Resource Economics: ParseError: not well-formed (invalid token)",
       "source": "rss"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "journals=28 failures=28 jina_key=on; Journal of Monetary Economics: HTTPError: HTTP Error 402: Payment Required; Review of Economic Dynamics: HTTPError: HTTP Error 402: Payment Required; Journal of Ec",
+      "category": "rate_limited",
+      "sample_error": "journals=28 failures=28 elsevier_api_key=on jina_key=on; Journal of Monetary Economics: RuntimeError: official-api=HTTPError: HTTP Error 429: Too Many Requests; readonly-proxy=HTTPError: HTTP Error 40",
       "source": "sciencedirect-search"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "economic-theory/springer_online_first: crossref fallback 7; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; public-choice/spri",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 4
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }
