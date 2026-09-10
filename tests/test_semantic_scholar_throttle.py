@@ -64,11 +64,11 @@ class SemanticScholarThrottleTests(unittest.TestCase):
             em.time, "sleep"
         ) as sleep:
             result = em.semantic_scholar_doi_metadata("10.1234/keyed-pressure", 1, retries=2)
+            state = em.semantic_scholar_throttle_state()
         self.assertEqual(result.get("_status"), "rate_limited")
         self.assertEqual(fetch.call_count, 1)
         self.assertEqual(gate.call_count, 1)
         sleep.assert_not_called()
-        state = em.semantic_scholar_throttle_state()
         self.assertEqual(state["keyed_max_retries"], 0)
         self.assertEqual(state["rate_limited_count"], 1)
         self.assertEqual(state["consecutive_terminal_rate_limited"], 1)

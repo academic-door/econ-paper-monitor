@@ -86,6 +86,10 @@ SS_RATE_LIMIT_WINDOW = 20
 SS_RATE_LIMIT_MIN_SAMPLES = 10
 SS_RATE_LIMIT_OPEN_RATIO = 0.30
 SS_FAST_TRIP_CONSECUTIVE_RATE_LIMITS = 2
+# Under the current keyed shared-bucket pressure, hidden retries amplify 429s
+# before the circuit can protect later DOI calls. Keep unkeyed behavior
+# backward-compatible, but make a keyed 429 terminal for this optional source.
+SS_KEY_MAX_RETRIES = 0
 SS_MAX_RETRY_BACKOFF_SECONDS = 30.0
 _SS_LOCK = threading.Lock()
 _SS_LAST_REQUEST = 0.0
@@ -578,6 +582,7 @@ def semantic_scholar_throttle_state() -> dict[str, Any]:
             "rate_limited_count": _SS_RATE_LIMITED_COUNT,
             "consecutive_terminal_rate_limited": _SS_CONSECUTIVE_TERMINAL_RATE_LIMITS,
             "fast_trip_after_consecutive_rate_limits": SS_FAST_TRIP_CONSECUTIVE_RATE_LIMITS,
+            "keyed_max_retries": SS_KEY_MAX_RETRIES if key_configured else None,
             "skip_after": SS_RATE_LIMIT_SKIP_AFTER,
             "recent_window": SS_RATE_LIMIT_WINDOW,
             "recent_attempts": samples,
@@ -653,7 +658,9 @@ def semantic_scholar_doi_metadata(doi: str, timeout: int, *, retries: int = 2) -
         f"https://api.semanticscholar.org/graph/v1/paper/"
         f"DOI:{urllib.parse.quote(doi)}?{fields}"
     )
-    attempts = max(0, retries) + 1
+    requested_retries = max(0, retries)
+    effective_retries = min(requested_retries, SS_KEY_MAX_RETRIES) if api_key else requested_retries
+    attempts = effective_retries + 1
     payload: dict[str, Any] = {}
     for attempt in range(attempts):
         if not _semantic_scholar_gate(allow_when_tripped=attempt > 0):
