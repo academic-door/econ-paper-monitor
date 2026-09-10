@@ -59,6 +59,7 @@ from enrich_metadata import (
     extract_elsevier_pii,
     openalex_doi_metadata,
     semantic_scholar_doi_metadata,
+    semantic_scholar_throttle_state,
 )
 from public_integrity import canonical_route_key, has_abstract_boilerplate, sanitize_record_paths, strong_identity_keys
 from audit_metadata_recovery import audit_metadata_recovery
@@ -536,6 +537,7 @@ def summarize_provider_health(
     health["semantic-scholar"]["api_key_configured"] = bool(
         (os.environ.get("S2_API_KEY") or os.environ.get("SEMANTIC_SCHOLAR_API_KEY") or "").strip()
     )
+    health["semantic-scholar"]["control"] = semantic_scholar_throttle_state()
     elsevier_api_key, elsevier_inst_token = elsevier_env_credentials()
     health["elsevier"]["api_key_configured"] = bool(elsevier_api_key)
     health["elsevier"]["inst_token_configured"] = bool(elsevier_inst_token)
