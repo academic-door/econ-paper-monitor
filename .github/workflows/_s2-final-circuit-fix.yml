@@ -1,0 +1,46 @@
+name: Apply final S2 circuit accounting fix
+on:
+  push:
+    paths:
+      - .github/workflows/_s2-final-circuit-fix.yml
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: brain/p1-semantic-scholar-throttle
+      - name: Apply exact replacements
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/enrich_metadata.py')
+          text = path.read_text()
+          old = '''def _semantic_scholar_gate() -> bool:\n    \"\"\"Re-enter the aggregate rate/circuit gate before every network attempt.\"\"\"\n    global _SS_LAST_REQUEST\n    with _SS_LOCK:\n        if _semantic_scholar_circuit_open_locked():\n            return False\n'''
+          new = '''def _semantic_scholar_gate(*, allow_when_tripped: bool = False) -> bool:\n    \"\"\"Re-enter pacing before every attempt; only new DOI calls honor an open circuit.\"\"\"\n    global _SS_LAST_REQUEST\n    with _SS_LOCK:\n        if not allow_when_tripped and _semantic_scholar_circuit_open_locked():\n            return False\n'''
+          assert old in text, 'gate block changed unexpectedly'
+          text = text.replace(old, new, 1)
+          old = '''def _record_semantic_scholar_outcome(outcome: str, *, retry_after: float = 0.0) -> None:\n    global _SS_RATE_LIMITED_COUNT, _SS_LAST_RETRY_AFTER_SECONDS\n    with _SS_LOCK:\n        _SS_RECENT_OUTCOMES.append(outcome)\n        if outcome == \"rate_limited\":\n            _SS_RATE_LIMITED_COUNT += 1\n        if retry_after > 0:\n            _SS_LAST_RETRY_AFTER_SECONDS = retry_after\n'''
+          new = '''def _record_semantic_scholar_outcome(\n    outcome: str,\n    *,\n    retry_after: float = 0.0,\n    terminal_rate_limit: bool = True,\n) -> None:\n    \"\"\"Record attempt-level pressure; absolute count tracks exhausted DOI calls.\"\"\"\n    global _SS_RATE_LIMITED_COUNT, _SS_LAST_RETRY_AFTER_SECONDS\n    with _SS_LOCK:\n        _SS_RECENT_OUTCOMES.append(outcome)\n        if outcome == \"rate_limited\" and terminal_rate_limit:\n            _SS_RATE_LIMITED_COUNT += 1\n        if retry_after > 0:\n            _SS_LAST_RETRY_AFTER_SECONDS = retry_after\n'''
+          assert old in text, 'outcome block changed unexpectedly'
+          text = text.replace(old, new, 1)
+          old = '''    for attempt in range(attempts):\n        if not _semantic_scholar_gate():\n'''
+          new = '''    for attempt in range(attempts):\n        if not _semantic_scholar_gate(allow_when_tripped=attempt > 0):\n'''
+          assert old in text, 'gate call changed unexpectedly'
+          text = text.replace(old, new, 1)
+          old = '''            if exc.code == 429:\n                retry_after = _semantic_scholar_retry_after(exc.headers)\n                _record_semantic_scholar_outcome(\"rate_limited\", retry_after=retry_after)\n                if attempt + 1 >= attempts:\n'''
+          new = '''            if exc.code == 429:\n                retry_after = _semantic_scholar_retry_after(exc.headers)\n                exhausted = attempt + 1 >= attempts\n                _record_semantic_scholar_outcome(\n                    \"rate_limited\",\n                    retry_after=retry_after,\n                    terminal_rate_limit=exhausted,\n                )\n                if exhausted:\n'''
+          assert old in text, '429 block changed unexpectedly'
+          text = text.replace(old, new, 1)
+          path.write_text(text)
+          PY
+          git rm .github/workflows/_s2-final-circuit-fix.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/enrich_metadata.py
+          git commit -m 'fix: preserve S2 retry pacing and DOI circuit semantics'
+          git push origin HEAD:brain/p1-semantic-scholar-throttle
