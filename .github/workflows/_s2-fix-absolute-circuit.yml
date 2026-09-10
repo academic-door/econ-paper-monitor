@@ -1,0 +1,32 @@
+name: "Preserve absolute S2 circuit safety"
+on:
+  push:
+    branches: [brain/p1-semantic-scholar-throttle]
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('scripts/enrich_metadata.py')
+          s = p.read_text(encoding='utf-8')
+          old = '''def _semantic_scholar_circuit_open_locked() -> bool:\n    samples = len(_SS_RECENT_OUTCOMES)\n    if samples < SS_RATE_LIMIT_MIN_SAMPLES:\n        return False\n'''
+          new = '''def _semantic_scholar_circuit_open_locked() -> bool:\n    if _SS_RATE_LIMITED_COUNT >= SS_RATE_LIMIT_SKIP_AFTER:\n        return True\n    samples = len(_SS_RECENT_OUTCOMES)\n    if samples < SS_RATE_LIMIT_MIN_SAMPLES:\n        return False\n'''
+          if old not in s:
+              raise SystemExit('circuit anchor missing')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+          rm -f .github/workflows/_s2-fix-absolute-circuit.yml
+          git add scripts/enrich_metadata.py .github/workflows/_s2-fix-absolute-circuit.yml
+          git commit -m "fix(semantic-scholar): retain absolute circuit cap"
+          git push origin HEAD:brain/p1-semantic-scholar-throttle
