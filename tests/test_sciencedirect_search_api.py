@@ -203,6 +203,16 @@ class ScienceDirectApiTests(unittest.TestCase):
                     max_items=10,
                 )
 
+    def test_update_workflow_passes_existing_elsevier_credentials(self) -> None:
+        workflow = (Path(__file__).resolve().parents[1] / ".github" / "workflows" / "update.yml").read_text(
+            encoding="utf-8"
+        )
+        marker = "- name: Fetch ScienceDirect in-press search"
+        start = workflow.index(marker)
+        block = workflow[start: workflow.index("- name: Fetch Crossref priority metadata", start)]
+        self.assertIn("ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}", block)
+        self.assertIn("ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}", block)
+
     def test_status_message_exposes_official_api_and_proxy_capability(self) -> None:
         with patch.dict(
             os.environ,
