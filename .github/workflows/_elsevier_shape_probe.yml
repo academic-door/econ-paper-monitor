@@ -1,0 +1,69 @@
+name: Elsevier natural residual probe
+
+on:
+  push:
+    branches:
+      - brain/p1-elsevier-natural-revise
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Inspect v2 response shapes serially
+        env:
+          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
+          ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json,sys,time,urllib.error,urllib.request
+          from pathlib import Path
+          sys.path.insert(0,str(Path('scripts').resolve()))
+          import fetch_sciencedirect_search as sd
+          from common import load_journals
+          wanted={
+              'Journal of Monetary Economics',
+              'Review of Economic Dynamics',
+              'Journal of Economic Dynamics and Control',
+              'Journal of Financial Intermediation',
+              'Journal of Development Economics',
+          }
+          journals=[j for j in load_journals() if str(j.get('title') or '') in wanted]
+          for j in journals:
+              body=json.dumps(sd.sciencedirect_api_payload(j,days=4,max_items=10)).encode()
+              req=urllib.request.Request(sd.SCIENCEDIRECT_API_URL,data=body,headers=sd.elsevier_api_headers(),method='PUT')
+              out={'journal':j['title']}
+              try:
+                  with urllib.request.urlopen(req,timeout=25) as resp:
+                      raw=resp.read().decode('utf-8',errors='replace')
+                      headers={k:v for k,v in resp.headers.items() if k.lower() in {'x-ratelimit-limit','x-ratelimit-remaining','x-ratelimit-reset','x-els-status','retry-after'}}
+                  try:
+                      p=json.loads(raw)
+                  except Exception:
+                      p=None
+                  out.update({
+                      'http':200,
+                      'headers':headers,
+                      'payload_type':type(p).__name__,
+                      'keys':sorted(p.keys()) if isinstance(p,dict) else [],
+                      'results_type':type(p.get('results')).__name__ if isinstance(p,dict) else None,
+                      'results_len':len(p.get('results')) if isinstance(p,dict) and isinstance(p.get('results'),list) else None,
+                      'message':p.get('message') if isinstance(p,dict) else None,
+                      'resultsFound':p.get('resultsFound') if isinstance(p,dict) else None,
+                  })
+              except urllib.error.HTTPError as exc:
+                  out.update({'http':exc.code,'error':str(exc),'x_els_status':exc.headers.get('X-ELS-Status'),'remaining':exc.headers.get('X-RateLimit-Remaining'),'retry_after':exc.headers.get('Retry-After')})
+              except Exception as exc:
+                  out.update({'error':f'{type(exc).__name__}: {exc}'})
+              print('ELSEVIER_SHAPE',json.dumps(out,ensure_ascii=False))
+              time.sleep(1.5)
+          PY
