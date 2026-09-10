@@ -98,7 +98,7 @@ class ScienceDirectApiTests(unittest.TestCase):
         self.assertEqual(record["authors"], ["Hao Xu", "Jingxuan Xu"])
         self.assertEqual(record["published_online"], "2026-09-10")
         self.assertEqual(record["available_online"], "2026-09-10")
-        self.assertEqual(record["date_source"], "sciencedirect_api_publication_date")
+        self.assertEqual(record["date_source"], "sciencedirect_api_load_date")
         self.assertEqual(record["date_confidence"], "B")
         self.assertEqual(record["source"], "sciencedirect_search")
         self.assertEqual(record["raw_data"]["sciencedirect_search_route"], "official_api_v2")
@@ -120,6 +120,7 @@ class ScienceDirectApiTests(unittest.TestCase):
         record = fetch_sciencedirect_search.api_result_record(item, JDE)
 
         assert record is not None
+        self.assertIsNone(record["published_online"])
         self.assertEqual(record["available_online"], "2026-09-10")
         self.assertEqual(record["date_source"], "sciencedirect_api_load_date")
         self.assertNotIn("first_seen", record)
@@ -176,6 +177,31 @@ class ScienceDirectApiTests(unittest.TestCase):
         proxy_mock.assert_not_called()
         self.assertEqual(records, [])
         self.assertIn("official-api-v2", message)
+
+    def test_api_and_proxy_failure_are_both_visible(self) -> None:
+        with (
+            patch.object(
+                fetch_sciencedirect_search,
+                "fetch_journal_via_api",
+                side_effect=RuntimeError("api unavailable"),
+            ),
+            patch.object(
+                fetch_sciencedirect_search,
+                "fetch_journal_via_proxy",
+                side_effect=urllib.error.HTTPError("https://r.jina.ai/x", 402, "Payment Required", Message(), None),
+            ),
+            patch.dict(os.environ, {"ELSEVIER_API_KEY": "api-key"}, clear=True),
+        ):
+            with self.assertRaisesRegex(
+                RuntimeError,
+                r"official-api=RuntimeError: api unavailable; readonly-proxy=HTTPError",
+            ):
+                fetch_sciencedirect_search.fetch_journal(
+                    JDE,
+                    days=4,
+                    timeout=5,
+                    max_items=10,
+                )
 
     def test_status_message_exposes_official_api_and_proxy_capability(self) -> None:
         with patch.dict(
