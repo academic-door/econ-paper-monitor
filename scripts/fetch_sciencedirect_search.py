@@ -24,6 +24,18 @@ from status import record_source
 
 SEARCH_BASE = "https://r.jina.ai/http://www.sciencedirect.com/search"
 SCIENCEDIRECT_API_URL = "https://api.elsevier.com/content/search/sciencedirect"
+ELSEVIER_SEARCH_PROVIDER_RPS = 2.0
+ELSEVIER_SEARCH_CLIENT_TARGET_RPS = 1.6
+ELSEVIER_SEARCH_MIN_INTERVAL_SECONDS = 1.0 / ELSEVIER_SEARCH_CLIENT_TARGET_RPS
+_ELSEVIER_SEARCH_TELEMETRY: dict[str, Any] = {
+    "quota_limit": None,
+    "quota_remaining_min": None,
+    "quota_reset": None,
+    "last_x_els_status": None,
+    "last_retry_after": None,
+    "quota_exceeded_429": 0,
+    "throttled_429": 0,
+}
 BROWSER_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126 Safari/537.36",
     "Accept": "text/plain,text/markdown;q=0.9,*/*;q=0.8",
@@ -122,6 +134,7 @@ def elsevier_api_headers() -> dict[str, str]:
     headers = {
         "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
         "Accept": "application/json",
+        "Content-Type": "application/json",
         "X-ELS-APIKey": api_key,
     }
     inst_token = os.environ.get("ELSEVIER_INST_TOKEN") or ""
@@ -148,6 +161,63 @@ def _header_value(headers: Any, name: str) -> str | None:
     return str(value).strip() if value not in (None, "") else None
 
 
+def reset_elsevier_search_telemetry() -> None:
+    _ELSEVIER_SEARCH_TELEMETRY.update(
+        {
+            "quota_limit": None,
+            "quota_remaining_min": None,
+            "quota_reset": None,
+            "last_x_els_status": None,
+            "last_retry_after": None,
+            "quota_exceeded_429": 0,
+            "throttled_429": 0,
+        }
+    )
+
+
+def _record_elsevier_search_rate(headers: Any, *, status_code: int | None = None) -> None:
+    limit = _header_value(headers, "X-RateLimit-Limit")
+    remaining = _header_value(headers, "X-RateLimit-Remaining")
+    reset = _header_value(headers, "X-RateLimit-Reset")
+    els_status = _header_value(headers, "X-ELS-Status")
+    retry_after = _header_value(headers, "Retry-After")
+    if limit is not None:
+        _ELSEVIER_SEARCH_TELEMETRY["quota_limit"] = limit
+    if remaining is not None:
+        try:
+            numeric = int(remaining)
+        except ValueError:
+            numeric = None
+        if numeric is not None:
+            current = _ELSEVIER_SEARCH_TELEMETRY.get("quota_remaining_min")
+            if current is None or numeric < int(current):
+                _ELSEVIER_SEARCH_TELEMETRY["quota_remaining_min"] = numeric
+    if reset is not None:
+        _ELSEVIER_SEARCH_TELEMETRY["quota_reset"] = reset
+    if els_status is not None:
+        _ELSEVIER_SEARCH_TELEMETRY["last_x_els_status"] = els_status
+    if retry_after is not None:
+        _ELSEVIER_SEARCH_TELEMETRY["last_retry_after"] = retry_after
+    if status_code == 429:
+        if (els_status or "").upper() == "QUOTA_EXCEEDED":
+            _ELSEVIER_SEARCH_TELEMETRY["quota_exceeded_429"] += 1
+        else:
+            _ELSEVIER_SEARCH_TELEMETRY["throttled_429"] += 1
+
+
+def elsevier_search_telemetry() -> dict[str, Any]:
+    return {
+        "provider": "elsevier",
+        "endpoint_class": "sciencedirect_search_v2",
+        "workload_class": "early_discovery",
+        "route": "official_api_v2_put_title_wildcard",
+        "provider_rate_limit_rps": ELSEVIER_SEARCH_PROVIDER_RPS,
+        "client_target_rps": ELSEVIER_SEARCH_CLIENT_TARGET_RPS,
+        "min_interval_seconds": ELSEVIER_SEARCH_MIN_INTERVAL_SECONDS,
+        **dict(_ELSEVIER_SEARCH_TELEMETRY),
+    }
+
+
 def describe_http_error(exc: urllib.error.HTTPError) -> str:
     parts = [f"HTTP {exc.code} {exc.reason}"]
     for name in ("X-ELS-Status", "X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset", "Retry-After"):
@@ -157,44 +227,46 @@ def describe_http_error(exc: urllib.error.HTTPError) -> str:
     return " ".join(parts)
 
 
-def official_search_url(journal: dict[str, Any], *, days: int, max_items: int) -> str:
+def sciencedirect_api_payload(journal: dict[str, Any], *, days: int, max_items: int) -> dict[str, Any]:
     cutoff = date.fromisoformat(today_str()) - timedelta(days=max(1, days) - 1)
-    title = re.sub(r"[()]", " ", str(journal["title"]))
-    title = re.sub(r"\s+", " ", title).strip()
-    # Elsevier's supported legacy GET mapping explicitly maps srctitle -> pub and
-    # orig-load-date AFT -> loadedAfter. Unlike native PUT, this fielded query
-    # does not require an artificial free-text term.
-    query = f"srctitle({title}) AND orig-load-date AFT {cutoff:%Y%m%d}"
-    params = urllib.parse.urlencode(
-        {
-            "query": query,
-            "count": str(api_show_limit(max_items)),
-            "sort": "coverDate",
-        }
-    )
-    return f"{SCIENCEDIRECT_API_URL}?{params}"
+    return {
+        "title": "*",
+        "pub": str(journal["title"]),
+        "loadedAfter": f"{cutoff.isoformat()}T00:00:00Z",
+        "display": {
+            "offset": 0,
+            "show": api_show_limit(max_items),
+            "sortBy": "date",
+        },
+    }
 
 
 def fetch_sciencedirect_api(
     journal: dict[str, Any], *, days: int, timeout: int, max_items: int
 ) -> tuple[list[dict[str, Any]], str]:
-    url = official_search_url(journal, days=days, max_items=max_items)
-    request = urllib.request.Request(url, headers=elsevier_api_headers(), method="GET")
+    payload = sciencedirect_api_payload(journal, days=days, max_items=max_items)
+    body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     last_error: Exception | None = None
     for attempt in range(2):
+        request = urllib.request.Request(
+            SCIENCEDIRECT_API_URL,
+            data=body,
+            headers=elsevier_api_headers(),
+            method="PUT",
+        )
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
-                payload = json.loads(response.read().decode("utf-8"))
-            if not isinstance(payload, dict):
+                response_payload = json.loads(response.read().decode("utf-8"))
+                _record_elsevier_search_rate(response.headers)
+            if not isinstance(response_payload, dict):
                 raise ValueError("sciencedirect-api-invalid-response")
-            search_results = payload.get("search-results")
-            if not isinstance(search_results, dict):
-                raise ValueError("sciencedirect-api-missing-search-results")
-            entries = search_results.get("entry") or []
-            if not isinstance(entries, list):
-                raise ValueError("sciencedirect-api-invalid-entry-list")
-            return [item for item in entries if isinstance(item, dict)], url
+            results = response_payload.get("results")
+            if not isinstance(results, list):
+                message = clean_markdown(response_payload.get("message"))
+                raise ValueError(f"sciencedirect-api-invalid-results{': ' + message if message else ''}")
+            return [item for item in results if isinstance(item, dict)], SCIENCEDIRECT_API_URL
         except urllib.error.HTTPError as exc:
+            _record_elsevier_search_rate(exc.headers, status_code=exc.code)
             last_error = RuntimeError(describe_http_error(exc))
             quota_exceeded = (_header_value(exc.headers, "X-ELS-Status") or "").upper() == "QUOTA_EXCEEDED"
             if exc.code == 429 and attempt == 0 and not quota_exceeded:
@@ -216,20 +288,25 @@ def fetch_sciencedirect_api(
 
 def _entry_authors(item: dict[str, Any]) -> list[str]:
     container = item.get("authors")
-    if not isinstance(container, dict):
-        return []
-    raw = container.get("author")
-    values = raw if isinstance(raw, list) else [raw]
+    if isinstance(container, list):
+        values = container
+    elif isinstance(container, dict):
+        raw = container.get("author")
+        values = raw if isinstance(raw, list) else [raw]
+    else:
+        values = []
     authors: list[str] = []
     for entry in values:
         if isinstance(entry, str):
             name = clean_markdown(entry)
         elif isinstance(entry, dict):
-            given = clean_markdown(entry.get("given-name"))
-            surname = clean_markdown(entry.get("surname"))
-            name = clean_markdown(entry.get("ce:indexed-name") or entry.get("$"))
+            name = clean_markdown(entry.get("name"))
             if not name:
-                name = " ".join(part for part in (given, surname) if part).strip()
+                given = clean_markdown(entry.get("given-name"))
+                surname = clean_markdown(entry.get("surname"))
+                name = clean_markdown(entry.get("ce:indexed-name") or entry.get("$"))
+                if not name:
+                    name = " ".join(part for part in (given, surname) if part).strip()
         else:
             name = ""
         if name and name not in authors:
@@ -238,7 +315,7 @@ def _entry_authors(item: dict[str, Any]) -> list[str]:
 
 
 def _entry_doi(item: dict[str, Any]) -> str | None:
-    doi = clean_markdown(item.get("prism:doi"))
+    doi = clean_markdown(item.get("doi") or item.get("prism:doi"))
     if not doi:
         identifier = clean_markdown(item.get("dc:identifier"))
         match = re.search(r"(?:DOI:)?\s*(10\.\d{4,9}/\S+)", identifier, flags=re.I)
@@ -247,21 +324,25 @@ def _entry_doi(item: dict[str, Any]) -> str | None:
 
 
 def api_result_record(item: dict[str, Any], journal: dict[str, Any], source_url: str | None = None) -> dict[str, Any] | None:
-    source_title = clean_markdown(item.get("prism:publicationName"))
+    source_title = clean_markdown(item.get("sourceTitle") or item.get("prism:publicationName"))
     if source_title and normalized_name(source_title) != normalized_name(str(journal.get("title") or "")):
         return None
-    title = clean_markdown(item.get("dc:title"))
+    title = clean_markdown(item.get("title") or item.get("dc:title"))
     pii = clean_markdown(item.get("pii")).upper()
     doi = _entry_doi(item)
     if not title or (not pii and not doi):
         return None
-    load_date_raw = str(item.get("load-date") or "").strip()
+    load_date_raw = str(item.get("loadDate") or item.get("load-date") or "").strip()
     load_date = parse_iso_date(load_date_raw)
-    url = f"https://www.sciencedirect.com/science/article/pii/{pii}" if pii else None
+    url = str(item.get("uri") or "").strip()
+    if not url and pii:
+        url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
+    if url.startswith("http://"):
+        url = "https://" + url[len("http://"): ]
     return article_record(
         journal,
         title=title,
-        url=url,
+        url=url or None,
         source="sciencedirect_search",
         source_url=source_url or SCIENCEDIRECT_API_URL,
         doi=doi,
@@ -272,7 +353,7 @@ def api_result_record(item: dict[str, Any], journal: dict[str, Any], source_url:
         date_confidence="B" if load_date else "F",
         raw_data={
             "pii": pii or None,
-            "sciencedirect_search_route": "official_api_v2_get_fielded",
+            "sciencedirect_search_route": "official_api_v2_put_title_wildcard",
             "sciencedirect_search_journal": journal["title"],
             "sciencedirect_search_issn": journal.get("issn"),
             "sciencedirect_api_load_date": load_date_raw or None,
@@ -287,7 +368,7 @@ def fetch_journal_via_api(
     cutoff = date.fromisoformat(today_str()) - timedelta(days=max(1, days) - 1)
     records: list[dict[str, Any]] = []
     for item in raw:
-        load_date = parse_iso_date(str(item.get("load-date") or ""))
+        load_date = parse_iso_date(str(item.get("loadDate") or item.get("load-date") or ""))
         if load_date and date.fromisoformat(load_date) < cutoff:
             continue
         record = api_result_record(item, journal, source_url)
@@ -296,7 +377,7 @@ def fetch_journal_via_api(
         records.append(record)
         if len(records) >= max_items:
             break
-    return records, f"{journal['title']}: {len(records)} via official-api-v2-get-fielded"
+    return records, f"{journal['title']}: {len(records)} via official-api-v2-put-title-wildcard"
 
 
 def parse_search_results(markdown: str, journal: dict[str, Any]) -> list[dict[str, Any]]:
@@ -470,10 +551,21 @@ def run_journal(
 def build_status_message(journal_count: int, failures: int, messages: list[str]) -> str:
     jina_key = os.environ.get("JINA_API_KEY") or ""
     elsevier_key = os.environ.get("ELSEVIER_API_KEY") or ""
+    control = elsevier_search_telemetry()
     return (
         f"journals={journal_count} failures={failures} "
         f"elsevier_api_key={'on' if elsevier_key else 'off'} "
-        f"jina_key={'on' if jina_key else 'off'}; " + "; ".join(messages[-12:])
+        f"jina_key={'on' if jina_key else 'off'} "
+        f"endpoint={control['endpoint_class']} route={control['route']} "
+        f"provider_rps={control['provider_rate_limit_rps']} "
+        f"client_target_rps={control['client_target_rps']} "
+        f"min_interval_seconds={control['min_interval_seconds']:.3f} "
+        f"quota_limit={control.get('quota_limit') or 'unknown'} "
+        f"quota_remaining_min={control.get('quota_remaining_min') if control.get('quota_remaining_min') is not None else 'unknown'} "
+        f"quota_reset={control.get('quota_reset') or 'unknown'} "
+        f"quota_exceeded_429={control.get('quota_exceeded_429', 0)} "
+        f"throttled_429={control.get('throttled_429', 0)}; "
+        + "; ".join(messages[-12:])
     )
 
 
@@ -513,7 +605,7 @@ def main() -> None:
             messages.append(message)
             failures += int(error is not None)
             if os.environ.get("ELSEVIER_API_KEY"):
-                time.sleep(0.25)
+                time.sleep(ELSEVIER_SEARCH_MIN_INTERVAL_SECONDS)
 
     unique: dict[str, dict[str, Any]] = {}
     for record in records:
