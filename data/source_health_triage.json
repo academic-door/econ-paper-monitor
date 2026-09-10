@@ -1,7 +1,9 @@
 {
-  "categories": {},
-  "checked_at": "2026-09-10T17:10:25.929484+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-09-10T19:23:25.989970+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -10,12 +12,12 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Explorations in Economic History: elsevier-metadata-only; 2026-06-23 Explorations in Economic History: elsevier-metadata-only; 2026-06-23 Mathema",
+      "sample_error": "attempted=28; proxy_abstract_attempted=0; seen 数量经济技术经济研究: abstract-present; seen 管理世界: abstract-present; seen 数量经济技术经济研究: abstract-present; seen 数量经济技术经济研究: abstract-present; 2026-09-10 Journal of Co",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=62/108; Land Use Policy: 77 via official-generated; European Review of Agricultural Economics: 2 via configured; Environmental and Resource Economics: ParseError: not well-formed (invalid token)",
+      "sample_error": "feeds=29/45; Journal of Financial Economics: 19 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 44 via official-generated; Economic Development",
       "source": "rss"
     },
     {
@@ -24,10 +26,26 @@
       "source": "sciencedirect-search"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 3; review-of-economic-design/springer_online_first: 0; review-of-economic-design/",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 4
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
