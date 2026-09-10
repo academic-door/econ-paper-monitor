@@ -1,3 +1,5 @@
+"""Regression contract for Parent Decision 0015 shared-key pressure handling."""
+
 from __future__ import annotations
 
 import sys
