@@ -1,4 +1,4 @@
-name: "Elsevier Article Metadata Probe"
+name: "Elsevier Early Discovery Probe"
 
 on:
   push:
@@ -13,90 +13,44 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Probe Article Metadata load-date discovery with existing credentials
-        env:
-          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
-          ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
+      - name: Probe official ScienceDirect RSS
         run: |
           python - <<'PY'
-          import json
-          import os
-          import urllib.error
-          import urllib.parse
+          import re
           import urllib.request
+          import xml.etree.ElementTree as ET
 
-          api_key = os.environ.get("ELSEVIER_API_KEY", "")
-          inst_token = os.environ.get("ELSEVIER_INST_TOKEN", "")
-          if not api_key:
-              raise SystemExit("ELSEVIER_API_KEY is not configured")
-
-          headers = {
-              "Accept": "application/json",
-              "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
-              "X-ELS-APIKey": api_key,
-          }
-          if inst_token:
-              headers["X-ELS-Insttoken"] = inst_token
-
-          base = "https://api.elsevier.com/content/metadata/article"
+          feed_url = "https://rss.sciencedirect.com/publication/science/03043878"
           target_doi = "10.1016/j.jdeveco.2026.103924"
+          target_title = "political career incentives and the environmental costs"
+          request = urllib.request.Request(
+              feed_url,
+              headers={"User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)"},
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              payload = response.read()
+              print(f"HTTP status={response.status} content_type={response.headers.get('Content-Type')} bytes={len(payload)} final_url={response.geturl()}")
 
-          def request(query, start=0):
-              params = urllib.parse.urlencode({"query": query, "count": "25", "start": str(start), "view": "STANDARD"})
-              req = urllib.request.Request(f"{base}?{params}", headers=headers, method="GET")
-              try:
-                  with urllib.request.urlopen(req, timeout=30) as response:
-                      payload = json.loads(response.read().decode("utf-8"))
-                      rate = {
-                          "limit": response.headers.get("X-RateLimit-Limit"),
-                          "remaining": response.headers.get("X-RateLimit-Remaining"),
-                          "reset": response.headers.get("X-RateLimit-Reset"),
-                      }
-              except urllib.error.HTTPError as exc:
-                  body = exc.read().decode("utf-8", errors="replace")[:500]
-                  print(f"QUERY_ERROR query={query} HTTP={exc.code} status={exc.headers.get('X-ELS-Status')} body={body}")
-                  return None, [], None
-              search = payload.get("search-results") if isinstance(payload, dict) else None
-              if not isinstance(search, dict):
-                  print(f"QUERY_ERROR query={query} missing-search-results")
-                  return None, [], rate
-              entries = search.get("entry") or []
-              if not isinstance(entries, list):
-                  entries = []
-              return search.get("opensearch:totalResults"), entries, rate
+          root = ET.fromstring(payload)
+          items = root.findall(".//item")
+          print(f"RSS items={len(items)}")
+          hit = False
+          for idx, item in enumerate(items):
+              title = (item.findtext("title") or "").strip()
+              link = (item.findtext("link") or "").strip()
+              guid = (item.findtext("guid") or "").strip()
+              description = (item.findtext("description") or "").strip()
+              pubdate = (item.findtext("pubDate") or "").strip()
+              haystack = " ".join((title, link, guid, description)).casefold()
+              doi_match = re.search(r"10\.1016/j\.jdeveco\.2026\.\d+", haystack, flags=re.I)
+              pii_match = re.search(r"S03043878\d+", haystack, flags=re.I)
+              if idx < 12:
+                  print(f"ITEM idx={idx} pubDate={pubdate} doi={doi_match.group(0) if doi_match else ''} pii={pii_match.group(0) if pii_match else ''} title={title[:180]}")
+              if target_doi in haystack or target_title in haystack:
+                  hit = True
+                  print(f"TARGET_HIT idx={idx} pubDate={pubdate} title={title[:220]} link={link[:260]} guid={guid[:220]}")
 
-          exact_total, exact_entries, exact_rate = request(f"doi({target_doi})")
-          exact_hit = any(target_doi in str(item.get("prism:doi") or item.get("dc:identifier") or "").casefold() for item in exact_entries if isinstance(item, dict))
-          print(f"EXACT total={exact_total} entries={len(exact_entries)} target_hit={exact_hit} rate={exact_rate}")
-
-          load_query = "srctitle(Journal of Development Economics) AND orig-load-date AFT 20260906"
-          load_hit = False
-          load_seen = 0
-          load_total = None
-          for start in (0, 25, 50, 75):
-              total, entries, rate = request(load_query, start)
-              if total is None:
-                  break
-              load_total = total
-              load_seen += len(entries)
-              print(f"LOAD_PAGE start={start} total={total} entries={len(entries)} rate={rate}")
-              for item in entries:
-                  if not isinstance(item, dict):
-                      continue
-                  doi = str(item.get("prism:doi") or item.get("dc:identifier") or "")
-                  if target_doi in doi.casefold():
-                      load_hit = True
-                      pii = str(item.get("pii") or "")
-                      title = str(item.get("dc:title") or "")[:200]
-                      cover = str(item.get("prism:coverDate") or "")
-                      load_date = str(item.get("load-date") or "")
-                      print(f"LOAD_TARGET_HIT start={start} doi={target_doi} pii={pii} cover={cover} load_date={load_date} title={title}")
-              if len(entries) < 25:
-                  break
-
-          print(f"RESULT exact_hit={exact_hit} load_total={load_total} load_seen={load_seen} load_hit={load_hit}")
-          if not exact_hit:
-              raise SystemExit("Target DOI is not searchable in Article Metadata API")
-          if not load_hit:
-              raise SystemExit("Target DOI is searchable exactly but not discoverable by orig-load-date query")
+          print(f"RESULT target_hit={hit}")
+          if not hit:
+              raise SystemExit("Target JDE article is not present in official ScienceDirect RSS")
           PY
