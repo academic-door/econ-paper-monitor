@@ -1,3 +1,5 @@
+"""Regression contract for Elsevier native early discovery under Parent Decision 0015."""
+
 from __future__ import annotations
 
 import json
