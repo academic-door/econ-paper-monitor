@@ -1,9 +1,10 @@
 {
   "categories": {
-    "needs_investigation": 20
+    "needs_investigation": 14,
+    "permanently_unavailable": 1
   },
-  "checked_at": "2026-09-10T08:21:19.766432+08:00",
-  "source_health_degraded_count": 20,
+  "checked_at": "2026-09-10T09:09:39.212468+08:00",
+  "source_health_degraded_count": 15,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,13 +12,18 @@
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 13; Economic Development and Cultural Change: 0;",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Explorations in Economic History: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematica",
+      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical So",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=39/110; Australian Journal of Agricultural and Resource Economics: 0 via official-generated; Applied Economic Perspectives and Policy: HTTPError: HTTP Error 403: Forbidden; Applied Economic Pers",
+      "sample_error": "feeds=29/45; Journal of Financial Economics: 17 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 44 via official-generated; Economic Development",
       "source": "rss"
     },
     {
@@ -35,23 +41,8 @@
       "journal_id": "agricultural-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Agricultural Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "american-journal-of-agricultural-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "American Journal of Agricultural Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "rate_limited",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -65,8 +56,8 @@
       "journal_id": "applied-economic-perspectives-and-policy",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Applied Economic Perspectives and Policy",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -80,8 +71,8 @@
       "journal_id": "australian-journal-of-agricultural-and-resource-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Australian Journal of Agricultural and Resource Economics",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -167,41 +158,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "international-economic-review",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "International Economic Review",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "journal-of-agricultural-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Journal of Agricultural Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "review-of-economic-design/springer_online_first: crossref fallback 2; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; internat",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -230,21 +191,6 @@
       "journal_id": "journal-of-economics-and-management-strategy",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Journal of Economics & Management Strategy",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-finance",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Finance",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
@@ -287,21 +233,6 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "rand-journal-of-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "RAND Journal of Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "scandinavian-journal-of-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Scandinavian Journal of Economics",
@@ -313,24 +244,24 @@
       ]
     },
     {
-      "category": "needs_investigation",
+      "category": "permanently_unavailable",
       "category_counts": {
-        "needs_investigation": 1
+        "permanently_unavailable": 1
       },
-      "journal_id": "the-world-economy",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "The World Economy",
-      "status_category": null,
-      "status_source": null,
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
       "usable_paths": [
-        "crossref",
+        "cnki-rss",
         "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 5
   },
-  "total_degraded": 20
+  "total_degraded": 15
 }
