@@ -1,0 +1,91 @@
+name: "Elsevier Article Metadata Probe"
+
+on:
+  push:
+    branches:
+      - brain/p1-elsevier-article-metadata-probe
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe Article Metadata API with existing credentials
+        env:
+          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
+          ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+
+          api_key = os.environ.get("ELSEVIER_API_KEY", "")
+          inst_token = os.environ.get("ELSEVIER_INST_TOKEN", "")
+          if not api_key:
+              raise SystemExit("ELSEVIER_API_KEY is not configured")
+
+          headers = {
+              "Accept": "application/json",
+              "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
+              "X-ELS-APIKey": api_key,
+          }
+          if inst_token:
+              headers["X-ELS-Insttoken"] = inst_token
+
+          base = "https://api.elsevier.com/content/metadata/article"
+          queries = [
+              ("recent", "srctitle(Journal of Development Economics) AND pub-date AFT 20260906"),
+              ("all-jde", "srctitle(Journal of Development Economics)"),
+          ]
+          target_doi = "10.1016/j.jdeveco.2026.103924"
+          any_recent = False
+
+          for label, query in queries:
+              params = urllib.parse.urlencode({"query": query, "count": "25", "view": "STANDARD"})
+              url = f"{base}?{params}"
+              request = urllib.request.Request(url, headers=headers, method="GET")
+              try:
+                  with urllib.request.urlopen(request, timeout=30) as response:
+                      payload = json.loads(response.read().decode("utf-8"))
+                      rate = {
+                          "limit": response.headers.get("X-RateLimit-Limit"),
+                          "remaining": response.headers.get("X-RateLimit-Remaining"),
+                          "reset": response.headers.get("X-RateLimit-Reset"),
+                      }
+              except urllib.error.HTTPError as exc:
+                  body = exc.read().decode("utf-8", errors="replace")[:500]
+                  print(f"{label}: HTTP {exc.code} status={exc.headers.get('X-ELS-Status')} body={body}")
+                  continue
+
+              search = payload.get("search-results") if isinstance(payload, dict) else None
+              if not isinstance(search, dict):
+                  print(f"{label}: missing search-results; top_keys={list(payload)[:10] if isinstance(payload, dict) else type(payload).__name__}")
+                  continue
+              entries = search.get("entry") or []
+              if not isinstance(entries, list):
+                  entries = []
+              total = search.get("opensearch:totalResults")
+              print(f"{label}: total={total} entries={len(entries)} rate={rate}")
+              for item in entries[:10]:
+                  if not isinstance(item, dict):
+                      continue
+                  doi = str(item.get("prism:doi") or item.get("dc:identifier") or "")
+                  pii = str(item.get("pii") or "")
+                  title = str(item.get("dc:title") or "")[:160]
+                  cover = str(item.get("prism:coverDate") or "")
+                  source = str(item.get("prism:publicationName") or "")
+                  print(f"ENTRY label={label} doi={doi} pii={pii} cover={cover} source={source} title={title}")
+                  if label == "recent":
+                      any_recent = True
+                  if target_doi in doi.casefold():
+                      print(f"TARGET_HIT label={label} doi={target_doi}")
+
+          if not any_recent:
+              raise SystemExit("Article Metadata API did not return any recent JDE entry")
+          PY
