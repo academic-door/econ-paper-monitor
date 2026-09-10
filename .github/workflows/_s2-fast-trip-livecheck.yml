@@ -1,0 +1,51 @@
+name: S2 fast-trip live check
+on:
+  push:
+    paths:
+      - .github/workflows/_s2-fast-trip-livecheck.yml
+permissions:
+  contents: read
+jobs:
+  livecheck:
+    runs-on: ubuntu-latest
+    env:
+      S2_API_KEY: ${{ secrets.S2_API_KEY }}
+      SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run bounded recent metadata recovery dry-run
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('scripts').resolve()))
+          import recover_metadata_batch as rmb
+
+          report = rmb.run_recovery(
+              data_dir=Path('data'),
+              limit=12,
+              recent_days=30,
+              timeout=15,
+              workers=4,
+              dry_run=True,
+          )
+          health = report.get('provider_health', {}).get('semantic-scholar', {})
+          safe = {
+              'candidates': report.get('candidates'),
+              'attempts': health.get('attempts'),
+              'available': health.get('available'),
+              'statuses': health.get('statuses'),
+              'rate_limited': health.get('rate_limited'),
+              'skipped': health.get('skipped'),
+              'failed': health.get('failed'),
+              'control': health.get('control'),
+          }
+          print('S2_FAST_TRIP_LIVECHECK ' + json.dumps(safe, sort_keys=True))
+          control = safe['control'] or {}
+          assert control.get('client_target_rps') == 0.2, safe
+          assert control.get('fast_trip_after_consecutive_rate_limits') == 2, safe
+          assert float(control.get('min_interval_seconds') or 0) >= 5.0, safe
+          PY
