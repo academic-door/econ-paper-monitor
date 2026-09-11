@@ -15,12 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
       - name: Locate legacy OECD records at pre-fix commit
         shell: bash
         run: |
           set -euo pipefail
           OLD=1cffab1dac4420d8eff63ce4e7d84a25a17f6539
+          git fetch --no-tags --depth=1 origin "$OLD"
           echo "old_commit=$OLD"
           for needle in f2a165e7-en ce7f76e3-en 608804a8-en; do
             echo "=== $needle ==="
