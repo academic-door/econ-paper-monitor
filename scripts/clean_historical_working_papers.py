@@ -4,16 +4,30 @@ from __future__ import annotations
 
 import argparse
 import re
-from datetime import date
+from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
 
 from artifact_paths import sanitize_record_paths
-from common import DATA_DIR, read_json, stable_id, today_str, write_json
+from common import BEIJING_TZ, DATA_DIR, read_json, stable_id, today_str, write_json
 
 
 CEPR_NUMBER = re.compile(r"/dp(\d+)(?:\D|$)", flags=re.I)
 ISO_DATE = re.compile(r"20\d{2}-\d{2}-\d{2}")
+
+
+def first_seen_daily_bucket(value: Any) -> str | None:
+    """Map first_seen to the repository's canonical Beijing Daily bucket."""
+    raw = str(value or "").strip()
+    if not raw:
+        return None
+    try:
+        observed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if observed.tzinfo is None:
+        observed = observed.replace(tzinfo=UTC)
+    return observed.astimezone(BEIJING_TZ).date().isoformat()
 
 
 def is_historical_cepr(record: dict[str, Any]) -> bool:
@@ -24,29 +38,20 @@ def is_historical_cepr(record: dict[str, Any]) -> bool:
 
 
 def has_first_discovery_anchor(record: dict[str, Any], bucket_date: str) -> bool:
-    """Return True when the record is durably anchored to this Daily bucket.
+    """Return True when first_seen belongs to this canonical Beijing Daily bucket.
 
-    Metadata enrichment may later reveal an official publication date months or
-    years before Academic Door first discovered a paper.  That evidence must
-    not rewrite the already accepted first-discovery timeline.  Keep this rule
-    intentionally narrow: the explicit ``first_seen`` date prefix must match
-    the existing bucket.  Unanchored catalogue/backfill items therefore retain
-    the historical-cleanup behavior below.
-
-    This helper deliberately preserves the repository's existing bucket
-    contract; it does not perform a timezone migration or reinterpret old
-    ``first_seen`` values.
+    Daily files are keyed by Beijing date, while ``first_seen`` is persisted as
+    an offset-aware timestamp (normally UTC). Metadata enrichment may later
+    reveal an official publication date months or years earlier; that evidence
+    must not rewrite the accepted first-discovery timeline.
     """
-    first_seen = str(record.get("first_seen") or "").strip()
-    first_seen_date = first_seen[:10]
-    if not ISO_DATE.fullmatch(first_seen_date) or not ISO_DATE.fullmatch(bucket_date):
+    if not ISO_DATE.fullmatch(bucket_date):
         return False
     try:
-        date.fromisoformat(first_seen_date)
         date.fromisoformat(bucket_date)
     except ValueError:
         return False
-    return first_seen_date == bucket_date
+    return first_seen_daily_bucket(record.get("first_seen")) == bucket_date
 
 
 def is_historical_working_paper(record: dict[str, Any], *, run_date: str, max_age_days: int) -> bool:
