@@ -26,6 +26,106 @@ class OecdCanonicalDetailUrlTests(unittest.TestCase):
             "https://www.oecd.org/en/publications/mapping-drought-severity-in-mexico-using-high-resolution-satellite-data_f2a165e7-en.html",
         )
 
+    def test_oecd_doi_is_derived_only_from_current_publication_slug(self):
+        self.assertEqual(
+            backfill.oecd_doi_from_url(
+                "https://www.oecd.org/en/publications/mapping-drought-severity-in-mexico-using-high-resolution-satellite-data_f2a165e7-en.html"
+            ),
+            "10.1787/f2a165e7-en",
+        )
+        self.assertIsNone(backfill.oecd_doi_from_url("https://www.oecd.org/en/publications/not-a-publication.html"))
+
+
+class OecdReadonlyFallbackTests(unittest.TestCase):
+    def test_official_proxy_and_doi_metadata_fill_bounded_gap(self):
+        record = {
+            "id": "url:205e5e9de6ae0278",
+            "source": "working_papers",
+            "source_id": "oecd-working-papers",
+            "source_type": "policy_paper",
+            "title": "Mapping drought severity in Mexico using high-resolution satellite data",
+            "url": "https://www.oecd.org/en/publications/mapping-drought-severity-in-mexico-using-high-resolution-satellite-data_f2a165e7-en.html",
+            "authors": [],
+            "abstract": "",
+            "first_seen": "2026-06-18T20:31:17+00:00",
+            "date_confidence": "F",
+        }
+        markdown = """
+OECD Publications
+Mapping drought severity in Mexico using high-resolution satellite data
+OECD Economics Department Working Papers
+
+1 April 2026
+Download PDF
+Cite this publication
+Abstract
+Related publications
+Related topics
+Share
+Abstract
+
+This paper analyses drought severity across Mexican regions between 2000 and 2025 using satellite-based indicators of vegetation health and surface moisture. It provides a consistent high-resolution measure of drought intensity and supports climate adaptation policy.
+Related publications
+"""
+        doi_payload = {
+            "DOI": "10.1787/f2a165e7-en",
+            "publisher": "Organisation for Economic Co-Operation and Development (OECD)",
+            "author": [
+                {"given": "Ilyes", "family": "Boumahdi"},
+                {"given": "Alberto González", "family": "Pandiella"},
+            ],
+        }
+        with (
+            patch.object(backfill, "fetch_text", return_value=markdown) as fetch_text,
+            patch.object(backfill, "fetch_json", return_value=doi_payload) as fetch_json,
+        ):
+            updated = backfill.enrich_oecd_from_readonly_transports(record, timeout=10)
+
+        self.assertEqual(updated["authors"], ["Ilyes Boumahdi", "Alberto González Pandiella"])
+        self.assertIn("This paper analyses drought severity", updated["abstract"])
+        self.assertEqual(updated["available_online"], "2026-04-01")
+        self.assertEqual(updated["date_source"], "oecd_official_page_proxy")
+        self.assertEqual(updated["doi"], "10.1787/f2a165e7-en")
+        self.assertEqual(updated["authors_source"], "oecd_doi_registry")
+        self.assertIn("r.jina.ai/http://www.oecd.org", fetch_text.call_args.args[0])
+        self.assertEqual(
+            fetch_json.call_args.kwargs["headers"]["Accept"],
+            "application/vnd.citationstyles.csl+json",
+        )
+
+    def test_repair_falls_back_when_direct_oecd_html_is_blocked(self):
+        record = {
+            "id": "oecd-test-record",
+            "source": "working_papers",
+            "source_id": "oecd-working-papers",
+            "source_type": "policy_paper",
+            "title": "Mapping drought severity in Mexico using high-resolution satellite data",
+            "url": "https://www.oecd-ilibrary.org/en/publications/mapping-drought-severity-in-mexico-using-high-resolution-satellite-data_f2a165e7-en.html",
+            "authors": [],
+            "abstract": "",
+            "first_seen": "2026-06-18T20:31:17+00:00",
+            "date_confidence": "F",
+        }
+        source = {"id": "oecd-working-papers"}
+
+        def fallback(item, *, timeout):
+            item["authors"] = ["Ilyes Boumahdi", "Alberto González Pandiella"]
+            item["abstract"] = "Authoritative OECD abstract from the official publication page."
+            return item
+
+        with (
+            patch.object(backfill, "enrich_record_from_detail", side_effect=lambda item, source, *, timeout: item),
+            patch.object(backfill, "enrich_oecd_from_readonly_transports", side_effect=fallback) as proxy_fallback,
+        ):
+            changed, authors_added, abstract_added = backfill.repair_record(record, source, timeout=10)
+
+        self.assertTrue(changed)
+        self.assertTrue(authors_added)
+        self.assertTrue(abstract_added)
+        self.assertTrue(proxy_fallback.called)
+        self.assertEqual(record["first_seen"], "2026-06-18T20:31:17+00:00")
+        self.assertIn("www.oecd.org/", record["url"])
+
 
 class OecdScheduledBackfillTests(unittest.TestCase):
     def setUp(self):
