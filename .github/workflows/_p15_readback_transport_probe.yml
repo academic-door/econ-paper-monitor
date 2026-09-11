@@ -1,0 +1,123 @@
+name: P1.5 OECD readback + T&F citation transport probe
+
+on:
+  push:
+    branches:
+      - brain/p1-5c-tandf-production-revise
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Exact OECD current/pending and original-bucket readback
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin 1cffab1dac4420d8eff63ce4e7d84a25a17f6539
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+
+          slugs = [
+              'mapping-drought-severity-in-mexico-using-high-resolution-satellite-data_f2a165e7-en.html',
+              'the-short-and-medium-term-effects-of-structural-reforms_ce7f76e3-en.html',
+              'what-was-the-impact-of-the-pandemic-and-energy-food-shocks-on-european-consumers-everyday-spending_608804a8-en.html',
+          ]
+          old = '1cffab1dac4420d8eff63ce4e7d84a25a17f6539'
+          pending = json.loads(Path('data/pending_date_records.json').read_text(encoding='utf-8-sig'))
+          daily_paths = list(Path('data/daily').glob('*.json'))
+
+          def compact(r, bucket=None):
+              return {
+                  'bucket': bucket,
+                  'id': r.get('id'), 'title': r.get('title'), 'url': r.get('url'),
+                  'first_seen': r.get('first_seen'), 'authors': r.get('authors'),
+                  'abstract_len': len(str(r.get('abstract') or '')),
+                  'abstract_completeness': r.get('abstract_completeness'),
+                  'abstract_source': r.get('abstract_source'), 'doi': r.get('doi'),
+                  'available_online': r.get('available_online'),
+                  'published_online': r.get('published_online'), 'issue_date': r.get('issue_date'),
+                  'date_confidence': r.get('date_confidence'), 'date_source': r.get('date_source'),
+                  'pending_reason': r.get('pending_reason'), 'source': r.get('source'),
+                  'source_id': r.get('source_id'), 'historical_backfill': r.get('historical_backfill'),
+              }
+
+          for slug in slugs:
+              pm = [compact(r) for r in pending if isinstance(r, dict) and slug in str(r.get('url') or '')]
+              dm = []
+              for p in daily_paths:
+                  for r in json.loads(p.read_text(encoding='utf-8-sig')):
+                      if isinstance(r, dict) and slug in str(r.get('url') or ''):
+                          dm.append(compact(r, p.name))
+              grep = subprocess.run(['git','grep','-l',slug,old,'--','data/daily'], text=True, capture_output=True)
+              old_paths = []
+              if grep.returncode in (0,1):
+                  old_paths = [line.split(':',1)[1] if ':' in line else line for line in grep.stdout.splitlines() if line.strip()]
+              oldm = []
+              for path in old_paths:
+                  shown = subprocess.run(['git','show',f'{old}:{path}'], text=True, capture_output=True, check=True).stdout
+                  for r in json.loads(shown.lstrip('\ufeff')):
+                      if isinstance(r, dict) and slug in str(r.get('url') or ''):
+                          oldm.append(compact(r, Path(path).name))
+              print('OECD_EXACT', json.dumps({'slug':slug,'pending':pm,'current_daily':dm,'prefx_daily':oldm}, ensure_ascii=False))
+          PY
+      - name: Probe authoritative T&F citation export transport
+        run: |
+          python - <<'PY'
+          import json, urllib.parse, urllib.request, urllib.error, re
+
+          dois = ('10.1080/07350015.2026.2718882','10.1080/00036846.2026.2730528')
+          ua = 'Mozilla/5.0 (compatible; AcademicDoor/1.0; +https://academic-door.github.io/econ-paper-monitor/)'
+
+          def request(url, *, data=None, method=None):
+              req = urllib.request.Request(url, data=data, method=method, headers={
+                  'User-Agent': ua,
+                  'Accept': 'text/plain,text/html,application/x-research-info-systems,*/*;q=0.5',
+                  'Content-Type': 'application/x-www-form-urlencoded' if data is not None else 'text/plain',
+              })
+              try:
+                  with urllib.request.urlopen(req, timeout=15) as resp:
+                      body = resp.read().decode('utf-8','replace')
+                      return {'status': resp.status, 'final': resp.geturl(), 'ctype': resp.headers.get('Content-Type'), 'body': body}
+              except urllib.error.HTTPError as exc:
+                  body = exc.read().decode('utf-8','replace')
+                  return {'status': exc.code, 'final': exc.geturl(), 'ctype': exc.headers.get('Content-Type'), 'body': body}
+              except Exception as exc:
+                  return {'status': None, 'error': f'{type(exc).__name__}: {exc}', 'body': ''}
+
+          def summarize(label, result):
+              body = result.get('body') or ''
+              abstract_fields=[]
+              abstract_len=0
+              for line in body.splitlines():
+                  m=re.match(r'^(?:N2|AB)\s*-\s*(.*)$', line, re.I)
+                  if m:
+                      abstract_fields.append(line[:2].upper())
+                      abstract_len=max(abstract_len,len(m.group(1).strip()))
+              return {
+                  'label':label, 'status':result.get('status'), 'final':result.get('final'),
+                  'ctype':result.get('ctype'), 'bytes':len(body.encode('utf-8','ignore')),
+                  'abstract_fields':abstract_fields, 'abstract_len':abstract_len,
+                  'has_download_form': 'downloadCitation' in body,
+                  'error':result.get('error'),
+              }
+
+          for doi in dois:
+              encoded=urllib.parse.quote(doi, safe='')
+              probes=[]
+              probes.append(summarize('showCitFormats', request(f'https://www.tandfonline.com/action/showCitFormats?doi={encoded}')))
+              form=urllib.parse.urlencode({'downloadFileName':'citation','direct':'true','include':'abs','doi':doi,'format':'ris'}).encode()
+              probes.append(summarize('downloadCitation_POST_RIS_ABS', request('https://www.tandfonline.com/action/downloadCitation', data=form, method='POST')))
+              qs=urllib.parse.urlencode({'doi':doi,'downloadFileName':'citation','include':'abs','format':'ris','direct':'true'})
+              probes.append(summarize('downloadCitation_GET_RIS_ABS', request('https://www.tandfonline.com/action/downloadCitation?'+qs)))
+              print('TANDF_CITATION_TRANSPORT', json.dumps({'doi':doi,'probes':probes}, ensure_ascii=False))
+          PY
