@@ -34,7 +34,7 @@ def _run_cleanup(record: dict, *, bucket: str = "2026-09-03") -> tuple[list[dict
 
 
 def test_matching_first_seen_anchor_preserves_daily_discovery_bucket() -> None:
-    first_seen = "2026-09-03T21:27:47+00:00"
+    first_seen = "2026-09-03T12:00:00+00:00"
     record = {
         "id": "url:745e78d1f96ad024",
         "title": "When Sectoral Recovery Fails to Aggregate",
@@ -55,6 +55,26 @@ def test_matching_first_seen_anchor_preserves_daily_discovery_bucket() -> None:
     assert queued == []
 
 
+def test_utc_evening_first_seen_anchors_next_beijing_daily_bucket() -> None:
+    first_seen = "2026-06-18T20:31:17+00:00"
+    record = {
+        "id": "url:205e5e9de6ae0278",
+        "title": "Mapping drought severity in Mexico using high-resolution satellite data",
+        "source": "working_papers",
+        "source_id": "oecd-working-papers",
+        "url": "https://www.oecd.org/en/publications/mapping-drought-severity-in-mexico_f2a165e7-en.html",
+        "available_online": "2025-12-01",
+        "date_confidence": "A",
+        "first_seen": first_seen,
+    }
+
+    kept, queued = _run_cleanup(record, bucket="2026-06-19")
+
+    assert len(kept) == 1
+    assert kept[0]["first_seen"] == first_seen
+    assert queued == []
+
+
 def test_unanchored_old_catalogue_record_still_moves_to_pending() -> None:
     record = {
         "title": "Historical catalogue item",
@@ -71,7 +91,7 @@ def test_unanchored_old_catalogue_record_still_moves_to_pending() -> None:
     assert len(queued) == 1
 
 
-def test_mismatched_first_seen_does_not_suppress_historical_cleanup() -> None:
+def test_genuinely_different_beijing_first_seen_does_not_suppress_cleanup() -> None:
     record = {
         "title": "Backflowed historical record",
         "source": "working_papers",
@@ -79,10 +99,10 @@ def test_mismatched_first_seen_does_not_suppress_historical_cleanup() -> None:
         "url": "https://cepr.org/publications/dp20322",
         "available_online": "2025-06-03",
         "date_confidence": "B",
-        "first_seen": "2026-09-02T23:50:00+00:00",
+        "first_seen": "2026-09-02T10:00:00+00:00",
     }
 
-    kept, queued = _run_cleanup(record)
+    kept, queued = _run_cleanup(record, bucket="2026-09-03")
 
     assert kept == []
     assert len(queued) == 1
