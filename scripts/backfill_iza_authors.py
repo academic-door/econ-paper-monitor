@@ -9,11 +9,11 @@ from __future__ import annotations
 
 import argparse
 import re
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
-from common import DATA_DIR, read_json, today_str, write_json
+from common import BEIJING_TZ, DATA_DIR, read_json, today_str, write_json
 from fetch_preprints import enrich_record_from_detail, enrich_record_from_proxy, load_sources
 
 
@@ -25,8 +25,22 @@ def target_dates(days: int) -> set[str]:
     return {(today - timedelta(days=offset)).isoformat() for offset in range(max(days, 1))}
 
 
+def first_seen_daily_bucket(value: object) -> str | None:
+    """Map a UTC/offset first_seen timestamp to the canonical Beijing Daily day."""
+    raw = str(value or "").strip()
+    if not raw:
+        return None
+    try:
+        observed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if observed.tzinfo is None:
+        observed = observed.replace(tzinfo=UTC)
+    return observed.astimezone(BEIJING_TZ).date().isoformat()
+
+
 def queued_oecd_targets() -> dict[str, set[str]]:
-    """Return retry-queued OECD identities keyed by their original Daily bucket."""
+    """Return retry-queued OECD identities keyed by their canonical Daily bucket."""
     payload = read_json(DATA_DIR / "metadata_retry_queue.json", {"records": []})
     records = payload.get("records") if isinstance(payload, dict) else []
     targets: dict[str, set[str]] = {}
@@ -41,12 +55,8 @@ def queued_oecd_targets() -> dict[str, set[str]]:
         if bool(entry.get("historical_backfill")):
             continue
         identity = str(entry.get("identity") or "").strip().casefold()
-        first_seen = str(entry.get("first_seen") or "")
-        if not identity or len(first_seen) < 10:
-            continue
-        try:
-            bucket = date.fromisoformat(first_seen[:10]).isoformat()
-        except ValueError:
+        bucket = first_seen_daily_bucket(entry.get("first_seen"))
+        if not identity or not bucket:
             continue
         targets.setdefault(bucket, set()).add(identity)
     return targets
@@ -138,6 +148,57 @@ def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bo
     return changed, authors_enriched, abstract_enriched
 
 
+def _url_identity(record: dict) -> str:
+    return f"url:{str(record.get('url') or '').strip().casefold()}"
+
+
+def restore_queued_oecd_from_seen(
+    *,
+    daily_dir: Path,
+    papers: dict,
+    queued_oecd: dict[str, set[str]],
+) -> set[Path]:
+    """Restore accepted first-discovery OECD rows lost from Daily but retained in seen."""
+    restored_paths: set[Path] = set()
+    if not queued_oecd or not isinstance(papers, dict):
+        return restored_paths
+
+    for bucket, identities in queued_oecd.items():
+        path = daily_dir / f"{bucket}.json"
+        payload = read_json(path, [])
+        if not isinstance(payload, list):
+            continue
+        existing_ids = {str(item.get("id") or "") for item in payload if isinstance(item, dict)}
+        existing_urls = {_url_identity(item) for item in payload if isinstance(item, dict)}
+        file_changed = False
+
+        for seen_record in papers.values():
+            if not isinstance(seen_record, dict):
+                continue
+            if str(seen_record.get("source_id") or "") != "oecd-working-papers":
+                continue
+            if first_seen_daily_bucket(seen_record.get("first_seen")) != bucket:
+                continue
+            identity = _url_identity(seen_record)
+            record_id = str(seen_record.get("id") or "")
+            if identity not in identities:
+                continue
+            if (record_id and record_id in existing_ids) or identity in existing_urls:
+                continue
+            restored = dict(seen_record)
+            payload.append(restored)
+            if record_id:
+                existing_ids.add(record_id)
+            existing_urls.add(identity)
+            file_changed = True
+
+        if file_changed:
+            write_json(path, payload)
+            restored_paths.add(path)
+
+    return restored_paths
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
@@ -171,6 +232,13 @@ def main() -> None:
     papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else {}
     seen_changed = False
 
+    restored_paths = restore_queued_oecd_from_seen(
+        daily_dir=args.daily_dir,
+        papers=papers if isinstance(papers, dict) else {},
+        queued_oecd=queued_oecd,
+    )
+    changed_files += len(restored_paths)
+
     for path in sorted(args.daily_dir.glob("*.json"), reverse=True):
         is_recent = path.stem in wanted
         queued_identities = queued_oecd.get(path.stem, set())
@@ -188,7 +256,7 @@ def main() -> None:
             if source is None or not record.get("url") or not needs_scheduled_repair(record, source_id):
                 continue
             if not is_recent:
-                identity = f"url:{str(record.get('url') or '').casefold()}"
+                identity = _url_identity(record)
                 if source_id != "oecd-working-papers" or identity not in queued_identities:
                     continue
 
@@ -213,7 +281,8 @@ def main() -> None:
 
         if changed:
             write_json(path, payload)
-            changed_files += 1
+            if path not in restored_paths:
+                changed_files += 1
 
     if isinstance(papers, dict) and seen_changed:
         seen_payload["papers"] = papers
