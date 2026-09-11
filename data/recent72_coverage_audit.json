@@ -1,33 +1,39 @@
 {
-  "already_seen_candidates": 1993,
-  "covered_candidates": 100,
+  "already_seen_candidates": 476,
+  "covered_candidates": 24,
   "daily_by_source": {
     "aea_toc": 6,
     "cn_journals": 17,
-    "cnki-rss": 7,
-    "crossref": 50,
+    "cnki-rss": 8,
+    "crossref": 51,
     "sciencedirect_search": 1,
     "working_papers": 15
   },
-  "daily_records": 96,
+  "daily_records": 98,
   "dates": [
     "2026-09-11",
     "2026-09-10",
     "2026-09-09"
   ],
-  "eligible_missing_candidates": 0,
-  "missing_by_source": [],
-  "other_archive_date_candidates": 2,
+  "eligible_missing_candidates": 4,
+  "missing_by_source": [
+    {
+      "count": 4,
+      "examples": [
+        "数量经济技术经济研究: 重复截面数据下的计量分析工具——拟事件研究法的理论逻辑与中国实践",
+        "数量经济技术经济研究: 中国企业标准国际化与供应链出海",
+        "数量经济技术经济研究: 重复截面数据下的计量分析工具——拟事件研究法的理论逻辑与中国实践",
+        "数量经济技术经济研究: 中国企业标准国际化与供应链出海"
+      ],
+      "reason": "raw candidate was not seen before and should belong to the recent 72-hour window, but is absent from public daily files",
+      "source": "数量经济技术经济研究"
+    }
+  ],
+  "other_archive_date_candidates": 0,
   "raw_by_source": {
-    "aea_toc": 243,
-    "cn_journals": 118,
-    "crossref": 351,
-    "openalex_recall": 74,
-    "priority_crossref_fallback": 121,
-    "priority_toc": 98,
-    "rss": 1101,
-    "working_papers": 60
+    "cnki-rss": 297,
+    "rss": 225
   },
-  "raw_candidates": 2166,
-  "suppressed_candidates": 71
+  "raw_candidates": 522,
+  "suppressed_candidates": 18
 }

@@ -350,7 +350,7 @@
           "filtered": 2,
           "journal": "中国农村经济",
           "journal_id": "journal-f69300dae2",
-          "latest_item_date": "2026-08-24",
+          "latest_item_date": "2026-08-30",
           "latest_research_date": "2026-08-24",
           "latest_title": "兽药最大残留限量对中国水产品出口的影响——基于拓展引力模型的实证分析",
           "message": "accepted=18 filtered=2 stale=0 latest_research=2026-08-24",
@@ -361,31 +361,29 @@
       "ok": true,
       "selected_sources": 6,
       "successful_sources": 6,
-      "updated_at": "2026-09-10T22:10:53+00:00"
+      "updated_at": "2026-09-11T04:10:46+00:00"
     },
     "publisher-detail": {
       "publishers": [
         {
-          "ab_dates": 0,
-          "attempted": 112,
-          "changed": 4,
+          "ab_dates": 2,
+          "attempted": 3,
+          "changed": 3,
           "degraded": true,
-          "failures": 112,
+          "failures": 1,
           "fallbacks": [
             "crossref-doi",
             "openalex",
             "readonly-proxy"
           ],
-          "message": "elsevier-metadata-only:108, HTTPError:2, metadata-only:1, metadata-only:proxy-request-failed:1",
+          "message": "abstract-present:2, metadata-only:abstract-not-exposed:1",
           "publisher": "Elsevier",
           "retryable": true,
           "statuses": {
-            "HTTPError": 2,
-            "elsevier-metadata-only": 108,
-            "metadata-only": 1,
-            "metadata-only:proxy-request-failed": 1
+            "abstract-present": 2,
+            "metadata-only:abstract-not-exposed": 1
           },
-          "success_rate": 0.0
+          "success_rate": 0.6667
         },
         {
           "ab_dates": 0,
@@ -405,24 +403,23 @@
           "success_rate": 0
         },
         {
-          "ab_dates": 0,
-          "attempted": 8,
-          "changed": 2,
-          "degraded": true,
-          "failures": 8,
+          "ab_dates": 6,
+          "attempted": 6,
+          "changed": 6,
+          "degraded": false,
+          "failures": 0,
           "fallbacks": [
             "crossref-doi",
             "openalex",
             "readonly-proxy"
           ],
-          "message": "crossref-doi-fallback:5, HTTPError:3",
+          "message": "abstract-present:6",
           "publisher": "Other",
-          "retryable": true,
+          "retryable": false,
           "statuses": {
-            "HTTPError": 3,
-            "crossref-doi-fallback": 5
+            "abstract-present": 6
           },
-          "success_rate": 0.0
+          "success_rate": 1.0
         },
         {
           "ab_dates": 0,
@@ -459,7 +456,7 @@
           "success_rate": 0
         }
       ],
-      "updated_at": "2026-09-11T00:13:59+00:00"
+      "updated_at": "2026-09-11T04:11:46+00:00"
     }
   },
   "sources": {
@@ -509,10 +506,10 @@
       "updated_at": "2026-09-07T08:31:57+00:00"
     },
     "china-relevance": {
-      "count": 2032,
-      "message": "candidates=516 changed=1",
+      "count": 2040,
+      "message": "candidates=516 changed=11",
       "ok": true,
-      "updated_at": "2026-09-11T01:11:56+00:00"
+      "updated_at": "2026-09-11T04:12:16+00:00"
     },
     "clean-cn-noise": {
       "count": 166,
@@ -536,7 +533,7 @@
       "count": 99,
       "message": "经济研究: accepted=17 filtered=3 stale=0 latest_research=2026-07-20; 管理世界: accepted=14 filtered=6 stale=0 latest_research=2026-08-05; 世界经济: accepted=14 filtered=4 stale=2 latest_research=2026-08-10; 数量经济技术经济研究: accepted=18 filtered=2 stale=0 latest_research=2026-09-09; 中国工业经济: accepted=18 filtered=2 stale=0 latest_research=2026-08-11; 中国农村经济: accepted=18 filtered=2 stale=0 latest_research=2026-08-24",
       "ok": true,
-      "updated_at": "2026-09-10T22:10:53+00:00"
+      "updated_at": "2026-09-11T04:10:46+00:00"
     },
     "crossref": {
       "count": 207,
@@ -566,9 +563,9 @@
     },
     "formal-journal-audit": {
       "count": 97,
-      "message": "formal=97 raw_today=59 daily_today=1 missed=0",
+      "message": "formal=97 raw_today=10 daily_today=2 missed=0",
       "ok": true,
-      "updated_at": "2026-09-11T01:11:21+00:00"
+      "updated_at": "2026-09-11T04:12:19+00:00"
     },
     "historical-backfill-quarantine": {
       "count": 1,
@@ -589,16 +586,16 @@
       "updated_at": "2026-09-11T01:11:20+00:00"
     },
     "local-cnki-publish": {
-      "count": 1,
-      "message": "published to origin/main",
-      "ok": true,
-      "updated_at": "2026-09-10T22:12:00+00:00"
+      "count": 0,
+      "message": "pending",
+      "ok": false,
+      "updated_at": "2026-09-11T04:12:19+00:00"
     },
     "local-cnki-run": {
       "count": 1,
       "message": "finished; log=local_admin/logs/local-cnki-update.log",
       "ok": true,
-      "updated_at": "2026-09-10T22:11:49+00:00"
+      "updated_at": "2026-09-11T04:12:19+00:00"
     },
     "manual-overrides": {
       "count": 2,
@@ -607,10 +604,10 @@
       "updated_at": "2026-09-11T01:11:00+00:00"
     },
     "normalize-records": {
-      "count": 374,
-      "message": "files=119 duplicates_removed=0 duplicate_files=0 seen_source_types=0 seen_abstracts=0 public_integrity_repairs=1",
+      "count": 377,
+      "message": "files=122 duplicates_removed=0 duplicate_files=0 seen_source_types=0 seen_abstracts=0 public_integrity_repairs=1",
       "ok": true,
-      "updated_at": "2026-09-11T01:11:44+00:00"
+      "updated_at": "2026-09-11T04:12:06+00:00"
     },
     "openalex-recall": {
       "count": 93,
@@ -861,24 +858,24 @@
       "updated_at": "2026-09-11T01:06:04+00:00"
     },
     "publisher-detail": {
-      "attempted": 120,
-      "count": 6,
-      "failures": 120,
+      "attempted": 9,
+      "count": 9,
+      "failures": 1,
       "fallbacks": [
         "crossref-doi",
         "openalex",
         "readonly-proxy"
       ],
-      "message": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Explorations in Economic History: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only; 2026-06-23 Economics Letters: elsevier-metadata-only",
+      "message": "attempted=9; proxy_abstract_attempted=1; 2026-09-11 Journal of Development Economics: metadata-only:abstract-not-exposed; seen 数量经济技术经济研究: abstract-present; seen 数量经济技术经济研究: abstract-present; seen 中国工业经济: abstract-present; seen 数量经济技术经济研究: abstract-present; seen 管理世界: abstract-present; 2026-09-11 VoxEU / CEPR Columns: abstract-present; seen Food Policy: abstract-present; 2026-09-11 Economics Letters: abstract-present",
       "ok": false,
       "retryable": true,
-      "updated_at": "2026-09-11T00:13:59+00:00"
+      "updated_at": "2026-09-11T04:11:46+00:00"
     },
     "recent72-coverage-audit": {
-      "count": 0,
-      "message": "dates=2026-09-11,2026-09-10,2026-09-09 raw=2166 daily=96 covered=100 seen=1993 missing=0",
-      "ok": true,
-      "updated_at": "2026-09-11T01:11:22+00:00"
+      "count": 4,
+      "message": "dates=2026-09-11,2026-09-10,2026-09-09 raw=522 daily=98 covered=24 seen=476 missing=4",
+      "ok": false,
+      "updated_at": "2026-09-11T04:12:18+00:00"
     },
     "remove-seen-backflow": {
       "count": 0,
@@ -1033,9 +1030,18 @@
   },
   "workflow": {
     "date": "2026-09-11",
-    "event": "schedule",
-    "finished_at": "2026-09-11T01:12:01+00:00",
+    "event": "local-cnki",
+    "finished_at": "2026-09-11T04:12:19+00:00",
     "history": [
+      {
+        "event": "local-cnki",
+        "finished_at": "2026-09-11T04:12:19+00:00",
+        "mode": "light",
+        "mode_label": "本地中文补充",
+        "run_id": "",
+        "run_url": "",
+        "schedule": ""
+      },
       {
         "event": "schedule",
         "finished_at": "2026-09-11T01:12:01+00:00",
@@ -1296,24 +1302,15 @@
         "run_id": "",
         "run_url": "",
         "schedule": ""
-      },
-      {
-        "event": "schedule",
-        "finished_at": "2026-09-09T09:48:48+00:00",
-        "mode": "light",
-        "mode_label": "快速监测",
-        "run_id": "34335877720",
-        "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/34335877720",
-        "schedule": "7 0-3,5-9,11-15,17-21,23 * * *"
       }
     ],
     "last_full_finished_at": "2026-09-11T00:16:21+00:00",
-    "last_light_finished_at": "2026-09-11T01:12:01+00:00",
+    "last_light_finished_at": "2026-09-11T04:12:19+00:00",
     "mode": "light",
-    "mode_label": "快速监测",
-    "run_id": "34548855228",
-    "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/34548855228",
-    "schedule": "7 0-3,5-9,11-15,17-21,23 * * *",
-    "updated_at": "2026-09-11T01:12:01+00:00"
+    "mode_label": "本地中文补充",
+    "run_id": "",
+    "run_url": "",
+    "schedule": "",
+    "updated_at": "2026-09-11T04:12:19+00:00"
   }
 }
