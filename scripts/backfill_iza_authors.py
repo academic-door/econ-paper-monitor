@@ -152,18 +152,60 @@ def _url_identity(record: dict) -> str:
     return f"url:{str(record.get('url') or '').strip().casefold()}"
 
 
-def restore_queued_oecd_from_seen(
+def durable_oecd_seen_targets(papers: dict) -> dict[str, set[str]]:
+    """Select only durable OECD double-gaps that match the bounded #173 repair scope.
+
+    The rolling retry queue can legitimately age out old records.  ``seen`` is
+    the durable first-discovery identity store, so an accepted OECD record that
+    still has weak/unknown date evidence and is missing both authors and abstract
+    remains recoverable even when it is no longer present in today's retry queue.
+    Records with partial metadata (for example authors already known) are not
+    promoted into this bounded recovery lane.
+    """
+    targets: dict[str, set[str]] = {}
+    if not isinstance(papers, dict):
+        return targets
+    for record in papers.values():
+        if not isinstance(record, dict):
+            continue
+        if str(record.get("source_id") or "") != "oecd-working-papers":
+            continue
+        if str(record.get("source") or "") not in {"", "working_papers"}:
+            continue
+        if str(record.get("source_type") or "") not in {"", "policy_paper"}:
+            continue
+        if record.get("authors") or str(record.get("abstract") or "").strip():
+            continue
+        if str(record.get("date_confidence") or "") not in {"", "F", "unknown"}:
+            continue
+        identity = _url_identity(record)
+        bucket = first_seen_daily_bucket(record.get("first_seen"))
+        if identity == "url:" or not bucket:
+            continue
+        targets.setdefault(bucket, set()).add(identity)
+    return targets
+
+
+def merge_oecd_targets(*target_maps: dict[str, set[str]]) -> dict[str, set[str]]:
+    merged: dict[str, set[str]] = {}
+    for mapping in target_maps:
+        for bucket, identities in mapping.items():
+            merged.setdefault(bucket, set()).update(identities)
+    return merged
+
+
+def restore_oecd_targets_from_seen(
     *,
     daily_dir: Path,
     papers: dict,
-    queued_oecd: dict[str, set[str]],
+    oecd_targets: dict[str, set[str]],
 ) -> set[Path]:
     """Restore accepted first-discovery OECD rows lost from Daily but retained in seen."""
     restored_paths: set[Path] = set()
-    if not queued_oecd or not isinstance(papers, dict):
+    if not oecd_targets or not isinstance(papers, dict):
         return restored_paths
 
-    for bucket, identities in queued_oecd.items():
+    for bucket, identities in oecd_targets.items():
         path = daily_dir / f"{bucket}.json"
         payload = read_json(path, [])
         if not isinstance(payload, list):
@@ -219,7 +261,6 @@ def main() -> None:
         return
 
     wanted = target_dates(args.days)
-    queued_oecd = queued_oecd_targets()
     changed_files = 0
     checked = 0
     enriched = 0
@@ -230,19 +271,24 @@ def main() -> None:
 
     seen_payload = read_json(args.seen, {"papers": {}})
     papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else {}
+    papers = papers if isinstance(papers, dict) else {}
     seen_changed = False
 
-    restored_paths = restore_queued_oecd_from_seen(
+    oecd_targets = merge_oecd_targets(
+        queued_oecd_targets(),
+        durable_oecd_seen_targets(papers),
+    )
+    restored_paths = restore_oecd_targets_from_seen(
         daily_dir=args.daily_dir,
-        papers=papers if isinstance(papers, dict) else {},
-        queued_oecd=queued_oecd,
+        papers=papers,
+        oecd_targets=oecd_targets,
     )
     changed_files += len(restored_paths)
 
     for path in sorted(args.daily_dir.glob("*.json"), reverse=True):
         is_recent = path.stem in wanted
-        queued_identities = queued_oecd.get(path.stem, set())
-        if (not is_recent and not queued_identities) or checked >= args.limit:
+        oecd_identities = oecd_targets.get(path.stem, set())
+        if (not is_recent and not oecd_identities) or checked >= args.limit:
             continue
         payload = read_json(path, [])
         if not isinstance(payload, list):
@@ -257,7 +303,7 @@ def main() -> None:
                 continue
             if not is_recent:
                 identity = _url_identity(record)
-                if source_id != "oecd-working-papers" or identity not in queued_identities:
+                if source_id != "oecd-working-papers" or identity not in oecd_identities:
                     continue
 
             checked += 1
@@ -275,7 +321,7 @@ def main() -> None:
                 per_source_abstracts_enriched[source_id] += 1
 
             seen_key = str(record.get("id") or "")
-            if seen_key and isinstance(papers, dict) and seen_key in papers:
+            if seen_key and seen_key in papers:
                 papers[seen_key].update(record)
                 seen_changed = True
 
@@ -284,7 +330,7 @@ def main() -> None:
             if path not in restored_paths:
                 changed_files += 1
 
-    if isinstance(papers, dict) and seen_changed:
+    if seen_changed:
         seen_payload["papers"] = papers
         write_json(args.seen, seen_payload)
 
