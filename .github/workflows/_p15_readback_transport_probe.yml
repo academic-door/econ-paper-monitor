@@ -1,4 +1,4 @@
-name: P1.5 OECD identity + T&F fallback readback
+name: P1.5 OECD durable identity readback
 
 on:
   push:
@@ -19,8 +19,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Enumerate OECD records by immutable discovery identity
+      - name: Resolve OECD targets across current and historical payloads
         run: |
           set -euo pipefail
           git fetch --depth=1 origin 1cffab1dac4420d8eff63ce4e7d84a25a17f6539
@@ -29,64 +28,56 @@ jobs:
           from pathlib import Path
 
           old='1cffab1dac4420d8eff63ce4e7d84a25a17f6539'
-          first_seen='2026-06-18T20:31:17+00:00'
+          needles=('mapping drought severity','effects of structural reforms','everyday spending')
 
-          def looks_oecd(r):
-              text=' '.join(str(r.get(k) or '') for k in ('source','source_id','publisher','journal','url','title')).casefold()
-              return 'oecd' in text
+          def walk(value):
+              if isinstance(value, dict):
+                  yield value
+                  for child in value.values():
+                      yield from walk(child)
+              elif isinstance(value, list):
+                  for child in value:
+                      yield from walk(child)
 
-          def compact(r, path):
+          def is_target(r):
+              title=' '.join(str(r.get('title') or '').split()).casefold()
+              return any(n in title for n in needles)
+
+          def compact(r,path):
               return {
-                  'path':path,'id':r.get('id'),'title':r.get('title'),'url':r.get('url'),
-                  'first_seen':r.get('first_seen'),'source':r.get('source'),'source_id':r.get('source_id'),
+                  'path':path,'id':r.get('id'),'identity':r.get('identity'),'title':r.get('title'),
+                  'url':r.get('url'),'first_seen':r.get('first_seen'),'source':r.get('source'),
+                  'source_id':r.get('source_id'),'source_type':r.get('source_type'),
                   'authors':r.get('authors'),'abstract_len':len(str(r.get('abstract') or '')),
                   'abstract_source':r.get('abstract_source'),'abstract_completeness':r.get('abstract_completeness'),
-                  'available_online':r.get('available_online'),'published_online':r.get('published_online'),
-                  'issue_date':r.get('issue_date'),'date_source':r.get('date_source'),'date_confidence':r.get('date_confidence'),
-                  'pending_reason':r.get('pending_reason'),'historical_backfill':r.get('historical_backfill'),
+                  'official_date':r.get('official_date'),'available_online':r.get('available_online'),
+                  'published_online':r.get('published_online'),'issue_date':r.get('issue_date'),
+                  'date_source':r.get('date_source'),'date_confidence':r.get('date_confidence'),
+                  'pending_reason':r.get('pending_reason'),'reasons':r.get('reasons'),
+                  'recency_basis':r.get('recency_basis'),'historical_backfill':r.get('historical_backfill'),
               }
 
           current=[]
-          for p in [Path('data/pending_date_records.json'), *Path('data/daily').glob('*.json')]:
+          for p in Path('data').rglob('*.json'):
               try: payload=json.loads(p.read_text(encoding='utf-8-sig'))
               except Exception: continue
-              if not isinstance(payload,list): continue
-              for r in payload:
-                  if isinstance(r,dict) and r.get('first_seen')==first_seen and looks_oecd(r):
-                      current.append(compact(r,str(p)))
+              seen=set()
+              for r in walk(payload):
+                  if not is_target(r): continue
+                  marker=(str(r.get('title')),str(r.get('url')),str(r.get('first_seen')))
+                  if marker in seen: continue
+                  seen.add(marker)
+                  current.append(compact(r,str(p)))
 
-          old_matches=[]
-          tree=subprocess.run(['git','ls-tree','-r','--name-only',old,'data/daily'],text=True,capture_output=True,check=True).stdout.splitlines()
-          for path in tree:
-              if not path.endswith('.json'): continue
+          historical=[]
+          for path in ('data/metadata_retry_queue.json','data/pending_date_records.json'):
               shown=subprocess.run(['git','show',f'{old}:{path}'],text=True,capture_output=True)
               if shown.returncode: continue
               try: payload=json.loads(shown.stdout.lstrip('\ufeff'))
               except Exception: continue
-              if not isinstance(payload,list): continue
-              for r in payload:
-                  if isinstance(r,dict) and r.get('first_seen')==first_seen and looks_oecd(r):
-                      old_matches.append(compact(r,path))
+              for r in walk(payload):
+                  if is_target(r): historical.append(compact(r,path))
 
-          print('OECD_CURRENT_IDENTITY',json.dumps(current,ensure_ascii=False))
-          print('OECD_PREFIX_IDENTITY',json.dumps(old_matches,ensure_ascii=False))
-          PY
-
-      - name: Check exact DOI metadata fallbacks for current T&F gaps
-        run: |
-          python - <<'PY'
-          import json, urllib.request, urllib.error
-          dois=('10.1080/07350015.2026.2718882','10.1080/00036846.2026.2730528')
-          headers={'User-Agent':'AcademicDoor/1.0 (mailto:noreply@academic-door.invalid)','Accept':'application/json'}
-          for doi in dois:
-              url='https://api.crossref.org/works/'+urllib.parse.quote(doi,safe='') if False else None
-              encoded=urllib.parse.quote(doi,safe='')
-              req=urllib.request.Request('https://api.crossref.org/works/'+encoded,headers=headers)
-              try:
-                  with urllib.request.urlopen(req,timeout=20) as resp:
-                      payload=json.loads(resp.read().decode('utf-8','replace')).get('message') or {}
-                      abstract=payload.get('abstract') or ''
-                      print('CROSSREF_TANDF',json.dumps({'doi':doi,'status':resp.status,'has_abstract':bool(abstract),'abstract_len':len(str(abstract)),'publisher':payload.get('publisher'),'type':payload.get('type')},ensure_ascii=False))
-              except urllib.error.HTTPError as exc:
-                  print('CROSSREF_TANDF',json.dumps({'doi':doi,'status':exc.code,'has_abstract':False},ensure_ascii=False))
+          print('OECD_CURRENT_TARGETS',json.dumps(current,ensure_ascii=False))
+          print('OECD_HISTORICAL_TARGETS',json.dumps(historical,ensure_ascii=False))
           PY
