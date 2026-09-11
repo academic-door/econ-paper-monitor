@@ -47,7 +47,7 @@ class OecdScheduledBackfillTests(unittest.TestCase):
             "date_confidence": "F",
         }
 
-    def _run_backfill(self, *, daily_has_record: bool) -> tuple[dict, dict]:
+    def _run_backfill(self, *, daily_has_record: bool, queue_target: bool = True) -> tuple[dict, dict]:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             daily_dir = root / "daily"
@@ -64,20 +64,19 @@ class OecdScheduledBackfillTests(unittest.TestCase):
                 json.dumps({"papers": {"oecd-test-record": dict(self.record)}}),
                 encoding="utf-8",
             )
-            (root / "metadata_retry_queue.json").write_text(
-                json.dumps(
+            retry_records = []
+            if queue_target:
+                retry_records.append(
                     {
-                        "records": [
-                            {
-                                "identity": f"url:{self.legacy_url.casefold()}",
-                                "source_id": "oecd-working-papers",
-                                "reasons": ["missing_abstract", "missing_authors", "weak_date_evidence"],
-                                "first_seen": self.first_seen,
-                                "historical_backfill": False,
-                            }
-                        ]
+                        "identity": f"url:{self.legacy_url.casefold()}",
+                        "source_id": "oecd-working-papers",
+                        "reasons": ["missing_abstract", "missing_authors", "weak_date_evidence"],
+                        "first_seen": self.first_seen,
+                        "historical_backfill": False,
                     }
-                ),
+                )
+            (root / "metadata_retry_queue.json").write_text(
+                json.dumps({"records": retry_records}),
                 encoding="utf-8",
             )
 
@@ -142,13 +141,27 @@ class OecdScheduledBackfillTests(unittest.TestCase):
         self.assertEqual(seen["first_seen"], self.first_seen)
         self.assertEqual(seen["authors"], ["Official OECD Author"])
 
-    def test_queued_oecd_seen_record_missing_from_daily_is_restored_then_repaired(self):
-        repaired, seen = self._run_backfill(daily_has_record=False)
+    def test_seen_only_oecd_gap_missing_from_daily_is_restored_then_repaired(self):
+        repaired, seen = self._run_backfill(daily_has_record=False, queue_target=False)
         self.assertEqual(repaired["id"], "oecd-test-record")
         self.assertEqual(repaired["first_seen"], self.first_seen)
         self.assertEqual(repaired["authors"], ["Official OECD Author"])
         self.assertIn("Official OECD abstract", repaired["abstract"])
         self.assertEqual(seen["first_seen"], self.first_seen)
+
+    def test_seen_abstract_only_gap_is_not_promoted_into_bounded_restore_scope(self):
+        abstract_only = dict(self.record)
+        abstract_only["authors"] = ["Known OECD Author"]
+        self.assertEqual(
+            backfill.durable_oecd_seen_targets({"abstract-only": abstract_only}),
+            {},
+        )
+
+    def test_seen_double_gap_is_selected_without_retry_queue(self):
+        self.assertEqual(
+            backfill.durable_oecd_seen_targets({"target": dict(self.record)}),
+            {"2026-06-19": {f"url:{self.legacy_url.casefold()}"}},
+        )
 
 
 if __name__ == "__main__":
