@@ -1,4 +1,4 @@
-name: P1.5 OECD readback + T&F citation transport probe
+name: P1.5 OECD + publisher transport readback probe
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,7 +19,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Exact OECD current/pending and original-bucket readback
+
+      - name: Exact OECD identity/current/pending/original-bucket readback
         run: |
           set -euo pipefail
           git fetch --depth=1 origin 1cffab1dac4420d8eff63ce4e7d84a25a17f6539
@@ -27,14 +28,17 @@ jobs:
           import json, subprocess
           from pathlib import Path
 
-          slugs = [
-              'mapping-drought-severity-in-mexico-using-high-resolution-satellite-data_f2a165e7-en.html',
-              'the-short-and-medium-term-effects-of-structural-reforms_ce7f76e3-en.html',
-              'what-was-the-impact-of-the-pandemic-and-energy-food-shocks-on-european-consumers-everyday-spending_608804a8-en.html',
-          ]
           old = '1cffab1dac4420d8eff63ce4e7d84a25a17f6539'
+          targets = [
+              ('Mapping drought severity in Mexico using high-resolution satellite data', '2026-06-18T20:31:17+00:00'),
+              ('The short- and medium-term effects of structural reforms', '2026-06-18T20:31:17+00:00'),
+              ('What was the impact of the pandemic and energy-food shocks on European consumers’ “everyday spending”?', '2026-06-18T20:31:17+00:00'),
+          ]
           pending = json.loads(Path('data/pending_date_records.json').read_text(encoding='utf-8-sig'))
           daily_paths = list(Path('data/daily').glob('*.json'))
+
+          def norm(v):
+              return ' '.join(str(v or '').split()).casefold()
 
           def compact(r, bucket=None):
               return {
@@ -51,33 +55,40 @@ jobs:
                   'source_id': r.get('source_id'), 'historical_backfill': r.get('historical_backfill'),
               }
 
-          for slug in slugs:
-              pm = [compact(r) for r in pending if isinstance(r, dict) and slug in str(r.get('url') or '')]
+          for title, expected_first_seen in targets:
+              nt = norm(title)
+              pm = [compact(r) for r in pending if isinstance(r, dict) and norm(r.get('title')) == nt]
               dm = []
               for p in daily_paths:
                   for r in json.loads(p.read_text(encoding='utf-8-sig')):
-                      if isinstance(r, dict) and slug in str(r.get('url') or ''):
+                      if isinstance(r, dict) and norm(r.get('title')) == nt:
                           dm.append(compact(r, p.name))
-              grep = subprocess.run(['git','grep','-l',slug,old,'--','data/daily'], text=True, capture_output=True)
-              old_paths = []
-              if grep.returncode in (0,1):
-                  old_paths = [line.split(':',1)[1] if ':' in line else line for line in grep.stdout.splitlines() if line.strip()]
+
+              current_grep = subprocess.run(['git','grep','-F','-l',title,'HEAD','--','data'], text=True, capture_output=True)
+              current_paths = [line.split(':',1)[1] if ':' in line else line for line in current_grep.stdout.splitlines() if line.strip()]
+              old_grep = subprocess.run(['git','grep','-F','-l',title,old,'--','data/daily'], text=True, capture_output=True)
+              old_paths = [line.split(':',1)[1] if ':' in line else line for line in old_grep.stdout.splitlines() if line.strip()]
               oldm = []
               for path in old_paths:
                   shown = subprocess.run(['git','show',f'{old}:{path}'], text=True, capture_output=True, check=True).stdout
-                  for r in json.loads(shown.lstrip('\ufeff')):
-                      if isinstance(r, dict) and slug in str(r.get('url') or ''):
-                          oldm.append(compact(r, Path(path).name))
-              print('OECD_EXACT', json.dumps({'slug':slug,'pending':pm,'current_daily':dm,'prefx_daily':oldm}, ensure_ascii=False))
+                  payload = json.loads(shown.lstrip('\ufeff'))
+                  if isinstance(payload, list):
+                      for r in payload:
+                          if isinstance(r, dict) and norm(r.get('title')) == nt:
+                              oldm.append(compact(r, Path(path).name))
+              print('OECD_EXACT', json.dumps({
+                  'title':title, 'expected_first_seen':expected_first_seen,
+                  'pending':pm, 'current_daily':dm, 'current_data_paths':current_paths,
+                  'prefx_daily':oldm,
+              }, ensure_ascii=False))
           PY
+
       - name: Probe authoritative T&F citation export transport
         run: |
           python - <<'PY'
           import json, urllib.parse, urllib.request, urllib.error, re
-
           dois = ('10.1080/07350015.2026.2718882','10.1080/00036846.2026.2730528')
           ua = 'Mozilla/5.0 (compatible; AcademicDoor/1.0; +https://academic-door.github.io/econ-paper-monitor/)'
-
           def request(url, *, data=None, method=None):
               req = urllib.request.Request(url, data=data, method=method, headers={
                   'User-Agent': ua,
@@ -93,31 +104,85 @@ jobs:
                   return {'status': exc.code, 'final': exc.geturl(), 'ctype': exc.headers.get('Content-Type'), 'body': body}
               except Exception as exc:
                   return {'status': None, 'error': f'{type(exc).__name__}: {exc}', 'body': ''}
-
           def summarize(label, result):
               body = result.get('body') or ''
-              abstract_fields=[]
-              abstract_len=0
+              fields=[]; abstract_len=0
               for line in body.splitlines():
                   m=re.match(r'^(?:N2|AB)\s*-\s*(.*)$', line, re.I)
                   if m:
-                      abstract_fields.append(line[:2].upper())
-                      abstract_len=max(abstract_len,len(m.group(1).strip()))
-              return {
-                  'label':label, 'status':result.get('status'), 'final':result.get('final'),
-                  'ctype':result.get('ctype'), 'bytes':len(body.encode('utf-8','ignore')),
-                  'abstract_fields':abstract_fields, 'abstract_len':abstract_len,
-                  'has_download_form': 'downloadCitation' in body,
-                  'error':result.get('error'),
-              }
-
+                      fields.append(line[:2].upper()); abstract_len=max(abstract_len,len(m.group(1).strip()))
+              return {'label':label,'status':result.get('status'),'final':result.get('final'),'ctype':result.get('ctype'),
+                      'bytes':len(body.encode('utf-8','ignore')),'abstract_fields':fields,'abstract_len':abstract_len,
+                      'has_download_form':'downloadCitation' in body,'error':result.get('error')}
           for doi in dois:
               encoded=urllib.parse.quote(doi, safe='')
-              probes=[]
-              probes.append(summarize('showCitFormats', request(f'https://www.tandfonline.com/action/showCitFormats?doi={encoded}')))
               form=urllib.parse.urlencode({'downloadFileName':'citation','direct':'true','include':'abs','doi':doi,'format':'ris'}).encode()
-              probes.append(summarize('downloadCitation_POST_RIS_ABS', request('https://www.tandfonline.com/action/downloadCitation', data=form, method='POST')))
               qs=urllib.parse.urlencode({'doi':doi,'downloadFileName':'citation','include':'abs','format':'ris','direct':'true'})
-              probes.append(summarize('downloadCitation_GET_RIS_ABS', request('https://www.tandfonline.com/action/downloadCitation?'+qs)))
-              print('TANDF_CITATION_TRANSPORT', json.dumps({'doi':doi,'probes':probes}, ensure_ascii=False))
+              probes=[
+                  summarize('showCitFormats',request(f'https://www.tandfonline.com/action/showCitFormats?doi={encoded}')),
+                  summarize('downloadCitation_POST_RIS_ABS',request('https://www.tandfonline.com/action/downloadCitation',data=form,method='POST')),
+                  summarize('downloadCitation_GET_RIS_ABS',request('https://www.tandfonline.com/action/downloadCitation?'+qs)),
+              ]
+              print('TANDF_CITATION_TRANSPORT',json.dumps({'doi':doi,'probes':probes},ensure_ascii=False))
+          PY
+
+      - name: Probe ScienceDirect v2 response shapes at low rate
+        env:
+          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
+          ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json, os, time, urllib.request, urllib.error
+          from datetime import date, timedelta
+
+          endpoint='https://api.elsevier.com/content/search/sciencedirect'
+          journals=(
+              'Journal of Development Economics',
+              'Journal of Accounting and Economics',
+              'Journal of Monetary Economics',
+              'Review of Economic Dynamics',
+              'Journal of Economic Dynamics and Control',
+          )
+          cutoff=(date.today()-timedelta(days=3)).isoformat()+'T00:00:00Z'
+          key=os.environ.get('ELSEVIER_API_KEY') or ''
+          token=os.environ.get('ELSEVIER_INST_TOKEN') or ''
+          if not key:
+              raise SystemExit('ELSEVIER_API_KEY missing')
+          headers={'User-Agent':'econ-paper-monitor/1.0','Accept':'application/json','Content-Type':'application/json','X-ELS-APIKey':key}
+          if token: headers['X-ELS-Insttoken']=token
+
+          def safe_headers(h):
+              return {k:h.get(k) for k in ('X-ELS-Status','X-RateLimit-Limit','X-RateLimit-Remaining','X-RateLimit-Reset','Retry-After') if h.get(k) is not None}
+
+          for i,journal in enumerate(journals):
+              if i: time.sleep(2.5)
+              body=json.dumps({'title':'*','pub':journal,'loadedAfter':cutoff,'display':{'offset':0,'show':10,'sortBy':'date'}}).encode()
+              req=urllib.request.Request(endpoint,data=body,headers=headers,method='PUT')
+              try:
+                  with urllib.request.urlopen(req,timeout=20) as resp:
+                      raw=resp.read().decode('utf-8','replace')
+                      payload=json.loads(raw)
+                      results=payload.get('results') if isinstance(payload,dict) else None
+                      first=None
+                      if isinstance(results,list) and results:
+                          x=results[0] if isinstance(results[0],dict) else {}
+                          first={'title':x.get('title') or x.get('dc:title'),'doi':x.get('doi') or x.get('prism:doi'),'pii':x.get('pii'),'loadDate':x.get('loadDate') or x.get('load-date')}
+                      print('ELSEVIER_SHAPE',json.dumps({
+                          'journal':journal,'status':resp.status,'headers':safe_headers(resp.headers),
+                          'top_keys':sorted(payload.keys()) if isinstance(payload,dict) else [],
+                          'message':payload.get('message') if isinstance(payload,dict) else None,
+                          'results_type':type(results).__name__,'results_len':len(results) if isinstance(results,(list,dict)) else None,
+                          'results_keys':sorted(results.keys()) if isinstance(results,dict) else None,
+                          'first':first,
+                      },ensure_ascii=False))
+              except urllib.error.HTTPError as exc:
+                  raw=exc.read().decode('utf-8','replace')
+                  try: payload=json.loads(raw)
+                  except Exception: payload={}
+                  print('ELSEVIER_SHAPE',json.dumps({
+                      'journal':journal,'status':exc.code,'headers':safe_headers(exc.headers),
+                      'top_keys':sorted(payload.keys()) if isinstance(payload,dict) else [],
+                      'message':payload.get('message') if isinstance(payload,dict) else None,
+                      'error_type':payload.get('errorType') if isinstance(payload,dict) else None,
+                  },ensure_ascii=False))
           PY
