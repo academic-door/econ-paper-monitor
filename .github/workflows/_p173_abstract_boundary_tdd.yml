@@ -1,0 +1,21 @@
+name: P173 OECD abstract boundary TDD
+
+on:
+  push:
+    branches:
+      - brain/p1-5c-oecd-abstract-boundary
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run focused OECD abstract-boundary regression
+        run: python -m unittest tests.test_oecd_proxy_abstract_boundary -v
