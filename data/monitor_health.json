@@ -7,24 +7,24 @@
     "external_sentinel_out_of_scope_references": 8,
     "formal_journal_missing": 0,
     "formal_journals": 97,
-    "missing_abstract_today": 10,
+    "missing_abstract_today": 11,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 8254,
+    "seen": 8302,
     "source_crossref_only": 0,
-    "source_degraded": 1,
-    "source_healthy": 79,
-    "today": 17
+    "source_degraded": 0,
+    "source_healthy": 78,
+    "today": 38
   },
   "date": "2026-09-11",
   "failures": [],
-  "generated_at": "2026-09-11T10:12:18+00:00",
+  "generated_at": "2026-09-11T14:32:19+00:00",
   "local_cnki": {
-    "age_hours": 6.0,
+    "age_hours": 4.33,
     "count": 99,
     "fresh": true,
     "freshness_code": "fresh",
-    "last_success_at": "2026-09-11T04:12:30+00:00",
+    "last_success_at": "2026-09-11T10:12:30+00:00",
     "ok": true,
     "source_health": {
       "failed_sources": 0,
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-09-11T05:37:49+00:00",
+    "checked_at": "2026-09-11T14:27:27+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -139,6 +139,16 @@
           ]
         },
         {
+          "journal": "Applied Economics",
+          "journal_id": "applied-economics",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Informa UK (Taylor & Francis)",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
           "journal": "Journal of Economic Growth",
           "journal_id": "journal-of-economic-growth",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -199,10 +209,10 @@
           ]
         },
         {
-          "journal": "Journal of Agricultural and Resource Economics",
-          "journal_id": "journal-of-agricultural-and-resource-economics",
+          "journal": "Journal of Business & Economic Statistics",
+          "journal_id": "journal-of-business-and-economic-statistics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "Western Agricultural Economics Association",
+          "publisher": "Taylor & Francis",
           "usable_paths": [
             "crossref",
             "openalex-recall"
@@ -229,27 +239,17 @@
           ]
         }
       ],
-      "single_path_degraded": [
-        {
-          "journal": "Journal of Agricultural and Resource Economics",
-          "journal_id": "journal-of-agricultural-and-resource-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        }
-      ]
+      "single_path_degraded": []
     }
   },
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 18
+      "count": 19
     },
     {
       "code": "missing_abstract_today",
-      "count": 10
+      "count": 11
     }
   ]
 }

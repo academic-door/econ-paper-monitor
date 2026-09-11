@@ -418,6 +418,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-09",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-09",
+          "source": "openalex"
         }
       ]
     },
@@ -571,8 +578,8 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
-    "_status_code": 429,
+    "_status": "not_found",
+    "_status_code": 402,
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only:proxy-request-failed",
@@ -843,7 +850,7 @@
     "available_online": "2026-09-09",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "high-dimensional-alpha-test-for-linear-factor-pricing-model-with-lq-norm-5e25e41915e3",
     "detected_at": "2026-09-09T21:44:53+00:00",
     "doi": "10.1016/j.jeconom.2026.106336",
@@ -1970,7 +1977,7 @@
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "proxy-request-failed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
