@@ -9,11 +9,11 @@ from __future__ import annotations
 
 import argparse
 import re
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
-from common import DATA_DIR, read_json, today_str, write_json
+from common import BEIJING_TZ, DATA_DIR, fetch_json, fetch_text, read_json, today_str, write_json
 from fetch_preprints import enrich_record_from_detail, enrich_record_from_proxy, load_sources
 
 
@@ -25,8 +25,22 @@ def target_dates(days: int) -> set[str]:
     return {(today - timedelta(days=offset)).isoformat() for offset in range(max(days, 1))}
 
 
+def first_seen_daily_bucket(value: object) -> str | None:
+    """Map a UTC/offset first_seen timestamp to the canonical Beijing Daily day."""
+    raw = str(value or "").strip()
+    if not raw:
+        return None
+    try:
+        observed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if observed.tzinfo is None:
+        observed = observed.replace(tzinfo=UTC)
+    return observed.astimezone(BEIJING_TZ).date().isoformat()
+
+
 def queued_oecd_targets() -> dict[str, set[str]]:
-    """Return retry-queued OECD identities keyed by their original Daily bucket."""
+    """Return retry-queued OECD identities keyed by their canonical Daily bucket."""
     payload = read_json(DATA_DIR / "metadata_retry_queue.json", {"records": []})
     records = payload.get("records") if isinstance(payload, dict) else []
     targets: dict[str, set[str]] = {}
@@ -41,12 +55,8 @@ def queued_oecd_targets() -> dict[str, set[str]]:
         if bool(entry.get("historical_backfill")):
             continue
         identity = str(entry.get("identity") or "").strip().casefold()
-        first_seen = str(entry.get("first_seen") or "")
-        if not identity or len(first_seen) < 10:
-            continue
-        try:
-            bucket = date.fromisoformat(first_seen[:10]).isoformat()
-        except ValueError:
+        bucket = first_seen_daily_bucket(entry.get("first_seen"))
+        if not identity or not bucket:
             continue
         targets.setdefault(bucket, set()).add(identity)
     return targets
@@ -106,6 +116,109 @@ def apply_metadata_state(record: dict) -> None:
         record["abstract_enrichment_status"] = "available"
 
 
+def oecd_doi_from_url(url: str) -> str | None:
+    """Derive the narrow OECD publication DOI suffix used by accepted #173 rows."""
+    match = re.search(r"_([0-9a-f]{8}-en)\.html$", urlparse(url).path, flags=re.I)
+    return f"10.1787/{match.group(1)}" if match else None
+
+
+def _clean_proxy_text(value: str) -> str:
+    value = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", value)
+    value = value.replace("**", " ").replace("__", " ")
+    return " ".join(value.split()).strip()
+
+
+def parse_oecd_proxy_markdown(markdown: str) -> tuple[str | None, str | None]:
+    """Extract the official OECD page's full abstract and publication date."""
+    abstract_candidates: list[str] = []
+    for match in re.finditer(r"(?im)^\s*Abstract\s*$", markdown):
+        tail = markdown[match.end() :]
+        boundary = re.search(
+            r"(?im)^\s*(?:Related publications|Related topics|Share|Download PDF|Cite this publication|More info|Tags)\s*$",
+            tail,
+        )
+        candidate = _clean_proxy_text(tail[: boundary.start()] if boundary else tail)
+        if len(candidate) >= 80:
+            abstract_candidates.append(candidate)
+    abstract = max(abstract_candidates, key=len) if abstract_candidates else None
+
+    published = None
+    date_match = re.search(r"\b(\d{1,2}\s+[A-Z][a-z]+\s+20\d{2})\b", markdown)
+    if date_match:
+        try:
+            published = datetime.strptime(date_match.group(1), "%d %B %Y").date().isoformat()
+        except ValueError:
+            published = None
+    return abstract, published
+
+
+def enrich_oecd_from_readonly_transports(record: dict, *, timeout: int) -> dict:
+    """Fill OECD gaps using the official page via readonly proxy plus DOI metadata.
+
+    GitHub-hosted runners currently receive a Cloudflare challenge from the
+    canonical OECD HTML page.  The readonly proxy is only a transport for that
+    same official page and supplies the authoritative abstract/date.  DOI
+    content negotiation supplies authors and verifies the OECD publication DOI;
+    it does not change source/discovery authority.
+    """
+    url = str(record.get("url") or "")
+    parsed = urlparse(url)
+    if parsed.netloc.casefold() != "www.oecd.org" or not parsed.path.startswith("/en/publications/"):
+        return record
+
+    if not str(record.get("abstract") or "").strip() or str(record.get("date_confidence") or "") in {"", "F", "unknown"}:
+        proxy_url = f"https://r.jina.ai/http://{parsed.netloc}{parsed.path}"
+        try:
+            markdown = fetch_text(proxy_url, timeout=timeout)
+        except Exception:
+            markdown = ""
+        if markdown:
+            abstract, published = parse_oecd_proxy_markdown(markdown)
+            if abstract and not str(record.get("abstract") or "").strip():
+                record["abstract"] = abstract
+                record["abstract_source"] = "oecd_official_page_proxy"
+            if published and str(record.get("date_confidence") or "") in {"", "F", "unknown"}:
+                record["published_online"] = published
+                record["available_online"] = published
+                record["official_date"] = published
+                record["date_source"] = "oecd_official_page_proxy"
+                record["date_confidence"] = "B"
+
+    doi = oecd_doi_from_url(url)
+    if doi and (not record.get("authors") or not record.get("doi")):
+        try:
+            payload = fetch_json(
+                f"https://doi.org/{doi}",
+                timeout=timeout,
+                headers={"Accept": "application/vnd.citationstyles.csl+json"},
+            )
+        except Exception:
+            payload = None
+        if isinstance(payload, dict):
+            returned_doi = str(payload.get("DOI") or payload.get("doi") or "").strip()
+            publisher = str(payload.get("publisher") or "")
+            if returned_doi.casefold() == doi.casefold() and "OECD" in publisher.upper():
+                authors: list[str] = []
+                for item in payload.get("author") or []:
+                    if not isinstance(item, dict):
+                        continue
+                    name = " ".join(
+                        part
+                        for part in [
+                            str(item.get("given") or "").strip(),
+                            str(item.get("family") or "").strip(),
+                        ]
+                        if part
+                    )
+                    if name:
+                        authors.append(name)
+                if authors and not record.get("authors"):
+                    record["authors"] = authors[:12]
+                    record["authors_source"] = "oecd_doi_registry"
+                record["doi"] = doi
+    return record
+
+
 def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bool, bool]:
     """Repair one scheduled record and report changed/author/abstract enrichment."""
     source_id = str(source.get("id") or "")
@@ -121,6 +234,10 @@ def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bo
     updated = enrich_record_from_detail(record, source, timeout=timeout)
     if source_id == "cepr-dp" and not str(updated.get("abstract") or "").strip():
         updated = enrich_record_from_proxy(updated, source_id, timeout=timeout)
+    if source_id == "oecd-working-papers" and (
+        not updated.get("authors") or not str(updated.get("abstract") or "").strip()
+    ):
+        updated = enrich_oecd_from_readonly_transports(updated, timeout=timeout)
     if original_title:
         updated["title"] = original_title
     apply_metadata_state(updated)
@@ -136,6 +253,99 @@ def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bo
     authors_enriched = bool(after_authors and after_authors != before_authors)
     abstract_enriched = bool(after_abstract.strip() and after_abstract != before_abstract)
     return changed, authors_enriched, abstract_enriched
+
+
+def _url_identity(record: dict) -> str:
+    return f"url:{str(record.get('url') or '').strip().casefold()}"
+
+
+def durable_oecd_seen_targets(papers: dict) -> dict[str, set[str]]:
+    """Select only durable OECD double-gaps that match the bounded #173 repair scope.
+
+    The rolling retry queue can legitimately age out old records.  ``seen`` is
+    the durable first-discovery identity store, so an accepted OECD record that
+    still has weak/unknown date evidence and is missing both authors and abstract
+    remains recoverable even when it is no longer present in today's retry queue.
+    Records with partial metadata (for example authors already known) are not
+    promoted into this bounded recovery lane.
+    """
+    targets: dict[str, set[str]] = {}
+    if not isinstance(papers, dict):
+        return targets
+    for record in papers.values():
+        if not isinstance(record, dict):
+            continue
+        if str(record.get("source_id") or "") != "oecd-working-papers":
+            continue
+        if str(record.get("source") or "") not in {"", "working_papers"}:
+            continue
+        if str(record.get("source_type") or "") not in {"", "policy_paper"}:
+            continue
+        if record.get("authors") or str(record.get("abstract") or "").strip():
+            continue
+        if str(record.get("date_confidence") or "") not in {"", "F", "unknown"}:
+            continue
+        identity = _url_identity(record)
+        bucket = first_seen_daily_bucket(record.get("first_seen"))
+        if identity == "url:" or not bucket:
+            continue
+        targets.setdefault(bucket, set()).add(identity)
+    return targets
+
+
+def merge_oecd_targets(*target_maps: dict[str, set[str]]) -> dict[str, set[str]]:
+    merged: dict[str, set[str]] = {}
+    for mapping in target_maps:
+        for bucket, identities in mapping.items():
+            merged.setdefault(bucket, set()).update(identities)
+    return merged
+
+
+def restore_oecd_targets_from_seen(
+    *,
+    daily_dir: Path,
+    papers: dict,
+    oecd_targets: dict[str, set[str]],
+) -> set[Path]:
+    """Restore accepted first-discovery OECD rows lost from Daily but retained in seen."""
+    restored_paths: set[Path] = set()
+    if not oecd_targets or not isinstance(papers, dict):
+        return restored_paths
+
+    for bucket, identities in oecd_targets.items():
+        path = daily_dir / f"{bucket}.json"
+        payload = read_json(path, [])
+        if not isinstance(payload, list):
+            continue
+        existing_ids = {str(item.get("id") or "") for item in payload if isinstance(item, dict)}
+        existing_urls = {_url_identity(item) for item in payload if isinstance(item, dict)}
+        file_changed = False
+
+        for seen_record in papers.values():
+            if not isinstance(seen_record, dict):
+                continue
+            if str(seen_record.get("source_id") or "") != "oecd-working-papers":
+                continue
+            if first_seen_daily_bucket(seen_record.get("first_seen")) != bucket:
+                continue
+            identity = _url_identity(seen_record)
+            record_id = str(seen_record.get("id") or "")
+            if identity not in identities:
+                continue
+            if (record_id and record_id in existing_ids) or identity in existing_urls:
+                continue
+            restored = dict(seen_record)
+            payload.append(restored)
+            if record_id:
+                existing_ids.add(record_id)
+            existing_urls.add(identity)
+            file_changed = True
+
+        if file_changed:
+            write_json(path, payload)
+            restored_paths.add(path)
+
+    return restored_paths
 
 
 def main() -> None:
@@ -158,7 +368,6 @@ def main() -> None:
         return
 
     wanted = target_dates(args.days)
-    queued_oecd = queued_oecd_targets()
     changed_files = 0
     checked = 0
     enriched = 0
@@ -169,12 +378,24 @@ def main() -> None:
 
     seen_payload = read_json(args.seen, {"papers": {}})
     papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else {}
+    papers = papers if isinstance(papers, dict) else {}
     seen_changed = False
+
+    oecd_targets = merge_oecd_targets(
+        queued_oecd_targets(),
+        durable_oecd_seen_targets(papers),
+    )
+    restored_paths = restore_oecd_targets_from_seen(
+        daily_dir=args.daily_dir,
+        papers=papers,
+        oecd_targets=oecd_targets,
+    )
+    changed_files += len(restored_paths)
 
     for path in sorted(args.daily_dir.glob("*.json"), reverse=True):
         is_recent = path.stem in wanted
-        queued_identities = queued_oecd.get(path.stem, set())
-        if (not is_recent and not queued_identities) or checked >= args.limit:
+        oecd_identities = oecd_targets.get(path.stem, set())
+        if (not is_recent and not oecd_identities) or checked >= args.limit:
             continue
         payload = read_json(path, [])
         if not isinstance(payload, list):
@@ -188,8 +409,8 @@ def main() -> None:
             if source is None or not record.get("url") or not needs_scheduled_repair(record, source_id):
                 continue
             if not is_recent:
-                identity = f"url:{str(record.get('url') or '').casefold()}"
-                if source_id != "oecd-working-papers" or identity not in queued_identities:
+                identity = _url_identity(record)
+                if source_id != "oecd-working-papers" or identity not in oecd_identities:
                     continue
 
             checked += 1
@@ -207,15 +428,16 @@ def main() -> None:
                 per_source_abstracts_enriched[source_id] += 1
 
             seen_key = str(record.get("id") or "")
-            if seen_key and isinstance(papers, dict) and seen_key in papers:
+            if seen_key and seen_key in papers:
                 papers[seen_key].update(record)
                 seen_changed = True
 
         if changed:
             write_json(path, payload)
-            changed_files += 1
+            if path not in restored_paths:
+                changed_files += 1
 
-    if isinstance(papers, dict) and seen_changed:
+    if seen_changed:
         seen_payload["papers"] = papers
         write_json(args.seen, seen_payload)
 
