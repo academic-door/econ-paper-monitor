@@ -1,34 +1,37 @@
 {
-  "already_seen_candidates": 4449,
-  "covered_candidates": 185,
+  "already_seen_candidates": 475,
+  "covered_candidates": 27,
   "daily_by_source": {
     "aea_toc": 6,
     "cn_journals": 25,
-    "cnki-rss": 8,
+    "cnki-rss": 9,
     "crossref": 56,
     "sciencedirect_search": 1,
     "working_papers": 20
   },
-  "daily_records": 116,
+  "daily_records": 117,
   "dates": [
     "2026-09-11",
     "2026-09-10",
     "2026-09-09"
   ],
-  "eligible_missing_candidates": 0,
-  "missing_by_source": [],
-  "other_archive_date_candidates": 6,
+  "eligible_missing_candidates": 2,
+  "missing_by_source": [
+    {
+      "count": 2,
+      "examples": [
+        "数量经济技术经济研究: 重复截面数据下的计量分析工具——拟事件研究法的理论逻辑与中国实践",
+        "数量经济技术经济研究: 重复截面数据下的计量分析工具——拟事件研究法的理论逻辑与中国实践"
+      ],
+      "reason": "raw candidate was not seen before and should belong to the recent 72-hour window, but is absent from public daily files",
+      "source": "数量经济技术经济研究"
+    }
+  ],
+  "other_archive_date_candidates": 0,
   "raw_by_source": {
-    "aea_toc": 243,
-    "cn_journals": 197,
-    "crossref": 1444,
-    "openalex_recall": 74,
-    "priority_crossref_fallback": 121,
-    "priority_toc": 98,
-    "rss": 2387,
-    "sciencedirect_search": 21,
-    "working_papers": 204
+    "cnki-rss": 297,
+    "rss": 225
   },
-  "raw_candidates": 4789,
-  "suppressed_candidates": 149
+  "raw_candidates": 522,
+  "suppressed_candidates": 18
 }
