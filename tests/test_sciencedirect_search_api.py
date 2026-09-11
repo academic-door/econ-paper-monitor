@@ -51,7 +51,7 @@ class ScienceDirectApiTests(unittest.TestCase):
     def tearDown(self):
         sd.reset_elsevier_search_telemetry()
 
-    def test_native_payload_and_parent_rate_ceiling(self):
+    def test_native_payload_and_live_proven_rate_gate(self):
         with patch.object(sd, "today_str", return_value="2026-09-10"):
             payload = sd.sciencedirect_api_payload(JDE, days=4, max_items=15)
         self.assertEqual(payload["title"], "*")
@@ -59,8 +59,8 @@ class ScienceDirectApiTests(unittest.TestCase):
         self.assertEqual(payload["loadedAfter"], "2026-09-07T00:00:00Z")
         self.assertEqual(payload["display"], {"offset": 0, "show": 25, "sortBy": "date"})
         self.assertEqual(sd.ELSEVIER_SEARCH_PROVIDER_RPS, 2.0)
-        self.assertLessEqual(sd.ELSEVIER_SEARCH_CLIENT_TARGET_RPS, 1.6)
-        self.assertGreaterEqual(sd.ELSEVIER_SEARCH_MIN_INTERVAL_SECONDS, 0.625)
+        self.assertEqual(sd.ELSEVIER_SEARCH_CLIENT_TARGET_RPS, 0.4)
+        self.assertEqual(sd.ELSEVIER_SEARCH_MIN_INTERVAL_SECONDS, 2.5)
 
     def test_official_put_uses_existing_credentials_parses_results_and_records_quota(self):
         headers = Message()
@@ -81,10 +81,31 @@ class ScienceDirectApiTests(unittest.TestCase):
         self.assertEqual(source_url, sd.SCIENCEDIRECT_API_URL)
         control = sd.elsevier_search_telemetry()
         self.assertEqual(control["provider_rate_limit_rps"], 2.0)
-        self.assertEqual(control["client_target_rps"], 1.6)
+        self.assertEqual(control["client_target_rps"], 0.4)
         self.assertEqual(control["quota_limit"], "20000")
         self.assertEqual(control["quota_remaining_min"], 19969)
         self.assertEqual(control["quota_reset"], "1789056000")
+
+    def test_zero_result_shape_with_omitted_results_is_accepted(self):
+        headers = Message()
+        headers["X-ELS-Status"] = "OK"
+        response = FakeResponse({"details": {}, "resultsFound": 0}, headers)
+        with patch.object(sd.urllib.request, "urlopen", return_value=response), patch.dict(
+            os.environ, {"ELSEVIER_API_KEY": "api-key"}, clear=True
+        ):
+            entries, source_url = sd.fetch_sciencedirect_api(JDE, days=4, timeout=5, max_items=10)
+        self.assertEqual(entries, [])
+        self.assertEqual(source_url, sd.SCIENCEDIRECT_API_URL)
+
+    def test_missing_results_with_nonzero_results_found_remains_an_error(self):
+        headers = Message()
+        headers["X-ELS-Status"] = "OK"
+        response = FakeResponse({"details": {}, "resultsFound": 1}, headers)
+        with patch.object(sd.urllib.request, "urlopen", return_value=response), patch.dict(
+            os.environ, {"ELSEVIER_API_KEY": "api-key"}, clear=True
+        ):
+            with self.assertRaisesRegex(ValueError, "sciencedirect-api-invalid-results"):
+                sd.fetch_sciencedirect_api(JDE, days=4, timeout=5, max_items=10)
 
     def test_target_record_keeps_load_date_as_availability_only(self):
         record = sd.api_result_record(TARGET, JDE)
@@ -125,7 +146,7 @@ class ScienceDirectApiTests(unittest.TestCase):
         self.assertEqual(control["throttled_429"], 0)
         self.assertEqual(control["quota_reset"], "1789056000")
 
-    def test_throttle_429_retries_once_and_is_distinct_from_quota(self):
+    def test_throttle_429_retries_once_through_same_rate_gate(self):
         headers = Message()
         headers["Retry-After"] = "1"
         exc = urllib.error.HTTPError(sd.SCIENCEDIRECT_API_URL, 429, "Too Many Requests", headers, None)
@@ -136,7 +157,7 @@ class ScienceDirectApiTests(unittest.TestCase):
             entries, _ = sd.fetch_sciencedirect_api(JDE, days=4, timeout=5, max_items=10)
         self.assertEqual(entries, [])
         self.assertEqual(urlopen_mock.call_count, 2)
-        sleep_mock.assert_called_once()
+        sleep_mock.assert_called_once_with(2.5)
         control = sd.elsevier_search_telemetry()
         self.assertEqual(control["quota_exceeded_429"], 0)
         self.assertEqual(control["throttled_429"], 1)
@@ -166,8 +187,8 @@ class ScienceDirectApiTests(unittest.TestCase):
         sd._record_elsevier_search_rate(headers)
         with patch.dict(os.environ, {"ELSEVIER_API_KEY": "api-key", "JINA_API_KEY": "jina-key"}, clear=True):
             message = sd.build_status_message(28, 0, ["JDE: 3 via official-api-v2-put-title-wildcard"])
-        self.assertIn("client_target_rps=1.6", message)
-        self.assertIn("min_interval_seconds=0.625", message)
+        self.assertIn("client_target_rps=0.4", message)
+        self.assertIn("min_interval_seconds=2.500", message)
         self.assertIn("quota_limit=20000", message)
         self.assertIn("quota_remaining_min=19900", message)
         self.assertIn("failures=0", message)

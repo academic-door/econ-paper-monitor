@@ -25,7 +25,7 @@ from status import record_source
 SEARCH_BASE = "https://r.jina.ai/http://www.sciencedirect.com/search"
 SCIENCEDIRECT_API_URL = "https://api.elsevier.com/content/search/sciencedirect"
 ELSEVIER_SEARCH_PROVIDER_RPS = 2.0
-ELSEVIER_SEARCH_CLIENT_TARGET_RPS = 1.6
+ELSEVIER_SEARCH_CLIENT_TARGET_RPS = 0.4
 ELSEVIER_SEARCH_MIN_INTERVAL_SECONDS = 1.0 / ELSEVIER_SEARCH_CLIENT_TARGET_RPS
 _ELSEVIER_SEARCH_TELEMETRY: dict[str, Any] = {
     "quota_limit": None,
@@ -261,7 +261,19 @@ def fetch_sciencedirect_api(
             if not isinstance(response_payload, dict):
                 raise ValueError("sciencedirect-api-invalid-response")
             results = response_payload.get("results")
-            if not isinstance(results, list):
+            if results is None:
+                results_found = response_payload.get("resultsFound")
+                try:
+                    results_found_count = int(results_found)
+                except (TypeError, ValueError):
+                    results_found_count = None
+                message = clean_markdown(response_payload.get("message"))
+                els_status = (_header_value(response.headers, "X-ELS-Status") or "").upper()
+                if results_found_count == 0 and not message and els_status in ("", "OK"):
+                    results = []
+                else:
+                    raise ValueError(f"sciencedirect-api-invalid-results{': ' + message if message else ''}")
+            elif not isinstance(results, list):
                 message = clean_markdown(response_payload.get("message"))
                 raise ValueError(f"sciencedirect-api-invalid-results{': ' + message if message else ''}")
             return [item for item in results if isinstance(item, dict)], SCIENCEDIRECT_API_URL
@@ -272,10 +284,10 @@ def fetch_sciencedirect_api(
             if exc.code == 429 and attempt == 0 and not quota_exceeded:
                 retry_after = _header_value(exc.headers, "Retry-After")
                 try:
-                    delay = max(1.1, min(5.0, float(retry_after))) if retry_after else 1.1
+                    provider_delay = max(0.0, float(retry_after)) if retry_after else 0.0
                 except ValueError:
-                    delay = 1.1
-                time.sleep(delay)
+                    provider_delay = 0.0
+                time.sleep(max(ELSEVIER_SEARCH_MIN_INTERVAL_SECONDS, provider_delay))
                 continue
             raise last_error from exc
         except Exception as exc:  # noqa: BLE001
