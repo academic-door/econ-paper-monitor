@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-09-11T08:10:26.577854+08:00",
+  "checked_at": "2026-09-11T09:11:22.248433+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -11,8 +11,13 @@
       "source": "cn-journals"
     },
     {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Explorations in Economic History: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematica",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=62/110; Environmental and Resource Economics: ParseError: not well-formed (invalid token): line 14, column 4; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricult",
+      "sample_error": "feeds=29/45; Journal of Financial Economics: 19 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 45 via official-generated; Economic Development",
       "source": "rss"
     }
   ],
@@ -23,10 +28,10 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "economic-theory/springer_online_first: crossref fallback 8; review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback 1; journal-of-economi",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/sp",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -35,7 +40,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 2
+    "degraded_source_failures": 3
   },
   "total_degraded": 1
 }
