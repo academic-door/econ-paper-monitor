@@ -13,7 +13,7 @@ from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
-from common import BEIJING_TZ, DATA_DIR, read_json, today_str, write_json
+from common import BEIJING_TZ, DATA_DIR, fetch_json, fetch_text, read_json, today_str, write_json
 from fetch_preprints import enrich_record_from_detail, enrich_record_from_proxy, load_sources
 
 
@@ -116,6 +116,109 @@ def apply_metadata_state(record: dict) -> None:
         record["abstract_enrichment_status"] = "available"
 
 
+def oecd_doi_from_url(url: str) -> str | None:
+    """Derive the narrow OECD publication DOI suffix used by accepted #173 rows."""
+    match = re.search(r"_([0-9a-f]{8}-en)\.html$", urlparse(url).path, flags=re.I)
+    return f"10.1787/{match.group(1)}" if match else None
+
+
+def _clean_proxy_text(value: str) -> str:
+    value = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", value)
+    value = value.replace("**", " ").replace("__", " ")
+    return " ".join(value.split()).strip()
+
+
+def parse_oecd_proxy_markdown(markdown: str) -> tuple[str | None, str | None]:
+    """Extract the official OECD page's full abstract and publication date."""
+    abstract_candidates: list[str] = []
+    for match in re.finditer(r"(?im)^\s*Abstract\s*$", markdown):
+        tail = markdown[match.end() :]
+        boundary = re.search(
+            r"(?im)^\s*(?:Related publications|Related topics|Share|Download PDF|Cite this publication|More info|Tags)\s*$",
+            tail,
+        )
+        candidate = _clean_proxy_text(tail[: boundary.start()] if boundary else tail)
+        if len(candidate) >= 80:
+            abstract_candidates.append(candidate)
+    abstract = max(abstract_candidates, key=len) if abstract_candidates else None
+
+    published = None
+    date_match = re.search(r"\b(\d{1,2}\s+[A-Z][a-z]+\s+20\d{2})\b", markdown)
+    if date_match:
+        try:
+            published = datetime.strptime(date_match.group(1), "%d %B %Y").date().isoformat()
+        except ValueError:
+            published = None
+    return abstract, published
+
+
+def enrich_oecd_from_readonly_transports(record: dict, *, timeout: int) -> dict:
+    """Fill OECD gaps using the official page via readonly proxy plus DOI metadata.
+
+    GitHub-hosted runners currently receive a Cloudflare challenge from the
+    canonical OECD HTML page.  The readonly proxy is only a transport for that
+    same official page and supplies the authoritative abstract/date.  DOI
+    content negotiation supplies authors and verifies the OECD publication DOI;
+    it does not change source/discovery authority.
+    """
+    url = str(record.get("url") or "")
+    parsed = urlparse(url)
+    if parsed.netloc.casefold() != "www.oecd.org" or not parsed.path.startswith("/en/publications/"):
+        return record
+
+    if not str(record.get("abstract") or "").strip() or str(record.get("date_confidence") or "") in {"", "F", "unknown"}:
+        proxy_url = f"https://r.jina.ai/http://{parsed.netloc}{parsed.path}"
+        try:
+            markdown = fetch_text(proxy_url, timeout=timeout)
+        except Exception:
+            markdown = ""
+        if markdown:
+            abstract, published = parse_oecd_proxy_markdown(markdown)
+            if abstract and not str(record.get("abstract") or "").strip():
+                record["abstract"] = abstract
+                record["abstract_source"] = "oecd_official_page_proxy"
+            if published and str(record.get("date_confidence") or "") in {"", "F", "unknown"}:
+                record["published_online"] = published
+                record["available_online"] = published
+                record["official_date"] = published
+                record["date_source"] = "oecd_official_page_proxy"
+                record["date_confidence"] = "B"
+
+    doi = oecd_doi_from_url(url)
+    if doi and (not record.get("authors") or not record.get("doi")):
+        try:
+            payload = fetch_json(
+                f"https://doi.org/{doi}",
+                timeout=timeout,
+                headers={"Accept": "application/vnd.citationstyles.csl+json"},
+            )
+        except Exception:
+            payload = None
+        if isinstance(payload, dict):
+            returned_doi = str(payload.get("DOI") or payload.get("doi") or "").strip()
+            publisher = str(payload.get("publisher") or "")
+            if returned_doi.casefold() == doi.casefold() and "OECD" in publisher.upper():
+                authors: list[str] = []
+                for item in payload.get("author") or []:
+                    if not isinstance(item, dict):
+                        continue
+                    name = " ".join(
+                        part
+                        for part in [
+                            str(item.get("given") or "").strip(),
+                            str(item.get("family") or "").strip(),
+                        ]
+                        if part
+                    )
+                    if name:
+                        authors.append(name)
+                if authors and not record.get("authors"):
+                    record["authors"] = authors[:12]
+                    record["authors_source"] = "oecd_doi_registry"
+                record["doi"] = doi
+    return record
+
+
 def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bool, bool]:
     """Repair one scheduled record and report changed/author/abstract enrichment."""
     source_id = str(source.get("id") or "")
@@ -131,6 +234,10 @@ def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bo
     updated = enrich_record_from_detail(record, source, timeout=timeout)
     if source_id == "cepr-dp" and not str(updated.get("abstract") or "").strip():
         updated = enrich_record_from_proxy(updated, source_id, timeout=timeout)
+    if source_id == "oecd-working-papers" and (
+        not updated.get("authors") or not str(updated.get("abstract") or "").strip()
+    ):
+        updated = enrich_oecd_from_readonly_transports(updated, timeout=timeout)
     if original_title:
         updated["title"] = original_title
     apply_metadata_state(updated)
