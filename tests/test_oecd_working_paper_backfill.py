@@ -28,35 +28,40 @@ class OecdCanonicalDetailUrlTests(unittest.TestCase):
 
 
 class OecdScheduledBackfillTests(unittest.TestCase):
-    def test_oecd_is_in_scheduled_recent_working_paper_backfill(self):
-        self.assertIn("oecd-working-papers", SCHEDULED_SOURCE_IDS)
-
-    def test_queued_oecd_record_outside_recent_window_is_repaired_in_original_bucket(self):
-        legacy_url = (
+    def setUp(self):
+        self.legacy_url = (
             "https://www.oecd-ilibrary.org/en/publications/"
             "mapping-drought-severity-in-mexico-using-high-resolution-satellite-data_f2a165e7-en.html"
         )
-        first_seen = "2026-06-18T20:31:17+00:00"
-        record = {
+        self.first_seen = "2026-06-18T20:31:17+00:00"
+        self.record = {
             "id": "oecd-test-record",
+            "source": "working_papers",
             "source_id": "oecd-working-papers",
             "source_type": "policy_paper",
             "title": "Mapping drought severity in Mexico using high-resolution satellite data",
-            "url": legacy_url,
+            "url": self.legacy_url,
             "authors": [],
             "abstract": "",
-            "first_seen": first_seen,
+            "first_seen": self.first_seen,
+            "date_confidence": "F",
         }
 
+    def _run_backfill(self, *, daily_has_record: bool) -> tuple[dict, dict]:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             daily_dir = root / "daily"
             daily_dir.mkdir()
-            daily_path = daily_dir / "2026-06-18.json"
-            daily_path.write_text(json.dumps([record]), encoding="utf-8")
+            # 20:31 UTC on June 18 is already June 19 in the repository's
+            # canonical Beijing Daily timezone.
+            daily_path = daily_dir / "2026-06-19.json"
+            daily_path.write_text(
+                json.dumps([self.record] if daily_has_record else []),
+                encoding="utf-8",
+            )
             seen_path = root / "seen.json"
             seen_path.write_text(
-                json.dumps({"papers": {"oecd-test-record": dict(record)}}),
+                json.dumps({"papers": {"oecd-test-record": dict(self.record)}}),
                 encoding="utf-8",
             )
             (root / "metadata_retry_queue.json").write_text(
@@ -64,10 +69,10 @@ class OecdScheduledBackfillTests(unittest.TestCase):
                     {
                         "records": [
                             {
-                                "identity": f"url:{legacy_url.casefold()}",
+                                "identity": f"url:{self.legacy_url.casefold()}",
                                 "source_id": "oecd-working-papers",
                                 "reasons": ["missing_abstract", "missing_authors", "weak_date_evidence"],
-                                "first_seen": first_seen,
+                                "first_seen": self.first_seen,
                                 "historical_backfill": False,
                             }
                         ]
@@ -79,6 +84,8 @@ class OecdScheduledBackfillTests(unittest.TestCase):
             def enrich_from_official_detail(item, source, *, timeout):
                 item["authors"] = ["Official OECD Author"]
                 item["abstract"] = "Official OECD abstract supplied by the publication detail page."
+                item["available_online"] = "2025-12-01"
+                item["date_confidence"] = "A"
                 return item
 
             argv = [
@@ -116,13 +123,32 @@ class OecdScheduledBackfillTests(unittest.TestCase):
             ):
                 backfill.main()
 
-            repaired = json.loads(daily_path.read_text(encoding="utf-8"))[0]
-            self.assertEqual(repaired["authors"], ["Official OECD Author"])
-            self.assertEqual(repaired["first_seen"], first_seen)
-            self.assertEqual(
-                repaired["url"],
-                legacy_url.replace("www.oecd-ilibrary.org", "www.oecd.org"),
-            )
+            repaired_daily = json.loads(daily_path.read_text(encoding="utf-8"))
+            repaired_seen = json.loads(seen_path.read_text(encoding="utf-8"))
+            self.assertEqual(len(repaired_daily), 1)
+            return repaired_daily[0], repaired_seen["papers"]["oecd-test-record"]
+
+    def test_oecd_is_in_scheduled_recent_working_paper_backfill(self):
+        self.assertIn("oecd-working-papers", SCHEDULED_SOURCE_IDS)
+
+    def test_queued_oecd_record_uses_beijing_first_discovery_bucket(self):
+        repaired, seen = self._run_backfill(daily_has_record=True)
+        self.assertEqual(repaired["authors"], ["Official OECD Author"])
+        self.assertEqual(repaired["first_seen"], self.first_seen)
+        self.assertEqual(
+            repaired["url"],
+            self.legacy_url.replace("www.oecd-ilibrary.org", "www.oecd.org"),
+        )
+        self.assertEqual(seen["first_seen"], self.first_seen)
+        self.assertEqual(seen["authors"], ["Official OECD Author"])
+
+    def test_queued_oecd_seen_record_missing_from_daily_is_restored_then_repaired(self):
+        repaired, seen = self._run_backfill(daily_has_record=False)
+        self.assertEqual(repaired["id"], "oecd-test-record")
+        self.assertEqual(repaired["first_seen"], self.first_seen)
+        self.assertEqual(repaired["authors"], ["Official OECD Author"])
+        self.assertIn("Official OECD abstract", repaired["abstract"])
+        self.assertEqual(seen["first_seen"], self.first_seen)
 
 
 if __name__ == "__main__":
