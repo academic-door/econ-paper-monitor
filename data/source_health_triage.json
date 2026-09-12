@@ -1,6 +1,6 @@
 {
   "categories": {},
-  "checked_at": "2026-09-12T13:25:14.817761+08:00",
+  "checked_at": "2026-09-13T00:23:40.767420+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
@@ -9,15 +9,20 @@
       "source": "cn-journals"
     },
     {
+      "category": "needs_investigation",
+      "sample_error": "attempted=23; proxy_abstract_attempted=0; 2026-09-12 CEPR Discussion Papers: metadata-only; seen CEPR Discussion Papers: metadata-only; seen CEPR Discussion Papers: metadata-only; seen 中国工业经济: abstrac",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=60/109; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 6",
+      "sample_error": "feeds=29/45; Journal of Financial Economics: 20 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 46 via official-generated; Economic Development",
       "source": "rss"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 2
+    "degraded_source_failures": 3
   },
   "total_degraded": 0
 }
