@@ -1,16 +1,16 @@
 {
-  "checked_at": "2026-09-12T20:56:29+00:00",
+  "checked_at": "2026-09-12T22:21:26+00:00",
   "counts": {
-    "degraded": 1,
-    "healthy": 77,
+    "degraded": 0,
+    "healthy": 78,
     "stale": 0,
     "supplemental-closed": 19,
     "unavailable": 0
   },
   "coverage_counts": {
     "crossref_only": 0,
-    "official_or_specialized": 77,
-    "supplemental": 20,
+    "official_or_specialized": 78,
+    "supplemental": 19,
     "unavailable": 0
   },
   "coverage_debt": {
@@ -177,16 +177,6 @@
         ]
       },
       {
-        "journal": "Journal of Agricultural and Resource Economics",
-        "journal_id": "journal-of-agricultural-and-resource-economics",
-        "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-        "publisher": "Western Agricultural Economics Association",
-        "usable_paths": [
-          "crossref",
-          "openalex-recall"
-        ]
-      },
-      {
         "journal": "Journal of Business & Economic Statistics",
         "journal_id": "journal-of-business-and-economic-statistics",
         "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -217,50 +207,9 @@
         ]
       }
     ],
-    "single_path_degraded": [
-      {
-        "journal": "Journal of Agricultural and Resource Economics",
-        "journal_id": "journal-of-agricultural-and-resource-economics",
-        "next_action": "add or verify an independent fallback path",
-        "usable_paths": [
-          "crossref",
-          "openalex-recall"
-        ]
-      }
-    ]
+    "single_path_degraded": []
   },
-  "degraded": [
-    {
-      "checked_age_days": 0.0,
-      "coverage": "supplemental",
-      "crossref_count": 0,
-      "crossref_status": "ok",
-      "degradation_reason": "failed_path",
-      "failed_paths": [
-        {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
-          "path": "priority-toc"
-        }
-      ],
-      "journal": "Journal of Agricultural and Resource Economics",
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "last_checked_at": "2026-09-13",
-      "level": "degraded",
-      "publisher": "Western Agricultural Economics Association",
-      "registry_age_days": 0,
-      "rss_count": 0,
-      "rss_status": "none",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "degraded": [],
   "formal_journals": 97,
   "journals": [
     {
@@ -295,7 +244,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 0,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -352,7 +301,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 8,
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": "single_path",
       "failed_paths": [],
@@ -382,7 +331,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -413,7 +362,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -439,12 +388,12 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 6,
+      "crossref_count": 4,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -470,7 +419,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 15,
+      "crossref_count": 11,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -496,7 +445,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -656,7 +605,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 7,
+      "crossref_count": 0,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -710,7 +659,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 11,
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -741,7 +690,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -766,7 +715,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 10,
+      "crossref_count": 9,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -851,7 +800,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -1013,7 +962,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -1095,7 +1044,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -1152,7 +1101,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -1182,7 +1131,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -1212,7 +1161,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -1419,12 +1368,12 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 4,
+      "crossref_count": 2,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -1584,7 +1533,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -1744,7 +1693,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 7,
+      "crossref_count": 4,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1770,7 +1719,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 4,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1829,7 +1778,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -1937,7 +1886,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -2013,7 +1962,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 9,
+      "crossref_count": 7,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2116,7 +2065,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 6,
+      "crossref_count": 4,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2142,7 +2091,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 7,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2302,7 +2251,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -2328,12 +2277,12 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 3,
+      "crossref_count": 2,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -2409,31 +2358,29 @@
     },
     {
       "checked_age_days": 0.0,
-      "coverage": "supplemental",
+      "coverage": "official_or_specialized",
       "crossref_count": 0,
       "crossref_status": "ok",
-      "degradation_reason": "failed_path",
-      "failed_paths": [
-        {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
-          "path": "priority-toc"
-        }
-      ],
+      "degradation_reason": null,
+      "failed_paths": [],
       "journal": "Journal of Agricultural and Resource Economics",
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "last_checked_at": "2026-09-13",
-      "level": "degraded",
+      "level": "healthy",
       "publisher": "Western Agricultural Economics Association",
       "registry_age_days": 0,
       "rss_count": 0,
       "rss_status": "none",
-      "specialized_paths": [],
+      "specialized_paths": [
+        "priority-toc"
+      ],
       "supplemental_closed_note": null,
       "supplemental_paths": [
         "openalex-recall"
       ],
       "usable_paths": [
         "crossref",
+        "priority-toc",
         "openalex-recall"
       ]
     },
@@ -2915,7 +2862,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 8,
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": "single_path",
       "failed_paths": [],
@@ -2945,7 +2892,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -2975,7 +2922,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -3005,7 +2952,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -3035,7 +2982,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -3065,7 +3012,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -3095,7 +3042,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -3150,7 +3097,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -3205,7 +3152,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -3235,7 +3182,7 @@
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
@@ -3335,12 +3282,12 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 3,
+      "crossref_count": 2,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 7; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: 0; journal-of-human-resources/jhr_current: crossref fallback 9; journal-of-agricultural-and-resource-economics/jare_advance: ValueError; crossref fallback 0; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0; journal-of-agricultural-and-resource-economics: 0",
+          "message": "review-of-economic-design/springer_online_first: crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 26; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 8; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-agricultural-and-resource-economics/jare_advance: 14; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 13; journal-of-human-resources/jhr_early_recent: 22; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 11; journal-of-human-resources/jhr_current: HTTPError; crossref fallback 9; review-of-economic-studies/restud_official_accepted: 6; review-of-economics-and-statistics: 0",
           "path": "priority-toc"
         }
       ],
