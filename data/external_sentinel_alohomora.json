@@ -1,5 +1,5 @@
 {
-  "alo_count": 265,
+  "alo_count": 268,
   "broader_out_of_scope_by_journal": [
     [
       "JM Online First",
@@ -18,22 +18,22 @@
   "broader_relevant_candidate_count": 22,
   "counts": {
     "broader_relevant_candidates": 22,
-    "current_possible_missing": 98,
-    "econ_expand_candidates": 21,
+    "current_possible_missing": 101,
+    "econ_expand_candidates": 24,
     "formal_scope_missing": 0,
     "out_of_scope_references": 8,
     "unknown_scope_candidates": 47
   },
   "crossref_lookup_limit": 20,
   "crossref_lookups": 20,
-  "current_possible_missing_count": 98,
-  "econ_expand_candidate_count": 21,
+  "current_possible_missing_count": 101,
+  "econ_expand_candidate_count": 24,
   "formal_scope_missing_count": 0,
   "local_not_in_external": [
     {
       "author": "Francesco Fusari",
       "date": "2026-09-12",
-      "date_source": "elsevier_article_api",
+      "date_source": "crossref_elsevier_created_online",
       "doi": "10.1016/j.jedc.2026.105411",
       "in_monitor_list": true,
       "journal": "Journal of Economic Dynamics and Control",
@@ -99,6 +99,20 @@
       "reason": "我方已监测到，但 Alohomora 当前返回列表未匹配；说明对方不是完整标准答案。",
       "scope_bucket": "our_scope",
       "title": "CAP regime shifts, institutional quality, and technical efficiency in agricultural land use across the EU: A panel stochastic frontier analysis"
+    },
+    {
+      "author": "Jiashan Li, Shi Li, XingJian Yi",
+      "date": "2026-09-12",
+      "date_source": "sciencedirect_api_load_date",
+      "doi": "10.1016/j.chieco.2026.102771",
+      "in_monitor_list": true,
+      "journal": "China Economic Review",
+      "link": "https://www.sciencedirect.com/science/article/pii/S1043951X26001215?dgcid=api_sd_search-api-endpoint",
+      "mapped_journal": "China Economic Review",
+      "official_date": "2026-09-12",
+      "reason": "我方已监测到，但 Alohomora 当前返回列表未匹配；说明对方不是完整标准答案。",
+      "scope_bucket": "our_scope",
+      "title": "Expanding the wealth concept: How pension wealth shapes wealth inequality in China"
     },
     {
       "author": "Juan A. Correa, Francisco Parro",
@@ -1135,20 +1149,6 @@
       "reason": "我方已监测到，但 Alohomora 当前返回列表未匹配；说明对方不是完整标准答案。",
       "scope_bucket": "our_scope",
       "title": "Changes in the Fertility of Highly Skilled Women: Accounting for Heterogeneity in Preferences for Children"
-    },
-    {
-      "author": "Aidin Hajikhameneh, Erik O. Kimbrough, Brock Stoddard",
-      "date": "2026-09-06",
-      "date_source": "crossref_doi_elsevier_created_online",
-      "doi": "10.1016/j.jebo.2026.107733",
-      "in_monitor_list": true,
-      "journal": "Journal of Economic Behavior and Organization",
-      "link": "https://doi.org/10.1016/j.jebo.2026.107733",
-      "mapped_journal": "Journal of Economic Behavior and Organization",
-      "official_date": "2026-09-06",
-      "reason": "我方已监测到，但 Alohomora 当前返回列表未匹配；说明对方不是完整标准答案。",
-      "scope_bucket": "our_scope",
-      "title": "Do individualists and collectivists cooperate differently?"
     }
   ],
   "local_not_in_external_count": 80,
@@ -2398,6 +2398,10 @@
       6
     ],
     [
+      "EP in Progress",
+      6
+    ],
+    [
       "EE in Press",
       5
     ],
@@ -2410,8 +2414,8 @@
       4
     ],
     [
-      "EP in Progress",
-      4
+      "EEduR in Progress",
+      3
     ],
     [
       "LE in Press",
@@ -2428,10 +2432,6 @@
     [
       "CamJE Advance",
       3
-    ],
-    [
-      "EEduR in Progress",
-      2
     ],
     [
       "JHR Ahead of Print",
@@ -2524,6 +2524,25 @@
   ],
   "missing_china_like": [
     {
+      "author": "Kun Xiao, Bolin Yu, Fei Li",
+      "china_like": true,
+      "date": "13 Sep 2026",
+      "external_first_seen_date": "2026-09-13",
+      "first_seen_at": "2026-09-13 00:00:00",
+      "in_monitor_list": false,
+      "journal": "EP in Progress",
+      "lag_days": null,
+      "link": "https://www.sciencedirect.com/science/article/pii/S0301421526005501",
+      "mapped_journal": "Energy Policy",
+      "official_date": null,
+      "official_date_source": null,
+      "reason": "出版社 in press/in progress 页面比 Crossref 更早，需强化 Publisher TOC/PII/RSS 链路。",
+      "scope_bucket": "econ_expand_candidate",
+      "tier": "SS",
+      "timeliness_bucket": "current_or_unknown",
+      "title": "CCS deployment policy choices under regional heterogeneity: Economy-wide impacts and spillovers in China"
+    },
+    {
       "author": "",
       "china_like": true,
       "date": "12 Sep 2026",
@@ -2600,8 +2619,65 @@
       "title": "The Impact of Digital Economy on Trade Cost Distortions: Evidence from China"
     }
   ],
-  "missing_china_like_count": 4,
+  "missing_china_like_count": 5,
   "missing_econ_expand": [
+    {
+      "author": "Jiusheng Zhu, Xinjie Zhang, Yu Zhao, Xiaoyang Ye",
+      "china_like": false,
+      "date": "13 Sep 2026",
+      "external_first_seen_date": "2026-09-13",
+      "first_seen_at": "2026-09-13 00:00:00",
+      "in_monitor_list": false,
+      "journal": "EEduR in Progress",
+      "lag_days": null,
+      "link": "https://www.sciencedirect.com/science/article/pii/S0272775726000774",
+      "mapped_journal": "Economics of Education Review",
+      "official_date": null,
+      "official_date_source": null,
+      "reason": "出版社 in press/in progress 页面比 Crossref 更早，需强化 Publisher TOC/PII/RSS 链路。",
+      "scope_bucket": "econ_expand_candidate",
+      "tier": "SS",
+      "timeliness_bucket": "current_or_unknown",
+      "title": "Information for vision: Experimental evidence on nudging low-income students to wear eyeglasses"
+    },
+    {
+      "author": "Kun Xiao, Bolin Yu, Fei Li",
+      "china_like": true,
+      "date": "13 Sep 2026",
+      "external_first_seen_date": "2026-09-13",
+      "first_seen_at": "2026-09-13 00:00:00",
+      "in_monitor_list": false,
+      "journal": "EP in Progress",
+      "lag_days": null,
+      "link": "https://www.sciencedirect.com/science/article/pii/S0301421526005501",
+      "mapped_journal": "Energy Policy",
+      "official_date": null,
+      "official_date_source": null,
+      "reason": "出版社 in press/in progress 页面比 Crossref 更早，需强化 Publisher TOC/PII/RSS 链路。",
+      "scope_bucket": "econ_expand_candidate",
+      "tier": "SS",
+      "timeliness_bucket": "current_or_unknown",
+      "title": "CCS deployment policy choices under regional heterogeneity: Economy-wide impacts and spillovers in China"
+    },
+    {
+      "author": "Nilabh Nishchhal, Sundar Rengasamy, Sudip Das, Fernando S. Oliveira",
+      "china_like": false,
+      "date": "13 Sep 2026",
+      "external_first_seen_date": "2026-09-13",
+      "first_seen_at": "2026-09-13 00:00:00",
+      "in_monitor_list": false,
+      "journal": "EP in Progress",
+      "lag_days": null,
+      "link": "https://www.sciencedirect.com/science/article/pii/S0301421526005367",
+      "mapped_journal": "Energy Policy",
+      "official_date": null,
+      "official_date_source": null,
+      "reason": "出版社 in press/in progress 页面比 Crossref 更早，需强化 Publisher TOC/PII/RSS 链路。",
+      "scope_bucket": "econ_expand_candidate",
+      "tier": "SS",
+      "timeliness_bucket": "current_or_unknown",
+      "title": "Evaluating the effectiveness of energy policy in alleviating fuel poverty: An empirical analysis of LPG consumption in India"
+    },
     {
       "author": "Emma Näslund-Hadley, Juan Manuel Hernandez-Agramonte, Carolina Mendez, Fernando Fernandez",
       "china_like": false,
@@ -3002,7 +3078,7 @@
       "title": "External uncertainty, balance-sheet vulnerability, and stock volatility: Evidence from Macau gaming firms"
     }
   ],
-  "missing_econ_expand_count": 21,
+  "missing_econ_expand_count": 24,
   "missing_in_monitor_list": [],
   "missing_in_monitor_list_count": 0,
   "missing_sample": [
@@ -3024,6 +3100,63 @@
       "tier": "SS",
       "timeliness_bucket": "current_or_unknown",
       "title": "Stock mispricing and myopic marketing management"
+    },
+    {
+      "author": "Jiusheng Zhu, Xinjie Zhang, Yu Zhao, Xiaoyang Ye",
+      "china_like": false,
+      "date": "13 Sep 2026",
+      "external_first_seen_date": "2026-09-13",
+      "first_seen_at": "2026-09-13 00:00:00",
+      "in_monitor_list": false,
+      "journal": "EEduR in Progress",
+      "lag_days": null,
+      "link": "https://www.sciencedirect.com/science/article/pii/S0272775726000774",
+      "mapped_journal": "Economics of Education Review",
+      "official_date": null,
+      "official_date_source": null,
+      "reason": "出版社 in press/in progress 页面比 Crossref 更早，需强化 Publisher TOC/PII/RSS 链路。",
+      "scope_bucket": "econ_expand_candidate",
+      "tier": "SS",
+      "timeliness_bucket": "current_or_unknown",
+      "title": "Information for vision: Experimental evidence on nudging low-income students to wear eyeglasses"
+    },
+    {
+      "author": "Kun Xiao, Bolin Yu, Fei Li",
+      "china_like": true,
+      "date": "13 Sep 2026",
+      "external_first_seen_date": "2026-09-13",
+      "first_seen_at": "2026-09-13 00:00:00",
+      "in_monitor_list": false,
+      "journal": "EP in Progress",
+      "lag_days": null,
+      "link": "https://www.sciencedirect.com/science/article/pii/S0301421526005501",
+      "mapped_journal": "Energy Policy",
+      "official_date": null,
+      "official_date_source": null,
+      "reason": "出版社 in press/in progress 页面比 Crossref 更早，需强化 Publisher TOC/PII/RSS 链路。",
+      "scope_bucket": "econ_expand_candidate",
+      "tier": "SS",
+      "timeliness_bucket": "current_or_unknown",
+      "title": "CCS deployment policy choices under regional heterogeneity: Economy-wide impacts and spillovers in China"
+    },
+    {
+      "author": "Nilabh Nishchhal, Sundar Rengasamy, Sudip Das, Fernando S. Oliveira",
+      "china_like": false,
+      "date": "13 Sep 2026",
+      "external_first_seen_date": "2026-09-13",
+      "first_seen_at": "2026-09-13 00:00:00",
+      "in_monitor_list": false,
+      "journal": "EP in Progress",
+      "lag_days": null,
+      "link": "https://www.sciencedirect.com/science/article/pii/S0301421526005367",
+      "mapped_journal": "Energy Policy",
+      "official_date": null,
+      "official_date_source": null,
+      "reason": "出版社 in press/in progress 页面比 Crossref 更早，需强化 Publisher TOC/PII/RSS 链路。",
+      "scope_bucket": "econ_expand_candidate",
+      "tier": "SS",
+      "timeliness_bucket": "current_or_unknown",
+      "title": "Evaluating the effectiveness of energy policy in alleviating fuel poverty: An empirical analysis of LPG consumption in India"
     },
     {
       "author": "Emma Näslund-Hadley, Juan Manuel Hernandez-Agramonte, Carolina Mendez, Fernando Fernandez",
@@ -3898,63 +4031,6 @@
       "tier": "SS",
       "timeliness_bucket": "current_or_unknown",
       "title": "Anticipatory Fertility: Conceptions, Births, and Abortions around Employment Shocks"
-    },
-    {
-      "author": "Robert Fairlie, Saurabh Khanna, Prashant Loyalka, Gagandeep Sachdeva",
-      "china_like": false,
-      "date": "09 Sep 2026",
-      "external_first_seen_date": "2026-09-09",
-      "first_seen_at": "2026-09-09 00:00:00",
-      "in_monitor_list": false,
-      "journal": "JPE Micro Just Accepted",
-      "lag_days": null,
-      "link": "https://doi.org/10.1086/743985",
-      "mapped_journal": "JPE Micro Just Accepted",
-      "official_date": null,
-      "official_date_source": null,
-      "reason": "需人工复核：可能是清单外来源，也可能是期刊别名未映射。",
-      "scope_bucket": "unknown_scope",
-      "tier": "SS",
-      "timeliness_bucket": "current_or_unknown",
-      "title": "Affirmative Action, Faculty Productivity and Caste Interactions: Evidence from Engineering Colleges in India"
-    },
-    {
-      "author": "Adeline Delavande, Emilia Del Bono, Angus Holford, Sonkurt Sen, Vedran Lesic",
-      "china_like": false,
-      "date": "09 Sep 2026",
-      "external_first_seen_date": "2026-09-09",
-      "first_seen_at": "2026-09-09 00:00:00",
-      "in_monitor_list": false,
-      "journal": "JHR Ahead of Print",
-      "lag_days": null,
-      "link": "https://jhr.uwpress.org/content/early/2026/09/01/jhr.0824-13737R2",
-      "mapped_journal": "JHR Ahead of Print",
-      "official_date": null,
-      "official_date_source": null,
-      "reason": "需人工复核：可能是清单外来源，也可能是期刊别名未映射。",
-      "scope_bucket": "unknown_scope",
-      "tier": "SS",
-      "timeliness_bucket": "current_or_unknown",
-      "title": "Expectations about the Productivity of Effort and Academic Outcomes: Evidence from a Randomized Information Intervention"
-    },
-    {
-      "author": "Shaojing Jiang, Chun-Lin Liu, Yichen Peng",
-      "china_like": false,
-      "date": "09 Sep 2026",
-      "external_first_seen_date": "2026-09-09",
-      "first_seen_at": "2026-09-09 00:00:00",
-      "in_monitor_list": false,
-      "journal": "JBR in Progress",
-      "lag_days": -114,
-      "link": "https://doi.org/10.1016/j.jbusres.2026.116525",
-      "mapped_journal": "Journal of Business Research",
-      "official_date": "2027-01-01",
-      "official_date_source": "crossref_published-print",
-      "reason": "出版社 in press/in progress 页面比 Crossref 更早，需强化 Publisher TOC/PII/RSS 链路。",
-      "scope_bucket": "broader_relevant_candidate",
-      "tier": "SS",
-      "timeliness_bucket": "current_or_unknown",
-      "title": "Grandparents raising grandchildren and women’s entrepreneurial exit: influence of social roles on resource utilization"
     }
   ],
   "old_backflow": [
@@ -4094,7 +4170,7 @@
   ],
   "old_backflow_count": 7,
   "out_of_scope_reference_count": 8,
-  "possible_missing_count": 105,
+  "possible_missing_count": 108,
   "scope_policy": {
     "broader_relevant_candidate_names": [
       "Journal of Accounting and Economics",
