@@ -93,14 +93,24 @@ def normalize_authors(values: list[str]) -> list[str]:
     return normalized[:12]
 
 
+def has_oecd_proxy_navigation_contamination(record: dict) -> bool:
+    """Return whether an OECD proxy abstract contains known page-navigation spillover."""
+    if str(record.get("abstract_source") or "") != "oecd_official_page_proxy":
+        return False
+    abstract = str(record.get("abstract") or "")
+    return bool(re.search(r"(?i)\b(?:In the same series|See all publications)\b", abstract))
+
+
 def needs_scheduled_repair(record: dict, source_id: str) -> bool:
     """Return whether the scheduled source contract has an actionable metadata gap."""
     missing_authors = not record.get("authors")
     missing_abstract = not str(record.get("abstract") or "").strip()
     if source_id == "iza":
         return missing_authors
-    if source_id in {"cepr-dp", "oecd-working-papers"}:
+    if source_id == "cepr-dp":
         return missing_authors or missing_abstract
+    if source_id == "oecd-working-papers":
+        return missing_authors or missing_abstract or has_oecd_proxy_navigation_contamination(record)
     return False
 
 
@@ -134,7 +144,7 @@ def parse_oecd_proxy_markdown(markdown: str) -> tuple[str | None, str | None]:
     for match in re.finditer(r"(?im)^\s*Abstract\s*$", markdown):
         tail = markdown[match.end() :]
         boundary = re.search(
-            r"(?im)^\s*(?:Related publications|Related topics|Share|Download PDF|Cite this publication|More info|Tags)\s*$",
+            r"(?im)^\s*(?:In the same series|See all publications|Related publications|Related topics|Share|Download PDF|Cite this publication|More info|Tags)\s*$",
             tail,
         )
         candidate = _clean_proxy_text(tail[: boundary.start()] if boundary else tail)
@@ -166,7 +176,12 @@ def enrich_oecd_from_readonly_transports(record: dict, *, timeout: int) -> dict:
     if parsed.netloc.casefold() != "www.oecd.org" or not parsed.path.startswith("/en/publications/"):
         return record
 
-    if not str(record.get("abstract") or "").strip() or str(record.get("date_confidence") or "") in {"", "F", "unknown"}:
+    polluted_abstract = has_oecd_proxy_navigation_contamination(record)
+    if (
+        not str(record.get("abstract") or "").strip()
+        or polluted_abstract
+        or str(record.get("date_confidence") or "") in {"", "F", "unknown"}
+    ):
         proxy_url = f"https://r.jina.ai/http://{parsed.netloc}{parsed.path}"
         try:
             markdown = fetch_text(proxy_url, timeout=timeout)
@@ -174,7 +189,7 @@ def enrich_oecd_from_readonly_transports(record: dict, *, timeout: int) -> dict:
             markdown = ""
         if markdown:
             abstract, published = parse_oecd_proxy_markdown(markdown)
-            if abstract and not str(record.get("abstract") or "").strip():
+            if abstract and (not str(record.get("abstract") or "").strip() or polluted_abstract):
                 record["abstract"] = abstract
                 record["abstract_source"] = "oecd_official_page_proxy"
             if published and str(record.get("date_confidence") or "") in {"", "F", "unknown"}:
@@ -235,7 +250,9 @@ def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bo
     if source_id == "cepr-dp" and not str(updated.get("abstract") or "").strip():
         updated = enrich_record_from_proxy(updated, source_id, timeout=timeout)
     if source_id == "oecd-working-papers" and (
-        not updated.get("authors") or not str(updated.get("abstract") or "").strip()
+        not updated.get("authors")
+        or not str(updated.get("abstract") or "").strip()
+        or has_oecd_proxy_navigation_contamination(updated)
     ):
         updated = enrich_oecd_from_readonly_transports(updated, timeout=timeout)
     if original_title:
@@ -260,14 +277,13 @@ def _url_identity(record: dict) -> str:
 
 
 def durable_oecd_seen_targets(papers: dict) -> dict[str, set[str]]:
-    """Select only durable OECD double-gaps that match the bounded #173 repair scope.
+    """Select durable OECD gaps or known proxy contamination for bounded repair.
 
-    The rolling retry queue can legitimately age out old records.  ``seen`` is
-    the durable first-discovery identity store, so an accepted OECD record that
-    still has weak/unknown date evidence and is missing both authors and abstract
-    remains recoverable even when it is no longer present in today's retry queue.
-    Records with partial metadata (for example authors already known) are not
-    promoted into this bounded recovery lane.
+    The rolling retry queue can legitimately age out old records. ``seen`` is
+    the durable first-discovery identity store, so an accepted OECD record with
+    the original #173 double gap remains recoverable. Records whose existing
+    OECD proxy abstract contains the known navigation spillover are also selected
+    so the same historical lane can repair them without widening source scope.
     """
     targets: dict[str, set[str]] = {}
     if not isinstance(papers, dict):
@@ -281,9 +297,13 @@ def durable_oecd_seen_targets(papers: dict) -> dict[str, set[str]]:
             continue
         if str(record.get("source_type") or "") not in {"", "policy_paper"}:
             continue
-        if record.get("authors") or str(record.get("abstract") or "").strip():
-            continue
-        if str(record.get("date_confidence") or "") not in {"", "F", "unknown"}:
+        abstract = str(record.get("abstract") or "").strip()
+        double_gap = (
+            not record.get("authors")
+            and not abstract
+            and str(record.get("date_confidence") or "") in {"", "F", "unknown"}
+        )
+        if not double_gap and not has_oecd_proxy_navigation_contamination(record):
             continue
         identity = _url_identity(record)
         bucket = first_seen_daily_bucket(record.get("first_seen"))
