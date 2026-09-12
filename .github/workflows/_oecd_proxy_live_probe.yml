@@ -1,0 +1,82 @@
+name: OECD Proxy Live Probe
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/_oecd_proxy_live_probe.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Reparse the three polluted production records through the live readonly proxy
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          import time
+          from pathlib import Path
+
+          sys.path.insert(0, str(Path("scripts").resolve()))
+          import backfill_iza_authors as backfill
+
+          payload = json.loads(Path("data/daily/2026-06-19.json").read_text(encoding="utf-8"))
+          targets = [
+              record
+              for record in payload
+              if isinstance(record, dict)
+              and record.get("source_id") == "oecd-working-papers"
+              and backfill.has_oecd_proxy_navigation_contamination(record)
+          ]
+          if len(targets) != 3:
+              raise SystemExit(f"expected exactly 3 polluted OECD proxy records, found {len(targets)}")
+
+          for record in targets:
+              preserved = {
+                  key: record.get(key)
+                  for key in ("id", "url", "doi", "authors", "first_seen")
+              }
+              updated = None
+              for attempt in range(1, 4):
+                  candidate = dict(record)
+                  backfill.enrich_oecd_from_readonly_transports(candidate, timeout=25)
+                  abstract = str(candidate.get("abstract") or "").strip()
+                  clean = (
+                      len(abstract) >= 80
+                      and "In the same series" not in abstract
+                      and "See all publications" not in abstract
+                  )
+                  if clean:
+                      updated = candidate
+                      break
+                  if attempt < 3:
+                      time.sleep(2)
+              if updated is None:
+                  raise SystemExit(f"live proxy did not return a clean abstract for {record.get('id')}")
+
+              backfill.apply_metadata_state(updated)
+              for key, value in preserved.items():
+                  if updated.get(key) != value:
+                      raise SystemExit(f"identity field changed for {record.get('id')}: {key}")
+              if backfill.first_seen_daily_bucket(updated.get("first_seen")) != "2026-06-19":
+                  raise SystemExit(f"Daily bucket changed for {record.get('id')}")
+              if updated.get("abstract_source") != "oecd_official_page_proxy":
+                  raise SystemExit(f"unexpected abstract source for {record.get('id')}")
+              if updated.get("abstract_completeness") != "full":
+                  raise SystemExit(f"clean abstract not marked full for {record.get('id')}")
+              print(
+                  "clean",
+                  record.get("id"),
+                  len(str(updated.get("abstract") or "")),
+                  updated.get("title"),
+              )
+          PY
