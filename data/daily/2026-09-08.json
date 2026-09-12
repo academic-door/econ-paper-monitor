@@ -916,7 +916,7 @@
     "available_online": "2026-09-08",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "froebel-s-gifts-how-the-kindergarten-movement-changed-the-immigrant-family-9d4ad86cb778",
     "detected_at": "2026-09-08T19:28:13+00:00",
     "doi": "10.1007/s10887-026-09271-z",
@@ -976,7 +976,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "proxy-request-failed",
+    "_status": "skipped_rate_limited",
     "_status_code": 402,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -1314,7 +1314,7 @@
     "available_online": "2026-09-08",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "tax-incentives-compliance-costs-and-vat-registration-evidence-from-india-b1c3b75f92d4",
     "detected_at": "2026-09-08T19:27:58+00:00",
     "doi": "10.1007/s10797-026-09990-4",
@@ -1374,10 +1374,10 @@
   {
     "_provider": "semantic-scholar",
     "_status": "not_found",
-    "abstract": "Can electoral outcomes shape voters’ perceptions of the past? Election results can provide informational cues that prompt voters to reinterpret prior conditions, shifting the benchmarks on which accountability rests. We examine this through perceptions of crime, a valence issue relevant to any candidate. We compare respondents interviewed just before and after local elections in Chile, across municipalities where a right-wing mayor narrowly won versus lost. Individuals surveyed shortly after a narrow right-wing victory are more likely to report that crime has increased, even though self-reported victimization remains unchanged. Our findings suggest that accountability itself becomes endogenous to electoral results.",
+    "abstract": "Can electoral outcomes shape voters' perceptions of the past? We argue that electoral outcomes provide informational cues that prompt voters to reinterpret prior conditions, shifting the benchmarks on which accountability rests. We focus on perceptions of crime, a valence issue that voters likely take into account when choosing any candidate. We propose that perceptions of crime change immediately after an election, as voters reinterpret prior conditions through the lens of the relevance of crime in the winning candidate's platform. We leverage the timing of opinion surveys in Chile on public security to compare respondents interviewed just before and just after local elections, across municipalities where a right-wing mayor narrowly won versus narrowly lost. We show that shortly after a local right-wing candidate wins by a small margin, respondents report that their neighborhood, state, and country are less safe than those who answered the same survey a few days before the election. Victimization, which is unlikely to be misremembered, does not vary across groups of respondents. The findings show that this shift in perceptions directly affects electoral accountability: When political outcomes shape beliefs about past performance, accountability itself becomes endogenous to electoral results.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "选举结果能否塑造选民对过去的认知？选举结果可以提供信息线索，促使选民重新解读先前状况，从而改变问责所依赖的基准。我们通过犯罪感知这一与任何候选人都相关的价值议题来考察此问题。我们比较了智利地方选举前后受访者的回答，涵盖右翼市长以微弱优势获胜与落败的市镇。在右翼以微弱优势获胜后不久接受调查的个体，更倾向于报告犯罪率上升，尽管自我报告的受害经历并未改变。我们的发现表明，问责本身对选举结果具有内生性。",
     "accepted_date": null,
@@ -1428,6 +1428,17 @@
           "source": "elsevier-article-api"
         },
         {
+          "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-08",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-08",
+          "source": "openalex"
+        },
+        {
+          "published_online": "2026-10-01",
           "source": "semantic-scholar"
         }
       ]
@@ -1533,7 +1544,7 @@
     "_status_code": 429,
     "abstract": "Motivated by predicting intraday trading volume curves, we consider two spatio-temporal autoregressive models for matrix time series, in which each column may represent daily trading volume curve of one asset, and each row captures synchronized 5-minute volume intervals across multiple assets. While traditional matrix time series focus mainly on temporal evolution, our approach incorporates both spatial and temporal dynamics, enabling simultaneous analysis of interactions across multiple dimensions. The inherent endogeneity in spatio-temporal autoregressive models renders ordinary least squares estimation inconsistent. To overcome this difficulty while simultaneously estimating two distinct weight matrices with banded structure, we develop an iterated generalized Yule-Walker estimator by adapting a generalized method of moments framework based on Yule-Walker equations. Moreover, unlike conventional models that employ a single bandwidth parameter, the dual-bandwidth specification in our framework requires a new two-step, ratio-based sequential estimation procedure.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": "受日内交易量曲线预测的启发，我们针对矩阵时间序列考虑了两种时空自回归模型，其中每一列可代表某一资产的日交易量曲线，每一行则捕捉多个资产间同步的5分钟交易量区间。传统矩阵时间序列主要关注时间演化，而我们的方法融合了空间与时间动态，能够同时分析多个维度间的交互作用。时空自回归模型中固有的内生性使得普通最小二乘估计不一致。为克服这一难题，同时估计两个具有带状结构的独特权重矩阵，我们通过基于Yule-Walker方程的广义矩方法框架，开发了一种迭代广义Yule-Walker估计量。此外，不同于采用单一带宽参数的传统模型，我们框架中的双带宽设定要求一种新的基于比率的两步顺序估计程序。",
