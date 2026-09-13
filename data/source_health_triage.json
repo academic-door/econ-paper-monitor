@@ -1,7 +1,9 @@
 {
-  "categories": {},
-  "checked_at": "2026-09-13T08:09:29.337478+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-09-13T09:03:42.071261+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -15,14 +17,40 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=62/110; Environmental and Resource Economics: ParseError: not well-formed (invalid token): line 14, column 4; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricult",
+      "sample_error": "feeds=29/45; Journal of Financial Economics: 20 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 46 via official-generated; Economic Development",
       "source": "rss"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "TimeoutError: The read operation timed out",
+      "source": "working-paper:cepr-dp"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: TimeoutError: The read operation timed ou",
+      "source": "working-papers"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: crossref fallback 6; review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback ",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 3
+    "degraded_source_failures": 5
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
