@@ -1,9 +1,13 @@
 [
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "This paper examines the long-term impacts of colonial-period railroads on agricultural productivity in sub-Saharan Africa. Using granular data from 22 countries, we show that historically rail-connected regions remain more productive today. We also find that these regions are more integrated into modern road-based urban markets. We interpret this pattern as evidence of path-dependent spatial equilibrium, where early investment in the transportation network helped coordinate the location of economic activities in the post-colonial period. However, the evidence does not rule out the possibility that colonial railways and the modern road network both followed persistent favorable geographic fundamentals. More broadly, the findings show how early transport investment can leave durable effects on rural development by shaping the geography of market access.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -13,8 +17,9 @@
     ],
     "authors_status_code": "available",
     "available_online": "2026-09-13",
+    "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "the-persistent-legacy-colonial-railroads-and-agricultural-productivity-in-africa-fa5e0b490b35",
     "detected_at": "2026-09-13T17:41:43+00:00",
     "doi": "10.1016/j.jebo.2026.107759",
@@ -25,7 +30,8 @@
     "id": "doi:10.1016/j.jebo.2026.107759",
     "identity_aliases": [
       "10.1016/j.jebo.2026.107759",
-      "https://doi.org/10.1016/j.jebo.2026.107759"
+      "https://doi.org/10.1016/j.jebo.2026.107759",
+      "the-persistent-legacy-colonial-railroads-and-agricultural-productivity-in-africa-fa5e0b490b35"
     ],
     "issue_date": "2026-09-14",
     "journal": "Journal of Economic Behavior and Organization",
@@ -33,10 +39,26 @@
     "journal_short": "JEBO",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S016726812600346X",
     "published_online": "2026-09-13",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-13",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -52,7 +74,7 @@
     "_status": "not_found",
     "abstract": "After a pause in statutory minimum wage increases during the Great Recession, several states increased minimum wages since 2010, including increases as large as 60% over just a few years. Using a triple difference-in-differences framework and data on the universe of births from 2010 to 2019, this study investigates how recent minimum wage hikes affected birth outcomes. We first document sizeable negative impacts of minimum wage policy on the labor supply and economic well-being of females aged 16-44. We then document small adverse effects on birth outcomes, estimating that minimum wage increases led to lower birthweight, fewer normal birthweight births, and more small for gestational age births. These findings generally contrast with an earlier literature relying primarily on much smaller minimum wage increases which showed more evidence of positive impacts on birth outcomes.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": "在大衰退期间法定最低工资增长暂停之后，几个州自2010年起提高了最低工资，其中一些州在短短几年内增幅高达60%。本研究采用三重差分框架，并使用2010年至2019年全量出生数据，考察近期最低工资上调如何影响出生结果。我们首先记录了最低工资政策对16—44岁女性的劳动供给和经济福祉产生了相当大的负面影响。随后我们记录了其对出生结果的少量不利影响，估计最低工资上调导致出生体重降低、正常出生体重出生数减少，以及小于胎龄儿出生数增加。这些发现总体上与早期文献形成对比，后者主要依赖幅度小得多的最低工资上调，并显示出更多关于出生结果受到积极影响的证据。",
@@ -61,13 +83,15 @@
     "authors": [
       "Yuji Mizushima",
       "David Powell",
+      "Margaret Weden",
+      "Kate Strully",
       "Allison Appleton"
     ],
     "authors_status_code": "available",
     "available_online": "2026-09-13",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "recent-minimum-wage-policy-and-its-impacts-on-birth-outcomes-90fc22c67c5a",
     "detected_at": "2026-09-13T14:13:41+00:00",
     "doi": "10.1016/j.jhealeco.2026.103184",
@@ -81,7 +105,7 @@
       "https://www.sciencedirect.com/science/article/pii/S0167629626000822?dgcid=api_sd_search-api-endpoint",
       "recent-minimum-wage-policy-and-its-impacts-on-birth-outcomes-90fc22c67c5a"
     ],
-    "issue_date": null,
+    "issue_date": "2026-09-13",
     "journal": "Journal of Health Economics",
     "journal_id": "journal-of-health-economics",
     "journal_short": "JHE",
@@ -101,6 +125,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-13",
+          "source": "crossref-doi"
         }
       ],
       "pii": "S0167629626000822",
@@ -123,7 +154,7 @@
     "_status": "not_found",
     "abstract": "This paper develops a hybrid nonlinear solution method for large-scale dynamic macroeconomic models, combining insights from the deep learning literature with the strengths of traditional perturbation and projection techniques. The method embeds economically motivated functional forms and perturbation-based derivatives within an approximation that uses deep function composition. Applied to a large OLG model with borrowing constraints and multiple aggregate shocks, the solution method achieves high accuracy over a wide range of the relevant state space.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": "本文提出了一种用于大规模动态宏观经济模型的混合非线性求解方法，将深度学习文献中的洞见与传统扰动法和投影法的优势相结合。该方法在采用深度函数复合的近似框架内，嵌入了具有经济动机的函数形式以及基于扰动的导数。将该方法应用于一个包含借贷约束和多重总体冲击的大型世代交叠模型，求解方法在相关状态空间的广泛范围内实现了高精度。",
@@ -135,8 +166,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-13",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "neural-networks-vs-traditional-methods-a-hybrid-nonlinear-approach-for-solving-large-olg-21d13fa96567",
     "detected_at": "2026-09-13T14:13:32+00:00",
     "doi": "10.1016/j.jedc.2026.105412",
@@ -150,7 +181,7 @@
       "https://www.sciencedirect.com/science/article/pii/S0165188926001570?dgcid=api_sd_search-api-endpoint",
       "neural-networks-vs-traditional-methods-a-hybrid-nonlinear-approach-for-solving-large-olg-21d13fa96567"
     ],
-    "issue_date": null,
+    "issue_date": "2026-09-13",
     "journal": "Journal of Economic Dynamics and Control",
     "journal_id": "journal-of-economic-dynamics-and-control",
     "journal_short": "JEDC",
@@ -170,6 +201,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-13",
+          "source": "crossref-doi"
         }
       ],
       "pii": "S0165188926001570",
@@ -192,7 +230,7 @@
     "_status": "not_found",
     "abstract": "A computer program calculates a pair of infinite sequences of money creation and price level inflation rates ( θ → , μ → ) that maximizes a benevolent time 0 government’s objective function. The limit of a monotonically declining sequence of continuation values is a worst continuation value associated with a “timeless perspective”. The time-invariant inflation rate associated with the worst continuation Ramsey plan is not the inflation rate associated with a restricted Ramsey plan in which a time 0 government is constrained to choose a time-invariant money creation rate. We Bellmanize the continuation Ramsey problem.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": "一个计算机程序计算出一对无限序列的货币创造率和价格水平通胀率 ( θ → , μ → )，以最大化仁慈的0期政府的目标函数。单调递减的延续值序列的极限是与“永恒视角”相关的最差延续值。与最差延续拉姆齐计划相关的时间不变通胀率，并不等同于在受限拉姆齐计划中，0期政府被约束选择时间不变货币创造率时所对应的通胀率。我们对延续拉姆齐问题进行贝尔曼化处理。",
@@ -205,8 +243,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-13",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "machine-learning-calvo-s-optimal-plan-5e3a91f26545",
     "detected_at": "2026-09-13T14:13:32+00:00",
     "doi": "10.1016/j.jedc.2026.105413",
@@ -220,7 +258,7 @@
       "https://www.sciencedirect.com/science/article/pii/S0165188926001582?dgcid=api_sd_search-api-endpoint",
       "machine-learning-calvo-s-optimal-plan-5e3a91f26545"
     ],
-    "issue_date": null,
+    "issue_date": "2026-09-13",
     "journal": "Journal of Economic Dynamics and Control",
     "journal_id": "journal-of-economic-dynamics-and-control",
     "journal_short": "JEDC",
@@ -240,6 +278,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-13",
+          "source": "crossref-doi"
         }
       ],
       "pii": "S0165188926001582",
