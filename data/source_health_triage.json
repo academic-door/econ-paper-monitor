@@ -1,6 +1,6 @@
 {
   "categories": {},
-  "checked_at": "2026-09-14T02:00:49.700887+08:00",
+  "checked_at": "2026-09-14T02:53:43.147717+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
@@ -9,15 +9,20 @@
       "source": "cn-journals"
     },
     {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical So",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=60/109; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 6",
+      "sample_error": "feeds=60/110; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 6",
       "source": "rss"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 2
+    "degraded_source_failures": 3
   },
   "total_degraded": 0
 }
