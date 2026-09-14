@@ -52,9 +52,9 @@
     "total": 6664
   },
   "date_confidence": {
-    "A": 3797,
+    "A": 3796,
     "B": 48,
-    "C": 1988,
+    "C": 1989,
     "D": 429,
     "F": 402
   },
@@ -62,7 +62,7 @@
     "cepr_published_time": 18,
     "cnki_rss_pubdate": 227,
     "crossref_doi_created": 21,
-    "crossref_doi_elsevier_created_online": 275,
+    "crossref_doi_elsevier_created_online": 276,
     "crossref_doi_published": 26,
     "crossref_doi_published_online": 188,
     "crossref_elsevier_created_online": 531,
@@ -1076,10 +1076,10 @@
       },
       {
         "date": "2026-09-14",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "European Economic Review",
-        "official_date": "2026-09-13",
+        "official_date": "2026-09-14",
         "source_issue": null,
         "title": "Goal Setting and Feedback: The Power of Joint Use",
         "url": "https://www.sciencedirect.com/science/article/pii/S0014292126002308?dgcid=api_sd_search-api-endpoint"
@@ -1108,8 +1108,30 @@
   },
   "risk_signals": {
     "cnki_rss_today": [],
-    "crossref_created_today": [],
-    "crossref_fallback_today": []
+    "crossref_created_today": [
+      {
+        "date": "2026-09-14",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
+        "journal": "European Economic Review",
+        "official_date": "2026-09-14",
+        "source_issue": null,
+        "title": "Goal Setting and Feedback: The Power of Joint Use",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0014292126002308?dgcid=api_sd_search-api-endpoint"
+      }
+    ],
+    "crossref_fallback_today": [
+      {
+        "date": "2026-09-14",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
+        "journal": "European Economic Review",
+        "official_date": "2026-09-14",
+        "source_issue": null,
+        "title": "Goal Setting and Feedback: The Power of Joint Use",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0014292126002308?dgcid=api_sd_search-api-endpoint"
+      }
+    ]
   },
   "source_top": {
     "aea_toc": 112,
@@ -1126,8 +1148,8 @@
     "china_candidates": 197,
     "china_related_public": 1017,
     "cnki_rss_today": 0,
-    "crossref_created_today": 0,
-    "crossref_fallback_today": 0,
+    "crossref_created_today": 1,
+    "crossref_fallback_today": 1,
     "duplicates_by_url_or_doi": 0,
     "future_official_date_in_bucket": 0,
     "historical_records_in_bucket": 8,
