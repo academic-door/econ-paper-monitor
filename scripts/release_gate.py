@@ -14,6 +14,11 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
+from clean_historical_working_papers import (
+    has_first_discovery_anchor,
+    is_historical_cepr,
+    is_historical_record,
+)
 from common import DATA_DIR, read_json, today_str, write_json
 from dedupe import record_match_keys
 
@@ -140,15 +145,30 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     today_date = date.fromisoformat(today)
     historical = []
     for record in daily:
+        historical_cepr = is_historical_cepr(record)
+        historical_by_date = (
+            not has_first_discovery_anchor(record, today)
+            and is_historical_record(
+                record,
+                run_date=today,
+                max_age_days=args.max_historical_days,
+            )
+        )
+        if not historical_cepr and not historical_by_date:
+            continue
+
         official = str(record.get("available_online") or record.get("published_online") or "")[:10]
-        if not official:
-            continue
         try:
-            age = (today_date - date.fromisoformat(official)).days
+            age = (today_date - date.fromisoformat(official)).days if official else None
         except ValueError:
-            continue
-        if age > args.max_historical_days and str(record.get("date_confidence") or "") not in {"F", "unknown"}:
-            historical.append({"title": record.get("title"), "official_date": official, "age_days": age})
+            age = None
+        historical.append(
+            {
+                "title": record.get("title"),
+                "official_date": official or None,
+                "age_days": age,
+            }
+        )
     if historical:
         failures.append({"code": "historical_records_in_today", "count": len(historical), "examples": historical[:10]})
 
