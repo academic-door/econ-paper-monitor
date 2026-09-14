@@ -1,12 +1,19 @@
 {
-  "categories": {},
-  "checked_at": "2026-09-14T08:20:07.307773+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-09-15T00:30:42.916311+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "attempted=16; proxy_abstract_attempted=0; 2026-09-14 CEPR Discussion Papers: metadata-only; 2026-09-14 CEPR Discussion Papers: metadata-only; 2026-09-14 CEPR Discussion Papers: metadata-only; seen CEP",
+      "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
@@ -14,10 +21,26 @@
       "source": "rss"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "social-choice-and-welfare/springer_online_first: crossref fallback 2; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 5; international-tax-and-public",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 2
+    "degraded_source_failures": 3
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }

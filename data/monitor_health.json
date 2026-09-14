@@ -1,26 +1,26 @@
 {
   "counts": {
     "duplicates": 0,
-    "external_sentinel_broader_relevant_candidates": 22,
-    "external_sentinel_econ_expand_candidates": 24,
+    "external_sentinel_broader_relevant_candidates": 12,
+    "external_sentinel_econ_expand_candidates": 19,
     "external_sentinel_missing": 0,
-    "external_sentinel_out_of_scope_references": 7,
+    "external_sentinel_out_of_scope_references": 2,
     "formal_journal_missing": 0,
     "formal_journals": 97,
     "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 8394,
+    "seen": 8451,
     "source_crossref_only": 0,
-    "source_degraded": 0,
-    "source_healthy": 78,
+    "source_degraded": 1,
+    "source_healthy": 77,
     "today": 0
   },
   "date": "2026-09-15",
   "failures": [],
-  "generated_at": "2026-09-14T16:12:09+00:00",
+  "generated_at": "2026-09-14T16:34:34+00:00",
   "local_cnki": {
-    "age_hours": 6.0,
+    "age_hours": 6.37,
     "count": 97,
     "fresh": true,
     "freshness_code": "fresh",
@@ -37,14 +37,14 @@
   "sentinel": {
     "checked_at": null,
     "counts": {
-      "broader_relevant_candidates": 22,
-      "econ_expand_candidates": 24,
+      "broader_relevant_candidates": 12,
+      "econ_expand_candidates": 19,
       "formal_scope_missing": 0,
-      "out_of_scope_references": 7
+      "out_of_scope_references": 2
     }
   },
   "source_health": {
-    "checked_at": "2026-09-14T00:20:07+00:00",
+    "checked_at": "2026-09-14T16:30:42+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -209,6 +209,16 @@
           ]
         },
         {
+          "journal": "Journal of Agricultural and Resource Economics",
+          "journal_id": "journal-of-agricultural-and-resource-economics",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Western Agricultural Economics Association",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
           "journal": "Journal of Business & Economic Statistics",
           "journal_id": "journal-of-business-and-economic-statistics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -239,13 +249,23 @@
           ]
         }
       ],
-      "single_path_degraded": []
+      "single_path_degraded": [
+        {
+          "journal": "Journal of Agricultural and Resource Economics",
+          "journal_id": "journal-of-agricultural-and-resource-economics",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        }
+      ]
     }
   },
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 19
+      "count": 20
     }
   ]
 }
