@@ -91,6 +91,23 @@ class ReleaseGateFirstSeenAnchorTests(unittest.TestCase):
                 {item["code"] for item in report["failures"]},
             )
 
+    def test_anchor_does_not_exempt_explicit_historical_cepr_catalogue_item(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            record = self.old_cepr_record(first_seen="2026-07-26T16:30:00+00:00")
+            record["url"] = "https://cepr.org/publications/dp9999"
+            record["id"] = "url:historical-cepr-dp9999"
+            (root / "2026-07-27.json").write_text(json.dumps([record]), encoding="utf-8")
+            self.write_supporting_reports(root)
+
+            report = self.run_gate(root)
+
+            self.assertFalse(report["ok"])
+            self.assertIn(
+                "historical_records_in_today",
+                {item["code"] for item in report["failures"]},
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
