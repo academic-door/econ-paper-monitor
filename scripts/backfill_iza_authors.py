@@ -10,8 +10,65 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+import backfill_iza_authors_legacy as _legacy
 from backfill_iza_authors_legacy import *  # noqa: F401,F403
 from backfill_iza_authors_legacy import _url_identity
+
+
+# Keep the public module boundary stable for existing tests/callers that patch
+# ``backfill_iza_authors.<dependency>``.  The implementation functions were
+# moved unchanged into the legacy helper only to keep this scheduling patch
+# small; before invoking them, mirror patchable leaf globals into that module.
+_LEGACY_TARGET_DATES = _legacy.target_dates
+_LEGACY_QUEUED_OECD_TARGETS = _legacy.queued_oecd_targets
+_LEGACY_ENRICH_OECD = _legacy.enrich_oecd_from_readonly_transports
+_LEGACY_REPAIR_RECORD = _legacy.repair_record
+
+
+def _sync_legacy_leaf_globals() -> None:
+    for name in (
+        "DATA_DIR",
+        "today_str",
+        "fetch_json",
+        "fetch_text",
+        "read_json",
+        "write_json",
+        "load_sources",
+        "enrich_record_from_detail",
+        "enrich_record_from_proxy",
+        "canonical_detail_url",
+        "has_oecd_proxy_navigation_contamination",
+        "apply_metadata_state",
+        "oecd_doi_from_url",
+        "parse_oecd_proxy_markdown",
+        "first_seen_daily_bucket",
+    ):
+        setattr(_legacy, name, globals()[name])
+
+
+def target_dates(days: int) -> set[str]:
+    _sync_legacy_leaf_globals()
+    return _LEGACY_TARGET_DATES(days)
+
+
+def queued_oecd_targets() -> dict[str, set[str]]:
+    _sync_legacy_leaf_globals()
+    return _LEGACY_QUEUED_OECD_TARGETS()
+
+
+def enrich_oecd_from_readonly_transports(record: dict, *, timeout: int) -> dict:
+    _sync_legacy_leaf_globals()
+    return _LEGACY_ENRICH_OECD(record, timeout=timeout)
+
+
+def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bool, bool]:
+    _sync_legacy_leaf_globals()
+    original_oecd_fallback = _legacy.enrich_oecd_from_readonly_transports
+    _legacy.enrich_oecd_from_readonly_transports = globals()["enrich_oecd_from_readonly_transports"]
+    try:
+        return _LEGACY_REPAIR_RECORD(record, source, timeout=timeout)
+    finally:
+        _legacy.enrich_oecd_from_readonly_transports = original_oecd_fallback
 
 
 def fair_source_candidates(
