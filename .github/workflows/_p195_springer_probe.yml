@@ -1,0 +1,47 @@
+name: P195 Springer Probe
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Probe current Springer transports
+        run: |
+          python - <<'PY'
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('scripts').resolve()))
+          from enrich_metadata import fetch_text_and_url, extract_page_metadata, publisher_proxy_metadata
+
+          targets = [
+              ('ERE', 'https://link.springer.com/article/10.1007/s10640-026-01117-x'),
+              ('PublicChoice', 'https://link.springer.com/article/10.1007/s11127-026-01443-0'),
+              ('JPop', 'https://link.springer.com/article/10.1007/s00148-026-01203-w'),
+          ]
+          for name, url in targets:
+              print(f'=== {name} {url}')
+              try:
+                  html, final_url = fetch_text_and_url(url, 20)
+                  meta = extract_page_metadata(html)
+                  abstract = str(meta.get('abstract') or '')
+                  print('direct_ok=1', 'final_url=', final_url, 'html_len=', len(html), 'abstract_len=', len(abstract), 'abstract_source=', meta.get('abstract_source'))
+              except Exception as exc:
+                  print('direct_ok=0', 'error=', type(exc).__name__, str(exc))
+              try:
+                  proxy = publisher_proxy_metadata(url, 30)
+                  abstract = str(proxy.get('abstract') or '')
+                  print('proxy_status=', proxy.get('_status'), 'abstract_len=', len(abstract), 'abstract_source=', proxy.get('abstract_source'))
+              except Exception as exc:
+                  print('proxy_error=', type(exc).__name__, str(exc))
+          PY
