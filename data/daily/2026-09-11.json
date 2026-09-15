@@ -701,7 +701,7 @@
     "accepted_date": null,
     "ai_tags": [],
     "authors": [
-      "B. Enke",
+      "Benjamin Enke",
       "Thomas Graeber",
       "Ryan Oprea",
       "Jeffrey Yang"
@@ -710,7 +710,7 @@
     "available_online": "2026-09-11",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "behavioral-attenuation-9ae1d3dc1458",
     "detected_at": "2026-09-11T18:17:26+00:00",
     "doi": "10.1086/744015",
@@ -770,7 +770,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -789,7 +789,7 @@
     "available_online": "2026-09-11",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "equilibrium-in-the-market-for-public-school-teachers-district-wage-strategies-and-teache-c80130302bdf",
     "detected_at": "2026-09-11T18:17:26+00:00",
     "doi": "10.1086/744049",
@@ -845,7 +845,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -862,7 +862,7 @@
     "available_online": "2026-09-11",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "timing-is-everything-parental-professional-connections-and-labor-market-entry-7ff29505720c",
     "detected_at": "2026-09-11T18:17:26+00:00",
     "doi": "10.1086/744016",
@@ -1467,9 +1467,9 @@
     "accepted_date": null,
     "ai_tags": [],
     "authors": [
-      "Xin-Sheng Cui",
-      "Rui-Xia Cui",
-      "Guang-Bin Cheng"
+      "X. Cui",
+      "Ruixia Cui",
+      "Guangbin Cheng"
     ],
     "authors_status_code": "available",
     "available_online": "2026-09-11",
@@ -1478,7 +1478,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "trade-and-uneven-development-evidence-from-china-s-tea-exports-5156e792b7a9",
     "detected_at": "2026-09-11T14:20:13+00:00",
     "doi": "10.1007/s00148-026-01203-w",
@@ -1750,7 +1750,7 @@
     "abstract": "We conducted two online survey experiments examining how writing style influences economists’ perceptions of research quality. Participants were randomly assigned to evaluate manuscript cover pages that varied by document editor (Microsoft Word versus LaTeX) and the presence of a spelling or grammar error. In the original experiment, conducted among U.S. economists, spelling and grammar errors significantly reduced perceived research quality, whereas document editor had little effect. In a follow-up experiment, conducted among an international sample of economists, LaTeX use was substantially more common, and manuscripts prepared in LaTeX were generally evaluated more favorably than those prepared in Microsoft Word. Taken together, our findings suggest that careful proofreading and preparing manuscripts in LaTeX are prudent best practices. Depending on the reader, both may improve perceptions of research quality while carrying little or no downside risk.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "我们开展了两项在线调查实验，考察写作风格如何影响经济学家对研究质量的感知。参与者被随机分配去评价稿件封面页，这些封面页在文档编辑器（Microsoft Word与LaTeX）以及是否存在拼写或语法错误方面有所不同。在最初针对美国经济学家开展的实验中，拼写和语法错误显著降低了感知到的研究质量，而文档编辑器几乎没有影响。在一项针对国际经济学家样本开展的后续实验中，LaTeX的使用要普遍得多，并且用LaTeX准备的稿件通常比用Microsoft Word准备的稿件获得更有利的评价。综合来看，我们的发现表明，仔细校对并使用LaTeX准备稿件是审慎的最佳实践。取决于读者，二者都可能改善对研究质量的感知，同时几乎没有或没有下行风险。",
     "accepted_date": null,
@@ -1800,6 +1800,17 @@
           "source": "elsevier-article-api"
         },
         {
+          "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-11",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-11",
+          "source": "openalex"
+        },
+        {
+          "published_online": "2026-10-01",
           "source": "semantic-scholar"
         }
       ]
@@ -2310,8 +2321,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-11",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_confidence": "A",
+    "date_source": "rss_published",
     "detail_key": "companywage-policy-in-a-low-wage-labor-market-a0d0eb9260b9",
     "detected_at": "2026-09-11T14:03:59+00:00",
     "doi": "10.1093/restud/rdag102",
