@@ -24,7 +24,9 @@ jobs:
         run: |
           python - <<'PY'
           import copy
-          from scripts.enrich_metadata import candidate_urls, enrich_abstract_record, extract_page_metadata, fetch_text_and_url, publisher_proxy_metadata
+          import sys
+          sys.path.insert(0, "scripts")
+          from enrich_metadata import candidate_urls, enrich_abstract_record, extract_page_metadata, fetch_text_and_url, publisher_proxy_metadata
 
           targets = [
               ("Environmental and Resource Economics", "10.1007/s10640-026-01117-x"),
