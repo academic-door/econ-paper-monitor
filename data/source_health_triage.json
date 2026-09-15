@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-09-15T08:41:09.003478+08:00",
+  "checked_at": "2026-09-15T09:35:59.696575+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -11,18 +11,13 @@
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=2; Journal of Comparative Economics: 24; American Journal of Agricultural Economics: 9; Food Policy: 40; Journal of Agricultural Economics: 16; Agricultural Economics: 6; Jour",
-      "source": "crossref"
-    },
-    {
       "category": "needs_investigation",
       "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical So",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=60/110; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 6",
+      "sample_error": "feeds=29/45; Journal of Financial Economics: 20 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 48 via official-generated; Economic Development",
       "source": "rss"
     }
   ],
@@ -33,19 +28,18 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=priority-toc,openalex-recall",
+      "sample_error": "review-of-economic-design/springer_online_first: crossref fallback 1; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; public-c",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
-        "priority-toc",
         "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 3
   },
   "total_degraded": 1
 }
