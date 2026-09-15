@@ -102,8 +102,12 @@
     "url": "https://www.restud.com/informative-certification-screening-vs-acquisition/"
   },
   {
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -139,7 +143,26 @@
     "published_online": "2026-07-29",
     "publisher": "Springer Science and Business Media LLC",
     "raw_data": {
-      "crossref_date_source": "crossref_published_online"
+      "crossref_date_source": "crossref_published_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-07-29",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-07-29",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-07-29",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-07-29",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
