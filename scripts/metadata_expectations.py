@@ -65,4 +65,14 @@ def expected_missing_reason(record: dict[str, Any], field: str) -> str | None:
     if field == "abstract" and journal == "journal of economic literature" and " by " in lowered:
         return "book_review"
 
+    # Some publishers lead bibliographic book reviews with an explicit review
+    # marker followed by a cited author/title, publication year, and quoted book
+    # title. Keep this deliberately narrow so ordinary research titles beginning
+    # with "Review of" remain actionable.
+    if field == "abstract" and re.match(
+        r"^review of .+\.\s*(?:19|20)\d{2}\.\s*[\"'“‘]",
+        lowered,
+    ):
+        return "book_review"
+
     return None
