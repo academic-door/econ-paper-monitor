@@ -1,0 +1,70 @@
+name: P1.5g AJCASS transport diagnostic
+
+on:
+  push:
+    branches:
+      - brain/p15g-ajcass-diagnose-203
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Probe official article API without mutation
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import urllib.request
+          import urllib.error
+
+          payload = {
+              "channelId": 0,
+              "contentId": 123527,
+              "dataShowType": 1,
+              "dataSourceType": 3,
+              "issue": 0,
+              "year": 0,
+              "JournalID": 201606270007,
+          }
+          req = urllib.request.Request(
+              "https://api.ajcass.com/api/SiteWebApi/GetContentInfo",
+              data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+              headers={
+                  "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
+                  "Accept": "application/json",
+                  "Content-Type": "application/json",
+              },
+          )
+          try:
+              with urllib.request.urlopen(req, timeout=12) as resp:
+                  raw = resp.read()
+                  print("http_status=", resp.status)
+                  print("content_type=", resp.headers.get("Content-Type"))
+                  print("bytes=", len(raw))
+                  data = json.loads(raw.decode(resp.headers.get_content_charset() or "utf-8"))
+                  print("top_keys=", sorted(data.keys()) if isinstance(data, dict) else type(data).__name__)
+                  inner = data.get("data") if isinstance(data, dict) else None
+                  info = inner.get("issueContentInfoResult") if isinstance(inner, dict) else None
+                  print("data_keys=", sorted(inner.keys()) if isinstance(inner, dict) else type(inner).__name__)
+                  print("info_type=", type(info).__name__)
+                  if isinstance(info, dict):
+                      print("info_keys=", sorted(info.keys()))
+                      print("title=", info.get("title"))
+                      abstract = str(info.get("abstract") or "")
+                      print("abstract_len=", len(abstract))
+          except urllib.error.HTTPError as exc:
+              print("http_error=", exc.code, exc.reason)
+              print("error_body=", exc.read(500).decode("utf-8", errors="replace"))
+              raise
+          except Exception as exc:
+              print("exception=", type(exc).__name__, repr(exc))
+              raise
+          PY
