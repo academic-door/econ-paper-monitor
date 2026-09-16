@@ -38,7 +38,8 @@ jobs:
               anchor = f'  - id: "{anchor_id}"'
               start = text.index(anchor)
               next_entry = text.find(nl + '  - id: "', start + len(anchor))
-              assert next_entry >= 0, f'next entry after {anchor_id} not found'
+              if next_entry < 0:
+                  next_entry = len(text)
               payload = block.strip('\n').replace('\n', nl)
               text = text[:next_entry] + nl + payload + text[next_entry:]
               path.write_bytes(text.encode('utf-8'))
