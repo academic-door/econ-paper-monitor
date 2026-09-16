@@ -85,6 +85,8 @@
 | 实证、应用顶刊 | Quantitative Economics                       | QE       | 数量经济学         | A      |
 | 其他实证、应用 | Journal of Applied Econometrics              | JAE      | 应用计量经济学杂志 | B      |
 | 其他实证、应用 | Applied Economics                            | AE       | 应用经济学         | B      |
+| 其他实证、应用 | Economic Modelling                          | EconMod  | 经济建模           | B      |
+| 其他实证、应用 | Economics of Education Review               | EER-Ed   | 教育经济学评论     | B      |
 
 ## 城市、宏观、人口、劳动、计量、环境、实验
 
@@ -101,6 +103,7 @@
 | 劳动顶刊       | Journal of Labor Economics                        | JLE / JoLE  | 劳动经济学杂志       | A      |
 | 计量顶刊       | Journal of Econometrics                           | JoE         | 计量经济学杂志       | A      |
 | 环境经济学顶刊 | Journal of Environmental Economics and Management | JEEM        | 环境经济学与管理杂志 | A      |
+| 其他环境经济学 | Energy Economics                                | EnEcon      | 能源经济学           | B      |
 | 实验经济学顶刊 | Experimental Economics                            | EE          | 实验经济学           | B      |
 
 ## 法律与比较经济学
