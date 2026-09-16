@@ -94,6 +94,25 @@ class ZgncjjAbstractRecoveryTests(unittest.TestCase):
         self.assertEqual(record["date_source"], "file_upload_date")
         self.assertEqual(record["date_confidence"], "F")
 
+    def test_proven_zgncjj_direct_recovery_outranks_newer_generic_missing_abstract(self) -> None:
+        proven_direct = {
+            "journal": "中国农村经济",
+            "url": "https://zgncjj.ajcass.com/#/detail?contentId=123527",
+            "first_seen": "2026-09-11T05:33:53+00:00",
+            "abstract": None,
+        }
+        newer_generic = {
+            "journal": "Economic Modelling",
+            "url": "https://www.sciencedirect.com/science/article/pii/S0264999326002385",
+            "first_seen": "2026-09-16T09:21:48+00:00",
+            "abstract": None,
+        }
+
+        self.assertLess(
+            enrich_metadata.abstract_enrich_priority(proven_direct),
+            enrich_metadata.abstract_enrich_priority(newer_generic),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
