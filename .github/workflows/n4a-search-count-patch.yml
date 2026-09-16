@@ -1,0 +1,63 @@
+name: N4a search count one-shot patch
+
+on:
+  push:
+    branches:
+      - brain/n4a-search-filter-count-202
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: brain/n4a-search-filter-count-202
+      - name: Apply exact template patch and self-delete
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/templates/daily_vnext.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_count = """      const countFor = (type) => {
+        if (type === 'all') return total;
+        if (type === 'china') return entries.filter((entry) => entry.dataset.china === 'true').length;
+        return entries.filter((entry) => entry.dataset.kind === type).length;
+      };"""
+          new_count = """      const matchesQuery = (entry, query) => !query || normalize(entry.dataset.search).includes(query);
+      const countFor = (type, query = currentQuery()) => {
+        if (type === 'all') return entries.filter((entry) => matchesQuery(entry, query)).length;
+        if (type === 'china') return entries.filter((entry) => entry.dataset.china === 'true' && matchesQuery(entry, query)).length;
+        return entries.filter((entry) => entry.dataset.kind === type && matchesQuery(entry, query)).length;
+      };"""
+          if text.count(old_count) != 1:
+              raise SystemExit(f'countFor anchor count={text.count(old_count)}')
+          text = text.replace(old_count, new_count, 1)
+
+          old_apply = """        updateButtons();
+        updateUrl(push);
+      };
+      const readUrl"""
+          new_apply = """        annotateButtons();
+        updateButtons();
+        updateUrl(push);
+      };
+      const readUrl"""
+          if text.count(old_apply) != 1:
+              raise SystemExit(f'apply anchor count={text.count(old_apply)}')
+          text = text.replace(old_apply, new_apply, 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+          rm .github/workflows/n4a-search-count-patch.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add scripts/templates/daily_vnext.html .github/workflows/n4a-search-count-patch.yml
+          git commit -m "Make Daily vNext filter counts search-aware"
+          git push origin HEAD:brain/n4a-search-filter-count-202
