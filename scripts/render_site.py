@@ -1570,7 +1570,7 @@ def page(
     <div class="wrap">{body}</div>
     <footer class="site-footer"><div class="footer-inner">
       <div><div class="footer-brand">Academic Door</div><div class="footer-note">读好文献，用好论文。Econ Papers Daily 是每日之门里的研究发现流。</div></div>
-      <nav class="footer-links" aria-label="页脚导航"><a href="{BASE}/classic/">旧版</a><a href="{BASE}/daily-vnext/">Daily vNext</a><a href="{BASE}/feed.xml">RSS</a></nav>
+      <nav class="footer-links" aria-label="页脚导航"><a href="{BASE}/feed.xml">订阅 RSS</a></nav>
     </div></footer>
   </main>
 {menu_script()}{presence_snippet()}{LAZY_LIST_SCRIPT if "data-lazy-list" in body else ""}</body>
