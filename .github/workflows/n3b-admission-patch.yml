@@ -1,0 +1,128 @@
+name: N3b admission patch
+
+on:
+  push:
+    branches:
+      - brain/n3b-elsevier-second-tranche-212
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: brain/n3b-elsevier-second-tranche-212
+          fetch-depth: 0
+      - name: Apply guarded admission patch and remove executor
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          REGISTRY = Path('data/journals.yml')
+          PUBLIC_LIST = Path('docs/journal-monitor-list.md')
+          EXECUTOR = Path('.github/workflows/n3b-admission-patch.yml')
+
+          def detect_nl(raw: bytes) -> str:
+              return '\r\n' if b'\r\n' in raw else '\n'
+
+          def insert_after_entry(path: Path, anchor_id: str, new_id: str, block: str) -> None:
+              raw = path.read_bytes()
+              nl = detect_nl(raw)
+              text = raw.decode('utf-8')
+              assert f'  - id: "{new_id}"' not in text, f'{new_id} already present'
+              anchor = f'  - id: "{anchor_id}"'
+              start = text.index(anchor)
+              next_entry = text.find(nl + '  - id: "', start + len(anchor))
+              assert next_entry >= 0, f'next entry after {anchor_id} not found'
+              payload = block.strip('\n').replace('\n', nl)
+              text = text[:next_entry] + nl + payload + text[next_entry:]
+              path.write_bytes(text.encode('utf-8'))
+
+          def insert_after_line(path: Path, needle: str, title: str, new_line: str) -> None:
+              raw = path.read_bytes()
+              nl = detect_nl(raw)
+              text = raw.decode('utf-8')
+              assert title not in text, f'{title} already present in public list'
+              lines = text.splitlines(keepends=True)
+              for index, line in enumerate(lines):
+                  if needle in line:
+                      lines.insert(index + 1, new_line + nl)
+                      path.write_bytes(''.join(lines).encode('utf-8'))
+                      return
+              raise AssertionError(f'public-list anchor not found: {needle}')
+
+          energy_policy = '''
+            - id: "energy-policy"
+              title: "Energy Policy"
+              short_name: "EnPol"
+              aliases:
+                - "Energy Policy"
+              chinese_name: "能源政策"
+              fields:
+                - "environmental"
+              public_group: "城市、宏观、人口、劳动、计量、环境、实验"
+              priority_private: "B"
+              issn: "0301-4215"
+              eissn: null
+              print_issn: null
+              online_issn: null
+              publisher: "Elsevier"
+              sources:
+                - type: rss
+                  url: null
+                - type: crossref
+                  issn: "0301-4215"
+          '''
+
+          sced = '''
+            - id: "structural-change-and-economic-dynamics"
+              title: "Structural Change and Economic Dynamics"
+              short_name: "SCED"
+              aliases:
+                - "Structural Change and Economic Dynamics"
+              chinese_name: "结构变化与经济动态"
+              fields:
+                - "macroeconomics"
+              public_group: "城市、宏观、人口、劳动、计量、环境、实验"
+              priority_private: "B"
+              issn: "0954-349X"
+              eissn: "1873-6017"
+              print_issn: "0954-349X"
+              online_issn: "1873-6017"
+              publisher: "Elsevier"
+              sources:
+                - type: rss
+                  url: null
+                - type: crossref
+                  issn: "0954-349X"
+          '''
+
+          insert_after_entry(REGISTRY, 'energy-economics', 'energy-policy', energy_policy)
+          insert_after_entry(REGISTRY, 'journal-of-economic-dynamics-and-control', 'structural-change-and-economic-dynamics', sced)
+
+          insert_after_line(
+              PUBLIC_LIST,
+              '| 其他环境经济学 | Energy Economics',
+              'Energy Policy',
+              '| 其他环境经济学 | Energy Policy                                   | EnPol       | 能源政策             | B      |',
+          )
+          insert_after_line(
+              PUBLIC_LIST,
+              '| 其他宏观       | Journal of Economic Dynamics and Control',
+              'Structural Change and Economic Dynamics',
+              '| 其他宏观       | Structural Change and Economic Dynamics          | SCED        | 结构变化与经济动态   | B      |',
+          )
+
+          EXECUTOR.unlink()
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "N3b admit second bounded Elsevier tranche"
+          git push origin HEAD:brain/n3b-elsevier-second-tranche-212
