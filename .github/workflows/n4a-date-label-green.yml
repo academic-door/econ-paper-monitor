@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: brain/n4a-date-evidence-label-202
-          fetch-depth: 0
+          fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -26,15 +26,15 @@ jobs:
 
           path = Path('scripts/render_site.py')
           text = path.read_text(encoding='utf-8')
-          replacements = {
-              '<span class="meta-label">官方日期</span>': '<span class="meta-label">日期信息</span>',
-              '<div class="label">官方日期</div>': '<div class="label">日期信息</div>',
-          }
-          for old, new in replacements.items():
+          replacements = [
+              ('<span class="meta-label">官方日期</span>', '<span class="meta-label">日期信息</span>', 2),
+              ('<div class="label">官方日期</div>', '<div class="label">日期信息</div>', 1),
+          ]
+          for old, new, expected in replacements:
               count = text.count(old)
-              if count != 1:
-                  raise SystemExit(f'expected exactly one renderer anchor {old!r}, found {count}')
-              text = text.replace(old, new, 1)
+              if count != expected:
+                  raise SystemExit(f'expected {expected} renderer anchors {old!r}, found {count}')
+              text = text.replace(old, new)
           path.write_text(text, encoding='utf-8')
           PY
       - name: Verify focused contract
