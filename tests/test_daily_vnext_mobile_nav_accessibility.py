@@ -12,6 +12,7 @@ def template_text() -> str:
 def test_mobile_menu_has_explicit_44px_touch_target() -> None:
     template = template_text()
 
+    # Keep the mobile-only navigation trigger at the repository's 44 CSS-pixel touch-target floor.
     assert ".menu{display:none;min-width:44px;min-height:44px;" in template
 
 
