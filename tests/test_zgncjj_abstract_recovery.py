@@ -95,6 +95,7 @@ class ZgncjjAbstractRecoveryTests(unittest.TestCase):
         self.assertEqual(record["date_confidence"], "F")
 
     def test_proven_zgncjj_direct_recovery_outranks_newer_generic_missing_abstract(self) -> None:
+        # Proven direct recovery should not be starved by newer generic retry debt under the bounded cap.
         proven_direct = {
             "journal": "中国农村经济",
             "url": "https://zgncjj.ajcass.com/#/detail?contentId=123527",
