@@ -1,0 +1,63 @@
+name: P1.5g AJCASS priority patch
+
+on:
+  push:
+    branches:
+      - brain/p15g-ajcass-priority-203
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: brain/p15g-ajcass-priority-203
+      - name: Apply guarded priority patch and self-delete
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path("scripts/enrich_metadata.py")
+          text = path.read_text(encoding="utf-8")
+          pattern = re.compile(
+              r"def abstract_enrich_priority\(record: dict\[str, Any\]\) -> tuple\[int, float, int\]:\n"
+              r".*?"
+              r"(?=\ndef enrich_record\()",
+              flags=re.S,
+          )
+          replacement = '''def abstract_enrich_priority(record: dict[str, Any]) -> tuple[int, int, float, int]:
+              missing_abstract = 0 if not str(record.get("abstract") or "").strip() else 1
+              record_url = str(record.get("url") or record.get("source_url") or "")
+              direct_recovery_rank = 0 if (
+                  str(record.get("journal") or "") == "中国农村经济"
+                  and re.search(r"(?:[?&#])contentId=\\d+", record_url)
+              ) else 1
+              try:
+                  detected_rank = -datetime.fromisoformat(
+                      str(record.get("detected_at") or record.get("first_seen") or "").replace("Z", "+00:00")
+                  ).timestamp()
+              except ValueError:
+                  detected_rank = 0.0
+              bucket = publisher_bucket(record)
+              core_rank = {"Elsevier": 0, "Taylor & Francis": 1, "Wiley": 2, "OUP": 3}.get(bucket, 8)
+              return (missing_abstract, direct_recovery_rank, detected_rank, core_rank)
+
+          '''
+          updated, count = pattern.subn(replacement, text)
+          if count != 1:
+              raise SystemExit(f"abstract_enrich_priority guarded replacement count={count}")
+          path.write_text(updated, encoding="utf-8")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/p15g-ajcass-priority-patch.yml
+          git add scripts/enrich_metadata.py
+          git diff --cached --check
+          git commit -m "Prioritize proven AJCASS abstract recovery"
+          git push origin HEAD:brain/p15g-ajcass-priority-203
