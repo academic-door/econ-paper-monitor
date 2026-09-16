@@ -1,28 +1,255 @@
 {
-  "categories": {},
-  "checked_at": "2026-09-16T14:26:04.659282+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 15
+  },
+  "checked_at": "2026-09-16T15:56:52.504290+08:00",
+  "source_health_degraded_count": 15,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=12; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 1; Journal of Development Economics: 13; Economic Development and Cultural Change: 7",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
-      "sample_error": "attempted=4; proxy_abstract_attempted=1; 2026-09-16 Land Use Policy: metadata-only:abstract-not-exposed; seen 管理世界: abstract-present; seen Economics Letters: abstract-present; seen European Economic R",
+      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical So",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=60/109; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 6",
+      "sample_error": "feeds=29/45; Journal of Financial Economics: 20 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 49 via official-generated; Economic Development",
       "source": "rss"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "american-economic-journal-economic-policy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Journal: Economic Policy",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "aea-toc",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "american-economic-journal-macroeconomics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Journal: Macroeconomics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "aea-toc",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "american-journal-of-agricultural-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "American Journal of Agricultural Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "economic-modelling",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
+      "source": "Economic Modelling",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "economics-of-education-review",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
+      "source": "Economics of Education Review",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "energy-economics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
+      "source": "Energy Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "environmental-and-resource-economics",
+      "sample_error": "review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback 1; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/",
+      "source": "Environmental and Resource Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "food-policy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Food Policy",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-econometrics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Econometrics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-environmental-economics-and-management",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Environmental Economics and Management",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-urban-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Urban Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-the-association-of-environmental-and-resource-economists",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
+      "source": "Journal of the Association of Environmental and Resource Economists",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "land-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Land Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "land-use-policy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Land Use Policy",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-economics-and-statistics",
+      "sample_error": "review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback 1; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/",
+      "source": "Review of Economics and Statistics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 3
+    "degraded_source_failures": 4
   },
-  "total_degraded": 0
+  "total_degraded": 15
 }
