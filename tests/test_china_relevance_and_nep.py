@@ -119,10 +119,10 @@ class ChinaRelevanceAndNepTests(unittest.TestCase):
         """
         template = render_site.paper_detail_body()
 
-        self.assertIn("官方日期", template)
+        self.assertIn("日期信息", template)
         self.assertIn("接受日期", template)
         self.assertIn("不等同于正式上线", template)
-        self.assertLess(template.index("官方日期"), template.index("${accepted}"))
+        self.assertLess(template.index("日期信息"), template.index("${accepted}"))
 
     def test_editorial_board_is_suppressed_from_ingestion_audit(self) -> None:
         self.assertTrue(dedupe.is_source_navigation_noise({"title": "Editorial Board"}))
