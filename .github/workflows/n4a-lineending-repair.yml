@@ -1,0 +1,44 @@
+name: N4a line ending repair
+
+on:
+  push:
+    branches:
+      - brain/n4a-public-footer-202
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: brain/n4a-public-footer-202
+          fetch-depth: 0
+      - name: Restore original bytes and apply one bounded replacement
+        shell: bash
+        run: |
+          git checkout f5e1f0d08294af10e571e743687612c8bc4874e2 -- scripts/render_site.py
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("scripts/render_site.py")
+          source = path.read_bytes()
+          old = '<nav class="footer-links" aria-label="页脚导航"><a href="{BASE}/classic/">旧版</a><a href="{BASE}/daily-vnext/">Daily vNext</a><a href="{BASE}/feed.xml">RSS</a></nav>'.encode("utf-8")
+          new = '<nav class="footer-links" aria-label="页脚导航"><a href="{BASE}/feed.xml">订阅 RSS</a></nav>'.encode("utf-8")
+          count = source.count(old)
+          if count != 1:
+              raise SystemExit(f"expected exactly one footer match, found {count}")
+          path.write_bytes(source.replace(old, new, 1))
+          PY
+          git diff --numstat -- scripts/render_site.py
+          git diff --check -- scripts/render_site.py
+      - name: Commit repaired patch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/render_site.py
+          git commit -m "Preserve renderer bytes in N4a footer patch"
+          git push origin HEAD:brain/n4a-public-footer-202
