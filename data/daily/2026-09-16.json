@@ -1,7 +1,10 @@
 [
   {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only:abstract-not-exposed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -15,7 +18,7 @@
     "available_online": "2026-09-16",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "improving-landcover-data-governance-in-developing-countries-28e9b8624249",
     "detected_at": "2026-09-16T01:28:52+00:00",
     "doi": "10.1016/j.landusepol.2026.108348",
@@ -35,10 +38,26 @@
     "journal_short": "LUP",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0264837726004321",
     "published_online": "2026-09-16",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-16",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-16",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
