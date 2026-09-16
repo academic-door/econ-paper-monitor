@@ -2,25 +2,25 @@
   "counts": {
     "duplicates": 0,
     "external_sentinel_broader_relevant_candidates": 10,
-    "external_sentinel_econ_expand_candidates": 2,
-    "external_sentinel_missing": 2,
+    "external_sentinel_econ_expand_candidates": 3,
+    "external_sentinel_missing": 0,
     "external_sentinel_out_of_scope_references": 6,
     "formal_journal_missing": 0,
     "formal_journals": 102,
     "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 8843,
+    "seen": 8947,
     "source_crossref_only": 0,
-    "source_degraded": 3,
-    "source_healthy": 80,
+    "source_degraded": 0,
+    "source_healthy": 83,
     "today": 0
   },
   "date": "2026-09-17",
   "failures": [],
-  "generated_at": "2026-09-16T18:20:03+00:00",
+  "generated_at": "2026-09-16T19:34:52+00:00",
   "local_cnki": {
-    "age_hours": 2.13,
+    "age_hours": 3.38,
     "count": 99,
     "fresh": true,
     "freshness_code": "fresh",
@@ -38,13 +38,13 @@
     "checked_at": null,
     "counts": {
       "broader_relevant_candidates": 10,
-      "econ_expand_candidates": 2,
-      "formal_scope_missing": 2,
+      "econ_expand_candidates": 3,
+      "formal_scope_missing": 0,
       "out_of_scope_references": 6
     }
   },
   "source_health": {
-    "checked_at": "2026-09-16T18:19:21+00:00",
+    "checked_at": "2026-09-16T19:29:00+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -159,15 +159,6 @@
           ]
         },
         {
-          "journal": "Structural Change and Economic Dynamics",
-          "journal_id": "structural-change-and-economic-dynamics",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "Elsevier",
-          "usable_paths": [
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Journal of Population Economics",
           "journal_id": "journal-of-population-economics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -218,16 +209,6 @@
           ]
         },
         {
-          "journal": "Journal of Agricultural and Resource Economics",
-          "journal_id": "journal-of-agricultural-and-resource-economics",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "Western Agricultural Economics Association",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Journal of Business & Economic Statistics",
           "journal_id": "journal-of-business-and-economic-statistics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -256,50 +237,15 @@
             "crossref",
             "openalex-recall"
           ]
-        },
-        {
-          "journal": "Energy Policy",
-          "journal_id": "energy-policy",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "Elsevier",
-          "usable_paths": [
-            "openalex-recall"
-          ]
         }
       ],
-      "single_path_degraded": [
-        {
-          "journal": "Structural Change and Economic Dynamics",
-          "journal_id": "structural-change-and-economic-dynamics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of Agricultural and Resource Economics",
-          "journal_id": "journal-of-agricultural-and-resource-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Energy Policy",
-          "journal_id": "energy-policy",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "openalex-recall"
-          ]
-        }
-      ]
+      "single_path_degraded": []
     }
   },
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 22
+      "count": 19
     }
   ]
 }
