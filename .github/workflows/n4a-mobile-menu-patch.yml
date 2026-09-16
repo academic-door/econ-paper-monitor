@@ -1,0 +1,48 @@
+name: N4a mobile menu patch
+
+on:
+  push:
+    branches:
+      - brain/n4a-mobile-menu-accessibility-202
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: brain/n4a-mobile-menu-accessibility-202
+      - name: Apply guarded mobile menu patch and self-delete
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/templates/daily_vnext.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_css = '.menu{display:none;border:0;background:none;font-size:1.3rem}'
+          new_css = '.menu{display:none;min-width:44px;min-height:44px;border:0;background:none;font-size:1.3rem}'
+          old_js = "menu.addEventListener('click', () => { const open = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', String(open)); });"
+          new_js = "menu.addEventListener('click', () => { const open = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', String(open)); menu.setAttribute('aria-label', open ? '关闭导航' : '打开导航'); });"
+
+          if text.count(old_css) != 1:
+              raise SystemExit(f'expected exactly one mobile menu CSS target, found {text.count(old_css)}')
+          if text.count(old_js) != 1:
+              raise SystemExit(f'expected exactly one mobile menu JS target, found {text.count(old_js)}')
+
+          text = text.replace(old_css, new_css).replace(old_js, new_js)
+          path.write_text(text, encoding='utf-8')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/n4a-mobile-menu-patch.yml
+          git add scripts/templates/daily_vnext.html
+          git diff --cached --check
+          git commit -m "Harden mobile navigation control"
+          git push origin HEAD:brain/n4a-mobile-menu-accessibility-202
