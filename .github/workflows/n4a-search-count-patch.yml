@@ -19,42 +19,8 @@ jobs:
       - name: Apply exact template patch and self-delete
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path('scripts/templates/daily_vnext.html')
-          text = path.read_text(encoding='utf-8')
-
-          old_count = """      const countFor = (type) => {
-        if (type === 'all') return total;
-        if (type === 'china') return entries.filter((entry) => entry.dataset.china === 'true').length;
-        return entries.filter((entry) => entry.dataset.kind === type).length;
-      };"""
-          new_count = """      const matchesQuery = (entry, query) => !query || normalize(entry.dataset.search).includes(query);
-      const countFor = (type, query = currentQuery()) => {
-        if (type === 'all') return entries.filter((entry) => matchesQuery(entry, query)).length;
-        if (type === 'china') return entries.filter((entry) => entry.dataset.china === 'true' && matchesQuery(entry, query)).length;
-        return entries.filter((entry) => entry.dataset.kind === type && matchesQuery(entry, query)).length;
-      };"""
-          if text.count(old_count) != 1:
-              raise SystemExit(f'countFor anchor count={text.count(old_count)}')
-          text = text.replace(old_count, new_count, 1)
-
-          old_apply = """        updateButtons();
-        updateUrl(push);
-      };
-      const readUrl"""
-          new_apply = """        annotateButtons();
-        updateButtons();
-        updateUrl(push);
-      };
-      const readUrl"""
-          if text.count(old_apply) != 1:
-              raise SystemExit(f'apply anchor count={text.count(old_apply)}')
-          text = text.replace(old_apply, new_apply, 1)
-
-          path.write_text(text, encoding='utf-8')
-          PY
+          echo 'ZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCgpwYXRoID0gUGF0aCgic2NyaXB0cy90ZW1wbGF0ZXMvZGFpbHlfdm5leHQuaHRtbCIpCnRleHQgPSBwYXRoLnJlYWRfdGV4dChlbmNvZGluZz0idXRmLTgiKQoKb2xkX2NvdW50ID0gIiAgICAgIGNvbnN0IGNvdW50Rm9yID0gKHR5cGUpID0+IHtcbiAgICAgICAgaWYgKHR5cGUgPT09ICdhbGwnKSByZXR1cm4gdG90YWw7XG4gICAgICAgIGlmICh0eXBlID09PSAnY2hpbmEnKSByZXR1cm4gZW50cmllcy5maWx0ZXIoKGVudHJ5KSA9PiBlbnRyeS5kYXRhc2V0LmNoaW5hID09PSAndHJ1ZScpLmxlbmd0aDtcbiAgICAgICAgcmV0dXJuIGVudHJpZXMuZmlsdGVyKChlbnRyeSkgPT4gZW50cnkuZGF0YXNldC5raW5kID09PSB0eXBlKS5sZW5ndGg7XG4gICAgICB9OyIKbmV3X2NvdW50ID0gIiAgICAgIGNvbnN0IG1hdGNoZXNRdWVyeSA9IChlbnRyeSwgcXVlcnkpID0+ICFxdWVyeSB8fCBub3JtYWxpemUoZW50cnkuZGF0YXNldC5zZWFyY2gpLmluY2x1ZGVzKHF1ZXJ5KTtcbiAgICAgIGNvbnN0IGNvdW50Rm9yID0gKHR5cGUsIHF1ZXJ5ID0gY3VycmVudFF1ZXJ5KCkpID0+IHtcbiAgICAgICAgaWYgKHR5cGUgPT09ICdhbGwnKSByZXR1cm4gZW50cmllcy5maWx0ZXIoKGVudHJ5KSA9PiBtYXRjaGVzUXVlcnkoZW50cnksIHF1ZXJ5KSkubGVuZ3RoO1xuICAgICAgICBpZiAodHlwZSA9PT0gJ2NoaW5hJykgcmV0dXJuIGVudHJpZXMuZmlsdGVyKChlbnRyeSkgPT4gZW50cnkuZGF0YXNldC5jaGluYSA9PT0gJ3RydWUnICYmIG1hdGNoZXNRdWVyeShlbnRyeSwgcXVlcnkpKS5sZW5ndGg7XG4gICAgICAgIHJldHVybiBlbnRyaWVzLmZpbHRlcigoZW50cnkpID0+IGVudHJ5LmRhdGFzZXQua2luZCA9PT0gdHlwZSAmJiBtYXRjaGVzUXVlcnkoZW50cnksIHF1ZXJ5KSkubGVuZ3RoO1xuICAgICAgfTsiCmlmIHRleHQuY291bnQob2xkX2NvdW50KSAhPSAxOgogICAgcmFpc2UgU3lzdGVtRXhpdChmImNvdW50Rm9yIGFuY2hvciBjb3VudD17dGV4dC5jb3VudChvbGRfY291bnQpfSIpCnRleHQgPSB0ZXh0LnJlcGxhY2Uob2xkX2NvdW50LCBuZXdfY291bnQsIDEpCgpvbGRfYXBwbHkgPSAiICAgICAgICB1cGRhdGVCdXR0b25zKCk7XG4gICAgICAgIHVwZGF0ZVVybChwdXNoKTtcbiAgICAgIH07XG4gICAgICBjb25zdCByZWFkVXJsIgpuZXdfYXBwbHkgPSAiICAgICAgICBhbm5vdGF0ZUJ1dHRvbnMoKTtcbiAgICAgICAgdXBkYXRlQnV0dG9ucygpO1xuICAgICAgICB1cGRhdGVVcmwocHVzaCk7XG4gICAgICB9O1xuICAgICAgY29uc3QgcmVhZFVybCIKaWYgdGV4dC5jb3VudChvbGRfYXBwbHkpICE9IDE6CiAgICByYWlzZSBTeXN0ZW1FeGl0KGYiYXBwbHkgYW5jaG9yIGNvdW50PXt0ZXh0LmNvdW50KG9sZF9hcHBseSl9IikKdGV4dCA9IHRleHQucmVwbGFjZShvbGRfYXBwbHksIG5ld19hcHBseSwgMSkKCnBhdGgud3JpdGVfdGV4dCh0ZXh0LCBlbmNvZGluZz0idXRmLTgiKQo=' | base64 -d > /tmp/n4a_patch.py
+          python /tmp/n4a_patch.py
           rm .github/workflows/n4a-search-count-patch.yml
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
