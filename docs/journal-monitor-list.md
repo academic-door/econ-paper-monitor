@@ -99,11 +99,13 @@
 | 其他宏观       | Journal of Money, Credit and Banking              | JMCB        | 货币、信贷与银行杂志 | B      |
 | 其他宏观       | Review of Economic Dynamics                       | REDyn / RED | 经济动态评论         | B      |
 | 其他宏观       | Journal of Economic Dynamics and Control          | JEDC        | 经济动态与控制杂志   | B      |
+| 其他宏观       | Structural Change and Economic Dynamics          | SCED        | 结构变化与经济动态   | B      |
 | 人口经济学顶刊 | Journal of Population Economics                   | JPopE       | 人口经济学杂志       | B      |
 | 劳动顶刊       | Journal of Labor Economics                        | JLE / JoLE  | 劳动经济学杂志       | A      |
 | 计量顶刊       | Journal of Econometrics                           | JoE         | 计量经济学杂志       | A      |
 | 环境经济学顶刊 | Journal of Environmental Economics and Management | JEEM        | 环境经济学与管理杂志 | A      |
 | 其他环境经济学 | Energy Economics                                | EnEcon      | 能源经济学           | B      |
+| 其他环境经济学 | Energy Policy                                   | EnPol       | 能源政策             | B      |
 | 实验经济学顶刊 | Experimental Economics                            | EE          | 实验经济学           | B      |
 
 ## 法律与比较经济学
