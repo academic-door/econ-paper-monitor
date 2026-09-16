@@ -46,11 +46,11 @@
   <div><h2>与中国相关工作论文 <span class="live-count" id="flowCounter"></span></h2><p>覆盖工作论文与机构研究来源，按首次监测时间倒序排列；官方日期与本站首次监测日期分开显示。</p></div>
   <p>2026-09-16</p>
 </section>
-<nav class="view-tabs"><a class="view-tab " href="../../working-papers/today/">今日 <strong>4</strong></a><a class="view-tab " href="../../working-papers/recent7/">最近 7 天 <strong>84</strong></a><a class="view-tab " href="../../working-papers/">全部 <strong>2731</strong></a><a class="view-tab active" href="../../working-papers/china/">与中国相关 <strong>137</strong></a></nav>
+<nav class="view-tabs"><a class="view-tab " href="../../working-papers/today/">今日 <strong>0</strong></a><a class="view-tab " href="../../working-papers/recent7/">最近 7 天 <strong>80</strong></a><a class="view-tab " href="../../working-papers/">全部 <strong>2731</strong></a><a class="view-tab active" href="../../working-papers/china/">与中国相关 <strong>137</strong></a></nav>
 <section class="stats">
   <a class="stat" href="../../working-papers/"><strong>2731</strong><span>累计工作论文记录</span></a>
   <a class="stat" href="../../working-papers/china/"><strong>137</strong><span>与中国相关</span></a>
-  <a class="stat" href="../../working-papers/today/"><strong>4</strong><span>今日新发现</span></a>
+  <a class="stat" href="../../working-papers/today/"><strong>0</strong><span>今日新发现</span></a>
   <a class="stat" href="../../sources/working-papers/"><strong>22</strong><span>监测来源</span></a>
 </section>
 <div class="toolbar" id="filters-default" data-filter-scope="default">
@@ -61,7 +61,7 @@
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">中国</button>
 </div>
 <div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div>
-<div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/a44b0e68089f1309/manifest.json"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="the china shock in world markets: chinese competition and german exporters 世界市场中的中国冲击：中国竞争与德国出口商 peter egger, arne nagengast cepr discussion papers " data-journal="source-cepr-dp" data-fields="china agriculture finance macro" data-china="true" data-online-today="true" data-date-type="available_online" data-confidence="A" data-source-type="working_paper">
+<div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/a44b0e68089f1309/manifest.json"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="the china shock in world markets: chinese competition and german exporters 世界市场中的中国冲击：中国竞争与德国出口商 peter egger, arne nagengast cepr discussion papers " data-journal="source-cepr-dp" data-fields="china agriculture finance macro" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="working_paper">
   <div><div class="time">21:39</div><div class="date-note">2026-09-16</div></div>
   <div>
     <h3><a href="../../paper.html?key=the-china-shock-in-world-markets-chinese-competition-and-german-exporters-ecfabae1eb4b">世界市场中的中国冲击：中国竞争与德国出口商</a></h3>
@@ -74,7 +74,7 @@
     </div>
   </div>
 </article>
-<article class="event" data-event-scope="default" data-search="the remains of the trade: the u.s.-china trade war and its aftermath 贸易的余波：中美贸易战及其后果 pol antràs, adrian kulesza, andrea presbitero cepr discussion papers " data-journal="source-cepr-dp" data-fields="china finance public trade" data-china="true" data-online-today="true" data-date-type="available_online" data-confidence="A" data-source-type="working_paper">
+<article class="event" data-event-scope="default" data-search="the remains of the trade: the u.s.-china trade war and its aftermath 贸易的余波：中美贸易战及其后果 pol antràs, adrian kulesza, andrea presbitero cepr discussion papers " data-journal="source-cepr-dp" data-fields="china finance public trade" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="working_paper">
   <div><div class="time">21:39</div><div class="date-note">2026-09-16</div></div>
   <div>
     <h3><a href="../../paper.html?key=the-remains-of-the-trade-the-u-s-china-trade-war-and-its-aftermath-ec792ad05b22">贸易的余波：中美贸易战及其后果</a></h3>
@@ -330,6 +330,7 @@
   menu.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
     menu.setAttribute('aria-expanded', String(open));
+    menu.setAttribute('aria-label', open ? '关闭导航' : '打开导航');
   });
 })();
 </script><script>
