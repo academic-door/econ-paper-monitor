@@ -1,0 +1,53 @@
+name: N4a Date Label Green Executor
+
+on:
+  push:
+    branches:
+      - brain/n4a-date-evidence-label-202
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: brain/n4a-date-evidence-label-202
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Apply bounded renderer label patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/render_site.py')
+          text = path.read_text(encoding='utf-8')
+          replacements = {
+              '<span class="meta-label">官方日期</span>': '<span class="meta-label">日期信息</span>',
+              '<div class="label">官方日期</div>': '<div class="label">日期信息</div>',
+          }
+          for old, new in replacements.items():
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'expected exactly one renderer anchor {old!r}, found {count}')
+              text = text.replace(old, new, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Verify focused contract
+        run: |
+          python -m pip install --disable-pip-version-check pytest
+          python -m pytest -q tests/test_public_date_evidence_label.py tests/test_public_date_views.py
+      - name: Remove executor and commit bounded change
+        run: |
+          rm .github/workflows/n4a-date-label-green.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/render_site.py tests/test_public_date_evidence_label.py .github/workflows/n4a-date-label-green.yml
+          git diff --cached --check
+          git status --short
+          git commit -m 'N4a clarify mixed date evidence label'
+          git push origin HEAD:brain/n4a-date-evidence-label-202
