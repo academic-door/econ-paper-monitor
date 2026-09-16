@@ -978,8 +978,13 @@ def enrich_priority(record: dict[str, Any]) -> tuple[int, int, int, int, float]:
     return (missing_authors, weak_date, missing_abstract, core_rank, detected_rank)
 
 
-def abstract_enrich_priority(record: dict[str, Any]) -> tuple[int, float, int]:
+def abstract_enrich_priority(record: dict[str, Any]) -> tuple[int, int, float, int]:
     missing_abstract = 0 if not str(record.get("abstract") or "").strip() else 1
+    record_url = str(record.get("url") or record.get("source_url") or "")
+    direct_recovery_rank = 0 if (
+        str(record.get("journal") or "") == "中国农村经济"
+        and re.search(r"(?:[?&#])contentId=\d+", record_url)
+    ) else 1
     try:
         detected_rank = -datetime.fromisoformat(
             str(record.get("detected_at") or record.get("first_seen") or "").replace("Z", "+00:00")
@@ -988,8 +993,7 @@ def abstract_enrich_priority(record: dict[str, Any]) -> tuple[int, float, int]:
         detected_rank = 0.0
     bucket = publisher_bucket(record)
     core_rank = {"Elsevier": 0, "Taylor & Francis": 1, "Wiley": 2, "OUP": 3}.get(bucket, 8)
-    return (missing_abstract, detected_rank, core_rank)
-
+    return (missing_abstract, direct_recovery_rank, detected_rank, core_rank)
 
 def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bool = True) -> tuple[bool, str]:
     urls = candidate_urls(record)
