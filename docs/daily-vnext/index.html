@@ -217,10 +217,11 @@
         const typeMatch = active === 'china' ? entry.dataset.china === 'true' : active === 'all' || entry.dataset.kind === active;
         return typeMatch && (!query || normalize(entry.dataset.search).includes(query));
       };
-      const countFor = (type) => {
-        if (type === 'all') return total;
-        if (type === 'china') return entries.filter((entry) => entry.dataset.china === 'true').length;
-        return entries.filter((entry) => entry.dataset.kind === type).length;
+      const matchesQuery = (entry, query) => !query || normalize(entry.dataset.search).includes(query);
+      const countFor = (type, query = currentQuery()) => {
+        if (type === 'all') return entries.filter((entry) => matchesQuery(entry, query)).length;
+        if (type === 'china') return entries.filter((entry) => entry.dataset.china === 'true' && matchesQuery(entry, query)).length;
+        return entries.filter((entry) => entry.dataset.kind === type && matchesQuery(entry, query)).length;
       };
       const annotateButtons = () => buttons.forEach((button) => {
         const type = button.dataset.filter;
@@ -307,6 +308,7 @@
         if (shouldAnimate && hidden.some((entry) => !entry.hidden)) {
           filterTween = gsap.to(hidden.filter((entry) => !entry.hidden), {autoAlpha: 0, duration: .2, ease: 'power2.out', onComplete: layout});
         } else layout();
+        annotateButtons();
         updateButtons();
         updateUrl(push);
       };
