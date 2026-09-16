@@ -10,6 +10,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from common import load_journals  # noqa: E402
 
 
+# This tranche reuses the existing Elsevier acquisition lane; the test only locks admission metadata.
 PUBLIC_GROUP = "城市、宏观、人口、劳动、计量、环境、实验"
 
 EXPECTED = {
