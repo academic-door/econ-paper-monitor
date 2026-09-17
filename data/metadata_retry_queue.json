@@ -1,6 +1,6 @@
 {
   "expected_metadata_gap_counts": {
-    "abstract:book_review": 2,
+    "abstract:book_review": 3,
     "abstract:correction_notice": 1,
     "abstract:reviewer_acknowledgement": 1,
     "authors:reviewer_acknowledgement": 1
@@ -9,11 +9,11 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 214,
+    "missing_abstract": 209,
     "weak_date_evidence": 489
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 688,
+  "recent_candidates_before_limit": 685,
   "recent_window_start": "2026-08-20",
   "records": [
     {
@@ -1887,126 +1887,6 @@
       "source_type": null,
       "title": "The Kuznets curse: Rethinking inequality and development through political conflict in Brazil",
       "url": "https://www.sciencedirect.com/science/article/pii/S0954349X26001335?dgcid=rss_sd_all"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.euroecorev.2026.105479",
-      "first_seen": "2026-09-17T18:14:46+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.euroecorev.2026.105479",
-      "journal": "European Economic Review",
-      "official_date": "2026-09-17",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Oil prices and inequality",
-      "url": "https://doi.org/10.1016/j.euroecorev.2026.105479"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.geb.2026.104041",
-      "first_seen": "2026-09-17T18:14:53+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.geb.2026.104041",
-      "journal": "Games and Economic Behavior",
-      "official_date": "2026-09-17",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Multi-Agent Contract Design with a Budget",
-      "url": "https://doi.org/10.1016/j.geb.2026.104041"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jdeveco.2026.103921",
-      "first_seen": "2026-09-17T18:15:21+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jdeveco.2026.103921",
-      "journal": "Journal of Development Economics",
-      "official_date": "2026-09-17",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Fostering institutional trust and organ donation: Evidence from a randomized informational intervention in Tunisia",
-      "url": "https://doi.org/10.1016/j.jdeveco.2026.103921"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jebo.2026.107732",
-      "first_seen": "2026-09-17T18:15:08+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jebo.2026.107732",
-      "journal": "Journal of Economic Behavior and Organization",
-      "official_date": "2026-09-17",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Frontier technology adopters and the aggregate decline of routine jobs",
-      "url": "https://doi.org/10.1016/j.jebo.2026.107732"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jinteco.2026.104336",
-      "first_seen": "2026-09-17T17:58:43+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jinteco.2026.104336",
-      "journal": "Journal of International Economics",
-      "official_date": "2026-09-17",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Geopolitical risk and inflation: The role of energy markets",
-      "url": "https://doi.org/10.1016/j.jinteco.2026.104336"
     },
     {
       "date_confidence": "F",
@@ -5235,6 +5115,29 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1016/j.jebo.2026.107732",
+      "first_seen": "2026-09-17T18:15:08+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jebo.2026.107732",
+      "journal": "Journal of Economic Behavior and Organization",
+      "official_date": "2026-09-17",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Frontier technology adopters and the aggregate decline of routine jobs",
+      "url": "https://doi.org/10.1016/j.jebo.2026.107732"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1016/j.jebo.2026.107762",
       "first_seen": "2026-09-17T10:16:45+00:00",
       "historical_backfill": false,
@@ -5324,6 +5227,29 @@
       "source_type": "journal",
       "title": "Temporal and spatial patterns of the Sealed-to-Artificial area Ratio in European urban areas",
       "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004059?dgcid=api_sd_search-api-endpoint"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1017/s0022109026103159",
+      "first_seen": "2026-09-17T09:36:58+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1017/s0022109026103159",
+      "journal": "Journal of Financial and Quantitative Analysis",
+      "official_date": "2026-09-17",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Private Equity and Gas Emissions: Evidence from Electric Power Plants",
+      "url": "https://doi.org/10.1017/s0022109026103159"
     },
     {
       "date_confidence": "C",
@@ -5442,6 +5368,29 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1287/mnsc.2024.08449",
+      "first_seen": "2026-09-17T19:17:54+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1287/mnsc.2024.08449",
+      "journal": "Management Science",
+      "official_date": "2026-09-17",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Beyond Value: On the Role of Symmetry in Demand for Information",
+      "url": "https://doi.org/10.1287/mnsc.2024.08449"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1016/j.enpol.2026.115615",
       "first_seen": "2026-09-17T00:31:42+00:00",
       "historical_backfill": false,
@@ -5531,29 +5480,6 @@
       "source_type": "journal",
       "title": "Improving landcover data governance in developing countries",
       "url": "https://doi.org/10.1016/j.landusepol.2026.108348"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.strueco.2026.09.006",
-      "first_seen": "2026-09-16T19:21:53+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.strueco.2026.09.006",
-      "journal": "Structural Change and Economic Dynamics",
-      "official_date": "2026-09-16",
-      "priority": [
-        0,
-        1,
-        1,
-        2
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Interregional Trade, Structural Changes and Regional Inequality",
-      "url": "https://doi.org/10.1016/j.strueco.2026.09.006"
     },
     {
       "date_confidence": "C",
@@ -11731,9 +11657,81 @@
       "source_type": null,
       "title": "Scoring the Behavioral Economics of Crime: Reflections on Unforgiving Places: The Unexpected Origins of American Gun Violence",
       "url": "https://www.aeaweb.org/articles?id=10.1257/jel.20251826"
+    },
+    {
+      "date_confidence": "F",
+      "doi": "10.1257/jel.20260016",
+      "expected_metadata_gaps": {
+        "abstract": "book_review"
+      },
+      "first_seen": "2026-09-01T19:36:51+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1257/jel.20260016",
+      "journal": "Journal of Economic Literature",
+      "official_date": null,
+      "priority": [
+        0,
+        1,
+        1,
+        17
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The Laissez-Faire Experiment: Why Britain Embraced and Then Abandoned Small Government, 1800–1914 by W. Walker Hanlon",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/jel.20260016"
+    },
+    {
+      "date_confidence": "F",
+      "doi": "10.1257/jel.20261786",
+      "first_seen": "2026-07-28T18:49:14+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1257/jel.20261786",
+      "journal": "Journal of Economic Literature",
+      "official_date": "2026-09-01",
+      "priority": [
+        0,
+        1,
+        1,
+        17
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": null,
+      "title": "Why Is Fertility So Low in High-Income Countries?",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/jel.20261786"
+    },
+    {
+      "date_confidence": "F",
+      "doi": "10.1257/jel.20261794",
+      "first_seen": "2026-07-28T18:49:14+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1257/jel.20261794",
+      "journal": "Journal of Economic Literature",
+      "official_date": "2026-09-01",
+      "priority": [
+        0,
+        1,
+        1,
+        17
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": null,
+      "title": "Deep Learning for Solving Economic Models",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/jel.20261794"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4678,
+  "total_candidates_before_limit": 4675,
   "truncated": true
 }
