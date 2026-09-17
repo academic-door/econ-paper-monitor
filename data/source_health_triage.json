@@ -1,10 +1,7 @@
 {
-  "categories": {
-    "needs_investigation": 1,
-    "permanently_unavailable": 1
-  },
-  "checked_at": "2026-09-17T17:42:28.775392+08:00",
-  "source_health_degraded_count": 2,
+  "categories": {},
+  "checked_at": "2026-09-17T18:40:46.078021+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,13 +9,8 @@
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Agricultural Economics: 9; Journal of the Association of Environmental and Resource Economists: 20; Land Economics: 0; Land Use Policy: 40; European Review of Agricultural ",
-      "source": "crossref"
-    },
-    {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Econ",
+      "sample_error": "attempted=29; proxy_abstract_attempted=0; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discuss",
       "source": "publisher-detail"
     },
     {
@@ -27,41 +19,10 @@
       "source": "rss"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "review-of-economic-design/springer_online_first: crossref fallback 1; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 2; public-c",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "permanently_unavailable",
-      "category_counts": {
-        "permanently_unavailable": 1
-      },
-      "journal_id": "journal-379b4022ce",
-      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
-      "source": "管理世界",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
-        "cnki-rss",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 3
   },
-  "total_degraded": 2
+  "total_degraded": 0
 }
