@@ -259,8 +259,9 @@ async function checkSecondaryPages(browser) {
 async function checkDetailPage(browser) {
   const listing = await browser.newPage();
   await listing.goto(new URL("recent72/", root).href, { waitUntil: "networkidle", timeout: 60000 });
-  const detailHref = await listing.locator('a[href*="paper.html?key="]').first().getAttribute('href');
-  assert.ok(detailHref, "Recent72 does not expose a detail-page link");
+  const detailHref = await listing.locator('a[href*="/paper/"]').first().getAttribute('href');
+  assert.ok(detailHref, "Recent72 does not expose a static detail-page link");
+  assert.ok(!detailHref.includes("paper.html?key="), "Recent72 still exposes the legacy detail route as canonical");
   const detailUrl = new URL(detailHref, listing.url()).href;
   await listing.close();
 

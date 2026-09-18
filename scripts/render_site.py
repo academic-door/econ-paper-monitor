@@ -31,7 +31,6 @@ LAZY_DATASETS: dict[str, tuple[list[dict[str, Any]], str]] = {}
 LAZY_SHARD_SIZE = 40
 ROUTE_BUCKETS = 256
 ROUTE_SKIP_SHARD_LIMIT = 4
-STATIC_DETAIL_PILOT_LIMIT = 12
 
 CHINA_TITLE_PATTERNS = [
     r"\bchina\b",
@@ -432,7 +431,7 @@ def detail_key(record: dict[str, Any]) -> str:
 
 
 def detail_url(record: dict[str, Any]) -> str:
-    return f"{BASE}/paper.html?key={detail_key(record)}"
+    return f"{BASE}/paper/{detail_key(record)}/"
 
 
 def unique_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -2772,50 +2771,11 @@ def static_detail_body(item: dict[str, Any]) -> str:
 </article>'''
 
 
-def static_detail_pilot_signature(record: dict[str, Any]) -> tuple[bool, bool, bool, bool, bool]:
-    """Group records by content shape so the bounded pilot samples varied cases."""
-    return (
-        is_working_paper(record),
-        bool(record.get("abstract")),
-        bool(record.get("doi")),
-        bool(record.get("accepted_date")),
-        bool(record.get("title_zh")),
-    )
-
-
-def select_static_detail_pilot_records(
-    records: list[dict[str, Any]],
-    limit: int = STATIC_DETAIL_PILOT_LIMIT,
-) -> list[dict[str, Any]]:
-    """Choose a deterministic bounded sample across distinct detail content shapes."""
-    grouped: dict[tuple[bool, bool, bool, bool, bool], list[dict[str, Any]]] = defaultdict(list)
-    for record in unique_records(public_records(records)):
-        grouped[static_detail_pilot_signature(record)].append(record)
-    for group in grouped.values():
-        group.sort(key=detail_key)
-
-    selected: list[dict[str, Any]] = []
-    signatures = sorted(grouped)
-    while len(selected) < max(0, limit):
-        progressed = False
-        for signature in signatures:
-            group = grouped[signature]
-            if not group:
-                continue
-            selected.append(group.pop(0))
-            progressed = True
-            if len(selected) >= limit:
-                break
-        if not progressed:
-            break
-    return selected
-
-
-def write_static_detail_pilot(docs_dir: Path, records: list[dict[str, Any]]) -> list[Path]:
-    """Generate a dark, bounded set of static detail routes for production measurement."""
-    pilot_root = docs_dir / "paper"
-    if pilot_root.exists():
-        for path in sorted(pilot_root.glob("*/index.html")):
+def write_static_detail_pages(docs_dir: Path, records: list[dict[str, Any]]) -> list[Path]:
+    """Generate static-first detail routes for every unique public record."""
+    detail_root = docs_dir / "paper"
+    if detail_root.exists():
+        for path in sorted(detail_root.glob("*/index.html")):
             path.unlink()
             try:
                 path.parent.rmdir()
@@ -2823,15 +2783,15 @@ def write_static_detail_pilot(docs_dir: Path, records: list[dict[str, Any]]) -> 
                 pass
 
     paths: list[Path] = []
-    for record in select_static_detail_pilot_records(records):
+    for record in unique_records(public_records(records)):
         item = detail_item(record)
         primary = item.get("title_primary") or item.get("title_zh") or item.get("title") or "论文详情"
-        path = pilot_root / str(item["key"]) / "index.html"
+        path = detail_root / str(item["key"]) / "index.html"
         write_page(path, page(str(primary), records, static_detail_body(item), show_hero=False))
         paths.append(path)
 
     total_bytes = sum(path.stat().st_size for path in paths)
-    print(f"Static detail pilot: routes={len(paths)} bytes={total_bytes}")
+    print(f"Static detail pages: routes={len(paths)} bytes={total_bytes}")
     return paths
 
 
@@ -2967,7 +2927,7 @@ def main() -> None:
     recent72_records = recent_detected_records(records, 3)
     write_exports(args.docs_dir, recent72_records)
     write_detail_data(args.docs_dir, records)
-    write_static_detail_pilot(args.docs_dir, records)
+    write_static_detail_pages(args.docs_dir, records)
     write_page(
         args.docs_dir / "paper.html",
         page("论文详情", records, paper_detail_body(), show_hero=False),
