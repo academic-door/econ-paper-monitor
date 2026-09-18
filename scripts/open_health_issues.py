@@ -51,7 +51,6 @@ def build_anomalies(
     *,
     degraded_threshold: int = 25,
     cnki_max_age_hours: float = 30.0,
-    ss_key_max_age_hours: float = 7 * 24.0,
     elsevier_weekly_warning: int = 16000,  # 80% of the 20,000/week Elsevier quota
     quota_remaining_ratio: float = 0.2,
     ss_throttle_ratio: float = 0.3,
