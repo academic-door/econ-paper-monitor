@@ -97,7 +97,12 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
         assert all({"key", "search", "card"} <= set(item) for item in shard)
         assert all("html" not in item for item in shard)
         assert all("__BASE__" not in item["card"]["hr"] for item in shard)
-        assert all("__PAPER_BASE__/paper.html?key=" in item["card"]["hr"] for item in shard)
+        assert all(
+            item["card"]["hr"].startswith("__PAPER_BASE__/paper/")
+            and item["card"]["hr"].endswith("/")
+            and "paper.html?key=" not in item["card"]["hr"]
+            for item in shard
+        )
         assert all({"p", "s", "a", "d", "u", "j", "tp", "cn", "dt", "dd", "dl", "od", "lg", "hr"} <= set(item["card"]) for item in shard)
 
     for dataset_dir in (output / "paper-index").iterdir():

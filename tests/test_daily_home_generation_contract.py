@@ -47,8 +47,8 @@ def test_root_and_vnext_share_the_new_daily_generation_contract(tmp_path):
         assert 'class="sidebar"' not in html, f"Legacy sidebar leaked into {path}"
         title_links = re.findall(r"<h3><a href=\"([^\"]+)\"", html)
         assert title_links, f"No title links rendered in {path}"
-        assert all("paper.html?key=" in link for link in title_links), (
-            f"Title links must point to the detail page (paper.html?key=...) in {path}"
+        assert all("paper/" in link and link.endswith("/") and "paper.html?key=" not in link for link in title_links), (
+            f"Title links must point to canonical static detail routes in {path}"
         )
         read_links = re.findall(r'class="read-link" href="([^"]+)"', html)
         assert read_links, f"No read links rendered in {path}"
