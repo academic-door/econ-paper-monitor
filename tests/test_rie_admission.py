@@ -34,7 +34,7 @@ def test_rie_uses_existing_wiley_official_rss_rule(monkeypatch):
     monkeypatch.setattr(
         registry,
         "crossref_issn_candidates",
-        lambda journal, source_registry, registry_entry: ["14679396", "09657576"],
+        lambda journal, source_registry, registry_entry: ["09657576"],
     )
     monkeypatch.setattr(registry, "load_registry", lambda: {"journals": {journal["id"]: {}}})
 

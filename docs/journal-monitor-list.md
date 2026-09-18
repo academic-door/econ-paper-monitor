@@ -68,6 +68,7 @@
 | 其他经济史           | Economic History Review              | EHR   | 经济史评论         | B      |
 | 国际经济学顶刊       | Journal of International Economics   | JIE   | 国际经济学杂志     | A      |
 | 其他国际经济学       | Canadian Journal of Economics        | CJE   | 加拿大经济学杂志   | B      |
+| 其他国际经济学       | Review of International Economics    | RIE   | 国际经济学评论     | B      |
 
 ## 金融、发展、实证应用
 

@@ -154,7 +154,13 @@ def generated_official_rss_urls(journal: dict[str, Any]) -> list[dict[str, str]]
                 }
             )
     if issn and ("wiley" in publisher or registry_entry.get("platform") == "wiley"):
-        for candidate in crossref_issn_candidates(journal, registry, registry_entry):
+        candidates = [
+            compact_issn(str(registry_entry.get("online_issn") or "")),
+            compact_issn(str(journal.get("online_issn") or journal.get("eissn") or "")),
+            *crossref_issn_candidates(journal, registry, registry_entry),
+            issn,
+        ]
+        for candidate in [value for value in dict.fromkeys(candidates) if value]:
             feeds.append(
                 {
                     "url": f"https://onlinelibrary.wiley.com/action/showFeed?jc={candidate}&type=etoc&feed=rss",
