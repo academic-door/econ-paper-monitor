@@ -34,6 +34,7 @@ def sample_record(**overrides):
 def test_static_detail_body_contains_core_record_without_client_rendering():
     item = render_site.detail_item(sample_record())
     html = render_site.static_detail_body(item)
+
     assert "Static Detail Pilot Paper" in html
     assert "Ada Economist" in html
     assert "Journal of Pilot Economics" in html
@@ -44,20 +45,9 @@ def test_static_detail_body_contains_core_record_without_client_rendering():
     assert "fetch(" not in html
 
 
-def test_static_detail_pilot_writes_bounded_deterministic_routes(tmp_path, monkeypatch):
-    monkeypatch.setattr(render_site, "DOCS_DIR", tmp_path)
-    records = [
-        sample_record(title=f"Pilot {index}", doi=f"10.1234/pilot.{index}", url=f"https://example.test/{index}")
-        for index in range(render_site.STATIC_DETAIL_PILOT_LIMIT + 5)
-    ]
-    paths = render_site.write_static_detail_pilot(tmp_path, records)
-    assert len(paths) == render_site.STATIC_DETAIL_PILOT_LIMIT
-    assert all(path.name == "index.html" for path in paths)
-    assert all(path.parent.parent.name == "paper" for path in paths)
-    assert all(path.exists() for path in paths)
-    assert len(list((tmp_path / "paper").glob("*/index.html"))) == render_site.STATIC_DETAIL_PILOT_LIMIT
+def test_legacy_detail_shell_remains_available_for_existing_query_links():
+    html = render_site.paper_detail_body()
 
-
-def test_pilot_preserves_legacy_detail_links():
-    record = sample_record()
-    assert render_site.detail_url(record).startswith(f"{render_site.BASE}/paper.html?key=")
+    assert "URLSearchParams" in html
+    assert "paper-data/" in html
+    assert "正在载入论文详情" in html

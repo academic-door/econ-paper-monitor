@@ -269,7 +269,7 @@ scripts.forEach(source => new Function(source));
 
 
 def detail_key(record: dict) -> str:
-    """Return the stable public key used by ``docs/paper.html`` (mirrors render_site)."""
+    """Return the stable public key used by static detail routes (mirrors render_site)."""
     canonical_key = str(record.get("canonical_detail_key") or record.get("detail_key") or "").strip()
     if re.search(r"-[0-9a-f]{12}$", canonical_key, re.IGNORECASE):
         return canonical_key
@@ -300,7 +300,7 @@ def paper_markup(record: dict, date_value: str, previous_date: str | None, root_
         topic_markup += '<span class="tag tag-china">与中国相关</span>'
     tags_markup = f'<div class="tags">{topic_markup}</div>' if topic_markup else ""
     original = str(record.get("url") or record.get("source_url") or "#")
-    detail_href = f"{'' if root_output else '../'}paper.html?key={detail_key(record)}"
+    detail_href = f"{'' if root_output else '../'}paper/{detail_key(record)}/"
     doi = str(record.get("doi") or "").strip()
     official = official_date(record)
     official_markup = esc(provenance_text(record, official))
