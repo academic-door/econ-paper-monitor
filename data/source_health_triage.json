@@ -1,9 +1,7 @@
 {
-  "categories": {
-    "needs_investigation": 2
-  },
-  "checked_at": "2026-09-18T15:32:58.678958+08:00",
-  "source_health_degraded_count": 2,
+  "categories": {},
+  "checked_at": "2026-09-18T17:19:00.023416+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -17,44 +15,14 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=29/45; Journal of Financial Economics: 20 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 50 via official-generated; Economic Development",
+      "sample_error": "feeds=66/117; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 120 via configured; Journal of Accounting and Economics: 49 via configu",
       "source": "rss"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback 1; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "review-of-international-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
-      "source": "Review of International Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 3
   },
-  "total_degraded": 2
+  "total_degraded": 0
 }
