@@ -43,6 +43,9 @@ jobs:
           python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output docs/daily-vnext/index.html --report "$RUNNER_TEMP/daily-vnext-report.json"
       - name: Run regression tests
         run: python -m pytest -q
+      - name: Probe RIE Wiley RSS on runner
+        if: github.event_name == 'pull_request' && github.head_ref == 'n3c-rie-wiley'
+        run: timeout 90s python scripts/probe_rie_wiley_feed.py
       - name: Build and validate Daily Door vNext
         shell: bash
         run: |
