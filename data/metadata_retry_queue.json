@@ -7,13 +7,39 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 213,
+    "missing_abstract": 214,
+    "missing_authors": 1,
     "weak_date_evidence": 489
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 729,
+  "recent_candidates_before_limit": 733,
   "recent_window_start": "2026-08-21",
   "records": [
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-09-18T19:41:21+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://cepr.org/publications/dp17408",
+      "journal": "CEPR Discussion Papers",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "missing_authors",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": "cepr-dp",
+      "source_type": "working_paper",
+      "title": "Politics at Work",
+      "url": "https://cepr.org/publications/dp17408"
+    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -6729,6 +6755,75 @@
       "url": "https://www.aeaweb.org/articles?id=10.1257/jel.20260018"
     },
     {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-09-18T19:37:24+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://ageconsearch.umn.edu/record/393801/files/wolf_preprint.pdf",
+      "journal": "Journal of Agricultural and Resource Economics",
+      "official_date": "2026-09-15",
+      "priority": [
+        0,
+        1,
+        1,
+        4
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "US Consumer Milk Product and Environmental Impact Attribute Preferences",
+      "url": "https://ageconsearch.umn.edu/record/393801/files/Wolf_preprint.pdf"
+    },
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-09-18T19:37:24+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://ageconsearch.umn.edu/record/393802/files/bakhtavoryan_preprint.pdf",
+      "journal": "Journal of Agricultural and Resource Economics",
+      "official_date": "2026-09-15",
+      "priority": [
+        0,
+        1,
+        1,
+        4
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Analyzing the Demand Structure Associated with a Granular Array of Dairy Milk Products and Plant_Based Milk Alternatives Accounting for Pre-Committed Quantities",
+      "url": "https://ageconsearch.umn.edu/record/393802/files/Bakhtavoryan_preprint.pdf"
+    },
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-09-18T19:37:24+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://ageconsearch.umn.edu/record/393803/files/kim_preprint.pdf",
+      "journal": "Journal of Agricultural and Resource Economics",
+      "official_date": "2026-09-15",
+      "priority": [
+        0,
+        1,
+        1,
+        4
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Buffering Supply Shocks in Successive Oligopoly: Market Power and Welfare Implications",
+      "url": "https://ageconsearch.umn.edu/record/393803/files/Kim_preprint.pdf"
+    },
+    {
       "date_confidence": "C",
       "doi": "10.1007/s00148-026-01197-5",
       "first_seen": "2026-09-14T16:23:46+00:00",
@@ -11632,101 +11727,9 @@
       "source_type": "journal",
       "title": "The Value of Piped Water and Sewers: Evidence from 19th Century Chicago",
       "url": "https://doi.org/10.1162/rest_a_01483"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1162/rest_a_01488",
-      "first_seen": "2026-09-18T00:14:24+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1162/rest_a_01488",
-      "journal": "Review of Economics and Statistics",
-      "official_date": "2026-09-02",
-      "priority": [
-        0,
-        1,
-        1,
-        17
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "First Sale Doctrine and Public Library Provision of Print and Electronic Books",
-      "url": "https://doi.org/10.1162/rest_a_01488"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1162/rest_a_01489",
-      "first_seen": "2026-09-18T00:14:24+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1162/rest_a_01489",
-      "journal": "Review of Economics and Statistics",
-      "official_date": "2026-09-02",
-      "priority": [
-        0,
-        1,
-        1,
-        17
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Measuring Economic Growth with a Fully Identified Three-Signal Model",
-      "url": "https://doi.org/10.1162/rest_a_01489"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1162/rest_a_01491",
-      "first_seen": "2026-09-18T00:14:24+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1162/rest_a_01491",
-      "journal": "Review of Economics and Statistics",
-      "official_date": "2026-09-02",
-      "priority": [
-        0,
-        1,
-        1,
-        17
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Mobilization and Backlash: Asymmetric Updating in Response to Campaign Ads",
-      "url": "https://doi.org/10.1162/rest_a_01491"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1162/rest_a_01492",
-      "first_seen": "2026-09-18T00:14:24+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1162/rest_a_01492",
-      "journal": "Review of Economics and Statistics",
-      "official_date": "2026-09-02",
-      "priority": [
-        0,
-        1,
-        1,
-        17
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Set-Identified Structural Vector Autoregressions and the Effects of a 100 Basis Point Monetary Policy Shock",
-      "url": "https://doi.org/10.1162/rest_a_01492"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4740,
+  "total_candidates_before_limit": 4744,
   "truncated": true
 }
