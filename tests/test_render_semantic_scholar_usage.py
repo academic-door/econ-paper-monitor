@@ -99,7 +99,9 @@ def test_renders_both_providers_with_one_row_cards_and_beijing_time(tmp_path: Pa
     assert "grid-template-columns:repeat(6,1fr)" in html  # six KPI cards on one row
     assert "2026-08-05 20:00 北京时间" in html  # Beijing time for 12:00 UTC
     assert "5,095" in html and "4,495" in html
-    assert "16,000" in html and "20,000" in html and "60 天" in html
+    assert "16,000" in html and "20,000" in html
+    assert "60 天" not in html
+    assert "keep-alive" not in html.casefold()
 
 
 def test_missing_usage_renders_placeholder(tmp_path: Path) -> None:

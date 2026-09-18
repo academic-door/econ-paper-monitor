@@ -43,7 +43,7 @@ class SemanticScholarThrottleTests(unittest.TestCase):
         with patch.object(em, "_semantic_scholar_gate", return_value=True) as gate, patch.object(
             em, "fetch_json_retry", side_effect=[too_many, payload]
         ) as fetch, patch.object(em.time, "sleep") as sleep, patch.dict(
-            em.os.environ, {"S2_API_KEY": "", "SEMANTIC_SCHOLAR_API_KEY": ""}, clear=False
+            em.os.environ, {"SEMANTIC_SCHOLAR_API_KEY": ""}, clear=False
         ):
             result = em.semantic_scholar_doi_metadata("10.1234/example", 1, retries=1)
         self.assertEqual(result.get("abstract_source"), "semantic_scholar")
@@ -176,7 +176,7 @@ class SemanticScholarThrottleTests(unittest.TestCase):
         self.assertEqual(state["consecutive_terminal_rate_limited"], 0)
 
     def test_control_telemetry_is_safe_and_embedded_in_provider_health(self) -> None:
-        with patch.dict(em.os.environ, {"S2_API_KEY": "secret-value"}, clear=False):
+        with patch.dict(em.os.environ, {"SEMANTIC_SCHOLAR_API_KEY": "secret-value"}, clear=False):
             state = em.semantic_scholar_throttle_state()
         self.assertEqual(state["endpoint_class"], "academic_graph_paper_details")
         self.assertEqual(state["workload_class"], "metadata_recovery")

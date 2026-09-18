@@ -35,13 +35,18 @@ def make_data_dir(tmp_path: Path) -> Path:
         },
     )
     write_json(
-        data_dir / "semantic_scholar_keepalive.json",
+        data_dir / "metadata_provider_health.json",
         {
-            "checked_at": "2026-08-04T10:00:00+00:00",
-            "ok": True,
-            "status_code": 200,
-            "reason": "ok",
-            "detail": "paperId=test",
+            "latest": {
+                "checked_at": "2026-08-04T10:00:00+00:00",
+                "providers": {
+                    "semantic-scholar": {
+                        "api_key_configured": True,
+                        "attempts": 0,
+                        "rate_limited": 0,
+                    }
+                },
+            }
         },
     )
     return data_dir
@@ -168,12 +173,18 @@ def test_sync_issues_updates_existing_and_closes_recovered(tmp_path: Path):
 def test_semantic_scholar_key_not_configured_creates_anomaly(tmp_path: Path):
     data_dir = make_data_dir(tmp_path)
     write_json(
-        data_dir / "semantic_scholar_keepalive.json",
+        data_dir / "metadata_provider_health.json",
         {
-            "checked_at": "2026-08-04T10:00:00+00:00",
-            "ok": False,
-            "status_code": None,
-            "reason": "not_configured",
+            "latest": {
+                "checked_at": "2026-08-04T10:00:00+00:00",
+                "providers": {
+                    "semantic-scholar": {
+                        "api_key_configured": False,
+                        "attempts": 0,
+                        "rate_limited": 0,
+                    }
+                },
+            }
         },
     )
 
@@ -181,42 +192,8 @@ def test_semantic_scholar_key_not_configured_creates_anomaly(tmp_path: Path):
 
     key_issue = next(item for item in anomalies if item["slug"] == "semantic-scholar-key")
     assert "not configured" in key_issue["title"]
+    assert "SEMANTIC_SCHOLAR_API_KEY" in key_issue["body"]
 
-
-def test_semantic_scholar_key_invalid_creates_anomaly(tmp_path: Path):
-    data_dir = make_data_dir(tmp_path)
-    write_json(
-        data_dir / "semantic_scholar_keepalive.json",
-        {
-            "checked_at": "2026-08-04T10:00:00+00:00",
-            "ok": False,
-            "status_code": 401,
-            "reason": "invalid_key",
-        },
-    )
-
-    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
-
-    key_issue = next(item for item in anomalies if item["slug"] == "semantic-scholar-key")
-    assert "unhealthy" in key_issue["title"]
-
-
-def test_semantic_scholar_key_stale_creates_anomaly(tmp_path: Path):
-    data_dir = make_data_dir(tmp_path)
-    write_json(
-        data_dir / "semantic_scholar_keepalive.json",
-        {
-            "checked_at": "2026-07-20T10:00:00+00:00",
-            "ok": True,
-            "status_code": 200,
-            "reason": "ok",
-        },
-    )
-
-    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
-
-    key_issue = next(item for item in anomalies if item["slug"] == "semantic-scholar-key")
-    assert "idle" in key_issue["title"]
 
 def test_elsevier_quota_weekly_warning_creates_anomaly(tmp_path: Path):
     data_dir = make_data_dir(tmp_path)
@@ -359,143 +336,17 @@ def test_semantic_scholar_key_fresh_has_no_anomaly(tmp_path: Path):
     assert not any(item["slug"] == "semantic-scholar-key" for item in anomalies)
 
 
-def test_semantic_scholar_key_missing_keepalive_creates_idle_anomaly(tmp_path: Path):
-    data_dir = make_data_dir(tmp_path)
-    (data_dir / "semantic_scholar_keepalive.json").unlink()
-
-    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
-
-    key_issue = next(item for item in anomalies if item["slug"] == "semantic-scholar-key")
-    assert "idle" in key_issue["title"]
-
-def test_elsevier_quota_weekly_warning_creates_anomaly(tmp_path: Path):
+def test_legacy_keepalive_artifact_is_not_required(tmp_path: Path):
     data_dir = make_data_dir(tmp_path)
     write_json(
-        data_dir / "semantic_scholar_usage.json",
+        data_dir / "semantic_scholar_keepalive.json",
         {
-            "providers": {
-                "elsevier": {
-                    "api_key_configured": True,
-                    "inst_token_configured": True,
-                    "weekly_requests_7d": 5000,
-                    "rate_limit_headers": None,
-                }
-            }
-        },
-    )
-
-    anomalies = build_anomalies(
-        data_dir,
-        now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc),
-        elsevier_weekly_warning=4500,
-    )
-
-    issue = next(item for item in anomalies if item["slug"] == "elsevier-quota")
-    assert "weekly_requests_7d=5000" in issue["body"]
-
-
-def test_elsevier_weekly_below_default_threshold_has_no_anomaly(tmp_path: Path):
-    data_dir = make_data_dir(tmp_path)
-    write_json(
-        data_dir / "semantic_scholar_usage.json",
-        {
-            "providers": {
-                "elsevier": {
-                    "api_key_configured": True,
-                    "inst_token_configured": True,
-                    "weekly_requests_7d": 5000,
-                    "rate_limit_headers": None,
-                }
-            }
+            "checked_at": "2025-01-01T00:00:00+00:00",
+            "ok": False,
+            "reason": "invalid_key",
         },
     )
 
     anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
 
-    assert not any(item["slug"] == "elsevier-quota" for item in anomalies)
-
-
-def test_elsevier_quota_low_remaining_creates_anomaly(tmp_path: Path):
-    data_dir = make_data_dir(tmp_path)
-    write_json(
-        data_dir / "semantic_scholar_usage.json",
-        {
-            "providers": {
-                "elsevier": {
-                    "api_key_configured": True,
-                    "inst_token_configured": True,
-                    "weekly_requests_7d": 100,
-                    "rate_limit_headers": {
-                        "X-RateLimit-Limit": "5000",
-                        "X-RateLimit-Remaining": "100",
-                    },
-                }
-            }
-        },
-    )
-
-    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
-
-    issue = next(item for item in anomalies if item["slug"] == "elsevier-quota")
-    assert "X-RateLimit-Remaining low: 100/5000" in issue["body"]
-
-
-def test_semantic_scholar_throttled_creates_anomaly(tmp_path: Path):
-    data_dir = make_data_dir(tmp_path)
-    write_json(
-        data_dir / "metadata_provider_health.json",
-        {
-            "latest": {
-                "checked_at": "2026-08-04T10:00:00+00:00",
-                "providers": {
-                    "semantic-scholar": {
-                        "api_key_configured": True,
-                        "attempts": 100,
-                        "rate_limited": 50,
-                    }
-                },
-            }
-        },
-    )
-
-    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
-
-    issue = next(item for item in anomalies if item["slug"] == "semantic-scholar-throttled")
-    assert "rate_limited=50/100" in issue["body"]
-
-
-def test_provider_quota_fresh_has_no_anomaly(tmp_path: Path):
-    data_dir = make_data_dir(tmp_path)
-    write_json(
-        data_dir / "semantic_scholar_usage.json",
-        {
-            "providers": {
-                "elsevier": {
-                    "api_key_configured": True,
-                    "inst_token_configured": True,
-                    "weekly_requests_7d": 100,
-                    "rate_limit_headers": None,
-                }
-            }
-        },
-    )
-    write_json(
-        data_dir / "metadata_provider_health.json",
-        {
-            "latest": {
-                "checked_at": "2026-08-04T10:00:00+00:00",
-                "providers": {
-                    "semantic-scholar": {
-                        "api_key_configured": True,
-                        "attempts": 100,
-                        "rate_limited": 5,
-                    }
-                },
-            }
-        },
-    )
-
-    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
-
-    assert not any(item["slug"] == "elsevier-quota" for item in anomalies)
-    assert not any(item["slug"] == "semantic-scholar-throttled" for item in anomalies)
+    assert not any(item["slug"] == "semantic-scholar-key" for item in anomalies)

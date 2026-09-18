@@ -535,7 +535,7 @@ def summarize_provider_health(
                 key=lambda item: _rate_limit_remaining(item),
             )
     health["semantic-scholar"]["api_key_configured"] = bool(
-        (os.environ.get("S2_API_KEY") or os.environ.get("SEMANTIC_SCHOLAR_API_KEY") or "").strip()
+        (os.environ.get("SEMANTIC_SCHOLAR_API_KEY") or "").strip()
     )
     health["semantic-scholar"]["control"] = semantic_scholar_throttle_state()
     elsevier_api_key, elsevier_inst_token = elsevier_env_credentials()

@@ -328,7 +328,6 @@ jobs:
             echo "::warning::Abstract and author backfill timed out or failed; preserving existing metadata."
           fi
         env:
-          S2_API_KEY: ${{ secrets.S2_API_KEY }}
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
           ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
@@ -355,7 +354,6 @@ jobs:
             echo "::warning::Historical author recovery timed out or failed; preserving explicit missing-author status."
           fi
         env:
-          S2_API_KEY: ${{ secrets.S2_API_KEY }}
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
       - name: Recover missing and weak official dates
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
@@ -367,15 +365,8 @@ jobs:
             echo "::warning::Official-date recovery timed out or failed; preserving explicit weak-date status."
           fi
         env:
-          S2_API_KEY: ${{ secrets.S2_API_KEY }}
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
-      - name: Semantic Scholar key keep-alive
-        shell: bash
-        run: python scripts/semantic_scholar_keepalive.py
-        env:
-          S2_API_KEY: ${{ secrets.S2_API_KEY }}
-          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
       - name: Build Semantic Scholar usage report
         run: python scripts/build_semantic_scholar_usage.py
       - name: Batch recover metadata from independent indexes
@@ -388,7 +379,6 @@ jobs:
             echo "::warning::Batch metadata recovery timed out or failed; preserving explicit missing status."
           fi
         env:
-          S2_API_KEY: ${{ secrets.S2_API_KEY }}
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
           ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
           ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}

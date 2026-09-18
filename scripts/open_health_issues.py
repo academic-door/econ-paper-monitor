@@ -12,8 +12,10 @@ Rules:
   -> degraded-sources / source-unavailable issue
 * ``data/local_cnki_status.json`` ``last_success_at`` older than the max age
   -> local-cnki-stale issue
-* ``data/semantic_scholar_keepalive.json`` missing / stale / invalid
-  -> semantic-scholar-key issue (Semantic Scholar prunes keys inactive ~60 days)
+* latest legitimate Semantic Scholar provider telemetry reports key unconfigured
+  -> semantic-scholar-key issue
+* latest Semantic Scholar provider telemetry crosses the throttle ratio
+  -> semantic-scholar-throttled issue
 
 The script never prints credentials.  GitHub access uses ``GITHUB_TOKEN``.
 """
@@ -49,7 +51,6 @@ def build_anomalies(
     *,
     degraded_threshold: int = 25,
     cnki_max_age_hours: float = 30.0,
-    ss_key_max_age_hours: float = 7 * 24.0,
     elsevier_weekly_warning: int = 16000,  # 80% of the 20,000/week Elsevier quota
     quota_remaining_ratio: float = 0.2,
     ss_throttle_ratio: float = 0.3,
@@ -134,62 +135,26 @@ def build_anomalies(
             }
         )
 
-    keepalive = read_json(data_dir / "semantic_scholar_keepalive.json", {})
-    if not isinstance(keepalive, dict) or not keepalive:
-        keepalive = {}
-    ss_reason = str(keepalive.get("reason") or "missing")
-    ss_ok = keepalive.get("ok") is True
-    ss_checked = keepalive.get("checked_at")
-    ss_status = keepalive.get("status_code")
-    ss_age = _age_hours(ss_checked, now)
-    if ss_reason == "not_configured":
+    provider_usage = read_json(data_dir / "semantic_scholar_usage.json", {})
+    providers_usage = provider_usage.get("providers") if isinstance(provider_usage, dict) else {}
+    health_latest = read_json(data_dir / "metadata_provider_health.json", {}).get("latest") or {}
+    health_providers = health_latest.get("providers") if isinstance(health_latest, dict) else {}
+
+    ss_latest = health_providers.get("semantic-scholar") if isinstance(health_providers, dict) else {}
+    if isinstance(ss_latest, dict) and ss_latest and ss_latest.get("api_key_configured") is False:
         anomalies.append(
             {
                 "slug": "semantic-scholar-key",
                 "title": "Semantic Scholar key not configured",
                 "body": (
-                    "SEMANTIC_SCHOLAR_API_KEY / S2_API_KEY is not configured in the "
-                    "workflow. Metadata recovery falls back to the shared "
-                    "unauthenticated quota and the key is at risk of being pruned "
-                    "(Semantic Scholar removes keys inactive ~60 days).\n\n"
+                    "Latest legitimate provider telemetry reports "
+                    "api_key_configured=false for SEMANTIC_SCHOLAR_API_KEY. "
+                    "Metadata recovery can fail open to accepted fallback providers; "
+                    "verify the canonical secret configuration without sending synthetic traffic.\n\n"
                     f"checked_at={now_iso()}"
                 ),
             }
         )
-    elif ss_reason in {"invalid_key", "http_error", "network_error"}:
-        anomalies.append(
-            {
-                "slug": "semantic-scholar-key",
-                "title": f"Semantic Scholar key unhealthy ({ss_reason})",
-                "body": (
-                    f"keepalive ok={ss_ok} reason={ss_reason} "
-                    f"status_code={ss_status} checked_at={ss_checked}.\n\n"
-                    "Verify the key in GitHub org/repo secrets and the keep-alive "
-                    "workflow step before the key is pruned.\n\n"
-                    f"checked_at={now_iso()}"
-                ),
-            }
-        )
-    elif ss_age is None or ss_age > ss_key_max_age_hours:
-        age_text = f"{ss_age:.1f}" if ss_age is not None else "unknown"
-        anomalies.append(
-            {
-                "slug": "semantic-scholar-key",
-                "title": "Semantic Scholar key idle",
-                "body": (
-                    f"Semantic Scholar key keep-alive last_success_at={ss_checked} "
-                    f"age_hours={age_text} (max {ss_key_max_age_hours}). "
-                    "Semantic Scholar prunes keys inactive ~60 days; keep the key "
-                    "used daily.\n\n"
-                    f"checked_at={now_iso()}"
-                ),
-            }
-        )
-
-    provider_usage = read_json(data_dir / "semantic_scholar_usage.json", {})
-    providers_usage = provider_usage.get("providers") if isinstance(provider_usage, dict) else {}
-    health_latest = read_json(data_dir / "metadata_provider_health.json", {}).get("latest") or {}
-    health_providers = health_latest.get("providers") if isinstance(health_latest, dict) else {}
 
     els_usage = providers_usage.get("elsevier") if isinstance(providers_usage, dict) else {}
     els_triggers: list[str] = []
@@ -227,7 +192,6 @@ def build_anomalies(
             }
         )
 
-    ss_latest = health_providers.get("semantic-scholar") if isinstance(health_providers, dict) else {}
     if isinstance(ss_latest, dict):
         ss_attempts = int(ss_latest.get("attempts") or 0)
         ss_rate = int(ss_latest.get("rate_limited") or 0)
@@ -239,7 +203,7 @@ def build_anomalies(
                     "body": (
                         f"Latest run rate_limited={ss_rate}/{ss_attempts} "
                         f"(ratio {ss_rate / ss_attempts:.1%} >= {ss_throttle_ratio:.0%}). "
-                        "The key is configured at 1 RPS; check the pacing and the "
+                        "The provider keyed ceiling is 1 RPS; the accepted client target remains 0.2 RPS / 5s. Check the pacing and the "
                         "usage page.\n\n"
                         f"checked_at={now_iso()}"
                     ),
@@ -370,7 +334,6 @@ def main() -> None:
     parser.add_argument("--issue-prefix", default="[Monitor Health]")
     parser.add_argument("--degraded-threshold", type=int, default=25)
     parser.add_argument("--cnki-max-age-hours", type=float, default=30.0)
-    parser.add_argument("--ss-key-max-age-hours", type=float, default=7 * 24.0)
     parser.add_argument("--elsevier-weekly-warning", type=int, default=16000)
     parser.add_argument("--quota-remaining-ratio", type=float, default=0.2)
     parser.add_argument("--ss-throttle-ratio", type=float, default=0.3)
@@ -382,7 +345,6 @@ def main() -> None:
         args.data_dir,
         degraded_threshold=args.degraded_threshold,
         cnki_max_age_hours=args.cnki_max_age_hours,
-        ss_key_max_age_hours=args.ss_key_max_age_hours,
         elsevier_weekly_warning=args.elsevier_weekly_warning,
         quota_remaining_ratio=args.quota_remaining_ratio,
         ss_throttle_ratio=args.ss_throttle_ratio,
