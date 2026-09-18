@@ -110,15 +110,6 @@ def make_data_dir(tmp_path: Path) -> Path:
             ],
         },
     )
-    write_json(
-        data_dir / "semantic_scholar_keepalive.json",
-        {
-            "checked_at": _TS_KEEPALIVE,
-            "ok": True,
-            "status_code": 200,
-            "reason": "ok",
-        },
-    )
     return data_dir
 
 
@@ -134,8 +125,6 @@ def test_semantic_scholar_aggregates_totals_and_days(tmp_path: Path) -> None:
     assert usage["total"]["not_found"] == 75
     assert usage["total"]["runs"] == 3
     assert usage["last_used_at"] == _TS_LATEST
-    assert usage["last_keepalive_ok"] is True
-    assert usage["last_keepalive_reason"] == "ok"
     assert [row["date"] for row in usage["by_day"]] == _EXPECTED_DAYS
     assert usage["by_day"][0]["attempts"] == 300  # 08-03 22:00 UTC == Beijing 08-04
     assert usage["by_day"][0]["rate_limited"] == 35

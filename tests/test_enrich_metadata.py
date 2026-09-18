@@ -264,7 +264,7 @@ class MetadataProviderRetryTests(unittest.TestCase):
         }
         with patch.dict(
             enrich_metadata.os.environ,
-            {"S2_API_KEY": "test-key"},
+            {"SEMANTIC_SCHOLAR_API_KEY": "test-key"},
             clear=False,
         ):
             enrich_metadata.semantic_scholar_doi_metadata("10.1234/x", timeout=1)

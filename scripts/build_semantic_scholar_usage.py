@@ -1,9 +1,9 @@
 """Aggregate provider API key usage into a daily report.
 
-Reads ``data/metadata_provider_health.json`` (per-run provider health) and
-``data/semantic_scholar_keepalive.json`` (daily keep-alive state) and writes
-``data/semantic_scholar_usage.json`` with per-day and cumulative request
-counts for the monitored providers (``semantic-scholar`` and ``elsevier``).
+Reads ``data/metadata_provider_health.json`` (legitimate per-run provider
+health) and writes ``data/semantic_scholar_usage.json`` with per-day and
+cumulative request counts for the monitored providers
+(``semantic-scholar`` and ``elsevier``).
 
 The report powers a self-hosted usage page; Semantic Scholar and Elsevier do
 not expose a combined usage dashboard.  No credentials are read or printed.
@@ -146,11 +146,8 @@ def _remaining(headers: dict[str, Any]) -> int:
 
 def build_usage(data_dir: Path = DATA_DIR) -> dict[str, Any]:
     health = read_json(data_dir / "metadata_provider_health.json", {})
-    keepalive = read_json(data_dir / "semantic_scholar_keepalive.json", {})
     if not isinstance(health, dict):
         health = {}
-    if not isinstance(keepalive, dict):
-        keepalive = {}
 
     runs = health.get("runs") if isinstance(health.get("runs"), list) else []
     latest = health.get("latest") if isinstance(health.get("latest"), dict) else {}
@@ -161,18 +158,12 @@ def build_usage(data_dir: Path = DATA_DIR) -> dict[str, Any]:
     }
 
     ss = providers["semantic-scholar"]
-    last_keepalive_at = keepalive.get("checked_at")
-    keepalive_ok = keepalive.get("ok")
-    keepalive_reason = str(keepalive.get("reason") or "missing")
 
     return {
         "updated_at": now_iso(),
         # Backward-compatible top-level summary (semantic-scholar only).
         "key_configured": bool(ss["api_key_configured"]),
         "last_used_at": ss["last_used_at"],
-        "last_keepalive_at": last_keepalive_at,
-        "last_keepalive_ok": keepalive_ok,
-        "last_keepalive_reason": keepalive_reason,
         "days_since_last_use": ss["days_since_last_use"],
         "total": ss["total"],
         "by_day": ss["by_day"],

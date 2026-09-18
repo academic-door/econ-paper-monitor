@@ -437,7 +437,7 @@ class TestPriorityAndPathHygiene:
         ), patch(
             "recover_metadata_batch.semantic_scholar_doi_metadata",
             return_value={"_status": "skipped_rate_limited", "_provider": "semantic-scholar"},
-        ), patch.dict(os.environ, {"S2_API_KEY": "test-key"}, clear=False):
+        ), patch.dict(os.environ, {"SEMANTIC_SCHOLAR_API_KEY": "test-key"}, clear=False):
             report = run_recovery(
                 data_dir=data_dir,
                 limit=50,

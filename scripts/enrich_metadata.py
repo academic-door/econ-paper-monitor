@@ -545,11 +545,7 @@ def reset_semantic_scholar_throttle() -> None:
 
 def _semantic_scholar_api_key() -> str:
     """Return the configured Semantic Scholar API key, if any (never logged)."""
-    return (
-        os.environ.get("S2_API_KEY")
-        or os.environ.get("SEMANTIC_SCHOLAR_API_KEY")
-        or ""
-    ).strip()
+    return (os.environ.get("SEMANTIC_SCHOLAR_API_KEY") or "").strip()
 
 
 def _semantic_scholar_circuit_open_locked() -> bool:
