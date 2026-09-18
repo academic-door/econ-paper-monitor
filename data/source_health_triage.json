@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 2
   },
-  "checked_at": "2026-09-18T12:41:09.054636+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-09-18T15:32:58.678958+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,12 +12,12 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=42; proxy_abstract_attempted=0; seen Review of Economics and Statistics: abstract-present; seen Review of Economics and Statistics: abstract-present; seen Review of Economics and Statistics:",
+      "sample_error": "attempted=120; proxy_abstract_attempted=20; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Econ",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=65/114; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 120 via configured; Journal of Accounting and Economics: 49 via configu",
+      "sample_error": "feeds=29/45; Journal of Financial Economics: 20 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 50 via official-generated; Economic Development",
       "source": "rss"
     }
   ],
@@ -36,11 +36,25 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-international-economics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
+      "source": "Review of International Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 3
   },
-  "total_degraded": 1
+  "total_degraded": 2
 }
