@@ -20,8 +20,9 @@ from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, read_json, write
 
 POLICY_NOTE = (
     "配额说明：Elsevier 配额按 7 天重置（按 20,000 次/周估算，预警阈值 16,000；响应若带 "
-    "X-RateLimit-* 头则以官方剩余额度为准）；Semantic Scholar 为 1 RPS、闲置约 60 天会被官方回收。"
-    "本页每次数据更新自动刷新，来源为本仓库每日落盘的 provider health 与 keep-alive 记录。"
+    "X-RateLimit-* 头则以官方剩余额度为准）；Semantic Scholar keyed access 当前按 1 RPS "
+    "基准运行，并继续使用本仓库已接受的保守 pacing / circuit / fail-open 控制。"
+    "本页每次数据更新自动刷新，来源为真实 metadata provider health；不会为凭证保活制造额外 provider 请求。"
 )
 
 
