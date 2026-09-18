@@ -10,17 +10,17 @@
     "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 9163,
+    "seen": 9164,
     "source_crossref_only": 0,
-    "source_degraded": 0,
-    "source_healthy": 84,
+    "source_degraded": 1,
+    "source_healthy": 83,
     "today": 0
   },
   "date": "2026-09-19",
   "failures": [],
-  "generated_at": "2026-09-18T22:41:06+00:00",
+  "generated_at": "2026-09-18T22:52:34+00:00",
   "local_cnki": {
-    "age_hours": 0.44,
+    "age_hours": 0.63,
     "count": 93,
     "fresh": true,
     "freshness_code": "fresh",
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-09-18T22:38:38+00:00",
+    "checked_at": "2026-09-18T22:51:51+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -209,6 +209,16 @@
           ]
         },
         {
+          "journal": "Journal of Agricultural and Resource Economics",
+          "journal_id": "journal-of-agricultural-and-resource-economics",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Western Agricultural Economics Association",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
           "journal": "Journal of Business & Economic Statistics",
           "journal_id": "journal-of-business-and-economic-statistics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -239,13 +249,23 @@
           ]
         }
       ],
-      "single_path_degraded": []
+      "single_path_degraded": [
+        {
+          "journal": "Journal of Agricultural and Resource Economics",
+          "journal_id": "journal-of-agricultural-and-resource-economics",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        }
+      ]
     }
   },
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 19
+      "count": 20
     }
   ]
 }
