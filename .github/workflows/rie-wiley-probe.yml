@@ -1,0 +1,20 @@
+name: RIE Wiley RSS Probe
+
+on:
+  push:
+    branches: ["n3c-rie-wiley-probe"]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Probe RIE Wiley RSS
+        run: timeout 90s python scripts/probe_rie_wiley_feed.py
