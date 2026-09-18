@@ -203,7 +203,7 @@ def build_anomalies(
                     "body": (
                         f"Latest run rate_limited={ss_rate}/{ss_attempts} "
                         f"(ratio {ss_rate / ss_attempts:.1%} >= {ss_throttle_ratio:.0%}). "
-                        "The key is configured at 1 RPS; check the pacing and the "
+                        "The provider keyed ceiling is 1 RPS; the accepted client target remains 0.2 RPS / 5s. Check the pacing and the "
                         "usage page.\n\n"
                         f"checked_at={now_iso()}"
                     ),
