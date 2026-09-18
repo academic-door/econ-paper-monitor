@@ -31,6 +31,7 @@ LAZY_DATASETS: dict[str, tuple[list[dict[str, Any]], str]] = {}
 LAZY_SHARD_SIZE = 40
 ROUTE_BUCKETS = 256
 ROUTE_SKIP_SHARD_LIMIT = 4
+STATIC_DETAIL_PILOT_LIMIT = 12
 
 CHINA_TITLE_PATTERNS = [
     r"\bchina\b",
@@ -2672,6 +2673,168 @@ def write_exports(docs_dir: Path, records: list[dict[str, Any]]) -> None:
     write_text(export_dir / "recent72.bib", bibtex_text(records))
 
 
+def detail_item(record: dict[str, Any]) -> dict[str, Any]:
+    """Return the stable public detail payload used by static and JS views."""
+    key = detail_key(record)
+    title_primary, title_secondary = display_titles(record)
+    return {
+        "key": key,
+        "title": record.get("title") or "",
+        "title_zh": record.get("title_zh") or "",
+        "title_primary": title_primary,
+        "title_secondary": title_secondary,
+        "authors": authors(record),
+        "source": record.get("journal") or record.get("source") or "",
+        "source_type": source_type_label(record),
+        "detected": detected_date(record),
+        "detected_time": detected_time(record),
+        "official": public_date_line(record),
+        "accepted": record.get("accepted_date") or "",
+        "topics": [topic_label(topic) for topic in article_topics(record)],
+        "abstract": record.get("abstract") or "",
+        "abstract_zh": record.get("abstract_zh") or "",
+        "abstract_status": record.get("abstract_status") or "",
+        "doi": record.get("doi") or "",
+        "url": record.get("url") or "",
+    }
+
+
+def static_detail_body(item: dict[str, Any]) -> str:
+    """Render core detail content directly into HTML for no-JS reading."""
+    primary = item.get("title_primary") or item.get("title_zh") or item.get("title") or "未命名记录"
+    secondary = item.get("title_secondary") or ""
+    if secondary and str(secondary).casefold() != str(primary).casefold():
+        secondary_html = f'<p class="detail-title-secondary">{html_escape(secondary)}</p>'
+    else:
+        secondary_html = ""
+
+    topics = "".join(f'<span class="pill">{html_escape(topic)}</span>' for topic in item.get("topics") or [])
+    if not topics:
+        topics = '<span class="muted">暂无主题标签</span>'
+
+    doi = str(item.get("doi") or "")
+    doi_html = (
+        f'<a href="https://doi.org/{html_escape(doi)}" target="_blank" rel="noreferrer">DOI：{html_escape(doi)}</a>'
+        if doi
+        else '<span class="muted">暂无 DOI</span>'
+    )
+    original_url = str(item.get("url") or "")
+    original_html = (
+        f'<a class="primary" href="{html_escape(original_url)}" target="_blank" rel="noreferrer">打开原文页面</a>'
+        if original_url and original_url != "#"
+        else ""
+    )
+
+    abstract = str(item.get("abstract") or "")
+    if abstract:
+        abstract_html = f'<section class="detail-abstract"><h2>摘要</h2><p>{html_escape(abstract)}</p></section>'
+    else:
+        status = str(item.get("abstract_status") or "").casefold()
+        if any(token in status for token in ("blocked", "forbidden", "proxy")):
+            message = "出版社页面暂时无法读取摘要，系统会继续尝试补全。"
+        elif any(token in status for token in ("no-abstract", "not-exposed", "route-missing")):
+            message = "上游暂未公开摘要，系统会继续尝试补全。"
+        else:
+            message = "摘要暂未公开，系统会继续尝试补全。"
+        abstract_html = f'<section class="detail-abstract"><h2>摘要</h2><p class="muted">{html_escape(message)}</p></section>'
+
+    abstract_zh = str(item.get("abstract_zh") or "")
+    abstract_zh_html = (
+        f'<section class="detail-abstract"><h2>中文摘要</h2><p>{html_escape(abstract_zh)}</p></section>'
+        if abstract_zh and abstract_zh != abstract
+        else ""
+    )
+    accepted = str(item.get("accepted") or "")
+    accepted_html = (
+        f'<div class="label">接受日期</div><div>{html_escape(accepted)} · 编辑流程日期，不等同于正式上线</div>'
+        if accepted
+        else ""
+    )
+    detected = str(item.get("detected") or "")
+    detected_time_value = str(item.get("detected_time") or "")
+    detected_label = detected + (f" {detected_time_value}" if detected_time_value else "")
+
+    return f'''<article class="detail-page" id="paperRoot">
+  <p class="detail-kicker"><a href="{BASE}/">Econ Papers Daily</a> / {html_escape(item.get("source_type"))}</p>
+  <h1>{html_escape(primary)}</h1>
+  {secondary_html}
+  <p class="detail-authors">{html_escape(item.get("authors"))}</p>
+  <div class="detail-links">{original_html}{doi_html}</div>
+  <div class="detail-meta">
+    <div class="label">来源</div><div>{html_escape(item.get("source"))} · {html_escape(item.get("source_type"))}</div>
+    <div class="label">首次监测</div><div>{html_escape(detected_label)}</div>
+    <div class="label">日期信息</div><div>{html_escape(item.get("official"))}</div>
+    {accepted_html}
+    <div class="label">主题</div><div class="meta-values">{topics}</div>
+  </div>
+  {abstract_html}
+  {abstract_zh_html}
+</article>'''
+
+
+def static_detail_pilot_signature(record: dict[str, Any]) -> tuple[bool, bool, bool, bool, bool]:
+    """Group records by content shape so the bounded pilot samples varied cases."""
+    return (
+        is_working_paper(record),
+        bool(record.get("abstract")),
+        bool(record.get("doi")),
+        bool(record.get("accepted_date")),
+        bool(record.get("title_zh")),
+    )
+
+
+def select_static_detail_pilot_records(
+    records: list[dict[str, Any]],
+    limit: int = STATIC_DETAIL_PILOT_LIMIT,
+) -> list[dict[str, Any]]:
+    """Choose a deterministic bounded sample across distinct detail content shapes."""
+    grouped: dict[tuple[bool, bool, bool, bool, bool], list[dict[str, Any]]] = defaultdict(list)
+    for record in unique_records(public_records(records)):
+        grouped[static_detail_pilot_signature(record)].append(record)
+    for group in grouped.values():
+        group.sort(key=detail_key)
+
+    selected: list[dict[str, Any]] = []
+    signatures = sorted(grouped)
+    while len(selected) < max(0, limit):
+        progressed = False
+        for signature in signatures:
+            group = grouped[signature]
+            if not group:
+                continue
+            selected.append(group.pop(0))
+            progressed = True
+            if len(selected) >= limit:
+                break
+        if not progressed:
+            break
+    return selected
+
+
+def write_static_detail_pilot(docs_dir: Path, records: list[dict[str, Any]]) -> list[Path]:
+    """Generate a dark, bounded set of static detail routes for production measurement."""
+    pilot_root = docs_dir / "paper"
+    if pilot_root.exists():
+        for path in sorted(pilot_root.glob("*/index.html")):
+            path.unlink()
+            try:
+                path.parent.rmdir()
+            except OSError:
+                pass
+
+    paths: list[Path] = []
+    for record in select_static_detail_pilot_records(records):
+        item = detail_item(record)
+        primary = item.get("title_primary") or item.get("title_zh") or item.get("title") or "论文详情"
+        path = pilot_root / str(item["key"]) / "index.html"
+        write_page(path, page(str(primary), records, static_detail_body(item), show_hero=False))
+        paths.append(path)
+
+    total_bytes = sum(path.stat().st_size for path in paths)
+    print(f"Static detail pilot: routes={len(paths)} bytes={total_bytes}")
+    return paths
+
+
 def write_detail_data(docs_dir: Path, records: list[dict[str, Any]]) -> None:
     """Write compact, sharded detail payloads so detail pages stay fast."""
     detail_dir = docs_dir / "paper-data"
@@ -2804,6 +2967,7 @@ def main() -> None:
     recent72_records = recent_detected_records(records, 3)
     write_exports(args.docs_dir, recent72_records)
     write_detail_data(args.docs_dir, records)
+    write_static_detail_pilot(args.docs_dir, records)
     write_page(
         args.docs_dir / "paper.html",
         page("论文详情", records, paper_detail_body(), show_hero=False),
