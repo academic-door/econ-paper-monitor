@@ -334,7 +334,6 @@ def main() -> None:
     parser.add_argument("--issue-prefix", default="[Monitor Health]")
     parser.add_argument("--degraded-threshold", type=int, default=25)
     parser.add_argument("--cnki-max-age-hours", type=float, default=30.0)
-    parser.add_argument("--ss-key-max-age-hours", type=float, default=7 * 24.0)
     parser.add_argument("--elsevier-weekly-warning", type=int, default=16000)
     parser.add_argument("--quota-remaining-ratio", type=float, default=0.2)
     parser.add_argument("--ss-throttle-ratio", type=float, default=0.3)
@@ -346,7 +345,6 @@ def main() -> None:
         args.data_dir,
         degraded_threshold=args.degraded_threshold,
         cnki_max_age_hours=args.cnki_max_age_hours,
-        ss_key_max_age_hours=args.ss_key_max_age_hours,
         elsevier_weekly_warning=args.elsevier_weekly_warning,
         quota_remaining_ratio=args.quota_remaining_ratio,
         ss_throttle_ratio=args.ss_throttle_ratio,
