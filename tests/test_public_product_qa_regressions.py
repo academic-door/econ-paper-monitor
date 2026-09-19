@@ -74,3 +74,20 @@ def test_search_summary_and_lazy_result_count_use_same_unique_records() -> None:
     assert re.search(r"<p>41 条</p>", html)
     assert "浏览全部 41 篇" in html
     assert "42 条" not in html
+
+
+def test_large_verified_discovery_lag_is_labeled_as_historical_backfill(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(render_site, "today_str", lambda: "2026-09-19")
+    record = {
+        "_daily_date": "2026-09-18",
+        "title": "DP10004 Curriculum and Ideology",
+        "detected_at": "",
+        "available_online": "2014-06-01",
+        "published_online": "2014-06-01",
+        "date_source": "publisher_detail",
+        "date_confidence": "A",
+    }
+
+    assert render_site.detection_lag_days(record) is not None
+    assert "历史补录" in render_site.detection_lag_chip(record)
+    assert "日期需核验" not in render_site.detection_lag_chip(record)
