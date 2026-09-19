@@ -7,13 +7,39 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 212,
+    "missing_abstract": 213,
+    "missing_authors": 1,
     "weak_date_evidence": 489
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 742,
+  "recent_candidates_before_limit": 746,
   "recent_window_start": "2026-08-21",
   "records": [
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-09-19T07:26:30+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://cepr.org/publications/dp20541",
+      "journal": "CEPR Discussion Papers",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "missing_authors",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": "cepr-dp",
+      "source_type": "working_paper",
+      "title": "Parental Leave: Economic Incentives and Cultural Change",
+      "url": "https://cepr.org/publications/dp20541"
+    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -5875,6 +5901,75 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1111/twec.70145",
+      "first_seen": "2026-09-19T06:42:15+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1111/twec.70145",
+      "journal": "The World Economy",
+      "official_date": "2026-09-18",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Trade Policy Shocks and Consumer Prices",
+      "url": "https://doi.org/10.1111/twec.70145"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1111/twec.70155",
+      "first_seen": "2026-09-19T07:22:46+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1111/twec.70155",
+      "journal": "The World Economy",
+      "official_date": "2026-09-18",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Informal Networks and Crisis Resilience",
+      "url": "https://doi.org/10.1111/twec.70155"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1111/twec.70156",
+      "first_seen": "2026-09-19T07:22:46+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1111/twec.70156",
+      "journal": "The World Economy",
+      "official_date": "2026-09-18",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Environmental Provisions in Preferential Trade Agreements and Chinese Firms' Domestic Value‐Added Ratio in Exports: Technological Effects or Import Expansion?",
+      "url": "https://doi.org/10.1111/twec.70156"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1287/mnsc.2023.00580",
       "first_seen": "2026-09-18T17:44:13+00:00",
       "historical_backfill": false,
@@ -11631,101 +11726,9 @@
       "source_type": "journal",
       "title": "Emotional and physical burdens of water poverty: evidence from the drinking water service ladder in Mozambique",
       "url": "https://doi.org/10.1016/j.worlddev.2026.107554"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2723559",
-      "first_seen": "2026-09-02T16:52:02+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2723559",
-      "journal": "Applied Economics",
-      "official_date": "2026-09-02",
-      "priority": [
-        0,
-        1,
-        1,
-        17
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Bank capitalization and credit risk: the conditional role of innovation and institutional quality",
-      "url": "https://doi.org/10.1080/00036846.2026.2723559"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2724149",
-      "first_seen": "2026-09-03T09:58:29+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2724149",
-      "journal": "Applied Economics",
-      "official_date": "2026-09-02",
-      "priority": [
-        0,
-        1,
-        1,
-        17
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Does logistics service standardization matter for corporate excessive financialization? Evidence from a natural experiment in China",
-      "url": "https://doi.org/10.1080/00036846.2026.2724149"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2725153",
-      "first_seen": "2026-09-02T09:12:33+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2725153",
-      "journal": "Applied Economics",
-      "official_date": "2026-09-02",
-      "priority": [
-        0,
-        1,
-        1,
-        17
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Exit from performance-based self-employment: evidence from professional boat racers",
-      "url": "https://doi.org/10.1080/00036846.2026.2725153"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2726533",
-      "first_seen": "2026-09-02T13:49:25+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2726533",
-      "journal": "Applied Economics",
-      "official_date": "2026-09-02",
-      "priority": [
-        0,
-        1,
-        1,
-        17
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Geographical indications and farm economic performance: evidence from wine farms in Spain",
-      "url": "https://doi.org/10.1080/00036846.2026.2726533"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4764,
+  "total_candidates_before_limit": 4765,
   "truncated": true
 }
