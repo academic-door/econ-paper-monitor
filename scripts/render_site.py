@@ -400,10 +400,14 @@ def is_today_home_flow_record(record: dict[str, Any]) -> bool:
     if detected_date(record) == today_str():
         try:
             cutoff = date.fromisoformat(today_str()) - timedelta(days=2)
-            published = date.fromisoformat(official_date(record)[:10]) if official_date(record) else None
+            verified = [
+                date.fromisoformat(value[:10])
+                for value in verified_online_dates(record)
+                if value
+            ]
         except ValueError:
-            published = None
-        if published and published < cutoff:
+            verified = []
+        if verified and all(value < cutoff for value in verified):
             return False
     return True
 
