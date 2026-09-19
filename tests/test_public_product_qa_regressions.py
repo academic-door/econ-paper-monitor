@@ -113,3 +113,33 @@ def test_large_verified_discovery_lag_is_labeled_as_historical_backfill(monkeypa
     assert render_site.detection_lag_days(record) is not None
     assert "历史补录" in render_site.detection_lag_chip(record)
     assert "日期需核验" not in render_site.detection_lag_chip(record)
+
+
+def test_today_home_keeps_old_weak_metadata_date(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    weak_old = {
+        "id": "weak-old",
+        "title": "Old date from weak metadata only",
+        "url": "https://example.org/weak-old",
+        "first_seen_at": "2026-09-19T14:00:00+08:00",
+        "available_online": "2025-03-05",
+        "published_online": "2025-03-05",
+        "date_source": "crossref_published_online",
+        "date_confidence": "C",
+    }
+
+    daily_dir = tmp_path / "daily"
+    daily_dir.mkdir()
+    (daily_dir / "2026-09-19.json").write_text(
+        __import__("json").dumps([weak_old]),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(build_daily_vnext, "DAILY_DIR", daily_dir)
+
+    records, _ = build_daily_vnext.load_records("2026-09-19")
+    assert [record["id"] for record in records] == ["weak-old"]
+
+    monkeypatch.setattr(render_site, "today_str", lambda: "2026-09-19")
+    secondary = dict(weak_old, detected_at=weak_old["first_seen_at"])
+    assert render_site.is_today_home_flow_record(secondary) is True
