@@ -86,7 +86,7 @@ if __name__ == "__main__":
             "B": "B：官方渠道备选/推断日期",
             "C": "C：Crossref/聚合登记日期",
             "D": "D：卷期/印刷日期",
-            "F": "F：仅首次监测",
+            "F": "F：仅本站首次发现",
         }
         for value, label in expected.items():
             self.assertEqual(render_site.confidence_label(value), label)
