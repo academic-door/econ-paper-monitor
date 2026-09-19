@@ -1,13 +1,11 @@
 {
-  "categories": {
-    "needs_investigation": 1
-  },
-  "checked_at": "2026-09-19T06:51:51.117035+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-09-19T08:20:06.965920+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -17,30 +15,14 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=29/45; Journal of Financial Economics: 20 via official-generated; Review of Financial Studies: 3 via configured; Journal of Development Economics: 51 via official-generated; Economic Development",
+      "sample_error": "feeds=66/117; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 120 via configured; Journal of Accounting and Economics: 49 via configu",
       "source": "rss"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback 2; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 3
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }
