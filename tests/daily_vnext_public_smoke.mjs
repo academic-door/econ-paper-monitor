@@ -5,9 +5,86 @@ const root = process.env.SITE_ROOT_URL || process.env.DAILY_VNEXT_URL || "https:
 const dailyVnext = new URL("daily-vnext/", root).href;
 const urls = [root, dailyVnext];
 const isLocal = ["127.0.0.1", "localhost"].includes(new URL(root).hostname);
+const viewportWidth = Number(process.env.VIEWPORT_WIDTH || 0);
+const isMobile = viewportWidth > 0 && viewportWidth <= 480;
+const pageOptions = viewportWidth > 0
+  ? { viewport: { width: viewportWidth, height: isMobile ? 844 : 900 } }
+  : undefined;
 
 async function visibleEntries(page, selector = '.paper-entry') {
   return page.locator(`${selector}:not([hidden])`).count();
+}
+
+
+async function assertNoPseudoDiscoveryTime(page, url) {
+  assert.equal(
+    await page.locator('.time').filter({ hasText: /^\s*监测\s*$/ }).count(),
+    0,
+    `${url} rendered 监测 as a timeline time`,
+  );
+  const bodyText = await page.locator('body').innerText();
+  assert.ok(
+    !/本站首次发现[^\n]{0,48}监测/.test(bodyText),
+    `${url} rendered a pseudo-time inside first-discovery metadata`,
+  );
+}
+
+async function assertSearchCountConsistency(page, url) {
+  const summary = (await page.locator('.section-head > p').first().innerText()).match(/(\d+)\s*条/);
+  const start = page.locator('.lazy-start').first();
+  if (!(await start.count())) return;
+  const browse = (await start.innerText()).match(/浏览全部\s*(\d+)\s*篇/);
+  assert.ok(summary && browse, `${url} search totals are not parseable`);
+  assert.equal(Number(summary[1]), Number(browse[1]), `${url} search totals disagree`);
+}
+
+async function assertUniqueSourceFilterLabels(page, url) {
+  const select = page.locator('.toolbar[data-filter-scope="search"] [data-filter-role="journal"]').first();
+  if (!(await select.count())) return;
+  const options = await select.locator('option').evaluateAll((nodes) =>
+    nodes
+      .map((node) => ({ label: (node.textContent || '').trim(), value: node.value }))
+      .filter((item) => item.value && item.label),
+  );
+  const valuesByLabel = new Map();
+  for (const option of options) {
+    if (!valuesByLabel.has(option.label)) valuesByLabel.set(option.label, new Set());
+    valuesByLabel.get(option.label).add(option.value);
+  }
+  const conflicts = [...valuesByLabel.entries()]
+    .filter(([, values]) => values.size > 1)
+    .map(([label, values]) => `${label} => ${[...values].join(', ')}`);
+  assert.deepEqual(conflicts, [], `${url} has duplicate source labels with conflicting identities`);
+}
+
+async function assertNoStaleTodayBackfill(page, url) {
+  const bodyText = await page.locator('body').innerText();
+  const daily = bodyText.match(/DAILY DOOR\s*\/\s*(\d{4}-\d{2}-\d{2})/);
+  if (!daily) return;
+  const target = Date.parse(`${daily[1]}T00:00:00Z`);
+  const cutoff = target - (2 * 24 * 60 * 60 * 1000);
+  const details = page.locator('.paper-entry details.paper-details');
+  for (let index = 0; index < await details.count(); index += 1) {
+    const text = (await details.nth(index).textContent()) || '';
+    const official = text.match(/(?:官方在线|官方发布)\s+(\d{4}-\d{2}-\d{2})/);
+    if (!official) continue;
+    assert.ok(
+      Date.parse(`${official[1]}T00:00:00Z`) >= cutoff,
+      `${url} leaked strongly dated stale catalogue backfill into Today: ${official[1]}`,
+    );
+  }
+}
+
+async function assertNavigationLinksHealthy(page, url) {
+  const hrefs = await page.locator('.site-header .nav a, .context-nav a').evaluateAll((nodes) =>
+    [...new Set(nodes.map((node) => node.getAttribute('href')).filter(Boolean))],
+  );
+  for (const href of hrefs) {
+    const target = new URL(href, page.url());
+    if (target.origin !== new URL(page.url()).origin) continue;
+    const response = await page.request.get(target.href);
+    assert.ok(response.status() < 400, `${url} navigation target failed: ${target.href} => ${response.status()}`);
+  }
 }
 
 async function assertNoFilterLazyState(page, url) {
@@ -24,8 +101,7 @@ async function assertNoFilterLazyState(page, url) {
 
 async function checkPage(browser, url) {
   const errors = [];
-  const mobile = Number(process.env.VIEWPORT_WIDTH || 0);
-  const page = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
+  const page = await browser.newPage(pageOptions);
   page.on("pageerror", (error) => errors.push(String(error)));
   await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
   await page.waitForTimeout(2400);
@@ -33,10 +109,11 @@ async function checkPage(browser, url) {
   assert.ok(await page.locator('.hero h1').isVisible(), `${url} Hero title is not visible`);
   assert.ok(await page.locator('.hero-lede').isVisible(), `${url} Hero lede is not visible`);
   assert.ok((await page.locator('.hero-total').count()) >= 1);
+  await assertNoPseudoDiscoveryTime(page, url);
+  await assertNoStaleTodayBackfill(page, url);
+  if (url === root) await assertNavigationLinksHealthy(page, url);
   assert.ok(await page.locator('.nav a[href*="feed.xml"], .footer-links a[href*="feed.xml"]').count() >= 1, `${url} RSS link missing`);
-  if (mobile) {
-    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);
-  }
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);
   const entries = page.locator('.paper-entry');
   const total = await entries.count();
   assert.ok(total >= 0);
@@ -68,10 +145,9 @@ async function checkPage(browser, url) {
 
 async function checkSecondaryPages(browser) {
   const paths = ["classic/", "recent72/", "topics/china/", "archive/", "search/", "journals/", "working-papers/"];
-  const mobile = Number(process.env.VIEWPORT_WIDTH || 0);
   for (const path of paths) {
     const url = new URL(path, root).href;
-    const page = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
+    const page = await browser.newPage(pageOptions);
     const errors = [];
     const indexRequests = [];
     let indexBytes = 0;
@@ -100,9 +176,12 @@ async function checkSecondaryPages(browser) {
       assert.ok(await page.locator('.secondary-page').isVisible(), `${url} secondary shell is missing`);
       assert.ok(await page.locator('.nav a[href*="feed.xml"], .footer-links a[href*="feed.xml"]').count() >= 1, `${url} RSS link missing`);
       await assertNoFilterLazyState(page, url);
+      await assertNoPseudoDiscoveryTime(page, url);
     }
     assert.equal(indexRequests.some((requestUrl) => requestUrl.endsWith("/paper-index.json")), false, `${url} requested the legacy full index`);
     if (path === "search/") {
+      await assertSearchCountConsistency(page, url);
+      await assertUniqueSourceFilterLabels(page, url);
       assert.equal(indexRequests.length, 0, `${url} downloaded search data before user interaction`);
       assert.equal(indexBytes, 0, `${url} downloaded search bytes before user interaction`);
       const initialEntries = await page.locator('.event').count();
@@ -182,7 +261,7 @@ async function checkSecondaryPages(browser) {
       }
     }
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);
-    if (mobile && path !== "classic/") {
+    if (isMobile && path !== "classic/") {
       const summary = page.locator('.toolbar .more-filters summary').first();
       if (await summary.count()) {
         await summary.click();
@@ -198,13 +277,13 @@ async function checkSecondaryPages(browser) {
     await page.close();
   }
   if (isLocal) {
-    const journalsPage = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
+    const journalsPage = await browser.newPage(pageOptions);
     await journalsPage.goto(new URL("journals/", root).href, { waitUntil: "networkidle", timeout: 60000 });
     const journalLinks = await journalsPage.locator('.journal-table a[href*="/journals/"]').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('href')).filter(Boolean));
     await journalsPage.close();
     for (const href of journalLinks.slice(0, 8)) {
       const journalUrl = new URL(href, new URL("journals/", root).href).href;
-      const journalPage = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
+      const journalPage = await browser.newPage(pageOptions);
       const response = await journalPage.goto(journalUrl, { waitUntil: "networkidle", timeout: 60000 });
       if (response?.status() === 200 && await journalPage.locator('[data-lazy-list]').count()) {
         await assertNoFilterLazyState(journalPage, journalUrl);
@@ -218,7 +297,7 @@ async function checkSecondaryPages(browser) {
     let sharedTopicFound = false;
     for (const topic of ["agriculture", "development", "finance", "macro", "labor", "trade", "china"]) {
       const topicUrl = new URL("topics/" + topic + "/", root).href;
-      const topicPage = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
+      const topicPage = await browser.newPage(pageOptions);
       const errors = [];
       topicPage.on("pageerror", (error) => errors.push(String(error)));
       const response = await topicPage.goto(topicUrl, { waitUntil: "networkidle", timeout: 60000 });
@@ -239,7 +318,7 @@ async function checkSecondaryPages(browser) {
           await topicPage.waitForTimeout(1500);
           assert.ok(await topicPage.locator('.event').count() >= before, `${topicUrl} load more did not keep events stable`);
         }
-        if (mobile) {
+        if (isMobile) {
           assert.ok(await topicPage.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${topicUrl} has horizontal overflow`);
         }
         sharedTopicFound = true;
@@ -265,8 +344,7 @@ async function checkDetailPage(browser) {
   const detailUrl = new URL(detailHref, listing.url()).href;
   await listing.close();
 
-  const mobile = Number(process.env.VIEWPORT_WIDTH || 0);
-  const page = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
+  const page = await browser.newPage(pageOptions);
   const errors = [];
   page.on("pageerror", (error) => errors.push(String(error)));
   const response = await page.goto(detailUrl, { waitUntil: "networkidle", timeout: 60000 });
@@ -280,9 +358,8 @@ async function checkDetailPage(browser) {
   assert.equal(await page.locator('a[href*="archive/"]').count(), 0, `${detailUrl} archive navigation leaked`);
   const detailLinks = await page.locator('.detail-links').innerHTML();
   assert.ok(detailLinks.includes('https://doi.org/') || detailLinks.includes('暂无 DOI'), `${detailUrl} detail missing DOI status`);
-  if (mobile) {
-    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${detailUrl} has horizontal overflow`);
-  }
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${detailUrl} has horizontal overflow`);
+  await assertNoPseudoDiscoveryTime(page, detailUrl);
   await page.close();
 }
 
@@ -310,7 +387,7 @@ try {
   await checkSecondaryPages(browser);
   await checkDetailPage(browser);
   await checkGsapFallback(browser);
-  console.log(`Daily vNext public smoke passed for ${urls.join(" and ")}`);
+  console.log(`Public Product Audit passed at ${viewportWidth || "default"}px for ${urls.join(" and ")}`);
 } finally {
   await browser.close();
 }
