@@ -309,7 +309,7 @@ def paper_markup(record: dict, date_value: str, previous_date: str | None, root_
         detail_kind += " · CEPR Discussion Paper"
     elif kind == "working" and "nber" in source_name(record).lower():
         detail_kind += " · NBER Working Paper"
-    details = f"{official_markup} · 首次监测：{esc(seen_date)} {esc(seen_time)} 北京时间"
+    details = f"{official_markup} · 本站首次发现：{esc(seen_date)} {esc(seen_time)} 北京时间"
     if doi:
         details += f" · DOI：{esc(doi)}"
     markup = f'''      <article class="paper-entry" data-motion="paper" data-paper-id="{esc(record.get("id"))}" data-kind="{kind}" data-china="{'true' if china else 'false'}" data-search="{esc(search_text(record, labels))}">
@@ -376,7 +376,7 @@ def build(date_value: str, template_path: Path, output_path: Path, report_path: 
         document = re.sub(r'<div class="hero-note">.*?</div>', f'<div class="hero-note">{esc(hero_note)}</div>', document, count=1, flags=re.S)
         overview = f'''    <section class="overview" aria-label="今日概览"><div class="overview-item"><strong>{counts["journal"]}</strong><span>期刊论文</span></div><div class="overview-item"><strong>{counts["working"]}</strong><span>工作论文</span></div><div class="overview-item"><strong>{counts["column"]}</strong><span>研究专栏</span></div><div class="overview-item"><strong>{china_count}</strong><span>与中国相关</span></div></section>'''
         document = replace_section(document, "overview", overview)
-        flow_head = f'''    <section class="flow-head"><div><h2>今日研究时间流</h2><p class="result-status" data-result-status aria-live="polite">今日共 {len(records)} 项研究内容</p></div><p>更新于 {esc(latest_label)} 北京时间 · 按首次监测时间</p></section>'''
+        flow_head = f'''    <section class="flow-head"><div><h2>今日研究时间流</h2><p class="result-status" data-result-status aria-live="polite">今日共 {len(records)} 项研究内容</p></div><p>更新于 {esc(latest_label)} 北京时间 · 按本站首次发现时间</p></section>'''
         document = replace_section(document, "flow-head", flow_head)
         filters = '''    <section class="filters" aria-label="论文筛选"><button class="filter" type="button" data-filter="all" aria-pressed="true">全部</button><button class="filter" type="button" data-filter="journal" aria-pressed="false">期刊论文</button><button class="filter" type="button" data-filter="working" aria-pressed="false">工作论文</button><button class="filter" type="button" data-filter="column" aria-pressed="false">研究专栏</button><button class="filter" type="button" data-filter="china" aria-pressed="false">中国研究</button><input class="search" type="search" aria-label="搜索标题、作者、期刊、DOI或主题" placeholder="搜索标题、作者、期刊、DOI 或主题"></section>'''
         document = replace_section(document, "filters", filters)
