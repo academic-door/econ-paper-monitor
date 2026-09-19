@@ -9,6 +9,7 @@ import os
 import re
 from collections import Counter, defaultdict
 from datetime import UTC, date, datetime, timedelta
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -1591,6 +1592,30 @@ def page(
 """
 
 
+@lru_cache(maxsize=1)
+def working_source_title_map() -> dict[str, str]:
+    return {
+        str(source.get("id") or ""): str(source.get("title") or source.get("id") or "")
+        for source in load_working_paper_sources()
+        if source.get("id")
+    }
+
+
+def public_source_title(record: dict[str, Any]) -> str:
+    """Return public source identity without rewriting canonical venue metadata."""
+    if is_working_paper(record):
+        source_id = str(record.get("source_id") or record.get("journal_id") or "").removeprefix("source-")
+        configured = working_source_title_map().get(source_id)
+        if configured:
+            return configured
+        for key in ("source_name", "series", "journal", "source"):
+            value = str(record.get(key) or "").strip()
+            if value:
+                return value
+        return "工作论文"
+    return str(record.get("journal") or record.get("source") or "").strip()
+
+
 def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, scope: str = "default", extra_class: str = "") -> str:
     public = public_records(records)
     if limit is None and len(public) > 40:
@@ -1608,6 +1633,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         else:
             link_or_doi = '<span class="doi">暂无 DOI</span>'
         topics = article_topics(record)
+        source_title = public_source_title(record)
         fields = "".join(f'<span class="pill">{html_escape(topic_label(topic))}</span>' for topic in topics[:3] if topic != "china")
         primary_title, secondary_title = display_titles(record)
         primary_title = primary_title or "未命名记录"
@@ -1622,7 +1648,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         official_chip = f'<span class="date-chip {official_class}">{html_escape(official_line)}</span>'
         lag_chip = detection_lag_chip(record)
         detected_chip = f'<span class="pill">{html_escape(detected_label(record))}</span>'
-        search_text = " ".join(str(value or "") for value in [record.get("title"), record.get("title_zh"), authors(record), record.get("journal"), record.get("doi")])
+        search_text = " ".join(str(value or "") for value in [record.get("title"), record.get("title_zh"), authors(record), source_title, record.get("journal"), record.get("doi")])
         field_attr = " ".join(topics)
         type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if is_working_paper(record) else ""
         classes = "event" + (f" {extra_class}" if extra_class else "")
@@ -1632,7 +1658,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
   <div>
     <h3><a href="{html_escape(detail_href)}">{html_escape(primary_title)}</a></h3>{original_title_html}{authors_html}
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">{'来源' if is_working_paper(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(record.get('journal'))}</span>{type_tag}{detected_chip}</span></div>
+      <div class="meta-line"><span class="meta-label">{'来源' if is_working_paper(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(source_title)}</span>{type_tag}{detected_chip}</span></div>
       <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values">{official_chip}{lag_chip}</span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">{link_or_doi}{fields}{china_tag}</span></div>
     </div>
@@ -1772,7 +1798,14 @@ FILTER_SCRIPT = """
 def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False, source_label: str = "筛选期刊", scope: str = "default") -> str:
     if not records:
         return ""
-    journals = sorted({(record.get("journal_id"), record.get("journal")) for record in records if record.get("journal_id") and record.get("journal")}, key=lambda item: item[1])
+    journals = sorted(
+        {
+            (record.get("journal_id"), public_source_title(record))
+            for record in records
+            if record.get("journal_id") and public_source_title(record)
+        },
+        key=lambda item: item[1],
+    )
     topics = sorted({topic for record in records for topic in article_topics(record)}, key=topic_label)
     date_types = sorted({date_type(record) for record in records}, key=date_type_label)
     confidences = sorted({confidence_value(record) for record in records})
@@ -2168,7 +2201,7 @@ def write_lazy_indexes(docs_dir: Path) -> None:
                 str(value or "")
                 for value in [
                     record.get("title"), record.get("title_zh"), authors(record),
-                    record.get("journal"), record.get("doi"), record.get("url"),
+                    public_source_title(record), record.get("journal"), record.get("doi"), record.get("url"),
                     " ".join(topic_label(topic) for topic in topics), " ".join(topics),
                 ]
             )
@@ -2198,7 +2231,7 @@ def write_lazy_indexes(docs_dir: Path) -> None:
                 "a": author_text,
                 "d": record.get("doi") or "",
                 "u": record.get("url") or "",
-                "j": record.get("journal") or "",
+                "j": public_source_title(record),
                 "tp": [topic_label(topic) for topic in topics[:3] if topic != "china"],
                 "cn": metadata["china"],
                 "on": online_today,
@@ -2695,7 +2728,7 @@ def detail_item(record: dict[str, Any]) -> dict[str, Any]:
         "title_primary": title_primary,
         "title_secondary": title_secondary,
         "authors": authors(record),
-        "source": record.get("journal") or record.get("source") or "",
+        "source": public_source_title(record),
         "source_type": source_type_label(record),
         "detected": detected_date(record),
         "detected_time": detected_time(record),
