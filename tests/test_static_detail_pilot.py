@@ -38,7 +38,7 @@ def test_static_detail_body_contains_core_record_without_client_rendering():
     assert "Static Detail Pilot Paper" in html
     assert "Ada Economist" in html
     assert "Journal of Pilot Economics" in html
-    assert "首次监测" in html
+    assert "本站首次发现" in html
     assert "日期信息" in html
     assert "A bounded static-detail pilot abstract." in html
     assert "正在载入论文详情" not in html

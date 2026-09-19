@@ -321,7 +321,7 @@ def detected_time(record: dict[str, Any]) -> str:
 
 def detected_label(record: dict[str, Any]) -> str:
     time_text = detected_time(record)
-    return f"首次监测 {detected_date(record)}{f' {time_text}' if time_text else ''}"
+    return f"本站首次发现 {detected_date(record)}{f' {time_text}' if time_text else ''}"
 
 
 def sortable_official_date(record: dict[str, Any]) -> str:
@@ -796,7 +796,7 @@ def date_type_label(value: str) -> str:
         "available_online": "官方在线",
         "published_online": "官方发布",
         "issue": "来源期次",
-        "first_seen": "首次监测",
+        "first_seen": "本站首次发现",
     }.get(value, value)
 
 
@@ -812,7 +812,7 @@ def confidence_label(value: str) -> str:
         "B": "B：官方渠道备选/推断日期",
         "C": "C：Crossref/聚合登记日期",
         "D": "D：卷期/印刷日期",
-        "F": "F：仅首次监测",
+        "F": "F：仅本站首次发现",
     }.get(value, value)
 
 
@@ -1176,7 +1176,7 @@ def secondary_context_nav(active: str = "") -> str:
 
 def secondary_page_lede(title: str) -> str:
     if title == "最近72小时":
-        return "连续浏览近三天首次监测到的经济学研究内容，适合快速补齐最近的发现流。"
+        return "连续浏览近三天本站首次发现到的经济学研究内容，适合快速补齐最近的发现流。"
     if title == "与中国相关":
         return "集中查看明确涉及中国数据、制度、市场或研究对象的期刊论文与工作论文。"
     if title == "全站检索":
@@ -1184,9 +1184,9 @@ def secondary_page_lede(title: str) -> str:
     if title in {"监测期刊", "历史归档", "全部工作论文"}:
         return "使用与 Daily Door 同源的数据和页面体系，保持清晰、可检索、可连续浏览。"
     if "归档" in title:
-        return "按本站首次监测日期组织的每日记录，官方发布日期与首次监测日期分开显示。"
+        return "按本站首次发现日期组织的每日记录，官方发布日期与本站首次发现日期分开显示。"
     if "工作论文" in title:
-        return "覆盖工作论文与机构研究来源，按首次监测时间倒序排列。"
+        return "覆盖工作论文与机构研究来源，按本站首次发现时间倒序排列。"
     if "最近 7 天" in title:
         return "按最近有记录的日期向前滚动，帮助连续追踪同一来源或主题。"
     return "从规范化 canonical 数据生成，保留论文来源、日期、主题和详情入口。"
@@ -1545,7 +1545,7 @@ def page(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="site-root" content="{BASE}">
   <link rel="icon" type="image/png" href="{BASE}/assets/academic-door-logo.png">
-  <meta name="description" content="每日追踪经济学重点期刊与工作论文，区分首次监测时间、官方在线日期和中国相关研究。">
+  <meta name="description" content="每日追踪经济学重点期刊与工作论文，区分本站首次发现时间、官方在线日期和中国相关研究。">
   <title>{html_escape(title)}</title>
   {analytics_snippet()}
   <style>{SECONDARY_STYLE}</style>
@@ -1955,7 +1955,7 @@ def working_papers_body(records: list[dict[str, Any]], *, view: str = "all") -> 
         "china": "与中国相关工作论文",
         "china-recent7": "最近 7 天与中国相关工作论文",
     }.get(view, "全部工作论文")
-    note = "覆盖工作论文与机构研究来源，按首次监测时间倒序排列；官方日期与本站首次监测日期分开显示。"
+    note = "覆盖工作论文与机构研究来源，按本站首次发现时间倒序排列；官方日期与本站首次发现日期分开显示。"
     tabs = [
         ("today", "今日", f"{BASE}/working-papers/today/", today_count),
         ("recent7", "最近 7 天", f"{BASE}/working-papers/recent7/", recent_count),
@@ -2264,7 +2264,7 @@ def recent72_body(records: list[dict[str, Any]]) -> str:
     dates = sorted({detected_date(record) for record in recent if detected_date(record)}, reverse=True)
     date_label = " / ".join(dates) if dates else "暂无记录"
     return f"""<section class="section-head">
-  <div><h2>最近72小时</h2><p>按本站首次监测日期展示今天及前两天记录，适合连续查看近 3 天选题池。</p></div>
+  <div><h2>最近72小时</h2><p>按本站首次发现日期展示今天及前两天记录，适合连续查看近 3 天选题池。</p></div>
   <p>{html_escape(date_label)}</p>
 </section>
 <section class="stats">
@@ -2761,7 +2761,7 @@ def static_detail_body(item: dict[str, Any]) -> str:
   <div class="detail-links">{original_html}{doi_html}</div>
   <div class="detail-meta">
     <div class="label">来源</div><div>{html_escape(item.get("source"))} · {html_escape(item.get("source_type"))}</div>
-    <div class="label">首次监测</div><div>{html_escape(detected_label)}</div>
+    <div class="label">本站首次发现</div><div>{html_escape(detected_label)}</div>
     <div class="label">日期信息</div><div>{html_escape(item.get("official"))}</div>
     {accepted_html}
     <div class="label">主题</div><div class="meta-values">{topics}</div>
@@ -2897,7 +2897,7 @@ def paper_detail_body() -> str:
       root.classList.remove('detail-loading');
       root.removeAttribute('aria-busy');
       const detectedLabel = item.detected + (item.detected_time ? ' ' + item.detected_time : '');
-      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(primary)}</h1>${secondary}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}${missingDoi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(detectedLabel)}</div><div class="label">日期信息</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}`;
+      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(primary)}</h1>${secondary}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}${missingDoi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">本站首次发现</div><div>${escapeHTML(detectedLabel)}</div><div class="label">日期信息</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}`;
     } catch (error) {
       message('论文详情暂时无法载入', '请刷新页面重试，或进入全站检索。');
     }
@@ -3039,7 +3039,7 @@ def main() -> None:
         official_summary = archive_official_date_summary(daily_records)
         body = (
             f'<section class="section-head"><div><h2>{html_escape(daily_date)} 监测记录</h2>'
-            f'<p>本站首次监测日期：{html_escape(daily_date)}；官方/在线日期范围：{html_escape(official_summary)}。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section>'
+            f'<p>本站首次发现日期：{html_escape(daily_date)}；官方/在线日期范围：{html_escape(official_summary)}。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section>'
             f'{filter_toolbar(daily_records)}{paper_events(daily_records)}{FILTER_SCRIPT}'
         )
         write_page(
