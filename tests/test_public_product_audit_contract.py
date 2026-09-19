@@ -25,6 +25,7 @@ def test_public_product_audit_guards_live_qa_regressions() -> None:
         "assertUniqueSourceFilterLabels",
         "assertNoStaleTodayBackfill",
         "assertNavigationLinksHealthy",
+        "assertChinaCountConsistency",
     ):
         assert helper in smoke, f"missing Public Product Audit helper: {helper}"
 
