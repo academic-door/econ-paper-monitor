@@ -11,6 +11,8 @@ on:
       - "scripts/render_site.py"
       - "scripts/templates/daily_vnext.html"
       - "tests/daily_vnext_public_smoke.mjs"
+      - "tests/test_public_product_audit_contract.py"
+      - ".github/workflows/daily-vnext-browser-smoke.yml"
   workflow_dispatch:
   workflow_run:
     workflows: ["pages-build-deployment"]
@@ -21,6 +23,15 @@ permissions:
 
 jobs:
   browser-smoke:
+    name: browser-smoke (${{ matrix.name }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: desktop
+            viewport_width: 1440
+          - name: mobile
+            viewport_width: 390
     if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -76,4 +87,5 @@ jobs:
       - name: Run public browser smoke
         env:
           DAILY_VNEXT_URL: ${{ (github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && 'http://127.0.0.1:8765/' || 'https://academic-door.github.io/econ-paper-monitor/' }}
+          VIEWPORT_WIDTH: ${{ matrix.viewport_width }}
         run: node tests/daily_vnext_public_smoke.mjs
