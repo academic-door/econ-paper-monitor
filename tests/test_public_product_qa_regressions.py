@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import render_site  # noqa: E402
+import build_daily_vnext  # noqa: E402
 
 
 def test_missing_discovery_time_never_renders_monitor_as_a_time() -> None:
@@ -30,27 +31,48 @@ def test_missing_discovery_time_never_renders_monitor_as_a_time() -> None:
     assert "本站首次发现 2026-09-18 监测" not in html
 
 
-def test_today_home_excludes_clearly_old_catalogue_backfill(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(render_site, "today_str", lambda: "2026-09-19")
+def test_today_home_excludes_clearly_old_catalogue_backfill(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     old_backfill = {
+        "id": "old",
         "title": "Old CEPR catalogue item",
-        "detected_at": "2026-09-19T05:12:00+00:00",
+        "url": "https://cepr.org/publications/dp19997",
+        "first_seen_at": "2026-09-19T13:12:00+08:00",
         "available_online": "2025-03-05",
         "published_online": "2025-03-05",
         "date_source": "publisher_detail",
         "date_confidence": "A",
     }
     recent_discovery = {
+        "id": "recent",
         "title": "Recent delayed discovery",
-        "detected_at": "2026-09-19T05:12:00+00:00",
+        "url": "https://example.org/recent",
+        "first_seen_at": "2026-09-19T13:13:00+08:00",
         "available_online": "2026-09-18",
         "published_online": "2026-09-18",
         "date_source": "publisher_detail",
         "date_confidence": "A",
     }
 
-    assert render_site.is_today_home_flow_record(old_backfill) is False
-    assert render_site.is_today_home_flow_record(recent_discovery) is True
+    daily_dir = tmp_path / "daily"
+    daily_dir.mkdir()
+    (daily_dir / "2026-09-19.json").write_text(
+        __import__("json").dumps([old_backfill, recent_discovery]),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(build_daily_vnext, "DAILY_DIR", daily_dir)
+
+    records, archive_count = build_daily_vnext.load_records("2026-09-19")
+
+    assert archive_count == 2
+    assert [record["id"] for record in records] == ["recent"]
+
+    monkeypatch.setattr(render_site, "today_str", lambda: "2026-09-19")
+    secondary_old = dict(old_backfill, detected_at=old_backfill["first_seen_at"])
+    secondary_recent = dict(recent_discovery, detected_at=recent_discovery["first_seen_at"])
+    assert render_site.is_today_home_flow_record(secondary_old) is False
+    assert render_site.is_today_home_flow_record(secondary_recent) is True
 
 
 def test_search_summary_and_lazy_result_count_use_same_unique_records() -> None:
