@@ -188,7 +188,7 @@ def beijing_date(value: str | None) -> str:
 
 def beijing_time(value: str | None) -> str:
     dt = beijing_datetime(value)
-    return dt.strftime("%H:%M") if dt else "监测"
+    return dt.strftime("%H:%M") if dt else ""
 
 
 def beijing_stamp(value: str | None) -> str:
@@ -388,7 +388,7 @@ def is_working_paper(record: dict[str, Any]) -> bool:
 
 
 def is_today_home_flow_record(record: dict[str, Any]) -> bool:
-    """Keep the homepage focused on fresh signals, not low-confidence issue backfill."""
+    """Keep the homepage focused on fresh signals, not stale catalogue backfill."""
     if not record_is_on_date(record, today_str()):
         return False
     if (
@@ -397,6 +397,18 @@ def is_today_home_flow_record(record: dict[str, Any]) -> bool:
         and str(record.get("date_confidence") or "") in {"D", "F", "unknown", ""}
     ):
         return False
+    if detected_date(record) == today_str():
+        try:
+            cutoff = date.fromisoformat(today_str()) - timedelta(days=2)
+            verified = [
+                date.fromisoformat(value[:10])
+                for value in verified_online_dates(record)
+                if value
+            ]
+        except ValueError:
+            verified = []
+        if verified and all(value < cutoff for value in verified):
+            return False
     return True
 
 
@@ -924,7 +936,7 @@ def detection_lag_chip(record: dict[str, Any]) -> str:
         return ""
     if lag <= 30:
         return f'<span class="pill lag">滞后 {lag} 天</span>'
-    return '<span class="pill lag">日期需核验</span>'
+    return '<span class="pill lag">历史补录</span>'
 
 
 def publisher_family(record: dict[str, Any]) -> str | None:
@@ -1616,7 +1628,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         classes = "event" + (f" {extra_class}" if extra_class else "")
         chunks.append(
             f"""<article class="{html_escape(classes)}" data-event-scope="{html_escape(scope)}" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}" data-source-type="{html_escape(source_type_value(record))}">
-  <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
+  <div><div class="time">{html_escape(detected_time(record) or "—")}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
   <div>
     <h3><a href="{html_escape(detail_href)}">{html_escape(primary_title)}</a></h3>{original_title_html}{authors_html}
     <div class="meta-block">
@@ -2190,7 +2202,7 @@ def write_lazy_indexes(docs_dir: Path) -> None:
                 "tp": [topic_label(topic) for topic in topics[:3] if topic != "china"],
                 "cn": metadata["china"],
                 "on": online_today,
-                "dt": detected_time(record),
+                "dt": detected_time(record) or "—",
                 "dd": detected_date(record),
                 "dl": detected_label(record),
                 "od": official_line,
@@ -2237,7 +2249,7 @@ def write_lazy_indexes(docs_dir: Path) -> None:
 
 
 def search_body(records: list[dict[str, Any]]) -> str:
-    searchable = public_records(records)
+    searchable = unique_records(public_records(records))
     journal_records = [record for record in searchable if not is_working_paper(record)]
     wp_records = [record for record in searchable if is_working_paper(record)]
     return f"""<section class="section-head">
