@@ -1,9 +1,7 @@
 {
-  "categories": {
-    "needs_investigation": 8
-  },
-  "checked_at": "2026-09-20T00:40:54.512121+08:00",
-  "source_health_degraded_count": 8,
+  "categories": {},
+  "checked_at": "2026-09-20T02:48:05.219850+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,140 +9,15 @@
       "source": "cn-journals"
     },
     {
-      "category": "transient_network",
-      "sample_error": "partial_success failures=8; Journal of Finance: error TimeoutError: The read operation timed out; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 1",
-      "source": "crossref"
-    },
-    {
       "category": "page_structure_change",
-      "sample_error": "feeds=29/45; Journal of Financial Economics: 20 via official-generated; Review of Financial Studies: 3 via configured; Journal of Development Economics: 52 via official-generated; Economic Development",
+      "sample_error": "feeds=68/120; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 120 via configured; Journal of Accounting and Economics: 49 via configu",
       "source": "rss"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "american-economic-journal-applied-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
-      "source": "American Economic Journal: Applied Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "aea-toc",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "international-economic-review",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "International Economic Review",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-economic-history",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Economic History",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-finance",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Finance",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-public-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Public Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "rand-journal-of-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "RAND Journal of Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "review-of-economics-and-statistics",
-      "sample_error": "review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback 2; european-review-of-agricultural-economics/oup_advance_articles: HTTPError; cro",
-      "source": "Review of Economics and Statistics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "the-world-economy",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "The World Economy",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 3
+    "degraded_source_failures": 2
   },
-  "total_degraded": 8
+  "total_degraded": 0
 }

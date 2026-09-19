@@ -10,17 +10,17 @@
     "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 9307,
+    "seen": 9314,
     "source_crossref_only": 0,
-    "source_degraded": 8,
-    "source_healthy": 79,
+    "source_degraded": 0,
+    "source_healthy": 86,
     "today": 0
   },
   "date": "2026-09-20",
   "failures": [],
-  "generated_at": "2026-09-19T16:41:39+00:00",
+  "generated_at": "2026-09-19T18:55:00+00:00",
   "local_cnki": {
-    "age_hours": 0.48,
+    "age_hours": 2.7,
     "count": 93,
     "fresh": true,
     "freshness_code": "fresh",
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-09-19T16:40:54+00:00",
+    "checked_at": "2026-09-19T18:48:05+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -134,6 +134,7 @@
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
           "publisher": "MIT Press",
           "usable_paths": [
+            "crossref",
             "openalex-recall"
           ]
         },
@@ -238,79 +239,7 @@
           ]
         }
       ],
-      "single_path_degraded": [
-        {
-          "journal": "International Economic Review",
-          "journal_id": "international-economic-review",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "RAND Journal of Economics",
-          "journal_id": "rand-journal-of-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of Public Economics",
-          "journal_id": "journal-of-public-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of Economic History",
-          "journal_id": "journal-of-economic-history",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of Finance",
-          "journal_id": "journal-of-finance",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "The World Economy",
-          "journal_id": "the-world-economy",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Review of Economics and Statistics",
-          "journal_id": "review-of-economics-and-statistics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "American Economic Journal: Applied Economics",
-          "journal_id": "american-economic-journal-applied-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "aea-toc",
-            "openalex-recall"
-          ]
-        }
-      ]
+      "single_path_degraded": []
     }
   },
   "warnings": [
