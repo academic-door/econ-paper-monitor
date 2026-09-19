@@ -85,6 +85,7 @@
 | 实证、应用顶刊 | American Economic Journal: Economic Policy   | AEJpol   | AEJ 经济政策       | A      |
 | 实证、应用顶刊 | Quantitative Economics                       | QE       | 数量经济学         | A      |
 | 其他实证、应用 | Journal of Applied Econometrics              | JAE      | 应用计量经济学杂志 | B      |
+| 其他实证、应用 | Oxford Bulletin of Economics and Statistics       | OBES     | 牛津经济学与统计学公报 | B      |
 | 其他实证、应用 | Applied Economics                            | AE       | 应用经济学         | B      |
 | 其他实证、应用 | Economic Modelling                          | EconMod  | 经济建模           | B      |
 | 其他实证、应用 | Economics of Education Review               | EER-Ed   | 教育经济学评论     | B      |
