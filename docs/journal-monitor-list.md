@@ -52,6 +52,7 @@
 | 微观顶刊       | American Economic Journal: Microeconomics        | AEJmicro    | AEJ 微观经济学       | A      |
 | 其他微观       | Review of Economic Design                        | REDes / RED | 经济设计评论         | B      |
 | 行为和组织顶刊 | Journal of Economic Behavior and Organization    | JEBO        | 经济行为与组织杂志   | A      |
+| 其他行为和组织 | Journal of Economic Psychology                    | JEPsy       | 经济心理学杂志       | B      |
 | 其他行为和组织 | Journal of Economics & Management Strategy       | JEMS        | 经济学与管理战略杂志 | B      |
 | 其他行为和组织 | Journal of Law, Economics & Organization         | JLEO        | 法律、经济与组织杂志 | B      |
 
