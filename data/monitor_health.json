@@ -3,24 +3,24 @@
     "duplicates": 0,
     "external_sentinel_broader_relevant_candidates": 6,
     "external_sentinel_econ_expand_candidates": 0,
-    "external_sentinel_missing": 1,
+    "external_sentinel_missing": 0,
     "external_sentinel_out_of_scope_references": 8,
     "formal_journal_missing": 0,
     "formal_journals": 105,
-    "missing_abstract_today": 3,
+    "missing_abstract_today": 2,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 9276,
+    "seen": 9304,
     "source_crossref_only": 0,
-    "source_degraded": 2,
-    "source_healthy": 84,
-    "today": 18
+    "source_degraded": 0,
+    "source_healthy": 86,
+    "today": 24
   },
   "date": "2026-09-19",
   "failures": [],
-  "generated_at": "2026-09-19T12:38:25+00:00",
+  "generated_at": "2026-09-19T14:11:21+00:00",
   "local_cnki": {
-    "age_hours": 2.36,
+    "age_hours": 3.91,
     "count": 93,
     "fresh": true,
     "freshness_code": "fresh",
@@ -39,12 +39,12 @@
     "counts": {
       "broader_relevant_candidates": 6,
       "econ_expand_candidates": 0,
-      "formal_scope_missing": 1,
+      "formal_scope_missing": 0,
       "out_of_scope_references": 8
     }
   },
   "source_health": {
-    "checked_at": "2026-09-19T12:37:42+00:00",
+    "checked_at": "2026-09-19T14:03:34+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -85,15 +85,6 @@
           "publisher": "Springer-Verlag",
           "usable_paths": [
             "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of Economic Psychology",
-          "journal_id": "journal-of-economic-psychology",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "Elsevier",
-          "usable_paths": [
             "openalex-recall"
           ]
         },
@@ -218,16 +209,6 @@
           ]
         },
         {
-          "journal": "Journal of Agricultural and Resource Economics",
-          "journal_id": "journal-of-agricultural-and-resource-economics",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "Western Agricultural Economics Association",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Journal of Business & Economic Statistics",
           "journal_id": "journal-of-business-and-economic-statistics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -258,35 +239,17 @@
           ]
         }
       ],
-      "single_path_degraded": [
-        {
-          "journal": "Journal of Economic Psychology",
-          "journal_id": "journal-of-economic-psychology",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of Agricultural and Resource Economics",
-          "journal_id": "journal-of-agricultural-and-resource-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        }
-      ]
+      "single_path_degraded": []
     }
   },
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 21
+      "count": 19
     },
     {
       "code": "missing_abstract_today",
-      "count": 3
+      "count": 2
     }
   ]
 }
