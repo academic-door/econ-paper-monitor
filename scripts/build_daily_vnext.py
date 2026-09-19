@@ -98,11 +98,22 @@ def official_date(record: dict) -> str:
     return str(record.get("official_date") or record.get("available_online") or record.get("published_online") or record.get("issue_date") or "").strip()
 
 
+def has_strong_official_online_date(record: dict) -> bool:
+    source = str(record.get("date_source") or "").casefold()
+    confidence = str(record.get("date_confidence") or "").upper()
+    weak_provider = any(token in source for token in ("crossref", "openalex", "unpaywall"))
+    return (
+        not weak_provider
+        and confidence not in {"C", "D", "F", "UNKNOWN", ""}
+        and bool(record.get("available_online") or record.get("published_online"))
+    )
+
+
 def is_stale_catalogue_backfill(record: dict, date_value: str, days: int = 3) -> bool:
-    """Keep clearly old catalogue records out of the Today discovery stream."""
-    value = official_date(record)
-    if not value:
+    """Keep strongly dated old catalogue records out of the Today discovery stream."""
+    if not has_strong_official_online_date(record):
         return False
+    value = str(record.get("available_online") or record.get("published_online") or "").strip()
     try:
         official = datetime.fromisoformat(value[:10]).date()
         target = datetime.fromisoformat(date_value).date()
