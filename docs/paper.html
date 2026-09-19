@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="site-root" content=".">
   <link rel="icon" type="image/png" href="./assets/academic-door-logo.png">
-  <meta name="description" content="每日追踪经济学重点期刊与工作论文，区分首次监测时间、官方在线日期和中国相关研究。">
+  <meta name="description" content="每日追踪经济学重点期刊与工作论文，区分本站首次发现时间、官方在线日期和中国相关研究。">
   <title>论文详情</title>
   
   <style>
@@ -99,7 +99,7 @@
       root.classList.remove('detail-loading');
       root.removeAttribute('aria-busy');
       const detectedLabel = item.detected + (item.detected_time ? ' ' + item.detected_time : '');
-      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(primary)}</h1>${secondary}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}${missingDoi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(detectedLabel)}</div><div class="label">日期信息</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}`;
+      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(primary)}</h1>${secondary}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}${missingDoi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">本站首次发现</div><div>${escapeHTML(detectedLabel)}</div><div class="label">日期信息</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}`;
     } catch (error) {
       message('论文详情暂时无法载入', '请刷新页面重试，或进入全站检索。');
     }
