@@ -1,6 +1,6 @@
 {
   "categories": {},
-  "checked_at": "2026-09-20T02:48:05.219850+08:00",
+  "checked_at": "2026-09-20T03:27:34.662100+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
@@ -9,15 +9,20 @@
       "source": "cn-journals"
     },
     {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; proxy_abstract_attempted=20; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: ",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=68/120; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 120 via configured; Journal of Accounting and Economics: 49 via configu",
+      "sample_error": "feeds=29/45; Journal of Financial Economics: 20 via official-generated; Review of Financial Studies: 3 via configured; Journal of Development Economics: 52 via official-generated; Economic Development",
       "source": "rss"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 2
+    "degraded_source_failures": 3
   },
   "total_degraded": 0
 }
