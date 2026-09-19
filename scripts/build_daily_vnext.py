@@ -11,7 +11,7 @@ import subprocess
 import sys
 import tempfile
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timedelta
 from html.parser import HTMLParser
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -96,6 +96,19 @@ def first_seen(record: dict) -> datetime | None:
 
 def official_date(record: dict) -> str:
     return str(record.get("official_date") or record.get("available_online") or record.get("published_online") or record.get("issue_date") or "").strip()
+
+
+def is_stale_catalogue_backfill(record: dict, date_value: str, days: int = 3) -> bool:
+    """Keep clearly old catalogue records out of the Today discovery stream."""
+    value = official_date(record)
+    if not value:
+        return False
+    try:
+        official = datetime.fromisoformat(value[:10]).date()
+        target = datetime.fromisoformat(date_value).date()
+    except ValueError:
+        return False
+    return official < target - timedelta(days=max(days, 1) - 1)
 
 
 def source_name(record: dict) -> str:
@@ -222,7 +235,11 @@ def load_records(date_value: str) -> tuple[list[dict], int]:
     records = [
         record
         for record in archive_records
-        if (first_seen(record) and first_seen(record).strftime("%Y-%m-%d") == date_value)
+        if (
+            first_seen(record)
+            and first_seen(record).strftime("%Y-%m-%d") == date_value
+            and not is_stale_catalogue_backfill(record, date_value)
+        )
     ]
     records.sort(key=lambda item: first_seen(item) or datetime.min.replace(tzinfo=BEIJING), reverse=True)
     return records, len(archive_records)
