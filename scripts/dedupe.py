@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 import re
 
-from common import DATA_DIR, normalize_doi, normalized_url_identity_keys, read_json, stable_id, today_str, write_json
+from common import BEIJING_TZ, DATA_DIR, normalize_doi, normalized_url_identity_keys, read_json, stable_id, today_str, write_json
 from artifact_paths import repo_relative_path
 from status import record_run, record_source
 
@@ -180,6 +181,20 @@ def valid_iso_date(value: Any) -> str | None:
     if re.fullmatch(r"20\d{2}-\d{2}-\d{2}", text):
         return text
     return None
+
+
+def discovery_date_for_run(value: Any) -> str:
+    """Resolve a discovery timestamp to the Beijing calendar used by Daily."""
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    try:
+        stamp = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        return text[:10]
+    if stamp.tzinfo is None:
+        return text[:10]
+    return stamp.astimezone(BEIJING_TZ).date().isoformat()
 
 
 def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | None:
@@ -632,17 +647,35 @@ def exists_in_daily(daily_dir: Path, record: dict[str, Any]) -> bool:
     return False
 
 
-def ensure_daily_archive(daily_dir: Path, record: dict[str, Any], run_date: str) -> bool:
+def ensure_daily_archive(
+    daily_dir: Path,
+    record: dict[str, Any],
+    run_date: str,
+    *,
+    allow_same_run_journal_sources: bool = False,
+    canonical_first_seen: str | None = None,
+) -> bool:
     source = str(record.get("source") or "")
     source_id = str(record.get("source_id") or "")
-    if source not in {"rss", "cnki-rss"} and not source_id.startswith("repec-nep-"):
+    eligible = source in {"rss", "cnki-rss"} or source_id.startswith("repec-nep-")
+    if allow_same_run_journal_sources and source in {"crossref", "priority_toc", "aea_toc"}:
+        eligible = True
+    if not eligible:
         return False
     archive_date = archive_date_for_new_record(record, run_date)
     if not archive_date or exists_in_daily(daily_dir, record):
         return False
+    archive_record = dict(record)
+    if canonical_first_seen:
+        archive_record["first_seen"] = canonical_first_seen
+        if archive_record.get("first_seen_at"):
+            archive_record["first_seen_at"] = min(
+                str(archive_record["first_seen_at"]),
+                canonical_first_seen,
+            )
     daily_path = daily_dir / f"{archive_date}.json"
     existing_daily = read_json(daily_path, [])
-    write_json(daily_path, merge_daily(existing_daily, [record]))
+    write_json(daily_path, merge_daily(existing_daily, [archive_record]))
     return True
 
 
@@ -695,9 +728,22 @@ def main() -> None:
                 # archive and forces remove_seen_backflow to move it out again,
                 # leaving the bucket empty and tripping ingestion gates at
                 # month boundaries (issue-dated papers from a new volume).
-                seen_first = str((seen_entry or {}).get('first_seen') or '')[:10]
+                canonical_first_seen = str(
+                    (seen_entry or {}).get("first_seen")
+                    or (seen_entry or {}).get("first_seen_at")
+                    or (seen_entry or {}).get("detected_at")
+                    or ""
+                )
+                seen_first = discovery_date_for_run(canonical_first_seen)
                 is_backflow = bool(seen_first and seen_first < args.date)
-                if not is_backflow and ensure_daily_archive(args.daily_dir, record, args.date):
+                same_run_seen = seen_first == args.date
+                if not is_backflow and ensure_daily_archive(
+                    args.daily_dir,
+                    record,
+                    args.date,
+                    allow_same_run_journal_sources=same_run_seen,
+                    canonical_first_seen=canonical_first_seen or None,
+                ):
                     enriched += 1
                     daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
             continue
