@@ -64,24 +64,24 @@ def archive_date_for_seen_record(record: dict[str, Any], run_date: str) -> str |
     return None
 
 
-def formal_journal_identity(data_dir: Path) -> tuple[set[str], set[str]]:
+def formal_journal_identity(data_dir: Path) -> tuple[set[str], dict[str, str]]:
     path = data_dir / "journals.yml"
     if not path.exists():
-        return set(), set()
+        return set(), {}
     ids: set[str] = set()
-    names: set[str] = set()
+    names: dict[str, str] = {}
     for journal in load_journals(path):
         journal_id = str(journal.get("id") or "").strip().casefold()
         if journal_id:
             ids.add(journal_id)
         for key in ("title", "short_name", "chinese_name"):
             value = normalize_text(str(journal.get(key) or ""))
-            if value:
-                names.add(value)
+            if value and journal_id:
+                names.setdefault(value, journal_id)
         for alias in journal.get("aliases") or []:
             value = normalize_text(str(alias or ""))
-            if value:
-                names.add(value)
+            if value and journal_id:
+                names.setdefault(value, journal_id)
     return ids, names
 
 
@@ -89,7 +89,7 @@ def is_journal_record(
     record: dict[str, Any],
     *,
     formal_ids: set[str] | None = None,
-    formal_names: set[str] | None = None,
+    formal_names: dict[str, str] | None = None,
 ) -> bool:
     source_type = str(record.get("source_type") or "").strip()
     if source_type in JOURNAL_SOURCE_TYPES:
@@ -158,6 +158,13 @@ def repair_seen_only_archives(
             skipped["no_official_date"].append(title)
             continue
         candidate = copy.deepcopy(record)
+        if not candidate.get("source_type"):
+            candidate["source_type"] = "journal"
+        if not candidate.get("journal_id"):
+            journal_name = normalize_text(str(candidate.get("journal") or ""))
+            matched_id = formal_names.get(journal_name) if journal_name else None
+            if matched_id:
+                candidate["journal_id"] = matched_id
         sanitize_record_paths([candidate])
         normalize_public_record(candidate)
         pending_by_date[archive_date].append(candidate)
