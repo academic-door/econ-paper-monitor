@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from dedupe import ensure_daily_archive  # noqa: E402
+from dedupe import discovery_date_for_run, ensure_daily_archive  # noqa: E402
 from repair_seen_only_archives import repair_seen_only_archives  # noqa: E402
 
 
@@ -67,6 +67,11 @@ def write_formal_journal_registry(data_dir: Path) -> None:
 """,
         encoding="utf-8",
     )
+
+
+def test_discovery_date_uses_beijing_daily_calendar():
+    assert discovery_date_for_run("2026-09-19T16:30:00+00:00") == "2026-09-20"
+    assert discovery_date_for_run("2026-09-20T00:30:00+00:00") == "2026-09-20"
 
 
 def test_same_run_crossref_enrichment_can_archive_to_official_history_date(tmp_path: Path):
