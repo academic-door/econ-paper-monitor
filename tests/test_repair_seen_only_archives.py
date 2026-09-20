@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from dedupe import ensure_daily_archive  # noqa: E402
 from repair_seen_only_archives import repair_seen_only_archives  # noqa: E402
 
 
@@ -40,6 +41,123 @@ def make_data_dir(tmp_path: Path) -> Path:
     write_json(data_dir / "seen.json", {"papers": {}})
     (data_dir / "daily").mkdir(parents=True)
     return data_dir
+
+
+def write_formal_journal_registry(data_dir: Path) -> None:
+    (data_dir / "journals.yml").write_text(
+        """journals:
+  - id: "american-economic-review"
+    title: "American Economic Review"
+    short_name: "AER"
+    aliases:
+      - "AER"
+    chinese_name: "美国经济评论"
+    fields:
+      - "economics"
+    public_group: "经济学"
+    priority_private: ""
+    issn: "0002-8282"
+    eissn: null
+    print_issn: null
+    online_issn: null
+    publisher: "American Economic Association"
+    sources:
+      - type: crossref
+        issn: "0002-8282"
+""",
+        encoding="utf-8",
+    )
+
+
+def test_same_run_crossref_enrichment_can_archive_to_official_history_date(tmp_path: Path):
+    data_dir = make_data_dir(tmp_path)
+    record = base_record(
+        title="Contextually Private Mechanisms",
+        doi="10.1257/aer.20240579",
+        id="doi:10.1257/aer.20240579",
+        journal="American Economic Review",
+        source="crossref",
+        available_online="2026-09-01",
+        published_online="2026-09-01",
+        first_seen="2026-09-20T06:43:48+00:00",
+    )
+
+    changed = ensure_daily_archive(
+        data_dir / "daily",
+        record,
+        "2026-09-20",
+        allow_same_run_journal_sources=True,
+    )
+
+    assert changed is True
+    assert not (data_dir / "daily" / "2026-09-20.json").exists()
+    archived = json.loads((data_dir / "daily" / "2026-09-01.json").read_text(encoding="utf-8"))
+    assert [item["doi"] for item in archived] == ["10.1257/aer.20240579"]
+
+
+def test_crossref_archive_stays_disabled_without_same_run_permission(tmp_path: Path):
+    data_dir = make_data_dir(tmp_path)
+    record = base_record(
+        source="crossref",
+        available_online="2026-09-01",
+        published_online="2026-09-01",
+    )
+
+    changed = ensure_daily_archive(data_dir / "daily", record, "2026-09-20")
+
+    assert changed is False
+    assert not list((data_dir / "daily").glob("*.json"))
+
+
+def test_sparse_seen_formal_journal_uses_registry_identity(tmp_path: Path):
+    data_dir = make_data_dir(tmp_path)
+    write_formal_journal_registry(data_dir)
+    sparse = base_record(
+        id="doi:10.1257/aer.20240579",
+        doi="10.1257/aer.20240579",
+        title="Contextually Private Mechanisms",
+        journal="American Economic Review",
+        source=None,
+        source_type=None,
+        journal_id=None,
+        available_online="2026-09-01",
+        published_online="2026-09-01",
+        first_seen="2026-09-20T06:43:48+00:00",
+    )
+    write_json(
+        data_dir / "seen.json",
+        {"papers": {"doi:10.1257/aer.20240579": sparse}},
+    )
+
+    report = repair_seen_only_archives(data_dir=data_dir, run_date="2026-09-20")
+
+    assert report["archived_count"] == 1
+    assert report["changed_files"] == ["2026-09-01.json"]
+    archived = json.loads((data_dir / "daily" / "2026-09-01.json").read_text(encoding="utf-8"))
+    assert archived[0]["doi"] == "10.1257/aer.20240579"
+
+
+def test_sparse_nonformal_seen_record_is_not_promoted(tmp_path: Path):
+    data_dir = make_data_dir(tmp_path)
+    write_formal_journal_registry(data_dir)
+    sparse = base_record(
+        id="doi:10.9999/not-formal",
+        doi="10.9999/not-formal",
+        title="Unregistered journal-like record",
+        journal="Not A Formal Journal",
+        source=None,
+        source_type=None,
+        journal_id=None,
+        available_online="2026-09-01",
+        published_online="2026-09-01",
+    )
+    write_json(data_dir / "seen.json", {"papers": {"doi:10.9999/not-formal": sparse}})
+
+    report = repair_seen_only_archives(data_dir=data_dir, run_date="2026-09-20")
+
+    assert report["archived_count"] == 0
+    assert report["skipped"]["non_journal"] == 1
+    assert not list((data_dir / "daily").glob("*.json"))
 
 
 def test_archives_seen_only_record_into_official_date_file(tmp_path: Path):
