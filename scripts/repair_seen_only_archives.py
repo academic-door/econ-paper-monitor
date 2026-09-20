@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, read_json, today_str, write_json
+from common import DATA_DIR, load_journals, normalize_text, read_json, today_str, write_json
 from dedupe import (
     build_daily_index,
     is_source_navigation_noise,
@@ -64,13 +64,45 @@ def archive_date_for_seen_record(record: dict[str, Any], run_date: str) -> str |
     return None
 
 
-def is_journal_record(record: dict[str, Any]) -> bool:
+def formal_journal_identity(data_dir: Path) -> tuple[set[str], set[str]]:
+    path = data_dir / "journals.yml"
+    if not path.exists():
+        return set(), set()
+    ids: set[str] = set()
+    names: set[str] = set()
+    for journal in load_journals(path):
+        journal_id = str(journal.get("id") or "").strip().casefold()
+        if journal_id:
+            ids.add(journal_id)
+        for key in ("title", "short_name", "chinese_name"):
+            value = normalize_text(str(journal.get(key) or ""))
+            if value:
+                names.add(value)
+        for alias in journal.get("aliases") or []:
+            value = normalize_text(str(alias or ""))
+            if value:
+                names.add(value)
+    return ids, names
+
+
+def is_journal_record(
+    record: dict[str, Any],
+    *,
+    formal_ids: set[str] | None = None,
+    formal_names: set[str] | None = None,
+) -> bool:
     source_type = str(record.get("source_type") or "").strip()
     if source_type in JOURNAL_SOURCE_TYPES:
         return True
     if source_type in WORKING_SOURCE_TYPES:
         return False
-    return str(record.get("source") or "").strip().casefold() in JOURNAL_SOURCES
+    if str(record.get("source") or "").strip().casefold() in JOURNAL_SOURCES:
+        return True
+    journal_id = str(record.get("journal_id") or "").strip().casefold()
+    if journal_id and formal_ids and journal_id in formal_ids:
+        return True
+    journal_name = normalize_text(str(record.get("journal") or ""))
+    return bool(journal_name and formal_names and journal_name in formal_names)
 
 
 def repair_seen_only_archives(
@@ -85,6 +117,7 @@ def repair_seen_only_archives(
         raise ValueError("seen.json must be a {papers: {...}} payload")
 
     daily_dir = data_dir / "daily"
+    formal_ids, formal_names = formal_journal_identity(data_dir)
     _daily_records_by_path, daily_index = build_daily_index(daily_dir)
     pending_by_date: dict[str, list[dict[str, Any]]] = defaultdict(list)
     archived: list[dict[str, Any]] = []
@@ -106,7 +139,7 @@ def repair_seen_only_archives(
         if is_source_navigation_noise(record):
             skipped["navigation_noise"].append(title)
             continue
-        if not is_journal_record(record):
+        if not is_journal_record(record, formal_ids=formal_ids, formal_names=formal_names):
             skipped["non_journal"].append(title)
             continue
         doi = str(record.get("doi") or "").strip().casefold()
