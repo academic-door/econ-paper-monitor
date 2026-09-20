@@ -118,7 +118,6 @@ UCHICAGO_JOURNAL_CODES = {
     "economic-development-and-cultural-change": "edcc",
     "journal-of-labor-economics": "jole",
     "journal-of-law-and-economics": "jle",
-    "journal-of-the-association-of-environmental-and-resource-economists": "jaere",
 }
 
 
