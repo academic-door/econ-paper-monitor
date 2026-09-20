@@ -1148,16 +1148,22 @@ def fetch_target_with_fallback(
             fallback = fetch_crossref_fallback(
                 journal, target, timeout=timeout, max_items=max_items
             )
+            # A generic publisher adapter returning no records is ambiguous:
+            # it may be a genuinely empty surface or parser drift. Decision 0018
+            # requires fail-closed observability, so only adapters that prove a
+            # structurally valid empty payload (for example JARE REST []) may
+            # emit VALID_EMPTY explicitly.
+            outcome = "PARSER_FAILURE"
             return (
                 fallback,
                 len(fallback),
                 False,
                 [
-                    f"{label}: VALID_EMPTY",
+                    f"{label}: {outcome}",
                     f"{label}: crossref fallback {len(fallback)}",
                 ],
                 not fallback,
-                "VALID_EMPTY",
+                outcome,
             )
         except Exception as exc:  # noqa: BLE001 - bounded source retry before fallback.
             last_error = exc
