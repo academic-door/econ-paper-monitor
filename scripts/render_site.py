@@ -2029,7 +2029,7 @@ def working_papers_body(records: list[dict[str, Any]], *, view: str = "all") -> 
 
 
 def china_topic_body(records: list[dict[str, Any]], topic_records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
-    public_topic_records = public_records(topic_records)
+    public_topic_records = unique_records(public_records(topic_records))
     journal_records = [record for record in public_topic_records if not is_working_paper(record)]
     wp_records = [record for record in public_topic_records if is_working_paper(record)]
     today_journals = [record for record in journal_records if record_is_on_date(record, today_str())]

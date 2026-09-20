@@ -87,6 +87,34 @@ async function assertNavigationLinksHealthy(page, url) {
   }
 }
 
+async function scopedResultCount(page, scope, url) {
+  const lazy = page.locator(`[data-lazy-list][data-lazy-scope="${scope}"]`).first();
+  if (await lazy.count()) {
+    const manifestUrl = await lazy.getAttribute('data-lazy-manifest');
+    assert.ok(manifestUrl, `${url} missing lazy manifest for ${scope}`);
+    const response = await page.request.get(new URL(manifestUrl, page.url()).href);
+    assert.equal(response.status(), 200, `${url} manifest failed for ${scope}`);
+    const manifest = await response.json();
+    return Number(manifest.count || 0);
+  }
+  return page.locator(`.event[data-event-scope="${scope}"]`).count();
+}
+
+async function assertChinaCountConsistency(page, url) {
+  const totalText = await page.locator('.section-head').first().locator(':scope > p').innerText();
+  const totalMatch = totalText.match(/(\d+)\s*篇/);
+  assert.ok(totalMatch, `${url} China headline total is not parseable`);
+
+  const journalStat = Number(await page.locator('.stats a[href="#china-journals"] strong').innerText());
+  const workingStat = Number(await page.locator('.stats a[href="#china-working"] strong').innerText());
+  const journalResults = await scopedResultCount(page, 'china-journal', url);
+  const workingResults = await scopedResultCount(page, 'china-working', url);
+
+  assert.equal(Number(totalMatch[1]), journalResults + workingResults, `${url} China headline total disagrees with result sets`);
+  assert.equal(journalStat, journalResults, `${url} China journal stat disagrees with result set`);
+  assert.equal(workingStat, workingResults, `${url} China working-paper stat disagrees with result set`);
+}
+
 async function assertNoFilterLazyState(page, url) {
   const lazyList = page.locator('[data-lazy-list]').first();
   if (!(await lazyList.count())) return;
@@ -179,6 +207,9 @@ async function checkSecondaryPages(browser) {
       await assertNoPseudoDiscoveryTime(page, url);
     }
     assert.equal(indexRequests.some((requestUrl) => requestUrl.endsWith("/paper-index.json")), false, `${url} requested the legacy full index`);
+    if (path === "topics/china/") {
+      await assertChinaCountConsistency(page, url);
+    }
     if (path === "search/") {
       await assertSearchCountConsistency(page, url);
       await assertUniqueSourceFilterLabels(page, url);
