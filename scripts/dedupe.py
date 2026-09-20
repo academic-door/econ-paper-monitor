@@ -632,10 +632,19 @@ def exists_in_daily(daily_dir: Path, record: dict[str, Any]) -> bool:
     return False
 
 
-def ensure_daily_archive(daily_dir: Path, record: dict[str, Any], run_date: str) -> bool:
+def ensure_daily_archive(
+    daily_dir: Path,
+    record: dict[str, Any],
+    run_date: str,
+    *,
+    allow_same_run_journal_sources: bool = False,
+) -> bool:
     source = str(record.get("source") or "")
     source_id = str(record.get("source_id") or "")
-    if source not in {"rss", "cnki-rss"} and not source_id.startswith("repec-nep-"):
+    eligible = source in {"rss", "cnki-rss"} or source_id.startswith("repec-nep-")
+    if allow_same_run_journal_sources and source in {"crossref", "priority_toc", "aea_toc"}:
+        eligible = True
+    if not eligible:
         return False
     archive_date = archive_date_for_new_record(record, run_date)
     if not archive_date or exists_in_daily(daily_dir, record):
@@ -697,7 +706,13 @@ def main() -> None:
                 # month boundaries (issue-dated papers from a new volume).
                 seen_first = str((seen_entry or {}).get('first_seen') or '')[:10]
                 is_backflow = bool(seen_first and seen_first < args.date)
-                if not is_backflow and ensure_daily_archive(args.daily_dir, record, args.date):
+                same_run_seen = seen_first == args.date
+                if not is_backflow and ensure_daily_archive(
+                    args.daily_dir,
+                    record,
+                    args.date,
+                    allow_same_run_journal_sources=same_run_seen,
+                ):
                     enriched += 1
                     daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
             continue
