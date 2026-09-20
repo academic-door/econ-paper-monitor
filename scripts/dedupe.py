@@ -638,6 +638,7 @@ def ensure_daily_archive(
     run_date: str,
     *,
     allow_same_run_journal_sources: bool = False,
+    canonical_first_seen: str | None = None,
 ) -> bool:
     source = str(record.get("source") or "")
     source_id = str(record.get("source_id") or "")
@@ -649,9 +650,17 @@ def ensure_daily_archive(
     archive_date = archive_date_for_new_record(record, run_date)
     if not archive_date or exists_in_daily(daily_dir, record):
         return False
+    archive_record = dict(record)
+    if canonical_first_seen:
+        archive_record["first_seen"] = canonical_first_seen
+        if archive_record.get("first_seen_at"):
+            archive_record["first_seen_at"] = min(
+                str(archive_record["first_seen_at"]),
+                canonical_first_seen,
+            )
     daily_path = daily_dir / f"{archive_date}.json"
     existing_daily = read_json(daily_path, [])
-    write_json(daily_path, merge_daily(existing_daily, [record]))
+    write_json(daily_path, merge_daily(existing_daily, [archive_record]))
     return True
 
 
@@ -707,11 +716,18 @@ def main() -> None:
                 seen_first = str((seen_entry or {}).get('first_seen') or '')[:10]
                 is_backflow = bool(seen_first and seen_first < args.date)
                 same_run_seen = seen_first == args.date
+                canonical_first_seen = str(
+                    (seen_entry or {}).get("first_seen")
+                    or (seen_entry or {}).get("first_seen_at")
+                    or (seen_entry or {}).get("detected_at")
+                    or ""
+                )
                 if not is_backflow and ensure_daily_archive(
                     args.daily_dir,
                     record,
                     args.date,
                     allow_same_run_journal_sources=same_run_seen,
+                    canonical_first_seen=canonical_first_seen or None,
                 ):
                     enriched += 1
                     daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
