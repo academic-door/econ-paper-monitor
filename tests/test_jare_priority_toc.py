@@ -302,6 +302,37 @@ class JareAdvanceSourceTests(unittest.TestCase):
         self.assertIn("CHALLENGE", result[3][0])
         self.assertNotIn("ValueError", result[3][0])
 
+    def test_generic_empty_publisher_result_fails_closed_as_parser_failure(self) -> None:
+        journal = {
+            "id": JARE_ID,
+            "title": "Journal of Agricultural and Resource Economics",
+        }
+        target = {
+            "kind": "generic_html",
+            "url": "https://example.test/current",
+            "fallback_issn": "0000-0000",
+        }
+        with mock.patch.object(
+            fetch_priority_toc,
+            "fetch_target",
+            return_value=[],
+        ), mock.patch.object(
+            fetch_priority_toc,
+            "fetch_crossref_fallback",
+            return_value=[],
+        ):
+            result = fetch_priority_toc.fetch_target_with_fallback(
+                journal,
+                target,
+                timeout=5,
+                detail_limit=0,
+                max_items=10,
+            )
+
+        self.assertEqual(result[5], "PARSER_FAILURE")
+        self.assertIn("PARSER_FAILURE", result[3][0])
+        self.assertNotIn("VALID_EMPTY", result[3][0])
+
     def test_jare_target_retries_transient_publisher_failure_before_crossref_fallback(self) -> None:
         journal = {"id": JARE_ID, "title": "Journal of Agricultural and Resource Economics"}
         target = fetch_priority_toc.TARGETS[JARE_ID][0]
