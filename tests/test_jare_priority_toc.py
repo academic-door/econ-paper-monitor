@@ -144,6 +144,7 @@ class JareAdvanceSourceTests(unittest.TestCase):
         self.assertEqual(record["date_source"], "jare_published_online")
         self.assertEqual(record["raw_data"]["priority_toc_kind"], "jare_rest")
         self.assertEqual(record["raw_data"]["jare_acquisition"], "wordpress-rest")
+        self.assertEqual(record["raw_data"]["jare_rest_outcome"], "SUCCESS")
         self.assertEqual(record["raw_data"]["jare_rest_id"], 3232)
         self.assertIsNone(record.get("doi"))
 
@@ -156,7 +157,10 @@ class JareAdvanceSourceTests(unittest.TestCase):
         with mock.patch.object(
             fetch_priority_toc,
             "fetch_toc_text",
-            side_effect=[ValueError("REST unavailable"), JARE_HTML],
+            side_effect=[
+                fetch_priority_toc.PublisherTransportError("CHALLENGE", "publisher challenge"),
+                JARE_HTML,
+            ],
         ) as fetch:
             records = fetch_priority_toc.fetch_target(
                 journal,
@@ -171,8 +175,115 @@ class JareAdvanceSourceTests(unittest.TestCase):
         record = records[0]
         self.assertEqual(record["source_url"], "https://jareonline.org/preprint-online/")
         self.assertEqual(record["raw_data"]["jare_acquisition"], "html-fallback")
+        self.assertEqual(record["raw_data"]["jare_rest_outcome"], "CHALLENGE")
         self.assertEqual(record["raw_data"]["priority_toc_kind"], "jare_rest")
         self.assertEqual(record["published_online"], "2026-08-24")
+
+    def test_fetch_one_preserves_challenge_outcome(self) -> None:
+        challenge = (
+            '<html><head><meta http-equiv="refresh" '
+            'content="0;/.well-known/sgcaptcha/?r=%2Fpreprint-online%2F"></head></html>'
+        )
+        response = mock.MagicMock()
+        response.__enter__.return_value = response
+        response.read.return_value = challenge.encode("utf-8")
+        response.headers.get_content_charset.return_value = "utf-8"
+
+        with mock.patch.object(fetch_priority_toc.urllib.request, "urlopen", return_value=response):
+            with self.assertRaises(fetch_priority_toc.PublisherTransportError) as caught:
+                fetch_priority_toc.fetch_one("https://jareonline.org/preprint-online/", timeout=5)
+
+        self.assertEqual(caught.exception.outcome, "CHALLENGE")
+
+    def test_transport_classifier_maps_http_and_network_failures(self) -> None:
+        http_error = fetch_priority_toc.urllib.error.HTTPError
+        self.assertEqual(
+            fetch_priority_toc.classify_transport_error(
+                http_error("https://example.test", 401, "auth", None, None)
+            ),
+            "AUTH_REQUIRED",
+        )
+        self.assertEqual(
+            fetch_priority_toc.classify_transport_error(
+                http_error("https://example.test", 403, "blocked", None, None)
+            ),
+            "HTTP_BLOCK",
+        )
+        self.assertEqual(
+            fetch_priority_toc.classify_transport_error(
+                http_error("https://example.test", 429, "rate", None, None)
+            ),
+            "RATE_LIMITED",
+        )
+        self.assertEqual(
+            fetch_priority_toc.classify_transport_error(
+                fetch_priority_toc.urllib.error.URLError("temporary network failure")
+            ),
+            "NETWORK_FAILURE",
+        )
+
+    def test_transport_classifier_maps_decode_and_parser_failures(self) -> None:
+        decode_error = UnicodeDecodeError("utf-8", b"\xff", 0, 1, "invalid start byte")
+        self.assertEqual(
+            fetch_priority_toc.classify_transport_error(decode_error),
+            "DECODE_FAILURE",
+        )
+        with self.assertRaises(fetch_priority_toc.PublisherTransportError) as caught:
+            fetch_priority_toc.jare_rest_blocks("{not-json")
+        self.assertEqual(caught.exception.outcome, "PARSER_FAILURE")
+
+    def test_valid_empty_rest_falls_back_without_fabricating_success(self) -> None:
+        journal = {
+            "id": JARE_ID,
+            "title": "Journal of Agricultural and Resource Economics",
+        }
+        target = fetch_priority_toc.TARGETS[JARE_ID][0]
+        with mock.patch.object(
+            fetch_priority_toc,
+            "fetch_toc_text",
+            side_effect=["[]", JARE_HTML],
+        ):
+            records = fetch_priority_toc.fetch_target(
+                journal,
+                target,
+                timeout=5,
+                detail_limit=12,
+                max_items=10,
+            )
+
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0]["raw_data"]["jare_acquisition"], "html-fallback")
+        self.assertEqual(records[0]["raw_data"]["jare_rest_outcome"], "VALID_EMPTY")
+
+    def test_failed_publisher_status_uses_normalized_outcome_not_exception_name(self) -> None:
+        journal = {"id": JARE_ID, "title": "Journal of Agricultural and Resource Economics"}
+        target = fetch_priority_toc.TARGETS[JARE_ID][0]
+
+        with mock.patch.object(
+            fetch_priority_toc,
+            "fetch_target",
+            side_effect=fetch_priority_toc.PublisherTransportError(
+                "CHALLENGE",
+                "publisher returned an anti-bot challenge page",
+            ),
+        ) as fetch_target, mock.patch.object(
+            fetch_priority_toc,
+            "fetch_crossref_fallback",
+            return_value=[],
+        ), mock.patch.object(fetch_priority_toc.time, "sleep"):
+            result = fetch_priority_toc.fetch_target_with_fallback(
+                journal,
+                target,
+                timeout=5,
+                detail_limit=0,
+                max_items=10,
+            )
+
+        self.assertEqual(fetch_target.call_count, 3)
+        self.assertTrue(result[4])
+        self.assertEqual(result[5], "CHALLENGE")
+        self.assertIn("CHALLENGE", result[3][0])
+        self.assertNotIn("ValueError", result[3][0])
 
     def test_jare_target_retries_transient_publisher_failure_before_crossref_fallback(self) -> None:
         journal = {"id": JARE_ID, "title": "Journal of Agricultural and Resource Economics"}
@@ -200,6 +311,7 @@ class JareAdvanceSourceTests(unittest.TestCase):
         self.assertEqual(result[1], 0)
         self.assertTrue(result[2])
         self.assertFalse(result[4])
+        self.assertEqual(result[5], "SUCCESS")
 
     def test_source_health_treats_jare_priority_toc_as_reliable_not_closed(self) -> None:
         self.assertIn(JARE_ID, audit_source_health.PRIORITY_TOC_JOURNALS)
