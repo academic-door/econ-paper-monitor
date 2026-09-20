@@ -10,7 +10,7 @@
       "missing": 5
     },
     "canonical_records": 7352,
-    "checked_at": "2026-09-20T00:24:13+00:00",
+    "checked_at": "2026-09-20T07:11:48+00:00",
     "integrity": {
       "boilerplate_abstracts": 0,
       "canonical_detail_key_duplicate": 0,
@@ -19,7 +19,7 @@
       "daily_same_source_title_duplicate_records": 0,
       "daily_seen_orphan_keys": 0,
       "ledger_orphan_keys": 1,
-      "machine_path_leaks": 5224,
+      "machine_path_leaks": 5187,
       "metadata_missing_status": {
         "abstract": 0,
         "authors": 0,
@@ -39,33 +39,33 @@
     "official_dates": {
       "available": 7189,
       "confidence_counts": {
-        "A": 4155,
-        "B": 96,
-        "C": 2254,
+        "A": 4158,
+        "B": 95,
+        "C": 2255,
         "D": 429,
-        "F": 418
+        "F": 415
       },
       "missing": 163,
-      "weak_confidence": 3101
+      "weak_confidence": 3099
     },
     "retry_queues": {
       "ingestion_pending": 1,
       "ingestion_resolved": 10,
       "metadata_pending": 500,
-      "metadata_total_before_limit": 4802
+      "metadata_total_before_limit": 4799
     },
     "source_health": {
       "counts": {
-        "degraded": 0,
-        "healthy": 90,
+        "degraded": 1,
+        "healthy": 89,
         "stale": 0,
         "supplemental-closed": 15,
         "unavailable": 0
       },
       "coverage_counts": {
         "crossref_only": 0,
-        "official_or_specialized": 90,
-        "supplemental": 15,
+        "official_or_specialized": 89,
+        "supplemental": 16,
         "unavailable": 0
       }
     }
@@ -81,7 +81,7 @@
       "missing": 5
     },
     "canonical_records": 7352,
-    "checked_at": "2026-09-20T00:22:16+00:00",
+    "checked_at": "2026-09-20T07:09:33+00:00",
     "integrity": {
       "boilerplate_abstracts": 0,
       "canonical_detail_key_duplicate": 0,
@@ -90,7 +90,7 @@
       "daily_same_source_title_duplicate_records": 0,
       "daily_seen_orphan_keys": 0,
       "ledger_orphan_keys": 1,
-      "machine_path_leaks": 5224,
+      "machine_path_leaks": 5187,
       "metadata_missing_status": {
         "abstract": 0,
         "authors": 0,
@@ -110,63 +110,63 @@
     "official_dates": {
       "available": 7189,
       "confidence_counts": {
-        "A": 4155,
+        "A": 4158,
         "B": 54,
         "C": 2296,
         "D": 429,
-        "F": 418
+        "F": 415
       },
       "missing": 163,
-      "weak_confidence": 3143
+      "weak_confidence": 3140
     },
     "retry_queues": {
       "ingestion_pending": 1,
       "ingestion_resolved": 10,
       "metadata_pending": 500,
-      "metadata_total_before_limit": 4802
+      "metadata_total_before_limit": 4799
     },
     "source_health": {
       "counts": {
-        "degraded": 0,
-        "healthy": 90,
+        "degraded": 1,
+        "healthy": 89,
         "stale": 0,
         "supplemental-closed": 15,
         "unavailable": 0
       },
       "coverage_counts": {
         "crossref_only": 0,
-        "official_or_specialized": 90,
-        "supplemental": 15,
+        "official_or_specialized": 89,
+        "supplemental": 16,
         "unavailable": 0
       }
     }
   },
   "candidates": 150,
-  "checked_at": "2026-09-20T00:24:13+00:00",
+  "checked_at": "2026-09-20T07:11:48+00:00",
   "daily_occurrences": 150,
   "date_confidence_changes": {
-    "B": 42
+    "B": 41
   },
   "errors": {
     "api": {},
     "no_doi": 0
   },
   "failure_reasons": {
-    "api_no_usable_metadata": 108
+    "api_no_usable_metadata": 109
   },
   "files": {
-    "daily_changed": 32,
+    "daily_changed": 31,
     "ledger_resolved": 0,
     "queue_resolved": 0,
-    "seen_updated": 42
+    "seen_updated": 41
   },
   "mode": "write",
   "provider_empty_burst": {},
   "provider_health": {
     "crossref": {
       "attempts": 150,
-      "available": 88,
-      "empty": 62,
+      "available": 83,
+      "empty": 67,
       "empty_burst": false,
       "failed": 0,
       "rate_limited": 0,
@@ -191,8 +191,8 @@
     },
     "openalex": {
       "attempts": 150,
-      "available": 115,
-      "empty": 35,
+      "available": 100,
+      "empty": 50,
       "empty_burst": false,
       "failed": 0,
       "rate_limited": 0,
@@ -203,12 +203,12 @@
     "semantic-scholar": {
       "api_key_configured": true,
       "attempts": 150,
-      "available": 15,
+      "available": 17,
       "control": {
         "circuit_open": true,
         "client_target_rps": 0.2,
         "configured_concurrency": "shared_global_start_gate",
-        "consecutive_terminal_rate_limited": 2,
+        "consecutive_terminal_rate_limited": 1,
         "endpoint_class": "academic_graph_paper_details",
         "fast_trip_after_consecutive_rate_limits": 2,
         "fast_trip_terminal_rate_limit_budget": 4,
@@ -218,38 +218,39 @@
         "min_interval_seconds": 5.0,
         "provider": "semantic-scholar",
         "provider_rate_limit_rps": 1.0,
-        "rate_limited_count": 3,
-        "recent_attempts": 18,
+        "rate_limited_count": 4,
+        "recent_attempts": 20,
         "recent_rate_limited": 3,
-        "recent_rate_limited_ratio": 0.1667,
+        "recent_rate_limited_ratio": 0.15,
         "recent_window": 20,
         "skip_after": 20,
         "workload_class": "metadata_recovery"
       },
       "empty": 0,
       "empty_burst": false,
-      "failed": 135,
-      "rate_limited": 3,
+      "failed": 133,
+      "rate_limited": 4,
       "retried_after_empty": false,
-      "skipped": 132,
+      "skipped": 128,
       "statuses": {
-        "rate_limited": 3,
-        "skipped_rate_limited": 132
+        "not_found": 1,
+        "rate_limited": 4,
+        "skipped_rate_limited": 128
       }
     }
   },
   "providers": {
-    "crossref": 88,
+    "crossref": 83,
     "elsevier": 38,
-    "openalex": 115,
+    "openalex": 100,
     "semantic-scholar": 150
   },
   "recovered": {
-    "date": 42
+    "date": 41
   },
   "shortfall": {
     "abstract_not_recovered": 145,
     "authors_not_recovered": 3,
-    "date_not_recovered": 43
+    "date_not_recovered": 44
   }
 }
