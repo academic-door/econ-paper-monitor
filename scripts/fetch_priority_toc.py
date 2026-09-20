@@ -14,12 +14,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import html
 import os
 import re
+import socket
 import ssl
 import json
 import time
 from datetime import date, timedelta
 from typing import Any
 from urllib.parse import urlencode
+import urllib.error
 import urllib.request
 from pathlib import Path
 from urllib.parse import urljoin
@@ -265,6 +267,73 @@ TARGETS = {
     ],
 }
 
+TRANSPORT_OUTCOMES = {
+    "SUCCESS",
+    "VALID_EMPTY",
+    "HTTP_BLOCK",
+    "CHALLENGE",
+    "AUTH_REQUIRED",
+    "RATE_LIMITED",
+    "DECODE_FAILURE",
+    "PARSER_FAILURE",
+    "NETWORK_FAILURE",
+    "HUMAN_INTERVENTION_REQUIRED",
+}
+
+
+class PublisherTransportError(RuntimeError):
+    """Normalized publisher-transport failure under Decision 0018."""
+
+    def __init__(self, outcome: str, message: str):
+        if outcome not in TRANSPORT_OUTCOMES:
+            raise ValueError(f"unknown transport outcome: {outcome}")
+        self.outcome = outcome
+        super().__init__(message)
+
+
+def classify_transport_error(exc: BaseException) -> str:
+    """Map a runtime exception to the Decision-0018 transport taxonomy."""
+    if isinstance(exc, PublisherTransportError):
+        return exc.outcome
+    if isinstance(exc, urllib.error.HTTPError):
+        if exc.code == 401:
+            return "AUTH_REQUIRED"
+        if exc.code == 403:
+            return "HTTP_BLOCK"
+        if exc.code == 429:
+            return "RATE_LIMITED"
+        if 400 <= int(exc.code or 0) < 500:
+            return "HTTP_BLOCK"
+        return "NETWORK_FAILURE"
+    if isinstance(
+        exc,
+        (
+            urllib.error.URLError,
+            TimeoutError,
+            socket.timeout,
+            ssl.SSLError,
+            ConnectionError,
+        ),
+    ):
+        return "NETWORK_FAILURE"
+    if isinstance(exc, UnicodeDecodeError):
+        return "DECODE_FAILURE"
+    if isinstance(exc, json.JSONDecodeError):
+        return "PARSER_FAILURE"
+    return "PARSER_FAILURE"
+
+
+def normalized_transport_message(exc: BaseException) -> str:
+    """Return a bounded diagnostic without credentials/session material."""
+    outcome = classify_transport_error(exc)
+    if isinstance(exc, urllib.error.HTTPError):
+        return f"{outcome} (HTTP {exc.code})"
+    detail = re.sub(r"\s+", " ", str(exc or "")).strip()
+    if detail:
+        return f"{outcome} ({detail[:160]})"
+    return outcome
+
+
 BROWSER_HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -299,18 +368,37 @@ def fetch_one(url: str, timeout: int) -> str:
             with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
                 payload = response.read()
                 charset = response.headers.get_content_charset() or "utf-8"
-        for encoding in dict.fromkeys([charset, "utf-8", "latin-1"]):
-            try:
-                text = payload.decode(encoding)
-                if text.strip():
-                    if is_challenge_page(text):
-                        raise ValueError("publisher returned an anti-bot challenge page")
-                    return text
-            except Exception:
-                continue
-        raise ValueError("empty or undecodable publisher response")
-    except Exception:
-        raise
+    except Exception as exc:
+        raise PublisherTransportError(
+            classify_transport_error(exc),
+            normalized_transport_message(exc),
+        ) from exc
+
+    last_decode_error: UnicodeDecodeError | None = None
+    for encoding in dict.fromkeys([charset, "utf-8", "latin-1"]):
+        try:
+            text = payload.decode(encoding)
+        except UnicodeDecodeError as exc:
+            last_decode_error = exc
+            continue
+        if not text.strip():
+            continue
+        if is_challenge_page(text):
+            raise PublisherTransportError(
+                "CHALLENGE",
+                "publisher returned an anti-bot challenge page",
+            )
+        return text
+
+    if last_decode_error is not None:
+        raise PublisherTransportError(
+            "DECODE_FAILURE",
+            "publisher response could not be decoded with supported encodings",
+        ) from last_decode_error
+    raise PublisherTransportError(
+        "DECODE_FAILURE",
+        "publisher returned an empty response body",
+    )
 
 
 def is_challenge_page(text: str) -> bool:
@@ -626,9 +714,18 @@ def jhr_article_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
 
 def jare_rest_blocks(payload_text: str) -> list[dict[str, Any]]:
     """Parse JARE's first-party WordPress REST preprint objects."""
-    payload = json.loads(payload_text)
+    try:
+        payload = json.loads(payload_text)
+    except json.JSONDecodeError as exc:
+        raise PublisherTransportError(
+            "PARSER_FAILURE",
+            "JARE REST returned invalid JSON",
+        ) from exc
     if not isinstance(payload, list):
-        raise ValueError("JARE REST payload is not a list")
+        raise PublisherTransportError(
+            "PARSER_FAILURE",
+            "JARE REST payload is not a list",
+        )
 
     blocks: list[dict[str, Any]] = []
     seen: set[str] = set()
@@ -824,19 +921,36 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
     page_url = target["url"]
     if target["kind"] == "jare_rest":
         acquisition = "wordpress-rest"
+        rest_outcome = "SUCCESS"
         try:
             payload_text = fetch_toc_text(page_url, timeout=timeout)
             blocks = jare_rest_blocks(payload_text)
             if not blocks:
-                raise ValueError("JARE REST returned no usable preprints")
+                raise PublisherTransportError(
+                    "VALID_EMPTY",
+                    "JARE REST returned a valid empty preprint list",
+                )
         except Exception as rest_error:
+            rest_outcome = classify_transport_error(rest_error)
             fallback_url = str(target.get("html_fallback_url") or "")
             if not fallback_url:
                 raise
-            html_text = fetch_toc_text(fallback_url, timeout=timeout)
+            try:
+                html_text = fetch_toc_text(fallback_url, timeout=timeout)
+            except Exception as html_error:
+                raise PublisherTransportError(
+                    classify_transport_error(html_error),
+                    (
+                        "JARE HTML fallback transport failed after REST "
+                        f"{rest_outcome}: {normalized_transport_message(html_error)}"
+                    ),
+                ) from html_error
             blocks = jare_advance_blocks(html_text, fallback_url)
             if not blocks:
-                raise rest_error
+                raise PublisherTransportError(
+                    "PARSER_FAILURE",
+                    f"JARE HTML fallback returned no parseable articles after REST {rest_outcome}",
+                )
             acquisition = "html-fallback"
 
         records: list[dict] = []
@@ -845,6 +959,7 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
             raw_data = {
                 "priority_toc_kind": target["kind"],
                 "jare_acquisition": acquisition,
+                "jare_rest_outcome": rest_outcome,
             }
             if block.get("rest_id") is not None:
                 raw_data["jare_rest_id"] = block["rest_id"]
@@ -1014,7 +1129,7 @@ def fetch_target_with_fallback(
     timeout: int,
     detail_limit: int,
     max_items: int,
-) -> tuple[list[dict], int, bool, list[str], bool]:
+) -> tuple[list[dict], int, bool, list[str], bool, str]:
     """Fetch one target without allowing it to block its sibling targets."""
     label = f"{journal.get('id')}/{target['kind']}"
     publisher_attempts = max(1, int(target.get("publisher_attempts") or 1))
@@ -1029,7 +1144,7 @@ def fetch_target_with_fallback(
                 max_items=max_items,
             )
             if fetched:
-                return fetched, 0, True, [f"{label}: {len(fetched)}"], False
+                return fetched, 0, True, [f"{label}: {len(fetched)}"], False, "SUCCESS"
             fallback = fetch_crossref_fallback(
                 journal, target, timeout=timeout, max_items=max_items
             )
@@ -1037,8 +1152,12 @@ def fetch_target_with_fallback(
                 fallback,
                 len(fallback),
                 False,
-                [f"{label}: 0", f"{label}: crossref fallback {len(fallback)}"],
+                [
+                    f"{label}: VALID_EMPTY",
+                    f"{label}: crossref fallback {len(fallback)}",
+                ],
                 not fallback,
+                "VALID_EMPTY",
             )
         except Exception as exc:  # noqa: BLE001 - bounded source retry before fallback.
             last_error = exc
@@ -1047,22 +1166,26 @@ def fetch_target_with_fallback(
                 continue
             break
     exc = last_error or RuntimeError("publisher fetch failed without an exception")
+    outcome = classify_transport_error(exc)
     try:
         fallback = fetch_crossref_fallback(
             journal, target, timeout=timeout, max_items=max_items
         )
-        fallback_message = f"{label}: {type(exc).__name__}; crossref fallback {len(fallback)}"
-        return fallback, len(fallback), False, [fallback_message], not fallback
+        fallback_message = (
+            f"{label}: {outcome}; crossref fallback {len(fallback)}"
+        )
+        return fallback, len(fallback), False, [fallback_message], not fallback, outcome
     except Exception as fallback_exc:  # noqa: BLE001 - preserve both errors.
+        fallback_outcome = classify_transport_error(fallback_exc)
         return (
             [],
             0,
             False,
             [
-                f"{label}: {type(exc).__name__}; crossref fallback "
-                f"{type(fallback_exc).__name__}: {fallback_exc}"
+                f"{label}: {outcome}; crossref fallback {fallback_outcome}"
             ],
             True,
+            outcome,
         )
 
 
@@ -1116,16 +1239,24 @@ def main() -> None:
         per_journal: dict[str, dict[str, Any]] = {}
         for future in as_completed(jobs):
             journal_id, _journal, target = jobs[future]
-            fetched, fallback_count, publisher_success, result_messages, failed = future.result()
+            fetched, fallback_count, publisher_success, result_messages, failed, outcome = future.result()
             records.extend(fetched)
             state = per_journal.setdefault(
                 journal_id,
-                {"count": 0, "fallback_count": 0, "publisher_ok": False, "failed": 0},
+                {
+                    "count": 0,
+                    "fallback_count": 0,
+                    "publisher_ok": False,
+                    "failed": 0,
+                    "outcomes": [],
+                },
             )
             state["count"] += len(fetched)
             state["fallback_count"] += fallback_count
             state["publisher_ok"] = bool(state["publisher_ok"] or publisher_success)
             state["failed"] += int(failed)
+            if outcome not in state["outcomes"]:
+                state["outcomes"].append(outcome)
             messages.extend(result_messages)
 
         for journal_id in selected_journals:
@@ -1140,6 +1271,7 @@ def main() -> None:
                 "count": state["count"],
                 "publisher_ok": state["publisher_ok"],
                 "fallback_count": state["fallback_count"],
+                "outcomes": list(state["outcomes"]),
             }
 
     write_json(output, records)
