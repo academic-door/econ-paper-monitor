@@ -195,6 +195,23 @@ class JareAdvanceSourceTests(unittest.TestCase):
 
         self.assertEqual(caught.exception.outcome, "CHALLENGE")
 
+    def test_decision_0018_transport_taxonomy_is_complete(self) -> None:
+        self.assertEqual(
+            fetch_priority_toc.TRANSPORT_OUTCOMES,
+            {
+                "SUCCESS",
+                "VALID_EMPTY",
+                "HTTP_BLOCK",
+                "CHALLENGE",
+                "AUTH_REQUIRED",
+                "RATE_LIMITED",
+                "DECODE_FAILURE",
+                "PARSER_FAILURE",
+                "NETWORK_FAILURE",
+                "HUMAN_INTERVENTION_REQUIRED",
+            },
+        )
+
     def test_transport_classifier_maps_http_and_network_failures(self) -> None:
         http_error = fetch_priority_toc.urllib.error.HTTPError
         self.assertEqual(
