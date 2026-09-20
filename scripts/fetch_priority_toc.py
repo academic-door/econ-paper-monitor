@@ -237,8 +237,10 @@ TARGETS = {
         "date_confidence": "B",
     }],
     "journal-of-agricultural-and-resource-economics": [{
-        "kind": "jare_advance",
-        "url": "https://jareonline.org/preprint-online/",
+        "kind": "jare_rest",
+        "url": "https://jareonline.org/wp-json/wp/v2/preprints2022?per_page=100&_fields=id,title,acf,link,content",
+        "source_url": "https://jareonline.org/preprint-online/",
+        "html_fallback_url": "https://jareonline.org/preprint-online/",
         "publisher_attempts": 3,
         "date_source": "jare_published_online",
         "date_confidence": "B",
@@ -622,6 +624,47 @@ def jhr_article_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
     return blocks
 
 
+def jare_rest_blocks(payload_text: str) -> list[dict[str, Any]]:
+    """Parse JARE's first-party WordPress REST preprint objects."""
+    payload = json.loads(payload_text)
+    if not isinstance(payload, list):
+        raise ValueError("JARE REST payload is not a list")
+
+    blocks: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for item in payload:
+        if not isinstance(item, dict):
+            continue
+        acf = item.get("acf") if isinstance(item.get("acf"), dict) else {}
+        title_obj = item.get("title") if isinstance(item.get("title"), dict) else {}
+        content_obj = item.get("content") if isinstance(item.get("content"), dict) else {}
+        title = clean_text(str(acf.get("preprint_title") or title_obj.get("rendered") or ""))
+        url = str(acf.get("ppdirect_pdf_link") or item.get("link") or "").strip()
+        if not title or len(title) < 8 or not url or url in seen:
+            continue
+        seen.add(url)
+
+        authors = [
+            clean_text(author).strip(" ,")
+            for author in str(acf.get("ppauthor") or "").split(";")
+        ]
+        authors = [author for author in authors if author][:12]
+        published = parse_date(str(acf.get("ppissue_date") or ""))
+        abstract = clean_text(
+            str(acf.get("ppabstract") or content_obj.get("rendered") or "")
+        )
+        blocks.append({
+            "url": url,
+            "title": title,
+            "authors": authors,
+            "published_online": published,
+            "abstract": abstract or None,
+            "doi": None,
+            "rest_id": item.get("id"),
+        })
+    return blocks
+
+
 def jare_advance_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
     """Parse official JARE Published Online cards without fetching the PDF host."""
     pattern = re.compile(
@@ -779,6 +822,53 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
 
 def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_limit: int, max_items: int) -> list[dict]:
     page_url = target["url"]
+    if target["kind"] == "jare_rest":
+        acquisition = "wordpress-rest"
+        try:
+            payload_text = fetch_toc_text(page_url, timeout=timeout)
+            blocks = jare_rest_blocks(payload_text)
+            if not blocks:
+                raise ValueError("JARE REST returned no usable preprints")
+        except Exception as rest_error:
+            fallback_url = str(target.get("html_fallback_url") or "")
+            if not fallback_url:
+                raise
+            html_text = fetch_toc_text(fallback_url, timeout=timeout)
+            blocks = jare_advance_blocks(html_text, fallback_url)
+            if not blocks:
+                raise rest_error
+            acquisition = "html-fallback"
+
+        records: list[dict] = []
+        source_url = str(target.get("source_url") or page_url)
+        for block in blocks:
+            raw_data = {
+                "priority_toc_kind": target["kind"],
+                "jare_acquisition": acquisition,
+            }
+            if block.get("rest_id") is not None:
+                raw_data["jare_rest_id"] = block["rest_id"]
+            records.append(
+                article_record(
+                    journal,
+                    title=block["title"],
+                    url=block["url"],
+                    source="priority_toc",
+                    source_url=source_url,
+                    doi=block["doi"],
+                    authors=block["authors"],
+                    abstract=block["abstract"],
+                    published_online=block["published_online"],
+                    available_online=block["published_online"],
+                    date_source=target["date_source"],
+                    date_confidence=target["date_confidence"],
+                    raw_data=raw_data,
+                )
+            )
+            if len(records) >= max_items:
+                break
+        return records
+
     html_text = fetch_toc_text(page_url, timeout=timeout, fallback_urls=target.get("fallback_urls"))
     if target["kind"].startswith("jhr_"):
         records: list[dict] = []

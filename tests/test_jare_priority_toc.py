@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -31,13 +32,38 @@ JARE_HTML = """
   <div class="elementor-widget-container">Download Full Article</div>
 </div>
 """
+JARE_REST = json.dumps([
+    {
+        "id": 3232,
+        "link": "https://jareonline.org/preprints2022/buffering-supply-shocks/",
+        "title": {
+            "rendered": "Buffering Supply Shocks in Successive Oligopoly: Market Power and Welfare Implications"
+        },
+        "content": {
+            "rendered": "<p>Fallback abstract text.</p>",
+        },
+        "acf": {
+            "preprint_title": "Buffering Supply Shocks in Successive Oligopoly: Market Power and Welfare Implications",
+            "ppabstract": "We investigate the welfare consequences of supply shocks in concentrated agricultural supply chains.",
+            "ppauthor": "Kim, Youngjune; , Tian Xia; Pendell, Dustin L.",
+            "ppissue_date": "9/15/2026",
+            "pprecordnum": 393803,
+            "ppdirect_pdf_link": "https://ageconsearch.umn.edu/record/393803/files/Kim_preprint.pdf",
+        },
+    }
+])
 
 
 class JareAdvanceSourceTests(unittest.TestCase):
-    def test_jare_official_advance_target_is_configured(self) -> None:
+    def test_jare_official_rest_target_is_configured_with_html_fallback(self) -> None:
         target = fetch_priority_toc.TARGETS[JARE_ID][0]
-        self.assertEqual(target["kind"], "jare_advance")
-        self.assertEqual(target["url"], "https://jareonline.org/preprint-online/")
+        self.assertEqual(target["kind"], "jare_rest")
+        self.assertEqual(
+            target["url"],
+            "https://jareonline.org/wp-json/wp/v2/preprints2022?per_page=100&_fields=id,title,acf,link,content",
+        )
+        self.assertEqual(target["source_url"], "https://jareonline.org/preprint-online/")
+        self.assertEqual(target["html_fallback_url"], "https://jareonline.org/preprint-online/")
         self.assertEqual(target.get("publisher_attempts"), 3)
         self.assertIsNone(target.get("fallback_issn"))
 
@@ -48,9 +74,29 @@ class JareAdvanceSourceTests(unittest.TestCase):
         challenge = (
             '<html><head><link rel="icon" href="data:;">'
             '<meta http-equiv="refresh" content="0;/.well-known/sgcaptcha/?r=%2Fpreprint-online%2F&y=ipr:9.234.149.177:1788946938.997">'
-            '</meta></head></html>'
+            "</meta></head></html>"
         )
         self.assertTrue(fetch_priority_toc.is_challenge_page(challenge))
+
+    def test_jare_rest_extracts_structured_first_party_fields(self) -> None:
+        blocks = fetch_priority_toc.jare_rest_blocks(JARE_REST)
+        self.assertEqual(len(blocks), 1)
+        block = blocks[0]
+        self.assertEqual(
+            block["title"],
+            "Buffering Supply Shocks in Successive Oligopoly: Market Power and Welfare Implications",
+        )
+        self.assertEqual(
+            block["url"],
+            "https://ageconsearch.umn.edu/record/393803/files/Kim_preprint.pdf",
+        )
+        self.assertEqual(
+            block["authors"],
+            ["Kim, Youngjune", "Tian Xia", "Pendell, Dustin L."],
+        )
+        self.assertEqual(block["published_online"], "2026-09-15")
+        self.assertIn("welfare consequences", block["abstract"].casefold())
+        self.assertEqual(block["rest_id"], 3232)
 
     def test_jare_advance_card_extracts_title_authors_date_abstract_and_pdf(self) -> None:
         blocks = fetch_priority_toc.jare_advance_blocks(
@@ -74,19 +120,13 @@ class JareAdvanceSourceTests(unittest.TestCase):
         self.assertEqual(block["published_online"], "2026-08-24")
         self.assertIn("willingness to pay", block["abstract"].casefold())
 
-    def test_fetch_target_uses_official_jare_card_without_detail_fetch(self) -> None:
+    def test_fetch_target_prefers_rest_and_preserves_public_source_url(self) -> None:
         journal = {
             "id": JARE_ID,
             "title": "Journal of Agricultural and Resource Economics",
         }
-        target = {
-            "kind": "jare_advance",
-            "url": "https://jareonline.org/preprint-online/",
-            "date_source": "jare_published_online",
-            "date_confidence": "B",
-        }
-        with mock.patch.object(fetch_priority_toc, "fetch_toc_text", return_value=JARE_HTML), \
-                mock.patch.object(fetch_priority_toc, "enrich_detail") as enrich_detail:
+        target = fetch_priority_toc.TARGETS[JARE_ID][0]
+        with mock.patch.object(fetch_priority_toc, "fetch_toc_text", return_value=JARE_REST) as fetch:
             records = fetch_priority_toc.fetch_target(
                 journal,
                 target,
@@ -95,17 +135,46 @@ class JareAdvanceSourceTests(unittest.TestCase):
                 max_items=10,
             )
 
+        self.assertEqual(fetch.call_count, 1)
         self.assertEqual(len(records), 1)
-        enrich_detail.assert_not_called()
         record = records[0]
         self.assertEqual(record["source"], "priority_toc")
         self.assertEqual(record["source_url"], "https://jareonline.org/preprint-online/")
-        self.assertEqual(record["published_online"], "2026-08-24")
+        self.assertEqual(record["published_online"], "2026-09-15")
         self.assertEqual(record["date_source"], "jare_published_online")
-        self.assertEqual(record["raw_data"]["priority_toc_kind"], "jare_advance")
+        self.assertEqual(record["raw_data"]["priority_toc_kind"], "jare_rest")
+        self.assertEqual(record["raw_data"]["jare_acquisition"], "wordpress-rest")
+        self.assertEqual(record["raw_data"]["jare_rest_id"], 3232)
         self.assertIsNone(record.get("doi"))
 
-    def test_jare_target_retries_transient_publisher_failure_before_fallback(self) -> None:
+    def test_fetch_target_falls_back_to_official_html_when_rest_is_unavailable(self) -> None:
+        journal = {
+            "id": JARE_ID,
+            "title": "Journal of Agricultural and Resource Economics",
+        }
+        target = fetch_priority_toc.TARGETS[JARE_ID][0]
+        with mock.patch.object(
+            fetch_priority_toc,
+            "fetch_toc_text",
+            side_effect=[ValueError("REST unavailable"), JARE_HTML],
+        ) as fetch:
+            records = fetch_priority_toc.fetch_target(
+                journal,
+                target,
+                timeout=5,
+                detail_limit=12,
+                max_items=10,
+            )
+
+        self.assertEqual(fetch.call_count, 2)
+        self.assertEqual(len(records), 1)
+        record = records[0]
+        self.assertEqual(record["source_url"], "https://jareonline.org/preprint-online/")
+        self.assertEqual(record["raw_data"]["jare_acquisition"], "html-fallback")
+        self.assertEqual(record["raw_data"]["priority_toc_kind"], "jare_rest")
+        self.assertEqual(record["published_online"], "2026-08-24")
+
+    def test_jare_target_retries_transient_publisher_failure_before_crossref_fallback(self) -> None:
         journal = {"id": JARE_ID, "title": "Journal of Agricultural and Resource Economics"}
         target = fetch_priority_toc.TARGETS[JARE_ID][0]
         records = [{"title": "Recovered live record"}]
