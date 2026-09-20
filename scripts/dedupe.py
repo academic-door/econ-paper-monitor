@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 import re
 
-from common import DATA_DIR, normalize_doi, normalized_url_identity_keys, read_json, stable_id, today_str, write_json
+from common import BEIJING_TZ, DATA_DIR, normalize_doi, normalized_url_identity_keys, read_json, stable_id, today_str, write_json
 from artifact_paths import repo_relative_path
 from status import record_run, record_source
 
@@ -180,6 +181,20 @@ def valid_iso_date(value: Any) -> str | None:
     if re.fullmatch(r"20\d{2}-\d{2}-\d{2}", text):
         return text
     return None
+
+
+def discovery_date_for_run(value: Any) -> str:
+    """Resolve a discovery timestamp to the Beijing calendar used by Daily."""
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    try:
+        stamp = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        return text[:10]
+    if stamp.tzinfo is None:
+        return text[:10]
+    return stamp.astimezone(BEIJING_TZ).date().isoformat()
 
 
 def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | None:
@@ -713,15 +728,15 @@ def main() -> None:
                 # archive and forces remove_seen_backflow to move it out again,
                 # leaving the bucket empty and tripping ingestion gates at
                 # month boundaries (issue-dated papers from a new volume).
-                seen_first = str((seen_entry or {}).get('first_seen') or '')[:10]
-                is_backflow = bool(seen_first and seen_first < args.date)
-                same_run_seen = seen_first == args.date
                 canonical_first_seen = str(
                     (seen_entry or {}).get("first_seen")
                     or (seen_entry or {}).get("first_seen_at")
                     or (seen_entry or {}).get("detected_at")
                     or ""
                 )
+                seen_first = discovery_date_for_run(canonical_first_seen)
+                is_backflow = bool(seen_first and seen_first < args.date)
+                same_run_seen = seen_first == args.date
                 if not is_backflow and ensure_daily_archive(
                     args.daily_dir,
                     record,
