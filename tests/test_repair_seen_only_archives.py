@@ -137,6 +137,8 @@ def test_sparse_seen_formal_journal_uses_registry_identity(tmp_path: Path):
     assert report["changed_files"] == ["2026-09-01.json"]
     archived = json.loads((data_dir / "daily" / "2026-09-01.json").read_text(encoding="utf-8"))
     assert archived[0]["doi"] == "10.1257/aer.20240579"
+    assert archived[0]["source_type"] == "journal"
+    assert archived[0]["journal_id"] == "american-economic-review"
 
 
 def test_sparse_nonformal_seen_record_is_not_promoted(tmp_path: Path):
