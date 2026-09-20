@@ -79,7 +79,7 @@ def test_same_run_crossref_enrichment_can_archive_to_official_history_date(tmp_p
         source="crossref",
         available_online="2026-09-01",
         published_online="2026-09-01",
-        first_seen="2026-09-20T06:43:48+00:00",
+        first_seen="2026-09-20T06:54:41+00:00",
     )
 
     changed = ensure_daily_archive(
@@ -87,12 +87,14 @@ def test_same_run_crossref_enrichment_can_archive_to_official_history_date(tmp_p
         record,
         "2026-09-20",
         allow_same_run_journal_sources=True,
+        canonical_first_seen="2026-09-20T06:43:48+00:00",
     )
 
     assert changed is True
     assert not (data_dir / "daily" / "2026-09-20.json").exists()
     archived = json.loads((data_dir / "daily" / "2026-09-01.json").read_text(encoding="utf-8"))
     assert [item["doi"] for item in archived] == ["10.1257/aer.20240579"]
+    assert archived[0]["first_seen"] == "2026-09-20T06:43:48+00:00"
 
 
 def test_crossref_archive_stays_disabled_without_same_run_permission(tmp_path: Path):
