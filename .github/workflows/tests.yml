@@ -43,6 +43,8 @@ jobs:
           python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output docs/daily-vnext/index.html --report "$RUNNER_TEMP/daily-vnext-report.json"
       - name: Run regression tests
         run: python -m pytest -q
+      - name: Test independent scheduler liveness
+        run: node --test tests/test_monitor_liveness.mjs
       - name: Build and validate Daily Door vNext
         shell: bash
         run: |
