@@ -70,7 +70,9 @@ class MonitorCadenceContractTests(unittest.TestCase):
 
     def test_ai_enrichment_is_independent_and_explicitly_uses_v4_flash(self) -> None:
         text = (ROOT / ".github" / "workflows" / "ai-enrichment.yml").read_text(encoding="utf-8")
-        self.assertIn('cron: "15 5,11,17,23 * * *"', text)
+        self.assertIn('cron: "5 4,10,16,22 * * *"', text)
+        self.assertIn("state=peak_deferred", text)
+        self.assertIn("GITHUB_STEP_SUMMARY", text)
         self.assertIn("DEEPSEEK_MODEL: deepseek-v4-flash", text)
         self.assertIn("scripts/translate.py", text)
         self.assertIn("scripts/ai_china_relevance.py", text)
