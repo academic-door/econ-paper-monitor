@@ -439,7 +439,8 @@ async function checkGsapFallback(browser) {
       }),
     );
   }
-  await page.goto(root, { waitUntil: "networkidle", timeout: 60000 });
+  const navigationWaitUntil = isLocal ? "networkidle" : "domcontentloaded";
+  await page.goto(root, { waitUntil: navigationWaitUntil, timeout: 60000 });
   await page.waitForTimeout(500);
   assert.ok(await page.locator('.hero h1').isVisible(), "Homepage fallback hid Hero title");
   assert.ok(await page.locator('.hero-lede').isVisible(), "Homepage fallback hid Hero lede");
