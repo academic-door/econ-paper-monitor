@@ -96,6 +96,22 @@ def main() -> None:
                 historical_reason = "historical CEPR catalogue item without a current online date"
             elif (
                 isinstance(record, dict)
+                and is_historical_working_paper(
+                    record,
+                    run_date=path.stem,
+                    max_age_days=args.max_age_days,
+                )
+            ):
+                # A working-paper source can rediscover an old catalogue page
+                # after parser/source recovery. Preserve first_seen in pending /
+                # seen history, but do not let that recovery event redefine the
+                # old paper as today's research.
+                historical_reason = (
+                    "working-paper catalogue item has an official date older "
+                    "than the public discovery window"
+                )
+            elif (
+                isinstance(record, dict)
                 and not has_first_discovery_anchor(record, path.stem)
                 and is_historical_record(record, run_date=path.stem, max_age_days=args.max_age_days)
             ):
