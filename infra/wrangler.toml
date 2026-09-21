@@ -9,3 +9,6 @@ class_name = "PresenceRoom"
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = ["PresenceRoom"]
+
+[triggers]
+crons = ["*/15 * * * *"]
