@@ -41,6 +41,7 @@ _SOURCE_RULES: tuple[tuple[str, str, str], ...] = (
     ("elsevier_article_api", "出版社 API", OFFICIAL),
     ("world_bank_detail_api", "出版社 API", OFFICIAL),
     ("aea_forthcoming", "AEA 待刊列表", OFFICIAL),
+    ("cepr_published_time", "CEPR 页面", OFFICIAL),
     ("iza_detail_month", "出版社页面", ISSUE),
     ("crossref_issue", "Crossref 卷期", ISSUE),
     ("crossref", "Crossref", REGISTRY),
