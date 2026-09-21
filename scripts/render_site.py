@@ -383,6 +383,20 @@ def is_public_china_related(record: dict[str, Any]) -> bool:
     return is_china_related(record) and has_public_title(record)
 
 
+def search_catalog_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Deduplicate public search records without dropping duplicate China evidence."""
+    public = public_records(records)
+    china_keys = {display_key(record) for record in public if is_public_china_related(record)}
+    projected: list[dict[str, Any]] = []
+    for record in unique_records(public):
+        if display_key(record) in china_keys and not is_china_related(record):
+            record = dict(record)
+            record["china_related"] = True
+            record["china_related_source"] = "duplicate_projection"
+        projected.append(record)
+    return projected
+
+
 def is_working_paper(record: dict[str, Any]) -> bool:
     source_type = str(record.get("source_type") or "")
     return str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}
@@ -2135,7 +2149,7 @@ def lazy_list_markup(
 
 
 def register_lazy_dataset(scope: str, records: list[dict[str, Any]], extra_class: str = "") -> str:
-    public = unique_records(public_records(records))
+    public = search_catalog_records(records) if scope == "search" else unique_records(public_records(records))
     keys = [detail_key(record) for record in public if detail_key(record)]
     dataset_id = hashlib.sha256((extra_class + "\n" + "\n".join(keys)).encode("utf-8")).hexdigest()[:16]
     LAZY_DATASETS.setdefault(dataset_id, (public, extra_class))
@@ -2284,7 +2298,7 @@ def write_lazy_indexes(docs_dir: Path) -> None:
 
 
 def search_body(records: list[dict[str, Any]]) -> str:
-    searchable = unique_records(public_records(records))
+    searchable = search_catalog_records(records)
     journal_records = [record for record in searchable if not is_working_paper(record)]
     wp_records = [record for record in searchable if is_working_paper(record)]
     return f"""<section class="section-head">
