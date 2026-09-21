@@ -145,7 +145,11 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     today_date = date.fromisoformat(today)
     historical = []
     for record in daily:
-        historical_cepr = is_historical_cepr(record)
+        historical_cepr = is_historical_cepr(
+            record,
+            run_date=today,
+            max_age_days=args.max_historical_days,
+        )
         historical_by_date = (
             not has_first_discovery_anchor(record, today)
             and is_historical_record(
