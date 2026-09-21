@@ -289,6 +289,21 @@ def translate_daily_file(
     return result
 
 
+
+def translation_outcome(
+    *,
+    title_attempted: int,
+    abstract_attempted: int,
+    changed: int,
+    peak_deferred: int,
+) -> str:
+    """Classify one translation pass without treating cost deferral as completion."""
+    if title_attempted or abstract_attempted or changed:
+        return "enriched"
+    if peak_deferred:
+        return "peak_deferred"
+    return "no_work"
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
@@ -366,12 +381,30 @@ def main() -> None:
         total_peak_deferred += peak_deferred
     if not args.dry_run:
         write_json(CACHE_PATH, cache)
+    outcome = translation_outcome(
+        title_attempted=total_title_attempted,
+        abstract_attempted=total_abstract_attempted,
+        changed=total_changed,
+        peak_deferred=total_peak_deferred,
+    )
     message = (
-        f"title_attempted={total_title_attempted} abstract_attempted={total_abstract_attempted} "
-        f"changed={total_changed} title_cached={total_title_cached} abstract_cached={total_abstract_cached} "
+        f"outcome={outcome} title_attempted={total_title_attempted} "
+        f"abstract_attempted={total_abstract_attempted} changed={total_changed} "
+        f"title_cached={total_title_cached} abstract_cached={total_abstract_cached} "
         f"peak_deferred={total_peak_deferred}"
     )
-    record_source("translation", ok=True, count=total_changed, message=message)
+    record_source(
+        "translation",
+        ok=True,
+        count=total_changed,
+        message=message,
+        details={
+            "outcome": outcome,
+            "title_attempted": total_title_attempted,
+            "abstract_attempted": total_abstract_attempted,
+            "peak_deferred": total_peak_deferred,
+        },
+    )
     print(f"translation {message}")
 
 
