@@ -1,9 +1,7 @@
 {
-  "categories": {
-    "needs_investigation": 1
-  },
-  "checked_at": "2026-09-21T14:24:39.974502+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-09-21T15:18:37.289956+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -19,38 +17,12 @@
       "category": "page_structure_change",
       "sample_error": "feeds=32/45; Journal of International Economics: 32 via official-generated; Journal of Finance: 38 via official-generated; Journal of Financial Economics: 22 via official-generated; Review of Financia",
       "source": "rss"
-    },
-    {
-      "category": "permanently_unavailable",
-      "sample_error": "HTTPError: HTTP Error 403: Forbidden",
-      "source": "working-paper:cepr-dp"
-    },
-    {
-      "category": "permanently_unavailable",
-      "sample_error": "partial_success failures=1; nber: 29 via nber-number-scan; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: HTTPError: HTTP Error 403: Forbidden",
-      "source": "working-papers"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "review-of-economic-design/springer_online_first: PARSER_FAILURE; review-of-economic-design/springer_online_first: crossref fallback 2; public-choice/springer_online_first: PARSER_FAILURE; public-choic",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 3
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }
