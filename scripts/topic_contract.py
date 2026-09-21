@@ -127,16 +127,15 @@ def _explicit_topic_keys(record: dict[str, Any]) -> list[str]:
 
 
 def _text_topic_keys(record: dict[str, Any]) -> list[str]:
-    haystack = " ".join(
-        str(value or "")
-        for value in (
-            record.get("title"),
-            record.get("title_zh"),
-            record.get("abstract"),
-            record.get("abstract_zh"),
-            record.get("journal"),
-        )
-    ).casefold()
+    values = [
+        record.get("title"),
+        record.get("title_zh"),
+        record.get("abstract"),
+        record.get("abstract_zh"),
+    ]
+    if not is_working_paper_record(record):
+        values.append(record.get("journal"))
+    haystack = " ".join(str(value or "") for value in values).casefold()
     return [
         topic
         for topic, keywords in TOPIC_RULES.items()
