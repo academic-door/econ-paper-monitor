@@ -422,6 +422,22 @@ async function checkGsapFallback(browser) {
   await page.route("**/gsap.min.js", (route) => route.abort());
   await page.route("**/ScrollTrigger.min.js", (route) => route.abort());
   await page.route("**/Flip.min.js", (route) => route.abort());
+  if (isLocal) {
+    await page.route("https://econ-paper-monitor-presence.academic-door.workers.dev/monitor-liveness", (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          schema_version: 1,
+          ok: false,
+          state: "stale",
+          checked_at: "2026-09-21T12:00:00Z",
+          stale_workflows: ["Monitor Watchdog"],
+          workflows: {},
+        }),
+      }),
+    );
+  }
   await page.goto(root, { waitUntil: "networkidle", timeout: 60000 });
   await page.waitForTimeout(500);
   assert.ok(await page.locator('.hero h1').isVisible(), "Homepage fallback hid Hero title");
