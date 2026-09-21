@@ -39,3 +39,23 @@ def test_multiword_topic_rule_keeps_phrase_matching() -> None:
         "fields": [],
     }
     assert "agriculture" in article_topics(record)
+
+
+def test_agriculture_stem_still_matches_agricultural_words() -> None:
+    record = {
+        "title": "Agricultural Productivity and Rural Development",
+        "abstract": "",
+        "journal": "Working Paper",
+        "fields": [],
+    }
+    assert "agriculture" in article_topics(record)
+
+
+def test_firm_stem_still_matches_plural_firms() -> None:
+    record = {
+        "title": "Firms and Innovation",
+        "abstract": "",
+        "journal": "Working Paper",
+        "fields": [],
+    }
+    assert "firms" in article_topics(record)
