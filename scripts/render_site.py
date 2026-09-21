@@ -114,10 +114,6 @@ TOPIC_RULES = {
     "history": ["history", "historical", "nineteenth", "twentieth"],
 }
 
-TOPIC_PATTERNS = {
-    topic: [re.compile(r"(?<![a-z0-9])" + re.escape(keyword)) for keyword in keywords]
-    for topic, keywords in TOPIC_RULES.items()
-}
 
 STYLE = """
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
@@ -498,6 +494,18 @@ def source_type_value(record: dict[str, Any]) -> str:
     return "journal_article" if source_type in {"journal", "journal_article"} else source_type
 
 
+def topic_keyword_matches(haystack: str, keyword: str) -> bool:
+    """Match at an ASCII word start while preserving configured stem prefixes."""
+    start = 0
+    while True:
+        index = haystack.find(keyword, start)
+        if index < 0:
+            return False
+        if index == 0 or not ("a" <= haystack[index - 1] <= "z" or "0" <= haystack[index - 1] <= "9"):
+            return True
+        start = index + 1
+
+
 def article_topics(record: dict[str, Any]) -> list[str]:
     haystack = " ".join(
         str(value or "")
@@ -507,8 +515,8 @@ def article_topics(record: dict[str, Any]) -> list[str]:
     fields = [str(field) for field in record.get("fields", []) or []]
     if is_china_related(record) or "china" in fields:
         topics.append("china")
-    for topic, patterns in TOPIC_PATTERNS.items():
-        if any(pattern.search(haystack) for pattern in patterns):
+    for topic, keywords in TOPIC_RULES.items():
+        if any(topic_keyword_matches(haystack, keyword) for keyword in keywords):
             topics.append(topic)
     if topics:
         return list(dict.fromkeys(topics))[:4]
