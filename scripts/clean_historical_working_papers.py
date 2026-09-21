@@ -34,7 +34,7 @@ def is_historical_cepr(record: dict[str, Any]) -> bool:
     if str(record.get("source_id") or "") != "cepr-dp":
         return False
     match = CEPR_NUMBER.search(str(record.get("url") or ""))
-    return bool(match and int(match.group(1)) < 10000)
+    return bool(match and int(match.group(1)) < 20000)
 
 
 def has_first_discovery_anchor(record: dict[str, Any], bucket_date: str) -> bool:
@@ -93,23 +93,7 @@ def main() -> None:
         for record in payload:
             historical_reason = None
             if isinstance(record, dict) and is_historical_cepr(record):
-                historical_reason = "historical CEPR catalogue item without a current online date"
-            elif (
-                isinstance(record, dict)
-                and is_historical_working_paper(
-                    record,
-                    run_date=path.stem,
-                    max_age_days=args.max_age_days,
-                )
-            ):
-                # A working-paper source can rediscover an old catalogue page
-                # after parser/source recovery. Preserve first_seen in pending /
-                # seen history, but do not let that recovery event redefine the
-                # old paper as today's research.
-                historical_reason = (
-                    "working-paper catalogue item has an official date older "
-                    "than the public discovery window"
-                )
+                historical_reason = "historical CEPR legacy-catalogue item outside the current series window"
             elif (
                 isinstance(record, dict)
                 and not has_first_discovery_anchor(record, path.stem)
