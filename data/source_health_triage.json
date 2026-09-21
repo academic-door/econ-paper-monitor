@@ -1,7 +1,9 @@
 {
-  "categories": {},
-  "checked_at": "2026-09-21T15:18:37.289956+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-09-21T17:02:18.966779+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -19,10 +21,26 @@
       "source": "rss"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "economic-theory/springer_online_first: PARSER_FAILURE; economic-theory/springer_online_first: crossref fallback 5; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internati",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 3
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
