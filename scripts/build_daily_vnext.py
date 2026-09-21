@@ -170,7 +170,6 @@ def search_text(record: dict, labels: list[str]) -> str:
     values = [record.get(key) for key in ("title", "title_zh", "journal", "source", "doi", "url")]
     values.extend(author_values(record))
     values.extend(labels)
-    values.extend(str(item) for item in (record.get("fields") or []) if item)
     values.append("true" if is_china_related(record) else "false")
     return " ".join(str(value or "") for value in values).lower()
 
