@@ -880,6 +880,8 @@ def date_source_label(record: dict[str, Any]) -> str:
         return "PDF"
     if date_source == "tandf_issue_date_fallback":
         return "T&F 备选日期"
+    if date_source == "cepr_published_time":
+        return "CEPR 页面"
     if source == "cnki-rss" or date_source.startswith("cnki_rss"):
         return "CNKI RSS"
     if "publisher" in date_source or "detail" in date_source:
