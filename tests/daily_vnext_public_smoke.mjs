@@ -131,12 +131,33 @@ async function checkPage(browser, url) {
   const errors = [];
   const page = await browser.newPage(pageOptions);
   page.on("pageerror", (error) => errors.push(String(error)));
+  if (isLocal) {
+    await page.route("https://econ-paper-monitor-presence.academic-door.workers.dev/monitor-liveness", (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          schema_version: 1,
+          ok: false,
+          state: "stale",
+          checked_at: "2026-09-21T12:00:00Z",
+          stale_workflows: ["Monitor Watchdog"],
+          workflows: {},
+        }),
+      }),
+    );
+  }
   await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
   await page.waitForTimeout(2400);
   assert.equal(errors.length, 0, `${url} page errors: ${errors.join(" | ")}`);
   assert.ok(await page.locator('.hero h1').isVisible(), `${url} Hero title is not visible`);
   assert.ok(await page.locator('.hero-lede').isVisible(), `${url} Hero lede is not visible`);
   assert.ok((await page.locator('.hero-total').count()) >= 1);
+  if (isLocal) {
+    const runtimeAlert = page.locator('[data-monitor-liveness]');
+    await runtimeAlert.waitFor({ state: "visible" });
+    assert.match(await runtimeAlert.innerText(), /Monitor Watchdog/, `${url} did not surface synthetic scheduler staleness`);
+  }
   await assertNoPseudoDiscoveryTime(page, url);
   await assertNoStaleTodayBackfill(page, url);
   if (url === root) await assertNavigationLinksHealthy(page, url);
