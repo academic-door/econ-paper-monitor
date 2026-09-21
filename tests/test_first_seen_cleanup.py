@@ -33,7 +33,7 @@ def _run_cleanup(record: dict, *, bucket: str = "2026-09-03") -> tuple[list[dict
         return kept, queued
 
 
-def test_matching_first_seen_anchor_preserves_daily_discovery_bucket() -> None:
+def test_matching_first_seen_anchor_does_not_exempt_stale_cepr_catalogue_rediscovery() -> None:
     first_seen = "2026-09-03T12:00:00+00:00"
     record = {
         "id": "url:745e78d1f96ad024",
@@ -43,16 +43,17 @@ def test_matching_first_seen_anchor_preserves_daily_discovery_bucket() -> None:
         "url": "https://cepr.org/publications/dp21172",
         "available_online": "2026-02-14",
         "published_online": "2026-02-14",
+        "date_source": "publisher_detail",
         "date_confidence": "A",
         "first_seen": first_seen,
     }
 
     kept, queued = _run_cleanup(record)
 
-    assert len(kept) == 1
-    assert kept[0]["first_seen"] == first_seen
-    assert kept[0]["url"] == "https://cepr.org/publications/dp21172"
-    assert queued == []
+    assert kept == []
+    assert len(queued) == 1
+    assert queued[0]["first_seen"] == first_seen
+    assert queued[0]["url"] == "https://cepr.org/publications/dp21172"
 
 
 def test_utc_evening_first_seen_anchors_next_beijing_daily_bucket() -> None:
