@@ -114,6 +114,11 @@ TOPIC_RULES = {
     "history": ["history", "historical", "nineteenth", "twentieth"],
 }
 
+TOPIC_PATTERNS = {
+    topic: [re.compile(r"(?<![a-z0-9])" + re.escape(keyword)) for keyword in keywords]
+    for topic, keywords in TOPIC_RULES.items()
+}
+
 STYLE = """
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
 *{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.skip-link{position:absolute;left:16px;top:-48px;z-index:10;background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.skip-link:focus{top:12px;text-decoration:none}
@@ -502,8 +507,8 @@ def article_topics(record: dict[str, Any]) -> list[str]:
     fields = [str(field) for field in record.get("fields", []) or []]
     if is_china_related(record) or "china" in fields:
         topics.append("china")
-    for topic, keywords in TOPIC_RULES.items():
-        if any(re.search(r"(?<![a-z0-9])" + re.escape(keyword), haystack) for keyword in keywords):
+    for topic, patterns in TOPIC_PATTERNS.items():
+        if any(pattern.search(haystack) for pattern in patterns):
             topics.append(topic)
     if topics:
         return list(dict.fromkeys(topics))[:4]
