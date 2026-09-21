@@ -503,7 +503,7 @@ def article_topics(record: dict[str, Any]) -> list[str]:
     if is_china_related(record) or "china" in fields:
         topics.append("china")
     for topic, keywords in TOPIC_RULES.items():
-        if any(re.search(r"(?<![a-z0-9])" + re.escape(keyword) + r"(?![a-z0-9])", haystack) for keyword in keywords):
+        if any(re.search(r"(?<![a-z0-9])" + re.escape(keyword), haystack) for keyword in keywords):
             topics.append(topic)
     if topics:
         return list(dict.fromkeys(topics))[:4]
