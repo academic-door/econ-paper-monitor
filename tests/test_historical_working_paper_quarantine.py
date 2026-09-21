@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sys
+import urllib.error
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
@@ -75,6 +76,79 @@ def test_fetcher_rejects_only_legacy_cepr_catalogue_numbers() -> None:
     )
     assert not fetch_preprints.is_historical_cepr_record(
         {"source_id": "cepr-dp", "url": "https://cepr.org/publications/dp21958"}
+    )
+
+
+def _cepr_html(number: int, title: str = "Estimating treatment effect heterogeneity across sites") -> str:
+    return (
+        '<html><body>'
+        f'<a href="/publications/dp{number}">DP{number} {title}</a>'
+        '</body></html>'
+    )
+
+
+def test_cepr_current_listing_falls_back_after_primary_403(monkeypatch) -> None:
+    source = {
+        "id": "cepr-dp",
+        "title": "CEPR Discussion Papers",
+        "type": "working_paper",
+        "homepage": "https://cepr.org/publications/discussion-papers/search-discussion-papers",
+        "url_pattern": r"/publications/dp\d+",
+        "url_contains": ["/publications/dp"],
+        "fields": ["macro"],
+    }
+    requested: list[str] = []
+
+    def fake_fetch_text(url: str, *, timeout: int) -> str:
+        requested.append(url)
+        if "search-discussion-papers" in url:
+            raise urllib.error.HTTPError(url, 403, "Forbidden", None, None)
+        if url.rstrip("/") == "https://cepr.org/publications":
+            return _cepr_html(21958)
+        return "<html></html>"
+
+    monkeypatch.setattr(fetch_preprints, "fetch_text", fake_fetch_text)
+    records, method = fetch_preprints.fetch_source(source, timeout=5, limit=12)
+
+    assert method == "cepr-official-html:publications"
+    assert [record["paper_number"] for record in records] == ["DP21958"]
+    assert requested[:2] == [
+        "https://cepr.org/publications/discussion-papers/search-discussion-papers",
+        "https://cepr.org/publications",
+    ]
+
+
+def test_cepr_current_listing_rejects_stale_only_surfaces(monkeypatch) -> None:
+    source = {
+        "id": "cepr-dp",
+        "title": "CEPR Discussion Papers",
+        "type": "working_paper",
+        "homepage": "https://cepr.org/publications/discussion-papers/search-discussion-papers",
+        "url_pattern": r"/publications/dp\d+",
+        "url_contains": ["/publications/dp"],
+        "fields": ["macro"],
+    }
+
+    monkeypatch.setattr(
+        fetch_preprints,
+        "fetch_text",
+        lambda url, *, timeout: _cepr_html(13978, "A historically rediscovered discussion paper title"),
+    )
+
+    try:
+        fetch_preprints.fetch_source(source, timeout=5, limit=12)
+    except RuntimeError as exc:
+        message = str(exc)
+    else:
+        raise AssertionError("stale-only CEPR surfaces must fail closed")
+
+    assert "stale-max-DP13978" in message
+
+
+def test_cepr_listing_floor_is_transport_only() -> None:
+    assert fetch_preprints.CEPR_CURRENT_LISTING_FLOOR == 20000
+    assert not fetch_preprints.is_historical_cepr_record(
+        {"source_id": "cepr-dp", "url": "https://cepr.org/publications/dp13978"}
     )
 
 
