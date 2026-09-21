@@ -5,8 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "infra/presence-worker.js"
-      - "infra/wrangler.toml"
+      - "infra/**"
       - ".github/workflows/deploy-presence.yml"
       - ".github/workflows/verify-presence.yml"
 
