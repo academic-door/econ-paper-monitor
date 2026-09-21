@@ -34,7 +34,7 @@ def is_historical_cepr(record: dict[str, Any]) -> bool:
     if str(record.get("source_id") or "") != "cepr-dp":
         return False
     match = CEPR_NUMBER.search(str(record.get("url") or ""))
-    return bool(match and int(match.group(1)) < 20000)
+    return bool(match and (int(match.group(1)) < 10000 or 13700 <= int(match.group(1)) <= 13799))
 
 
 def has_first_discovery_anchor(record: dict[str, Any], bucket_date: str) -> bool:
