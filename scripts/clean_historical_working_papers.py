@@ -30,11 +30,51 @@ def first_seen_daily_bucket(value: Any) -> str | None:
     return observed.astimezone(BEIJING_TZ).date().isoformat()
 
 
-def is_historical_cepr(record: dict[str, Any]) -> bool:
+def is_historical_cepr(
+    record: dict[str, Any],
+    *,
+    run_date: str,
+    max_age_days: int,
+) -> bool:
+    """Reject stale CEPR catalogue rediscovery from the public Today flow.
+
+    CEPR pages can expose old catalogue links when the listing surface drifts or
+    a recovery path changes. A fresh first_seen timestamp is not enough to make
+    a years-old Discussion Paper a current Today item.
+
+    Keep the legacy DP-number guard for undated ancient records, and also trust
+    explicit CEPR/publisher date evidence even when normalization has left the
+    confidence marker at F.
+    """
     if str(record.get("source_id") or "") != "cepr-dp":
         return False
     match = CEPR_NUMBER.search(str(record.get("url") or ""))
-    return bool(match and int(match.group(1)) < 10000)
+    if match and int(match.group(1)) < 10000:
+        return True
+
+    official = str(
+        record.get("available_online")
+        or record.get("published_online")
+        or record.get("issue_date")
+        or ""
+    )[:10]
+    if not ISO_DATE.fullmatch(official):
+        return False
+    try:
+        age_days = (date.fromisoformat(run_date) - date.fromisoformat(official)).days
+    except ValueError:
+        return False
+    if age_days <= max_age_days:
+        return False
+
+    confidence = str(record.get("date_confidence") or "")
+    source = str(record.get("date_source") or "")
+    trusted_cepr_sources = {
+        "cepr_published_time",
+        "publisher_detail",
+        "source_list_date",
+    }
+    return confidence not in {"F", "unknown"} or source in trusted_cepr_sources
 
 
 def has_first_discovery_anchor(record: dict[str, Any], bucket_date: str) -> bool:
@@ -92,8 +132,15 @@ def main() -> None:
         file_changed = False
         for record in payload:
             historical_reason = None
-            if isinstance(record, dict) and is_historical_cepr(record):
-                historical_reason = "historical CEPR catalogue item without a current online date"
+            if (
+                isinstance(record, dict)
+                and is_historical_cepr(
+                    record,
+                    run_date=path.stem,
+                    max_age_days=args.max_age_days,
+                )
+            ):
+                historical_reason = "historical CEPR catalogue item outside the public discovery window"
             elif (
                 isinstance(record, dict)
                 and not has_first_discovery_anchor(record, path.stem)
