@@ -1414,6 +1414,72 @@ def plausible_title(title: str) -> bool:
     return not any(fragment in lowered for fragment in bad_fragments)
 
 
+CEPR_CURRENT_LISTING_FLOOR = 20000
+CEPR_OFFICIAL_LISTING_URLS = (
+    "https://cepr.org/publications/discussion-papers/search-discussion-papers",
+    "https://cepr.org/publications",
+    "https://cepr.org/publications/discussion-papers",
+    "https://cepr.org/publications/publication-series/discussion-papers",
+)
+
+
+def cepr_number(record: dict[str, Any]) -> int | None:
+    text = " ".join(
+        str(record.get(key) or "")
+        for key in ("paper_number", "url", "title")
+    )
+    match = re.search(r"\bDP\s*(\d{4,})\b|/dp(\d+)(?:\D|$)", text, flags=re.I)
+    if not match:
+        return None
+    value = match.group(1) or match.group(2)
+    return int(value) if value else None
+
+
+def fetch_cepr_current_listing(
+    source: dict[str, Any],
+    *,
+    timeout: int,
+    limit: int,
+) -> tuple[list[dict[str, Any]], str]:
+    """Fetch CEPR current DPs from first-party pages and fail closed on stale surfaces."""
+    urls = []
+    for url in (str(source.get("homepage") or ""), *CEPR_OFFICIAL_LISTING_URLS):
+        if url and url not in urls:
+            urls.append(url)
+
+    diagnostics: list[str] = []
+    for url in urls:
+        try:
+            html_text = fetch_text(url, timeout=timeout)
+        except Exception as exc:  # noqa: BLE001 - try the next official CEPR surface.
+            diagnostics.append(f"{url}: {type(exc).__name__}")
+            continue
+
+        records = parse_specialized_html(html_text, source, limit)
+        records = [record for record in records if not is_historical_cepr_record(record)]
+        numbers = [number for record in records if (number := cepr_number(record)) is not None]
+        if not numbers:
+            diagnostics.append(f"{url}: no-current-dp")
+            continue
+        if max(numbers) < CEPR_CURRENT_LISTING_FLOOR:
+            diagnostics.append(f"{url}: stale-max-DP{max(numbers)}")
+            continue
+
+        label = (
+            "search"
+            if "search-discussion-papers" in url
+            else "publications"
+            if url.rstrip("/") == "https://cepr.org/publications"
+            else "discussion-papers"
+            if url.rstrip("/") == "https://cepr.org/publications/discussion-papers"
+            else "publication-series"
+        )
+        return records[:limit], f"cepr-official-html:{label}"
+
+    detail = "; ".join(diagnostics[-4:]) or "no official listing surface returned current DPs"
+    raise RuntimeError(f"CEPR current listing unavailable: {detail}")
+
+
 def plausible_nep_title(title: str) -> bool:
     title = clean_text(title)
     if len(title) < 6:
@@ -1488,6 +1554,10 @@ def allowed_url(source: dict[str, Any], url: str | None) -> bool:
 
 
 def fetch_source(source: dict[str, Any], *, timeout: int, limit: int) -> tuple[list[dict[str, Any]], str]:
+    source_id = str(source.get("id") or "")
+    if source_id == "cepr-dp":
+        return fetch_cepr_current_listing(source, timeout=timeout, limit=limit)
+
     api_result = fetch_specialized_api(source, timeout=timeout, limit=limit)
     if api_result:
         return api_result
@@ -1496,7 +1566,6 @@ def fetch_source(source: dict[str, Any], *, timeout: int, limit: int) -> tuple[l
         records = parse_feed(xml_text, source)
         return records[:limit], "feed"
     html_text = fetch_text(str(source["homepage"]), timeout=timeout)
-    source_id = str(source.get("id") or "")
     if source_id.startswith("repec-nep-"):
         issue_match = re.search(r'href=["\'](?P<href>[^"\']*/' + re.escape(source_id.removeprefix("repec-")) + r'/20\d{2}-\d{2}-\d{2}[^"\']*)["\']', html_text, flags=re.I)
         if issue_match:
