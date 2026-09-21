@@ -17,7 +17,7 @@ from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, n
 from dedupe import record_match_keys
 from status import load_status
 from display_contract import display_titles
-from public_topics import article_topic_codes
+from public_topics import TOPIC_RULES, article_topic_codes
 
 
 SITE_NAME = "Econ Papers Daily"
