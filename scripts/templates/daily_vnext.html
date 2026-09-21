@@ -398,7 +398,12 @@
 
       const monitorTarget = document.querySelector('[data-monitor-liveness]');
       if (monitorTarget) {
-        fetch(monitorEndpoint, {headers: {Accept: 'application/json'}})
+        const monitorController = new AbortController();
+        const monitorTimer = window.setTimeout(() => monitorController.abort(), 5000);
+        fetch(monitorEndpoint, {
+          headers: {Accept: 'application/json'},
+          signal: monitorController.signal,
+        })
           .then((response) => response.ok ? response.json() : null)
           .then((data) => {
             if (!data || data.ok === true) return;
@@ -410,7 +415,8 @@
             }
             monitorTarget.hidden = false;
           })
-          .catch(() => {});
+          .catch(() => {})
+          .finally(() => window.clearTimeout(monitorTimer));
       }
     })();
   </script>
