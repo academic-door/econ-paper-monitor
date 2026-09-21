@@ -17,6 +17,7 @@ from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, n
 from dedupe import record_match_keys
 from status import load_status
 from display_contract import display_titles
+from topic_contract import public_article_topic_keys
 
 
 SITE_NAME = "Econ Papers Daily"
@@ -494,46 +495,13 @@ def source_type_value(record: dict[str, Any]) -> str:
     return "journal_article" if source_type in {"journal", "journal_article"} else source_type
 
 
-def topic_keyword_matches(haystack: str, keyword: str) -> bool:
-    """Match at an ASCII word start while preserving configured stem prefixes."""
-    start = 0
-    while True:
-        index = haystack.find(keyword, start)
-        if index < 0:
-            return False
-        if index == 0 or not ("a" <= haystack[index - 1] <= "z" or "0" <= haystack[index - 1] <= "9"):
-            return True
-        start = index + 1
-
-
 def article_topics(record: dict[str, Any]) -> list[str]:
-    haystack = " ".join(
-        str(value or "")
-        for value in [record.get("title"), record.get("title_zh"), record.get("abstract"), record.get("abstract_zh"), record.get("journal")]
-    ).casefold()
     topics: list[str] = []
     fields = [str(field) for field in record.get("fields", []) or []]
     if is_china_related(record) or "china" in fields:
         topics.append("china")
-    for topic, keywords in TOPIC_RULES.items():
-        if any(topic_keyword_matches(haystack, keyword) for keyword in keywords):
-            topics.append(topic)
-    if topics:
-        return list(dict.fromkeys(topics))[:4]
-    fallback: list[str] = []
-    for field in fields:
-        fallback.extend(
-            {
-                "agriculture_environment_resource": ["agriculture", "environment"],
-                "public_political": ["public"],
-                "industrial_organization": ["firms"],
-                "game_theory": ["theory"],
-                "economic_history": ["history"],
-                "applied_empirical": ["econometrics"],
-                "international": ["trade"],
-            }.get(field, [field] if field in TOPIC_LABELS else [])
-        )
-    return list(dict.fromkeys(fallback))[:3] or ["development"]
+    topics.extend(topic for topic in public_article_topic_keys(record) if topic not in topics)
+    return topics[:4]
 
 
 def working_paper_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
