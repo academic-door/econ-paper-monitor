@@ -95,27 +95,6 @@ TOPIC_LABELS = {
     "history": "经济史",
 }
 
-TOPIC_RULES = {
-    "agriculture": ["agricultur", "farm", "food", "rice", "dairy", "rural", "crop", "land use"],
-    "environment": ["climate", "weather", "carbon", "emission", "environment", "forest", "pollution", "energy", "electricity"],
-    "development": ["development", "poverty", "displacement", "household", "informal", "low-income"],
-    "finance": ["finance", "financial", "bank", "stock", "market", "asset", "investor", "credit"],
-    "macro": ["monetary", "inflation", "growth", "business cycle", "exchange rate", "macro", "productivity"],
-    "labor": ["labor", "labour", "wage", "worker", "employment", "unemployment", "migration"],
-    "public": ["tax", "public", "policy", "political", "government", "regulation", "welfare"],
-    "trade": ["trade", "export", "import", "tariff", "global", "supply chain", "cross-border"],
-    "urban": ["urban", "city", "cities", "housing", "regional"],
-    "econometrics": ["estimator", "identification", "causal", "regression", "bayesian", "machine learning"],
-    "theory": ["equilibrium", "game", "theory", "mechanism", "auction", "contract"],
-    "behavior": ["behavior", "behaviour", "preferences", "consumer", "discrimination", "organization"],
-    "health": ["health", "mortality", "hospital", "medical", "disease", "height"],
-    "education": ["education", "school", "student", "teacher"],
-    "firms": ["firm", "enterprise", "industrial", "outsourcing", "services", "innovation"],
-    "inequality": ["inequality", "distribution", "mobility", "gender", "racial"],
-    "history": ["history", "historical", "nineteenth", "twentieth"],
-}
-
-
 STYLE = """
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
 *{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.skip-link{position:absolute;left:16px;top:-48px;z-index:10;background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.skip-link:focus{top:12px;text-decoration:none}
