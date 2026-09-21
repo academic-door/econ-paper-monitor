@@ -78,6 +78,80 @@ def test_fetcher_rejects_only_legacy_cepr_catalogue_numbers() -> None:
     )
 
 
+def test_cepr_prefers_official_rss_before_html(monkeypatch) -> None:
+    source = {
+        "id": "cepr-dp",
+        "title": "CEPR Discussion Papers",
+        "type": "working_paper",
+        "homepage": "https://cepr.org/publications/discussion-papers/search-discussion-papers",
+        "feed": "https://cepr.org/rss/discussion-paper",
+        "url_pattern": r"/publications/dp\d+",
+        "url_contains": ["/publications/dp"],
+        "fields": ["macro"],
+    }
+    rss = """<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0">
+      <channel>
+        <item>
+          <title>DP21958 Estimating treatment-effect heterogeneity across sites</title>
+          <link>https://cepr.org/publications/dp21958</link>
+          <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
+          <description>Current CEPR discussion paper.</description>
+        </item>
+      </channel>
+    </rss>
+    """
+    calls: list[str] = []
+
+    def fake_fetch_text(url: str, timeout: int = 30, headers=None) -> str:
+        calls.append(url)
+        if url == source["feed"]:
+            return rss
+        raise AssertionError("HTML fallback should not run when official RSS succeeds")
+
+    monkeypatch.setattr(fetch_preprints, "fetch_text", fake_fetch_text)
+    records, method = fetch_preprints.fetch_source(source, timeout=5, limit=12)
+
+    assert method == "official-rss"
+    assert calls == [source["feed"]]
+    assert len(records) == 1
+    assert records[0]["paper_number"] == "DP21958"
+    assert records[0]["published_online"] == "2026-09-20"
+    assert records[0]["date_source"] == "rss_published"
+
+
+def test_cepr_rss_failure_falls_back_to_current_search_html(monkeypatch) -> None:
+    source = {
+        "id": "cepr-dp",
+        "title": "CEPR Discussion Papers",
+        "type": "working_paper",
+        "homepage": "https://cepr.org/publications/discussion-papers/search-discussion-papers",
+        "feed": "https://cepr.org/rss/discussion-paper",
+        "url_pattern": r"/publications/dp\d+",
+        "url_contains": ["/publications/dp"],
+        "fields": ["macro"],
+    }
+    html = (
+        '<a href="/publications/dp21958">'
+        "DP21958 Estimating treatment-effect heterogeneity across sites"
+        "</a>"
+    )
+
+    def fake_fetch_text(url: str, timeout: int = 30, headers=None) -> str:
+        if url == source["feed"]:
+            raise OSError("RSS transport unavailable")
+        if url == source["homepage"]:
+            return html
+        raise AssertionError(url)
+
+    monkeypatch.setattr(fetch_preprints, "fetch_text", fake_fetch_text)
+    records, method = fetch_preprints.fetch_source(source, timeout=5, limit=12)
+
+    assert method == "specialized-html"
+    assert len(records) == 1
+    assert records[0]["paper_number"] == "DP21958"
+
+
 def test_current_cepr_paper_remains_eligible_for_today(tmp_path: Path, monkeypatch) -> None:
     record = _record(
         url="https://cepr.org/publications/dp21958",
