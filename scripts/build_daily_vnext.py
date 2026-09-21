@@ -19,6 +19,7 @@ from zoneinfo import ZoneInfo
 from date_provenance import provenance_text
 from common import normalize_doi
 from display_contract import display_titles
+from topic_contract import public_article_topic_keys
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -56,6 +57,7 @@ TOPIC_LABELS = {
     "environment_climate": "环境与气候",
     "theory_game": "理论与博弈",
     "industrial_organization": "产业组织",
+    "firms": "企业与产业",
     "econometrics": "计量经济学",
     "behavior_organization": "行为与组织",
     "china": "中国研究",
@@ -148,16 +150,12 @@ def is_china_related(record: dict) -> bool:
 
 
 def topic_values(record: dict) -> list[str]:
-    raw = record.get("fields") or record.get("topics") or record.get("ai_tags") or []
-    if isinstance(raw, str):
-        raw = [raw]
     output: list[str] = []
-    for item in raw:
-        key = str(item or "").strip().lower()
+    for key in public_article_topic_keys(record, limit=3):
         label = TOPIC_LABELS.get(key)
         if label and label not in output:
             output.append(label)
-    return output[:3]
+    return output
 
 
 def author_values(record: dict) -> list[str]:
