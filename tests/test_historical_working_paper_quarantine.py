@@ -62,7 +62,7 @@ def test_old_cepr_rediscovery_is_quarantined_even_when_first_seen_is_today(tmp_p
     assert len(pending) == 1
     assert pending[0]["url"].endswith("/dp13798")
     assert pending[0]["first_seen"] == "2026-09-21T00:20:01+00:00"
-    assert "older than the public discovery window" in pending[0]["pending_reason"]
+    assert "legacy-catalogue" in pending[0]["pending_reason"]
 
 
 def test_current_cepr_paper_remains_eligible_for_today(tmp_path: Path, monkeypatch) -> None:
