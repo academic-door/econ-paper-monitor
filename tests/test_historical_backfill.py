@@ -68,6 +68,54 @@ class HistoricalBackfillTests(unittest.TestCase):
             self.assertEqual(json.loads((daily / "2026-07-27.json").read_text(encoding="utf-8")), [])
             self.assertEqual(len(json.loads(pending.read_text(encoding="utf-8"))), 1)
 
+    def test_fresh_first_seen_does_not_make_stale_cepr_catalogue_item_current(self) -> None:
+        record = {
+            "source": "working_papers",
+            "source_id": "cepr-dp",
+            "published_online": "2019-06-13",
+            "available_online": "2019-06-13",
+            "date_source": "cepr_published_time",
+            "date_confidence": "F",
+            "first_seen": "2026-09-21T00:20:01+00:00",
+            "url": "https://cepr.org/publications/dp13798",
+        }
+        self.assertTrue(
+            clean_historical_working_papers.is_historical_cepr(
+                record,
+                run_date="2026-09-21",
+                max_age_days=14,
+            )
+        )
+
+    def test_recent_cepr_with_current_official_date_remains_eligible(self) -> None:
+        record = {
+            "source": "working_papers",
+            "source_id": "cepr-dp",
+            "published_online": "2026-09-20",
+            "available_online": "2026-09-20",
+            "date_source": "publisher_detail",
+            "date_confidence": "A",
+            "first_seen": "2026-09-21T00:20:01+00:00",
+            "url": "https://cepr.org/publications/dp21958",
+        }
+        self.assertFalse(
+            clean_historical_working_papers.is_historical_cepr(
+                record,
+                run_date="2026-09-21",
+                max_age_days=14,
+            )
+        )
+
+    def test_cepr_source_uses_current_search_listing(self) -> None:
+        sources = fetch_preprints.load_sources(
+            Path(__file__).resolve().parents[1] / "data" / "working_paper_sources.yml"
+        )
+        cepr = next(source for source in sources if source.get("id") == "cepr-dp")
+        self.assertEqual(
+            cepr["homepage"],
+            "https://cepr.org/publications/discussion-papers/search-discussion-papers",
+        )
+
     def test_recent_cepr_number_with_old_official_date_moves_to_pending(self) -> None:
         record = {
             "source": "working_papers",
