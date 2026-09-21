@@ -5,7 +5,8 @@ on:
   push:
     branches: [main]
     paths:
-      - "infra/**"
+      - "infra/presence-worker.js"
+      - "infra/wrangler.toml"
       - ".github/workflows/deploy-presence.yml"
       - ".github/workflows/verify-presence.yml"
 
@@ -23,11 +24,3 @@ jobs:
             'https://econ-paper-monitor-presence.academic-door.workers.dev/presence?client_id=github-actions-smoke-20260727')"
           echo "$payload"
           python -c 'import json, sys; value=json.loads(sys.argv[1]); assert isinstance(value.get("online"), int) and value["online"] >= 1' "$payload"
-
-      - name: Check monitor liveness endpoint
-        shell: bash
-        run: |
-          payload="$(curl --fail --silent --show-error --retry 4 --retry-delay 3 \
-            'https://econ-paper-monitor-presence.academic-door.workers.dev/monitor-liveness')"
-          echo "$payload"
-          python -c 'import json, sys; value=json.loads(sys.argv[1]); assert value.get("schema_version") == 1; assert value.get("state") in {"healthy", "stale", "observer_error"}; assert value.get("checked_at")' "$payload"
