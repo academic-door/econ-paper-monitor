@@ -181,8 +181,6 @@ def translate_records(
     for record in records_to_translate:
         if deadline and time.monotonic() >= deadline:
             break
-        if title_attempted >= title_limit and abstract_attempted >= abstract_limit:
-            break
         title = str(record.get("title") or "").strip()
         key_id = cache_key(record)
         cached_value = cache_records.get(key_id)
@@ -314,39 +312,15 @@ def main() -> None:
     total_title_attempted = total_abstract_attempted = total_changed = 0
     total_title_cached = total_abstract_cached = total_peak_deferred = 0
     deadline = time.monotonic() + args.max_seconds if args.max_seconds else None
-    seen_payload = read_json(args.seen, {"papers": {}})
-    seen_papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else None
-    if isinstance(seen_papers, dict):
-        seen_records = [record for record in seen_papers.values() if isinstance(record, dict)]
-        result = translate_records(
-            seen_records,
-            args,
-            key,
-            base_url,
-            model,
-            cache_records,
-            title_limit=args.limit,
-            abstract_limit=args.abstract_limit,
-            deadline=deadline,
-        )
-        (
-            total_title_attempted,
-            total_abstract_attempted,
-            changed,
-            total_title_cached,
-            total_abstract_cached,
-            total_peak_deferred,
-        ) = result
-        total_changed += changed
-        if changed and not args.dry_run:
-            write_json(args.seen, seen_payload)
+    # Public Daily is the user-facing product. Spend the bounded paid-call
+    # budget on newest Daily records first, then use any remaining budget for
+    # the larger seen backlog. Cached/native updates are still allowed after
+    # the paid-call limit is exhausted.
     for path in daily_paths(args.daily_dir, args.date):
         if deadline and time.monotonic() >= deadline:
             break
         title_remaining = max(0, args.limit - total_title_attempted)
         abstract_remaining = max(0, args.abstract_limit - total_abstract_attempted)
-        if title_remaining == 0 and abstract_remaining == 0:
-            break
         title_attempted, abstract_attempted, changed, title_cached, abstract_cached, peak_deferred = translate_daily_file(
             path,
             args,
@@ -364,9 +338,51 @@ def main() -> None:
         total_title_cached += title_cached
         total_abstract_cached += abstract_cached
         total_peak_deferred += peak_deferred
+
+    seen_payload = read_json(args.seen, {"papers": {}})
+    seen_papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else None
+    if isinstance(seen_papers, dict) and not (deadline and time.monotonic() >= deadline):
+        seen_records = [record for record in seen_papers.values() if isinstance(record, dict)]
+        title_remaining = max(0, args.limit - total_title_attempted)
+        abstract_remaining = max(0, args.abstract_limit - total_abstract_attempted)
+        result = translate_records(
+            seen_records,
+            args,
+            key,
+            base_url,
+            model,
+            cache_records,
+            title_limit=title_remaining,
+            abstract_limit=abstract_remaining,
+            deadline=deadline,
+        )
+        (
+            title_attempted,
+            abstract_attempted,
+            changed,
+            title_cached,
+            abstract_cached,
+            peak_deferred,
+        ) = result
+        total_title_attempted += title_attempted
+        total_abstract_attempted += abstract_attempted
+        total_changed += changed
+        total_title_cached += title_cached
+        total_abstract_cached += abstract_cached
+        total_peak_deferred += peak_deferred
+        if changed and not args.dry_run:
+            write_json(args.seen, seen_payload)
     if not args.dry_run:
         write_json(CACHE_PATH, cache)
+    state = (
+        "peak_deferred"
+        if total_title_attempted == 0
+        and total_abstract_attempted == 0
+        and total_peak_deferred > 0
+        else "completed"
+    )
     message = (
+        f"state={state} "
         f"title_attempted={total_title_attempted} abstract_attempted={total_abstract_attempted} "
         f"changed={total_changed} title_cached={total_title_cached} abstract_cached={total_abstract_cached} "
         f"peak_deferred={total_peak_deferred}"
