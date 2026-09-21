@@ -3,9 +3,10 @@ name: AI Enrichment
 on:
   workflow_dispatch:
   schedule:
-    # Post-full enrichment slots, all outside DeepSeek weekday peak windows.
-    # Beijing: 01:15, 07:15, 13:15, 19:15.
-    - cron: "15 5,11,17,23 * * *"
+    # Cost-safe slots with delay margin before the next DeepSeek weekday peak.
+    # Beijing: 00:15, 06:15, 18:15. The call-time guard remains authoritative
+    # if GitHub delays a run into a peak window.
+    - cron: "15 10,16,22 * * *"
 
 permissions:
   contents: write
@@ -43,6 +44,29 @@ jobs:
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
           DEEPSEEK_MODEL: deepseek-v4-flash
+      - name: Report translation outcome
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path("data/status.json")
+          status = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+          entry = (status.get("sources") or {}).get("translation") or {}
+          outcome = entry.get("outcome") or "unknown"
+          message = entry.get("message") or ""
+          print(f"translation outcome: {outcome}; {message}")
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary:
+              with open(summary, "a", encoding="utf-8") as handle:
+                  handle.write("### Translation outcome\n\n")
+                  handle.write(f"- outcome: {outcome}\n")
+                  handle.write(f"- {message}\n")
+          if outcome == "peak_deferred":
+              print("::notice::Translation was deferred by the DeepSeek peak-price guard; no peak-window paid call was made.")
+          PY
       - name: Normalize AI-enriched records
         run: python scripts/normalize_records.py
       - name: Repair public data integrity
