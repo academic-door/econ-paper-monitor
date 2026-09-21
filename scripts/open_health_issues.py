@@ -118,6 +118,41 @@ def build_anomalies(
             }
         )
 
+    sentinel = read_json(data_dir / "external_sentinel_alohomora.json", {})
+    sentinel_counts = sentinel.get("counts") if isinstance(sentinel, dict) else {}
+    if not isinstance(sentinel_counts, dict):
+        sentinel_counts = {}
+    formal_sentinel_missing = int(
+        (sentinel.get("formal_scope_missing_count") if isinstance(sentinel, dict) else 0)
+        or sentinel_counts.get("formal_scope_missing")
+        or sentinel_counts.get("in_scope_missing")
+        or 0
+    )
+    if formal_sentinel_missing:
+        missing_rows = sentinel.get("missing_in_monitor_list") if isinstance(sentinel, dict) else []
+        details = []
+        if isinstance(missing_rows, list):
+            for row in missing_rows[:20]:
+                if not isinstance(row, dict):
+                    continue
+                details.append(
+                    f"- {row.get('mapped_journal') or row.get('journal') or '?'}: "
+                    f"{row.get('title') or '?'} {row.get('link') or ''}".rstrip()
+                )
+        anomalies.append(
+            {
+                "slug": "external-sentinel-formal-missing",
+                "title": f"External sentinel formal-scope candidates ({formal_sentinel_missing})",
+                "body": (
+                    "The external comparison sentinel reports current candidates that map to the formal monitor scope. "
+                    "This is an advisory monitor-quality signal, not a standalone release-gate failure; verify identity "
+                    "and canonical coverage before classifying a recall incident.\n\n"
+                    + ("\n".join(details) if details else "- No item details available")
+                    + f"\n\nchecked_at={now_iso()}"
+                ),
+            }
+        )
+
     local_cnki = read_json(data_dir / "local_cnki_status.json", {})
     last_success = local_cnki.get("last_success_at") if isinstance(local_cnki, dict) else None
     age_hours = _age_hours(last_success, now)

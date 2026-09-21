@@ -350,3 +350,42 @@ def test_legacy_keepalive_artifact_is_not_required(tmp_path: Path):
     anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
 
     assert not any(item["slug"] == "semantic-scholar-key" for item in anomalies)
+
+
+def test_formal_sentinel_missing_creates_advisory_health_issue(tmp_path: Path):
+    data_dir = make_data_dir(tmp_path)
+    write_json(
+        data_dir / "external_sentinel_alohomora.json",
+        {
+            "formal_scope_missing_count": 1,
+            "missing_in_monitor_list": [
+                {
+                    "mapped_journal": "Food Policy",
+                    "title": "Candidate paper",
+                    "link": "https://example.test/paper",
+                }
+            ],
+        },
+    )
+
+    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
+
+    issue = next(item for item in anomalies if item["slug"] == "external-sentinel-formal-missing")
+    assert "Food Policy: Candidate paper" in issue["body"]
+    assert "not a standalone release-gate failure" in issue["body"]
+
+
+def test_broader_sentinel_candidates_do_not_create_health_issue(tmp_path: Path):
+    data_dir = make_data_dir(tmp_path)
+    write_json(
+        data_dir / "external_sentinel_alohomora.json",
+        {
+            "formal_scope_missing_count": 0,
+            "broader_relevant_candidate_count": 7,
+            "missing_broader_relevant": [{"title": "Broader paper"}],
+        },
+    )
+
+    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
+
+    assert not any(item["slug"] == "external-sentinel-formal-missing" for item in anomalies)

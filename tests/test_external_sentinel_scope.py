@@ -66,3 +66,25 @@ def test_sciencedirect_pii_identity_matches_title_variant() -> None:
     assert titles.get(external_title) is None
     assert pii == "S0306919226001375"
     assert piis[pii] is local
+
+
+def test_health_warns_on_formal_sentinel_miss_without_hard_failure(tmp_path):
+    data_dir = tmp_path / "data"
+    (data_dir / "daily").mkdir(parents=True)
+    (data_dir / "daily" / "2026-07-28.json").write_text("[]", encoding="utf-8")
+    (data_dir / "formal_journal_audit.json").write_text('{"formal_journals": 87, "suspected_missed_journals": 0}', encoding="utf-8")
+    (data_dir / "recent72_coverage_audit.json").write_text('{"missing": 0}', encoding="utf-8")
+    (data_dir / "quality_report.json").write_text('{"totals": {}}', encoding="utf-8")
+    (data_dir / "source_health.json").write_text('{"counts": {}, "coverage_counts": {}}', encoding="utf-8")
+    (data_dir / "release_gate.json").write_text('{"ok": true}', encoding="utf-8")
+    (data_dir / "local_cnki_status.json").write_text('{"state": "published", "last_success_at": "2026-07-28T12:00:00+00:00"}', encoding="utf-8")
+    (data_dir / "external_sentinel_alohomora.json").write_text(
+        '{"formal_scope_missing_count": 1, "econ_expand_candidate_count": 12}',
+        encoding="utf-8",
+    )
+
+    report = build_health(data_dir, date="2026-07-28")
+
+    assert report["ok"] is True
+    assert report["failures"] == []
+    assert {"code": "external_sentinel_formal_scope_missing", "count": 1} in report["warnings"]
