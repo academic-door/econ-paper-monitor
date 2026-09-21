@@ -153,6 +153,11 @@ def doi_from_url(value: str | None) -> str:
     return re.split(r"[?&#]", match.group(1), maxsplit=1)[0].lower().rstrip(").,;")
 
 
+def pii_from_value(value: str | None) -> str:
+    match = re.search(r"(?:/pii/|\b)(S\d{15,}[A-Z0-9]*)\b", value or "", re.I)
+    return match.group(1).upper() if match else ""
+
+
 def parse_date_parts(value: Any) -> str | None:
     if not isinstance(value, dict):
         return None
@@ -264,14 +269,31 @@ def seen_records() -> list[dict[str, Any]]:
     return records
 
 
-def local_indexes(records: list[dict[str, Any]]) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+def local_indexes(
+    records: list[dict[str, Any]],
+) -> tuple[
+    dict[str, dict[str, Any]],
+    dict[str, dict[str, Any]],
+    dict[str, dict[str, Any]],
+]:
     titles = {norm_title(str(record.get("title") or "")): record for record in records if record.get("title")}
     dois = {normalize_doi(str(record.get("doi") or "")): record for record in records if normalize_doi(str(record.get("doi") or ""))}
+    piis: dict[str, dict[str, Any]] = {}
     for record in records:
         doi = normalize_doi(doi_from_url(str(record.get("url") or "")))
         if doi:
             dois[doi] = record
-    return titles, dois
+        raw_data = record.get("raw_data") if isinstance(record.get("raw_data"), dict) else {}
+        for value in (
+            record.get("pii"),
+            raw_data.get("pii"),
+            record.get("url"),
+            record.get("source_url"),
+        ):
+            pii = pii_from_value(str(value or ""))
+            if pii:
+                piis[pii] = record
+    return titles, dois, piis
 
 
 def is_china_like(record: dict[str, Any]) -> bool:
@@ -537,7 +559,7 @@ def main() -> None:
     # example AEA forthcoming). It is still a successful first discovery and
     # must count as matched in the external-sentinel audit.
     match_records = records + seen_records()
-    titles, dois = local_indexes(match_records)
+    titles, dois, piis = local_indexes(match_records)
     known_names = monitor_names()
     remote_titles = {norm_title(str(paper.get("title") or "")) for paper in papers if paper.get("title")}
     remote_dois = {normalize_doi(doi_from_url(str(paper.get("link") or ""))) for paper in papers if doi_from_url(str(paper.get("link") or ""))}
@@ -552,8 +574,10 @@ def main() -> None:
     crossref_lookups = 0
     for paper in papers:
         title = norm_title(str(paper.get("title") or ""))
-        doi = normalize_doi(doi_from_url(str(paper.get("link") or ""))) or ""
-        local_match = titles.get(title) or (dois.get(doi) if doi else None)
+        link = str(paper.get("link") or "")
+        doi = normalize_doi(doi_from_url(link)) or ""
+        pii = pii_from_value(link)
+        local_match = titles.get(title) or (dois.get(doi) if doi else None) or (piis.get(pii) if pii else None)
         if local_match:
             matched += 1
             local_date = public_date(local_match)

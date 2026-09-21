@@ -3,7 +3,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "scripts"))
 
-from audit_alohomora_coverage import scope_counts
+from audit_alohomora_coverage import local_indexes, pii_from_value, scope_counts
 from monitor_health import build_health
 
 
@@ -47,3 +47,22 @@ def test_health_uses_formal_scope_count_not_raw_external_candidate_count(tmp_pat
     assert report["counts"]["external_sentinel_missing"] == 0
     assert report["counts"]["external_sentinel_econ_expand_candidates"] == 12
     assert report["ok"] is True
+
+
+def test_sciencedirect_pii_identity_matches_title_variant() -> None:
+    local = {
+        "title": "Stable portfolios, costly churn",
+        "url": "https://doi.org/10.1016/j.foodpol.2026.103168",
+        "doi": "10.1016/j.foodpol.2026.103168",
+        "pii": "S0306919226001375",
+        "journal": "Food Policy",
+    }
+    titles, dois, piis = local_indexes([local])
+
+    external_title = "Stable portfolios, costly churn: A high-frequency view of diversification and transition in rural Malawi"
+    external_link = "https://www.sciencedirect.com/science/article/pii/S0306919226001375"
+    pii = pii_from_value(external_link)
+
+    assert titles.get(external_title) is None
+    assert pii == "S0306919226001375"
+    assert piis[pii] is local
