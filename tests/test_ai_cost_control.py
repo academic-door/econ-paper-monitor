@@ -135,6 +135,31 @@ class AiCostControlTests(unittest.TestCase):
         self.assertAlmostEqual(day["estimated_cost_usd"], 0.0005074, places=10)
         self.assertEqual(payload["rolling_30d"]["total"]["requests"], 1)
 
+    def test_translation_outcome_distinguishes_peak_deferral(self) -> None:
+        self.assertEqual(
+            translate.translation_outcome(
+                title_attempted=0,
+                abstract_attempted=0,
+                changed=0,
+                peak_deferred=934,
+            ),
+            "peak_deferred",
+        )
+        self.assertEqual(
+            translate.translation_outcome(
+                title_attempted=1,
+                abstract_attempted=0,
+                changed=1,
+                peak_deferred=0,
+            ),
+            "enriched",
+        )
+
+    def test_ai_enrichment_schedule_uses_delay_tolerant_off_peak_slots(self) -> None:
+        workflow = (ROOT / ".github" / "workflows" / "ai-enrichment.yml").read_text(encoding="utf-8")
+        self.assertIn('cron: "15 10,16,22 * * *"', workflow)
+        self.assertNotIn('cron: "15 5,11,17,23 * * *"', workflow)
+        self.assertIn("Report translation outcome", workflow)
     def test_translation_cache_still_applies_when_paid_calls_are_deferred(self) -> None:
         args = argparse.Namespace(sleep=0.0, timeout=5, stop_on_error=False)
         records = [
