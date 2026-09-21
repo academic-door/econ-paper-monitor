@@ -8,6 +8,7 @@ ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import clean_historical_working_papers as cleaner  # noqa: E402
+import fetch_preprints  # noqa: E402
 
 
 def _record(*, source: str = "working_papers", source_id: str = "cepr-dp", url: str, official: str) -> dict:
@@ -63,6 +64,18 @@ def test_old_cepr_rediscovery_is_quarantined_even_when_first_seen_is_today(tmp_p
     assert pending[0]["url"].endswith("/dp13798")
     assert pending[0]["first_seen"] == "2026-09-21T00:20:01+00:00"
     assert "legacy-catalogue" in pending[0]["pending_reason"]
+
+
+def test_fetcher_rejects_only_legacy_cepr_catalogue_numbers() -> None:
+    assert fetch_preprints.is_historical_cepr_record(
+        {"source_id": "cepr-dp", "url": "https://cepr.org/publications/dp13798"}
+    )
+    assert not fetch_preprints.is_historical_cepr_record(
+        {"source_id": "cepr-dp", "url": "https://cepr.org/publications/dp21172"}
+    )
+    assert not fetch_preprints.is_historical_cepr_record(
+        {"source_id": "cepr-dp", "url": "https://cepr.org/publications/dp21958"}
+    )
 
 
 def test_current_cepr_paper_remains_eligible_for_today(tmp_path: Path, monkeypatch) -> None:
