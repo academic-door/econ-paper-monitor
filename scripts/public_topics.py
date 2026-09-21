@@ -161,4 +161,4 @@ def article_topic_codes(record: dict[str, Any], *, limit: int = 4) -> list[str]:
     fallback = _mapped_topic_codes(article_level_fields(record))
     if fallback:
         return fallback[:limit]
-    return [] if is_working_paper_record(record) else ["development"]
+    return []
