@@ -1434,7 +1434,7 @@ def is_historical_cepr_record(record: dict[str, Any]) -> bool:
     if str(record.get("source_id") or "") != "cepr-dp":
         return False
     match = re.search(r"/dp(\d+)(?:\D|$)", str(record.get("url") or ""), flags=re.I)
-    return bool(match and int(match.group(1)) < 10000)
+    return bool(match and (int(match.group(1)) < 10000 or 13700 <= int(match.group(1)) <= 13799))
 
 
 def nep_field(html_text: str, label: str) -> str | None:
