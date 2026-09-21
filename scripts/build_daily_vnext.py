@@ -19,6 +19,7 @@ from zoneinfo import ZoneInfo
 from date_provenance import provenance_text
 from common import normalize_doi
 from display_contract import display_titles
+from public_topics import article_topic_codes
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -56,11 +57,13 @@ TOPIC_LABELS = {
     "environment_climate": "环境与气候",
     "theory_game": "理论与博弈",
     "industrial_organization": "产业组织",
+    "firms": "企业与产业",
     "econometrics": "计量经济学",
     "behavior_organization": "行为与组织",
     "china": "中国研究",
     "chinese": "中国研究",
     "economic_history": "经济史",
+    "history": "经济史",
     "environmental": "环境与气候",
     "experimental": "实验经济学",
     "game_theory": "理论与博弈",
@@ -148,16 +151,12 @@ def is_china_related(record: dict) -> bool:
 
 
 def topic_values(record: dict) -> list[str]:
-    raw = record.get("fields") or record.get("topics") or record.get("ai_tags") or []
-    if isinstance(raw, str):
-        raw = [raw]
     output: list[str] = []
-    for item in raw:
-        key = str(item or "").strip().lower()
+    for key in article_topic_codes(record, limit=3):
         label = TOPIC_LABELS.get(key)
         if label and label not in output:
             output.append(label)
-    return output[:3]
+    return output
 
 
 def author_values(record: dict) -> list[str]:
@@ -171,16 +170,12 @@ def search_text(record: dict, labels: list[str]) -> str:
     values = [record.get(key) for key in ("title", "title_zh", "journal", "source", "doi", "url")]
     values.extend(author_values(record))
     values.extend(labels)
-    values.extend(str(item) for item in (record.get("fields") or []) if item)
     values.append("true" if is_china_related(record) else "false")
     return " ".join(str(value or "") for value in values).lower()
 
 
 def topic_keys(record: dict) -> list[str]:
-    raw = record.get("fields") or record.get("topics") or record.get("ai_tags") or []
-    if isinstance(raw, str):
-        raw = [raw]
-    return [str(item or "").strip().lower() for item in raw if str(item or "").strip()]
+    return article_topic_codes(record, limit=8)
 
 
 def warn_unknown_topics(records: list[dict]) -> list[str]:

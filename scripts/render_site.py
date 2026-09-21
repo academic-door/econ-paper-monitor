@@ -17,6 +17,7 @@ from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, n
 from dedupe import record_match_keys
 from status import load_status
 from display_contract import display_titles
+from public_topics import TOPIC_RULES, article_topic_codes
 
 
 SITE_NAME = "Econ Papers Daily"
@@ -93,27 +94,6 @@ TOPIC_LABELS = {
     "inequality": "不平等",
     "history": "经济史",
 }
-
-TOPIC_RULES = {
-    "agriculture": ["agricultur", "farm", "food", "rice", "dairy", "rural", "crop", "land use"],
-    "environment": ["climate", "weather", "carbon", "emission", "environment", "forest", "pollution", "energy", "electricity"],
-    "development": ["development", "poverty", "displacement", "household", "informal", "low-income"],
-    "finance": ["finance", "financial", "bank", "stock", "market", "asset", "investor", "credit"],
-    "macro": ["monetary", "inflation", "growth", "business cycle", "exchange rate", "macro", "productivity"],
-    "labor": ["labor", "labour", "wage", "worker", "employment", "unemployment", "migration"],
-    "public": ["tax", "public", "policy", "political", "government", "regulation", "welfare"],
-    "trade": ["trade", "export", "import", "tariff", "global", "supply chain", "cross-border"],
-    "urban": ["urban", "city", "cities", "housing", "regional"],
-    "econometrics": ["estimator", "identification", "causal", "regression", "bayesian", "machine learning"],
-    "theory": ["equilibrium", "game", "theory", "mechanism", "auction", "contract"],
-    "behavior": ["behavior", "behaviour", "preferences", "consumer", "discrimination", "organization"],
-    "health": ["health", "mortality", "hospital", "medical", "disease", "height"],
-    "education": ["education", "school", "student", "teacher"],
-    "firms": ["firm", "enterprise", "industrial", "outsourcing", "services", "innovation"],
-    "inequality": ["inequality", "distribution", "mobility", "gender", "racial"],
-    "history": ["history", "historical", "nineteenth", "twentieth"],
-}
-
 
 STYLE = """
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
@@ -494,46 +474,15 @@ def source_type_value(record: dict[str, Any]) -> str:
     return "journal_article" if source_type in {"journal", "journal_article"} else source_type
 
 
-def topic_keyword_matches(haystack: str, keyword: str) -> bool:
-    """Match at an ASCII word start while preserving configured stem prefixes."""
-    start = 0
-    while True:
-        index = haystack.find(keyword, start)
-        if index < 0:
-            return False
-        if index == 0 or not ("a" <= haystack[index - 1] <= "z" or "0" <= haystack[index - 1] <= "9"):
-            return True
-        start = index + 1
-
-
 def article_topics(record: dict[str, Any]) -> list[str]:
-    haystack = " ".join(
-        str(value or "")
-        for value in [record.get("title"), record.get("title_zh"), record.get("abstract"), record.get("abstract_zh"), record.get("journal")]
-    ).casefold()
+    fields = [str(field).casefold() for field in record.get("fields", []) or []]
     topics: list[str] = []
-    fields = [str(field) for field in record.get("fields", []) or []]
-    if is_china_related(record) or "china" in fields:
+    if is_china_related(record) or ("china" in fields and not is_working_paper(record)):
         topics.append("china")
-    for topic, keywords in TOPIC_RULES.items():
-        if any(topic_keyword_matches(haystack, keyword) for keyword in keywords):
-            topics.append(topic)
-    if topics:
-        return list(dict.fromkeys(topics))[:4]
-    fallback: list[str] = []
-    for field in fields:
-        fallback.extend(
-            {
-                "agriculture_environment_resource": ["agriculture", "environment"],
-                "public_political": ["public"],
-                "industrial_organization": ["firms"],
-                "game_theory": ["theory"],
-                "economic_history": ["history"],
-                "applied_empirical": ["econometrics"],
-                "international": ["trade"],
-            }.get(field, [field] if field in TOPIC_LABELS else [])
-        )
-    return list(dict.fromkeys(fallback))[:3] or ["development"]
+    topics.extend(article_topic_codes(record, limit=4))
+    if not topics and not is_working_paper(record):
+        topics.append("development")
+    return list(dict.fromkeys(topics))[:4]
 
 
 def working_paper_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
