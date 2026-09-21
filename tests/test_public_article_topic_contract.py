@@ -94,3 +94,11 @@ def test_formal_record_keeps_existing_field_fallback() -> None:
     }
 
     assert public_topics.article_topic_codes(record) == ["development"]
+
+
+def test_daily_maps_shared_firms_and_history_topics() -> None:
+    firms = nber_record(title="Firms and Innovation")
+    history = nber_record(title="Historical Banking and Economic Change")
+
+    assert "企业与产业" in build_daily_vnext.topic_values(firms)
+    assert "经济史" in build_daily_vnext.topic_values(history)
