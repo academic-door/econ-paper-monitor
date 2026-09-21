@@ -147,7 +147,8 @@ async function checkPage(browser, url) {
       }),
     );
   }
-  await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
+  const navigationWaitUntil = isLocal ? "networkidle" : "domcontentloaded";
+  await page.goto(url, { waitUntil: navigationWaitUntil, timeout: 60000 });
   await page.waitForTimeout(2400);
   assert.equal(errors.length, 0, `${url} page errors: ${errors.join(" | ")}`);
   assert.ok(await page.locator('.hero h1').isVisible(), `${url} Hero title is not visible`);
