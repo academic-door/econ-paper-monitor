@@ -99,6 +99,9 @@ def build_health(data_dir: Path = DATA_DIR, *, date: str | None = None) -> dict[
             "broader_relevant_candidates": sentinel.get("broader_relevant_candidate_count", sentinel_counts.get("broader_relevant_candidates", 0)),
             "out_of_scope_references": sentinel.get("out_of_scope_reference_count", sentinel_counts.get("out_of_scope_references", 0)),
         }
+    formal_sentinel_missing = int(sentinel_counts.get("formal_scope_missing") or 0)
+    if formal_sentinel_missing:
+        warnings.append({"code": "external_sentinel_formal_scope_missing", "count": formal_sentinel_missing})
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "date": day,
@@ -119,9 +122,7 @@ def build_health(data_dir: Path = DATA_DIR, *, date: str | None = None) -> dict[
             "missing_authors_today_journals": missing_authors_today,
             # Only formal-scope candidates are a monitor-quality alarm.  The
             # external sentinel intentionally includes broader candidates.
-            "external_sentinel_missing": int(
-                sentinel_counts.get("formal_scope_missing") or 0
-            ),
+            "external_sentinel_missing": formal_sentinel_missing,
             "external_sentinel_econ_expand_candidates": int(sentinel_counts.get("econ_expand_candidates") or 0),
             "external_sentinel_broader_relevant_candidates": int(sentinel_counts.get("broader_relevant_candidates") or 0),
             "external_sentinel_out_of_scope_references": int(sentinel_counts.get("out_of_scope_references") or 0),
