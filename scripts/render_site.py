@@ -480,6 +480,8 @@ def article_topics(record: dict[str, Any]) -> list[str]:
     if is_china_related(record) or ("china" in fields and not is_working_paper(record)):
         topics.append("china")
     topics.extend(article_topic_codes(record, limit=4))
+    if not topics and not is_working_paper(record):
+        topics.append("development")
     return list(dict.fromkeys(topics))[:4]
 
 
