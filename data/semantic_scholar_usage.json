@@ -1,16 +1,16 @@
 {
   "by_day": [
     {
-      "attempts": 900,
+      "attempts": 750,
       "available": 71,
       "date": "2026-09-19",
       "empty": 0,
       "http_error": 0,
       "not_found": 4,
       "provider_error": 0,
-      "rate_limited": 17,
-      "runs": 6,
-      "skipped": 808
+      "rate_limited": 15,
+      "runs": 5,
+      "skipped": 660
     },
     {
       "attempts": 1050,
@@ -25,35 +25,47 @@
       "skipped": 965
     },
     {
-      "attempts": 1200,
-      "available": 40,
+      "attempts": 1050,
+      "available": 36,
       "date": "2026-09-21",
       "empty": 0,
       "http_error": 0,
       "not_found": 0,
       "provider_error": 0,
-      "rate_limited": 25,
-      "runs": 8,
-      "skipped": 1135
+      "rate_limited": 22,
+      "runs": 7,
+      "skipped": 992
+    },
+    {
+      "attempts": 300,
+      "available": 0,
+      "date": "2026-09-22",
+      "empty": 0,
+      "http_error": 0,
+      "not_found": 0,
+      "provider_error": 0,
+      "rate_limited": 4,
+      "runs": 2,
+      "skipped": 296
     }
   ],
-  "days_since_last_use": 1,
+  "days_since_last_use": 0,
   "key_configured": true,
-  "last_used_at": "2026-09-21T11:07:45+00:00",
+  "last_used_at": "2026-09-21T16:35:30+00:00",
   "providers": {
     "elsevier": {
       "api_key_configured": true,
       "by_day": [
         {
-          "attempts": 900,
-          "available": 253,
+          "attempts": 750,
+          "available": 211,
           "date": "2026-09-19",
-          "empty": 647,
+          "empty": 539,
           "http_error": 0,
           "not_found": 0,
           "provider_error": 0,
           "rate_limited": 0,
-          "runs": 6,
+          "runs": 5,
           "skipped": 0
         },
         {
@@ -69,26 +81,38 @@
           "skipped": 0
         },
         {
-          "attempts": 1200,
-          "available": 319,
+          "attempts": 1050,
+          "available": 279,
           "date": "2026-09-21",
-          "empty": 881,
+          "empty": 771,
           "http_error": 0,
           "not_found": 0,
           "provider_error": 0,
           "rate_limited": 0,
-          "runs": 8,
+          "runs": 7,
+          "skipped": 0
+        },
+        {
+          "attempts": 300,
+          "available": 96,
+          "date": "2026-09-22",
+          "empty": 204,
+          "http_error": 0,
+          "not_found": 0,
+          "provider_error": 0,
+          "rate_limited": 0,
+          "runs": 2,
           "skipped": 0
         }
       ],
-      "days_since_last_use": 1,
+      "days_since_last_use": 0,
       "inst_token_configured": true,
-      "last_used_at": "2026-09-21T11:07:45+00:00",
+      "last_used_at": "2026-09-21T16:35:30+00:00",
       "rate_limit_headers": null,
       "total": {
         "attempts": 3150,
-        "available": 865,
-        "empty": 2285,
+        "available": 879,
+        "empty": 2271,
         "http_error": 0,
         "not_found": 0,
         "provider_error": 0,
@@ -102,16 +126,16 @@
       "api_key_configured": true,
       "by_day": [
         {
-          "attempts": 900,
+          "attempts": 750,
           "available": 71,
           "date": "2026-09-19",
           "empty": 0,
           "http_error": 0,
           "not_found": 4,
           "provider_error": 0,
-          "rate_limited": 17,
-          "runs": 6,
-          "skipped": 808
+          "rate_limited": 15,
+          "runs": 5,
+          "skipped": 660
         },
         {
           "attempts": 1050,
@@ -126,46 +150,58 @@
           "skipped": 965
         },
         {
-          "attempts": 1200,
-          "available": 40,
+          "attempts": 1050,
+          "available": 36,
           "date": "2026-09-21",
           "empty": 0,
           "http_error": 0,
           "not_found": 0,
           "provider_error": 0,
-          "rate_limited": 25,
-          "runs": 8,
-          "skipped": 1135
+          "rate_limited": 22,
+          "runs": 7,
+          "skipped": 992
+        },
+        {
+          "attempts": 300,
+          "available": 0,
+          "date": "2026-09-22",
+          "empty": 0,
+          "http_error": 0,
+          "not_found": 0,
+          "provider_error": 0,
+          "rate_limited": 4,
+          "runs": 2,
+          "skipped": 296
         }
       ],
-      "days_since_last_use": 1,
+      "days_since_last_use": 0,
       "inst_token_configured": false,
-      "last_used_at": "2026-09-21T11:07:45+00:00",
+      "last_used_at": "2026-09-21T16:35:30+00:00",
       "rate_limit_headers": null,
       "total": {
         "attempts": 3150,
-        "available": 170,
+        "available": 166,
         "empty": 0,
         "http_error": 0,
         "not_found": 9,
         "provider_error": 0,
-        "rate_limited": 63,
+        "rate_limited": 62,
         "runs": 21,
-        "skipped": 2908
+        "skipped": 2913
       },
       "weekly_requests_7d": 3150
     }
   },
   "total": {
     "attempts": 3150,
-    "available": 170,
+    "available": 166,
     "empty": 0,
     "http_error": 0,
     "not_found": 9,
     "provider_error": 0,
-    "rate_limited": 63,
+    "rate_limited": 62,
     "runs": 21,
-    "skipped": 2908
+    "skipped": 2913
   },
-  "updated_at": "2026-09-21T16:34:48+00:00"
+  "updated_at": "2026-09-21T18:10:49+00:00"
 }
