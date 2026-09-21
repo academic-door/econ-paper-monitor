@@ -114,6 +114,7 @@ TOPIC_RULES = {
     "history": ["history", "historical", "nineteenth", "twentieth"],
 }
 
+
 STYLE = """
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
 *{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.skip-link{position:absolute;left:16px;top:-48px;z-index:10;background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.skip-link:focus{top:12px;text-decoration:none}
@@ -493,6 +494,18 @@ def source_type_value(record: dict[str, Any]) -> str:
     return "journal_article" if source_type in {"journal", "journal_article"} else source_type
 
 
+def topic_keyword_matches(haystack: str, keyword: str) -> bool:
+    """Match at an ASCII word start while preserving configured stem prefixes."""
+    start = 0
+    while True:
+        index = haystack.find(keyword, start)
+        if index < 0:
+            return False
+        if index == 0 or not ("a" <= haystack[index - 1] <= "z" or "0" <= haystack[index - 1] <= "9"):
+            return True
+        start = index + 1
+
+
 def article_topics(record: dict[str, Any]) -> list[str]:
     haystack = " ".join(
         str(value or "")
@@ -503,7 +516,7 @@ def article_topics(record: dict[str, Any]) -> list[str]:
     if is_china_related(record) or "china" in fields:
         topics.append("china")
     for topic, keywords in TOPIC_RULES.items():
-        if any(keyword in haystack for keyword in keywords):
+        if any(topic_keyword_matches(haystack, keyword) for keyword in keywords):
             topics.append(topic)
     if topics:
         return list(dict.fromkeys(topics))[:4]
