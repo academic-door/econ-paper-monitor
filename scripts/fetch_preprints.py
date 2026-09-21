@@ -1491,12 +1491,26 @@ def fetch_source(source: dict[str, Any], *, timeout: int, limit: int) -> tuple[l
     api_result = fetch_specialized_api(source, timeout=timeout, limit=limit)
     if api_result:
         return api_result
-    if source.get("feed"):
+
+    source_id = str(source.get("id") or "")
+    if source_id == "cepr-dp" and source.get("feed"):
+        try:
+            xml_text = fetch_text(str(source["feed"]), timeout=timeout)
+            records = parse_feed(xml_text, source)
+            records = [record for record in records if not is_historical_cepr_record(record)]
+            if records:
+                return records[:limit], "official-rss"
+        except Exception:
+            # CEPR can apply transport-specific filtering. Keep the official
+            # search listing as a bounded fallback rather than failing open to
+            # stale catalogue material.
+            pass
+
+    if source.get("feed") and source_id != "cepr-dp":
         xml_text = fetch_text(str(source["feed"]), timeout=timeout)
         records = parse_feed(xml_text, source)
         return records[:limit], "feed"
     html_text = fetch_text(str(source["homepage"]), timeout=timeout)
-    source_id = str(source.get("id") or "")
     if source_id.startswith("repec-nep-"):
         issue_match = re.search(r'href=["\'](?P<href>[^"\']*/' + re.escape(source_id.removeprefix("repec-")) + r'/20\d{2}-\d{2}-\d{2}[^"\']*)["\']', html_text, flags=re.I)
         if issue_match:
