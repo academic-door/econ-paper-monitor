@@ -117,6 +117,14 @@ def test_shared_title_contract_controls_primary_and_secondary_titles(
         assert 'class="english-title"' not in html
 
 
+def test_runtime_liveness_alert_does_not_shift_page_content():
+    template = (ROOT / "scripts" / "templates" / "daily_vnext.html").read_text(encoding="utf-8")
+
+    assert ".runtime-alert{position:fixed;" in template
+    assert 'data-monitor-liveness role="status" aria-live="polite" hidden' in template
+    assert "monitorTarget.hidden = false;" in template
+
+
 def test_homepage_template_defers_offscreen_rendering_and_lazy_motion():
     template = (ROOT / "scripts" / "templates" / "daily_vnext.html").read_text(encoding="utf-8")
     assert "content-visibility:auto" in template
