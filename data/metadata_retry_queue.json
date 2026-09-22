@@ -6,7 +6,7 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 217,
+    "missing_abstract": 218,
     "missing_authors": 2,
     "weak_date_evidence": 490
   },
@@ -2030,6 +2030,30 @@
       "source_type": "journal",
       "title": "Firm Balance Sheet Liquidity, Monetary Policy Shocks, and Investment Dynamics",
       "url": "https://doi.org/10.1086/744130"
+    },
+    {
+      "date_confidence": "F",
+      "doi": "10.20955/wp.2024.038",
+      "first_seen": "2026-09-22T19:56:48+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.20955/wp.2024.038",
+      "journal": "CEPR Discussion Papers",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": "cepr-dp",
+      "source_type": "working_paper",
+      "title": "Heterogeneity in Work From Home: Evidence from Six U.S. Datasets",
+      "url": "https://cepr.org/publications/dp19826"
     },
     {
       "date_confidence": "F",
@@ -5220,12 +5244,12 @@
       "historical_backfill": false,
       "identity": "doi:10.1257/jel.64.3.1136",
       "journal": "Journal of Economic Literature",
-      "official_date": "2026-09-01",
+      "official_date": "2026-08-31",
       "priority": [
         0,
         1,
         0,
-        22
+        23
       ],
       "reasons": [
         "missing_authors",
@@ -5285,10 +5309,10 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.econlet.2026.113246",
-      "first_seen": "2026-09-22T09:24:40+00:00",
+      "doi": "10.1016/j.econlet.2026.113251",
+      "first_seen": "2026-09-22T18:39:58+00:00",
       "historical_backfill": false,
-      "identity": "doi:10.1016/j.econlet.2026.113246",
+      "identity": "doi:10.1016/j.econlet.2026.113251",
       "journal": "Economics Letters",
       "official_date": "2026-09-22",
       "priority": [
@@ -5303,15 +5327,15 @@
       "recency_basis": "official_date",
       "source_id": null,
       "source_type": "journal",
-      "title": "Skepticism without scrutiny: Verification and information manipulation",
-      "url": "https://doi.org/10.1016/j.econlet.2026.113246"
+      "title": "Automation and the demand trap: A model of robot taxation",
+      "url": "https://doi.org/10.1016/j.econlet.2026.113251"
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.econlet.2026.113253",
-      "first_seen": "2026-09-22T09:24:40+00:00",
+      "doi": "10.1016/j.econlet.2026.113252",
+      "first_seen": "2026-09-22T18:39:57+00:00",
       "historical_backfill": false,
-      "identity": "doi:10.1016/j.econlet.2026.113253",
+      "identity": "doi:10.1016/j.econlet.2026.113252",
       "journal": "Economics Letters",
       "official_date": "2026-09-22",
       "priority": [
@@ -5326,8 +5350,31 @@
       "recency_basis": "official_date",
       "source_id": null,
       "source_type": "journal",
-      "title": "The genericity of obvious manipulations under the Egalitarian Walrasian rule when preferences are linear",
-      "url": "https://doi.org/10.1016/j.econlet.2026.113253"
+      "title": "The winner’s bliss in common-value auctions under horizontal differentiation",
+      "url": "https://doi.org/10.1016/j.econlet.2026.113252"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.econmod.2026.107836",
+      "first_seen": "2026-09-22T18:43:24+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.econmod.2026.107836",
+      "journal": "Economic Modelling",
+      "official_date": "2026-09-22",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The social cost of carbon and optimal carbon pricing: Economic impacts in a dynamic decentralized market model",
+      "url": "https://doi.org/10.1016/j.econmod.2026.107836"
     },
     {
       "date_confidence": "C",
@@ -5420,6 +5467,29 @@
       "source_type": "journal",
       "title": "Social Control and the Dispersion of Beliefs: Evidence from Cross-Country Data and German Reunification",
       "url": "https://www.sciencedirect.com/science/article/pii/S0167268126003628?dgcid=api_sd_search-api-endpoint"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.jet.2026.106255",
+      "first_seen": "2026-09-22T18:40:11+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jet.2026.106255",
+      "journal": "Journal of Economic Theory",
+      "official_date": "2026-09-22",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Are rich people smarter? A comment",
+      "url": "https://doi.org/10.1016/j.jet.2026.106255"
     },
     {
       "date_confidence": "C",
@@ -5906,75 +5976,6 @@
       "source_type": "journal",
       "title": "生产技术变革、企业社保缴费与社保基金可持续性",
       "url": "https://erj.ajcass.com/#/detail?contentId=123612"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.econlet.2026.113244",
-      "first_seen": "2026-09-21T16:25:27+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.econlet.2026.113244",
-      "journal": "Economics Letters",
-      "official_date": "2026-09-21",
-      "priority": [
-        0,
-        1,
-        1,
-        2
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Distribution-free bounds on double marginalization under α-concave demand",
-      "url": "https://doi.org/10.1016/j.econlet.2026.113244"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.econlet.2026.113255",
-      "first_seen": "2026-09-21T16:25:27+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.econlet.2026.113255",
-      "journal": "Economics Letters",
-      "official_date": "2026-09-21",
-      "priority": [
-        0,
-        1,
-        1,
-        2
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Emission intensity in models with production under financial frictions",
-      "url": "https://doi.org/10.1016/j.econlet.2026.113255"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.econlet.2026.113257",
-      "first_seen": "2026-09-21T16:25:27+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.econlet.2026.113257",
-      "journal": "Economics Letters",
-      "official_date": "2026-09-21",
-      "priority": [
-        0,
-        1,
-        1,
-        2
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Cost pressure, cash cycle, and trade credit",
-      "url": "https://doi.org/10.1016/j.econlet.2026.113257"
     },
     {
       "date_confidence": "C",
@@ -11734,6 +11735,6 @@
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4903,
+  "total_candidates_before_limit": 4904,
   "truncated": true
 }
