@@ -9,6 +9,17 @@ function parseCreatedAt(run) {
   return Number.isFinite(value) ? value : null;
 }
 
+export function latestWorkflowPageTimestamp(html) {
+  const values = [];
+  const pattern = /<(?:relative-time|time-ago)\b[^>]*\bdatetime=["']([^"']+)["']/gi;
+  for (const match of String(html || "").matchAll(pattern)) {
+    const parsed = Date.parse(match[1]);
+    if (Number.isFinite(parsed)) values.push(parsed);
+  }
+  if (!values.length) return null;
+  return new Date(Math.max(...values)).toISOString();
+}
+
 export function evaluateMonitorLiveness(runs, nowMs = Date.now()) {
   const scheduleRuns = Array.isArray(runs)
     ? runs.filter((run) => run && run.event === "schedule")
