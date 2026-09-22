@@ -1,18 +1,17 @@
 {
   "expected_metadata_gap_counts": {
-    "abstract:book_review": 2,
-    "abstract:correction_notice": 1
+    "abstract:book_review": 3
   },
   "generated_for": "2026-09-22",
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 218,
+    "missing_abstract": 217,
     "missing_authors": 2,
     "weak_date_evidence": 490
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 748,
+  "recent_candidates_before_limit": 750,
   "recent_window_start": "2026-08-24",
   "records": [
     {
@@ -1935,30 +1934,6 @@
       "source_type": null,
       "title": "The Kuznets curse: Rethinking inequality and development through political conflict in Brazil",
       "url": "https://www.sciencedirect.com/science/article/pii/S0954349X26001335?dgcid=rss_sd_all"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2736168",
-      "first_seen": "2026-09-21T16:27:05+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2736168",
-      "journal": "Applied Economics",
-      "official_date": "2026-09-21",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "The impact of food safety status on voluntary food safety information disclosure: evidence from Chinese listed agricultural product processing enterprises",
-      "url": "https://doi.org/10.1080/00036846.2026.2736168"
     },
     {
       "date_confidence": "F",
@@ -5264,6 +5239,52 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1016/j.econlet.2026.113246",
+      "first_seen": "2026-09-22T09:24:40+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.econlet.2026.113246",
+      "journal": "Economics Letters",
+      "official_date": "2026-09-22",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Skepticism without scrutiny: Verification and information manipulation",
+      "url": "https://doi.org/10.1016/j.econlet.2026.113246"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.econlet.2026.113253",
+      "first_seen": "2026-09-22T09:24:40+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.econlet.2026.113253",
+      "journal": "Economics Letters",
+      "official_date": "2026-09-22",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The genericity of obvious manipulations under the Egalitarian Walrasian rule when preferences are linear",
+      "url": "https://doi.org/10.1016/j.econlet.2026.113253"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1016/j.enpol.2026.115601",
       "first_seen": "2026-09-22T09:33:26+00:00",
       "historical_backfill": false,
@@ -5287,11 +5308,11 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.jcorpfin.2026.103099",
-      "first_seen": "2026-09-22T05:28:03+00:00",
+      "doi": "10.1016/j.foodpol.2026.103197",
+      "first_seen": "2026-09-22T09:22:42+00:00",
       "historical_backfill": false,
-      "identity": "doi:10.1016/j.jcorpfin.2026.103099",
-      "journal": "Journal of Corporate Finance",
+      "identity": "doi:10.1016/j.foodpol.2026.103197",
+      "journal": "Food Policy",
       "official_date": "2026-09-22",
       "priority": [
         0,
@@ -5305,16 +5326,16 @@
       "recency_basis": "official_date",
       "source_id": null,
       "source_type": "journal",
-      "title": "One size doesn't fit all: flexible financing as a catalyst for innovation",
-      "url": "https://doi.org/10.1016/j.jcorpfin.2026.103099"
+      "title": "Informality in food environments: a systematic review of nutrition, livelihood, and sociopolitical outcomes and implications for food policy",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0306919226001661?dgcid=api_sd_search-api-endpoint"
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.jhealeco.2026.103188",
-      "first_seen": "2026-09-22T05:27:42+00:00",
+      "doi": "10.1016/j.jebo.2026.107768",
+      "first_seen": "2026-09-22T09:22:26+00:00",
       "historical_backfill": false,
-      "identity": "doi:10.1016/j.jhealeco.2026.103188",
-      "journal": "Journal of Health Economics",
+      "identity": "doi:10.1016/j.jebo.2026.107768",
+      "journal": "Journal of Economic Behavior and Organization",
       "official_date": "2026-09-22",
       "priority": [
         0,
@@ -5328,8 +5349,31 @@
       "recency_basis": "official_date",
       "source_id": null,
       "source_type": "journal",
-      "title": "The Rise and Fall (and Rise) of the Affordable Care Act: Varying Impacts on Coverage Over Time and Place",
-      "url": "https://doi.org/10.1016/j.jhealeco.2026.103188"
+      "title": "The heterogeneous impacts of the residential component of a training program: A semiparametric analysis",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0167268126003550?dgcid=api_sd_search-api-endpoint"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.jebo.2026.107775",
+      "first_seen": "2026-09-22T09:22:26+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jebo.2026.107775",
+      "journal": "Journal of Economic Behavior and Organization",
+      "official_date": "2026-09-22",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Social Control and the Dispersion of Beliefs: Evidence from Cross-Country Data and German Reunification",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0167268126003628?dgcid=api_sd_search-api-endpoint"
     },
     {
       "date_confidence": "C",
@@ -5356,14 +5400,11 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.worlddev.2026.107571",
-      "expected_metadata_gaps": {
-        "abstract": "correction_notice"
-      },
-      "first_seen": "2026-09-22T05:26:27+00:00",
+      "doi": "10.1016/j.landusepol.2026.108346",
+      "first_seen": "2026-09-22T14:37:26+00:00",
       "historical_backfill": false,
-      "identity": "doi:10.1016/j.worlddev.2026.107571",
-      "journal": "World Development",
+      "identity": "doi:10.1016/j.landusepol.2026.108346",
+      "journal": "Land Use Policy",
       "official_date": "2026-09-22",
       "priority": [
         0,
@@ -5377,8 +5418,103 @@
       "recency_basis": "official_date",
       "source_id": null,
       "source_type": "journal",
-      "title": "Corrigendum to “Measuring national entrepreneurial ecosystems in Africa” [WD 202 (2026) 107357 https://doi.org/10.1016/j.worlddev.2026.107357]",
-      "url": "https://doi.org/10.1016/j.worlddev.2026.107571"
+      "title": "Land Triadic Nexus: A conceptual framework for land governance through the strategic adaptive alignment of land use, rights, and values",
+      "url": "https://doi.org/10.1016/j.landusepol.2026.108346"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1017/eec.2026.10061",
+      "first_seen": "2026-09-22T09:29:44+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1017/eec.2026.10061",
+      "journal": "Experimental Economics",
+      "official_date": "2026-09-22",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The impact of lying aversion and prosocial lies on cheating",
+      "url": "https://doi.org/10.1017/eec.2026.10061"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1111/1477-9552.70083",
+      "first_seen": "2026-09-22T14:37:15+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1111/1477-9552.70083",
+      "journal": "Journal of Agricultural Economics",
+      "official_date": "2026-09-22",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "How Do Savings Groups Respond to Agricultural Shocks?",
+      "url": "https://doi.org/10.1111/1477-9552.70083"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1111/jofi.70081",
+      "first_seen": "2026-09-22T13:10:59+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1111/jofi.70081",
+      "journal": "Journal of Finance",
+      "official_date": "2026-09-22",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Justice Good as Random?",
+      "url": "https://doi.org/10.1111/jofi.70081"
+    },
+    {
+      "date_confidence": "F",
+      "doi": "10.1257/jel.20260019",
+      "expected_metadata_gaps": {
+        "abstract": "book_review"
+      },
+      "first_seen": "2026-09-22T14:22:19+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1257/jel.20260019",
+      "journal": "Journal of Economic Literature",
+      "official_date": null,
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Swiftynomics: How Women Mastermind and Redefine Our Economy by Misty L. Heggeness",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/jel.20260019"
     },
     {
       "date_confidence": "F",
@@ -5681,29 +5817,6 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.chieco.2026.102774",
-      "first_seen": "2026-09-22T00:29:52+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.chieco.2026.102774",
-      "journal": "China Economic Review",
-      "official_date": "2026-09-21",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "The wings of innovation: Direct air connectivity boosts intercity collaborative patenting in China",
-      "url": "https://doi.org/10.1016/j.chieco.2026.102774"
-    },
-    {
-      "date_confidence": "C",
       "doi": "10.1016/j.econlet.2026.113244",
       "first_seen": "2026-09-21T16:25:27+00:00",
       "historical_backfill": false,
@@ -5796,52 +5909,6 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.jcorpfin.2026.103098",
-      "first_seen": "2026-09-21T16:29:01+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jcorpfin.2026.103098",
-      "journal": "Journal of Corporate Finance",
-      "official_date": "2026-09-21",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Small banks really are different: Unexpected deposit flows, loan production, and off-balance-sheet funding liquidity risk",
-      "url": "https://doi.org/10.1016/j.jcorpfin.2026.103098"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jdeveco.2026.103923",
-      "first_seen": "2026-09-21T16:26:44+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jdeveco.2026.103923",
-      "journal": "Journal of Development Economics",
-      "official_date": "2026-09-21",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "The security unlock: How rural social pension makes people more entrepreneurial?",
-      "url": "https://doi.org/10.1016/j.jdeveco.2026.103923"
-    },
-    {
-      "date_confidence": "C",
       "doi": "10.1016/j.jue.2026.103915",
       "first_seen": "2026-09-21T14:07:52+00:00",
       "historical_backfill": false,
@@ -5888,52 +5955,6 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.mathsocsci.2026.102584",
-      "first_seen": "2026-09-21T16:25:45+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.mathsocsci.2026.102584",
-      "journal": "Mathematical Social Sciences",
-      "official_date": "2026-09-21",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "On the existence of recursive utility",
-      "url": "https://doi.org/10.1016/j.mathsocsci.2026.102584"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.strueco.2026.09.007",
-      "first_seen": "2026-09-21T16:24:02+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.strueco.2026.09.007",
-      "journal": "Structural Change and Economic Dynamics",
-      "official_date": "2026-09-21",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Open-sourcing, labor productivity, and the moderating role of R&D",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0954349X26001669?dgcid=api_sd_search-api-endpoint"
-    },
-    {
-      "date_confidence": "C",
       "doi": "10.1080/00036846.2026.2733820",
       "first_seen": "2026-09-22T09:28:31+00:00",
       "historical_backfill": false,
@@ -5977,6 +5998,29 @@
       "source_type": "journal",
       "title": "Path selection of urban‑scale regulation policies in China in the new era: a perspective from utilizing positive agglomeration externalities",
       "url": "https://doi.org/10.1080/00036846.2026.2734527"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1080/00036846.2026.2736168",
+      "first_seen": "2026-09-21T16:27:05+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2736168",
+      "journal": "Applied Economics",
+      "official_date": "2026-09-21",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The impact of food safety status on voluntary food safety information disclosure: evidence from Chinese listed agricultural product processing enterprises",
+      "url": "https://doi.org/10.1080/00036846.2026.2736168"
     },
     {
       "date_confidence": "C",
@@ -11687,55 +11731,9 @@
       "source_type": "journal",
       "title": "Emerging skills and wage gaps in the low-carbon transition: evidence from online job vacancy data",
       "url": "https://doi.org/10.1086/743961"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1007/s10797-026-09987-z",
-      "first_seen": "2026-09-03T16:46:33+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1007/s10797-026-09987-z",
-      "journal": "International Tax and Public Finance",
-      "official_date": "2026-09-03",
-      "priority": [
-        0,
-        1,
-        1,
-        19
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "When are digital services taxes optimal? Output taxes and profit shifting",
-      "url": "https://doi.org/10.1007/s10797-026-09987-z"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.eneco.2026.109583",
-      "first_seen": "2026-09-16T09:21:51+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.eneco.2026.109583",
-      "journal": "Energy Economics",
-      "official_date": "2026-09-03",
-      "priority": [
-        0,
-        1,
-        1,
-        19
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Presidents, prices at the pump, and the difference in perceptions between energy market experts and non-experts",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0140988326004639?dgcid=rss_sd_all"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4857,
+  "total_candidates_before_limit": 4861,
   "truncated": true
 }
