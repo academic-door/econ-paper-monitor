@@ -1,6 +1,6 @@
 {
   "categories": {},
-  "checked_at": "2026-09-22T12:55:53.187405+08:00",
+  "checked_at": "2026-09-22T13:32:49.648060+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
@@ -9,30 +9,20 @@
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 11; Economic Development and Cultural Change: 7;",
-      "source": "crossref"
-    },
-    {
       "category": "needs_investigation",
       "sample_error": "attempted=120; proxy_abstract_attempted=20; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: ",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 32 via official-generated; Journal of Finance: 38 via official-generated; Journal of Financial Economics: 22 via official-generated; Review of Financia",
+      "sample_error": "feeds=72/119; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 120 via configured; Journal of Accounting and Economics: 49 via configu",
       "source": "rss"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "journals=34 failures=34 elsevier_api_key=on jina_key=on endpoint=sciencedirect_search_v2 route=official_api_v2_put_title_wildcard provider_rps=2.0 client_target_rps=0.4 min_interval_seconds=2.500 quot",
-      "source": "sciencedirect-search"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 3
   },
   "total_degraded": 0
 }
