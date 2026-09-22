@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { evaluateMonitorLiveness } from "../infra/monitor-liveness.mjs";
+import { evaluateMonitorLiveness, latestWorkflowPageTimestamp } from "../infra/monitor-liveness.mjs";
 
 const NOW = Date.parse("2026-09-21T12:00:00Z");
 
@@ -57,4 +57,17 @@ test("scheduler liveness keys off run creation, not workflow success", () => {
     run("Update Paper Monitor", "2026-09-21T11:30:00Z", { conclusion: "failure" }),
   ], NOW);
   assert.equal(snapshot.ok, true);
+});
+
+test("workflow HTML fallback extracts the newest GitHub relative-time timestamp", () => {
+  const html = `
+    <relative-time datetime="2026-09-21T10:10:00Z">2 hours ago</relative-time>
+    <time-ago datetime='2026-09-21T11:35:00Z'>25 minutes ago</time-ago>
+    <relative-time datetime="not-a-date">unknown</relative-time>
+  `;
+  assert.equal(latestWorkflowPageTimestamp(html), "2026-09-21T11:35:00.000Z");
+});
+
+test("workflow HTML fallback fails closed when no GitHub time element exists", () => {
+  assert.equal(latestWorkflowPageTimestamp("<html><body>No runs</body></html>"), null);
 });
