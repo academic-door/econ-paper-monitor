@@ -105,6 +105,7 @@
 | 其他宏观       | Structural Change and Economic Dynamics          | SCED        | 结构变化与经济动态   | B      |
 | 人口经济学顶刊 | Journal of Population Economics                   | JPopE       | 人口经济学杂志       | B      |
 | 劳动顶刊       | Journal of Labor Economics                        | JLE / JoLE  | 劳动经济学杂志       | A      |
+| 其他劳动经济学 | Labour Economics                                  | LabEcon     | 劳动经济学           | B      |
 | 计量顶刊       | Journal of Econometrics                           | JoE         | 计量经济学杂志       | A      |
 | 环境经济学顶刊 | Journal of Environmental Economics and Management | JEEM        | 环境经济学与管理杂志 | A      |
 | 其他环境经济学 | Energy Economics                                | EnEcon      | 能源经济学           | B      |
