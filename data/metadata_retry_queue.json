@@ -1,6 +1,7 @@
 {
   "expected_metadata_gap_counts": {
-    "abstract:book_review": 2
+    "abstract:book_review": 2,
+    "abstract:correction_notice": 1
   },
   "generated_for": "2026-09-22",
   "historical_backfill_candidates": 0,
@@ -11,7 +12,7 @@
     "weak_date_evidence": 490
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 747,
+  "recent_candidates_before_limit": 748,
   "recent_window_start": "2026-08-24",
   "records": [
     {
@@ -5352,6 +5353,32 @@
       "source_type": "journal",
       "title": "Situational ambiguity induces opportunistic rule breaking and erodes social norms",
       "url": "https://doi.org/10.1016/j.joep.2026.102939"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.worlddev.2026.107571",
+      "expected_metadata_gaps": {
+        "abstract": "correction_notice"
+      },
+      "first_seen": "2026-09-22T05:26:27+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.worlddev.2026.107571",
+      "journal": "World Development",
+      "official_date": "2026-09-22",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Corrigendum to “Measuring national entrepreneurial ecosystems in Africa” [WD 202 (2026) 107357 https://doi.org/10.1016/j.worlddev.2026.107357]",
+      "url": "https://doi.org/10.1016/j.worlddev.2026.107571"
     },
     {
       "date_confidence": "F",
@@ -11706,32 +11733,9 @@
       "source_type": "journal",
       "title": "Presidents, prices at the pump, and the difference in perceptions between energy market experts and non-experts",
       "url": "https://www.sciencedirect.com/science/article/pii/S0140988326004639?dgcid=rss_sd_all"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.eneco.2026.109584",
-      "first_seen": "2026-09-16T09:21:51+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.eneco.2026.109584",
-      "journal": "Energy Economics",
-      "official_date": "2026-09-03",
-      "priority": [
-        0,
-        1,
-        1,
-        19
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Designing renewable energy auctions for high realization probability — CfD and payment-only auctions",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0140988326004640?dgcid=rss_sd_all"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4856,
+  "total_candidates_before_limit": 4857,
   "truncated": true
 }
