@@ -1,13 +1,11 @@
 {
-  "categories": {
-    "needs_investigation": 1
-  },
-  "checked_at": "2026-09-22T07:22:30.191296+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-09-22T08:35:06.392534+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -17,35 +15,19 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 32 via official-generated; Journal of Finance: 38 via official-generated; Journal of Financial Economics: 22 via official-generated; Review of Financia",
+      "sample_error": "feeds=72/119; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 120 via configured; Journal of Accounting and Economics: 49 via configu",
       "source": "rss"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "working-paper:voxeu-cepr-columns"
+      "category": "rate_limited",
+      "sample_error": "journals=34 failures=34 elsevier_api_key=on jina_key=on endpoint=sciencedirect_search_v2 route=official_api_v2_put_title_wildcard provider_rps=2.0 client_target_rps=0.4 min_interval_seconds=2.500 quot",
+      "source": "sciencedirect-search"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "economic-theory/springer_online_first: crossref fallback 5; review-of-economic-design/springer_online_first: PARSER_FAILURE; review-of-economic-design/springer_online_first: crossref fallback 2; socia",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 4
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }
