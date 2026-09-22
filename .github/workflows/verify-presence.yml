@@ -24,3 +24,37 @@ jobs:
             'https://econ-paper-monitor-presence.academic-door.workers.dev/presence?client_id=github-actions-smoke-20260727')"
           echo "$payload"
           python -c 'import json, sys; value=json.loads(sys.argv[1]); assert isinstance(value.get("online"), int) and value["online"] >= 1' "$payload"
+
+      - name: Check independent scheduler liveness endpoint
+        shell: bash
+        run: |
+          payload="$(curl --fail --silent --show-error --retry 3 --retry-delay 2 \
+            'https://econ-paper-monitor-presence.academic-door.workers.dev/monitor-liveness')"
+          echo "$payload"
+          python - "$payload" <<'PY'
+          import json
+          import sys
+
+          value = json.loads(sys.argv[1])
+          assert value.get("schema_version") == 1
+          assert value.get("state") in {"healthy", "stale"}
+          assert value.get("checked_at")
+          assert set(value.get("workflows") or {}) == {
+              "Monitor Watchdog",
+              "Fast Discovery",
+              "Update Paper Monitor",
+          }
+          assert isinstance(value.get("stale_workflows"), list)
+          PY
+
+      - name: Check CNKI relay endpoint
+        shell: bash
+        run: |
+          body="$(mktemp)"
+          curl --fail --silent --show-error --retry 3 --retry-delay 2 \
+            --get \
+            --data-urlencode 'url=https://rss.cnki.net/knavi/rss/JJYJ?pcode=CJFD,CCJD' \
+            --output "$body" \
+            'https://econ-paper-monitor-presence.academic-door.workers.dev/cnki-rss'
+          test "$(wc -c < "$body")" -gt 100
+          grep -Eiq '<(rss|rdf:RDF|feed|channel)([ >:]|$)' "$body"
