@@ -1,7 +1,12 @@
-import { evaluateMonitorLiveness } from "./monitor-liveness.mjs";
+import { evaluateMonitorLiveness, latestWorkflowPageTimestamp } from "./monitor-liveness.mjs";
 
 const ACTIVE_WINDOW_MS = 120000;
 const GITHUB_SCHEDULE_RUNS_URL = "https://api.github.com/repos/academic-door/econ-paper-monitor/actions/runs?event=schedule&per_page=100";
+const GITHUB_WORKFLOW_PAGES = Object.freeze([
+  Object.freeze({ name: "Monitor Watchdog", file: "watchdog.yml" }),
+  Object.freeze({ name: "Fast Discovery", file: "fast-discovery.yml" }),
+  Object.freeze({ name: "Update Paper Monitor", file: "update.yml" }),
+]);
 
 function corsHeaders(origin) {
   return {
@@ -46,9 +51,41 @@ async function storeMonitorLiveness(env, snapshot) {
   }));
 }
 
+async function fetchScheduleRunsFromWorkflowPages() {
+  const runs = [];
+  for (const workflow of GITHUB_WORKFLOW_PAGES) {
+    const url = `https://github.com/academic-door/econ-paper-monitor/actions/workflows/${workflow.file}?query=event%3Aschedule`;
+    const response = await fetch(url, {
+      headers: {
+        "Accept": "text/html,application/xhtml+xml",
+        "User-Agent": "Academic-Door-Monitor-Liveness/1.0",
+      },
+      cf: { cacheTtl: 60, cacheEverything: true },
+    });
+    if (!response.ok) {
+      throw new Error(`github_html_${workflow.file}_${response.status}`);
+    }
+    const createdAt = latestWorkflowPageTimestamp(await response.text());
+    if (!createdAt) {
+      throw new Error(`github_html_${workflow.file}_timestamp_missing`);
+    }
+    runs.push({
+      name: workflow.name,
+      event: "schedule",
+      created_at: createdAt,
+      run_started_at: createdAt,
+      status: null,
+      conclusion: null,
+      html_url: url,
+    });
+  }
+  return runs;
+}
+
 async function refreshMonitorLiveness(env) {
   const checkedAt = new Date().toISOString();
   let snapshot;
+  let apiError = null;
   try {
     const upstream = await fetch(GITHUB_SCHEDULE_RUNS_URL, {
       headers: {
@@ -56,22 +93,32 @@ async function refreshMonitorLiveness(env) {
         "User-Agent": "Academic-Door-Monitor-Liveness/1.0",
         "X-GitHub-Api-Version": "2022-11-28",
       },
+      cf: { cacheTtl: 60, cacheEverything: true },
     });
     if (!upstream.ok) {
       throw new Error(`github_api_${upstream.status}`);
     }
     const payload = await upstream.json();
     snapshot = evaluateMonitorLiveness(payload.workflow_runs, Date.parse(checkedAt));
+    snapshot.source = "github_actions_api";
   } catch (error) {
-    snapshot = {
-      schema_version: 1,
-      ok: false,
-      state: "observer_error",
-      checked_at: checkedAt,
-      stale_workflows: [],
-      workflows: {},
-      error: String(error?.message || error || "unknown_error").slice(0, 120),
-    };
+    apiError = String(error?.message || error || "unknown_error").slice(0, 120);
+    try {
+      const runs = await fetchScheduleRunsFromWorkflowPages();
+      snapshot = evaluateMonitorLiveness(runs, Date.parse(checkedAt));
+      snapshot.source = "github_actions_html";
+      snapshot.api_error = apiError;
+    } catch (fallbackError) {
+      snapshot = {
+        schema_version: 1,
+        ok: false,
+        state: "observer_error",
+        checked_at: checkedAt,
+        stale_workflows: [],
+        workflows: {},
+        error: `${apiError}; ${String(fallbackError?.message || fallbackError || "unknown_fallback_error")}`.slice(0, 240),
+      };
+    }
   }
   await storeMonitorLiveness(env, snapshot);
   return snapshot;
