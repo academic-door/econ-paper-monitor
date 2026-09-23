@@ -196,6 +196,16 @@ TARGETS = {
         "date_source": "tandf_latest_articles",
         "date_confidence": "B",
     }],
+    "journal-of-the-association-of-environmental-and-resource-economists": [{
+        "kind": "uchicago_just_accepted",
+        "url": "https://www.journals.uchicago.edu/toc/jaere/0/ja",
+        "fallback_urls": [
+            "https://r.jina.ai/http://www.journals.uchicago.edu/toc/jaere/0/ja",
+        ],
+        "fallback_issn": "2333-5955",
+        "date_source": "uchicago_just_accepted",
+        "date_confidence": "B",
+    }],
     # Springer RSS frequently returns malformed XML from CI networks. The
     # publisher's Online First pages provide an independent official HTML
     # path while preserving article DOI links.
@@ -594,6 +604,7 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
         is_quantitative_economics_article = "10.3982/qe" in href_lower
         is_applied_economics_article = "10.1080/00036846" in href_lower
         is_jbes_article = "10.1080/07350015" in href_lower
+        is_uchicago_article = "10.1086/" in href_lower
         if "econometricsociety.org/publications/econometrica" in base_lower:
             valid_article = is_econometrica_article
         elif "econometricsociety.org/publications/theoretical-economics" in base_lower:
@@ -613,6 +624,8 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             valid_article = is_applied_economics_article
         elif "tandfonline.com" in base_lower and "ubes20" in base_lower:
             valid_article = is_jbes_article
+        elif "journals.uchicago.edu/toc/jaere" in base_lower:
+            valid_article = is_uchicago_article
         else:
             valid_article = is_doi_article
         if not valid_article:
@@ -654,6 +667,8 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             valid = "10.1080/00036846" in href_lower
         elif "tandfonline.com" in base_url.lower() and "ubes20" in base_url.lower():
             valid = "10.1080/07350015" in href_lower
+        elif "journals.uchicago.edu/toc/jaere" in base_url.lower():
+            valid = "10.1086/" in href_lower
         if not valid or any(skip in title.casefold() for skip in ("pdf", "permissions", "supplementary")):
             continue
         key = href.split("?", 1)[0].rstrip("/")
