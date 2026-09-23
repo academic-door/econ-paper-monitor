@@ -147,9 +147,35 @@ def test_cepr_current_listing_rejects_stale_only_surfaces(monkeypatch) -> None:
 
 def test_cepr_listing_floor_is_transport_only() -> None:
     assert fetch_preprints.CEPR_CURRENT_LISTING_FLOOR == 20000
-    assert not fetch_preprints.is_historical_cepr_record(
-        {"source_id": "cepr-dp", "url": "https://cepr.org/publications/dp13978"}
+    old_record = {"source_id": "cepr-dp", "url": "https://cepr.org/publications/dp13978"}
+    current_record = {"source_id": "cepr-dp", "url": "https://cepr.org/publications/dp21958"}
+    assert not fetch_preprints.is_historical_cepr_record(old_record)
+    assert not fetch_preprints.is_current_cepr_listing_record(old_record)
+    assert fetch_preprints.is_current_cepr_listing_record(current_record)
+
+
+def test_cepr_current_listing_drops_stale_rows_from_mixed_surface(monkeypatch) -> None:
+    source = {
+        "id": "cepr-dp",
+        "title": "CEPR Discussion Papers",
+        "type": "working_paper",
+        "homepage": "https://cepr.org/publications/discussion-papers/search-discussion-papers",
+        "url_pattern": r"/publications/dp\d+",
+        "url_contains": ["/publications/dp"],
+        "fields": ["macro"],
+    }
+    html = (
+        '<html><body>'
+        '<a href="/publications/dp21958">DP21958 A current discussion paper with a sufficiently descriptive title</a>'
+        '<a href="/publications/dp13127">DP13127 Optimal fund menus and historical catalogue contamination</a>'
+        '</body></html>'
     )
+    monkeypatch.setattr(fetch_preprints, "fetch_text", lambda url, *, timeout: html)
+
+    records, method = fetch_preprints.fetch_source(source, timeout=5, limit=12)
+
+    assert method == "cepr-official-html:search"
+    assert [record["paper_number"] for record in records] == ["DP21958"]
 
 
 def test_current_cepr_paper_remains_eligible_for_today(tmp_path: Path, monkeypatch) -> None:
