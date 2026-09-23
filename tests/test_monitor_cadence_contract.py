@@ -49,7 +49,7 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertIn('MONITOR_RUN_DATE="$(TZ=Asia/Shanghai date +%F)"', text)
         self.assertIn('echo "MONITOR_RUN_DATE=$MONITOR_RUN_DATE" >> "$GITHUB_ENV"', text)
         self.assertIn('DATE="$MONITOR_RUN_DATE"', text)
-        self.assertNotIn('DATE="$(TZ=Asia/Shanghai date +%F)"', text)
+        self.assertEqual(text.count("TZ=Asia/Shanghai date +%F"), 1)
 
     def test_watchdog_is_fallback_not_second_hourly_lane(self) -> None:
         text = (ROOT / ".github" / "workflows" / "watchdog.yml").read_text(encoding="utf-8")
