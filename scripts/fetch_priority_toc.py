@@ -925,6 +925,14 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
         or parse_date((meta_values(html_text, "citation_publication_date") or [None])[0])
         or parse_date((meta_values(html_text, "dc.Date") or [None])[0])
     )
+    accepted_date = None
+    if "journals.uchicago.edu/doi/" in url.lower():
+        accepted_match = re.search(
+            r"\bAccepted:\s*(\d{1,2}\s+[A-Za-z]{3,9}\s+20\d{2})\b",
+            clean_text(html_text),
+            flags=re.I,
+        )
+        accepted_date = parse_date(accepted_match.group(1)) if accepted_match else None
     jina_text = ""
     if "restud.com" in url.lower() and (not published or not authors or not meta_values(html_text, "citation_abstract")):
         jina_url = f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"
@@ -962,6 +970,7 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
         "authors": authors,
         "doi": doi,
         "published_online": published,
+        "accepted_date": accepted_date,
         "abstract": abstract,
     }
 
@@ -1103,6 +1112,7 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
                 abstract=detail.get("abstract") if isinstance(detail.get("abstract"), str) else None,
                 published_online=detail.get("published_online") if isinstance(detail.get("published_online"), str) else None,
                 available_online=detail.get("published_online") if isinstance(detail.get("published_online"), str) else None,
+                accepted_date=detail.get("accepted_date") if isinstance(detail.get("accepted_date"), str) else None,
                 date_source=target["date_source"],
                 date_confidence=target["date_confidence"],
                 raw_data={"priority_toc_kind": target["kind"]},
