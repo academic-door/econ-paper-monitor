@@ -124,6 +124,27 @@ class InspectJournalTests(unittest.TestCase):
         self.assertIn("priority-toc", row["usable_paths"])
         self.assertEqual(row["coverage"], "official_or_specialized")
 
+    def test_jaere_priority_toc_success_promotes_supplemental_closed_to_healthy(self) -> None:
+        entry = registry_entry(rss_status="none", rss_count=0)
+        journal = {
+            "id": "journal-of-the-association-of-environmental-and-resource-economists",
+            "title": "Journal of the Association of Environmental and Resource Economists",
+            "publisher": "The University of Chicago Press",
+        }
+        status = make_status(
+            {"count": 2, "ok": True, "publisher_ok": True},
+            journal_id="journal-of-the-association-of-environmental-and-resource-economists",
+        )
+        row = self._row(
+            entry,
+            status,
+            journal=journal,
+            journal_id="journal-of-the-association-of-environmental-and-resource-economists",
+        )
+        self.assertEqual(row["level"], "healthy")
+        self.assertIn("priority-toc", row["usable_paths"])
+        self.assertEqual(row["coverage"], "official_or_specialized")
+
     def test_batch1_ci_blocked_rss_is_closed_not_degraded(self) -> None:
         cases = {
             "management-science": ("HTTPError: HTTP Error 403: Forbidden", "Management Science", "INFORMS"),
