@@ -73,6 +73,24 @@ jobs:
           print('semantic_scholar_health=' + json.dumps(
               {key: ss_health.get(key) for key in ss_keys}, ensure_ascii=False
           ))
+          pii_health = (report.get('provider_health') or {}).get('elsevier-pii', {})
+          pii_keys = (
+              'attempts',
+              'available',
+              'empty',
+              'statuses',
+              'failed',
+              'api_key_configured',
+              'rate_limit_headers',
+          )
+          print('elsevier_pii_provider_health=' + json.dumps(
+              {key: pii_health.get(key) for key in pii_keys}, ensure_ascii=False
+          ))
+          print('recovery_candidates=' + json.dumps({
+              'total': report.get('candidates'),
+              'doi': report.get('doi_candidates'),
+              'pii': report.get('pii_candidates'),
+          }, ensure_ascii=False))
           print('recovery_recovered=' + json.dumps(
               report.get('recovered', {}), ensure_ascii=False
           ))
