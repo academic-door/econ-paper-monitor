@@ -131,22 +131,6 @@ async function checkPage(browser, url) {
   const errors = [];
   const page = await browser.newPage(pageOptions);
   page.on("pageerror", (error) => errors.push(String(error)));
-  if (isLocal) {
-    await page.route("https://econ-paper-monitor-presence.academic-door.workers.dev/monitor-liveness", (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({
-          schema_version: 1,
-          ok: false,
-          state: "stale",
-          checked_at: "2026-09-21T12:00:00Z",
-          stale_workflows: ["Monitor Watchdog"],
-          workflows: {},
-        }),
-      }),
-    );
-  }
   const navigationWaitUntil = isLocal ? "networkidle" : "domcontentloaded";
   await page.goto(url, { waitUntil: navigationWaitUntil, timeout: 60000 });
   await page.waitForTimeout(2400);
@@ -154,14 +138,9 @@ async function checkPage(browser, url) {
   assert.ok(await page.locator('.hero h1').isVisible(), `${url} Hero title is not visible`);
   assert.ok(await page.locator('.hero-lede').isVisible(), `${url} Hero lede is not visible`);
   assert.ok((await page.locator('.hero-total').count()) >= 1);
-  if (isLocal) {
-    const freshnessStatus = page.locator('[data-monitor-liveness]');
-    await freshnessStatus.waitFor({ state: "visible" });
-    assert.equal((await freshnessStatus.innerText()).trim(), "数据更新延迟", `${url} did not surface public freshness status`);
-    assert.equal(await freshnessStatus.getAttribute("data-state"), "stale", `${url} stale state was not abstracted`);
-    assert.match(await freshnessStatus.getAttribute("aria-label"), /部分自动更新暂未按计划运行/, `${url} stale status lacks user-facing detail`);
-    assert.doesNotMatch(await freshnessStatus.innerText(), /Monitor Watchdog|Fast Discovery|Update Paper Monitor/, `${url} leaked internal workflow names`);
-  }
+  assert.equal(await page.locator('[data-monitor-liveness]').count(), 0, `${url} exposed internal scheduler liveness UI`);
+  const publicBody = await page.locator('body').innerText();
+  assert.ok(!/数据更新延迟|状态待确认|页面内容可能滞后|页面内容可能不是最新/.test(publicBody), `${url} exposed internal scheduler freshness copy`);
   await assertNoPseudoDiscoveryTime(page, url);
   await assertNoStaleTodayBackfill(page, url);
   if (url === root) await assertNavigationLinksHealthy(page, url);
@@ -419,24 +398,6 @@ async function checkDetailPage(browser) {
   await page.close();
 }
 
-async function checkObserverUnavailable(browser) {
-  if (!isLocal) return;
-  const page = await browser.newPage(pageOptions);
-  const errors = [];
-  page.on("pageerror", (error) => errors.push(String(error)));
-  await page.route("https://econ-paper-monitor-presence.academic-door.workers.dev/monitor-liveness", (route) =>
-    route.fulfill({ status: 503, contentType: "text/plain", body: "unavailable" }),
-  );
-  await page.goto(root, { waitUntil: "networkidle", timeout: 60000 });
-  const freshnessStatus = page.locator('[data-monitor-liveness]');
-  await freshnessStatus.waitFor({ state: "visible" });
-  assert.equal((await freshnessStatus.innerText()).trim(), "状态待确认");
-  assert.equal(await freshnessStatus.getAttribute("data-state"), "observer_error");
-  assert.match(await freshnessStatus.getAttribute("aria-label"), /暂时无法确认自动更新状态/);
-  assert.equal(errors.length, 0, `Observer-unavailable page errors: ${errors.join(" | ")}`);
-  await page.close();
-}
-
 async function checkGsapFallback(browser) {
   const page = await browser.newPage();
   const errors = [];
@@ -444,22 +405,6 @@ async function checkGsapFallback(browser) {
   await page.route("**/gsap.min.js", (route) => route.abort());
   await page.route("**/ScrollTrigger.min.js", (route) => route.abort());
   await page.route("**/Flip.min.js", (route) => route.abort());
-  if (isLocal) {
-    await page.route("https://econ-paper-monitor-presence.academic-door.workers.dev/monitor-liveness", (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({
-          schema_version: 1,
-          ok: false,
-          state: "stale",
-          checked_at: "2026-09-21T12:00:00Z",
-          stale_workflows: ["Monitor Watchdog"],
-          workflows: {},
-        }),
-      }),
-    );
-  }
   const navigationWaitUntil = isLocal ? "networkidle" : "domcontentloaded";
   await page.goto(root, { waitUntil: navigationWaitUntil, timeout: 60000 });
   await page.waitForTimeout(500);
@@ -477,7 +422,6 @@ try {
   for (const url of urls) await checkPage(browser, url);
   await checkSecondaryPages(browser);
   await checkDetailPage(browser);
-  await checkObserverUnavailable(browser);
   await checkGsapFallback(browser);
   console.log(`Public Product Audit passed at ${viewportWidth || "default"}px for ${urls.join(" and ")}`);
 } finally {
