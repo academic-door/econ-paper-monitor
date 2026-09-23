@@ -1082,6 +1082,10 @@ def run_recovery(
             )
             health["retried_after_empty"] = False
 
+    # Preserve PII provider observability even when DOI-provider empty-burst
+    # retry rebuilds the DOI provider-health table above.
+    provider_health["elsevier-pii"] = summarize_elsevier_pii_health(providers_by_pii)
+
     # Apply recovery to every canonical daily occurrence.
     for doi, occurrences in records_by_doi.items():
         if doi not in providers_by_doi:
