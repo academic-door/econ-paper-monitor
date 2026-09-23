@@ -214,12 +214,10 @@ def load_daily_candidates(
     for path in sorted(daily_dir.glob("*.json")):
         if cutoff and path.stem < cutoff:
             continue
-        payload = shared_payloads.get(path)
-        if payload is None:
-            payload = read_json(path, [])
-            if not isinstance(payload, list):
-                continue
-            shared_payloads[path] = payload
+        payload = read_json(path, [])
+        if not isinstance(payload, list):
+            continue
+        payloads_by_path[path] = payload
         for record in payload:
             if not isinstance(record, dict):
                 continue
@@ -277,10 +275,12 @@ def load_elsevier_pii_candidates(
     for path in sorted(daily_dir.glob("*.json")):
         if cutoff and path.stem < cutoff:
             continue
-        payload = read_json(path, [])
-        if not isinstance(payload, list):
-            continue
-        payloads_by_path[path] = payload
+        payload = shared_payloads.get(path)
+        if payload is None:
+            payload = read_json(path, [])
+            if not isinstance(payload, list):
+                continue
+            shared_payloads[path] = payload
         for record in payload:
             if not isinstance(record, dict) or normalize_doi(record.get("doi")):
                 continue
