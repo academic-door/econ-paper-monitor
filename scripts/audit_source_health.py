@@ -101,6 +101,8 @@ PRIORITY_TOC_JOURNALS = {
     "applied-economics",
     "journal-of-business-and-economic-statistics",
     "journal-of-the-association-of-environmental-and-resource-economists",
+    "review-of-accounting-studies",
+    "journal-of-risk-and-uncertainty",
 }
 
 
