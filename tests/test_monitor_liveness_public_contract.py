@@ -1,9 +1,12 @@
 from pathlib import Path
 
 
-def test_optional_monitor_liveness_request_is_bounded() -> None:
+def test_monitor_liveness_stays_off_the_public_homepage() -> None:
     template = Path("scripts/templates/daily_vnext.html").read_text(encoding="utf-8")
-    assert "const monitorController = new AbortController();" in template
-    assert "window.setTimeout(() => monitorController.abort(), 5000)" in template
-    assert "signal: monitorController.signal" in template
-    assert ".finally(() => window.clearTimeout(monitorTimer));" in template
+    assert "/monitor-liveness" not in template
+    assert "data-monitor-liveness" not in template
+    assert "monitorController" not in template
+    assert "stale_workflows" not in template
+    assert "数据更新延迟" not in template
+    assert "状态待确认" not in template
+    assert "页面内容可能" not in template
