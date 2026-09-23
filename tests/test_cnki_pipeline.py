@@ -56,6 +56,14 @@ def test_authoritative_local_runner_requires_every_source():
     ).read_text(encoding="utf-8")
 
 
+def test_cnki_relay_keeps_rss_cnki_hostname_for_worker_fetch():
+    root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
+    worker = (root / "infra" / "presence-worker.js").read_text(encoding="utf-8")
+
+    assert '"rss.cnki.net", "navi.cnki.net", "kns.cnki.net"' in worker
+    assert 'target.hostname = "navi.cnki.net"' not in worker
+
+
 def test_public_workflow_does_not_overwrite_local_cnki_status():
     workflow = (
         Path(fetch_cnki_rss.__file__).resolve().parents[1]
