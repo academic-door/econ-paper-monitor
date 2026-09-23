@@ -50,9 +50,9 @@ def main() -> None:
     xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>经济学论文雷达</title>
+    <title>Econ Papers Daily / 每日之门</title>
     <link>{html_escape(args.site_url)}</link>
-    <description>经济学论文雷达：自动追踪重点经济学期刊和工作论文来源的最新论文。</description>
+    <description>Econ Papers Daily / 每日之门：追踪重点经济学期刊和工作论文来源的最新论文。</description>
     <lastBuildDate>{format_datetime(datetime.now(UTC))}</lastBuildDate>
 {items}
   </channel>
