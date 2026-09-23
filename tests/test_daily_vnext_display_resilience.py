@@ -213,6 +213,8 @@ def test_secondary_renderer_skips_and_removes_future_daily_routes(monkeypatch, t
     (stale_future / "index.html").write_text("stale future route", encoding="utf-8")
 
     monkeypatch.setattr(render_site, "today_str", lambda: "2026-09-23")
+    monkeypatch.setattr(render_site, "load_all_daily", lambda _daily_dir: [])
+    monkeypatch.setattr(render_site, "load_journals", lambda _path: [])
     monkeypatch.setattr(
         sys,
         "argv",
