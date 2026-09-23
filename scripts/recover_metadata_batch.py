@@ -532,7 +532,7 @@ def elsevier_pii_metadata(pii: str, timeout: int) -> dict[str, Any]:
     api_key, inst_token = elsevier_env_credentials()
     if not api_key:
         return {"_status": "not_configured"}
-    encoded_pii = urllib.parse.quote(str(pii or "").strip(), safe="")
+    encoded_pii = urllib.parse.quote(str(pii or "").strip().upper(), safe="")
     url = (
         "https://api.elsevier.com/content/article/pii/"
         f"{encoded_pii}?httpAccept=application%2Fjson"
