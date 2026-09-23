@@ -51,10 +51,28 @@ jobs:
         shell: bash
         run: |
           body="$(mktemp)"
-          curl --fail --silent --show-error --retry 3 --retry-delay 2 \
+          headers="$(mktemp)"
+          set +e
+          http_status="$(curl --silent --show-error --retry 3 --retry-delay 2 \
             --get \
             --data-urlencode 'url=https://rss.cnki.net/knavi/rss/JJYJ?pcode=CJFD,CCJD' \
+            --dump-header "$headers" \
             --output "$body" \
-            'https://econ-paper-monitor-presence.academic-door.workers.dev/cnki-rss'
+            --write-out '%{http_code}' \
+            'https://econ-paper-monitor-presence.academic-door.workers.dev/cnki-rss')"
+          curl_exit=$?
+          set -e
+
+          echo "CNKI relay HTTP status: $http_status"
+          echo "CNKI relay diagnostic headers:"
+          grep -Eia '^(HTTP/|content-type:|server:|cf-ray:|cf-error-type:)' "$headers" || true
+
+          if [ "$curl_exit" -ne 0 ] || [[ ! "$http_status" =~ ^2[0-9][0-9]$ ]]; then
+            echo "CNKI relay response body (first 4096 bytes):"
+            head -c 4096 "$body" || true
+            echo
+            exit 1
+          fi
+
           test "$(wc -c < "$body")" -gt 100
           grep -Eiq '<(rss|rdf:RDF|feed|channel)([ >:]|$)' "$body"
