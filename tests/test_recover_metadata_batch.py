@@ -655,6 +655,135 @@ class TestRecoveryPersistence:
         assert persisted["latest"]["providers"]["semantic-scholar"]["statuses"]["not_found"] == 1
 
 
+class TestElsevierPiiRecovery:
+    def test_loads_doi_less_sciencedirect_pii_candidates_only(self, tmp_path: Path):
+        daily_dir = tmp_path / "daily"
+        daily_dir.mkdir()
+        pii_only = sample_record(
+            doi=None,
+            url="https://www.sciencedirect.com/science/article/pii/S0264999326002385?dgcid=rss_sd_all",
+            authors=["Alice Author"],
+            abstract=None,
+            date_confidence="F",
+        )
+        doi_backed = sample_record(
+            doi="10.1016/j.econmod.2026.106001",
+            url="https://www.sciencedirect.com/science/article/pii/S0264999326002999",
+            authors=["Bob Author"],
+            abstract=None,
+            date_confidence="F",
+        )
+        non_elsevier = sample_record(
+            doi=None,
+            pii="S0000000000000000",
+            url="https://example.org/paper/S0000000000000000",
+            authors=["Carol Author"],
+            abstract=None,
+            date_confidence="F",
+        )
+        write_json(daily_dir / "2026-09-16.json", [pii_only, doi_backed, non_elsevier])
+
+        candidates, records_by_pii, _ = recover_metadata_batch.load_elsevier_pii_candidates(
+            daily_dir,
+            limit=10,
+            recent_days=5000,
+        )
+
+        assert len(candidates) == 1
+        assert set(records_by_pii) == {"s0264999326002385"}
+        assert candidates[0][1]["doi"] is None
+
+    def test_pii_api_parses_abstract_and_publisher_online_date(self):
+        core = {
+            "dc:title": "PII-only Elsevier Paper",
+            "prism:url": "https://api.elsevier.com/content/article/pii/S0264999326002385",
+            "pii": "S0264999326002385",
+            "prism:coverDisplayDate": "Available online 16 September 2026",
+            "dc:description": (
+                "This is a sufficiently long Elsevier abstract for a DOI-less PII record. "
+                "It contains enough substantive text to pass the recovery threshold safely."
+            ),
+        }
+        payload = json.dumps({"full-text-retrieval-response": {"coredata": core}})
+        with patch.dict(os.environ, {"ELSEVIER_API_KEY": "k"}, clear=False), patch(
+            "recover_metadata_batch._els_request", return_value=(payload, {})
+        ) as request_mock, patch.object(recover_metadata_batch.time, "sleep"):
+            meta = recover_metadata_batch.elsevier_pii_metadata("S0264999326002385", 10)
+
+        assert meta["_status"] == "available"
+        assert meta["available_online"] == "2026-09-16"
+        assert meta["date_confidence"] == "A"
+        assert "sufficiently long Elsevier abstract" in meta["abstract"]
+        assert "/content/article/pii/S0264999326002385" in request_mock.call_args.args[0]
+
+    def test_run_recovery_repairs_pii_only_record_without_identity_rewrite(self, tmp_path: Path):
+        data_dir = tmp_path / "data"
+        daily_dir = data_dir / "daily"
+        daily_dir.mkdir(parents=True)
+        pii_url = "https://www.sciencedirect.com/science/article/pii/S0264999326002385?dgcid=rss_sd_all"
+        record = sample_record(
+            doi=None,
+            url=pii_url,
+            authors=["Alice Author"],
+            abstract=None,
+            official_date="2026-10-01",
+            date_confidence="F",
+            first_seen="2026-09-16T09:21:48+00:00",
+        )
+        write_json(daily_dir / "2026-09-16.json", [record])
+        write_json(data_dir / "seen.json", {"papers": {"seen-pii": dict(record)}})
+        write_json(
+            data_dir / "metadata_retry_queue.json",
+            {"records": [{"identity": f"url:{pii_url.casefold()}", "url": pii_url, "title": record["title"], "reasons": ["missing_abstract", "weak_date_evidence"]}]},
+        )
+        write_json(data_dir / "ingestion_retry_queue.json", {"records": [], "resolved_records": []})
+        write_json(data_dir / "ingestion_exclusion_ledger.json", {"records": []})
+        write_json(data_dir / "pending_date_records.json", [])
+        write_json(data_dir / "historical_backfill_pending.json", {"records": []})
+        write_json(data_dir / "source_health.json", {"counts": {}, "coverage_counts": {}})
+
+        recovered_abstract = (
+            "This recovered publisher abstract is sufficiently long and authoritative for the "
+            "PII-only Elsevier record while preserving the existing canonical identity."
+        )
+        with patch(
+            "recover_metadata_batch.elsevier_pii_metadata",
+            return_value={
+                "_status": "available",
+                "pii": "S0264999326002385",
+                "abstract": recovered_abstract,
+                "abstract_source": "elsevier_article_api_full",
+                "available_online": "2026-09-16",
+                "published_online": "2026-09-16",
+                "date_source": "elsevier_article_api",
+                "date_confidence": "A",
+            },
+        ):
+            report = run_recovery(
+                data_dir=data_dir,
+                limit=0,
+                pii_limit=10,
+                recent_days=5000,
+                timeout=10,
+                workers=1,
+                dry_run=False,
+            )
+
+        persisted = json.loads((daily_dir / "2026-09-16.json").read_text(encoding="utf-8"))[0]
+        seen = json.loads((data_dir / "seen.json").read_text(encoding="utf-8"))["papers"]["seen-pii"]
+        assert report["doi_candidates"] == 0
+        assert report["pii_candidates"] == 1
+        assert report["recovered"]["abstract"] >= 1
+        assert report["recovered"]["date"] >= 1
+        assert persisted["abstract"] == recovered_abstract
+        assert persisted["date_confidence"] == "A"
+        assert persisted["available_online"] == "2026-09-16"
+        assert persisted["doi"] is None
+        assert persisted["first_seen"] == "2026-09-16T09:21:48+00:00"
+        assert seen["doi"] is None
+        assert seen["first_seen"] == "2026-09-16T09:21:48+00:00"
+
+
 class TestElsevierProvider:
     def _payload(self) -> str:
         core = {
