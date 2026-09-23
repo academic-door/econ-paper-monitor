@@ -673,7 +673,15 @@ class TestElsevierPiiRecovery:
             abstract=None,
             date_confidence="F",
         )
-        write_json(daily_dir / "2026-09-16.json", [pii_only, doi_backed])
+        non_elsevier = sample_record(
+            doi=None,
+            pii="S0000000000000000",
+            url="https://example.org/paper/S0000000000000000",
+            authors=["Carol Author"],
+            abstract=None,
+            date_confidence="F",
+        )
+        write_json(daily_dir / "2026-09-16.json", [pii_only, doi_backed, non_elsevier])
 
         candidates, records_by_pii, _ = recover_metadata_batch.load_elsevier_pii_candidates(
             daily_dir,
