@@ -149,6 +149,10 @@ export default {
       if (target.protocol !== "https:" || !["rss.cnki.net", "navi.cnki.net", "kns.cnki.net"].includes(target.hostname)) {
         return new Response("CNKI RSS host required", { status: 403, headers: rssHeaders(origin, "text/plain; charset=utf-8") });
       }
+      // rss.cnki.net currently serves a certificate whose common name is not
+      // valid for that host. CNKI exposes the same feed at navi.cnki.net with
+      // a valid certificate, so use that official alias inside Cloudflare.
+      if (target.hostname === "rss.cnki.net") target.hostname = "navi.cnki.net";
       const upstream = await fetch(target.toString(), {
         headers: {
           "Accept": "application/rss+xml, application/xml, text/xml, */*;q=0.8",
