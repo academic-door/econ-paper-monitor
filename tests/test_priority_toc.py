@@ -250,6 +250,52 @@ class TandfLatestTargetTests(unittest.TestCase):
         )
 
 
+class JaereJustAcceptedTargetTests(unittest.TestCase):
+    def test_jaere_just_accepted_target_is_configured(self) -> None:
+        journal_id = "journal-of-the-association-of-environmental-and-resource-economists"
+        self.assertIn(journal_id, fetch_priority_toc.TARGETS)
+        target = fetch_priority_toc.TARGETS[journal_id][0]
+        self.assertEqual(target["kind"], "uchicago_just_accepted")
+        self.assertEqual(target["fallback_issn"], "2333-5955")
+        self.assertIn("/toc/jaere/0/ja", target["url"])
+        self.assertTrue(any(url.startswith("https://r.jina.ai/") for url in target["fallback_urls"]))
+
+    def test_jaere_links_accept_uchicago_doi_and_reject_navigation(self) -> None:
+        html = """
+        <a href="/doi/10.1086/742967">Do Prior Residents Benefit from Energy Booms?</a>
+        <a href="/doi/10.1080/07350015.2026.7654321">An unrelated external DOI</a>
+        <a href="/journals/jaere/about">About the Journal of Environmental and Resource Economists</a>
+        """
+        links = fetch_priority_toc.article_links(
+            html,
+            "https://www.journals.uchicago.edu/toc/jaere/0/ja",
+        )
+        self.assertEqual(
+            links,
+            [(
+                "https://www.journals.uchicago.edu/doi/10.1086/742967",
+                "Do Prior Residents Benefit from Energy Booms?",
+            )],
+        )
+
+    def test_jaere_detail_captures_accepted_date_without_promoting_to_publication_date(self) -> None:
+        html = """
+        <meta name="citation_title" content="Do Prior Residents Benefit from Energy Booms?">
+        <meta name="citation_author" content="Luyi Han">
+        <meta name="citation_doi" content="10.1086/742967">
+        <div class="history">Accepted: 10 June 2026</div>
+        """
+        with mock.patch.object(fetch_priority_toc, "fetch_toc_text", return_value=html):
+            detail = fetch_priority_toc.enrich_detail(
+                "https://www.journals.uchicago.edu/doi/10.1086/742967",
+                "Fallback",
+                5,
+            )
+        self.assertEqual(detail["accepted_date"], "2026-06-10")
+        self.assertIsNone(detail["published_online"])
+
+
+
 class LocalCnkiLogPathTests(unittest.TestCase):
     def test_status_log_path_is_repo_relative(self) -> None:
         import local_cnki_update

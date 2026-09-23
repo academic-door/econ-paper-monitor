@@ -196,6 +196,16 @@ TARGETS = {
         "date_source": "tandf_latest_articles",
         "date_confidence": "B",
     }],
+    "journal-of-the-association-of-environmental-and-resource-economists": [{
+        "kind": "uchicago_just_accepted",
+        "url": "https://www.journals.uchicago.edu/toc/jaere/0/ja",
+        "fallback_urls": [
+            "https://r.jina.ai/http://www.journals.uchicago.edu/toc/jaere/0/ja",
+        ],
+        "fallback_issn": "2333-5955",
+        "date_source": "uchicago_just_accepted",
+        "date_confidence": "B",
+    }],
     # Springer RSS frequently returns malformed XML from CI networks. The
     # publisher's Online First pages provide an independent official HTML
     # path while preserving article DOI links.
@@ -594,6 +604,7 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
         is_quantitative_economics_article = "10.3982/qe" in href_lower
         is_applied_economics_article = "10.1080/00036846" in href_lower
         is_jbes_article = "10.1080/07350015" in href_lower
+        is_uchicago_article = "10.1086/" in href_lower
         if "econometricsociety.org/publications/econometrica" in base_lower:
             valid_article = is_econometrica_article
         elif "econometricsociety.org/publications/theoretical-economics" in base_lower:
@@ -613,6 +624,8 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             valid_article = is_applied_economics_article
         elif "tandfonline.com" in base_lower and "ubes20" in base_lower:
             valid_article = is_jbes_article
+        elif "journals.uchicago.edu/toc/jaere" in base_lower:
+            valid_article = is_uchicago_article
         else:
             valid_article = is_doi_article
         if not valid_article:
@@ -654,6 +667,8 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             valid = "10.1080/00036846" in href_lower
         elif "tandfonline.com" in base_url.lower() and "ubes20" in base_url.lower():
             valid = "10.1080/07350015" in href_lower
+        elif "journals.uchicago.edu/toc/jaere" in base_url.lower():
+            valid = "10.1086/" in href_lower
         if not valid or any(skip in title.casefold() for skip in ("pdf", "permissions", "supplementary")):
             continue
         key = href.split("?", 1)[0].rstrip("/")
@@ -910,6 +925,14 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
         or parse_date((meta_values(html_text, "citation_publication_date") or [None])[0])
         or parse_date((meta_values(html_text, "dc.Date") or [None])[0])
     )
+    accepted_date = None
+    if "journals.uchicago.edu/doi/" in url.lower():
+        accepted_match = re.search(
+            r"\bAccepted:\s*(\d{1,2}\s+[A-Za-z]{3,9}\s+20\d{2})\b",
+            clean_text(html_text),
+            flags=re.I,
+        )
+        accepted_date = parse_date(accepted_match.group(1)) if accepted_match else None
     jina_text = ""
     if "restud.com" in url.lower() and (not published or not authors or not meta_values(html_text, "citation_abstract")):
         jina_url = f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"
@@ -947,6 +970,7 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
         "authors": authors,
         "doi": doi,
         "published_online": published,
+        "accepted_date": accepted_date,
         "abstract": abstract,
     }
 
@@ -1088,6 +1112,7 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
                 abstract=detail.get("abstract") if isinstance(detail.get("abstract"), str) else None,
                 published_online=detail.get("published_online") if isinstance(detail.get("published_online"), str) else None,
                 available_online=detail.get("published_online") if isinstance(detail.get("published_online"), str) else None,
+                accepted_date=detail.get("accepted_date") if isinstance(detail.get("accepted_date"), str) else None,
                 date_source=target["date_source"],
                 date_confidence=target["date_confidence"],
                 raw_data={"priority_toc_kind": target["kind"]},
