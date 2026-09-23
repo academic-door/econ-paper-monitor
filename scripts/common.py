@@ -26,8 +26,21 @@ BEIJING_TZ = timezone(timedelta(hours=8))
 RETRYABLE_HTTP_STATUSES = frozenset({429, 500, 502, 503, 504})
 
 
+def beijing_today() -> date:
+    override = os.environ.get("MONITOR_RUN_DATE", "").strip()
+    if override:
+        try:
+            parsed = date.fromisoformat(override)
+        except ValueError as exc:
+            raise ValueError("MONITOR_RUN_DATE must be an ISO date (YYYY-MM-DD)") from exc
+        if parsed.isoformat() != override:
+            raise ValueError("MONITOR_RUN_DATE must be an ISO date (YYYY-MM-DD)")
+        return parsed
+    return datetime.now(BEIJING_TZ).date()
+
+
 def today_str() -> str:
-    return datetime.now(BEIJING_TZ).date().isoformat()
+    return beijing_today().isoformat()
 
 
 def now_iso() -> str:
@@ -437,7 +450,7 @@ def date_from_parts(parts: Any) -> str | None:
 
 
 def recent_cutoff(days: int) -> str:
-    return (datetime.now(BEIJING_TZ).date() - timedelta(days=days)).isoformat()
+    return (beijing_today() - timedelta(days=days)).isoformat()
 
 
 def html_escape(value: Any) -> str:

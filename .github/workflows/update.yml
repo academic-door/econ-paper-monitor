@@ -52,6 +52,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Freeze Beijing run date
+        shell: bash
+        run: |
+          MONITOR_RUN_DATE="$(TZ=Asia/Shanghai date +%F)"
+          echo "MONITOR_RUN_DATE=$MONITOR_RUN_DATE" >> "$GITHUB_ENV"
+          echo "Monitor run business date: $MONITOR_RUN_DATE"
       - name: Ensure Beijing today file exists
         run: python scripts/ensure_today_daily.py
       - name: Resolve run mode
@@ -219,7 +225,7 @@ jobs:
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         shell: bash
         run: |
-          DATE="$(TZ=Asia/Shanghai date +%F)"
+          DATE="$MONITOR_RUN_DATE"
           mkdir -p data/raw/cn
           for JOURNAL in \
             journal-f69300dae2 \
