@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 from collections import Counter, defaultdict
 from datetime import UTC, date, datetime, timedelta
 from functools import lru_cache
@@ -2933,6 +2934,22 @@ def paper_detail_body() -> str:
 </script>'''
 
 
+def is_future_daily_route(value: str, today_value: str) -> bool:
+    try:
+        return date.fromisoformat(value) > date.fromisoformat(today_value)
+    except ValueError:
+        return False
+
+
+def remove_future_daily_routes(docs_dir: Path, today_value: str) -> None:
+    daily_root = docs_dir / "daily"
+    if not daily_root.exists():
+        return
+    for route_dir in daily_root.iterdir():
+        if route_dir.is_dir() and is_future_daily_route(route_dir.name, today_value):
+            shutil.rmtree(route_dir)
+
+
 def main() -> None:
     global DOCS_DIR
     parser = argparse.ArgumentParser()
@@ -2947,9 +2964,10 @@ def main() -> None:
     LAZY_DATASETS.clear()
     records = load_all_daily(args.daily_dir)
     register_lazy_dataset("search", public_records(records))
-    today_records = [record for record in records if record_is_on_date(record, today_str())]
+    current_day = today_str()
+    today_records = [record for record in records if record_is_on_date(record, current_day)]
     home_flow_records = [record for record in today_records if is_today_home_flow_record(record)]
-    home_flow_date = today_str()
+    home_flow_date = current_day
     recent72_records = recent_detected_records(records, 3)
     write_exports(args.docs_dir, recent72_records)
     write_detail_data(args.docs_dir, records)
@@ -3010,8 +3028,8 @@ def main() -> None:
             records,
             working_papers_body(records, view="today"),
             active="working-papers",
-            sidebar_records=[record for record in wp_records if record_is_on_date(record, today_str())][:40],
-            sidebar_date=today_str(),
+            sidebar_records=[record for record in wp_records if record_is_on_date(record, current_day)][:40],
+            sidebar_date=current_day,
         ),
     )
     write_page(
@@ -3053,13 +3071,18 @@ def main() -> None:
             by_field[field].append(record)
         for topic in article_topics(record):
             by_topic[topic].append(record)
-    by_date.setdefault(today_str(), [])
+    by_date.setdefault(current_day, [])
     for path in sorted(args.daily_dir.glob("*.json")):
-        by_date.setdefault(path.stem, [])
+        if not is_future_daily_route(path.stem, current_day):
+            by_date.setdefault(path.stem, [])
+
+    remove_future_daily_routes(args.docs_dir, current_day)
 
     archive_links = []
     archive_rows = []
     for daily_date, daily_records in sorted(by_date.items(), reverse=True):
+        if is_future_daily_route(daily_date, current_day):
+            continue
         journal_count = sum(1 for record in daily_records if not is_working_paper(record))
         working_count = sum(1 for record in daily_records if is_working_paper(record))
         official_summary = archive_official_date_summary(daily_records)
