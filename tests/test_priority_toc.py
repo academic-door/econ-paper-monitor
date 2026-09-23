@@ -278,6 +278,23 @@ class JaereJustAcceptedTargetTests(unittest.TestCase):
             )],
         )
 
+    def test_jaere_detail_captures_accepted_date_without_promoting_to_publication_date(self) -> None:
+        html = """
+        <meta name="citation_title" content="Do Prior Residents Benefit from Energy Booms?">
+        <meta name="citation_author" content="Luyi Han">
+        <meta name="citation_doi" content="10.1086/742967">
+        <div class="history">Accepted: 10 June 2026</div>
+        """
+        with mock.patch.object(fetch_priority_toc, "fetch_toc_text", return_value=html):
+            detail = fetch_priority_toc.enrich_detail(
+                "https://www.journals.uchicago.edu/doi/10.1086/742967",
+                "Fallback",
+                5,
+            )
+        self.assertEqual(detail["accepted_date"], "2026-06-10")
+        self.assertIsNone(detail["published_online"])
+
+
 
 class LocalCnkiLogPathTests(unittest.TestCase):
     def test_status_log_path_is_repo_relative(self) -> None:
