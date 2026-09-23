@@ -1435,6 +1435,17 @@ def cepr_number(record: dict[str, Any]) -> int | None:
     return int(value) if value else None
 
 
+def is_current_cepr_listing_record(record: dict[str, Any]) -> bool:
+    """Return whether a CEPR row belongs to the current DP-number series.
+
+    This is deliberately a current-listing admission rule, not a global
+    historical-record predicate. Older CEPR papers may still be valid durable
+    history or genuine first discoveries from other accepted paths.
+    """
+    number = cepr_number(record)
+    return number is not None and number >= CEPR_CURRENT_LISTING_FLOOR
+
+
 def fetch_cepr_current_listing(
     source: dict[str, Any],
     *,
@@ -1463,6 +1474,10 @@ def fetch_cepr_current_listing(
             continue
         if max(numbers) < CEPR_CURRENT_LISTING_FLOOR:
             diagnostics.append(f"{url}: stale-max-DP{max(numbers)}")
+            continue
+        records = [record for record in records if is_current_cepr_listing_record(record)]
+        if not records:
+            diagnostics.append(f"{url}: no-current-series-dp")
             continue
 
         label = (
