@@ -41,6 +41,16 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertNotIn("scripts/translate.py", text)
         self.assertNotIn("scripts/ai_china_relevance.py", text)
 
+    def test_update_freezes_beijing_business_date_before_today_dependent_work(self) -> None:
+        text = (ROOT / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
+        freeze = text.index("- name: Freeze Beijing run date")
+        ensure = text.index("- name: Ensure Beijing today file exists")
+        self.assertLess(freeze, ensure)
+        self.assertIn('MONITOR_RUN_DATE="$(TZ=Asia/Shanghai date +%F)"', text)
+        self.assertIn('echo "MONITOR_RUN_DATE=$MONITOR_RUN_DATE" >> "$GITHUB_ENV"', text)
+        self.assertIn('DATE="$MONITOR_RUN_DATE"', text)
+        self.assertNotIn('DATE="$(TZ=Asia/Shanghai date +%F)"', text)
+
     def test_watchdog_is_fallback_not_second_hourly_lane(self) -> None:
         text = (ROOT / ".github" / "workflows" / "watchdog.yml").read_text(encoding="utf-8")
         self.assertIn("--light-min-minutes 75", text)
