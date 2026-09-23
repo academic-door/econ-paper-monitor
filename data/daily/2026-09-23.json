@@ -87,8 +87,9 @@
     "url": "https://cepr.org/publications/dp21970"
   },
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -283,8 +284,9 @@
     "url": "https://doi.org/10.1007/s11127-026-01475-6"
   },
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -415,7 +417,7 @@
     "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "proxy-request-failed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1091,8 +1093,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-23",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "a-conditional-probability-hierarchy-for-stochastic-choice-e82cbd5a6653",
     "detected_at": "2026-09-23T04:40:17+00:00",
     "doi": "10.1016/j.jmateco.2026.103303",
@@ -1134,11 +1136,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Journal of Mathematical Economics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "A conditional probability hierarchy for stochastic choice",
@@ -1445,8 +1454,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-22",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "rethinking-land-readjustment-governance-comparative-institutional-perspectives-on-turkey-6a50a42b024b",
     "detected_at": "2026-09-23T00:03:40+00:00",
     "doi": "10.1016/j.landusepol.2026.108353",
@@ -1536,8 +1545,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "the-impact-of-industrial-land-use-policy-on-urban-innovation-evidence-from-a-quasi-natur-7320a96332a9",
     "detected_at": "2026-09-23T00:03:40+00:00",
     "doi": "10.1016/j.landusepol.2026.108355",
