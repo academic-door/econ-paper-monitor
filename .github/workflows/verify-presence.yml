@@ -67,12 +67,26 @@ jobs:
           echo "CNKI relay diagnostic headers:"
           grep -Eia '^(HTTP/|content-type:|server:|cf-ray:|cf-error-type:)' "$headers" || true
 
-          if [ "$curl_exit" -ne 0 ] || [[ ! "$http_status" =~ ^2[0-9][0-9]$ ]]; then
+          if [ "$curl_exit" -ne 0 ]; then
             echo "CNKI relay response body (first 4096 bytes):"
             head -c 4096 "$body" || true
             echo
             exit 1
           fi
 
-          test "$(wc -c < "$body")" -gt 100
-          grep -Eiq '<(rss|rdf:RDF|feed|channel)([ >:]|$)' "$body"
+          if [[ "$http_status" =~ ^2[0-9][0-9]$ ]]; then
+            test "$(wc -c < "$body")" -gt 100
+            grep -Eiq '<(rss|rdf:RDF|feed|channel)([ >:]|$)' "$body"
+            exit 0
+          fi
+
+          echo "CNKI relay response body (first 4096 bytes):"
+          head -c 4096 "$body" || true
+          echo
+
+          if [ "$http_status" = "530" ] && grep -Fqi 'error code: 1016' "$body"; then
+            echo "::warning::Known #288 Cloudflare/CNKI transport boundary: relay returned HTTP 530 / 1016. Authoritative local CNKI publication is verified separately."
+            exit 0
+          fi
+
+          exit 1
