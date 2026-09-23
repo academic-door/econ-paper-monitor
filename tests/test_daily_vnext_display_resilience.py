@@ -195,6 +195,45 @@ def test_secondary_pages_use_vnext_shell_and_preserve_classic(tmp_path):
     assert hashlib.sha256(classic.read_bytes()).hexdigest() == before_classic
 
 
+def test_secondary_renderer_skips_and_removes_future_daily_routes(monkeypatch, tmp_path):
+    import sys
+
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import render_site
+
+    daily_dir = tmp_path / "data" / "daily"
+    docs_dir = tmp_path / "docs"
+    daily_dir.mkdir(parents=True)
+    (daily_dir / "2026-09-22.json").write_text("[]", encoding="utf-8")
+    (daily_dir / "2026-09-23.json").write_text("[]", encoding="utf-8")
+    (daily_dir / "2026-09-30.json").write_text("[]", encoding="utf-8")
+
+    stale_future = docs_dir / "daily" / "2026-09-30"
+    stale_future.mkdir(parents=True)
+    (stale_future / "index.html").write_text("stale future route", encoding="utf-8")
+
+    monkeypatch.setattr(render_site, "today_str", lambda: "2026-09-23")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "render_site.py",
+            "--daily-dir",
+            str(daily_dir),
+            "--docs-dir",
+            str(docs_dir),
+        ],
+    )
+
+    render_site.main()
+
+    assert (daily_dir / "2026-09-30.json").exists()
+    assert (docs_dir / "daily" / "2026-09-22" / "index.html").exists()
+    assert (docs_dir / "daily" / "2026-09-23" / "index.html").exists()
+    assert not (docs_dir / "daily" / "2026-09-30").exists()
+
+
+
 def test_secondary_page_titles_prefer_chinese_and_keep_original():
     import sys
 
