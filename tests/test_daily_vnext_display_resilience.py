@@ -117,12 +117,20 @@ def test_shared_title_contract_controls_primary_and_secondary_titles(
         assert 'class="english-title"' not in html
 
 
-def test_runtime_liveness_alert_does_not_shift_page_content():
+def test_runtime_liveness_status_is_header_scoped_and_publicly_abstracted():
     template = (ROOT / "scripts" / "templates" / "daily_vnext.html").read_text(encoding="utf-8")
 
-    assert ".runtime-alert{position:fixed;" in template
-    assert 'data-monitor-liveness role="status" aria-live="polite" hidden' in template
-    assert "monitorTarget.hidden = false;" in template
+    assert ".runtime-alert{" not in template
+    assert 'class="presence-cluster"' in template
+    assert 'class="freshness-status" data-monitor-liveness role="status" aria-live="polite" hidden' in template
+    assert "monitorTarget.dataset.state = isStale ? 'stale' : 'observer_error';" in template
+    assert "数据更新延迟" in template
+    assert "状态待确认" in template
+    assert "部分自动更新暂未按计划运行，页面内容可能滞后。" in template
+    assert "暂时无法确认自动更新状态，页面内容可能不是最新。" in template
+    assert "Monitor Watchdog" not in template
+    assert "Fast Discovery" not in template
+    assert "Update Paper Monitor" not in template
 
 
 def test_homepage_template_defers_offscreen_rendering_and_lazy_motion():
