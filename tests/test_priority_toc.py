@@ -200,6 +200,56 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
         self.assertIn("ok=failures == 0 or bool(records)", source)
 
 
+class TandfLatestTargetTests(unittest.TestCase):
+    def test_tandf_latest_targets_are_configured(self) -> None:
+        expected = {
+            "applied-economics": ("0003-6846", "raec20"),
+            "journal-of-business-and-economic-statistics": ("0735-0015", "ubes20"),
+        }
+        for journal_id, (issn, code) in expected.items():
+            self.assertIn(journal_id, fetch_priority_toc.TARGETS)
+            target = fetch_priority_toc.TARGETS[journal_id][0]
+            self.assertEqual(target["kind"], "tandf_latest_articles")
+            self.assertEqual(target["fallback_issn"], issn)
+            self.assertIn(code, target["url"])
+            self.assertTrue(any(url.startswith("https://r.jina.ai/") for url in target["fallback_urls"]))
+
+    def test_applied_economics_article_links_reject_other_tandf_dois(self) -> None:
+        html = """
+        <a href="/doi/full/10.1080/00036846.2026.1234567">A valid Applied Economics article</a>
+        <a href="/doi/full/10.1080/07350015.2026.7654321">A JBES article on the same platform</a>
+        <a href="/action/journalInformation?journalCode=raec20">Journal information</a>
+        """
+        links = fetch_priority_toc.article_links(
+            html,
+            "https://www.tandfonline.com/action/showAxaArticles?journalCode=raec20",
+        )
+        self.assertEqual(
+            links,
+            [(
+                "https://www.tandfonline.com/doi/full/10.1080/00036846.2026.1234567",
+                "A valid Applied Economics article",
+            )],
+        )
+
+    def test_jbes_article_links_reject_other_tandf_dois(self) -> None:
+        html = """
+        <a href="/doi/full/10.1080/07350015.2026.7654321">A valid JBES article title</a>
+        <a href="/doi/full/10.1080/00036846.2026.1234567">An Applied Economics article</a>
+        """
+        links = fetch_priority_toc.article_links(
+            html,
+            "https://www.tandfonline.com/toc/ubes20/0/ja",
+        )
+        self.assertEqual(
+            links,
+            [(
+                "https://www.tandfonline.com/doi/full/10.1080/07350015.2026.7654321",
+                "A valid JBES article title",
+            )],
+        )
+
+
 class LocalCnkiLogPathTests(unittest.TestCase):
     def test_status_log_path_is_repo_relative(self) -> None:
         import local_cnki_update

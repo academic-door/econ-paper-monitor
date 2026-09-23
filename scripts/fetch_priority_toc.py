@@ -172,6 +172,30 @@ TARGETS = {
             "fallback_issn": "0165-1587",
         }
     ],
+    # Taylor & Francis RSS is blocked from shared CI, but the publisher's
+    # Latest Articles HTML surfaces remain the authoritative online-first view.
+    # Use the already-authorized Jina text mirror only as an acquisition fallback;
+    # article identity/dates still come from the T&F page/detail content.
+    "applied-economics": [{
+        "kind": "tandf_latest_articles",
+        "url": "https://www.tandfonline.com/action/showAxaArticles?journalCode=raec20",
+        "fallback_urls": [
+            "https://r.jina.ai/http://www.tandfonline.com/action/showAxaArticles?journalCode=raec20",
+        ],
+        "fallback_issn": "0003-6846",
+        "date_source": "tandf_latest_articles",
+        "date_confidence": "B",
+    }],
+    "journal-of-business-and-economic-statistics": [{
+        "kind": "tandf_latest_articles",
+        "url": "https://www.tandfonline.com/toc/ubes20/0/ja",
+        "fallback_urls": [
+            "https://r.jina.ai/http://www.tandfonline.com/toc/ubes20/0/ja",
+        ],
+        "fallback_issn": "0735-0015",
+        "date_source": "tandf_latest_articles",
+        "date_confidence": "B",
+    }],
     # Springer RSS frequently returns malformed XML from CI networks. The
     # publisher's Online First pages provide an independent official HTML
     # path while preserving article DOI links.
@@ -568,6 +592,8 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
         is_econometrica_article = "10.3982/ecta" in href_lower
         is_theoretical_economics_article = "10.3982/te" in href_lower
         is_quantitative_economics_article = "10.3982/qe" in href_lower
+        is_applied_economics_article = "10.1080/00036846" in href_lower
+        is_jbes_article = "10.1080/07350015" in href_lower
         if "econometricsociety.org/publications/econometrica" in base_lower:
             valid_article = is_econometrica_article
         elif "econometricsociety.org/publications/theoretical-economics" in base_lower:
@@ -583,6 +609,10 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
                 "https://www.restud.com",
                 "http://www.restud.com",
             }
+        elif "tandfonline.com" in base_lower and "raec20" in base_lower:
+            valid_article = is_applied_economics_article
+        elif "tandfonline.com" in base_lower and "ubes20" in base_lower:
+            valid_article = is_jbes_article
         else:
             valid_article = is_doi_article
         if not valid_article:
@@ -620,6 +650,10 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             valid = valid and "10.3982/te" in href_lower
         elif "econometricsociety.org/publications/quantitative-economics" in base_url.lower():
             valid = valid and "10.3982/qe" in href_lower
+        elif "tandfonline.com" in base_url.lower() and "raec20" in base_url.lower():
+            valid = "10.1080/00036846" in href_lower
+        elif "tandfonline.com" in base_url.lower() and "ubes20" in base_url.lower():
+            valid = "10.1080/07350015" in href_lower
         if not valid or any(skip in title.casefold() for skip in ("pdf", "permissions", "supplementary")):
             continue
         key = href.split("?", 1)[0].rstrip("/")

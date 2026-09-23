@@ -98,6 +98,8 @@ PRIORITY_TOC_JOURNALS = {
     "environmental-and-resource-economics",
     "journal-of-agricultural-and-resource-economics",
     "journal-of-human-resources",
+    "applied-economics",
+    "journal-of-business-and-economic-statistics",
 }
 
 
