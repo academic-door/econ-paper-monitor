@@ -145,6 +145,31 @@ class InspectJournalTests(unittest.TestCase):
         self.assertIn("priority-toc", row["usable_paths"])
         self.assertEqual(row["coverage"], "official_or_specialized")
 
+    def test_springer_priority_toc_success_promotes_supplemental_closed_to_healthy(self) -> None:
+        entry = registry_entry(
+            rss_status="configured",
+            rss_count=0,
+            rss_error="ParseError: not well-formed",
+        )
+        journal = {
+            "id": "review-of-accounting-studies",
+            "title": "Review of Accounting Studies",
+            "publisher": "Springer",
+        }
+        status = make_status(
+            {"count": 2, "ok": True, "publisher_ok": True},
+            journal_id="review-of-accounting-studies",
+        )
+        row = self._row(
+            entry,
+            status,
+            journal=journal,
+            journal_id="review-of-accounting-studies",
+        )
+        self.assertEqual(row["level"], "healthy")
+        self.assertIn("priority-toc", row["usable_paths"])
+        self.assertEqual(row["coverage"], "official_or_specialized")
+
     def test_batch1_ci_blocked_rss_is_closed_not_degraded(self) -> None:
         cases = {
             "management-science": ("HTTPError: HTTP Error 403: Forbidden", "Management Science", "INFORMS"),

@@ -86,6 +86,8 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
             "journal-of-economic-growth",
             "journal-of-population-economics",
             "environmental-and-resource-economics",
+            "review-of-accounting-studies",
+            "journal-of-risk-and-uncertainty",
         }
         self.assertTrue(expected.issubset(fetch_priority_toc.TARGETS))
         for journal_id in expected:
@@ -93,6 +95,29 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
                 fetch_priority_toc.TARGETS[journal_id][0]["kind"],
                 "springer_online_first",
             )
+            self.assertTrue(
+                any(url.startswith("https://r.jina.ai/") for url in fetch_priority_toc.TARGETS[journal_id][0]["fallback_urls"])
+            )
+
+    def test_springer_parse_empty_retries_authorized_mirror(self) -> None:
+        direct = "<html><body>Online First</body></html>"
+        mirror = "[A Springer online first article](https://link.springer.com/article/10.1007/s11127-026-01462-x)"
+        target = fetch_priority_toc.TARGETS["public-choice"][0]
+        journal = {"id": "public-choice", "title": "Public Choice", "publisher": "Springer-Verlag"}
+
+        with mock.patch.object(fetch_priority_toc, "fetch_toc_text", side_effect=[direct, mirror]) as fetch_text:
+            records = fetch_priority_toc.fetch_target(
+                journal,
+                target,
+                timeout=5,
+                detail_limit=0,
+                max_items=5,
+            )
+
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0]["doi"], "10.1007/s11127-026-01462-x")
+        self.assertEqual(fetch_text.call_count, 2)
+        self.assertTrue(fetch_text.call_args_list[1].args[0].startswith("https://r.jina.ai/"))
 
     def test_no_helper_reads_the_args_namespace(self) -> None:
         source = Path(fetch_priority_toc.__file__).read_text(encoding="utf-8")

@@ -212,6 +212,7 @@ TARGETS = {
     "international-journal-of-game-theory": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/182/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/182/online-first"],
         "fallback_issn": "0020-7276",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -219,6 +220,7 @@ TARGETS = {
     "economic-theory": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/199/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/199/online-first"],
         "fallback_issn": "0938-2259",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -226,6 +228,7 @@ TARGETS = {
     "review-of-economic-design": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/10058/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/10058/online-first"],
         "fallback_issn": "1434-4742",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -233,6 +236,7 @@ TARGETS = {
     "social-choice-and-welfare": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/355/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/355/online-first"],
         "fallback_issn": "0176-1714",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -240,6 +244,7 @@ TARGETS = {
     "public-choice": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/11127/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/11127/online-first"],
         "fallback_issn": "0048-5829",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -247,6 +252,7 @@ TARGETS = {
     "international-tax-and-public-finance": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/10797/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/10797/online-first"],
         "fallback_issn": "0927-5940",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -254,6 +260,7 @@ TARGETS = {
     "journal-of-economic-growth": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/10887/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/10887/online-first"],
         "fallback_issn": "1381-4338",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -261,6 +268,7 @@ TARGETS = {
     "journal-of-population-economics": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/148/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/148/online-first"],
         "fallback_issn": "0933-1433",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -268,7 +276,24 @@ TARGETS = {
     "environmental-and-resource-economics": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/10640/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/10640/online-first"],
         "fallback_issn": "0924-6460",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
+    "review-of-accounting-studies": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/11142/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/11142/online-first"],
+        "fallback_issn": "1380-6653",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
+    "journal-of-risk-and-uncertainty": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/11166/online-first",
+        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/11166/online-first"],
+        "fallback_issn": "0895-5646",
         "date_source": "springer_online_first",
         "date_confidence": "B",
     }],
@@ -1088,10 +1113,25 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
             if len(records) >= max_items:
                 break
         return records
+    article_candidates = article_links(html_text, page_url)
+    # Springer shared-CI responses can be transport-successful but structurally
+    # unparseable. In that case, retry the already-authorized read-only Jina
+    # mirror before declaring parser failure and falling back to Crossref.
+    if not article_candidates and target["kind"] == "springer_online_first":
+        for fallback_url in target.get("fallback_urls") or []:
+            try:
+                mirror_text = fetch_toc_text(fallback_url, timeout=timeout)
+            except Exception:
+                continue
+            article_candidates = article_links(mirror_text, page_url)
+            if article_candidates:
+                html_text = mirror_text
+                break
+
     author_map = restud_author_map(html_text, page_url)
     author_map.update(econometric_society_author_map(html_text, page_url))
     records: list[dict] = []
-    for url, title in article_links(html_text, page_url):
+    for url, title in article_candidates:
         is_econometric_society_pdf = "econometricsociety.org/publications/" in url.lower() and "/file/" in url.lower()
         detail = (
             {"title": title, "doi": doi_from_text(url)}
