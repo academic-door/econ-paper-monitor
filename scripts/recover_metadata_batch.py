@@ -214,10 +214,12 @@ def load_daily_candidates(
     for path in sorted(daily_dir.glob("*.json")):
         if cutoff and path.stem < cutoff:
             continue
-        payload = read_json(path, [])
-        if not isinstance(payload, list):
-            continue
-        payloads_by_path[path] = payload
+        payload = shared_payloads.get(path)
+        if payload is None:
+            payload = read_json(path, [])
+            if not isinstance(payload, list):
+                continue
+            shared_payloads[path] = payload
         for record in payload:
             if not isinstance(record, dict):
                 continue
@@ -253,6 +255,7 @@ def load_elsevier_pii_candidates(
     *,
     limit: int,
     recent_days: int,
+    payloads_by_path: dict[Path, list[dict[str, Any]]] | None = None,
 ) -> tuple[
     list[tuple[Path, dict[str, Any]]],
     dict[str, list[tuple[Path, dict[str, Any]]]],
@@ -264,7 +267,7 @@ def load_elsevier_pii_candidates(
     or replace the record's existing public-route identity.
     """
     records_by_pii: dict[str, list[tuple[Path, dict[str, Any]]]] = defaultdict(list)
-    payloads_by_path: dict[Path, list[dict[str, Any]]] = {}
+    shared_payloads = payloads_by_path if payloads_by_path is not None else {}
     candidate_piis: list[str] = []
     seen_piis: set[str] = set()
     cutoff = ""
@@ -308,7 +311,7 @@ def load_elsevier_pii_candidates(
         for pii in selected
         for path, record in records_by_pii[pii]
     ]
-    return candidates, dict(records_by_pii), payloads_by_path
+    return candidates, dict(records_by_pii), shared_payloads
 
 
 def reasonable_year(value: Any) -> bool:
@@ -987,13 +990,12 @@ def run_recovery(
         limit=limit,
         recent_days=recent_days,
     )
-    pii_candidates, records_by_pii, pii_payloads_by_path = load_elsevier_pii_candidates(
+    pii_candidates, records_by_pii, payloads_by_path = load_elsevier_pii_candidates(
         daily_dir,
         limit=pii_limit,
         recent_days=recent_days,
+        payloads_by_path=payloads_by_path,
     )
-    for path, payload in pii_payloads_by_path.items():
-        payloads_by_path.setdefault(path, payload)
     candidate_dois = sorted(records_by_doi.keys())
     candidate_piis = sorted(records_by_pii.keys())
     if not candidate_dois and not candidate_piis:
