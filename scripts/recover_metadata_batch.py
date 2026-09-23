@@ -248,6 +248,63 @@ def load_daily_candidates(
     return candidates, dict(records_by_doi), payloads_by_path
 
 
+def load_elsevier_pii_candidates(
+    daily_dir: Path,
+    *,
+    limit: int,
+    recent_days: int,
+) -> tuple[
+    list[tuple[Path, dict[str, Any]]],
+    dict[str, list[tuple[Path, dict[str, Any]]]],
+    dict[Path, list[dict[str, Any]]],
+]:
+    """Load DOI-less ScienceDirect records that have a stable Elsevier PII.
+
+    PII is an acquisition lookup key only. Recovery must not synthesize a DOI
+    or replace the record's existing public-route identity.
+    """
+    records_by_pii: dict[str, list[tuple[Path, dict[str, Any]]]] = defaultdict(list)
+    payloads_by_path: dict[Path, list[dict[str, Any]]] = {}
+    candidate_piis: list[str] = []
+    seen_piis: set[str] = set()
+    cutoff = ""
+    if recent_days and recent_days > 0:
+        cutoff = (datetime.now(BEIJING_TZ).date() - timedelta(days=max(0, recent_days - 1))).isoformat()
+
+    for path in sorted(daily_dir.glob("*.json")):
+        if cutoff and path.stem < cutoff:
+            continue
+        payload = read_json(path, [])
+        if not isinstance(payload, list):
+            continue
+        payloads_by_path[path] = payload
+        for record in payload:
+            if not isinstance(record, dict) or normalize_doi(record.get("doi")):
+                continue
+            pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
+            if not pii:
+                continue
+            pii_key = pii.casefold()
+            records_by_pii[pii_key].append((path, record))
+            if pii_key in seen_piis:
+                continue
+            needs_abs, needs_auth, needs_date = needs_recovery(record)
+            if not (needs_abs or needs_auth or needs_date):
+                continue
+            seen_piis.add(pii_key)
+            candidate_piis.append(pii_key)
+
+    candidate_piis.sort(key=lambda pii: record_priority(records_by_pii[pii][0][1]))
+    selected = candidate_piis if limit <= 0 else candidate_piis[: max(0, limit)]
+    records_by_pii = {pii: records_by_pii[pii] for pii in selected}
+    candidates = [
+        (path, record)
+        for pii in selected
+        for path, record in records_by_pii[pii]
+    ]
+    return candidates, dict(records_by_pii), payloads_by_path
+
+
 def reasonable_year(value: Any) -> bool:
     match = re.fullmatch(r"(\d{4})-(\d{2})-(\d{2})", str(value or "").strip())
     if not match:
@@ -470,6 +527,63 @@ def elsevier_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     return result
 
 
+def elsevier_pii_metadata(pii: str, timeout: int) -> dict[str, Any]:
+    """Fetch publisher metadata for a DOI-less Elsevier record by PII."""
+    api_key, inst_token = elsevier_env_credentials()
+    if not api_key:
+        return {"_status": "not_configured"}
+    encoded_pii = urllib.parse.quote(str(pii or "").strip(), safe="")
+    url = (
+        "https://api.elsevier.com/content/article/pii/"
+        f"{encoded_pii}?httpAccept=application%2Fjson"
+    )
+    body = ""
+    response_headers: dict[str, str] = {}
+    for attempt in range(ELSEVIER_MAX_RETRIES + 1):
+        _els_throttle()
+        try:
+            body, response_headers = _els_request(url, timeout, api_key, inst_token)
+            break
+        except urllib.error.HTTPError as exc:
+            if exc.code == 429 and attempt < ELSEVIER_MAX_RETRIES:
+                retry_after = _els_retry_after((exc.headers or {}).get("Retry-After"))
+                if retry_after:
+                    time.sleep(min(retry_after, ELSEVIER_MAX_BACKOFF_SECONDS))
+                continue
+            status = (
+                "rate_limited"
+                if exc.code == 429
+                else ("not_found" if exc.code == 404 else "http_error")
+            )
+            return {"_status": status, "_rate_limit": _els_rate_limit(exc.headers)}
+        except Exception:
+            return {"_status": "http_error"}
+    try:
+        payload = json.loads(body) if body else {}
+    except ValueError:
+        return {"_status": "http_error", "_rate_limit": _els_rate_limit(response_headers)}
+    response = payload.get("full-text-retrieval-response") if isinstance(payload, dict) else None
+    core = response.get("coredata") if isinstance(response, dict) else None
+    if not isinstance(core, dict):
+        return {"_status": "not_found", "_rate_limit": _els_rate_limit(response_headers)}
+    result: dict[str, Any] = {
+        "_status": "available",
+        "_rate_limit": _els_rate_limit(response_headers),
+    }
+    title = str(core.get("dc:title") or "").strip()
+    if title:
+        result["title"] = title
+    resolved_pii = extract_elsevier_pii(str(core.get("prism:url") or ""), str(core.get("pii") or ""))
+    if resolved_pii:
+        result["pii"] = resolved_pii
+    result.update(elsevier_api_online_date(core))
+    abstract = extract_elsevier_api_abstract(response, core)
+    if abstract:
+        result["abstract"] = abstract
+        result["abstract_source"] = "elsevier_article_api_full"
+    return result
+
+
 def fetch_metadata_for_doi(
     doi: str,
     timeout: int,
@@ -542,6 +656,39 @@ def summarize_provider_health(
     health["elsevier"]["api_key_configured"] = bool(elsevier_api_key)
     health["elsevier"]["inst_token_configured"] = bool(elsevier_inst_token)
     return health
+
+
+def summarize_elsevier_pii_health(
+    providers_by_pii: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    statuses: Counter[str] = Counter()
+    available = empty = 0
+    rate_limits: list[dict[str, str]] = []
+    for metadata in providers_by_pii.values():
+        status = str((metadata or {}).get("_status") or "")
+        if status == "available":
+            available += 1
+            statuses[status] += 1
+        elif status:
+            statuses[status] += 1
+        elif metadata:
+            available += 1
+        else:
+            empty += 1
+        rate_limit = (metadata or {}).get("_rate_limit")
+        if isinstance(rate_limit, dict) and rate_limit:
+            rate_limits.append(rate_limit)
+    result: dict[str, Any] = {
+        "attempts": len(providers_by_pii),
+        "available": available,
+        "empty": empty,
+        "statuses": dict(statuses),
+        "failed": len(providers_by_pii) - available - empty,
+        "api_key_configured": bool(elsevier_env_credentials()[0]),
+    }
+    if rate_limits:
+        result["rate_limit_headers"] = min(rate_limits, key=lambda item: _rate_limit_remaining(item))
+    return result
 
 
 def _rate_limit_remaining(rate_limit: dict[str, str]) -> int:
@@ -686,11 +833,46 @@ def update_seen_records(
     return changed, updated
 
 
+def update_seen_pii_records(
+    seen_payload: Any,
+    records_by_pii: dict[str, list[tuple[Path, dict[str, Any]]]],
+    providers_by_pii: dict[str, dict[str, Any]],
+) -> tuple[bool, int]:
+    """Apply PII-backed Elsevier recovery to matching seen records."""
+    if not isinstance(seen_payload, dict):
+        return False, 0
+    papers = seen_payload.get("papers")
+    if not isinstance(papers, dict):
+        return False, 0
+    detail_keys = {
+        str(record.get("detail_key") or ""): pii
+        for pii, occurrences in records_by_pii.items()
+        for _, record in occurrences
+        if record.get("detail_key") and pii in providers_by_pii
+    }
+    changed = False
+    updated = 0
+    for record in papers.values():
+        if not isinstance(record, dict):
+            continue
+        pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
+        matched = pii.casefold() if pii else detail_keys.get(str(record.get("detail_key") or ""))
+        if not matched or matched not in providers_by_pii:
+            continue
+        did_change, _ = apply_recovery(record, {"elsevier": providers_by_pii[matched]})
+        if did_change:
+            changed = True
+            updated += 1
+    return changed, updated
+
+
 def reconcile_metadata_queue(
     queue_path: Path,
     seen_payload: Any,
     records_by_doi: dict[str, list[tuple[Path, dict[str, Any]]]],
     providers_by_doi: dict[str, dict[str, dict[str, Any]]],
+    records_by_pii: dict[str, list[tuple[Path, dict[str, Any]]]] | None = None,
+    providers_by_pii: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[bool, int]:
     """Remove resolved items from the metadata retry queue and keep history."""
     queue = read_json(queue_path, {"records": []})
@@ -702,6 +884,9 @@ def reconcile_metadata_queue(
 
     seen_papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else None
     recovered_dois = set(providers_by_doi)
+    records_by_pii = records_by_pii or {}
+    providers_by_pii = providers_by_pii or {}
+    recovered_piis = set(providers_by_pii)
 
     def find_canonical(identity: str) -> dict[str, Any] | None:
         if identity.startswith("doi:"):
@@ -724,24 +909,30 @@ def reconcile_metadata_queue(
             pending.append(item)
             continue
         identity = str(item.get("identity") or "")
+        canonical = None
         if identity.startswith("doi:") and identity.removeprefix("doi:") in recovered_dois:
-            # Only resolve when the underlying record is now complete.
             canonical = find_canonical(identity)
-            if canonical is not None:
-                needs_abs, needs_auth, needs_date = needs_recovery(canonical)
-                if not (needs_abs or needs_auth or needs_date):
-                    resolved_item = copy.deepcopy(item)
-                    resolved_item.update(
-                        {
-                            "retry_status": "resolved",
-                            "resolved_at": resolved_at,
-                            "resolution_identity": identity,
-                            "resolution_location": "seen",
-                            "canonical_detail_key": canonical_route_key(item, canonical.get("detail_key")),
-                        }
-                    )
-                    resolved.append(resolved_item)
-                    continue
+        if canonical is None:
+            item_pii = extract_elsevier_pii(item.get("pii"), item.get("url"), item.get("source_url"))
+            pii_key = item_pii.casefold() if item_pii else ""
+            if pii_key and pii_key in recovered_piis and pii_key in records_by_pii:
+                canonical = records_by_pii[pii_key][0][1]
+        if canonical is not None:
+            # Only resolve when the underlying record is now complete.
+            needs_abs, needs_auth, needs_date = needs_recovery(canonical)
+            if not (needs_abs or needs_auth or needs_date):
+                resolved_item = copy.deepcopy(item)
+                resolved_item.update(
+                    {
+                        "retry_status": "resolved",
+                        "resolved_at": resolved_at,
+                        "resolution_identity": identity,
+                        "resolution_location": "seen",
+                        "canonical_detail_key": canonical_route_key(item, canonical.get("detail_key")),
+                    }
+                )
+                resolved.append(resolved_item)
+                continue
         pending.append(item)
 
     if not resolved and len(pending) == len(records):
@@ -779,6 +970,7 @@ def run_recovery(
     timeout: int,
     workers: int,
     dry_run: bool,
+    pii_limit: int = 50,
 ) -> dict[str, Any]:
     daily_dir = data_dir / "daily"
     seen_path = data_dir / "seen.json"
@@ -789,13 +981,23 @@ def run_recovery(
         limit=limit,
         recent_days=recent_days,
     )
+    pii_candidates, records_by_pii, pii_payloads_by_path = load_elsevier_pii_candidates(
+        daily_dir,
+        limit=pii_limit,
+        recent_days=recent_days,
+    )
+    for path, payload in pii_payloads_by_path.items():
+        payloads_by_path.setdefault(path, payload)
     candidate_dois = sorted(records_by_doi.keys())
-    if not candidate_dois:
+    candidate_piis = sorted(records_by_pii.keys())
+    if not candidate_dois and not candidate_piis:
         before = audit_metadata_recovery(data_dir)
         return {
             "checked_at": now_iso(),
             "mode": "dry-run" if dry_run else "write",
             "candidates": 0,
+            "doi_candidates": 0,
+            "pii_candidates": 0,
             "recovered": {"abstracts": 0, "authors": 0, "dates": 0},
             "errors": {"api": {}, "no_doi": 0},
             "failure_reasons": Counter({"no_candidates": 1}),
@@ -807,6 +1009,7 @@ def run_recovery(
     seen_payload = read_json(seen_path, {"papers": {}})
     before = audit_metadata_recovery(data_dir)
     providers_by_doi: dict[str, dict[str, dict[str, Any]]] = {}
+    providers_by_pii: dict[str, dict[str, Any]] = {}
     api_errors: dict[str, int] = Counter()
     recovered_fields = Counter()
     shortfall = Counter()
@@ -826,6 +1029,21 @@ def run_recovery(
             doi, providers = future.result()
             providers_by_doi[doi] = providers
     provider_health = summarize_provider_health(providers_by_doi)
+
+    def process_pii(pii: str) -> tuple[str, dict[str, Any]]:
+        try:
+            return pii, elsevier_pii_metadata(pii, timeout) or {}
+        except Exception as exc:  # noqa: BLE001
+            api_errors["elsevier-pii"] += 1
+            return pii, {"_status": "http_error", "_error": f"{type(exc).__name__}: {exc}"}
+
+    if candidate_piis:
+        with ThreadPoolExecutor(max_workers=max(1, workers)) as executor:
+            pii_futures = {executor.submit(process_pii, pii): pii for pii in candidate_piis}
+            for future in as_completed(pii_futures):
+                pii, metadata = future.result()
+                providers_by_pii[pii] = metadata
+    provider_health["elsevier-pii"] = summarize_elsevier_pii_health(providers_by_pii)
 
     # A provider that returns only empty responses for the whole batch is most
     # likely a transient API outage. Retry it once after a short backoff and
@@ -890,6 +1108,26 @@ def run_recovery(
                 has_any = any(providers.values())
                 failure_reasons["api_no_usable_metadata" if has_any else "all_apis_empty"] += 1
 
+    # Apply PII-only Elsevier recovery without changing DOI or route identity.
+    for pii, occurrences in records_by_pii.items():
+        metadata = providers_by_pii.get(pii) or {}
+        providers = {"elsevier": metadata}
+        for path, record in occurrences:
+            before_needs = needs_recovery(record)
+            did_change, fields = apply_recovery(record, providers)
+            if did_change:
+                changed_records_by_path[path].append(record)
+            for field in fields:
+                recovered_fields[field] += 1
+            if "date" in fields:
+                date_confidence_changes[str(record.get("date_confidence") or "")] += 1
+            if before_needs[0] and "abstract" not in fields:
+                shortfall["pii_abstract_not_recovered"] += 1
+            if before_needs[2] and "date" not in fields:
+                shortfall["pii_date_not_recovered"] += 1
+            if before_needs == needs_recovery(record) and not fields:
+                failure_reasons["pii_no_usable_metadata" if metadata else "pii_api_empty"] += 1
+
     if not dry_run:
         daily_changed = 0
         for path, records in changed_records_by_path.items():
@@ -903,6 +1141,13 @@ def run_recovery(
             records_by_doi,
             providers_by_doi,
         )
+        pii_seen_changed, pii_seen_updated = update_seen_pii_records(
+            seen_payload,
+            records_by_pii,
+            providers_by_pii,
+        )
+        seen_changed = seen_changed or pii_seen_changed
+        seen_updated += pii_seen_updated
         seen_sanitized = False
         if isinstance(seen_payload, dict):
             seen_papers = seen_payload.get("papers")
@@ -915,13 +1160,15 @@ def run_recovery(
             seen_payload,
             records_by_doi,
             providers_by_doi,
+            records_by_pii,
+            providers_by_pii,
         )
         ledger_report = reconcile_retry_queue(data_dir)
         ledger_resolved = int(ledger_report.get("resolved_now") or 0)
         write_provider_health(
             data_dir,
             provider_health,
-            candidates=len(candidate_dois),
+            candidates=len(candidate_dois) + len(candidate_piis),
             recovered_fields=recovered_fields,
             checked_at=now_iso(),
         )
@@ -936,8 +1183,10 @@ def run_recovery(
     report = {
         "checked_at": now_iso(),
         "mode": "dry-run" if dry_run else "write",
-        "candidates": len(candidate_dois),
-        "daily_occurrences": len(candidates),
+        "candidates": len(candidate_dois) + len(candidate_piis),
+        "doi_candidates": len(candidate_dois),
+        "pii_candidates": len(candidate_piis),
+        "daily_occurrences": len(candidates) + len(pii_candidates),
         "providers": {
             name: sum(1 for providers in providers_by_doi.values() if providers.get(name))
             for name in ("openalex", "crossref", "semantic-scholar", "elsevier")
@@ -950,6 +1199,7 @@ def run_recovery(
         "errors": {
             "api": dict(api_errors),
             "no_doi": 0,
+            "pii_only": len(candidate_piis),
         },
         "failure_reasons": dict(failure_reasons),
         "files": {
@@ -969,6 +1219,7 @@ def main() -> None:
     parser.add_argument("--data-dir", type=Path, default=DATA_DIR)
     parser.add_argument("--dry-run", action="store_true", help="Report what would change without writing.")
     parser.add_argument("--limit", type=int, default=50, help="Maximum unique DOI candidates.")
+    parser.add_argument("--pii-limit", type=int, default=50, help="Maximum DOI-less Elsevier PII candidates.")
     parser.add_argument("--recent-days", type=int, default=5000)
     parser.add_argument("--timeout", type=int, default=15)
     parser.add_argument("--workers", type=int, default=4)
@@ -982,6 +1233,7 @@ def main() -> None:
         timeout=args.timeout,
         workers=args.workers,
         dry_run=args.dry_run,
+        pii_limit=args.pii_limit,
     )
     output = args.output or args.data_dir / "metadata_recovery_batch_audit.json"
     write_json(output, report)
