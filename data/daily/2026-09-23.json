@@ -361,7 +361,7 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": "Our paper studies how the nationwide expansion of bank branches affects the performance of informal microenterprises. We exploit the Branch Authorisation Policy (BAP) in India, which directed banks to open branches in “underbanked” districts. Using a regression discontinuity design, we find that microenterprises in underbanked districts report higher value-addition, revenues, and productive assets, but no increase in local registration. However, borrowings on the enterprise balance sheet do not increase. The household balance sheet offers a second perspective that reconciles these findings: households in underbanked districts increased their bank borrowings for non-farm business by an amount comparable to the increase in microenterprise productive assets. Micro-entrepreneurs thus accessed bank credit as households rather than as enterprises, weakening a key incentive to formalize and helping explain how expanded access to finance can coexist with persistent informality.",
     "abstract_completeness": "full",
@@ -380,8 +380,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-23",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "banks-and-informality-two-perspectives-of-microenterprises-balance-sheets-324b6c513eeb",
     "detected_at": "2026-09-23T07:30:40+00:00",
     "doi": "10.1016/j.jdeveco.2026.103929",
@@ -963,8 +963,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "the-impact-of-industrial-land-use-policy-on-urban-innovation-evidence-from-a-quasi-natur-7320a96332a9",
     "detected_at": "2026-09-23T00:03:40+00:00",
     "doi": "10.1016/j.landusepol.2026.108355",
@@ -1126,8 +1126,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-22",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "debt-and-assets-094dc5ae2e27",
     "detected_at": "2026-09-23T00:03:21+00:00",
     "doi": "10.1016/j.jfineco.2026.104375",
@@ -1167,6 +1167,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0304405X26001467",
@@ -1191,7 +1198,7 @@
     "abstract": "A vast literature across several academic disciplines studies the impact of colonial rule, but less attention has been paid to the consequences of decolonization. This paper uses a recently-constructed dataset on the fiscal history of African countries from 1900 to 2015 to analyze the impact of decolonization on fiscal capacity (defined as revenue from taxes that are relatively difficult to collect and that require more administrative infrastructure). The analysis adopts a staggered difference-in-difference approach, implemented using a stacked event study. It finds no discernible pre-trends prior to decolonization, and a substantial increase in fiscal capacity starting about 5–6 years after decolonization. This result – which implies substantial state-building activity in postcolonial Africa – is robust to tests for a variety of alternative explanations, the use of alternative control groups, and the use of generalized synthetic control methods. We also show that this effect is not explained by democratization or improved public goods provision. Our conceptual framework instead posits that post-colonial states were able to increase tax revenues from hard-to-collect sources because their higher degree of legitimacy improved citizens’ tax morale. We offer historical evidence that is consistent with this channel. Our finding – that colonial rulers invested less in fiscal capacity than did post-independence governments – sheds new light on the consequences of colonial rule, and on the determinants of variation in governments’ fiscal capacity.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -1571,5 +1578,72 @@
     "source_url": "https://cepr.org/publications/discussion-papers/search-discussion-papers",
     "title": "Globalization, Freedoms and Economic Convergence: An empirical exploration of a trivariate relationship using a large panel",
     "url": "https://cepr.org/publications/dp16436"
+  },
+  {
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
+    "abstract": "This article exploits a 2018 reform of financial incentives for teachers to work in French disadvantaged schools. Based on administrative personnel records from an educational authority, it evaluates the impact of those incentives on stated preferences to move to such schools. This quasi-experimental source of variation of financial incentives, namely a gradual doubling of the annual stipend from €2,300 to €4,600 in these schools, enhanced their attractiveness. The estimated effect on teachers’ desired mobility is substantial and equivalent to a 34-minute reduction per trip. However, this effect is heterogeneous among teachers, notably higher for those with less experience and who already work in such schools.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Julien Silhol",
+      "Lionel Wilner"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-23",
+    "china_relevance_status": "none",
+    "date_confidence": "F",
+    "date_source": "sciencedirect_api_load_date",
+    "detail_key": "teachers-desired-mobility-to-disadvantaged-schools-do-financial-incentives-matter-9f321955f333",
+    "detected_at": "2026-09-23T10:27:52+00:00",
+    "doi": "10.1016/j.econedurev.2026.102839",
+    "fields": [
+      "applied_empirical"
+    ],
+    "first_seen": "2026-09-23T10:27:52+00:00",
+    "id": "doi:10.1016/j.econedurev.2026.102839",
+    "identity_aliases": [
+      "10.1016/j.econedurev.2026.102839",
+      "https://www.sciencedirect.com/science/article/pii/S0272775726000816?dgcid=api_sd_search-api-endpoint",
+      "teachers-desired-mobility-to-disadvantaged-schools-do-financial-incentives-matter-9f321955f333"
+    ],
+    "issue_date": null,
+    "journal": "Economics of Education Review",
+    "journal_id": "economics-of-education-review",
+    "journal_short": "EER-Ed",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0272775726000816",
+    "published_online": null,
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0272775726000816",
+      "sciencedirect_api_load_date": "2026-09-23T00:00:00.000Z",
+      "sciencedirect_search_issn": "0272-7757",
+      "sciencedirect_search_journal": "Economics of Education Review",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Teachers’ desired mobility to disadvantaged schools: Do financial incentives matter?",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0272775726000816?dgcid=api_sd_search-api-endpoint"
   }
 ]
