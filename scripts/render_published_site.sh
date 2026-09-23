@@ -33,11 +33,15 @@ python scripts/build_daily_vnext.py \
   --output docs/daily-vnext/index.html \
   --report "$RUNNER_TEMP/daily-vnext-report.json"
 python scripts/build_feed.py --site-url https://academic-door.github.io/econ-paper-monitor/
+python scripts/build_discoverability.py --site-url https://academic-door.github.io/econ-paper-monitor/
 python scripts/render_semantic_scholar_usage.py
 
 test -f docs/index.html
 test -f docs/daily-vnext/index.html
 test -f docs/feed.xml
+test -f docs/sitemap.xml
+test -f docs/robots.txt
+test -f docs/404.html
 test -f docs/usage/index.html
 test -f docs/classic/index.html
 test -f docs/paper.html
