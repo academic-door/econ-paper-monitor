@@ -281,6 +281,12 @@ def load_elsevier_pii_candidates(
         for record in payload:
             if not isinstance(record, dict) or normalize_doi(record.get("doi")):
                 continue
+            locator = " ".join(
+                str(record.get(field) or "")
+                for field in ("url", "source_url")
+            ).casefold()
+            if "sciencedirect.com/" not in locator:
+                continue
             pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
             if not pii:
                 continue
