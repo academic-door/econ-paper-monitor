@@ -47,8 +47,8 @@
   <p>2026-09-24 / 2026-09-23 / 2026-09-22</p>
 </section>
 <section class="stats">
-  <span class="stat"><strong>119</strong><span>近3天新发现</span></span>
-  <span class="stat"><strong>107</strong><span>期刊论文</span></span>
+  <span class="stat"><strong>124</strong><span>近3天新发现</span></span>
+  <span class="stat"><strong>112</strong><span>期刊论文</span></span>
   <span class="stat"><strong>12</strong><span>工作论文</span></span>
   <a class="stat china" href="../topics/china/"><strong>16</strong><span>与中国相关</span></a>
   <a class="stat" href="../export/recent72.ris"><strong>RIS</strong><span>Zotero 导入</span></a>
@@ -56,13 +56,73 @@
 </section>
 <div class="toolbar" id="filters-recent72" data-filter-scope="recent72">
   <input class="control" aria-label="搜索标题、作者或 DOI" data-filter-role="search" type="search" placeholder="搜索">
-  <select class="control" aria-label="筛选期刊" data-filter-role="journal"><option value="">筛选期刊/来源</option><option value="applied-economics">Applied Economics</option><option value="source-bis-working-papers">BIS Working Papers</option><option value="source-cepr-dp">CEPR Discussion Papers</option><option value="econometrica">Econometrica</option><option value="economic-development-and-cultural-change">Economic Development and Cultural Change</option><option value="economic-inquiry">Economic Inquiry</option><option value="economic-journal">Economic Journal</option><option value="economic-modelling">Economic Modelling</option><option value="economics-letters">Economics Letters</option><option value="economics-of-education-review">Economics of Education Review</option><option value="energy-policy">Energy Policy</option><option value="environmental-and-resource-economics">Environmental and Resource Economics</option><option value="european-economic-review">European Economic Review</option><option value="experimental-economics">Experimental Economics</option><option value="food-policy">Food Policy</option><option value="international-journal-of-industrial-organization">International Journal of Industrial Organization</option><option value="journal-of-accounting-and-economics">Journal of Accounting and Economics</option><option value="journal-of-agricultural-economics">Journal of Agricultural Economics</option><option value="journal-of-business-and-economic-statistics">Journal of Business &amp; Economic Statistics</option><option value="journal-of-comparative-economics">Journal of Comparative Economics</option><option value="journal-of-corporate-finance">Journal of Corporate Finance</option><option value="journal-of-development-economics">Journal of Development Economics</option><option value="journal-of-econometrics">Journal of Econometrics</option><option value="journal-of-economic-behavior-and-organization">Journal of Economic Behavior and Organization</option><option value="journal-of-economic-dynamics-and-control">Journal of Economic Dynamics and Control</option><option value="journal-of-economic-literature">Journal of Economic Literature</option><option value="journal-of-economic-psychology">Journal of Economic Psychology</option><option value="journal-of-economic-theory">Journal of Economic Theory</option><option value="journal-of-environmental-economics-and-management">Journal of Environmental Economics and Management</option><option value="journal-of-finance">Journal of Finance</option><option value="journal-of-financial-economics">Journal of Financial Economics</option><option value="journal-of-financial-and-quantitative-analysis">Journal of Financial and Quantitative Analysis</option><option value="journal-of-health-economics">Journal of Health Economics</option><option value="journal-of-mathematical-economics">Journal of Mathematical Economics</option><option value="journal-of-monetary-economics">Journal of Monetary Economics</option><option value="journal-of-political-economy">Journal of Political Economy</option><option value="journal-of-population-economics">Journal of Population Economics</option><option value="journal-of-public-economics">Journal of Public Economics</option><option value="journal-of-risk-and-uncertainty">Journal of Risk and Uncertainty</option><option value="journal-of-urban-economics">Journal of Urban Economics</option><option value="land-use-policy">Land Use Policy</option><option value="management-science">Management Science</option><option value="mathematical-social-sciences">Mathematical Social Sciences</option><option value="source-oecd-working-papers">OECD Working Papers</option><option value="public-choice">Public Choice</option><option value="review-of-accounting-studies">Review of Accounting Studies</option><option value="review-of-economic-design">Review of Economic Design</option><option value="the-world-economy">The World Economy</option><option value="source-voxeu-cepr-columns">VoxEU / CEPR Columns</option><option value="world-development">World Development</option><option value="journal-ba9f46c919">经济研究</option></select>
+  <select class="control" aria-label="筛选期刊" data-filter-role="journal"><option value="">筛选期刊/来源</option><option value="applied-economics">Applied Economics</option><option value="source-bis-working-papers">BIS Working Papers</option><option value="source-cepr-dp">CEPR Discussion Papers</option><option value="econometrica">Econometrica</option><option value="economic-development-and-cultural-change">Economic Development and Cultural Change</option><option value="economic-inquiry">Economic Inquiry</option><option value="economic-journal">Economic Journal</option><option value="economic-modelling">Economic Modelling</option><option value="economics-letters">Economics Letters</option><option value="economics-of-education-review">Economics of Education Review</option><option value="energy-policy">Energy Policy</option><option value="environmental-and-resource-economics">Environmental and Resource Economics</option><option value="european-economic-review">European Economic Review</option><option value="experimental-economics">Experimental Economics</option><option value="food-policy">Food Policy</option><option value="international-journal-of-industrial-organization">International Journal of Industrial Organization</option><option value="journal-of-accounting-and-economics">Journal of Accounting and Economics</option><option value="journal-of-agricultural-economics">Journal of Agricultural Economics</option><option value="journal-of-business-and-economic-statistics">Journal of Business &amp; Economic Statistics</option><option value="journal-of-comparative-economics">Journal of Comparative Economics</option><option value="journal-of-corporate-finance">Journal of Corporate Finance</option><option value="journal-of-development-economics">Journal of Development Economics</option><option value="journal-of-econometrics">Journal of Econometrics</option><option value="journal-of-economic-behavior-and-organization">Journal of Economic Behavior and Organization</option><option value="journal-of-economic-dynamics-and-control">Journal of Economic Dynamics and Control</option><option value="journal-of-economic-literature">Journal of Economic Literature</option><option value="journal-of-economic-psychology">Journal of Economic Psychology</option><option value="journal-of-economic-theory">Journal of Economic Theory</option><option value="journal-of-environmental-economics-and-management">Journal of Environmental Economics and Management</option><option value="journal-of-finance">Journal of Finance</option><option value="journal-of-financial-economics">Journal of Financial Economics</option><option value="journal-of-financial-and-quantitative-analysis">Journal of Financial and Quantitative Analysis</option><option value="journal-of-health-economics">Journal of Health Economics</option><option value="journal-of-mathematical-economics">Journal of Mathematical Economics</option><option value="journal-of-monetary-economics">Journal of Monetary Economics</option><option value="journal-of-political-economy">Journal of Political Economy</option><option value="journal-of-population-economics">Journal of Population Economics</option><option value="journal-of-public-economics">Journal of Public Economics</option><option value="journal-of-risk-and-uncertainty">Journal of Risk and Uncertainty</option><option value="journal-of-urban-economics">Journal of Urban Economics</option><option value="land-use-policy">Land Use Policy</option><option value="management-science">Management Science</option><option value="mathematical-social-sciences">Mathematical Social Sciences</option><option value="source-oecd-working-papers">OECD Working Papers</option><option value="oxford-bulletin-of-economics-and-statistics">Oxford Bulletin of Economics and Statistics</option><option value="public-choice">Public Choice</option><option value="review-of-accounting-studies">Review of Accounting Studies</option><option value="review-of-economic-design">Review of Economic Design</option><option value="the-world-economy">The World Economy</option><option value="source-voxeu-cepr-columns">VoxEU / CEPR Columns</option><option value="world-development">World Development</option><option value="journal-ba9f46c919">经济研究</option></select>
   <select class="control" aria-label="筛选主题" data-filter-role="field"><option value="">主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
   <details class="control more-filters"><summary>高级筛选</summary><div class="more-filters-row"><select class="control" aria-label="筛选日期类型" data-filter-role="dateType"><option value="">日期类型</option><option value="published_online">官方发布</option><option value="available_online">官方在线</option><option value="first_seen">本站首次发现</option></select><select class="control" aria-label="筛选可信度" data-filter-role="confidence"><option value="">可信度</option><option value="A">A：官方渠道明确日期</option><option value="C">C：Crossref/聚合登记日期</option><option value="F">F：仅本站首次发现</option></select><select class="control" aria-label="筛选来源类型" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="journal_article">期刊论文</option><option value="policy_commentary">研究评论</option><option value="policy_paper">机构研究</option><option value="working_paper">工作论文</option></select></div></details>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">中国</button>
 </div>
 <div class="empty" data-filter-empty="recent72" hidden>没有符合当前筛选条件的论文。</div>
-<div class="lazy-list" data-lazy-list data-lazy-scope="recent72" data-lazy-base=".." data-lazy-defer="false" data-lazy-manifest="../paper-index/86cfdb43bb4eec50/manifest.json"><div class="lazy-initial"><article class="event" data-event-scope="recent72" data-search="energy transition and corporate geographic expansion  sabri boubaker, yi-shuai ren, riadh manita, yong jiang energy policy energy policy 10.1016/j.enpol.2026.115619" data-journal="energy-policy" data-fields="environment development public urban" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
+<div class="lazy-list" data-lazy-list data-lazy-scope="recent72" data-lazy-base=".." data-lazy-defer="false" data-lazy-manifest="../paper-index/059e7de33ea63056/manifest.json"><div class="lazy-initial"><article class="event" data-event-scope="recent72" data-search="ai-generated advice as a reinforcement layer in climate-smart agriculture  callum alexander, aiora zabala, andreas kontoleon, shalamar armstrong, anuoluwa sangotayo land use policy land use policy 10.1016/j.landusepol.2026.108336" data-journal="land-use-policy" data-fields="agriculture environment public" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
+  <div><div class="time">18:30</div><div class="date-note">2026-09-24</div></div>
+  <div>
+    <h3><a href="../paper/ai-generated-advice-as-a-reinforcement-layer-in-climate-smart-agriculture-9bfe965828a9/">AI-generated advice as a reinforcement layer in climate-smart agriculture</a></h3>
+    <p class="authors">Callum Alexander, Aiora Zabala, Andreas Kontoleon, Shalamar Armstrong, Anuoluwa Sangotayo</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="pill">本站首次发现 2026-09-24 18:30</span></span></div>
+      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-09-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108336">10.1016/j.landusepol.2026.108336</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-event-scope="recent72" data-search="identification of relationship lending in bank–borrower networks  yoshitaka ogisu, shoka hayaki, masahiko shibamoto oxford bulletin of economics and statistics oxford bulletin of economics and statistics 10.1111/obes.70136" data-journal="oxford-bulletin-of-economics-and-statistics" data-fields="finance econometrics" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
+  <div><div class="time">18:29</div><div class="date-note">2026-09-24</div></div>
+  <div>
+    <h3><a href="../paper/identification-of-relationship-lending-in-bank-borrower-networks-deb44ed33942/">Identification of Relationship Lending in Bank–Borrower Networks</a></h3>
+    <p class="authors">Yoshitaka Ogisu, Shoka Hayaki, Masahiko Shibamoto</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Oxford Bulletin of Economics and Statistics</span><span class="pill">本站首次发现 2026-09-24 18:29</span></span></div>
+      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-09-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/obes.70136">10.1111/obes.70136</a><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-event-scope="recent72" data-search="electricity prices during the energy crisis in germany: the role of market power  till fladung, anna saile energy policy energy policy 10.1016/j.enpol.2026.115618" data-journal="energy-policy" data-fields="environment finance public theory" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="F" data-source-type="journal_article">
+  <div><div class="time">18:25</div><div class="date-note">2026-09-24</div></div>
+  <div>
+    <h3><a href="../paper/electricity-prices-during-the-energy-crisis-in-germany-the-role-of-market-power-dcbda3a57fbf/">Electricity prices during the energy crisis in Germany: The role of market power</a></h3>
+    <p class="authors">Till Fladung, Anna Saile</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Energy Policy</span><span class="pill">本站首次发现 2026-09-24 18:25</span></span></div>
+      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-24 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.enpol.2026.115618">10.1016/j.enpol.2026.115618</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-event-scope="recent72" data-search="long-term impacts of youth mentoring and therapy: experimental evidence from chicago  nour abdul-razzak, brandon domash, cristobal pinto poehls journal of public economics journal of public economics 10.1016/j.jpubeco.2026.105771" data-journal="journal-of-public-economics" data-fields="public behavior education inequality" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="F" data-source-type="journal_article">
+  <div><div class="time">18:24</div><div class="date-note">2026-09-24</div></div>
+  <div>
+    <h3><a href="../paper/long-term-impacts-of-youth-mentoring-and-therapy-experimental-evidence-from-chicago-b69175b6f87e/">Long-term impacts of youth mentoring and therapy: Experimental evidence from Chicago</a></h3>
+    <p class="authors">Nour Abdul-Razzak, Brandon Domash, Cristobal Pinto Poehls</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="pill">本站首次发现 2026-09-24 18:24</span></span></div>
+      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-24 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105771">10.1016/j.jpubeco.2026.105771</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">教育</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-event-scope="recent72" data-search="transporting behavioral insights to low-income households: a field experiment on energy efficiency investments  bettina chlond, timo goeschl, madeline werthschulte journal of public economics journal of public economics 10.1016/j.jpubeco.2026.105780" data-journal="journal-of-public-economics" data-fields="environment development public trade" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="F" data-source-type="journal_article">
+  <div><div class="time">18:24</div><div class="date-note">2026-09-24</div></div>
+  <div>
+    <h3><a href="../paper/transporting-behavioral-insights-to-low-income-households-a-field-experiment-on-energy-e-5b515dd3269d/">Transporting behavioral insights to low-income households: A field experiment on energy efficiency investments</a></h3>
+    <p class="authors">Bettina Chlond, Timo Goeschl, Madeline Werthschulte</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="pill">本站首次发现 2026-09-24 18:24</span></span></div>
+      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-24 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105780">10.1016/j.jpubeco.2026.105780</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-event-scope="recent72" data-search="energy transition and corporate geographic expansion  sabri boubaker, yi-shuai ren, riadh manita, yong jiang energy policy energy policy 10.1016/j.enpol.2026.115619" data-journal="energy-policy" data-fields="environment development public urban" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
   <div><div class="time">17:27</div><div class="date-note">2026-09-24</div></div>
   <div>
     <h3><a href="../paper/energy-transition-and-corporate-geographic-expansion-dd472f93964a/">Energy transition and corporate geographic expansion</a></h3>
@@ -74,14 +134,14 @@
     </div>
   </div>
 </article>
-<article class="event" data-event-scope="recent72" data-search="the value of a statistical life year  w. kip viscusi journal of risk and uncertainty journal of risk and uncertainty 10.1007/s11166-026-09509-6" data-journal="journal-of-risk-and-uncertainty" data-fields="finance labor public" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
+<article class="event" data-event-scope="recent72" data-search="the value of a statistical life year  viscusi, w. kip journal of risk and uncertainty journal of risk and uncertainty 10.1007/s11166-026-09509-6" data-journal="journal-of-risk-and-uncertainty" data-fields="finance labor public" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
   <div><div class="time">17:27</div><div class="date-note">2026-09-24</div></div>
   <div>
     <h3><a href="../paper/the-value-of-a-statistical-life-year-2fdec3f61590/">The value of a statistical life year</a></h3>
-    <p class="authors">W. Kip Viscusi</p>
+    <p class="authors">Viscusi, W. Kip</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Risk and Uncertainty</span><span class="pill">本站首次发现 2026-09-24 17:27</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-09-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-24 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11166-026-09509-6">10.1007/s11166-026-09509-6</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -121,67 +181,7 @@
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103430">10.1016/j.jeem.2026.103430</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="early career effects of entering the labor market during higher education expansion  johannes goehausen, stephan l. thomsen journal of population economics journal of population economics 10.1007/s00148-026-01210-x" data-journal="journal-of-population-economics" data-fields="finance macro labor urban" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
-  <div><div class="time">17:25</div><div class="date-note">2026-09-24</div></div>
-  <div>
-    <h3><a href="../paper/early-career-effects-of-entering-the-labor-market-during-higher-education-expansion-0cd1a6f337db/">Early career effects of entering the labor market during higher education expansion</a></h3>
-    <p class="authors">Johannes Goehausen, Stephan L. Thomsen</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Population Economics</span><span class="pill">本站首次发现 2026-09-24 17:25</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-09-24 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01210-x">10.1007/s00148-026-01210-x</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="tradable payload rights under private passenger weight: a market-design approach to airline capacity allocation  gökhan güven review of economic design review of economic design 10.1007/s10058-026-00405-8" data-journal="review-of-economic-design" data-fields="finance" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
-  <div><div class="time">17:23</div><div class="date-note">2026-09-24</div></div>
-  <div>
-    <h3><a href="../paper/tradable-payload-rights-under-private-passenger-weight-a-market-design-approach-to-airli-132c90a29627/">Tradable payload rights under private passenger weight: a market-design approach to airline capacity allocation</a></h3>
-    <p class="authors">Gökhan Güven</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Design</span><span class="pill">本站首次发现 2026-09-24 17:23</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-09-24 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10058-026-00405-8">10.1007/s10058-026-00405-8</a><span class="pill">金融</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="an experimental study on the effect of knowledge on idea generation and idea selection  bernd irlenbusch, katharina laske, marina schröder, rika stoczek international journal of industrial organization international journal of industrial organization 10.1016/j.ijindorg.2026.103338" data-journal="international-journal-of-industrial-organization" data-fields="development econometrics behavior firms" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
-  <div><div class="time">17:23</div><div class="date-note">2026-09-24</div></div>
-  <div>
-    <h3><a href="../paper/an-experimental-study-on-the-effect-of-knowledge-on-idea-generation-and-idea-selection-b133a426170a/">An Experimental Study on the Effect of Knowledge on Idea Generation and Idea Selection</a></h3>
-    <p class="authors">Bernd Irlenbusch, Katharina Laske, Marina Schröder, Rika Stoczek</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Industrial Organization</span><span class="pill">本站首次发现 2026-09-24 17:23</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-24 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103338">10.1016/j.ijindorg.2026.103338</a><span class="pill">发展经济学</span><span class="pill">计量方法</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="characterizations of proportional division value in tu-games via fixed-population consistency  yukihiko funaki, yukio koriyama, satoshi nakada, yuki tamura mathematical social sciences mathematical social sciences 10.1016/j.mathsocsci.2026.102585" data-journal="mathematical-social-sciences" data-fields="theory" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
-  <div><div class="time">17:22</div><div class="date-note">2026-09-24</div></div>
-  <div>
-    <h3><a href="../paper/characterizations-of-proportional-division-value-in-tu-games-via-fixed-population-consis-97123defb461/">Characterizations of proportional division value in TU-games via fixed-population consistency</a></h3>
-    <p class="authors">Yukihiko Funaki, Yukio Koriyama, Satoshi Nakada, Yuki Tamura</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Mathematical Social Sciences</span><span class="pill">本站首次发现 2026-09-24 17:22</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-24 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.mathsocsci.2026.102585">10.1016/j.mathsocsci.2026.102585</a><span class="pill">理论与博弈</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="ecb monetary policy transmission to unilaterally euroised economies  georgi krustev economics letters economics letters 10.1016/j.econlet.2026.113242" data-journal="economics-letters" data-fields="macro public" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
-  <div><div class="time">17:22</div><div class="date-note">2026-09-24</div></div>
-  <div>
-    <h3><a href="../paper/ecb-monetary-policy-transmission-to-unilaterally-euroised-economies-9e6542b405ff/">ECB monetary policy transmission to unilaterally euroised economies</a></h3>
-    <p class="authors">Georgi Krustev</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="pill">本站首次发现 2026-09-24 17:22</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-24 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113242">10.1016/j.econlet.2026.113242</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
-    </div>
-  </div>
-</article></div><button class="control lazy-start" type="button">浏览全部 119 篇</button><div class="empty" data-lazy-empty hidden>没有符合当前筛选条件的论文。</div></div>
+</article></div><button class="control lazy-start" type="button">浏览全部 124 篇</button><div class="empty" data-lazy-empty hidden>没有符合当前筛选条件的论文。</div></div>
 
 <script>
 (() => {
