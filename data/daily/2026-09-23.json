@@ -1,9 +1,92 @@
 [
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
+    "abstract": "This paper presents early results from the RESET Demonstration Project, an initiative that constructs price and sales indices using item-level transactions data. The project’s overarching goal is to demonstrate the feasibility and advantages of leveraging modern transactions data for economic measurement by pointing toward a future in which official economic statistics are rebuilt on 21st-century data and technology. The paper introduces new inflation measures for Food at Home and evaluates them on two fronts: how they compare to current official statistics and what they offer as novel measures that capture more accurately the dynamics of consumer choice. The paper also addresses the challenges of producing reliable and credible official statistics from item-level transactions data and reports findings on recent Food at Home inflation trends.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Steve Coffey",
+      "Gabriel Ehrlich",
+      "John Haltiwanger",
+      "Ron Jarmin",
+      "David Johnson",
+      "Tod Johnson",
+      "Matthew D. Shapiro"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-23",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "early-results-from-the-reset-demonstration-project-inflation-in-food-at-home-dd25ce967165",
+    "detected_at": "2026-09-24T00:14:47+00:00",
+    "doi": "10.1016/j.jmoneco.2026.103991",
+    "fields": [
+      "macroeconomics"
+    ],
+    "first_seen": "2026-09-24T00:14:47+00:00",
+    "id": "doi:10.1016/j.jmoneco.2026.103991",
+    "identity_aliases": [
+      "10.1016/j.jmoneco.2026.103991",
+      "early-results-from-the-reset-demonstration-project-inflation-in-food-at-home-dd25ce967165",
+      "https://doi.org/10.1016/j.jmoneco.2026.103991"
+    ],
+    "issue_date": "2026-09-24",
+    "journal": "Journal of Monetary Economics",
+    "journal_id": "journal-of-monetary-economics",
+    "journal_short": "JME",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0304393226001066",
+    "published_online": "2026-09-23",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-23",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-23",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-23",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-23",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Early Results from the RESET Demonstration Project: Inflation in Food at Home",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://doi.org/10.1016/j.jmoneco.2026.103991"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "With the continuous advancement of digitalization, rural e-commerce has emerged as a burgeoning phenomenon. This study explores the impact of rural e-commerce on land-augmenting technological progress—a specific form of biased technological progress focused on enhancing land productivity while controlling for other inputs—using China’s county-level data from 2010 to 2021. Taking the establishment of \"Taobao Villages\" as a proxy for rural e-commerce development, we employ a combination of empirical methods, including difference-in-differences, random forest, threshold regression, and mediating effect models, to analyze the relationship, its heterogeneity, and underlying mechanisms. The findings reveal that rural e-commerce significantly enhances land-augmenting technological progress. Notably, such technological progress led to a reduction equivalent to 0.35% of commonly cultivated arable land in 2021, highlighting its tangible contribution to land-use efficiency in the face of mounting environmental and demographic pressures. This positive impact is further amplified by improvements in knowledge production efficiency. The mechanisms driving these effects include promoting urbanization, labor mobility, and creating local non-agricultural employment opportunities. Moreover, the study underscores the vital role of land-augmenting technological progress in fostering sustainable local agricultural development, which includes increasing per capita agricultural production value and productivity, as well as narrowing the urban-rural income gap.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -18,7 +101,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "rural-e-commerce-and-land-augmenting-technological-progress-empirical-evidence-from-chin-967b8a32e9a0",
     "detected_at": "2026-09-23T23:43:34+00:00",
     "doi": "10.1016/j.landusepol.2026.108357",
@@ -38,10 +121,26 @@
     "journal_short": "LUP",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0264837726004412",
     "published_online": "2026-09-23",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-23",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-23",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -53,10 +152,14 @@
     "url": "https://doi.org/10.1016/j.landusepol.2026.108357"
   },
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
+    "abstract": "Dairy production is a significant source of food-related greenhouse gas emissions. Interventions promoting sustainable alternatives could help reduce such emissions. Concerns about plant-based (PB) drinks’ nutritional quality and the slowdown in PB drink demand highlight the need for innovation within the dairy sector. This study investigates consumers’ willingness to pay (WTP) for low-emission dairy products through a between-subjects discrete choice experiment in Italy, Germany, and Czechia. We compare two innovations differing in technological intensity: a low-tech option (milk from cows fed with a sustainable diet) and a high-tech option (cultured milk), versus conventional milk and a PB drink. Respondents were randomly assigned to one of three experimental conditions testing mandatory versus voluntary information provision, or no information, about the two innovative milk options. Findings indicate that the low-tech alternative is more accepted than the high-tech one, with price premiums varying across countries. Both innovative alternatives are preferred over PB drinks. The effect of information depends on disclosure type, price level, and country. Mandatory information has the strongest effect, increasing WTP for cultured milk in Italy and for both innovative alternatives in Germany, and reducing price sensitivity at higher price levels in these two countries. Voluntary information increases WTP for both innovative options in Italy but decreases WTP for the low-tech option in Germany. Czech consumers behave differently: both types of information reduce WTP for the low-tech alternative. Policy measures should combine cost-reducing instruments — CAP agri-environmental subsidies for low-tech solutions and R&D support for high-tech ones — with on-package or in-store information developed at country level.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -73,7 +176,7 @@
     "available_online": "2026-09-23",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "are-consumers-interested-in-low-emission-milk-a-comparison-between-low-tech-and-high-tec-3c2797f1b953",
     "detected_at": "2026-09-23T23:43:29+00:00",
     "doi": "10.1016/j.foodpol.2026.103192",
@@ -93,10 +196,26 @@
     "journal_short": "FP",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0306919226001612",
     "published_online": "2026-09-23",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-23",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-23",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -108,10 +227,14 @@
     "url": "https://doi.org/10.1016/j.foodpol.2026.103192"
   },
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "We examine whether culture-specific educational infrastructure influenced the location decisions of multinational enterprises by analyzing Japanese foreign direct investment (FDI) in the United States over the 1980s. Using the expansion of Japanese FDI following Reagan-era trade tensions, we test whether preexisting Japanese Studies programs at U.S. universities predict subsequent Japanese investment across 722 commuting zones. We find that zones with Japanese Studies programs in 1975 were approximately 25 percentage points more likely to receive Japanese investment in 1992, controlling for traditional determinants like Japanese population, manufacturing infrastructure, agglomeration, and market access. The results are robust to alternative empirical methods, including the instrumental variable approach. Our results suggest that “soft infrastructure”—culture-specific human capital pipelines—represents an overlooked location advantage in attracting FDI.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -124,7 +247,7 @@
     "available_online": "2026-09-23",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "jue-insight-soft-infrastructure-and-the-location-choice-of-multinational-firms-evidence-2b3990a0e6c0",
     "detected_at": "2026-09-23T23:43:21+00:00",
     "doi": "10.1016/j.jue.2026.103914",
@@ -144,10 +267,26 @@
     "journal_short": "JUE",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0094119026000859",
     "published_online": "2026-09-23",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-23",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-23",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -159,10 +298,14 @@
     "url": "https://doi.org/10.1016/j.jue.2026.103914"
   },
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
+    "abstract": "Reduced motivation over the unemployment spell may contribute to declining job-finding rates. We report findings from a low-cost digital intervention that uses motivational emails to enhance job seekers’ search effort. Using a randomized controlled trial that included 200,720 newly unemployed job seekers in Sweden, we evaluate both supportive messages aimed at encouraging inner motivation, and controlling messages focused on internal and external pressure. The messages increased compliance with mandatory activity reporting, indicating a clear first-stage behavioral response. However, this behavioral change did not translate in more effective job search as both types of emails caused a moderate but significant reduction in search effort and job finding. The supportive messages reduced the number of job applications and showed weakly negative job-finding effects, particularly among men. The controlling messages slightly backfired for job seekers who report strong autonomous motivation at the onset of unemployment. These findings underscore the challenges of motivating job seekers to actively search for jobs and suggest that low-cost digital interventions, in isolation, are inadequate and may even be counterproductive.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -177,7 +320,7 @@
     "available_online": "2026-09-23",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "motivating-job-seekers-a-field-experiment-6c6457c5864c",
     "detected_at": "2026-09-23T21:34:45+00:00",
     "doi": "10.1016/j.jpubeco.2026.105783",
@@ -197,10 +340,26 @@
     "journal_short": "JPubE",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0047272726002197",
     "published_online": "2026-09-23",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-23",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-23",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "related_versions": [
       "motivating-job-seekers-a-field-experiment-d7ff1e46041f"
@@ -1216,7 +1375,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -1235,7 +1394,7 @@
     "available_online": "2026-09-23",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "elite-led-revolutions-58eec2022320",
     "detected_at": "2026-09-23T12:03:39+00:00",
     "doi": "10.1007/s11127-026-01469-4",
@@ -1347,11 +1506,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "proxy-request-failed",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1365,7 +1524,7 @@
     "available_online": "2026-09-23",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "edward-clarke-s-struggles-47b776d3f2f2",
     "detected_at": "2026-09-23T12:03:39+00:00",
     "doi": "10.1007/s11127-026-01475-6",
@@ -1414,11 +1573,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "proxy-request-failed",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1431,7 +1590,7 @@
     "available_online": "2026-09-23",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "public-choice-book-review-for-fdr-a-new-political-life-by-david-beito-2025-carus-books-c9116d425224",
     "detected_at": "2026-09-23T12:03:39+00:00",
     "doi": "10.1007/s11127-026-01479-2",
@@ -1545,7 +1704,7 @@
     "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "proxy-request-failed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1561,7 +1720,7 @@
     "available_online": "2026-09-23",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "the-effects-of-changing-electoral-systems-from-first-past-the-post-to-single-transferabl-dd96030c4395",
     "detected_at": "2026-09-23T12:03:39+00:00",
     "doi": "10.1007/s11127-026-01470-x",
