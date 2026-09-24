@@ -6,12 +6,12 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 229,
+    "missing_abstract": 230,
     "missing_authors": 3,
     "weak_date_evidence": 487
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 752,
+  "recent_candidates_before_limit": 753,
   "recent_window_start": "2026-08-26",
   "records": [
     {
@@ -134,6 +134,30 @@
       "source_type": "journal",
       "title": "Markets of Pain: Opium, Capitalism, and the Global History of PainkillersBenjamin RobertSiegel, (Oxford University Press, 2026. Pp. 368. ISBN 9780197527825. Hbk £26)",
       "url": "https://doi.org/10.1111/ehr.70160"
+    },
+    {
+      "date_confidence": "F",
+      "doi": "10.1257/mic.20250313",
+      "first_seen": "2026-09-24T15:50:44+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1257/mic.20250313",
+      "journal": "American Economic Journal: Microeconomics",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Targeted Persuasion",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/mic.20250313"
     },
     {
       "date_confidence": "F",
@@ -2815,54 +2839,6 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1162/rest.x.1825",
-      "first_seen": "2026-09-21T19:26:07+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1162/rest.x.1825",
-      "journal": "Review of Economics and Statistics",
-      "official_date": "2026-09-15",
-      "priority": [
-        0,
-        0,
-        1,
-        9
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Response to the Comment on “Raising Health Awareness in Rural Communities: A Randomized Experiment in Bangladesh and India” (Siddique et al., 2024)",
-      "url": "https://doi.org/10.1162/rest.x.1825"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1162/rest.x.1827",
-      "first_seen": "2026-09-21T19:26:07+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1162/rest.x.1827",
-      "journal": "Review of Economics and Statistics",
-      "official_date": "2026-09-15",
-      "priority": [
-        0,
-        0,
-        1,
-        9
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Author Requests for Removal from “Raising Health Awareness in Rural Communities: A Randomized Experiment in Bangladesh and India” (Siddique et al., 2024)",
-      "url": "https://doi.org/10.1162/rest.x.1827"
-    },
-    {
-      "date_confidence": "C",
       "doi": "10.1080/07350015.2026.2732033",
       "first_seen": "2026-09-14T20:24:27+00:00",
       "historical_backfill": false,
@@ -3554,6 +3530,54 @@
       "source_type": "journal",
       "title": "The Blast Effect: Impact of Chemical Explosions on Land Markets in China",
       "url": "https://doi.org/10.1007/s10640-026-01117-x"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1162/rest.x.1825",
+      "first_seen": "2026-09-21T19:26:07+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1162/rest.x.1825",
+      "journal": "Review of Economics and Statistics",
+      "official_date": "2026-09-01",
+      "priority": [
+        0,
+        0,
+        1,
+        23
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Response to the Comment on “Raising Health Awareness in Rural Communities: A Randomized Experiment in Bangladesh and India” (Siddique et al., 2024)",
+      "url": "https://doi.org/10.1162/rest.x.1825"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1162/rest.x.1827",
+      "first_seen": "2026-09-21T19:26:07+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1162/rest.x.1827",
+      "journal": "Review of Economics and Statistics",
+      "official_date": "2026-09-01",
+      "priority": [
+        0,
+        0,
+        1,
+        23
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Author Requests for Removal from “Raising Health Awareness in Rural Communities: A Randomized Experiment in Bangladesh and India” (Siddique et al., 2024)",
+      "url": "https://doi.org/10.1162/rest.x.1827"
     },
     {
       "date_confidence": "F",
@@ -5616,7 +5640,7 @@
       "url": "https://doi.org/10.1016/j.ijindorg.2026.103338"
     },
     {
-      "date_confidence": "F",
+      "date_confidence": "C",
       "doi": "10.1016/j.jfineco.2026.104380",
       "first_seen": "2026-09-24T14:48:31+00:00",
       "historical_backfill": false,
@@ -11718,32 +11742,9 @@
       "source_type": "journal",
       "title": "A new partial-equilibrium approach to approximating the welfare effects of market power and taxes",
       "url": "https://doi.org/10.1016/j.jebo.2026.107747"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jeconom.2026.106321",
-      "first_seen": "2026-09-05T15:33:58+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jeconom.2026.106321",
-      "journal": "Journal of Econometrics",
-      "official_date": "2026-09-05",
-      "priority": [
-        0,
-        1,
-        1,
-        19
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Clustering with potential multidimensionality: Inference and practice",
-      "url": "https://doi.org/10.1016/j.jeconom.2026.106321"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4906,
+  "total_candidates_before_limit": 4907,
   "truncated": true
 }
