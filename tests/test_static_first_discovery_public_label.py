@@ -52,3 +52,5 @@ def test_archive_header_distinguishes_bucket_date_from_first_discovery() -> None
     assert "归档日期：" in renderer
     assert "条目中的“本站首次发现”按实际首次发现时间展示" in renderer
     assert "本站首次发现日期：" not in renderer
+    assert "按本站首次发现日期组织的每日记录" not in renderer
+    assert "按每日归档日期组织记录" in renderer
