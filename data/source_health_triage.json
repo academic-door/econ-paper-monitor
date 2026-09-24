@@ -1,7 +1,9 @@
 {
-  "categories": {},
-  "checked_at": "2026-09-24T22:32:46.167763+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-09-24T22:58:08.573098+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -15,14 +17,30 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 32 via official-generated; Journal of Finance: 25 via official-generated; Journal of Financial Economics: 25 via official-generated; Review of Financia",
+      "sample_error": "feeds=72/121; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 50 via configured; Journal of",
       "source": "rss"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfare/springer_online_first: crossref fallback 2; public-choice/springer_online_first: PARSER_FAILURE; public-choic",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 3
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
