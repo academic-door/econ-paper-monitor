@@ -1204,7 +1204,7 @@ def secondary_page_lede(title: str) -> str:
     if title in {"监测期刊", "历史归档", "全部工作论文"}:
         return "使用与 Daily Door 同源的数据和页面体系，保持清晰、可检索、可连续浏览。"
     if "归档" in title:
-        return "按本站首次发现日期组织的每日记录，官方发布日期与本站首次发现日期分开显示。"
+        return "按每日归档日期组织记录；条目中的本站首次发现时间与官方/在线日期分别展示。"
     if "工作论文" in title:
         return "覆盖工作论文与机构研究来源，按本站首次发现时间倒序排列。"
     if "最近 7 天" in title:
