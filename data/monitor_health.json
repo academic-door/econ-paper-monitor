@@ -1,26 +1,26 @@
 {
   "counts": {
     "duplicates": 0,
-    "external_sentinel_broader_relevant_candidates": 18,
+    "external_sentinel_broader_relevant_candidates": 16,
     "external_sentinel_econ_expand_candidates": 0,
     "external_sentinel_missing": 0,
-    "external_sentinel_out_of_scope_references": 7,
+    "external_sentinel_out_of_scope_references": 5,
     "formal_journal_missing": 0,
     "formal_journals": 106,
-    "missing_abstract_today": 1,
+    "missing_abstract_today": 2,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 9661,
+    "seen": 9674,
     "source_crossref_only": 0,
     "source_degraded": 0,
-    "source_healthy": 91,
-    "today": 3
+    "source_healthy": 90,
+    "today": 14
   },
   "date": "2026-09-24",
   "failures": [],
-  "generated_at": "2026-09-24T04:48:30+00:00",
+  "generated_at": "2026-09-24T09:37:54+00:00",
   "local_cnki": {
-    "age_hours": 0.6,
+    "age_hours": 5.43,
     "count": 91,
     "fresh": true,
     "freshness_code": "fresh",
@@ -37,14 +37,14 @@
   "sentinel": {
     "checked_at": null,
     "counts": {
-      "broader_relevant_candidates": 18,
+      "broader_relevant_candidates": 16,
       "econ_expand_candidates": 0,
       "formal_scope_missing": 0,
-      "out_of_scope_references": 7
+      "out_of_scope_references": 5
     }
   },
   "source_health": {
-    "checked_at": "2026-09-24T04:47:42+00:00",
+    "checked_at": "2026-09-24T09:33:01+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -169,6 +169,16 @@
           ]
         },
         {
+          "journal": "Management Science",
+          "journal_id": "management-science",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "INFORMS",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
           "journal": "Journal of Business & Economic Statistics",
           "journal_id": "journal-of-business-and-economic-statistics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -205,11 +215,11 @@
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 15
+      "count": 16
     },
     {
       "code": "missing_abstract_today",
-      "count": 1
+      "count": 2
     }
   ]
 }
