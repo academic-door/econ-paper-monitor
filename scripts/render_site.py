@@ -271,7 +271,32 @@ def load_all_daily(daily_dir: Path) -> list[dict[str, Any]]:
 
 
 def detected_date(record: dict[str, Any]) -> str:
+    """Return the durable daily archive bucket date.
+
+    This is intentionally allowed to differ from the site's actual first-seen
+    timestamp when an evidence-backed publisher/source date drives archive
+    routing. Never use this helper to label a record's first discovery.
+    """
     return str(record.get("_daily_date") or "") or beijing_date(record.get("detected_at")) or ""
+
+
+def first_seen_timestamp(record: dict[str, Any]) -> str:
+    """Return the canonical timestamp that anchors public first-discovery copy."""
+    return str(
+        record.get("first_seen_at")
+        or record.get("first_seen")
+        or record.get("detected_at")
+        or record.get("detected")
+        or ""
+    ).strip()
+
+
+def first_seen_date(record: dict[str, Any]) -> str:
+    return beijing_date(first_seen_timestamp(record)) or detected_date(record)
+
+
+def first_seen_time(record: dict[str, Any]) -> str:
+    return beijing_time(first_seen_timestamp(record))
 
 
 def record_is_on_date(record: dict[str, Any], target_date: str) -> bool:
@@ -306,8 +331,8 @@ def detected_time(record: dict[str, Any]) -> str:
 
 
 def detected_label(record: dict[str, Any]) -> str:
-    time_text = detected_time(record)
-    return f"本站首次发现 {detected_date(record)}{f' {time_text}' if time_text else ''}"
+    time_text = first_seen_time(record)
+    return f"本站首次发现 {first_seen_date(record)}{f' {time_text}' if time_text else ''}"
 
 
 def sortable_official_date(record: dict[str, Any]) -> str:
@@ -901,7 +926,7 @@ def parse_date(value: str | None) -> datetime | None:
 def detection_lag_days(record: dict[str, Any]) -> int | None:
     online_dates = verified_online_dates(record)
     official = parse_date(next(iter(online_dates), ""))
-    detected = parse_date(detected_date(record))
+    detected = parse_date(first_seen_date(record))
     if not official or not detected:
         return None
     return (detected.date() - official.date()).days
@@ -1636,7 +1661,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         classes = "event" + (f" {extra_class}" if extra_class else "")
         chunks.append(
             f"""<article class="{html_escape(classes)}" data-event-scope="{html_escape(scope)}" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}" data-source-type="{html_escape(source_type_value(record))}">
-  <div><div class="time">{html_escape(detected_time(record) or "—")}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
+  <div><div class="time">{html_escape(first_seen_time(record) or "—")}</div><div class="date-note">{html_escape(first_seen_date(record))}</div></div>
   <div>
     <h3><a href="{html_escape(detail_href)}">{html_escape(primary_title)}</a></h3>{original_title_html}{authors_html}
     <div class="meta-block">
@@ -2217,8 +2242,8 @@ def write_lazy_indexes(docs_dir: Path) -> None:
                 "tp": [topic_label(topic) for topic in topics[:3] if topic != "china"],
                 "cn": metadata["china"],
                 "on": online_today,
-                "dt": detected_time(record) or "—",
-                "dd": detected_date(record),
+                "dt": first_seen_time(record) or "—",
+                "dd": first_seen_date(record),
                 "dl": detected_label(record),
                 "od": official_line,
                 "oc": official_class,
@@ -2712,8 +2737,8 @@ def detail_item(record: dict[str, Any]) -> dict[str, Any]:
         "authors": authors(record),
         "source": public_source_title(record),
         "source_type": source_type_label(record),
-        "detected": detected_date(record),
-        "detected_time": detected_time(record),
+        "detected": first_seen_date(record),
+        "detected_time": first_seen_time(record),
         "official": public_date_line(record),
         "accepted": record.get("accepted_date") or "",
         "topics": [topic_label(topic) for topic in article_topics(record)],
@@ -2839,8 +2864,8 @@ def write_detail_data(docs_dir: Path, records: list[dict[str, Any]]) -> None:
             "authors": authors(record),
             "source": record.get("journal") or record.get("source") or "",
             "source_type": source_type_label(record),
-            "detected": detected_date(record),
-            "detected_time": detected_time(record),
+            "detected": first_seen_date(record),
+            "detected_time": first_seen_time(record),
             "official": public_date_line(record),
             "accepted": record.get("accepted_date") or "",
             "topics": [topic_label(topic) for topic in article_topics(record)],
@@ -3088,7 +3113,7 @@ def main() -> None:
         official_summary = archive_official_date_summary(daily_records)
         body = (
             f'<section class="section-head"><div><h2>{html_escape(daily_date)} 监测记录</h2>'
-            f'<p>本站首次发现日期：{html_escape(daily_date)}；官方/在线日期范围：{html_escape(official_summary)}。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section>'
+            f'<p>归档日期：{html_escape(daily_date)}；官方/在线日期范围：{html_escape(official_summary)}。条目中的“本站首次发现”按实际首次发现时间展示；支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section>'
             f'{filter_toolbar(daily_records)}{paper_events(daily_records)}{FILTER_SCRIPT}'
         )
         write_page(
