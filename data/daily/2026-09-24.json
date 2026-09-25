@@ -18,7 +18,7 @@
     "available_online": "2026-09-24",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "universal-portfolio-shrinkage-c359a7fd5a34",
     "detected_at": "2026-09-25T10:13:15+00:00",
     "doi": "10.1093/rfs/hhag084",
@@ -41,7 +41,20 @@
     "published_online": "2026-09-24",
     "publisher": "Oxford University Press (OUP)",
     "raw_data": {
-      "crossref_date_source": "crossref_published_online"
+      "crossref_date_source": "crossref_published_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-24",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-09-24",
+          "source": "crossref-doi"
+        },
+        {
+          "published_online": "2026-09-24",
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -55,7 +68,8 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
+    "_status_code": 402,
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only:proxy-request-failed",
@@ -122,9 +136,10 @@
     "url": "https://doi.org/10.1080/00036846.2026.2733804"
   },
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
-    "_status_code": 429,
+    "_status": "skipped_rate_limited",
+    "_status_code": 402,
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only:proxy-request-failed",
@@ -265,7 +280,7 @@
     "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "proxy-request-failed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -666,8 +681,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "park-targeted-greening-on-firm-productivity-and-emissions-evidence-from-china-s-national-d009e71d7c12",
     "detected_at": "2026-09-25T00:31:41+00:00",
     "doi": "10.1016/j.strueco.2026.09.011",
@@ -712,7 +727,7 @@
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Structural Change and Economic Dynamics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Park-Targeted Greening on Firm Productivity and Emissions: Evidence from China’s National Eco-Industrial Park Program",
@@ -1029,7 +1044,7 @@
     "available_online": "2026-09-24",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "does-the-winner-take-all-rule-favor-minorities-91b8c6b36b6d",
     "detected_at": "2026-09-24T20:03:56+00:00",
     "doi": "10.1007/s00355-026-01675-5",
@@ -1085,6 +1100,7 @@
   {
     "abstract": "We propose a refinement of correlated equilibrium based on common perturbations of the mediator’s recommendation distribution, which we call correlated perfect equilibrium (CPE). In finite games, the set of CPEs is nonempty and forms a finite union of convex polyhedra. Like perfect equilibrium, a CPE never assigns positive probability to any weakly dominated strategy. We provide a dual representation of CPE, which yields an iterative procedure for identifying CPEs. These perturbations provide a common source of off-equilibrium beliefs, a feature that distinguishes CPE from two existing refinements of correlated equilibrium—acceptable correlated equilibrium (Myerson, 1986) and perfect direct correlated equilibrium (Dhillon and Mertens, 1996)—as we demonstrate through examples.",
     "abstract_completeness": "full",
+    "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": "我们提出了一种基于中介推荐分布的共同扰动对相关均衡的改进，称为相关完美均衡（CPE）。在有限博弈中，CPE集非空且构成有限个凸多面体的并集。与完美均衡一样，CPE从不为任何弱劣策略赋予正概率。我们给出了CPE的对偶表示，由此得到一种识别CPE的迭代方法。这些扰动为偏离均衡信念提供了一个共同来源，这一特征使CPE区别于相关均衡的两种现有改进——可接受相关均衡（Myerson，1986）和完美直接相关均衡（Dhillon和Mertens，1996）——我们通过例子对此加以说明。",
     "accepted_date": null,
@@ -1098,7 +1114,7 @@
     "available_online": "2026-09-24",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "correlated-perfect-equilibrium-17a514291f36",
     "detected_at": "2026-09-24T20:03:30+00:00",
     "doi": "10.1007/s00199-026-01749-6",
@@ -1121,7 +1137,26 @@
     "published_online": "2026-09-24",
     "publisher": "Springer Science and Business Media LLC",
     "raw_data": {
-      "crossref_date_source": "crossref_published_online"
+      "crossref_date_source": "crossref_published_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-24",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-09-24",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-24",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-24",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -1402,8 +1437,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-24",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "direct-and-indirect-effects-of-transparency-regulation-2549db93de08",
     "detected_at": "2026-09-24T18:46:18+00:00",
     "doi": "10.1016/j.jacceco.2026.101950",
@@ -1449,7 +1484,7 @@
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Journal of Accounting and Economics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Direct and Indirect Effects of Transparency Regulation",
@@ -1603,7 +1638,7 @@
     "available_online": "2026-09-24",
     "china_relevance_status": "none",
     "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_source": "rss_description_online",
     "detail_key": "cross-border-venture-capital-in-the-semiconductor-industry-knowledge-spillover-or-capita-d28455c0ee75",
     "detected_at": "2026-09-24T18:45:20+00:00",
     "doi": "10.1016/j.strueco.2026.09.012",
@@ -1655,7 +1690,7 @@
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Structural Change and Economic Dynamics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Cross-Border Venture Capital in the Semiconductor Industry: Knowledge Spillover or Capital Deepening?",
@@ -1959,6 +1994,7 @@
     "abstract": "The Chinese government considers achieving an energy transition from traditional biofuels to modern energy as one of its major rural development and environmental protection goals. However, the transition faces challenges from the population ageing trend. This article examines how ageing influences household cooking fuel use in rural China. It builds a theoretical framework that takes preference differences and bargaining between elderly and non-elderly adults into account and tests the hypotheses derived from this framework using survey data collected in rural central China in 2021. The empirical results suggest that ageing households consume less energy for cooking. Households with a larger share of elderly in the household spend less on modern cooking energy but more on commercial firewood, due to the lower affordability but higher preference for traditional energy of the elderly. Saving preference can reduce household modern energy consumption but exhibits intergenerational transmission characteristics. These results signal that the rural energy transition will still be a long-term program. Diversifying the livelihood choices and lower risk expectations of ageing households could contribute to rural energy transition.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -2010,6 +2046,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-24",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-24",
+          "source": "openalex"
         }
       ]
     },
@@ -2030,6 +2073,7 @@
     "abstract": "This paper examines how sibship size affects children’s cognitive and non-cognitive skills using data from the China Family Panel Studies (CFPS). To obtain the causal effect of sibship size on child development, we use first-born twins as an instrumental variable for sibship size and find that a larger sibship size significantly reduces children’s literacy and maths test scores, but alleviates depressive symptoms. When examining the potential channels behind the estimated effects, we find that having more siblings reduces educational expenditure on children and lowers their educational expectations, while prompting children to seek emotional support from their siblings, which suggests that sibship size weakens children’s cognitive skills mainly through resource dilution and alleviates children’s depressive symptoms largely through sibling interaction. Furthermore, we find that the effect of sibship size on child development varies by hukou status, household economic status, school quality, and child gender.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "proxy-request-failed",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -2079,6 +2123,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-24",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-24",
+          "source": "openalex"
         }
       ]
     },
@@ -2098,6 +2149,7 @@
     "abstract": "High-income professionals such as physicians allocate their portfolios as if financial markets were an unsolved lemons market. In the pooled 2022-2024 Survey of Income and Program Participation (5,279 observations, seven occupations), physicians hold about half their financial assets in passive retirement accounts and a tenth in equity mutual funds, against 13 percent for software developers. Of three channels of occupational proximity to finance, formal financial education, coworker exposure, and quantitative-digital fluency, only fluency predicts equity participation; years of education carry no positive association, despite substantial within-occupation variation. The estimates are conditional associations, not causal effects; they survive demographic controls, alternative clustering, and a time-preference proxy. A lemons market model in which institutional solutions to asymmetric information exist but go unobserved accounts for the pattern: agents who do not see the solution withdraw into consumption, transparent assets, or costly delegation. An accounting decomposition places the associated wealth gap at 29 percent of terminal wealth, mostly advisory fees and reduced saving. The mechanism parallels vaccine hesitancy: a physician who cannot evaluate the SEC behaves like a parent who cannot evaluate the FDA. Financial education should target institutional awareness, or credible reassurance where distrust rather than unawareness binds, instead of compound interest.p<0.001",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "proxy-request-failed",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -2143,6 +2195,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-24",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-24",
+          "source": "openalex"
         }
       ]
     },
@@ -2161,7 +2220,7 @@
     "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "proxy-request-failed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -2314,8 +2373,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "how-do-energy-transition-policies-affect-corporate-sustainability-evidence-from-china-5933f610958e",
     "detected_at": "2026-09-24T14:48:43+00:00",
     "doi": "10.1016/j.strueco.2026.09.013",
@@ -2364,7 +2423,7 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
+    "source_issue": "Structural Change and Economic Dynamics",
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "How Do Energy Transition Policies Affect Corporate Sustainability? Evidence from China",
