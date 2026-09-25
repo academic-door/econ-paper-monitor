@@ -1,9 +1,7 @@
 {
-  "categories": {
-    "needs_investigation": 1
-  },
-  "checked_at": "2026-09-25T08:37:05.578707+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-09-25T12:43:47.048363+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,31 +9,20 @@
       "source": "cn-journals"
     },
     {
+      "category": "needs_investigation",
+      "sample_error": "attempted=8; proxy_abstract_attempted=0; seen 中国农村经济: abstract-present; seen 管理世界: abstract-present; 2026-09-25 VoxEU / CEPR Columns: abstract-present; 2026-09-25 VoxEU / CEPR Columns: abstract-presen",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=72/120; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 50 via configured; Journal of",
+      "sample_error": "feeds=72/121; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 50 via configured; Journal of",
       "source": "rss"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 5; public-choice/springer_online_first: PARSER",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 2
+    "degraded_source_failures": 3
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }
