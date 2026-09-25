@@ -144,7 +144,7 @@ async function checkPage(browser, url) {
   await assertNoPseudoDiscoveryTime(page, url);
   await assertNoStaleTodayBackfill(page, url);
   if (url === root) await assertNavigationLinksHealthy(page, url);
-  assert.ok(await page.locator('.nav a[href*="feed.xml"], .footer-links a[href*="feed.xml"]').count() >= 1, `${url} RSS link missing`);
+  assert.ok(await page.locator('link[rel="alternate"][type="application/rss+xml"][href*="feed.xml"]').count() >= 1, `${url} RSS autodiscovery link missing`);
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);
   const entries = page.locator('.paper-entry');
   const total = await entries.count();
@@ -206,7 +206,8 @@ async function checkSecondaryPages(browser) {
       assert.ok(await page.locator('.site-header').isVisible(), `${url} vNext header is missing`);
       assert.equal(await page.locator('.sidebar').count(), 0, `${url} legacy sidebar leaked`);
       assert.ok(await page.locator('.secondary-page').isVisible(), `${url} secondary shell is missing`);
-      assert.ok(await page.locator('.nav a[href*="feed.xml"], .footer-links a[href*="feed.xml"]').count() >= 1, `${url} RSS link missing`);
+      assert.ok(await page.locator('link[rel="alternate"][type="application/rss+xml"][href*="feed.xml"]').count() >= 1, `${url} RSS autodiscovery link missing`);
+      assert.equal(await page.locator('.nav a[href*="feed.xml"], .footer-links a[href*="feed.xml"]').count(), 0, `${url} promoted RSS as visible global navigation`);
       await assertNoFilterLazyState(page, url);
       await assertNoPseudoDiscoveryTime(page, url);
     }
