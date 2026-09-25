@@ -14,7 +14,9 @@ class PublicSecondaryFooterTests(unittest.TestCase):
 
         self.assertNotIn('href="{BASE}/classic/">旧版</a>', source)
         self.assertNotIn('href="{BASE}/daily-vnext/">Daily vNext</a>', source)
-        self.assertIn('href="{BASE}/feed.xml">订阅 RSS</a>', source)
+        self.assertIn('rel="alternate" type="application/rss+xml" title="Econ Papers Daily RSS" href="{BASE}/feed.xml"', source)
+        self.assertNotIn('href="{BASE}/feed.xml">订阅 RSS</a>', source)
+        self.assertNotIn('>RSS</a>', source)
 
 
 if __name__ == "__main__":
