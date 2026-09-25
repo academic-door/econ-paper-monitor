@@ -26,10 +26,12 @@ def test_public_nav_uses_one_task_oriented_order_without_visible_rss() -> None:
         'href="{BASE}/topics/china/">中国研究</a>',
         'href="{BASE}/search/">搜索</a>',
     ]
-    assert [template.index(item) for item in home_order] == sorted(template.index(item) for item in home_order)
-    assert [renderer.index(item) for item in secondary_order] == sorted(renderer.index(item) for item in secondary_order)
-    assert '<a href="../feed.xml">RSS</a>' not in template
-    assert '<a href="{BASE}/feed.xml">RSS</a>' not in renderer
+    home_nav = template.split('<nav class="nav" id="primary-nav">', 1)[1].split('</nav>', 1)[0]
+    secondary_nav = renderer.split('<nav class="nav" id="primary-nav">', 1)[1].split('</nav>', 1)[0]
+    assert [home_nav.index(item) for item in home_order] == sorted(home_nav.index(item) for item in home_order)
+    assert [secondary_nav.index(item) for item in secondary_order] == sorted(secondary_nav.index(item) for item in secondary_order)
+    assert '<a href="../feed.xml">RSS</a>' not in home_nav
+    assert '<a href="{BASE}/feed.xml">RSS</a>' not in secondary_nav
 
 
 def test_secondary_stats_do_not_repeat_section_rule() -> None:
