@@ -246,7 +246,10 @@ PREVIEW_SCRIPT = r"""
       setTimeout(update, 220);
     });
 
-    new MutationObserver(update).observe(document.querySelector('.wrap') || document.body, {subtree:true, childList:true, attributes:true, attributeFilter:['hidden']});
+    const resultRoot = document.querySelector('[data-lazy-list]');
+    if (resultRoot) {
+      new MutationObserver(update).observe(resultRoot, {subtree:true, childList:true, attributes:true, attributeFilter:['hidden']});
+    }
     setTimeout(update, 350);
   }
 
