@@ -1,0 +1,180 @@
+name: Daily Door Redesign Preview v1
+
+on:
+  push:
+    branches:
+      - preview/daily-door-redesign-v1
+    paths:
+      - "scripts/build_redesign_preview.py"
+      - "tests/redesign_preview_smoke.mjs"
+      - "scripts/render_site.py"
+      - "scripts/build_daily_vnext.py"
+      - "scripts/display_contract.py"
+      - "scripts/templates/daily_vnext.html"
+      - ".github/workflows/preview-daily-redesign-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-door-redesign-preview-v1
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out preview branch
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright
+        run: npm install --no-save --no-package-lock playwright@1.55.0
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Resolve current Beijing daily date
+        id: date
+        shell: bash
+        run: |
+          DAILY_DATE=$(python - <<'PY'
+          import json
+          from datetime import datetime
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          today = datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
+          today_path = Path("data/daily") / f"{today}.json"
+          try:
+              if isinstance(json.loads(today_path.read_text(encoding="utf-8")), list):
+                  print(today)
+                  raise SystemExit
+          except (OSError, ValueError):
+              pass
+          for path in sorted(Path("data/daily").glob("*.json"), reverse=True):
+              try:
+                  if isinstance(json.loads(path.read_text(encoding="utf-8")), list):
+                      print(path.stem)
+                      break
+              except (OSError, ValueError):
+                  continue
+          else:
+              raise SystemExit("No canonical daily archive available")
+          PY
+          )
+          echo "date=$DAILY_DATE" >> "$GITHUB_OUTPUT"
+
+      - name: Generate current site fixtures from preview code
+        shell: bash
+        run: |
+          rm -rf docs/paper-index
+          python scripts/render_site.py
+          python scripts/build_daily_vnext.py \
+            --date "${{ steps.date.outputs.date }}" \
+            --output docs/index.html \
+            --report "$RUNNER_TEMP/daily-home-report.json"
+          python scripts/build_daily_vnext.py \
+            --date "${{ steps.date.outputs.date }}" \
+            --output docs/daily-vnext/index.html \
+            --report "$RUNNER_TEMP/daily-vnext-report.json"
+
+      - name: Build isolated preview bundle
+        run: |
+          python scripts/build_redesign_preview.py \
+            --source docs \
+            --output "$RUNNER_TEMP/daily-door-redesign-preview" \
+            --preview-base "https://academic-door.github.io/econ-paper-monitor/preview/daily-door-redesign-v1/"
+
+      - name: Start local preview server
+        run: python -m http.server 8777 --directory "$RUNNER_TEMP/daily-door-redesign-preview" > /tmp/daily-redesign-preview.log 2>&1 &
+
+      - name: Browser QA — desktop
+        env:
+          PREVIEW_URL: http://127.0.0.1:8777/
+          VIEWPORT_WIDTH: 1440
+        run: node tests/redesign_preview_smoke.mjs
+
+      - name: Browser QA — mobile
+        env:
+          PREVIEW_URL: http://127.0.0.1:8777/
+          VIEWPORT_WIDTH: 390
+        run: node tests/redesign_preview_smoke.mjs
+
+      - name: Check out current main for subtree-only publish
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: publish-main
+          fetch-depth: 1
+
+      - name: Publish preview subtree only
+        shell: bash
+        run: |
+          set -euo pipefail
+          target="$GITHUB_WORKSPACE/publish-main"
+          subtree="$target/docs/preview/daily-door-redesign-v1"
+          rm -rf "$subtree"
+          mkdir -p "$subtree"
+          cp -a "$RUNNER_TEMP/daily-door-redesign-preview/." "$subtree/"
+
+          cd "$target"
+          git config user.name "academic-door-preview-bot"
+          git config user.email "academic-door-preview-bot@users.noreply.github.com"
+          git add docs/preview/daily-door-redesign-v1
+          if git diff --cached --quiet; then
+            echo "Preview subtree already current."
+            exit 0
+          fi
+          git commit -m "preview: Daily Door redesign v1 @ ${GITHUB_SHA}"
+
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            git rebase --abort || true
+            sleep $((attempt * 8))
+          done
+          echo "Preview subtree publish failed after retries."
+          exit 1
+
+      - name: Verify public preview
+        shell: bash
+        run: |
+          set -euo pipefail
+          preview="https://academic-door.github.io/econ-paper-monitor/preview/daily-door-redesign-v1/"
+          for attempt in $(seq 1 48); do
+            body="$(curl -fsSL "${preview}?sha=${GITHUB_SHA}&attempt=${attempt}" || true)"
+            if grep -q "Daily Door Redesign Preview v1" <<<"$body"; then
+              echo "Preview published: $preview"
+              root="$(curl -fsSL "https://academic-door.github.io/econ-paper-monitor/?preview_check=${GITHUB_SHA}" || true)"
+              if grep -q "Daily Door Redesign Preview v1" <<<"$root"; then
+                echo "Preview marker leaked into production root."
+                exit 1
+              fi
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Timed out waiting for public preview."
+          exit 1
+
+      - name: Upload preview evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-door-redesign-preview-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/daily-home-report.json
+            ${{ runner.temp }}/daily-vnext-report.json
+            ${{ runner.temp }}/daily-door-redesign-preview/PREVIEW_BUILD.txt
+          retention-days: 30
