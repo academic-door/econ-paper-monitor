@@ -10,12 +10,13 @@ from __future__ import annotations
 
 import argparse
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
 import enrich_metadata
 import fetch_priority_toc as priority
-from common import DATA_DIR, load_journals, now, read_json, write_json
+from common import DATA_DIR, load_journals, read_json, write_json
 
 IMMEDIATE_RETIRE_KINDS = {"springer_online_first", "tandf_latest_articles"}
 DETAIL_SAMPLE_BUCKETS = {"Elsevier", "Wiley", "OUP"}
@@ -170,7 +171,7 @@ def main() -> None:
     ]
 
     report = {
-        "generated_at": now(),
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "issue": 339,
         "policy": "RETIRE_BY_DEFAULT_PENDING_DAILY_PROVENANCE_GATE",
         "immediate_retire_configured": immediate_retire,
