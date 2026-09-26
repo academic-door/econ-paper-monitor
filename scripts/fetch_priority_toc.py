@@ -12,7 +12,6 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import html
-import os
 import re
 import socket
 import ssl
@@ -36,9 +35,6 @@ TARGETS = {
         {
             "kind": "restud_advance",
             "url": "https://academic.oup.com/restud/advance-articles",
-            "fallback_urls": [
-                "https://r.jina.ai/http://academic.oup.com/restud/advance-articles",
-            ],
             "date_source": "oup_advance_articles",
             "date_confidence": "B",
             "fallback_issn": "0034-6527",
@@ -46,9 +42,6 @@ TARGETS = {
         {
             "kind": "restud_official_accepted",
             "url": "https://www.restud.com/",
-            "fallback_urls": [
-                "https://r.jina.ai/http://www.restud.com/",
-            ],
             "date_source": "restud_published_time",
             "date_confidence": "A",
             "fallback_issn": "0034-6527",
@@ -58,9 +51,6 @@ TARGETS = {
         {
             "kind": "restat_current",
             "url": "https://direct.mit.edu/rest/issue/current",
-            "fallback_urls": [
-                "https://r.jina.ai/http://direct.mit.edu/rest/issue/current",
-            ],
             "date_source": "mitpress_current_issue",
             "date_confidence": "C",
             "fallback_issn": "0034-6535",
@@ -68,9 +58,6 @@ TARGETS = {
         {
             "kind": "restat_advance",
             "url": "https://direct.mit.edu/rest/advance-articles",
-            "fallback_urls": [
-                "https://r.jina.ai/http://direct.mit.edu/rest/advance-articles",
-            ],
             "date_source": "mitpress_advance_articles",
             "date_confidence": "B",
             "fallback_issn": "0034-6535",
@@ -80,9 +67,6 @@ TARGETS = {
         {
             "kind": "econometrica_forthcoming",
             "url": "https://www.econometricsociety.org/publications/econometrica/forthcoming-papers",
-            "fallback_urls": [
-                "https://r.jina.ai/http://www.econometricsociety.org/publications/econometrica/forthcoming-papers",
-            ],
             "date_source": "econometric_society_forthcoming",
             "date_confidence": "B",
             "fallback_issn": "0012-9682",
@@ -92,9 +76,6 @@ TARGETS = {
         {
             "kind": "theoretical_economics_forthcoming",
             "url": "https://www.econometricsociety.org/publications/theoretical-economics/forthcoming-papers",
-            "fallback_urls": [
-                "https://r.jina.ai/http://www.econometricsociety.org/publications/theoretical-economics/forthcoming-papers",
-            ],
             "date_source": "econometric_society_forthcoming",
             "date_confidence": "B",
             "fallback_issn": "1933-6837",
@@ -104,9 +85,6 @@ TARGETS = {
         {
             "kind": "quantitative_economics_forthcoming",
             "url": "https://www.econometricsociety.org/publications/quantitative-economics/forthcoming-papers",
-            "fallback_urls": [
-                "https://r.jina.ai/http://www.econometricsociety.org/publications/quantitative-economics/forthcoming-papers",
-            ],
             "date_source": "econometric_society_forthcoming",
             "date_confidence": "B",
             "fallback_issn": "1759-7323",
@@ -116,7 +94,6 @@ TARGETS = {
         {
             "kind": "oup_advance_articles",
             "url": "https://academic.oup.com/qje/advance-articles",
-            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/qje/advance-articles"],
             "date_source": "oup_advance_articles",
             "date_confidence": "B",
             "fallback_issn": "0033-5533",
@@ -126,7 +103,6 @@ TARGETS = {
         {
             "kind": "oup_advance_articles",
             "url": "https://academic.oup.com/econj/advance-articles",
-            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/econj/advance-articles"],
             "date_source": "oup_advance_articles",
             "date_confidence": "B",
             "fallback_issn": "1468-0297",
@@ -136,7 +112,6 @@ TARGETS = {
         {
             "kind": "oup_advance_articles",
             "url": "https://academic.oup.com/jeea/advance-articles",
-            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/jeea/advance-articles"],
             "date_source": "oup_advance_articles",
             "date_confidence": "B",
             "fallback_issn": "1542-4766",
@@ -146,7 +121,6 @@ TARGETS = {
         {
             "kind": "oup_advance_articles",
             "url": "https://academic.oup.com/jleo/advance-articles",
-            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/jleo/advance-articles"],
             "date_source": "oup_advance_articles",
             "date_confidence": "B",
             "fallback_issn": "8756-6222",
@@ -156,7 +130,6 @@ TARGETS = {
         {
             "kind": "oup_advance_articles",
             "url": "https://academic.oup.com/rfs/advance-articles",
-            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/rfs/advance-articles"],
             "date_source": "oup_advance_articles",
             "date_confidence": "B",
             "fallback_issn": "0893-9454",
@@ -166,22 +139,16 @@ TARGETS = {
         {
             "kind": "oup_advance_articles",
             "url": "https://academic.oup.com/erae/advance-articles",
-            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/erae/advance-articles"],
             "date_source": "oup_advance_articles",
             "date_confidence": "B",
             "fallback_issn": "0165-1587",
         }
     ],
-    # Taylor & Francis RSS is blocked from shared CI, but the publisher's
-    # Latest Articles HTML surfaces remain the authoritative online-first view.
-    # Use the already-authorized Jina text mirror only as an acquisition fallback;
-    # article identity/dates still come from the T&F page/detail content.
+    # Taylor & Francis RSS is blocked from shared CI. Latest Articles HTML is
+    # attempted directly; blocked surfaces degrade honestly to Crossref fallback.
     "applied-economics": [{
         "kind": "tandf_latest_articles",
         "url": "https://www.tandfonline.com/action/showAxaArticles?journalCode=raec20",
-        "fallback_urls": [
-            "https://r.jina.ai/http://www.tandfonline.com/action/showAxaArticles?journalCode=raec20",
-        ],
         "fallback_issn": "0003-6846",
         "date_source": "tandf_latest_articles",
         "date_confidence": "B",
@@ -189,9 +156,6 @@ TARGETS = {
     "journal-of-business-and-economic-statistics": [{
         "kind": "tandf_latest_articles",
         "url": "https://www.tandfonline.com/toc/ubes20/0/ja",
-        "fallback_urls": [
-            "https://r.jina.ai/http://www.tandfonline.com/toc/ubes20/0/ja",
-        ],
         "fallback_issn": "0735-0015",
         "date_source": "tandf_latest_articles",
         "date_confidence": "B",
@@ -199,9 +163,6 @@ TARGETS = {
     "journal-of-the-association-of-environmental-and-resource-economists": [{
         "kind": "uchicago_just_accepted",
         "url": "https://www.journals.uchicago.edu/toc/jaere/0/ja",
-        "fallback_urls": [
-            "https://r.jina.ai/http://www.journals.uchicago.edu/toc/jaere/0/ja",
-        ],
         "fallback_issn": "2333-5955",
         "date_source": "uchicago_just_accepted",
         "date_confidence": "B",
@@ -212,7 +173,6 @@ TARGETS = {
     "international-journal-of-game-theory": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/182/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/182/online-first"],
         "fallback_issn": "0020-7276",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -220,7 +180,6 @@ TARGETS = {
     "economic-theory": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/199/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/199/online-first"],
         "fallback_issn": "0938-2259",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -228,7 +187,6 @@ TARGETS = {
     "review-of-economic-design": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/10058/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/10058/online-first"],
         "fallback_issn": "1434-4742",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -236,7 +194,6 @@ TARGETS = {
     "social-choice-and-welfare": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/355/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/355/online-first"],
         "fallback_issn": "0176-1714",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -244,7 +201,6 @@ TARGETS = {
     "public-choice": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/11127/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/11127/online-first"],
         "fallback_issn": "0048-5829",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -252,7 +208,6 @@ TARGETS = {
     "international-tax-and-public-finance": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/10797/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/10797/online-first"],
         "fallback_issn": "0927-5940",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -260,7 +215,6 @@ TARGETS = {
     "journal-of-economic-growth": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/10887/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/10887/online-first"],
         "fallback_issn": "1381-4338",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -268,7 +222,6 @@ TARGETS = {
     "journal-of-population-economics": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/148/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/148/online-first"],
         "fallback_issn": "0933-1433",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -276,7 +229,6 @@ TARGETS = {
     "environmental-and-resource-economics": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/10640/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/10640/online-first"],
         "fallback_issn": "0924-6460",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -284,7 +236,6 @@ TARGETS = {
     "review-of-accounting-studies": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/11142/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/11142/online-first"],
         "fallback_issn": "1380-6653",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -292,7 +243,6 @@ TARGETS = {
     "journal-of-risk-and-uncertainty": [{
         "kind": "springer_online_first",
         "url": "https://link.springer.com/journal/11166/online-first",
-        "fallback_urls": ["https://r.jina.ai/http://link.springer.com/journal/11166/online-first"],
         "fallback_issn": "0895-5646",
         "date_source": "springer_online_first",
         "date_confidence": "B",
@@ -310,7 +260,6 @@ TARGETS = {
         {
             "kind": "jhr_early_recent",
             "url": "https://jhr.uwpress.org/content/early/recent",
-            "fallback_urls": ["https://r.jina.ai/http://jhr.uwpress.org/content/early/recent"],
             "date_source": "jhr_early_recent",
             "date_confidence": "B",
             "fallback_issn": "0022-166X",
@@ -318,7 +267,6 @@ TARGETS = {
         {
             "kind": "jhr_current",
             "url": "https://jhr.uwpress.org/content/current",
-            "fallback_urls": ["https://r.jina.ai/http://jhr.uwpress.org/content/current"],
             "date_source": "jhr_current",
             "date_confidence": "B",
             "fallback_issn": "0022-166X",
@@ -404,19 +352,9 @@ BROWSER_HEADERS = {
 }
 
 
-def jina_headers(url: str) -> dict[str, str]:
-    """Prepare r.jina.ai mirror headers (markdown Accept + bearer key)."""
-    headers = dict(BROWSER_HEADERS)
-    if url.startswith("https://r.jina.ai/"):
-        headers["Accept"] = "text/plain,text/markdown;q=0.9,*/*;q=0.8"
-        if os.environ.get("JINA_API_KEY"):
-            headers["Authorization"] = f"Bearer {os.environ['JINA_API_KEY']}"
-    return headers
-
-
 def fetch_one(url: str, timeout: int) -> str:
     """Fetch one candidate URL and return decoded page text."""
-    request = urllib.request.Request(url, headers=jina_headers(url))
+    request = urllib.request.Request(url, headers=BROWSER_HEADERS)
     try:
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
@@ -474,17 +412,11 @@ def is_challenge_page(text: str) -> bool:
 
 
 def fetch_toc_text(url: str, timeout: int, fallback_urls: list[str] | None = None) -> str:
-    """Fetch a publisher page, then a text-rendering mirror when blocked.
-
-    The mirror is only an acquisition fallback.  Dates and article metadata
-    still come from the page content and are labelled with the publisher
-    source configured for the target.
-    """
+    """Fetch a publisher page, then any explicitly configured fallback URL."""
     urls = [url, *(fallback_urls or [])]
     last_error: Exception | None = None
     for candidate in dict.fromkeys(urls):
-        # JINA mirrors occasionally rate-limit the first request; retry once.
-        attempts = 2 if candidate.startswith("https://r.jina.ai/") else 1
+        attempts = 1
         for attempt in range(attempts):
             try:
                 return fetch_one(candidate, timeout)
@@ -663,7 +595,7 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             continue
         seen.add(key)
         links.append((url, title))
-    # r.jina.ai normally returns Markdown rather than HTML.
+    # Some publisher renderings may be Markdown rather than HTML.
     for match in re.finditer(r'\[(?P<title>[^\]]{8,240})\]\((?P<href>https?://[^)]+)\)', html_text):
         href = html.unescape(match.group("href")).strip()
         raw_title = match.group("title")
@@ -761,7 +693,7 @@ def jhr_article_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
         )
     if blocks:
         return blocks
-    # r.jina.ai mirror returns Markdown rather than HTML.
+    # Some publisher renderings may be Markdown rather than HTML.
     for match in re.finditer(r"\[(?P<title>[^\]]{8,240})\]\((?P<href>https?://[^)]+)\)", html_text):
         href = html.unescape(match.group("href")).strip()
         url = urljoin(base_url, href)
@@ -920,26 +852,9 @@ def econometric_society_author_map(html_text: str, base_url: str) -> dict[str, l
     return authors_by_url
 
 
-def restud_abstract_from_jina(text: str) -> str | None:
-    """Extract the first substantive abstract paragraph from a REStud page."""
-    content = text.split("Markdown Content:", 1)[-1] if "Markdown Content:" in text else text
-    lines = [clean_text(line) for line in content.splitlines()]
-    lines = [line for line in lines if line]
-    date_index = next(
-        (index for index, line in enumerate(lines) if re.fullmatch(r"\d{1,2}\s+[A-Za-z]+\s+20\d{2}", line)),
-        None,
-    )
-    if date_index is None:
-        return None
-    for paragraph in lines[date_index + 2 :]:
-        if len(paragraph) >= 80:
-            return paragraph
-    return None
-
-
 def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, object]:
     try:
-        html_text = fetch_toc_text(url, timeout=timeout, fallback_urls=[f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"])
+        html_text = fetch_toc_text(url, timeout=timeout)
     except Exception:
         return {"title": fallback_title, "authors": [], "doi": doi_from_text(url)}
     title = (meta_values(html_text, "citation_title") or [fallback_title])[0]
@@ -953,43 +868,15 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
     accepted_date = None
     if "journals.uchicago.edu/doi/" in url.lower():
         accepted_match = re.search(
-            r"\bAccepted:\s*(\d{1,2}\s+[A-Za-z]{3,9}\s+20\d{2})\b",
+            r"\\bAccepted:\\s*(\\d{1,2}\\s+[A-Za-z]{3,9}\\s+20\\d{2})\\b",
             clean_text(html_text),
             flags=re.I,
         )
         accepted_date = parse_date(accepted_match.group(1)) if accepted_match else None
-    jina_text = ""
-    if "restud.com" in url.lower() and (not published or not authors or not meta_values(html_text, "citation_abstract")):
-        jina_url = f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"
-        try:
-            jina_text = fetch_toc_text(jina_url, timeout=timeout)
-            if not published:
-                published_match = re.search(r"Published Time:\s*(20\d{2}-\d{2}-\d{2})", jina_text, flags=re.I)
-                published = published_match.group(1) if published_match else published
-            if not authors:
-                author_match = re.search(
-                    r"Markdown Content:\s*\n\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}\s*\n\s*([^\n]+)",
-                    jina_text,
-                    flags=re.I,
-                )
-                if author_match:
-                    authors = [clean_text(author_match.group(1))]
-        except Exception:
-            pass
     if not published:
-        published_match = re.search(r"Published Time:\s*(20\d{2}-\d{2}-\d{2})", html_text, flags=re.I)
+        published_match = re.search(r"Published Time:\\s*(20\\d{2}-\\d{2}-\\d{2})", html_text, flags=re.I)
         published = published_match.group(1) if published_match else None
     abstract = (meta_values(html_text, "citation_abstract") or [None])[0]
-    if "restud.com" in url.lower() and not abstract and jina_text:
-        abstract = restud_abstract_from_jina(jina_text)
-    if "restud.com" in url.lower() and not authors:
-        author_match = re.search(
-            r"Markdown Content:\s*\n\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}\s*\n\s*([^\n]+)",
-            html_text,
-            flags=re.I,
-        )
-        if author_match:
-            authors = [clean_text(author_match.group(1))]
     return {
         "title": title,
         "authors": authors,
@@ -1114,20 +1001,6 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
                 break
         return records
     article_candidates = article_links(html_text, page_url)
-    # Springer shared-CI responses can be transport-successful but structurally
-    # unparseable. In that case, retry the already-authorized read-only Jina
-    # mirror before declaring parser failure and falling back to Crossref.
-    if not article_candidates and target["kind"] == "springer_online_first":
-        for fallback_url in target.get("fallback_urls") or []:
-            try:
-                mirror_text = fetch_toc_text(fallback_url, timeout=timeout)
-            except Exception:
-                continue
-            article_candidates = article_links(mirror_text, page_url)
-            if article_candidates:
-                html_text = mirror_text
-                break
-
     author_map = restud_author_map(html_text, page_url)
     author_map.update(econometric_society_author_map(html_text, page_url))
     records: list[dict] = []
@@ -1396,3 +1269,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
