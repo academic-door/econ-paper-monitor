@@ -2363,6 +2363,7 @@ def search_body(records: list[dict[str, Any]]) -> str:
     searchable = search_catalog_records(records)
     journal_records = [record for record in searchable if is_journal_article(record)]
     wp_records = [record for record in searchable if is_working_paper(record)]
+    commentary_records = [record for record in searchable if is_policy_commentary(record)]
     return f"""<section class="section-head">
   <div><h2>全站检索</h2><p>搜索全部历史记录；首页搜索只筛选当天论文流。</p></div>
   <p>{len(searchable)} 条</p>
@@ -2370,7 +2371,7 @@ def search_body(records: list[dict[str, Any]]) -> str:
 <section class="stats">
   <span class="stat"><strong>{len(journal_records)}</strong><span>期刊论文</span></span>
   <span class="stat"><strong>{len(wp_records)}</strong><span>工作论文/机构研究</span></span>
-  <span class="stat"><strong>{len({detected_date(record) for record in searchable})}</strong><span>记录日期</span></span>
+  <span class="stat"><strong>{len(commentary_records)}</strong><span>研究评论</span></span>
   <a class="stat china" href="{BASE}/topics/china/"><strong>{sum(1 for record in searchable if is_public_china_related(record))}</strong><span>与中国相关</span></a>
 </section>
 <div class="empty home-note">可以按标题、中文标题、作者、DOI、期刊/来源检索；也可以继续组合期刊、主题、日期类型、可信度和来源类型筛选。</div>
@@ -2383,6 +2384,7 @@ def recent72_body(records: list[dict[str, Any]]) -> str:
     recent = recent_detected_records(public_records(records), 3)
     journal_records = [record for record in recent if is_journal_article(record)]
     wp_records = [record for record in recent if is_working_paper(record)]
+    commentary_records = [record for record in recent if is_policy_commentary(record)]
     china_count = sum(1 for record in recent if is_public_china_related(record))
     dates = sorted({detected_date(record) for record in recent if detected_date(record)}, reverse=True)
     date_label = " / ".join(dates) if dates else "暂无记录"
@@ -2394,6 +2396,7 @@ def recent72_body(records: list[dict[str, Any]]) -> str:
   <span class="stat"><strong>{len(recent)}</strong><span>近3天新发现</span></span>
   <span class="stat"><strong>{len(journal_records)}</strong><span>期刊论文</span></span>
   <span class="stat"><strong>{len(wp_records)}</strong><span>工作论文</span></span>
+  <span class="stat"><strong>{len(commentary_records)}</strong><span>研究评论</span></span>
   <a class="stat china" href="{BASE}/topics/china/"><strong>{china_count}</strong><span>与中国相关</span></a>
   <a class="stat" href="{BASE}/export/recent72.ris"><strong>RIS</strong><span>Zotero 导入</span></a>
   <a class="stat" href="{BASE}/export/recent72.bib"><strong>BibTeX</strong><span>文献导出</span></a>
