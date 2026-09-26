@@ -743,7 +743,7 @@
     if (firstSection) {
       const side = [...firstSection.children].find((node) => node.tagName === 'P');
       const value = side?.textContent?.trim();
-      if (value && hero) {
+      if (value && hero && !body.classList.contains('preview-china')) {
         const meta = document.createElement('span');
         meta.className = 'preview-hero-meta';
         meta.textContent = value;
@@ -863,18 +863,45 @@
       if (!parts.length && totalMatch) countNode.textContent = totalMatch[1] + ' 条记录';
       else countNode.textContent = visible ? '当前显示 ' + visible + ' 条' : '无匹配结果';
     };
-    const syncUrl = () => {
+    let restoringHistory = false;
+    const urlForControls = () => {
       const params = new URLSearchParams();
       if (search?.value.trim()) params.set('q', search.value.trim());
       if (journal?.value) params.set('journal', journal.value);
       if (field?.value) params.set('field', field.value);
       if (china?.getAttribute('aria-pressed') === 'true') params.set('china', '1');
-      history.replaceState(null, '', location.pathname + (params.toString() ? '?' + params.toString() : '') + location.hash);
+      return location.pathname + (params.toString() ? '?' + params.toString() : '') + location.hash;
     };
-    const changed = () => setTimeout(() => { update(); syncUrl(); }, 180);
+    const syncUrl = () => {
+      if (restoringHistory) return;
+      const next = urlForControls();
+      const current = location.pathname + location.search + location.hash;
+      if (next !== current) history.pushState(null, '', next);
+    };
+    const applyUrlState = () => {
+      const params = new URLSearchParams(location.search);
+      restoringHistory = true;
+      if (search) search.value = params.get('q') || '';
+      if (journal) journal.value = params.get('journal') || '';
+      if (field) field.value = params.get('field') || '';
+      if (china) {
+        const wanted = params.get('china') === '1';
+        const current = china.getAttribute('aria-pressed') === 'true';
+        if (wanted !== current) china.click();
+      }
+      search?.dispatchEvent(new Event('input', {bubbles:true}));
+      journal?.dispatchEvent(new Event('change', {bubbles:true}));
+      field?.dispatchEvent(new Event('change', {bubbles:true}));
+      setTimeout(() => {
+        restoringHistory = false;
+        update();
+      }, 220);
+    };
+    const changed = () => setTimeout(() => { update(); syncUrl(); }, 220);
     toolbar.addEventListener('input', changed);
     toolbar.addEventListener('change', changed);
     toolbar.addEventListener('click', changed);
+    window.addEventListener('popstate', applyUrlState);
 
     clear.addEventListener('click', () => {
       if (search) search.value = '';
@@ -884,9 +911,12 @@
       search?.dispatchEvent(new Event('input', {bubbles:true}));
       journal?.dispatchEvent(new Event('change', {bubbles:true}));
       field?.dispatchEvent(new Event('change', {bubbles:true}));
-      history.replaceState(null, '', location.pathname);
+      const cleared = location.pathname + location.hash;
+      if (location.pathname + location.search + location.hash !== cleared) history.pushState(null, '', cleared);
       setTimeout(update, 220);
     });
+
+    applyUrlState();
 
     const resultRoot = document.querySelector('[data-lazy-list]');
     if (resultRoot) {
