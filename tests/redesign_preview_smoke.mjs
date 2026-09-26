@@ -11,6 +11,7 @@ const paths = ["", "recent72/", "topics/china/", "working-papers/", "journals/",
 
 async function open(path) {
   const page = await browser.newPage({ viewport: { width, height: mobile ? 844 : 900 } });
+  await page.route("https://cdn.jsdelivr.net/**", (route) => route.abort());
   const url = new URL(path, root).href;
   const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
   assert.equal(response?.status(), 200, `${url} did not return 200`);
