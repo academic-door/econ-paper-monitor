@@ -1,18 +1,16 @@
 {
-  "categories": {
-    "permanently_unavailable": 1
-  },
-  "checked_at": "2026-09-26T17:30:57.106807+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-09-26T17:57:21.551532+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Agricultural Economics: 10; Journal of the Association of Environmental and Resource Economists: 18; Land Economics: 0; Land Use Policy: 45; European Review of Agricultural",
+      "sample_error": "partial_success failures=1; Journal of Finance: 4; Journal of Financial Economics: 12; Review of Financial Studies: 7; Journal of Development Economics: 11; Economic Development and Cultural Change: 9",
       "source": "crossref"
     },
     {
@@ -22,30 +20,14 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=72/120; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
+      "sample_error": "feeds=32/45; Journal of International Economics: 33 via official-generated; Journal of Finance: 25 via official-generated; Journal of Financial Economics: 27 via official-generated; Review of Financia",
       "source": "rss"
     }
   ],
-  "sources": [
-    {
-      "category": "permanently_unavailable",
-      "category_counts": {
-        "permanently_unavailable": 1
-      },
-      "journal_id": "journal-379b4022ce",
-      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
-      "source": "管理世界",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
-        "cnki-rss",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 4
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }
