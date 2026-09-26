@@ -58,3 +58,34 @@ def test_public_product_audit_checks_china_count_consistency() -> None:
     smoke = (ROOT / "tests" / "daily_vnext_public_smoke.mjs").read_text(encoding="utf-8")
 
     assert "assertChinaCountConsistency" in smoke
+
+
+
+def test_china_page_excludes_policy_commentary_from_journal_working_split(monkeypatch) -> None:
+    monkeypatch.setattr(render_site, "today_str", lambda: "2026-09-19")
+    journal = _journal_record()
+    working = _working_record()
+    commentary = {
+        "id": "column1",
+        "title": "China research commentary",
+        "url": "https://cepr.org/voxeu/columns/china-example",
+        "journal": "VoxEU / CEPR Columns",
+        "journal_id": "source-voxeu-cepr-columns",
+        "source": "working_papers",
+        "source_id": "voxeu-cepr-columns",
+        "source_type": "policy_commentary",
+        "detected_at": "2026-09-19T12:00:00+00:00",
+        "fields": ["china"],
+        "china_relevance_status": "confirmed",
+    }
+
+    html = render_site.china_topic_body(
+        [journal, working, commentary],
+        [journal, working, commentary],
+        [journal, working, commentary],
+    )
+
+    assert "<p>2 篇</p>" in html
+    assert 'href="#china-journals"><strong>1</strong><span>期刊论文</span>' in html
+    assert 'href="#china-working"><strong>1</strong><span>工作论文</span>' in html
+    assert "China research commentary" not in html
