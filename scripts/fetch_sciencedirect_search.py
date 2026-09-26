@@ -22,7 +22,6 @@ from sources.record import article_record
 from status import record_source
 
 
-SEARCH_BASE = "https://r.jina.ai/http://www.sciencedirect.com/search"
 SCIENCEDIRECT_API_URL = "https://api.elsevier.com/content/search/sciencedirect"
 ELSEVIER_SEARCH_PROVIDER_RPS = 2.0
 ELSEVIER_SEARCH_CLIENT_TARGET_RPS = 0.4
@@ -36,17 +35,6 @@ _ELSEVIER_SEARCH_TELEMETRY: dict[str, Any] = {
     "quota_exceeded_429": 0,
     "throttled_429": 0,
 }
-BROWSER_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126 Safari/537.36",
-    "Accept": "text/plain,text/markdown;q=0.9,*/*;q=0.8",
-}
-CAPTCHA_MARKERS = (
-    "are you a robot",
-    "captcha challenge",
-    "requiring captcha",
-    "just a moment",
-)
-
 MONTHS = {
     "january": 1,
     "february": 2,
@@ -99,32 +87,6 @@ def parse_iso_date(value: str | None) -> str | None:
         return date.fromisoformat(match.group(1)).isoformat()
     except ValueError:
         return None
-
-
-def fetch_text(url: str, timeout: int) -> str:
-    headers = dict(BROWSER_HEADERS)
-    jina_key = os.environ.get("JINA_API_KEY") or ""
-    if jina_key:
-        headers["Authorization"] = f"Bearer {jina_key}"
-    last_error: Exception | None = None
-    for attempt in range(2):
-        try:
-            request = urllib.request.Request(url, headers=headers)
-            try:
-                with urllib.request.urlopen(request, timeout=timeout) as response:
-                    payload = response.read()
-            except Exception:
-                context = ssl._create_unverified_context()
-                with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
-                    payload = response.read()
-            return payload.decode("utf-8", errors="replace")
-        except Exception as exc:  # noqa: BLE001
-            last_error = exc
-            if attempt == 0:
-                time.sleep(2)
-    if last_error is not None:
-        raise last_error
-    raise RuntimeError("ScienceDirect search fetch returned no response")
 
 
 def elsevier_api_headers() -> dict[str, str]:
@@ -482,72 +444,11 @@ def target_journals(journals: list[dict[str, Any]], only: set[str]) -> list[dict
     return targets
 
 
-def fetch_journal_via_proxy(
-    journal: dict[str, Any], *, days: int, timeout: int, max_items: int
-) -> tuple[list[dict[str, Any]], str]:
-    query = urllib.parse.urlencode({"pub": journal["title"], "show": "100", "sortBy": "date"})
-    source_url = f"{SEARCH_BASE}?{query}"
-    markdown = fetch_text(source_url, timeout)
-    lowered = markdown.casefold()
-    if any(marker in lowered for marker in CAPTCHA_MARKERS):
-        raise ValueError("sciencedirect-search blocked-captcha")
-    if not markdown.strip():
-        raise RuntimeError("sciencedirect-search empty response")
-    parsed = parse_search_results(markdown, journal)
-    cutoff = date.fromisoformat(today_str()) - timedelta(days=max(1, days) - 1)
-    records: list[dict[str, Any]] = []
-    for item in parsed:
-        try:
-            if date.fromisoformat(str(item["available_online"])) < cutoff:
-                continue
-        except ValueError:
-            continue
-        metadata = elsevier_core_metadata(str(item["pii"]), timeout)
-        doi = metadata.get("doi") or None
-        title = metadata.get("title") or str(item["title"])
-        online_date = metadata.get("available_online") or str(item["available_online"])
-        records.append(
-            article_record(
-                journal,
-                title=title,
-                url=str(item["url"]),
-                source="sciencedirect_search",
-                source_url=source_url,
-                doi=doi,
-                authors=item["authors"] if isinstance(item.get("authors"), list) else [],
-                published_online=online_date,
-                available_online=online_date,
-                date_source="sciencedirect_search_available_online",
-                date_confidence="B",
-                raw_data={
-                    "pii": item["pii"],
-                    "sciencedirect_search_route": "readonly_proxy",
-                    "sciencedirect_search_journal": journal["title"],
-                    "sciencedirect_search_issn": journal.get("issn"),
-                },
-            )
-        )
-        if len(records) >= max_items:
-            break
-    return records, f"{journal['title']}: {len(records)} via readonly-proxy"
-
-
 def fetch_journal(journal: dict[str, Any], *, days: int, timeout: int, max_items: int) -> tuple[list[dict[str, Any]], str]:
-    if os.environ.get("ELSEVIER_API_KEY"):
-        try:
-            return fetch_journal_via_api(journal, days=days, timeout=timeout, max_items=max_items)
-        except Exception as api_exc:  # noqa: BLE001
-            try:
-                records, message = fetch_journal_via_proxy(
-                    journal, days=days, timeout=timeout, max_items=max_items
-                )
-            except Exception as proxy_exc:  # noqa: BLE001
-                raise RuntimeError(
-                    f"official-api={type(api_exc).__name__}: {api_exc}; "
-                    f"readonly-proxy={type(proxy_exc).__name__}: {proxy_exc}"
-                ) from proxy_exc
-            return records, f"{message}; api_fallback={type(api_exc).__name__}: {api_exc}"
-    return fetch_journal_via_proxy(journal, days=days, timeout=timeout, max_items=max_items)
+    """Use the accepted official Elsevier ScienceDirect Search API route only."""
+    if not os.environ.get("ELSEVIER_API_KEY"):
+        raise RuntimeError("sciencedirect-api-key-missing")
+    return fetch_journal_via_api(journal, days=days, timeout=timeout, max_items=max_items)
 
 
 def run_journal(
@@ -561,13 +462,11 @@ def run_journal(
 
 
 def build_status_message(journal_count: int, failures: int, messages: list[str]) -> str:
-    jina_key = os.environ.get("JINA_API_KEY") or ""
     elsevier_key = os.environ.get("ELSEVIER_API_KEY") or ""
     control = elsevier_search_telemetry()
     return (
         f"journals={journal_count} failures={failures} "
         f"elsevier_api_key={'on' if elsevier_key else 'off'} "
-        f"jina_key={'on' if jina_key else 'off'} "
         f"endpoint={control['endpoint_class']} route={control['route']} "
         f"provider_rps={control['provider_rate_limit_rps']} "
         f"client_target_rps={control['client_target_rps']} "

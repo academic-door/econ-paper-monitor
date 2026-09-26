@@ -149,7 +149,6 @@ jobs:
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         shell: bash
         env:
-          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
         run: |
           if timeout 8m python scripts/fetch_priority_toc.py --detail-limit 12 --max-items-per-source 40; then
             echo "Priority publisher TOCs completed."
@@ -169,7 +168,6 @@ jobs:
             echo "::warning::ScienceDirect search timed out or failed; keeping Crossref/RSS paths."
           fi
         env:
-          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
           ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
           ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
       - name: Fetch Crossref priority metadata
@@ -323,7 +321,6 @@ jobs:
         if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/enrich_metadata.py --latest-days 7 --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
         env:
-          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
       - name: Backfill abstracts and authors from metadata indexes
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
@@ -335,7 +332,6 @@ jobs:
           fi
         env:
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
-          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
           ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
           ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
       - name: Re-apply historical working-paper quarantine after date enrichment
@@ -372,7 +368,6 @@ jobs:
           fi
         env:
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
-          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
       - name: Build Semantic Scholar usage report
         run: python scripts/build_semantic_scholar_usage.py
       - name: Batch recover metadata from independent indexes
@@ -476,3 +471,4 @@ jobs:
       - name: Render published site inline
         if: steps.commit.outputs.changed == 'true'
         run: bash scripts/render_published_site.sh
+

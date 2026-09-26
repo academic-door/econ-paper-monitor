@@ -35,7 +35,6 @@ def _sync_legacy_leaf_globals() -> None:
         "write_json",
         "load_sources",
         "enrich_record_from_detail",
-        "enrich_record_from_proxy",
         "canonical_detail_url",
         "has_oecd_proxy_navigation_contamination",
         "apply_metadata_state",
