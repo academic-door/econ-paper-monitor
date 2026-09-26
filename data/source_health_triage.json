@@ -1,35 +1,35 @@
 {
   "categories": {
-    "transient_network": 1
+    "needs_investigation": 1
   },
-  "checked_at": "2026-09-26T08:53:54.592028+08:00",
+  "checked_at": "2026-09-26T12:57:49.824733+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=3/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 0; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: ",
-      "source": "publisher-detail"
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Journal of Finance: 4; Journal of Financial Economics: 12; Review of Financial Studies: 7; Journal of Development Economics: 11; Economic Development and Cultural Change: 9",
+      "source": "crossref"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=72/120; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
+      "sample_error": "feeds=32/45; Journal of International Economics: 33 via official-generated; Journal of Finance: 25 via official-generated; Journal of Financial Economics: 27 via official-generated; Review of Financia",
       "source": "rss"
     }
   ],
   "sources": [
     {
-      "category": "transient_network",
+      "category": "needs_investigation",
       "category_counts": {
-        "transient_network": 1
+        "needs_investigation": 1
       },
-      "journal_id": "american-economic-review",
-      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
-      "source": "American Economic Review",
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "social-choice-and-welfare/springer_online_first: crossref fallback 3; public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 30; international-tax-",
+      "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
