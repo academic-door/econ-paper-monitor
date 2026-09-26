@@ -9,12 +9,15 @@ outcome only; credentials and response payloads are never persisted.
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
+import backfill_iza_authors_legacy as legacy_wp
 import enrich_metadata
+import fetch_cnki_rss
 import fetch_priority_toc as priority
 import qualify_jina_working_papers as working_probe
 from common import DATA_DIR, load_journals, read_json, write_json
@@ -182,6 +185,98 @@ def main() -> None:
             row["listing_mode"] = mode
             working_paper_results.append(row)
 
+    residual_results: list[dict] = []
+
+    cnki_sources = fetch_cnki_rss.load_cnki_sources(DATA_DIR / "cnki_rss_sources.yml")
+    if cnki_sources:
+        sample = cnki_sources[0]
+        try:
+            xml_text, fetched_mode = fetch_cnki_rss.fetch_cnki_text(sample)
+            transport_name = str(fetched_mode).split(":", 1)[0]
+            residual_results.append({
+                "scope": "cnki_rss",
+                "journal_id": sample.get("journal_id"),
+                "transport": transport_name,
+                "payload_chars": len(xml_text),
+                "unique_jina_value": transport_name == "jina-relay",
+            })
+        except Exception as exc:  # noqa: BLE001
+            residual_results.append({
+                "scope": "cnki_rss",
+                "journal_id": sample.get("journal_id"),
+                "outcome": type(exc).__name__,
+                "unique_jina_value": False,
+            })
+
+    status = read_json(DATA_DIR / "status.json", {})
+    sd_status = ((status.get("sources") or {}).get("sciencedirect-search") or {}) if isinstance(status, dict) else {}
+    sd_message = str(sd_status.get("message") or "")
+    residual_results.append({
+        "scope": "sciencedirect_search",
+        "count": sd_status.get("count"),
+        "ok": sd_status.get("ok"),
+        "production_route": "official_api_v2_put_title_wildcard" if "route=official_api_v2_put_title_wildcard" in sd_message else "unknown",
+        "jina_result_observed": "via readonly-proxy" in sd_message,
+        "unique_jina_value": "via readonly-proxy" in sd_message,
+    })
+
+    oecd_source = working_sources.get("oecd-working-papers")
+    oecd_record = None
+    if oecd_source:
+        for daily_path in sorted((DATA_DIR / "daily").glob("*.json"), reverse=True):
+            payload = read_json(daily_path, [])
+            if not isinstance(payload, list):
+                continue
+            for candidate in payload:
+                if not isinstance(candidate, dict) or str(candidate.get("source_id") or "") != "oecd-working-papers":
+                    continue
+                host = urlparse(str(candidate.get("url") or "")).netloc.casefold()
+                if host in {"www.oecd.org", "oecd.org", "www.oecd-ilibrary.org", "oecd-ilibrary.org"}:
+                    oecd_record = candidate
+                    break
+            if oecd_record:
+                break
+    if oecd_source and oecd_record:
+        direct_record = copy.deepcopy(oecd_record)
+        working_probe.fetch_preprints.enrich_record_from_detail(direct_record, oecd_source, timeout=args.timeout)
+        with_residual = copy.deepcopy(direct_record)
+        events: list[dict] = []
+        original_fetch_text = legacy_wp.fetch_text
+
+        def traced_oecd_fetch(url: str, *, timeout: int, **kwargs):
+            try:
+                value = original_fetch_text(url, timeout=timeout, **kwargs)
+            except Exception as exc:  # noqa: BLE001
+                events.append({"transport": transport(url), "outcome": type(exc).__name__})
+                raise
+            events.append({"transport": transport(url), "outcome": "SUCCESS"})
+            return value
+
+        legacy_wp.fetch_text = traced_oecd_fetch
+        try:
+            legacy_wp.enrich_oecd_from_readonly_transports(with_residual, timeout=args.timeout)
+        finally:
+            legacy_wp.fetch_text = original_fetch_text
+        evidence_fields = ("abstract", "published_online", "available_online", "official_date")
+        gained = [
+            field for field in evidence_fields
+            if with_residual.get(field) and with_residual.get(field) != direct_record.get(field)
+        ]
+        jina_success = any(event.get("transport") == "jina" and event.get("outcome") == "SUCCESS" for event in events)
+        residual_results.append({
+            "scope": "oecd_metadata_repair",
+            "locator": safe_locator(str(oecd_record.get("url") or "")),
+            "events": events,
+            "gained_fields": gained,
+            "unique_jina_value": bool(jina_success and gained),
+        })
+    else:
+        residual_results.append({
+            "scope": "oecd_metadata_repair",
+            "outcome": "no-current-official-host-candidate",
+            "unique_jina_value": False,
+        })
+
     positive = [
         {"scope": "priority_toc", **row}
         for row in toc_results
@@ -194,6 +289,10 @@ def main() -> None:
         {"scope": "working_paper_detail", **row}
         for row in working_paper_results
         if row.get("unique_jina_value")
+    ] + [
+        row
+        for row in residual_results
+        if row.get("unique_jina_value")
     ]
 
     report = {
@@ -204,6 +303,7 @@ def main() -> None:
         "priority_toc": toc_results,
         "publisher_detail_samples": detail_results,
         "working_paper_detail_samples": working_paper_results,
+        "residual_daily_paths": residual_results,
         "positive_unique_jina": positive,
         "decision": "RETAIN_EXACT_PROVEN_PATHS_ONLY" if positive else "RETIRE_ALL_DAILY_JINA",
     }
@@ -214,6 +314,7 @@ def main() -> None:
         "priority_targets": len(toc_results),
         "detail_samples": len(detail_results),
         "working_paper_samples": len(working_paper_results),
+        "residual_paths": len(residual_results),
         "positive_unique_jina": len(positive),
         "output": str(args.output),
     }, ensure_ascii=False))
