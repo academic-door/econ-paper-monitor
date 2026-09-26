@@ -143,3 +143,60 @@ def test_today_home_keeps_old_weak_metadata_date(
     monkeypatch.setattr(render_site, "today_str", lambda: "2026-09-19")
     secondary = dict(weak_old, detected_at=weak_old["first_seen_at"])
     assert render_site.is_today_home_flow_record(secondary) is True
+
+
+
+def test_policy_commentary_never_enters_working_paper_or_journal_membership(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(render_site, "today_str", lambda: "2026-09-26")
+    commentary = {
+        "id": "commentary",
+        "title": "Quantifying financial repression through the lens of portfolio choice: A century of evidence",
+        "url": "https://cepr.org/voxeu/columns/example",
+        "journal": "VoxEU / CEPR Columns",
+        "journal_id": "source-voxeu-cepr-columns",
+        "source": "working_papers",
+        "source_id": "voxeu-cepr-columns",
+        "source_type": "policy_commentary",
+        "detected_at": "2026-09-26T00:53:06+00:00",
+    }
+    working = {
+        "id": "working",
+        "title": "Actual working paper",
+        "url": "https://example.org/wp",
+        "journal": "IMF Working Papers",
+        "journal_id": "source-imf-working-papers",
+        "source": "working_papers",
+        "source_id": "imf-working-papers",
+        "source_type": "working_paper",
+        "detected_at": "2026-09-26T01:00:00+00:00",
+    }
+    journal = {
+        "id": "journal",
+        "title": "Actual journal article",
+        "doi": "10.1234/example",
+        "url": "https://doi.org/10.1234/example",
+        "journal": "Example Journal",
+        "journal_id": "example-journal",
+        "source_type": "journal_article",
+        "detected_at": "2026-09-26T01:10:00+00:00",
+    }
+
+    assert render_site.public_content_type(commentary) == "commentary"
+    assert render_site.is_policy_commentary(commentary) is True
+    assert render_site.is_working_paper(commentary) is False
+    assert render_site.is_journal_article(commentary) is False
+    assert build_daily_vnext.content_type(commentary) == "column"
+
+    assert [record["id"] for record in render_site.working_paper_records([commentary, working, journal])] == ["working"]
+
+    working_html = render_site.working_papers_body([commentary, working, journal], view="today")
+    assert "Actual working paper" in working_html
+    assert "Quantifying financial repression" not in working_html
+
+    search_html = render_site.search_body([commentary, working, journal])
+    assert "Quantifying financial repression" in search_html
+    assert "研究评论" in search_html
+    assert "<strong>1</strong><span>期刊论文</span>" in search_html
+    assert "<strong>1</strong><span>工作论文/机构研究</span>" in search_html
