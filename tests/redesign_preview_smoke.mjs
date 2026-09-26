@@ -57,6 +57,7 @@ try {
     const headings = await page.locator(".section-head h2").allTextContents();
     assert.ok(headings.some((x) => x.trim().startsWith("期刊论文")), "China journal heading not simplified");
     assert.ok(headings.some((x) => x.trim().startsWith("工作论文")), "China working heading not simplified");
+    assert.equal(await page.locator(".page-hero .preview-hero-meta").count(), 0, "China total corpus count duplicated above breakdown");
     await page.close();
   }
 
@@ -69,13 +70,32 @@ try {
   }
 
   {
-    const { page } = await open("search/");
+    const { page } = await open("search/?q=Generative%20Search&china=1");
     const status = page.locator(".preview-result-status");
     assert.ok(await status.isVisible(), "search result status missing");
     const search = page.locator('[data-filter-role="search"]');
-    await search.fill("china");
-    await page.waitForTimeout(500);
-    assert.equal(new URL(page.url()).searchParams.get("q"), "china", "search state not serialized to URL");
+    const china = page.locator('[data-filter-role="china"]');
+    await page.waitForTimeout(700);
+    assert.equal(await search.inputValue(), "Generative Search", "direct URL query did not restore");
+    assert.equal(await china.getAttribute("aria-pressed"), "true", "direct URL China refinement did not restore");
+    await page.getByText("Generative Search: Evidence from a Large-Scale Field Experiment", { exact: false }).first().waitFor({ state: "visible", timeout: 12000 });
+
+    await search.fill("Shuang Zheng");
+    await page.waitForTimeout(700);
+    assert.equal(new URL(page.url()).searchParams.get("q"), "Shuang Zheng", "author query not serialized");
+    assert.equal(new URL(page.url()).searchParams.get("china"), "1", "China refinement lost during author query");
+    await page.getByText("Generative Search: Evidence from a Large-Scale Field Experiment", { exact: false }).first().waitFor({ state: "visible", timeout: 12000 });
+
+    await page.goBack();
+    await page.waitForTimeout(600);
+    assert.equal(await search.inputValue(), "Generative Search", "Back did not restore prior search query");
+    assert.equal(await china.getAttribute("aria-pressed"), "true", "Back did not restore China refinement");
+
+    await page.goForward();
+    await page.waitForTimeout(600);
+    assert.equal(await search.inputValue(), "Shuang Zheng", "Forward did not restore author query");
+    assert.equal(await china.getAttribute("aria-pressed"), "true", "Forward did not preserve China refinement");
+
     const clear = page.locator("[data-preview-clear]");
     assert.ok(await clear.isVisible(), "clear-filter action missing");
     await clear.click();
