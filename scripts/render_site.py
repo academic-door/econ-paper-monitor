@@ -407,9 +407,34 @@ def search_catalog_records(records: list[dict[str, Any]]) -> list[dict[str, Any]
     return projected
 
 
+def public_content_type(record: dict[str, Any]) -> str:
+    """Return the reader-facing content class, independent of acquisition umbrella."""
+    source_type = str(record.get("source_type") or "").casefold().strip()
+    venue = " ".join(
+        str(record.get(key) or "").casefold()
+        for key in ("journal", "source_name", "series")
+    )
+    if source_type in {"journal", "journal_article"}:
+        return "journal"
+    if source_type == "policy_commentary" or "voxeu" in venue or "cepr columns" in venue:
+        return "commentary"
+    if source_type in {"working_paper", "policy_paper", "aggregator", "preprint"}:
+        return "working"
+    if str(record.get("source") or "").casefold().strip() == "working_papers":
+        return "working"
+    return "journal"
+
+
 def is_working_paper(record: dict[str, Any]) -> bool:
-    source_type = str(record.get("source_type") or "")
-    return str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}
+    return public_content_type(record) == "working"
+
+
+def is_journal_article(record: dict[str, Any]) -> bool:
+    return public_content_type(record) == "journal"
+
+
+def is_policy_commentary(record: dict[str, Any]) -> bool:
+    return public_content_type(record) == "commentary"
 
 
 def is_today_home_flow_record(record: dict[str, Any]) -> bool:
@@ -485,6 +510,11 @@ def unique_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def source_type_label(record: dict[str, Any]) -> str:
     source_type = str(record.get("source_type") or "")
+    fallback = {
+        "working": "工作论文",
+        "commentary": "研究评论",
+        "journal": "期刊论文",
+    }[public_content_type(record)]
     return {
         "working_paper": "工作论文",
         "policy_paper": "机构研究",
@@ -492,11 +522,16 @@ def source_type_label(record: dict[str, Any]) -> str:
         "aggregator": "聚合源",
         "journal": "期刊论文",
         "journal_article": "期刊论文",
-    }.get(source_type, "工作论文" if is_working_paper(record) else "期刊论文")
+    }.get(source_type, fallback)
 
 
 def source_type_value(record: dict[str, Any]) -> str:
-    source_type = str(record.get("source_type") or ("working_paper" if is_working_paper(record) else "journal_article"))
+    fallback = {
+        "working": "working_paper",
+        "commentary": "policy_commentary",
+        "journal": "journal_article",
+    }[public_content_type(record)]
+    source_type = str(record.get("source_type") or fallback)
     return "journal_article" if source_type in {"journal", "journal_article"} else source_type
 
 
@@ -506,7 +541,7 @@ def article_topics(record: dict[str, Any]) -> list[str]:
     if is_china_related(record) or ("china" in fields and not is_working_paper(record)):
         topics.append("china")
     topics.extend(article_topic_codes(record, limit=4))
-    if not topics and not is_working_paper(record):
+    if not topics and is_journal_article(record):
         topics.append("development")
     return list(dict.fromkeys(topics))[:4]
 
@@ -1072,7 +1107,7 @@ def sidebar(
     context_date: str | None = None,
 ) -> str:
     side_records = public_records(context_records if context_records is not None else records)
-    journal_side_records = [record for record in side_records if not is_working_paper(record)]
+    journal_side_records = [record for record in side_records if is_journal_article(record)]
     working_side_records = [record for record in side_records if is_working_paper(record)]
     journal_counts = Counter(record.get("journal_id") for record in journal_side_records if record.get("journal_id"))
     working_counts = Counter(record.get("journal_id") for record in working_side_records if record.get("journal_id"))
@@ -1642,7 +1677,7 @@ def working_source_title_map() -> dict[str, str]:
 
 def public_source_title(record: dict[str, Any]) -> str:
     """Return public source identity without rewriting canonical venue metadata."""
-    if is_working_paper(record):
+    if not is_journal_article(record):
         source_id = str(record.get("source_id") or record.get("journal_id") or "").removeprefix("source-")
         configured = working_source_title_map().get(source_id)
         if configured:
@@ -1689,7 +1724,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         detected_chip = f'<span class="pill">{html_escape(detected_label(record))}</span>'
         search_text = " ".join(str(value or "") for value in [record.get("title"), record.get("title_zh"), authors(record), source_title, record.get("journal"), record.get("doi")])
         field_attr = " ".join(topics)
-        type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if is_working_paper(record) else ""
+        type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if not is_journal_article(record) else ""
         classes = "event" + (f" {extra_class}" if extra_class else "")
         chunks.append(
             f"""<article class="{html_escape(classes)}" data-event-scope="{html_escape(scope)}" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}" data-source-type="{html_escape(source_type_value(record))}">
@@ -1697,7 +1732,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
   <div>
     <h3><a href="{html_escape(detail_href)}">{html_escape(primary_title)}</a></h3>{original_title_html}{authors_html}
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">{'来源' if is_working_paper(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(source_title)}</span>{type_tag}{detected_chip}</span></div>
+      <div class="meta-line"><span class="meta-label">{'来源' if not is_journal_article(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(source_title)}</span>{type_tag}{detected_chip}</span></div>
       <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values">{official_chip}{lag_chip}</span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">{link_or_doi}{fields}{china_tag}</span></div>
     </div>
@@ -1948,10 +1983,10 @@ def topic_view_links(topic: str, topic_records: list[dict[str, Any]], today_reco
 
 def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
     flow_records = [record for record in today_records if is_today_home_flow_record(record)]
-    journal_flow_records = [record for record in flow_records if not is_working_paper(record)]
+    journal_flow_records = [record for record in flow_records if is_journal_article(record)]
     working_flow_records = [record for record in flow_records if is_working_paper(record)]
     all_working = working_paper_records(records)
-    all_journal_count = sum(1 for record in records if not is_working_paper(record) and has_public_title(record))
+    all_journal_count = sum(1 for record in records if is_journal_article(record) and has_public_title(record))
     recent72_records = recent_detected_records(records, 3)
     s = stats(records, today_records, flow_records)
     freshness_class = "warn" if s["last_run_freshness"] != "状态正常" else ""
@@ -2069,7 +2104,7 @@ def working_papers_body(records: list[dict[str, Any]], *, view: str = "all") -> 
 
 def china_topic_body(records: list[dict[str, Any]], topic_records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
     public_topic_records = unique_records(public_records(topic_records))
-    journal_records = [record for record in public_topic_records if not is_working_paper(record)]
+    journal_records = [record for record in public_topic_records if is_journal_article(record)]
     wp_records = [record for record in public_topic_records if is_working_paper(record)]
     today_journals = [record for record in journal_records if record_is_on_date(record, today_str())]
     today_wp = [record for record in wp_records if record_is_on_date(record, today_str())]
@@ -2280,8 +2315,8 @@ def write_lazy_indexes(docs_dir: Path) -> None:
                 "od": official_line,
                 "oc": official_class,
                 "lg": detection_lag_chip(record),
-                "st": source_type_label(record) if is_working_paper(record) else "",
-                "wk": is_working_paper(record),
+                "st": source_type_label(record) if not is_journal_article(record) else "",
+                "wk": not is_journal_article(record),
                 "hr": detail_url(record).replace(BASE, "__PAPER_BASE__"),
                 "ec": extra_class,
             }
@@ -2322,7 +2357,7 @@ def write_lazy_indexes(docs_dir: Path) -> None:
 
 def search_body(records: list[dict[str, Any]]) -> str:
     searchable = search_catalog_records(records)
-    journal_records = [record for record in searchable if not is_working_paper(record)]
+    journal_records = [record for record in searchable if is_journal_article(record)]
     wp_records = [record for record in searchable if is_working_paper(record)]
     return f"""<section class="section-head">
   <div><h2>全站检索</h2><p>搜索全部历史记录；首页搜索只筛选当天论文流。</p></div>
@@ -2342,7 +2377,7 @@ def search_body(records: list[dict[str, Any]]) -> str:
 
 def recent72_body(records: list[dict[str, Any]]) -> str:
     recent = recent_detected_records(public_records(records), 3)
-    journal_records = [record for record in recent if not is_working_paper(record)]
+    journal_records = [record for record in recent if is_journal_article(record)]
     wp_records = [record for record in recent if is_working_paper(record)]
     china_count = sum(1 for record in recent if is_public_china_related(record))
     dates = sorted({detected_date(record) for record in recent if detected_date(record)}, reverse=True)
@@ -2441,7 +2476,7 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     low_confidence = sum(1 for record in records if str(record.get("date_confidence") or "F") in {"D", "F", "unknown"})
     china_count = sum(1 for record in records if is_china_related(record))
     today_records = [record for record in records if record_is_on_date(record, today_str())]
-    today_journals = sum(1 for record in today_records if not is_working_paper(record))
+    today_journals = sum(1 for record in today_records if is_journal_article(record))
     today_wp = sum(1 for record in today_records if is_working_paper(record))
     crossref_new_deposits = sum(
         1
@@ -2703,7 +2738,11 @@ def bibtex_key(record: dict[str, Any]) -> str:
 def ris_text(records: list[dict[str, Any]]) -> str:
     chunks = []
     for record in public_records(records):
-        ty = "WORK" if is_working_paper(record) else "JOUR"
+        ty = {
+            "working": "WORK",
+            "journal": "JOUR",
+            "commentary": "GEN",
+        }[public_content_type(record)]
         lines = [f"TY  - {ty}", f"TI  - {record.get('title') or ''}"]
         if record.get("title_zh") and record.get("title_zh") != record.get("title"):
             lines.append(f"T2  - {record.get('title_zh')}")
@@ -2731,7 +2770,11 @@ def bibtex_text(records: list[dict[str, Any]]) -> str:
     chunks = []
     used: Counter[str] = Counter()
     for record in public_records(records):
-        entry_type = "techreport" if is_working_paper(record) else "article"
+        entry_type = {
+            "working": "techreport",
+            "journal": "article",
+            "commentary": "misc",
+        }[public_content_type(record)]
         base_key = bibtex_key(record)
         used[base_key] += 1
         key = base_key if used[base_key] == 1 else f"{base_key}{used[base_key]}"
@@ -3122,7 +3165,7 @@ def main() -> None:
         # historical first_seen timestamp.
         if not record.get("_from_seen_only"):
             by_date[detected_date(record) or record.get("_daily_date") or "unknown"].append(record)
-        if not is_working_paper(record) and record.get("journal_id"):
+        if is_journal_article(record) and record.get("journal_id"):
             by_journal[str(record.get("journal_id"))].append(record)
         for field in record.get("fields", []) or []:
             by_field[field].append(record)
@@ -3140,7 +3183,7 @@ def main() -> None:
     for daily_date, daily_records in sorted(by_date.items(), reverse=True):
         if is_future_daily_route(daily_date, current_day):
             continue
-        journal_count = sum(1 for record in daily_records if not is_working_paper(record))
+        journal_count = sum(1 for record in daily_records if is_journal_article(record))
         working_count = sum(1 for record in daily_records if is_working_paper(record))
         official_summary = archive_official_date_summary(daily_records)
         body = (
