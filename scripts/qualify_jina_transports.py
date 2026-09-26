@@ -16,6 +16,7 @@ from urllib.parse import urlparse
 
 import enrich_metadata
 import fetch_priority_toc as priority
+import qualify_jina_working_papers as working_probe
 from common import DATA_DIR, load_journals, read_json, write_json
 
 IMMEDIATE_RETIRE_KINDS = {"springer_online_first", "tandf_latest_articles"}
@@ -160,6 +161,27 @@ def main() -> None:
         detail_results.append(detail_probe(record, args.timeout))
         per_bucket[bucket] = per_bucket.get(bucket, 0) + 1
 
+    working_paper_results: list[dict] = []
+    working_sources = {
+        str(source.get("id") or ""): source
+        for source in working_probe.fetch_preprints.load_sources(DATA_DIR / "working_paper_sources.yml")
+    }
+    for source_id in ("cepr-dp", "fed-feds"):
+        source = working_sources.get(source_id)
+        if not source:
+            continue
+        try:
+            current_records, mode = working_probe.fetch_preprints.fetch_source(source, timeout=args.timeout, limit=2)
+        except Exception as exc:  # noqa: BLE001
+            working_paper_results.append({"source_id": source_id, "listing_error": type(exc).__name__, "unique_jina_value": False})
+            continue
+        for record in current_records[:2]:
+            if not record.get("url"):
+                continue
+            row = working_probe.probe(source, record, args.timeout)
+            row["listing_mode"] = mode
+            working_paper_results.append(row)
+
     positive = [
         {"scope": "priority_toc", **row}
         for row in toc_results
@@ -167,6 +189,10 @@ def main() -> None:
     ] + [
         {"scope": "publisher_detail", **row}
         for row in detail_results
+        if row.get("unique_jina_value")
+    ] + [
+        {"scope": "working_paper_detail", **row}
+        for row in working_paper_results
         if row.get("unique_jina_value")
     ]
 
@@ -177,6 +203,7 @@ def main() -> None:
         "immediate_retire_configured": immediate_retire,
         "priority_toc": toc_results,
         "publisher_detail_samples": detail_results,
+        "working_paper_detail_samples": working_paper_results,
         "positive_unique_jina": positive,
         "decision": "RETAIN_EXACT_PROVEN_PATHS_ONLY" if positive else "RETIRE_ALL_DAILY_JINA",
     }
@@ -186,6 +213,7 @@ def main() -> None:
         "decision": report["decision"],
         "priority_targets": len(toc_results),
         "detail_samples": len(detail_results),
+        "working_paper_samples": len(working_paper_results),
         "positive_unique_jina": len(positive),
         "output": str(args.output),
     }, ensure_ascii=False))
