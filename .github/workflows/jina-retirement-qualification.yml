@@ -1,0 +1,49 @@
+name: Jina Retirement Qualification
+
+on:
+  push:
+    branches:
+      - g11/jina-retirement
+    paths:
+      - "scripts/qualify_jina_transports.py"
+      - "scripts/fetch_priority_toc.py"
+      - "scripts/enrich_metadata.py"
+      - ".github/workflows/jina-retirement-qualification.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jina-retirement-qualification
+  cancel-in-progress: true
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run bounded transport qualification
+        env:
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+        run: |
+          python scripts/qualify_jina_transports.py             --timeout 12             --max-items 8             --detail-samples-per-bucket 2             --output data/audits/jina_transport_qualification.json
+
+      - name: Commit qualification evidence to branch
+        shell: bash
+        run: |
+          git config user.name "academic-door-jina-audit-bot"
+          git config user.email "academic-door-jina-audit-bot@users.noreply.github.com"
+          git add data/audits/jina_transport_qualification.json
+          if git diff --cached --quiet; then
+            echo "Qualification report unchanged."
+            exit 0
+          fi
+          git commit -m "audit: qualify current Jina transport value"
+          git push origin HEAD:g11/jina-retirement
