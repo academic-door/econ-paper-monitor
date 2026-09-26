@@ -689,7 +689,14 @@
     card.querySelectorAll('.doi').forEach((node) => {
       const value = node.textContent.trim();
       if (value === '暂无 DOI') node.remove();
-      if (value === '文章链接') node.textContent = '原文';
+      if (value === '文章链接') node.textContent = '文章页';
+    });
+    card.querySelectorAll('.meta-line').forEach((line) => {
+      const label = line.querySelector('.meta-label')?.textContent?.trim();
+      const values = line.querySelector('.meta-values');
+      if (label === '日期信息' && values?.textContent.trim() === '官方日期待补 · 来源：文章页面') {
+        values.textContent = '官方日期待补';
+      }
     });
     card.querySelectorAll('.meta-label').forEach((node) => {
       if (node.textContent.trim() === '链接/DOI') node.textContent = '链接';
