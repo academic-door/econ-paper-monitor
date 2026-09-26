@@ -1,6 +1,6 @@
 {
   "decision": "RETIRE_ALL_DAILY_JINA",
-  "generated_at": "2026-09-26T16:13:29.116242+00:00",
+  "generated_at": "2026-09-26T16:32:35.993303+00:00",
   "immediate_retire_configured": [
     {
       "journal_id": "applied-economics",
@@ -91,44 +91,21 @@
       "unique_jina_value": false
     },
     {
-      "crossref_fallback_records": 0,
+      "crossref_fallback_records": 8,
       "direct_url": "www.restud.com/",
       "events": [
         {
           "locator": "www.restud.com/",
-          "outcome": "SUCCESS",
-          "response_chars": 57027,
+          "outcome": "NETWORK_FAILURE",
           "transport": "direct"
         },
         {
-          "locator": "www.restud.com/markup-estimation-using-production-and-demand-data-an-application-to-the-us-brewing-industry/",
-          "outcome": "SUCCESS",
-          "response_chars": 29442,
-          "transport": "direct"
-        },
-        {
-          "locator": "r.jina.ai/http://www.restud.com/markup-estimation-using-production-and-demand-data-an-application-to-the-us-brewing-industry/",
+          "locator": "r.jina.ai/http://www.restud.com/",
           "outcome": "HTTP_BLOCK",
           "transport": "jina"
         },
         {
-          "locator": "r.jina.ai/http://www.restud.com/markup-estimation-using-production-and-demand-data-an-application-to-the-us-brewing-industry/",
-          "outcome": "HTTP_BLOCK",
-          "transport": "jina"
-        },
-        {
-          "locator": "www.restud.com/revisiting-retirement-and-social-security-claiming-decisions/",
-          "outcome": "SUCCESS",
-          "response_chars": 29420,
-          "transport": "direct"
-        },
-        {
-          "locator": "r.jina.ai/http://www.restud.com/revisiting-retirement-and-social-security-claiming-decisions/",
-          "outcome": "HTTP_BLOCK",
-          "transport": "jina"
-        },
-        {
-          "locator": "r.jina.ai/http://www.restud.com/revisiting-retirement-and-social-security-claiming-decisions/",
+          "locator": "r.jina.ai/http://www.restud.com/",
           "outcome": "HTTP_BLOCK",
           "transport": "jina"
         }
@@ -137,11 +114,11 @@
       "journal_id": "review-of-economic-studies",
       "kind": "restud_official_accepted",
       "messages": [
-        "review-of-economic-studies/restud_official_accepted: 6"
+        "review-of-economic-studies/restud_official_accepted: HTTP_BLOCK; crossref fallback 8"
       ],
-      "outcome": "SUCCESS",
-      "publisher_success": true,
-      "records": 6,
+      "outcome": "HTTP_BLOCK",
+      "publisher_success": false,
+      "records": 8,
       "unique_jina_value": false
     },
     {
@@ -496,7 +473,7 @@
         {
           "locator": "jhr.uwpress.org/content/early/recent",
           "outcome": "SUCCESS",
-          "response_chars": 199300,
+          "response_chars": 199296,
           "transport": "direct"
         }
       ],
@@ -517,27 +494,19 @@
       "events": [
         {
           "locator": "jhr.uwpress.org/content/current",
-          "outcome": "NETWORK_FAILURE",
+          "outcome": "SUCCESS",
+          "response_chars": 149420,
           "transport": "direct"
-        },
-        {
-          "locator": "r.jina.ai/http://jhr.uwpress.org/content/current",
-          "outcome": "HTTP_BLOCK",
-          "transport": "jina"
-        },
-        {
-          "locator": "r.jina.ai/http://jhr.uwpress.org/content/current",
-          "outcome": "HTTP_BLOCK",
-          "transport": "jina"
         }
       ],
       "failed": false,
       "journal_id": "journal-of-human-resources",
       "kind": "jhr_current",
       "messages": [
-        "journal-of-human-resources/jhr_current: HTTP_BLOCK; crossref fallback 5"
+        "journal-of-human-resources/jhr_current: PARSER_FAILURE",
+        "journal-of-human-resources/jhr_current: crossref fallback 5"
       ],
-      "outcome": "HTTP_BLOCK",
+      "outcome": "PARSER_FAILURE",
       "publisher_success": false,
       "records": 5,
       "unique_jina_value": false
@@ -582,6 +551,34 @@
       "doi": "10.1093/rfs/hhag084",
       "locator": "academic.oup.com/search-results",
       "status": "proxy-request-failed",
+      "unique_jina_value": false
+    }
+  ],
+  "residual_daily_paths": [
+    {
+      "journal_id": "journal-ba9f46c919",
+      "outcome": "RuntimeError",
+      "scope": "cnki_rss",
+      "unique_jina_value": false
+    },
+    {
+      "count": 80,
+      "jina_result_observed": false,
+      "ok": true,
+      "production_route": "official_api_v2_put_title_wildcard",
+      "scope": "sciencedirect_search",
+      "unique_jina_value": false
+    },
+    {
+      "events": [
+        {
+          "outcome": "SUCCESS",
+          "transport": "jina"
+        }
+      ],
+      "gained_fields": [],
+      "locator": "www.oecd.org/en/publications/the-short-and-medium-term-effects-of-structural-reforms_ce7f76e3-en.html",
+      "scope": "oecd_metadata_repair",
       "unique_jina_value": false
     }
   ],
