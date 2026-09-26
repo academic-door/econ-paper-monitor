@@ -60,6 +60,20 @@ def expected_missing_reason(record: dict[str, Any], field: str) -> str | None:
     ):
         return "issue_front_matter"
 
+    # Strong non-research labels seen in current publisher feeds. Keep these
+    # abstract-only: editors/discussants/reviewers are still meaningful authors
+    # and therefore a missing author remains actionable.
+    if field == "abstract" and re.match(r"^introduction to (?:the )?special issue\b", lowered):
+        return "special_issue_introduction"
+    if field == "abstract" and re.match(r"^editor[’']s introduction\b", lowered):
+        return "editorial_introduction"
+    if field == "abstract" and re.search(r"\beditor[’']s report$", lowered):
+        return "editor_report"
+    if field == "abstract" and re.match(r"^discussion of\s*[“\"'‘]", lowered):
+        return "discussion_article"
+    if field == "abstract" and journal == "public choice" and re.match(r"^(?:public choice )?book review\b", lowered):
+        return "book_review"
+
     # JEL book-review titles conventionally include the reviewed book's author.
     # The abstract is optional, but a missing reviewer author remains actionable.
     if field == "abstract" and journal == "journal of economic literature" and " by " in lowered:
