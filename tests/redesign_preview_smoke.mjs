@@ -12,9 +12,9 @@ const paths = ["", "recent72/", "topics/china/", "working-papers/", "journals/",
 async function open(path) {
   const page = await browser.newPage({ viewport: { width, height: mobile ? 844 : 900 } });
   const url = new URL(path, root).href;
-  const response = await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
+  const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
   assert.equal(response?.status(), 200, `${url} did not return 200`);
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(650);
   return { page, url };
 }
 
