@@ -64,7 +64,7 @@ def run_target(journal: dict, target: dict, timeout: int, max_items: int) -> dic
             journal,
             target,
             timeout=timeout,
-            detail_limit=0,
+            detail_limit=2 if str(target.get("kind") or "") == "restud_official_accepted" else 0,
             max_items=max_items,
         )
     finally:
