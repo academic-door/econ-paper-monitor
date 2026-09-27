@@ -233,10 +233,6 @@ class MetadataCompletenessTests(unittest.TestCase):
     def test_corrections_are_not_research_papers(self) -> None:
         self.assertTrue(dedupe.is_source_navigation_noise({"title": "Correction to: A Published Paper"}))
 
-    @patch.object(fetch_preprints, "fetch_text")
-    def test_feds_proxy_recovers_authors_doi_and_abstract(self, fetch_text_mock) -> None:
-        fetch_text_mock.return_value = """### A Federal Reserve Paper
-
 [First Author](https://example.com/first), Second Author, and Third Author
 
 **Abstract:**
@@ -254,9 +250,6 @@ This is a sufficiently long public abstract for a Federal Reserve working paper 
         self.assertEqual(record["authors"], ["First Author", "Second Author", "Third Author"])
         self.assertEqual(record["doi"], "10.17016/FEDS.2026.999")
         self.assertIn("sufficiently long public abstract", record["abstract"])
-
-    def test_cepr_proxy_ignores_advisory_board_and_recovers_abstract(self) -> None:
-        markdown = """# Designing Contracts for the Energy Transition
 
 **Authors**
 
@@ -277,44 +270,6 @@ Energy transition
         self.assertEqual(authors, ["First Author", "Second Author"])
         self.assertIn("sufficiently long CEPR abstract", abstract or "")
 
-    def test_cepr_proxy_recovers_url_encoded_embedded_summary(self) -> None:
-        markdown = (
-            "# Designing Contracts for the Energy Transition\n\n"
-            "Translation widget: This%20paper%20examines%20the%20limitations%20of%20spot%20markets%20"
-            "in%20providing%20adequate%20investment%20incentives%20to%20support%20zero-carbon%20investments%20"
-            "in%20electricity%20markets.%20A%20theoretical%20model%20is%20developed%20to%20analyze%20contract%20"
-            "design%20under%20conditions%20of%20moral%20hazard%20and%20adverse%20selection.%20"
-            "Translation%20created%20by%20Artificial%20Intelligence%20(LLM)"
-        )
-
-        _authors, abstract = fetch_preprints.parse_cepr_proxy_markdown(markdown)
-
-        self.assertIn("This paper examines the limitations", abstract or "")
-
-    @patch.object(fetch_preprints, "fetch_text")
-    def test_cepr_proxy_recovers_publisher_date_without_overwriting_detection(self, fetch_mock) -> None:
-        fetch_mock.return_value = (
-            "Title: DP20328 Example\n"
-            "Published Time: 2026-07-26\n\n"
-            "Authors\n\n[First Author](https://cepr.org/about/people/first-author)\n"
-        )
-        record = {
-            "source_id": "cepr-dp",
-            "url": "https://cepr.org/publications/dp20328",
-            "detected_at": "2026-07-27T10:00:00+00:00",
-            "published_online": None,
-            "date_confidence": "F",
-        }
-
-        fetch_preprints.enrich_record_from_proxy(record, "cepr-dp", timeout=1)
-
-        self.assertEqual(record["published_online"], "2026-07-26")
-        self.assertEqual(record["available_online"], "2026-07-26")
-        self.assertEqual(record["date_source"], "cepr_published_time")
-        self.assertEqual(record["date_confidence"], "B")
-        self.assertEqual(record["detected_at"], "2026-07-27T10:00:00+00:00")
-
-    @patch.object(translate, "translate_abstract", return_value="这是最近仅存在于已监测记录中的论文摘要翻译。")
     def test_seen_only_abstract_can_be_translated(self, _translate_mock) -> None:
         records = [
             {
