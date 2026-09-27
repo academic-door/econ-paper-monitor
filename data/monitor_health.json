@@ -12,15 +12,15 @@
     "recent72_missing": 0,
     "seen": 9830,
     "source_crossref_only": 0,
-    "source_degraded": 0,
-    "source_healthy": 90,
+    "source_degraded": 2,
+    "source_healthy": 88,
     "today": 6
   },
   "date": "2026-09-27",
   "failures": [],
-  "generated_at": "2026-09-27T13:31:08+00:00",
+  "generated_at": "2026-09-27T14:01:20+00:00",
   "local_cnki": {
-    "age_hours": 3.31,
+    "age_hours": 3.82,
     "count": 91,
     "fresh": true,
     "freshness_code": "fresh",
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-09-27T13:30:18+00:00",
+    "checked_at": "2026-09-27T14:00:30+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -169,6 +169,16 @@
           ]
         },
         {
+          "journal": "Journal of Agricultural and Resource Economics",
+          "journal_id": "journal-of-agricultural-and-resource-economics",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Western Agricultural Economics Association",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
           "journal": "Management Science",
           "journal_id": "management-science",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -209,13 +219,32 @@
           ]
         }
       ],
-      "single_path_degraded": []
+      "single_path_degraded": [
+        {
+          "journal": "Journal of Agricultural and Resource Economics",
+          "journal_id": "journal-of-agricultural-and-resource-economics",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "数量经济技术经济研究",
+          "journal_id": "journal-edcb877d78",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "cnki-rss",
+            "openalex-recall"
+          ]
+        }
+      ]
     }
   },
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 16
+      "count": 17
     },
     {
       "code": "external_sentinel_formal_scope_missing",
