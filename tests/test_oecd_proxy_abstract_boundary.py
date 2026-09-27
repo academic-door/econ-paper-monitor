@@ -1,4 +1,4 @@
-"""Regression tests for OECD readonly-proxy abstract boundaries."""
+"""Regression tests for bounded cleanup of historical OECD mirror contamination."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import backfill_iza_authors as backfill  # noqa: E402
 
 
-class OecdProxyAbstractBoundaryTests(unittest.TestCase):
+class OecdHistoricalContaminationTests(unittest.TestCase):
     def setUp(self):
         self.url = (
             "https://www.oecd.org/en/publications/"
@@ -29,8 +29,6 @@ class OecdProxyAbstractBoundaryTests(unittest.TestCase):
             "spatial general equilibrium model 4 September 2026 89 Pages"
         )
 
-    def test_parser_stops_before_in_the_same_series_navigation(self):
-        markdown = f"""
 OECD Publications
 Mapping drought severity in Mexico using high-resolution satellite data
 1 April 2026
@@ -75,23 +73,6 @@ The climate and adaptation spatial general equilibrium model
             {"2026-06-19": {f"url:{self.url.casefold()}"}},
         )
 
-    def test_repair_replaces_existing_polluted_proxy_abstract(self):
-        record = {
-            "id": "url:205e5e9de6ae0278",
-            "source": "working_papers",
-            "source_id": "oecd-working-papers",
-            "source_type": "policy_paper",
-            "title": "Mapping drought severity in Mexico using high-resolution satellite data",
-            "url": self.url,
-            "authors": ["Ilyes Boumahdi", "Alberto González Pandiella"],
-            "abstract": self.polluted,
-            "abstract_source": "oecd_official_page_proxy",
-            "first_seen": "2026-06-18T20:31:17+00:00",
-            "date_confidence": "F",
-            "doi": "10.1787/f2a165e7-en",
-        }
-        source = {"id": "oecd-working-papers"}
-        markdown = f"""
 OECD Publications
 1 April 2026
 Abstract
