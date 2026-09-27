@@ -288,36 +288,6 @@ class MetadataProviderRetryTests(unittest.TestCase):
         self.assertEqual(with_key["min_interval_seconds"], enrich_metadata.SS_KEY_MIN_INTERVAL_SECONDS)
         enrich_metadata.reset_semantic_scholar_throttle()
 
-    @patch.object(enrich_metadata, "fetch_text")
-    def test_publisher_proxy_retries_with_jina_key(self, fetch_mock) -> None:
-        exc = urllib.error.HTTPError(
-            "https://r.jina.ai/http://www.sciencedirect.com/science/article/pii/S0000000000000000",
-            429,
-            "Too Many Requests",
-            Message(),
-            None,
-        )
-        markdown = (
-            "# Paper title\n\n"
-            "## Abstract\n\n"
-            "This publisher abstract is intentionally long enough to pass "
-            "validation and prove that the JINA API key retry path preserves "
-            "the Authorization header across retries for the monitor."
-        )
-        fetch_mock.side_effect = [exc, markdown]
-        with patch.object(enrich_metadata.time, "sleep"), patch.dict(
-            enrich_metadata.os.environ,
-            {"JINA_API_KEY": "test-key"},
-            clear=False,
-        ):
-            result = enrich_metadata.publisher_proxy_metadata(
-                "https://www.sciencedirect.com/science/article/pii/S0000000000000000",
-                timeout=1,
-            )
-        self.assertEqual(fetch_mock.call_count, 2)
-        self.assertIn("JINA API key retry path", result.get("abstract") or "")
-        self.assertEqual(fetch_mock.call_args.kwargs["headers"], {"Authorization": "Bearer test-key"})
-
     def test_extract_markdown_abstract(self) -> None:
         markdown = """# Paper
 
@@ -369,19 +339,8 @@ This text must not be included.
         self.assertEqual(record["metadata_retry_state"]["reason"], "blocked-captcha")
         self.assertEqual(
             record["metadata_retry_state"]["fallbacks"],
-            ["crossref-doi", "openalex", "readonly-proxy"],
+            ["crossref-doi", "openalex"],
         )
-
-    @patch.object(enrich_metadata, "fetch_text")
-    def test_proxy_reports_captcha_instead_of_missing_abstract(self, fetch_mock) -> None:
-        fetch_mock.return_value = "## Are you a robot?\nPlease complete the CAPTCHA challenge."
-
-        result = enrich_metadata.publisher_proxy_metadata(
-            "https://www.sciencedirect.com/science/article/pii/S0014498326000343",
-            timeout=1,
-        )
-
-        self.assertEqual(result, {"_status": "blocked-captcha"})
 
     def test_weaker_date_metadata_does_not_replace_official_api_date(self) -> None:
         record = {
@@ -404,97 +363,6 @@ This text must not be included.
         self.assertEqual(record["available_online"], "2026-07-14")
         self.assertEqual(record["date_source"], "elsevier_article_api")
         self.assertTrue(record["abstract"].startswith("This is a sufficiently long abstract"))
-
-    @patch.object(enrich_metadata, "openalex_doi_metadata")
-    @patch.object(enrich_metadata, "crossref_doi_metadata")
-    @patch.object(enrich_metadata, "publisher_proxy_metadata")
-    @patch.object(enrich_metadata, "elsevier_api_metadata")
-    def test_abstract_only_route_skips_blocked_publisher_html(
-        self,
-        elsevier_mock,
-        proxy_mock,
-        crossref_mock,
-        openalex_mock,
-    ) -> None:
-        crossref_mock.return_value = {}
-        openalex_mock.return_value = {}
-        elsevier_mock.return_value = {"pii": "S0095069626001166"}
-        proxy_mock.return_value = {
-            "abstract": "This abstract-only fallback is intentionally long enough to verify the fast path without requesting the blocked publisher HTML page.",
-            "abstract_source": "publisher_page_via_readonly_proxy",
-        }
-        record = {
-            "doi": "10.1016/j.jeem.2026.103396",
-            "url": "https://doi.org/10.1016/j.jeem.2026.103396",
-            "source_type": "journal",
-        }
-
-        changed, status = enrich_metadata.enrich_abstract_record(record, timeout=1)
-
-        self.assertTrue(changed)
-        self.assertEqual(status, "abstract-updated")
-        self.assertTrue(record["abstract"].startswith("This abstract-only fallback"))
-
-    @patch("fetch_preprints.enrich_record_from_proxy")
-    def test_abstract_only_route_includes_cepr_working_papers(self, proxy_mock) -> None:
-        proxy_mock.side_effect = lambda record, _source_id, *, timeout: record.update(
-            {
-                "abstract": "This CEPR abstract is long enough to prove working-paper records are included in abstract-only retries.",
-                "authors": ["First Author"],
-            }
-        )
-        record = {
-            "source_id": "cepr-dp",
-            "source": "working_papers",
-            "source_type": "working_paper",
-            "url": "https://cepr.org/publications/dp20328",
-        }
-
-        changed, status = enrich_metadata.enrich_abstract_record(record, timeout=1)
-
-        self.assertTrue(changed)
-        self.assertEqual(status, "abstract-updated:readonly-proxy")
-        proxy_mock.assert_called_once_with(record, "cepr-dp", timeout=1)
-
-    @patch.object(enrich_metadata, "publisher_proxy_metadata")
-    @patch.object(enrich_metadata, "elsevier_api_metadata")
-    @patch.object(enrich_metadata, "api_fallback_metadata")
-    @patch.object(enrich_metadata, "fetch_text_and_url")
-    @patch.object(enrich_metadata, "crossref_doi_metadata")
-    def test_elsevier_date_does_not_stop_abstract_backfill(
-        self,
-        crossref_mock,
-        fetch_mock,
-        api_fallback_mock,
-        elsevier_mock,
-        proxy_mock,
-    ) -> None:
-        crossref_mock.return_value = {
-            "available_online": "2026-07-15",
-            "published_online": "2026-07-15",
-            "date_source": "crossref_doi_elsevier_created_online",
-            "date_confidence": "C",
-        }
-        fetch_mock.side_effect = OSError("publisher blocked")
-        api_fallback_mock.return_value = ({}, "api-fallback-empty")
-        elsevier_mock.return_value = {"pii": "S0095069626001166"}
-        proxy_mock.return_value = {
-            "abstract": "This publisher abstract is intentionally long enough to pass validation and prove that date metadata no longer stops abstract enrichment.",
-            "abstract_source": "publisher_page_via_readonly_proxy",
-        }
-        record = {
-            "doi": "10.1016/j.jeem.2026.103396",
-            "url": "https://doi.org/10.1016/j.jeem.2026.103396",
-            "source_type": "journal",
-        }
-
-        changed, status = enrich_metadata.enrich_record(record, timeout=1, allow_proxy_abstract=True)
-
-        self.assertTrue(changed)
-        self.assertEqual(status, "publisher-proxy-abstract")
-        self.assertEqual(record["pii"], "S0095069626001166")
-        self.assertTrue(record["abstract"].startswith("This publisher abstract"))
-
 
 if __name__ == "__main__":
     unittest.main()
