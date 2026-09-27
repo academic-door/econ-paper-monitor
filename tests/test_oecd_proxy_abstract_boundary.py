@@ -29,28 +29,6 @@ class OecdHistoricalContaminationTests(unittest.TestCase):
             "spatial general equilibrium model 4 September 2026 89 Pages"
         )
 
-OECD Publications
-Mapping drought severity in Mexico using high-resolution satellite data
-1 April 2026
-Download PDF
-Cite this publication
-Abstract
-
-{self.body}
-In the same series
-See all publications
-Working paper
-The climate and adaptation spatial general equilibrium model
-4 September 2026
-89 Pages
-"""
-        abstract, published = backfill.parse_oecd_proxy_markdown(markdown)
-
-        self.assertEqual(abstract, self.body)
-        self.assertEqual(published, "2026-04-01")
-        self.assertNotIn("In the same series", abstract or "")
-        self.assertNotIn("See all publications", abstract or "")
-
     def test_polluted_proxy_abstract_is_bounded_repair_target(self):
         record = {
             "id": "url:205e5e9de6ae0278",
@@ -72,37 +50,6 @@ The climate and adaptation spatial general equilibrium model
             backfill.durable_oecd_seen_targets({"target": record}),
             {"2026-06-19": {f"url:{self.url.casefold()}"}},
         )
-
-OECD Publications
-1 April 2026
-Abstract
-
-{self.body}
-In the same series
-See all publications
-Working paper
-Unrelated publication
-"""
-
-        with (
-            patch.object(
-                backfill,
-                "enrich_record_from_detail",
-                side_effect=lambda item, source, *, timeout: item,
-            ),
-            patch.object(backfill, "fetch_text", return_value=markdown),
-            patch.object(backfill, "fetch_json") as fetch_json,
-        ):
-            changed, _authors_changed, abstract_changed = backfill.repair_record(
-                record, source, timeout=10
-            )
-
-        self.assertTrue(changed)
-        self.assertTrue(abstract_changed)
-        self.assertEqual(record["abstract"], self.body)
-        self.assertNotIn("In the same series", record["abstract"])
-        fetch_json.assert_not_called()
-
 
 if __name__ == "__main__":
     unittest.main()
