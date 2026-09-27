@@ -60,48 +60,6 @@ class OecdRegistryFallbackTests(unittest.TestCase):
         self.assertEqual(updated["abstract"], "")
         self.assertEqual(fetch_json.call_args.kwargs["headers"]["Accept"], "application/vnd.citationstyles.csl+json")
 
-OECD Publications
-Mapping drought severity in Mexico using high-resolution satellite data
-OECD Economics Department Working Papers
-
-1 April 2026
-Download PDF
-Cite this publication
-Abstract
-Related publications
-Related topics
-Share
-Abstract
-
-This paper analyses drought severity across Mexican regions between 2000 and 2025 using satellite-based indicators of vegetation health and surface moisture. It provides a consistent high-resolution measure of drought intensity and supports climate adaptation policy.
-Related publications
-"""
-        doi_payload = {
-            "DOI": "10.1787/f2a165e7-en",
-            "publisher": "Organisation for Economic Co-Operation and Development (OECD)",
-            "author": [
-                {"given": "Ilyes", "family": "Boumahdi"},
-                {"given": "Alberto González", "family": "Pandiella"},
-            ],
-        }
-        with (
-            patch.object(backfill, "fetch_text", return_value=markdown) as fetch_text,
-            patch.object(backfill, "fetch_json", return_value=doi_payload) as fetch_json,
-        ):
-            updated = backfill.enrich_oecd_from_readonly_transports(record, timeout=10)
-
-        self.assertEqual(updated["authors"], ["Ilyes Boumahdi", "Alberto González Pandiella"])
-        self.assertIn("This paper analyses drought severity", updated["abstract"])
-        self.assertEqual(updated["available_online"], "2026-04-01")
-        self.assertEqual(updated["date_source"], "oecd_official_page_proxy")
-        self.assertEqual(updated["doi"], "10.1787/f2a165e7-en")
-        self.assertEqual(updated["authors_source"], "oecd_doi_registry")
-        self.assertIn("r.jina.ai/http://www.oecd.org", fetch_text.call_args.args[0])
-        self.assertEqual(
-            fetch_json.call_args.kwargs["headers"]["Accept"],
-            "application/vnd.citationstyles.csl+json",
-        )
-
     def test_repair_falls_back_when_direct_oecd_html_is_blocked(self):
         record = {
             "id": "oecd-test-record",
