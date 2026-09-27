@@ -148,7 +148,6 @@ jobs:
       - name: Fetch priority publisher TOCs
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         shell: bash
-        env:
         run: |
           if timeout 8m python scripts/fetch_priority_toc.py --detail-limit 12 --max-items-per-source 40; then
             echo "Priority publisher TOCs completed."
