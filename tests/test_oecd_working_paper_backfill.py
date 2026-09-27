@@ -36,37 +36,14 @@ class OecdCanonicalDetailUrlTests(unittest.TestCase):
         self.assertIsNone(backfill.oecd_doi_from_url("https://www.oecd.org/en/publications/not-a-publication.html"))
 
 
-class OecdReadonlyFallbackTests(unittest.TestCase):
-    def test_official_proxy_and_doi_metadata_fill_bounded_gap(self):
+class OecdRegistryFallbackTests(unittest.TestCase):
+    def test_doi_registry_metadata_fills_bounded_identity_gap(self):
         record = {
-            "id": "url:205e5e9de6ae0278",
-            "source": "working_papers",
             "source_id": "oecd-working-papers",
-            "source_type": "policy_paper",
-            "title": "Mapping drought severity in Mexico using high-resolution satellite data",
             "url": "https://www.oecd.org/en/publications/mapping-drought-severity-in-mexico-using-high-resolution-satellite-data_f2a165e7-en.html",
             "authors": [],
             "abstract": "",
-            "first_seen": "2026-06-18T20:31:17+00:00",
-            "date_confidence": "F",
         }
-        markdown = """
-OECD Publications
-Mapping drought severity in Mexico using high-resolution satellite data
-OECD Economics Department Working Papers
-
-1 April 2026
-Download PDF
-Cite this publication
-Abstract
-Related publications
-Related topics
-Share
-Abstract
-
-This paper analyses drought severity across Mexican regions between 2000 and 2025 using satellite-based indicators of vegetation health and surface moisture. It provides a consistent high-resolution measure of drought intensity and supports climate adaptation policy.
-Related publications
-"""
         doi_payload = {
             "DOI": "10.1787/f2a165e7-en",
             "publisher": "Organisation for Economic Co-Operation and Development (OECD)",
@@ -75,23 +52,13 @@ Related publications
                 {"given": "Alberto González", "family": "Pandiella"},
             ],
         }
-        with (
-            patch.object(backfill, "fetch_text", return_value=markdown) as fetch_text,
-            patch.object(backfill, "fetch_json", return_value=doi_payload) as fetch_json,
-        ):
+        with patch.object(backfill, "fetch_json", return_value=doi_payload) as fetch_json:
             updated = backfill.enrich_oecd_from_readonly_transports(record, timeout=10)
-
         self.assertEqual(updated["authors"], ["Ilyes Boumahdi", "Alberto González Pandiella"])
-        self.assertIn("This paper analyses drought severity", updated["abstract"])
-        self.assertEqual(updated["available_online"], "2026-04-01")
-        self.assertEqual(updated["date_source"], "oecd_official_page_proxy")
         self.assertEqual(updated["doi"], "10.1787/f2a165e7-en")
         self.assertEqual(updated["authors_source"], "oecd_doi_registry")
-        self.assertIn("r.jina.ai/http://www.oecd.org", fetch_text.call_args.args[0])
-        self.assertEqual(
-            fetch_json.call_args.kwargs["headers"]["Accept"],
-            "application/vnd.citationstyles.csl+json",
-        )
+        self.assertEqual(updated["abstract"], "")
+        self.assertEqual(fetch_json.call_args.kwargs["headers"]["Accept"], "application/vnd.citationstyles.csl+json")
 
     def test_repair_falls_back_when_direct_oecd_html_is_blocked(self):
         record = {

@@ -394,117 +394,6 @@ def clean_markdown_text(value: str) -> str:
     return clean_text(value.replace("*", " "))
 
 
-def parse_cepr_proxy_markdown(markdown: str) -> tuple[list[str], str | None]:
-    """Extract paper metadata from the CEPR page returned by r.jina.ai.
-
-    CEPR pages contain navigation and governance links alongside the paper
-    metadata. Keep this parser deliberately section-based so an Advisory
-    Board link cannot become the paper's author list.
-    """
-    abstract: str | None = None
-    abstract_match = re.search(
-        r"(?is)(?:^|\n)\s*(?:#{1,4}\s*)?(?:\*\*|__)?abstract(?:\*\*|__)?\s*:?[ \t]*\n+"
-        r"(?P<body>.*?)(?=\n\s*(?:#{1,4}\s*)?(?:\*\*|__)?"
-        r"(?:keywords?|jel|download|citation|doi|related|references?)"
-        r"(?:\*\*|__)?\b|\Z)",
-        markdown,
-    )
-    if abstract_match:
-        candidate = clean_markdown_text(abstract_match.group("body"))
-        if len(candidate) >= 80 and not is_boilerplate_text(candidate):
-            abstract = candidate
-    if not abstract:
-        # Some CEPR pages expose the English summary only inside the URL-encoded
-        # language widget, without an Abstract heading in the rendered page.
-        decoded = clean_markdown_text(unquote(markdown))
-        embedded_match = re.search(
-            r"(?is)\b(?:This paper|This study|We examine|We investigate|We develop|We estimate)\b"
-            r".{160,5000}?(?=\s+(?:Translation created by Artificial Intelligence|Share via|Keywords)\b)",
-            decoded,
-        )
-        if embedded_match:
-            candidate = clean_markdown_text(embedded_match.group(0))
-            if len(candidate) >= 80 and not is_boilerplate_text(candidate):
-                abstract = candidate
-
-    author_block = re.search(
-        r"(?is)(?:^|\n)\s*(?:#{1,4}\s*)?(?:\*\*|__)?authors?"
-        r"(?:\*\*|__)?\s*:?[ \t]*\n(?P<body>.*?)(?=\n\s*(?:#{1,4}\s*)?"
-        r"(?:\*\*|__)?abstract(?:\*\*|__)?\b|\Z)",
-        markdown,
-    )
-    author_text = author_block.group("body") if author_block else ""
-    authors = [
-        clean_markdown_text(value)
-        for value in re.findall(
-            r"\[([^\]]+)\]\(https?://cepr\.org/about/people/[^)]+\)",
-            author_text,
-            flags=re.I,
-        )
-    ]
-    if not authors:
-        authors = [
-            clean_markdown_text(value)
-            for value in re.findall(
-                r"\[([^\]]+)\]\(https?://cepr\.org/about/people/[^)]+\)",
-                markdown,
-                flags=re.I,
-            )
-        ]
-    blocked = {"advisory board", "cepr people", "research fellows", "staff"}
-    authors = list(dict.fromkeys(value for value in authors if value.casefold() not in blocked))[:12]
-    return authors, abstract
-
-
-def enrich_record_from_proxy(record: dict[str, Any], source_id: str, *, timeout: int) -> dict[str, Any]:
-    url = str(record.get("url") or "")
-    if source_id not in {"fed-feds", "cepr-dp"} or not url:
-        return record
-    parsed = urlparse(url)
-    target = f"http://{parsed.netloc}{parsed.path}"
-    try:
-        markdown = fetch_text(f"https://r.jina.ai/{target}", timeout=timeout)
-    except Exception:
-        return record
-    authors: list[str] = []
-    if source_id == "fed-feds":
-        match = re.search(r"(?ms)^###\s+[^\r\n]+\s*\r?\n\s*\r?\n([^\r\n]+)\s*\r?\n\s*\r?\n\*\*Abstract", markdown)
-        author_line = clean_markdown_text(match.group(1)) if match else ""
-        author_line = re.sub(r",\s+and\s+", ", ", author_line, flags=re.I)
-        authors = [clean_text(value) for value in re.split(r"\s*,\s*|\s+and\s+", author_line) if clean_text(value)]
-        doi_match = re.search(r"https://doi\.org/(10\.17016/FEDS\.\d{4}\.\d+)", markdown, flags=re.I)
-        if doi_match:
-            record["doi"] = doi_match.group(1)
-        abstract_match = re.search(r"(?ms)\*\*Abstract:\*\*\s*(.*?)(?=\n\*\*Keywords|\n\*\*DOI)", markdown)
-        if abstract_match:
-            record["abstract"] = clean_markdown_text(abstract_match.group(1))
-    else:
-        authors, abstract = parse_cepr_proxy_markdown(markdown)
-        if abstract:
-            record["abstract"] = abstract
-            record["abstract_source"] = "cepr_proxy_markdown"
-        # Jina preserves the page-level publication timestamp even when the
-        # rendered CEPR page has no visible date heading. Use it as publisher
-        # evidence, never as a detection timestamp.
-        published_match = re.search(
-            r"(?im)^Published\s+Time:\s*(\d{4}-\d{2}-\d{2})\s*$",
-            markdown,
-        )
-        published = published_match.group(1) if published_match else None
-        if published:
-            current = str(record.get("published_online") or "")
-            if not current or str(record.get("date_confidence") or "") in {"F", "unknown"}:
-                record["published_online"] = published
-                record["available_online"] = published
-                record["official_date"] = published
-                record["date_source"] = "cepr_published_time"
-                record["date_confidence"] = "B"
-    authors = list(dict.fromkeys(value for value in authors if value))[:12]
-    if authors:
-        record["authors"] = authors
-    return record
-
-
 def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *, timeout: int) -> dict[str, Any]:
     if source.get("id") == "world-bank-prwp":
         return enrich_world_bank_from_detail(record, source, timeout=timeout) or record
@@ -516,7 +405,7 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     try:
         html_text = fetch_text(str(url), timeout=timeout)
     except Exception:
-        return enrich_record_from_proxy(record, source_id, timeout=timeout)
+        return record
 
     title_meta_names = ["citation_title", "dc.title", "og:title"]
     if source_id == "fed-feds":
@@ -637,8 +526,6 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     if pdf:
         record["pdf_url"] = urljoin(str(url), pdf)
     record["paper_number"] = record.get("paper_number") or detect_paper_number(source, str(record.get("title") or ""), str(record.get("url") or ""))
-    if not record.get("authors") and source_id in {"fed-feds", "cepr-dp"}:
-        enrich_record_from_proxy(record, source_id, timeout=timeout)
     return record
 
 

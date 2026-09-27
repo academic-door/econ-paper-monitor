@@ -51,127 +51,16 @@ class ScienceDirectSearchTests(unittest.TestCase):
     def test_month_only_issue_date_is_not_treated_as_online_date(self) -> None:
         self.assertIsNone(fetch_sciencedirect_search.parse_online_date("August 2026"))
 
-    @patch.object(fetch_sciencedirect_search, "fetch_text")
-    def test_captcha_page_is_reported_not_silently_empty(self, fetch_mock) -> None:
-        fetch_mock.return_value = (
-            "Title: Just a moment...\n# Are you a robot?\n"
-            "Please confirm you are a human by completing the captcha challenge."
-        )
-        journal = {
-            "id": "journal-of-development-economics",
-            "title": "Journal of Development Economics",
-            "issn": "0304-3878",
-        }
-        with self.assertRaisesRegex(ValueError, "blocked-captcha"):
-            fetch_sciencedirect_search.fetch_journal(
-                journal,
-                days=4,
-                timeout=5,
-                max_items=5,
-            )
-
-    @patch.object(fetch_sciencedirect_search, "fetch_text")
-    def test_run_journal_records_captcha_reason_in_source_health_message(self, fetch_mock) -> None:
-        fetch_mock.return_value = (
-            "Title: Just a moment...\n# Are you a robot?\n"
-            "Please complete the captcha challenge below."
-        )
-        journal = {
-            "id": "journal-of-development-economics",
-            "title": "Journal of Development Economics",
-            "issn": "0304-3878",
-        }
-        records, message, error = fetch_sciencedirect_search.run_journal(
-            journal,
-            days=4,
-            timeout=5,
-            max_items=5,
-        )
-        self.assertEqual(records, [])
-        self.assertIn("blocked-captcha", message)
-        self.assertIsInstance(error, ValueError)
-
-    def test_status_message_reflects_jina_key_state(self) -> None:
-        with patch.dict(fetch_sciencedirect_search.os.environ, {"JINA_API_KEY": "test-key"}, clear=False):
+    def test_status_message_reflects_official_api_key_state(self) -> None:
+        with patch.dict(fetch_sciencedirect_search.os.environ, {"ELSEVIER_API_KEY": "test-key"}, clear=True):
             on_message = fetch_sciencedirect_search.build_status_message(2, 0, ["Journal A: 1"])
         with patch.dict(fetch_sciencedirect_search.os.environ, {}, clear=True):
             off_message = fetch_sciencedirect_search.build_status_message(2, 1, ["Journal A: blocked"])
-        self.assertIn("jina_key=on", on_message)
+        self.assertIn("elsevier_api_key=on", on_message)
+        self.assertIn("route=official_api_v2_put_title_wildcard", on_message)
         self.assertIn("failures=0", on_message)
-        self.assertIn("jina_key=off", off_message)
+        self.assertIn("elsevier_api_key=off", off_message)
         self.assertIn("failures=1", off_message)
-
-    @patch.object(fetch_sciencedirect_search, "fetch_text")
-    @patch.object(fetch_sciencedirect_search, "elsevier_core_metadata")
-    def test_run_journal_success_with_jina_key(self, core_mock, fetch_mock) -> None:
-        from datetime import datetime, timedelta, timezone
-
-        beijing = timezone(timedelta(hours=8))
-        online = (datetime.now(beijing).date() - timedelta(days=1))
-        online_label = f"{online.day} {online.strftime('%B')} {online.year}"
-        fetch_mock.return_value = (
-            "## [A test paper](http://www.sciencedirect.com/science/article/pii/S0000000000000000)\n"
-            f"[Journal of Development Economics](http://www.sciencedirect.com/science/journal/03043878)Available online {online_label}\n"
-            "    1. Alice Author\n"
-        )
-        core_mock.return_value = {
-            "doi": "10.1016/j.jdeveco.2026.103892",
-            "title": "A test paper",
-            "journal": "Journal of Development Economics",
-            "available_online": online.isoformat(),
-        }
-        journal = {
-            "id": "journal-of-development-economics",
-            "title": "Journal of Development Economics",
-            "issn": "0304-3878",
-            "publisher": "Elsevier",
-        }
-        with patch.dict(fetch_sciencedirect_search.os.environ, {"JINA_API_KEY": "test-key"}, clear=False):
-            records, message, error = fetch_sciencedirect_search.run_journal(
-                journal,
-                days=4,
-                timeout=5,
-                max_items=5,
-            )
-        self.assertEqual(error, None)
-        self.assertEqual(len(records), 1)
-        self.assertEqual(records[0]["raw_data"]["pii"], "S0000000000000000")
-        self.assertIn("Journal of Development Economics: 1", message)
-
-    def test_fetch_text_retries_with_jina_key_header(self) -> None:
-        class FakeResponse:
-            def __init__(self, payload):
-                self._payload = payload
-
-            def read(self):
-                return self._payload
-
-            def __enter__(self):
-                return self
-
-            def __exit__(self, *_args):
-                return False
-
-        exc = urllib.error.HTTPError(
-            "https://r.jina.ai/http://www.sciencedirect.com/search",
-            429,
-            "Too Many Requests",
-            Message(),
-            None,
-        )
-        response = FakeResponse(
-            b"Title: ok\n## [A real result](http://www.sciencedirect.com/science/article/pii/S0000000000000000)\nAvailable online 1 August 2026"
-        )
-        with patch.object(fetch_sciencedirect_search, "time") as time_mock, patch.object(
-            fetch_sciencedirect_search.urllib.request, "urlopen", side_effect=[exc, response]
-        ) as urlopen_mock, patch.dict(fetch_sciencedirect_search.os.environ, {"JINA_API_KEY": "test-key"}, clear=False):
-            result = fetch_sciencedirect_search.fetch_text("https://r.jina.ai/x", timeout=5)
-
-        self.assertEqual(urlopen_mock.call_count, 2)
-        self.assertTrue(result.startswith("Title: ok"))
-        request_headers = urlopen_mock.call_args.args[0].headers
-        self.assertEqual(request_headers.get("Authorization"), "Bearer test-key")
-
 
 if __name__ == "__main__":
     unittest.main()

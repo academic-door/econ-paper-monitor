@@ -173,11 +173,6 @@ def fetch_cnki_text(source: dict[str, Any]) -> tuple[str, str]:
         if not url:
             continue
         candidates = [(url, "direct")]
-        # A public text relay can still reach CNKI when the GitHub runner's
-        # egress receives HTTP 418. It is supplemental and never replaces the
-        # official Chinese journal-page fetcher.
-        jina_url = f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"
-        candidates.append((jina_url, "jina-relay"))
         if proxy_base:
             candidates.append((cnki_proxy_url(proxy_base, url), "relay"))
         for candidate_url, transport in candidates:

@@ -383,55 +383,6 @@ def elsevier_api_metadata(doi: str, timeout: int) -> dict[str, str]:
     return result
 
 
-def publisher_proxy_metadata(url: str, timeout: int) -> dict[str, str]:
-    parsed = urllib.parse.urlparse(url)
-    host = parsed.netloc.casefold()
-    allowed_hosts = {
-        "www.sciencedirect.com",
-        "sciencedirect.com",
-        "onlinelibrary.wiley.com",
-        "www.tandfonline.com",
-        "tandfonline.com",
-        "academic.oup.com",
-        "link.springer.com",
-    }
-    if host not in allowed_hosts:
-        return {}
-    target = f"http://{host}{parsed.path}"
-    if parsed.query:
-        target += f"?{parsed.query}"
-    jina_key = os.environ.get("JINA_API_KEY") or ""
-    proxy_headers = {"Authorization": f"Bearer {jina_key}"} if jina_key else None
-    markdown = ""
-    last_error: Exception | None = None
-    for attempt in range(2):
-        try:
-            markdown = fetch_text(f"https://r.jina.ai/{target}", timeout=timeout, headers=proxy_headers)
-            break
-        except urllib.error.HTTPError as exc:
-            last_error = exc
-            if exc.code in {429, 500, 502, 503, 504} and attempt == 0:
-                time.sleep(2)
-                continue
-            if exc.code in {429, 500, 502, 503, 504}:
-                return {"_status": "proxy-rate-limited", "_status_code": exc.code}
-            return {"_status": "proxy-request-failed", "_status_code": exc.code}
-        except Exception as exc:  # noqa: BLE001
-            last_error = exc
-            if attempt == 0:
-                time.sleep(2)
-                continue
-    if not markdown and last_error is not None:
-        return {"_status": "proxy-request-failed", "_error": f"{type(last_error).__name__}: {last_error}"}
-    lowered = markdown.casefold()
-    if "are you a robot" in lowered or "requiring captcha" in lowered or "captcha challenge" in lowered:
-        return {"_status": "blocked-captcha"}
-    abstract = extract_markdown_abstract(markdown)
-    if not abstract:
-        return {"_status": "abstract-not-exposed"}
-    return {"abstract": abstract, "abstract_source": "publisher_page_via_readonly_proxy"}
-
-
 def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     try:
         payload = fetch_json(f"https://api.crossref.org/works/{urllib.parse.quote(doi)}", timeout=timeout)
@@ -991,7 +942,7 @@ def abstract_enrich_priority(record: dict[str, Any]) -> tuple[int, int, float, i
     core_rank = {"Elsevier": 0, "Taylor & Francis": 1, "Wiley": 2, "OUP": 3}.get(bucket, 8)
     return (missing_abstract, direct_recovery_rank, detected_rank, core_rank)
 
-def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bool = True) -> tuple[bool, str]:
+def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     urls = candidate_urls(record)
     if not urls:
         return False, "missing-url"
@@ -1027,13 +978,6 @@ def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bo
                     resolved_elsevier_pii = True
                 last_status = "elsevier-article-api"
         pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
-        if allow_proxy_abstract and pii:
-            proxy_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
-            proxy_metadata = publisher_proxy_metadata(proxy_url, timeout)
-            if proxy_metadata.get("abstract"):
-                changed = merge_metadata(record, proxy_metadata) or changed
-                return changed, "publisher-proxy-abstract"
-            return changed, str(proxy_metadata.get("_status") or "abstract-proxy-empty")
         if pii:
             return changed, "elsevier-metadata-only"
     for url in urls:
@@ -1072,26 +1016,6 @@ def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bo
             if elsevier_metadata.get("pii"):
                 resolved_elsevier_pii = True
             last_status = "elsevier-article-api"
-
-    if missing_abstract and allow_proxy_abstract and not str(record.get("abstract") or "").strip():
-        proxy_url = ""
-        pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
-        if pii:
-            proxy_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
-        else:
-            for candidate in candidate_urls(record):
-                if urllib.parse.urlparse(candidate).netloc.casefold() in {
-                    "onlinelibrary.wiley.com",
-                    "www.tandfonline.com",
-                    "tandfonline.com",
-                    "academic.oup.com",
-                }:
-                    proxy_url = candidate
-                    break
-        proxy_metadata = publisher_proxy_metadata(proxy_url, timeout) if proxy_url else {}
-        if proxy_metadata:
-            changed = merge_metadata(record, proxy_metadata) or changed
-            last_status = "publisher-proxy-abstract"
 
     if missing_abstract and doi and not str(record.get("abstract") or "").strip():
         api_metadata, api_status = api_fallback_metadata(record, doi, timeout)
@@ -1162,11 +1086,7 @@ def ajcass_content_metadata(record: dict[str, Any], timeout: int) -> dict[str, A
 
 
 def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
-    source_id = str(record.get("source_id") or "")
-    needs_readonly_date_retry = source_id in {"cepr-dp", "fed-feds"} and str(
-        record.get("date_confidence") or ""
-    ) in {"F", "unknown"}
-    if str(record.get("abstract") or "").strip() and record.get("authors") and not needs_readonly_date_retry:
+    if str(record.get("abstract") or "").strip() and record.get("authors"):
         return False, "abstract-present"
     changed = False
     if str(record.get("journal") or "") == "中国农村经济" and not str(record.get("abstract") or "").strip():
@@ -1174,35 +1094,8 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
         if metadata.get("abstract"):
             changed = merge_metadata(record, metadata) or changed
             return changed, "abstract-updated:ajcass-official-api"
-    if source_id in {"cepr-dp", "fed-feds"}:
-        from fetch_preprints import enrich_record_from_proxy
 
-        before_abstract = str(record.get("abstract") or "")
-        before_authors = list(record.get("authors") or [])
-        before_date = (
-            record.get("published_online"),
-            record.get("available_online"),
-            record.get("official_date"),
-            record.get("date_source"),
-            record.get("date_confidence"),
-        )
-        enrich_record_from_proxy(record, source_id, timeout=timeout)
-        if str(record.get("abstract") or "").strip() and str(record.get("abstract") or "") != before_abstract:
-            return True, "abstract-updated:readonly-proxy"
-        if list(record.get("authors") or []) != before_authors:
-            changed = True
-        after_date = (
-            record.get("published_online"),
-            record.get("available_online"),
-            record.get("official_date"),
-            record.get("date_source"),
-            record.get("date_confidence"),
-        )
-        if after_date != before_date:
-            changed = True
-    bucket = publisher_bucket(record)
     doi = str(record.get("doi") or "").strip()
-    proxy_url = ""
     if doi:
         for source, getter in (
             ("crossref-doi", crossref_doi_metadata),
@@ -1216,34 +1109,16 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
             changed = merge_metadata(record, metadata) or changed
             if str(record.get("abstract") or "").strip():
                 return changed, f"metadata-updated:{source}"
-    if bucket == "Elsevier":
-        if doi.startswith("10.1016/"):
-            metadata = elsevier_api_metadata(doi, timeout)
-            if metadata:
-                changed = append_date_evidence(record, "elsevier-article-api", metadata) or changed
-                changed = merge_metadata(record, metadata) or changed
-        pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
-        if pii:
-            proxy_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
-    elif bucket in {"Taylor & Francis", "Wiley", "OUP", "Springer"}:
-        for candidate in candidate_urls(record):
-            if urllib.parse.urlparse(candidate).netloc.casefold() in {
-                "onlinelibrary.wiley.com",
-                "www.tandfonline.com",
-                "tandfonline.com",
-                "academic.oup.com",
-                "link.springer.com",
-            }:
-                proxy_url = candidate
-                break
-    if not proxy_url:
-        return changed, "abstract-route-missing" if not changed else "metadata-only"
-    metadata = publisher_proxy_metadata(proxy_url, timeout)
-    if not metadata.get("abstract"):
-        proxy_status = str(metadata.get("_status") or "abstract-proxy-empty")
-        return changed, proxy_status if not changed else f"metadata-only:{proxy_status}"
-    changed = merge_metadata(record, metadata) or changed
-    return changed, "abstract-updated"
+
+    if publisher_bucket(record) == "Elsevier" and doi.startswith("10.1016/"):
+        metadata = elsevier_api_metadata(doi, timeout)
+        if metadata:
+            changed = append_date_evidence(record, "elsevier-article-api", metadata) or changed
+            changed = merge_metadata(record, metadata) or changed
+            if str(record.get("abstract") or "").strip():
+                return changed, "metadata-updated:elsevier-article-api"
+
+    return changed, "abstract-route-missing" if not changed else "metadata-only"
 
 
 def update_abstract_attempt_status(record: dict[str, Any], status: str) -> bool:
@@ -1283,7 +1158,7 @@ def queue_metadata_retry(record: dict[str, Any], status: str) -> bool:
         "status": "queued",
         "reason": status,
         "attempted_at": now(),
-        "fallbacks": ["crossref-doi", "openalex", "readonly-proxy"],
+        "fallbacks": ["crossref-doi", "openalex"],
     }
     if record.get("metadata_retry_state") == state:
         return False
@@ -1344,13 +1219,6 @@ def enrich_author_record(record: dict[str, Any], timeout: int) -> tuple[bool, st
         if metadata.get("authors"):
             changed = merge_metadata(record, metadata)
             return changed, "authors-updated:publisher-page"
-    if record.get("source_id") in {"fed-feds", "cepr-dp"}:
-        from fetch_preprints import enrich_record_from_proxy
-
-        before = list(record.get("authors") or [])
-        enrich_record_from_proxy(record, str(record.get("source_id")), timeout=timeout)
-        if record.get("authors") and record.get("authors") != before:
-            return True, "authors-updated:readonly-proxy"
     if not record.get("authors") and not record.get("authors_status"):
         source_id = str(record.get("source_id") or "")
         record["authors_status"] = (
@@ -1386,7 +1254,7 @@ def record_publisher_group(stats: dict[str, dict[str, Any]]) -> None:
                 "failures": failures,
                 "degraded": failures > 0,
                 "retryable": failures > 0,
-                "fallbacks": ["crossref-doi", "openalex", "readonly-proxy"],
+                "fallbacks": ["crossref-doi", "openalex"],
                 "statuses": dict(sorted(status_counts.items())),
                 "message": top_status,
             }
@@ -1432,7 +1300,6 @@ def main() -> None:
     parser.add_argument("--doi", default=None, help="Only enrich the matching DOI (useful for retries and audits).")
     parser.add_argument("--latest-days", type=int, default=1)
     parser.add_argument("--limit", type=int, default=60)
-    parser.add_argument("--proxy-abstract-limit", type=int, default=20)
     parser.add_argument("--abstract-only", action="store_true", help="Skip slow publisher HTML and only run abstract fallbacks.")
     parser.add_argument("--authors-only", action="store_true", help="Only backfill records whose author list is missing.")
     parser.add_argument("--date-only", action="store_true", help="Only retry records with missing or weak official-date evidence.")
@@ -1521,24 +1388,10 @@ def main() -> None:
     candidates.sort(key=lambda item: priority(item[1]))
 
     changed_paths: set[Path] = set()
-    selected: list[tuple[Path, dict[str, Any], bool]] = []
-    proxy_abstract_attempted = 0
-    for path, record in candidates[: max(0, args.limit)]:
-        bucket = publisher_bucket(record)
-        needs_proxy = not str(record.get("abstract") or "").strip() and bucket in {
-            "Elsevier",
-            "Springer",
-            "Taylor & Francis",
-            "Wiley",
-            "OUP",
-        }
-        allow_proxy = needs_proxy and proxy_abstract_attempted < max(0, args.proxy_abstract_limit)
-        if allow_proxy:
-            proxy_abstract_attempted += 1
-        selected.append((path, record, allow_proxy))
+    selected: list[tuple[Path, dict[str, Any]]] = candidates[: max(0, args.limit)]
 
-    def run_candidate(item: tuple[Path, dict[str, Any], bool]) -> tuple[Path, dict[str, Any], bool, str, Exception | None]:
-        path, record, allow_proxy = item
+    def run_candidate(item: tuple[Path, dict[str, Any]]) -> tuple[Path, dict[str, Any], bool, str, Exception | None]:
+        path, record = item
         try:
             if args.authors_only:
                 did_change, status = enrich_author_record(record, args.timeout)
@@ -1549,9 +1402,9 @@ def main() -> None:
                 if str(record.get("source_id") or "") in {"cepr-dp", "fed-feds"}:
                     did_change, status = enrich_abstract_record(record, args.timeout)
                 else:
-                    did_change, status = enrich_record(record, args.timeout, allow_proxy_abstract=False)
+                    did_change, status = enrich_record(record, args.timeout)
             else:
-                did_change, status = enrich_record(record, args.timeout, allow_proxy_abstract=allow_proxy)
+                did_change, status = enrich_record(record, args.timeout)
         except Exception as exc:  # noqa: BLE001
             return path, record, False, type(exc).__name__, exc
         return path, record, did_change, status, None
@@ -1593,12 +1446,12 @@ def main() -> None:
         "publisher-detail",
         ok=total_failures == 0,
         count=changed,
-        message=f"attempted={attempted}; proxy_abstract_attempted={proxy_abstract_attempted}; " + "; ".join(messages[-20:]),
+        message=f"attempted={attempted}; " + "; ".join(messages[-20:]),
         details={
             "attempted": attempted,
             "failures": total_failures,
             "retryable": total_failures > 0,
-            "fallbacks": ["crossref-doi", "openalex", "readonly-proxy"],
+            "fallbacks": ["crossref-doi", "openalex"],
         },
     )
     record_publisher_group(publisher_stats)

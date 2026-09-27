@@ -163,21 +163,11 @@ class ScienceDirectApiTests(unittest.TestCase):
         self.assertEqual(control["throttled_429"], 1)
         self.assertEqual(control["last_retry_after"], "1")
 
-    def test_api_error_still_falls_back_to_readonly_proxy(self):
-        proxy_record = {"title": "Recovered by existing proxy", "raw_data": {"pii": "S1"}}
-        with patch.object(sd, "fetch_journal_via_api", side_effect=RuntimeError("api unavailable")), patch.object(
-            sd, "fetch_journal_via_proxy", return_value=([proxy_record], "JDE: 1 via readonly-proxy")
-        ) as proxy_mock, patch.dict(os.environ, {"ELSEVIER_API_KEY": "api-key"}, clear=True):
-            records, message = sd.fetch_journal(JDE, days=4, timeout=5, max_items=10)
-        proxy_mock.assert_called_once()
-        self.assertEqual(records, [proxy_record])
-        self.assertIn("api_fallback=RuntimeError", message)
-
-    def test_dual_failure_remains_visible(self):
-        with patch.object(sd, "fetch_journal_via_api", side_effect=RuntimeError("api unavailable")), patch.object(
-            sd, "fetch_journal_via_proxy", side_effect=RuntimeError("proxy unavailable")
-        ), patch.dict(os.environ, {"ELSEVIER_API_KEY": "api-key"}, clear=True):
-            with self.assertRaisesRegex(RuntimeError, "official-api=RuntimeError: api unavailable"):
+    def test_api_error_remains_visible_without_retired_proxy(self):
+        with patch.object(sd, "fetch_journal_via_api", side_effect=RuntimeError("api unavailable")), patch.dict(
+            os.environ, {"ELSEVIER_API_KEY": "api-key"}, clear=True
+        ):
+            with self.assertRaisesRegex(RuntimeError, "api unavailable"):
                 sd.fetch_journal(JDE, days=4, timeout=5, max_items=10)
 
     def test_status_exposes_safe_control_and_quota_telemetry(self):
@@ -185,7 +175,7 @@ class ScienceDirectApiTests(unittest.TestCase):
         headers["X-RateLimit-Limit"] = "20000"
         headers["X-RateLimit-Remaining"] = "19900"
         sd._record_elsevier_search_rate(headers)
-        with patch.dict(os.environ, {"ELSEVIER_API_KEY": "api-key", "JINA_API_KEY": "jina-key"}, clear=True):
+        with patch.dict(os.environ, {"ELSEVIER_API_KEY": "api-key"}, clear=True):
             message = sd.build_status_message(28, 0, ["JDE: 3 via official-api-v2-put-title-wildcard"])
         self.assertIn("client_target_rps=0.4", message)
         self.assertIn("min_interval_seconds=2.500", message)
