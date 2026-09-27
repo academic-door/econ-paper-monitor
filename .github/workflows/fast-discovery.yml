@@ -34,7 +34,6 @@ jobs:
         run: timeout 3m python scripts/fetch_aea.py --tier hourly_crossref_priority --detail-limit 4 --max-items-per-journal 20
       - name: Fetch TOP/A+ priority publisher TOCs
         shell: bash
-        env:
         run: |
           if timeout 5m python scripts/fetch_priority_toc.py \
             --journal review-of-economic-studies \
