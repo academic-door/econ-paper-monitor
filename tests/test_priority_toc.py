@@ -95,29 +95,7 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
                 fetch_priority_toc.TARGETS[journal_id][0]["kind"],
                 "springer_online_first",
             )
-            self.assertTrue(
-                any(url.startswith("https://r.jina.ai/") for url in fetch_priority_toc.TARGETS[journal_id][0]["fallback_urls"])
-            )
-
-    def test_springer_parse_empty_retries_authorized_mirror(self) -> None:
-        direct = "<html><body>Online First</body></html>"
-        mirror = "[A Springer online first article](https://link.springer.com/article/10.1007/s11127-026-01462-x)"
-        target = fetch_priority_toc.TARGETS["public-choice"][0]
-        journal = {"id": "public-choice", "title": "Public Choice", "publisher": "Springer-Verlag"}
-
-        with mock.patch.object(fetch_priority_toc, "fetch_toc_text", side_effect=[direct, mirror]) as fetch_text:
-            records = fetch_priority_toc.fetch_target(
-                journal,
-                target,
-                timeout=5,
-                detail_limit=0,
-                max_items=5,
-            )
-
-        self.assertEqual(len(records), 1)
-        self.assertEqual(records[0]["doi"], "10.1007/s11127-026-01462-x")
-        self.assertEqual(fetch_text.call_count, 2)
-        self.assertTrue(fetch_text.call_args_list[1].args[0].startswith("https://r.jina.ai/"))
+            self.assertNotIn("fallback_urls", fetch_priority_toc.TARGETS[journal_id][0])
 
     def test_no_helper_reads_the_args_namespace(self) -> None:
         source = Path(fetch_priority_toc.__file__).read_text(encoding="utf-8")
@@ -198,12 +176,17 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
             ],
         )
 
-    def test_restud_detail_reads_published_time_and_author_from_jina_page(self) -> None:
-        page = """Title: Macro Shocks and Firm Dynamics with Oligopolistic Financial Intermediaries\nPublished Time: 2026-07-24T16:07:56+00:00\nMarkdown Content:\n24 July 2026\n\nAlessandro T. Villa, Federal Reserve Bank of Chicago\n\nAbstract text."""
+    def test_restud_detail_reads_direct_publisher_metadata(self) -> None:
+        page = """
+        <meta name="citation_title" content="Macro Shocks and Firm Dynamics with Oligopolistic Financial Intermediaries">
+        <meta name="citation_author" content="Alessandro T. Villa">
+        <meta name="citation_online_date" content="2026-07-24">
+        <meta name="citation_abstract" content="A substantive official abstract exposed by the publisher detail page.">
+        """
         with mock.patch.object(fetch_priority_toc, "fetch_toc_text", return_value=page):
             detail = fetch_priority_toc.enrich_detail("https://www.restud.com/example/", "Fallback", 5)
         self.assertEqual(detail["published_online"], "2026-07-24")
-        self.assertEqual(detail["authors"], ["Alessandro T. Villa, Federal Reserve Bank of Chicago"])
+        self.assertEqual(detail["authors"], ["Alessandro T. Villa"])
 
     def test_restud_author_map_prefers_clean_card_authors(self) -> None:
         html = """<a href="/macro-shocks/"><p class="author-short">Alessandro T. Villa</p></a>"""
@@ -211,10 +194,6 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
             fetch_priority_toc.restud_author_map(html, "https://www.restud.com/"),
             {"https://www.restud.com/macro-shocks": ["Alessandro T. Villa"]},
         )
-
-    def test_restud_jina_page_extracts_abstract_paragraph(self) -> None:
-        page = """Title: Example\nPublished Time: 2026-07-24T16:07:56+00:00\nMarkdown Content:\n24 July 2026\n\nAlessandro T. Villa\n\nMotivated by a secular increase in concentration, I develop a new macroeconomic model with heterogeneous firms and financial intermediaries. The model explains how market power affects investment and aggregate activity during crises."""
-        self.assertIn("Motivated by a secular increase", fetch_priority_toc.restud_abstract_from_jina(page))
 
     def test_priority_journal_status_remains_usable_when_optional_page_is_blocked(self) -> None:
         source = Path(fetch_priority_toc.__file__).read_text(encoding="utf-8")
@@ -237,7 +216,7 @@ class TandfLatestTargetTests(unittest.TestCase):
             self.assertEqual(target["kind"], "tandf_latest_articles")
             self.assertEqual(target["fallback_issn"], issn)
             self.assertIn(code, target["url"])
-            self.assertTrue(any(url.startswith("https://r.jina.ai/") for url in target["fallback_urls"]))
+            self.assertNotIn("fallback_urls", target)
 
     def test_applied_economics_article_links_reject_other_tandf_dois(self) -> None:
         html = """
@@ -283,7 +262,7 @@ class JaereJustAcceptedTargetTests(unittest.TestCase):
         self.assertEqual(target["kind"], "uchicago_just_accepted")
         self.assertEqual(target["fallback_issn"], "2333-5955")
         self.assertIn("/toc/jaere/0/ja", target["url"])
-        self.assertTrue(any(url.startswith("https://r.jina.ai/") for url in target["fallback_urls"]))
+        self.assertNotIn("fallback_urls", target)
 
     def test_jaere_links_accept_uchicago_doi_and_reject_navigation(self) -> None:
         html = """
@@ -419,22 +398,3 @@ class JhrTargetTests(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
-
-class JinaHeaderTests(unittest.TestCase):
-    """The JINA mirror only helps when the API key is attached in CI."""
-
-    def test_jina_url_gets_bearer_when_key_set(self):
-        with mock.patch.dict("os.environ", {"JINA_API_KEY": "secret-key"}, clear=False):
-            headers = fetch_priority_toc.jina_headers("https://r.jina.ai/http://academic.oup.com/qje/advance-articles")
-        self.assertEqual(headers.get("Authorization"), "Bearer secret-key")
-        self.assertIn("text/markdown", headers.get("Accept", ""))
-
-    def test_non_jina_url_has_no_auth_header(self):
-        with mock.patch.dict("os.environ", {"JINA_API_KEY": "secret-key"}, clear=False):
-            headers = fetch_priority_toc.jina_headers("https://academic.oup.com/qje/advance-articles")
-        self.assertNotIn("Authorization", headers)
-
-    def test_no_key_no_auth_header(self):
-        with mock.patch.dict("os.environ", {}, clear=True):
-            headers = fetch_priority_toc.jina_headers("https://r.jina.ai/http://example.com")
-        self.assertNotIn("Authorization", headers)
