@@ -356,28 +356,25 @@
       "ok": true,
       "selected_sources": 6,
       "successful_sources": 6,
-      "updated_at": "2026-09-27T16:12:14+00:00"
+      "updated_at": "2026-09-27T22:10:45+00:00"
     },
     "publisher-detail": {
       "publishers": [
         {
           "ab_dates": 0,
-          "attempted": 114,
+          "attempted": 0,
           "changed": 0,
-          "degraded": true,
-          "failures": 114,
+          "degraded": false,
+          "failures": 0,
           "fallbacks": [
             "crossref-doi",
             "openalex"
           ],
-          "message": "elsevier-metadata-only:113, HTTPError:1",
+          "message": "",
           "publisher": "Elsevier",
-          "retryable": true,
-          "statuses": {
-            "HTTPError": 1,
-            "elsevier-metadata-only": 113
-          },
-          "success_rate": 0.0
+          "retryable": false,
+          "statuses": {},
+          "success_rate": 0
         },
         {
           "ab_dates": 0,
@@ -394,24 +391,6 @@
           "retryable": false,
           "statuses": {},
           "success_rate": 0
-        },
-        {
-          "ab_dates": 0,
-          "attempted": 6,
-          "changed": 2,
-          "degraded": true,
-          "failures": 6,
-          "fallbacks": [
-            "crossref-doi",
-            "openalex"
-          ],
-          "message": "crossref-doi-fallback:6",
-          "publisher": "Other",
-          "retryable": true,
-          "statuses": {
-            "crossref-doi-fallback": 6
-          },
-          "success_rate": 0.0
         },
         {
           "ab_dates": 0,
@@ -446,7 +425,7 @@
           "success_rate": 0
         }
       ],
-      "updated_at": "2026-09-27T19:54:22+00:00"
+      "updated_at": "2026-09-27T22:11:15+00:00"
     }
   },
   "sources": {
@@ -506,10 +485,10 @@
       "updated_at": "2026-09-07T08:31:57+00:00"
     },
     "china-relevance": {
-      "count": 2500,
+      "count": 2502,
       "message": "candidates=596 changed=1",
       "ok": true,
-      "updated_at": "2026-09-27T19:56:55+00:00"
+      "updated_at": "2026-09-27T22:11:50+00:00"
     },
     "clean-cn-noise": {
       "count": 182,
@@ -533,7 +512,7 @@
       "count": 91,
       "message": "经济研究: accepted=11 filtered=3 stale=6 latest_research=2026-07-20; 管理世界: accepted=14 filtered=6 stale=0 latest_research=2026-09-05; 世界经济: accepted=16 filtered=4 stale=0 latest_research=2026-09-10; 数量经济技术经济研究: accepted=16 filtered=4 stale=0 latest_research=2026-09-09; 中国工业经济: accepted=18 filtered=2 stale=0 latest_research=2026-09-15; 中国农村经济: accepted=16 filtered=4 stale=0 latest_research=2026-09-20",
       "ok": true,
-      "updated_at": "2026-09-27T16:12:14+00:00"
+      "updated_at": "2026-09-27T22:10:45+00:00"
     },
     "crossref": {
       "count": 1642,
@@ -563,9 +542,9 @@
     },
     "formal-journal-audit": {
       "count": 106,
-      "message": "formal=106 raw_today=103 daily_today=0 missed=0",
+      "message": "formal=106 raw_today=10 daily_today=0 missed=0",
       "ok": true,
-      "updated_at": "2026-09-27T19:52:55+00:00"
+      "updated_at": "2026-09-27T22:11:53+00:00"
     },
     "historical-backfill-quarantine": {
       "count": 1,
@@ -586,16 +565,16 @@
       "updated_at": "2026-09-27T19:52:53+00:00"
     },
     "local-cnki-publish": {
-      "count": 1,
-      "message": "published to origin/main",
-      "ok": true,
-      "updated_at": "2026-09-27T16:13:49+00:00"
+      "count": 0,
+      "message": "pending",
+      "ok": false,
+      "updated_at": "2026-09-27T22:11:54+00:00"
     },
     "local-cnki-run": {
       "count": 1,
       "message": "finished; log=local_admin/logs/local-cnki-update.log",
       "ok": true,
-      "updated_at": "2026-09-27T16:13:35+00:00"
+      "updated_at": "2026-09-27T22:11:54+00:00"
     },
     "manual-overrides": {
       "count": 5,
@@ -604,10 +583,10 @@
       "updated_at": "2026-09-27T19:52:34+00:00"
     },
     "normalize-records": {
-      "count": 404,
-      "message": "files=133 duplicates_removed=1 duplicate_files=1 seen_source_types=0 seen_abstracts=0 public_integrity_repairs=1",
+      "count": 405,
+      "message": "files=134 duplicates_removed=1 duplicate_files=1 seen_source_types=0 seen_abstracts=0 public_integrity_repairs=1",
       "ok": true,
-      "updated_at": "2026-09-27T19:56:43+00:00"
+      "updated_at": "2026-09-27T22:11:38+00:00"
     },
     "openalex-recall": {
       "count": 109,
@@ -971,23 +950,23 @@
       "updated_at": "2026-09-27T19:37:58+00:00"
     },
     "publisher-detail": {
-      "attempted": 120,
-      "count": 2,
-      "failures": 120,
+      "attempted": 0,
+      "count": 0,
+      "failures": 0,
       "fallbacks": [
         "crossref-doi",
         "openalex"
       ],
-      "message": "attempted=120; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only",
-      "ok": false,
-      "retryable": true,
-      "updated_at": "2026-09-27T19:54:22+00:00"
+      "message": "attempted=0; ",
+      "ok": true,
+      "retryable": false,
+      "updated_at": "2026-09-27T22:11:15+00:00"
     },
     "recent72-coverage-audit": {
       "count": 0,
-      "message": "dates=2026-09-28,2026-09-27,2026-09-26 raw=5387 daily=31 covered=76 seen=5166 missing=0",
+      "message": "dates=2026-09-28,2026-09-27,2026-09-26 raw=466 daily=31 covered=0 seen=447 missing=0",
       "ok": true,
-      "updated_at": "2026-09-27T19:52:55+00:00"
+      "updated_at": "2026-09-27T22:11:52+00:00"
     },
     "remove-seen-backflow": {
       "count": 0,
@@ -1142,9 +1121,18 @@
   },
   "workflow": {
     "date": "2026-09-28",
-    "event": "schedule",
-    "finished_at": "2026-09-27T19:57:01+00:00",
+    "event": "local-cnki",
+    "finished_at": "2026-09-27T22:11:54+00:00",
     "history": [
+      {
+        "event": "local-cnki",
+        "finished_at": "2026-09-27T22:11:54+00:00",
+        "mode": "light",
+        "mode_label": "本地中文补充",
+        "run_id": "",
+        "run_url": "",
+        "schedule": ""
+      },
       {
         "event": "schedule",
         "finished_at": "2026-09-27T19:57:01+00:00",
@@ -1405,24 +1393,15 @@
         "run_id": "36221943851",
         "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/36221943851",
         "schedule": ""
-      },
-      {
-        "event": "schedule",
-        "finished_at": "2026-09-26T04:58:40+00:00",
-        "mode": "light",
-        "mode_label": "快速监测",
-        "run_id": "36218994063",
-        "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/36218994063",
-        "schedule": "7 0-3,5-9,11-15,17-21,23 * * *"
       }
     ],
     "last_full_finished_at": "2026-09-27T19:57:01+00:00",
-    "last_light_finished_at": "2026-09-27T18:27:14+00:00",
-    "mode": "full",
-    "mode_label": "全量监测",
-    "run_id": "36344975329",
-    "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/36344975329",
-    "schedule": "0 16 * * *",
-    "updated_at": "2026-09-27T19:57:01+00:00"
+    "last_light_finished_at": "2026-09-27T22:11:54+00:00",
+    "mode": "light",
+    "mode_label": "本地中文补充",
+    "run_id": "",
+    "run_url": "",
+    "schedule": "",
+    "updated_at": "2026-09-27T22:11:54+00:00"
   }
 }
