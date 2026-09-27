@@ -280,7 +280,7 @@
       "failed_sources": 0,
       "journals": [
         {
-          "channel_updated_at": "2026-09-27",
+          "channel_updated_at": "2026-09-28",
           "count": 11,
           "filtered": 3,
           "journal": "经济研究",
@@ -293,7 +293,7 @@
           "ok": true
         },
         {
-          "channel_updated_at": "2026-09-27",
+          "channel_updated_at": "2026-09-28",
           "count": 14,
           "filtered": 6,
           "journal": "管理世界",
@@ -306,7 +306,7 @@
           "ok": true
         },
         {
-          "channel_updated_at": "2026-09-27",
+          "channel_updated_at": "2026-09-28",
           "count": 16,
           "filtered": 4,
           "journal": "世界经济",
@@ -319,7 +319,7 @@
           "ok": true
         },
         {
-          "channel_updated_at": "2026-09-27",
+          "channel_updated_at": "2026-09-28",
           "count": 16,
           "filtered": 4,
           "journal": "数量经济技术经济研究",
@@ -332,7 +332,7 @@
           "ok": true
         },
         {
-          "channel_updated_at": "2026-09-27",
+          "channel_updated_at": "2026-09-28",
           "count": 18,
           "filtered": 2,
           "journal": "中国工业经济",
@@ -345,7 +345,7 @@
           "ok": true
         },
         {
-          "channel_updated_at": "2026-09-27",
+          "channel_updated_at": "2026-09-28",
           "count": 16,
           "filtered": 4,
           "journal": "中国农村经济",
@@ -361,28 +361,25 @@
       "ok": true,
       "selected_sources": 6,
       "successful_sources": 6,
-      "updated_at": "2026-09-27T10:10:41+00:00"
+      "updated_at": "2026-09-27T16:12:14+00:00"
     },
     "publisher-detail": {
       "publishers": [
         {
           "ab_dates": 0,
-          "attempted": 114,
-          "changed": 2,
-          "degraded": true,
-          "failures": 114,
+          "attempted": 0,
+          "changed": 0,
+          "degraded": false,
+          "failures": 0,
           "fallbacks": [
             "crossref-doi",
             "openalex"
           ],
-          "message": "elsevier-metadata-only:113, HTTPError:1",
+          "message": "",
           "publisher": "Elsevier",
-          "retryable": true,
-          "statuses": {
-            "HTTPError": 1,
-            "elsevier-metadata-only": 113
-          },
-          "success_rate": 0.0
+          "retryable": false,
+          "statuses": {},
+          "success_rate": 0
         },
         {
           "ab_dates": 0,
@@ -399,24 +396,6 @@
           "retryable": false,
           "statuses": {},
           "success_rate": 0
-        },
-        {
-          "ab_dates": 0,
-          "attempted": 6,
-          "changed": 2,
-          "degraded": true,
-          "failures": 6,
-          "fallbacks": [
-            "crossref-doi",
-            "openalex"
-          ],
-          "message": "crossref-doi-fallback:6",
-          "publisher": "Other",
-          "retryable": true,
-          "statuses": {
-            "crossref-doi-fallback": 6
-          },
-          "success_rate": 0.0
         },
         {
           "ab_dates": 0,
@@ -451,7 +430,7 @@
           "success_rate": 0
         }
       ],
-      "updated_at": "2026-09-27T15:17:43+00:00"
+      "updated_at": "2026-09-27T16:12:50+00:00"
     }
   },
   "sources": {
@@ -511,10 +490,10 @@
       "updated_at": "2026-09-07T08:31:57+00:00"
     },
     "china-relevance": {
-      "count": 2500,
-      "message": "candidates=596 changed=25",
+      "count": 2502,
+      "message": "candidates=596 changed=1",
       "ok": true,
-      "updated_at": "2026-09-27T15:20:03+00:00"
+      "updated_at": "2026-09-27T16:13:32+00:00"
     },
     "clean-cn-noise": {
       "count": 182,
@@ -538,7 +517,7 @@
       "count": 91,
       "message": "经济研究: accepted=11 filtered=3 stale=6 latest_research=2026-07-20; 管理世界: accepted=14 filtered=6 stale=0 latest_research=2026-09-05; 世界经济: accepted=16 filtered=4 stale=0 latest_research=2026-09-10; 数量经济技术经济研究: accepted=16 filtered=4 stale=0 latest_research=2026-09-09; 中国工业经济: accepted=18 filtered=2 stale=0 latest_research=2026-09-15; 中国农村经济: accepted=16 filtered=4 stale=0 latest_research=2026-09-20",
       "ok": true,
-      "updated_at": "2026-09-27T10:10:41+00:00"
+      "updated_at": "2026-09-27T16:12:14+00:00"
     },
     "crossref": {
       "count": 1649,
@@ -568,9 +547,9 @@
     },
     "formal-journal-audit": {
       "count": 106,
-      "message": "formal=106 raw_today=103 daily_today=5 missed=0",
+      "message": "formal=106 raw_today=6 daily_today=0 missed=0",
       "ok": true,
-      "updated_at": "2026-09-27T15:16:26+00:00"
+      "updated_at": "2026-09-27T16:13:34+00:00"
     },
     "historical-backfill-quarantine": {
       "count": 1,
@@ -591,16 +570,16 @@
       "updated_at": "2026-09-27T15:16:24+00:00"
     },
     "local-cnki-publish": {
-      "count": 1,
-      "message": "published to origin/main",
-      "ok": true,
-      "updated_at": "2026-09-27T10:12:19+00:00"
+      "count": 0,
+      "message": "pending",
+      "ok": false,
+      "updated_at": "2026-09-27T16:13:35+00:00"
     },
     "local-cnki-run": {
       "count": 1,
       "message": "finished; log=local_admin/logs/local-cnki-update.log",
       "ok": true,
-      "updated_at": "2026-09-27T10:12:06+00:00"
+      "updated_at": "2026-09-27T16:13:35+00:00"
     },
     "manual-overrides": {
       "count": 5,
@@ -609,10 +588,10 @@
       "updated_at": "2026-09-27T15:16:02+00:00"
     },
     "normalize-records": {
-      "count": 404,
-      "message": "files=133 duplicates_removed=1 duplicate_files=1 seen_source_types=0 seen_abstracts=0 public_integrity_repairs=1",
+      "count": 405,
+      "message": "files=134 duplicates_removed=1 duplicate_files=1 seen_source_types=0 seen_abstracts=0 public_integrity_repairs=1",
       "ok": true,
-      "updated_at": "2026-09-27T15:19:49+00:00"
+      "updated_at": "2026-09-27T16:13:18+00:00"
     },
     "openalex-recall": {
       "count": 109,
@@ -976,23 +955,23 @@
       "updated_at": "2026-09-27T15:01:00+00:00"
     },
     "publisher-detail": {
-      "attempted": 120,
-      "count": 4,
-      "failures": 120,
+      "attempted": 0,
+      "count": 0,
+      "failures": 0,
       "fallbacks": [
         "crossref-doi",
         "openalex"
       ],
-      "message": "attempted=120; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only",
-      "ok": false,
-      "retryable": true,
-      "updated_at": "2026-09-27T15:17:43+00:00"
+      "message": "attempted=0; ",
+      "ok": true,
+      "retryable": false,
+      "updated_at": "2026-09-27T16:12:50+00:00"
     },
     "recent72-coverage-audit": {
       "count": 0,
-      "message": "dates=2026-09-27,2026-09-26,2026-09-25 raw=5419 daily=73 covered=180 seen=5093 missing=0",
+      "message": "dates=2026-09-28,2026-09-27,2026-09-26 raw=399 daily=31 covered=0 seen=386 missing=0",
       "ok": true,
-      "updated_at": "2026-09-27T15:16:27+00:00"
+      "updated_at": "2026-09-27T16:13:34+00:00"
     },
     "remove-seen-backflow": {
       "count": 0,
@@ -1146,10 +1125,19 @@
     }
   },
   "workflow": {
-    "date": "2026-09-27",
-    "event": "schedule",
-    "finished_at": "2026-09-27T15:20:11+00:00",
+    "date": "2026-09-28",
+    "event": "local-cnki",
+    "finished_at": "2026-09-27T16:13:35+00:00",
     "history": [
+      {
+        "event": "local-cnki",
+        "finished_at": "2026-09-27T16:13:35+00:00",
+        "mode": "light",
+        "mode_label": "本地中文补充",
+        "run_id": "",
+        "run_url": "",
+        "schedule": ""
+      },
       {
         "event": "schedule",
         "finished_at": "2026-09-27T15:20:11+00:00",
@@ -1410,24 +1398,15 @@
         "run_id": "36202890427",
         "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/36202890427",
         "schedule": "7 0-3,5-9,11-15,17-21,23 * * *"
-      },
-      {
-        "event": "workflow_dispatch",
-        "finished_at": "2026-09-25T23:02:28+00:00",
-        "mode": "full",
-        "mode_label": "全量监测",
-        "run_id": "36197638802",
-        "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/36197638802",
-        "schedule": ""
       }
     ],
     "last_full_finished_at": "2026-09-27T15:20:11+00:00",
-    "last_light_finished_at": "2026-09-27T14:01:20+00:00",
-    "mode": "full",
-    "mode_label": "全量监测",
-    "run_id": "36327913976",
-    "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/36327913976",
-    "schedule": "0 10 * * *",
-    "updated_at": "2026-09-27T15:20:11+00:00"
+    "last_light_finished_at": "2026-09-27T16:13:35+00:00",
+    "mode": "light",
+    "mode_label": "本地中文补充",
+    "run_id": "",
+    "run_url": "",
+    "schedule": "",
+    "updated_at": "2026-09-27T16:13:35+00:00"
   }
 }
