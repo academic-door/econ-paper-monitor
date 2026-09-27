@@ -36,10 +36,8 @@ def _sync_legacy_leaf_globals() -> None:
         "load_sources",
         "enrich_record_from_detail",
         "canonical_detail_url",
-        "has_oecd_proxy_navigation_contamination",
         "apply_metadata_state",
         "oecd_doi_from_url",
-        "parse_oecd_proxy_markdown",
         "first_seen_daily_bucket",
     ):
         setattr(_legacy, name, globals()[name])
