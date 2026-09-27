@@ -36,21 +36,30 @@ class OecdCanonicalDetailUrlTests(unittest.TestCase):
         self.assertIsNone(backfill.oecd_doi_from_url("https://www.oecd.org/en/publications/not-a-publication.html"))
 
 
-class OecdReadonlyFallbackTests(unittest.TestCase):
-    def test_official_proxy_and_doi_metadata_fill_bounded_gap(self):
+class OecdRegistryFallbackTests(unittest.TestCase):
+    def test_doi_registry_metadata_fills_bounded_identity_gap(self):
         record = {
-            "id": "url:205e5e9de6ae0278",
-            "source": "working_papers",
             "source_id": "oecd-working-papers",
-            "source_type": "policy_paper",
-            "title": "Mapping drought severity in Mexico using high-resolution satellite data",
             "url": "https://www.oecd.org/en/publications/mapping-drought-severity-in-mexico-using-high-resolution-satellite-data_f2a165e7-en.html",
             "authors": [],
             "abstract": "",
-            "first_seen": "2026-06-18T20:31:17+00:00",
-            "date_confidence": "F",
         }
-        markdown = """
+        doi_payload = {
+            "DOI": "10.1787/f2a165e7-en",
+            "publisher": "Organisation for Economic Co-Operation and Development (OECD)",
+            "author": [
+                {"given": "Ilyes", "family": "Boumahdi"},
+                {"given": "Alberto González", "family": "Pandiella"},
+            ],
+        }
+        with patch.object(backfill, "fetch_json", return_value=doi_payload) as fetch_json:
+            updated = backfill.enrich_oecd_from_readonly_transports(record, timeout=10)
+        self.assertEqual(updated["authors"], ["Ilyes Boumahdi", "Alberto González Pandiella"])
+        self.assertEqual(updated["doi"], "10.1787/f2a165e7-en")
+        self.assertEqual(updated["authors_source"], "oecd_doi_registry")
+        self.assertEqual(updated["abstract"], "")
+        self.assertEqual(fetch_json.call_args.kwargs["headers"]["Accept"], "application/vnd.citationstyles.csl+json")
+
 OECD Publications
 Mapping drought severity in Mexico using high-resolution satellite data
 OECD Economics Department Working Papers
