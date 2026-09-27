@@ -1,19 +1,14 @@
 {
   "categories": {
-    "needs_investigation": 2
+    "needs_investigation": 1
   },
-  "checked_at": "2026-09-27T22:00:30.291277+08:00",
-  "source_health_degraded_count": 2,
+  "checked_at": "2026-09-27T23:16:28.009501+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 4; Journal of Financial Economics: 12; Review of Financial Studies: 7; Journal of Development Economics: 11; Economic Development and Cultural Change: 9",
-      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -22,7 +17,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 33 via official-generated; Journal of Finance: 25 via official-generated; Journal of Financial Economics: 28 via official-generated; Review of Financia",
+      "sample_error": "feeds=72/120; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
       "source": "rss"
     }
   ],
@@ -33,7 +28,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 31; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
+      "sample_error": "social-choice-and-welfare/springer_online_first: crossref fallback 4; public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 31; international-tax-",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -41,26 +36,11 @@
         "crossref",
         "openalex-recall"
       ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
-        "cnki-rss",
-        "openalex-recall"
-      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 3
   },
-  "total_degraded": 2
+  "total_degraded": 1
 }
