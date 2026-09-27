@@ -233,43 +233,7 @@ class MetadataCompletenessTests(unittest.TestCase):
     def test_corrections_are_not_research_papers(self) -> None:
         self.assertTrue(dedupe.is_source_navigation_noise({"title": "Correction to: A Published Paper"}))
 
-[First Author](https://example.com/first), Second Author, and Third Author
-
-**Abstract:**
-
-This is a sufficiently long public abstract for a Federal Reserve working paper and should be retained by the metadata fallback.
-
-**Keywords:** Testing
-
-**DOI**: https://doi.org/10.17016/FEDS.2026.999
-"""
-        record = {"url": "https://www.federalreserve.gov/econres/feds/example.htm"}
-
-        fetch_preprints.enrich_record_from_proxy(record, "fed-feds", timeout=1)
-
-        self.assertEqual(record["authors"], ["First Author", "Second Author", "Third Author"])
-        self.assertEqual(record["doi"], "10.17016/FEDS.2026.999")
-        self.assertIn("sufficiently long public abstract", record["abstract"])
-
-**Authors**
-
-[First Author](https://cepr.org/about/people/first-author), [Second Author](https://cepr.org/about/people/second-author)
-
-**Abstract**
-
-This is a sufficiently long CEPR abstract describing the paper, its data, identification strategy, and main findings for a public metadata page.
-
-**Keywords**
-
-Energy transition
-
-[Advisory Board](https://cepr.org/about/people/advisory-board)
-"""
-        authors, abstract = fetch_preprints.parse_cepr_proxy_markdown(markdown)
-
-        self.assertEqual(authors, ["First Author", "Second Author"])
-        self.assertIn("sufficiently long CEPR abstract", abstract or "")
-
+    @patch.object(translate, "translate_abstract", return_value="这是最近仅存在于已监测记录中的论文摘要翻译。")
     def test_seen_only_abstract_can_be_translated(self, _translate_mock) -> None:
         records = [
             {
