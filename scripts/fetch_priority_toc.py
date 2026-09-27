@@ -868,13 +868,13 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
     accepted_date = None
     if "journals.uchicago.edu/doi/" in url.lower():
         accepted_match = re.search(
-            r"\\bAccepted:\\s*(\\d{1,2}\\s+[A-Za-z]{3,9}\\s+20\\d{2})\\b",
+            r"\bAccepted:\s*(\d{1,2}\s+[A-Za-z]{3,9}\s+20\d{2})\b",
             clean_text(html_text),
             flags=re.I,
         )
         accepted_date = parse_date(accepted_match.group(1)) if accepted_match else None
     if not published:
-        published_match = re.search(r"Published Time:\\s*(20\\d{2}-\\d{2}-\\d{2})", html_text, flags=re.I)
+        published_match = re.search(r"Published Time:\s*(20\d{2}-\d{2}-\d{2})", html_text, flags=re.I)
         published = published_match.group(1) if published_match else None
     abstract = (meta_values(html_text, "citation_abstract") or [None])[0]
     return {
