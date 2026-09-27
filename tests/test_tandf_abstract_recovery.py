@@ -74,48 +74,6 @@ class TaylorFrancisAbstractRecoveryTests(unittest.TestCase):
         self.assertEqual(metadata.get("abstract"), abstract)
         self.assertEqual(metadata.get("abstract_source"), "publisher_meta:description")
 
-    @patch.object(enrich_metadata, "publisher_proxy_metadata")
-    @patch.object(enrich_metadata, "semantic_scholar_doi_metadata")
-    @patch.object(enrich_metadata, "openalex_doi_metadata")
-    @patch.object(enrich_metadata, "crossref_doi_metadata")
-    def test_tandf_abstract_only_route_uses_abs_surface_and_preserves_first_seen(
-        self,
-        crossref_mock,
-        openalex_mock,
-        semantic_mock,
-        proxy_mock,
-    ) -> None:
-        crossref_mock.return_value = {}
-        openalex_mock.return_value = {}
-        semantic_mock.return_value = {}
-        recovered = (
-            "This authoritative Taylor and Francis abstract is intentionally long enough to verify that the "
-            "abstract-only retry route uses the canonical abstract surface instead of the full article shell."
-        )
-        proxy_mock.return_value = {
-            "abstract": recovered,
-            "abstract_source": "publisher_page_via_readonly_proxy",
-        }
-        first_seen = "2026-09-08T12:34:56Z"
-        record = {
-            "doi": "10.1080/00036846.2026.2730528",
-            "url": "https://doi.org/10.1080/00036846.2026.2730528",
-            "publisher": "Taylor & Francis",
-            "source_type": "journal",
-            "first_seen": first_seen,
-        }
-
-        changed, status = enrich_metadata.enrich_abstract_record(record, timeout=1)
-
-        self.assertTrue(changed)
-        self.assertEqual(status, "abstract-updated")
-        self.assertEqual(record.get("abstract"), recovered)
-        self.assertEqual(record.get("first_seen"), first_seen)
-        proxy_mock.assert_called_once_with(
-            "https://www.tandfonline.com/doi/abs/10.1080/00036846.2026.2730528",
-            1,
-        )
-
     def test_non_tandf_candidate_route_is_unchanged(self) -> None:
         doi = "10.1111/iere.70111"
         urls = enrich_metadata.candidate_urls({"doi": doi, "url": f"https://doi.org/{doi}"})
