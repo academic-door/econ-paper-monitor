@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-09-28T02:13:14.464348+08:00",
+  "checked_at": "2026-09-28T02:26:20.491186+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -11,8 +11,18 @@
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Journal of Finance: 4; Journal of Financial Economics: 12; Review of Financial Studies: 7; Journal of Development Economics: 11; Economic Development and Cultural Change: 9",
+      "source": "crossref"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen ",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=72/121; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
+      "sample_error": "feeds=32/45; Journal of International Economics: 33 via official-generated; Journal of Finance: 25 via official-generated; Journal of Financial Economics: 28 via official-generated; Review of Financia",
       "source": "rss"
     }
   ],
@@ -23,7 +33,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "social-choice-and-welfare/springer_online_first: crossref fallback 4; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_f",
+      "sample_error": "international-tax-and-public-finance/springer_online_first: crossref fallback 5; public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 31; social-",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -35,7 +45,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 2
+    "degraded_source_failures": 4
   },
   "total_degraded": 1
 }
