@@ -499,7 +499,7 @@ def main() -> None:
     failures = 0
 
     # The official Elsevier API is quota/throttle controlled. Keep this source
-    # deliberately serialized even if the legacy readonly proxy path used more
+    # deliberately serialized to stay within the current official API rate budget
     # workers; 28 requests every full run is small enough for the bounded lane.
     effective_workers = 1 if os.environ.get("ELSEVIER_API_KEY") else max(1, args.workers)
     with ThreadPoolExecutor(max_workers=effective_workers) as executor:
