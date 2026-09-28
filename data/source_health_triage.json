@@ -1,8 +1,8 @@
 {
   "categories": {
-    "transient_network": 1
+    "needs_investigation": 1
   },
-  "checked_at": "2026-09-29T02:23:05.136312+08:00",
+  "checked_at": "2026-09-29T05:57:23.118811+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -17,19 +17,19 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=72/121; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
+      "sample_error": "feeds=72/120; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
       "source": "rss"
     }
   ],
   "sources": [
     {
-      "category": "transient_network",
+      "category": "needs_investigation",
       "category_counts": {
-        "transient_network": 1
+        "needs_investigation": 1
       },
-      "journal_id": "american-economic-review",
-      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
-      "source": "American Economic Review",
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "journal-of-economic-growth/springer_online_first: PARSER_FAILURE; journal-of-economic-growth/springer_online_first: crossref fallback 1; international-tax-and-public-finance/springer_online_first: PAR",
+      "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
