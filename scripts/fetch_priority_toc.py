@@ -885,6 +885,78 @@ def econometric_society_author_map(html_text: str, base_url: str) -> dict[str, l
     return authors_by_url
 
 
+def cambridge_accepted_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
+    """Parse JFQA accepted-manuscript cards from the authoritative listing.
+
+    Cambridge exposes title, authors, publication date, and the canonical
+    article URL directly on the accepted-manuscripts page.  Reading those card
+    fields avoids a slow per-article detail fan-out that can exhaust the bounded
+    CI wall clock before the focused JFQA artifact is written.
+    """
+    anchor_pattern = re.compile(
+        r'<a[^>]+href=["\'](?P<href>[^"\']+)["\'][^>]*>(?P<title>.*?)</a>',
+        flags=re.I | re.S,
+    )
+    article_pattern = re.compile(
+        r"/core/(?:product/[a-f0-9]{32}|"
+        r"journals/journal-of-financial-and-quantitative-analysis/article/"
+        r"(?:abs/)?[^/?#]+/[a-f0-9]{32})",
+        flags=re.I,
+    )
+    candidates: list[tuple[re.Match[str], str, str]] = []
+    seen: set[str] = set()
+    for match in anchor_pattern.finditer(html_text):
+        href = html.unescape(match.group("href")).strip()
+        if not article_pattern.search(href):
+            continue
+        title = clean_text(match.group("title"))
+        if not title or len(title) < 8:
+            continue
+        url = urljoin(base_url, href)
+        key = url.split("?", 1)[0].rstrip("/")
+        if key in seen:
+            continue
+        seen.add(key)
+        candidates.append((match, url, title))
+
+    blocks: list[dict[str, Any]] = []
+    for index, (match, url, title) in enumerate(candidates):
+        end = candidates[index + 1][0].start() if index + 1 < len(candidates) else len(html_text)
+        context = html_text[match.end():end]
+        author_region = context.split("Published online by Cambridge University Press:", 1)[0]
+        authors: list[str] = []
+        for author_match in anchor_pattern.finditer(author_region):
+            author = clean_text(author_match.group("title")).strip(" ,")
+            lowered = author.casefold()
+            if (
+                not author
+                or len(author) > 120
+                or lowered in {"article", "get access", "export citation", "log in", "register"}
+            ):
+                continue
+            if author not in authors:
+                authors.append(author)
+
+        plain = clean_text(context)
+        date_match = re.search(
+            r"Published online by Cambridge University Press:\s*"
+            r"(\d{1,2}\s+[A-Za-z]{3,9}\s+20\d{2})",
+            plain,
+            flags=re.I,
+        )
+        published = parse_date(date_match.group(1)) if date_match else None
+        blocks.append(
+            {
+                "url": url,
+                "title": title,
+                "authors": authors[:12],
+                "published_online": published,
+                "doi": doi_from_text(url),
+            }
+        )
+    return blocks
+
+
 def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, object]:
     try:
         html_text = fetch_toc_text(url, timeout=timeout)
@@ -988,6 +1060,28 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
         return records
 
     html_text = fetch_toc_text(page_url, timeout=timeout, fallback_urls=target.get("fallback_urls"))
+    if target["kind"] == "cambridge_accepted_manuscripts":
+        records: list[dict] = []
+        for block in cambridge_accepted_blocks(html_text, page_url):
+            records.append(
+                article_record(
+                    journal,
+                    title=block["title"],
+                    url=block["url"],
+                    source="priority_toc",
+                    source_url=page_url,
+                    doi=block["doi"],
+                    authors=block["authors"],
+                    published_online=block["published_online"],
+                    available_online=block["published_online"],
+                    date_source=target["date_source"],
+                    date_confidence=target["date_confidence"],
+                    raw_data={"priority_toc_kind": target["kind"], "metadata_source": "accepted_listing"},
+                )
+            )
+            if len(records) >= max_items:
+                break
+        return records
     if target["kind"].startswith("jhr_"):
         records: list[dict] = []
         for block in jhr_article_blocks(html_text, page_url):
