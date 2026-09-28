@@ -135,6 +135,15 @@ TARGETS = {
             "fallback_issn": "0893-9454",
         }
     ],
+    "journal-of-financial-and-quantitative-analysis": [
+        {
+            "kind": "cambridge_accepted_manuscripts",
+            "url": "https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/accepted-manuscripts",
+            "date_source": "cambridge_accepted_manuscripts",
+            "date_confidence": "B",
+            "fallback_issn": "0022-1090",
+        }
+    ],
     "european-review-of-agricultural-economics": [
         {
             "kind": "oup_advance_articles",
@@ -562,6 +571,12 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
         is_applied_economics_article = "10.1080/00036846" in href_lower
         is_jbes_article = "10.1080/07350015" in href_lower
         is_uchicago_article = "10.1086/" in href_lower
+        is_cambridge_jfqa_article = bool(
+            re.search(
+                r"/core/(?:product/[a-f0-9]{32}|journals/journal-of-financial-and-quantitative-analysis/article/(?:abs/)?[^/?#]+/[a-f0-9]{32})",
+                href_lower,
+            )
+        )
         if "econometricsociety.org/publications/econometrica" in base_lower:
             valid_article = is_econometrica_article
         elif "econometricsociety.org/publications/theoretical-economics" in base_lower:
@@ -583,6 +598,11 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             valid_article = is_jbes_article
         elif "journals.uchicago.edu/toc/jaere" in base_lower:
             valid_article = is_uchicago_article
+        elif (
+            "cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/accepted-manuscripts"
+            in base_lower
+        ):
+            valid_article = is_cambridge_jfqa_article
         else:
             valid_article = is_doi_article
         if not valid_article:
@@ -626,6 +646,16 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             valid = "10.1080/07350015" in href_lower
         elif "journals.uchicago.edu/toc/jaere" in base_url.lower():
             valid = "10.1086/" in href_lower
+        elif (
+            "cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/accepted-manuscripts"
+            in base_url.lower()
+        ):
+            valid = bool(
+                re.search(
+                    r"/core/(?:product/[a-f0-9]{32}|journals/journal-of-financial-and-quantitative-analysis/article/(?:abs/)?[^/?#]+/[a-f0-9]{32})",
+                    href_lower,
+                )
+            )
         if not valid or any(skip in title.casefold() for skip in ("pdf", "permissions", "supplementary")):
             continue
         key = href.split("?", 1)[0].rstrip("/")
