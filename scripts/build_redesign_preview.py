@@ -363,9 +363,25 @@ def preview_url(preview_base: str, relative_html: Path) -> str:
     return preview_base.rstrip("/") + "/" + rel
 
 
-def strip_presence_script(document: str) -> str:
-    pattern = re.compile(r"<script>(?:(?!</script>).)*epd_presence_client(?:(?!</script>).)*</script>", re.S)
-    return pattern.sub("", document)
+def strip_presence_script(
+    document: str,
+    *,
+    preserve_shared_interactions: bool = False,
+) -> str:
+    pattern = re.compile(
+        r"<script>(?:(?!</script>).)*epd_presence_client(?:(?!</script>).)*</script>",
+        re.S,
+    )
+
+    def replacement(match: re.Match[str]) -> str:
+        script = match.group(0)
+        if preserve_shared_interactions and (
+            "[data-filter]" in script or "__dailyVnextDebug" in script
+        ):
+            return script
+        return ""
+
+    return pattern.sub(replacement, document)
 
 
 def process_html(path: Path, output_root: Path, preview_base: str) -> None:
