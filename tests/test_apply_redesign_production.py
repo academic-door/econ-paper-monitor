@@ -58,7 +58,8 @@ const epd_presence_client = true;
 
     assert "querySelectorAll('[data-filter]')" in text
     assert "__dailyVnextDebug" in text
-    assert "epd_presence_client" in text
+    assert "epd_presence_client" not in text
+    assert "econ-paper-monitor-presence.academic-door.workers.dev/presence" not in text
 
 
 def test_production_transform_is_idempotent() -> None:
