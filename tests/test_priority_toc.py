@@ -429,7 +429,11 @@ class CambridgeAcceptedTargetTests(unittest.TestCase):
         self.assertEqual(blocks[1]["authors"], ["Alexander David", "Amel Farhat"])
         self.assertEqual(blocks[1]["published_online"], "2026-05-13")
 
-        journal = {"id": "journal-of-financial-and-quantitative-analysis"}
+        journal = {
+            "id": "journal-of-financial-and-quantitative-analysis",
+            "title": "Journal of Financial and Quantitative Analysis",
+            "publisher": "Cambridge University Press",
+        }
         target = fetch_priority_toc.TARGETS[journal["id"]][0]
         with mock.patch.object(fetch_priority_toc, "fetch_toc_text", return_value=html), \
                 mock.patch.object(fetch_priority_toc, "enrich_detail", side_effect=AssertionError("detail fanout")):
