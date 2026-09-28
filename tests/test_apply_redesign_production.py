@@ -47,7 +47,13 @@ def test_production_transform_preserves_shared_home_interaction_script() -> None
         """<script>
 const buttons = [...document.querySelectorAll('[data-filter]')];
 window.__dailyVnextDebug = {getVisibleCount: () => 1};
-const epd_presence_client = true;
+const endpoint = 'https://econ-paper-monitor-presence.academic-door.workers.dev/presence';
+const target = document.querySelector('[data-presence-count]');
+const key = 'epd_presence_client';
+if (target) {
+  const start = () => {};
+  if (!document.hidden) start();
+}
 </script>""",
     )
     with tempfile.TemporaryDirectory() as tmp:
