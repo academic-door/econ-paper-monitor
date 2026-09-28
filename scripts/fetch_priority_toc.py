@@ -504,11 +504,14 @@ def parse_date(value: str | None) -> str | None:
 def meta_values(html_text: str, name: str) -> list[str]:
     values: list[str] = []
     patterns = [
-        rf'<meta[^>]+(?:name|property)=["\']{re.escape(name)}["\'][^>]+content=["\']([^"\']+)["\']',
-        rf'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:name|property)=["\']{re.escape(name)}["\']',
+        rf'<meta[^>]+(?:name|property)=(?P<nq>["\']){re.escape(name)}(?P=nq)[^>]+content=(?P<cq>["\'])(?P<content>.*?)(?P=cq)',
+        rf'<meta[^>]+content=(?P<cq>["\'])(?P<content>.*?)(?P=cq)[^>]+(?:name|property)=(?P<nq>["\']){re.escape(name)}(?P=nq)',
     ]
     for pattern in patterns:
-        values.extend(clean_text(match) for match in re.findall(pattern, html_text, flags=re.I | re.S))
+        values.extend(
+            clean_text(match.group("content"))
+            for match in re.finditer(pattern, html_text, flags=re.I | re.S)
+        )
     return [value for value in values if value]
 
 
