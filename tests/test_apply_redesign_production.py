@@ -3,6 +3,7 @@ from __future__ import annotations
 import tempfile
 from pathlib import Path
 
+from scripts.build_redesign_preview import PREVIEW_SCRIPT
 from scripts.apply_redesign_production import (
     SCRIPT_ID,
     STYLE_ID,
@@ -66,6 +67,14 @@ if (target) {
     assert "__dailyVnextDebug" in text
     assert "epd_presence_client" not in text
     assert "econ-paper-monitor-presence.academic-door.workers.dev/presence" not in text
+
+
+def test_redesign_keeps_default_search_lazy_until_reader_interaction() -> None:
+    assert "details.querySelectorAll('select').forEach" not in PREVIEW_SCRIPT
+    assert "const hasRequestedState = Boolean(query || journalValue || fieldValue || wantedChina);" in PREVIEW_SCRIPT
+    assert "if (!initial || hasRequestedState)" in PREVIEW_SCRIPT
+    assert "applyUrlState({initial:true});" in PREVIEW_SCRIPT
+
 
 
 def test_production_transform_is_idempotent() -> None:
