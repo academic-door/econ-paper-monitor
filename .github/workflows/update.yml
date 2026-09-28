@@ -145,6 +145,23 @@ jobs:
       - name: Fetch AEA journal TOCs
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: timeout 5m python scripts/fetch_aea.py --tier "${{ steps.mode.outputs.tier }}" --detail-limit 10 --max-items-per-journal 30
+      - name: Fetch JFQA accepted manuscripts
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        shell: bash
+        run: |
+          mkdir -p data/raw/priority-toc-jfqa
+          if timeout 3m python scripts/fetch_priority_toc.py \
+            --journal journal-of-financial-and-quantitative-analysis \
+            --output "data/raw/priority-toc-jfqa/${MONITOR_RUN_DATE}.json" \
+            --status-key "priority-toc:jfqa" \
+            --workers 1 \
+            --timeout 10 \
+            --detail-limit 12 \
+            --max-items-per-source 40; then
+            echo "JFQA accepted-manuscript source completed."
+          else
+            echo "::warning::JFQA accepted-manuscript source timed out or failed; broad RSS/Crossref paths remain available."
+          fi
       - name: Fetch priority publisher TOCs
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         shell: bash
