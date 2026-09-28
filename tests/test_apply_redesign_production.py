@@ -41,6 +41,33 @@ def test_production_transform_preserves_indexing_and_canonical() -> None:
     assert "epd_presence_client" not in text
 
 
+def test_production_transform_preserves_shared_home_interaction_script() -> None:
+    shared_html = BASE_HTML.replace(
+        "<script>const epd_presence_client = true;</script>",
+        """<script>
+const buttons = [...document.querySelectorAll('[data-filter]')];
+window.__dailyVnextDebug = {getVisibleCount: () => 1};
+const endpoint = 'https://econ-paper-monitor-presence.academic-door.workers.dev/presence';
+const target = document.querySelector('[data-presence-count]');
+const key = 'epd_presence_client';
+if (target) {
+  const start = () => {};
+  if (!document.hidden) start();
+}
+</script>""",
+    )
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "index.html"
+        path.write_text(shared_html, encoding="utf-8")
+        process_html(path)
+        text = path.read_text(encoding="utf-8")
+
+    assert "querySelectorAll('[data-filter]')" in text
+    assert "__dailyVnextDebug" in text
+    assert "epd_presence_client" not in text
+    assert "econ-paper-monitor-presence.academic-door.workers.dev/presence" not in text
+
+
 def test_production_transform_is_idempotent() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         path = Path(tmp) / "index.html"
