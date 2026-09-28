@@ -28,6 +28,15 @@ try {
     assert.match(robots || "", /nofollow/);
     assert.equal(await page.locator(".presence,.presence-cluster,.context-nav,.page-eyebrow").count(), 0, `${url} leaked production chrome`);
 
+    const parentBrand = page.locator(".brand-lockup .parent-brand");
+    const productBrand = page.locator(".brand-lockup .product-brand");
+    assert.ok(await parentBrand.isVisible(), `${url} parent brand not visible`);
+    assert.ok(await productBrand.isVisible(), `${url} product identity not visible`);
+    assert.equal(await parentBrand.getAttribute("href"), "https://academic-door.github.io/", `${url} parent brand route`);
+    assert.equal(await productBrand.getAttribute("href"), "https://academic-door.github.io/econ-paper-monitor/", `${url} product brand route`);
+    assert.match((await parentBrand.innerText()).trim(), /Academic Door/);
+    assert.equal((await productBrand.innerText()).trim(), "每日之门 · Econ Papers Daily");
+
     const labels = await page.locator("#primary-nav a").allTextContents();
     assert.deepEqual(labels.map((x) => x.trim()), expectedNav, `${url} nav order`);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} overflow`);
