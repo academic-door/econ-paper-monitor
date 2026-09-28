@@ -373,12 +373,18 @@ def strip_presence_script(
         re.S,
     )
 
+    presence_tail = re.compile(
+        r"""\n\s*const endpoint = ['"]https://econ-paper-monitor-presence\.academic-door\.workers\.dev/presence['"];.*?\n\s*if \(!document\.hidden\) start\(\);\n\s*}\n""",
+        re.S,
+    )
+
     def replacement(match: re.Match[str]) -> str:
         script = match.group(0)
         if preserve_shared_interactions and (
             "[data-filter]" in script or "__dailyVnextDebug" in script
         ):
-            return script
+            cleaned = presence_tail.sub("\n", script)
+            return cleaned if "epd_presence_client" not in cleaned else script
         return ""
 
     return pattern.sub(replacement, document)
