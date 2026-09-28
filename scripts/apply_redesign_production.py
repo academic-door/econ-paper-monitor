@@ -12,7 +12,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from build_redesign_preview import PREVIEW_SCRIPT, PREVIEW_STYLE, strip_presence_script
+from build_redesign_preview import PREVIEW_SCRIPT, PREVIEW_STYLE
 
 STYLE_ID = "daily-door-redesign-preview-style"
 SCRIPT_ID = "daily-door-redesign-preview-script"
@@ -21,9 +21,10 @@ SCRIPT_ID = "daily-door-redesign-preview-script"
 
 def process_html(path: Path) -> None:
     document = path.read_text(encoding="utf-8")
-    # The approved redesign removes public presence chrome. Remove its client
-    # too so production does not make an otherwise invisible heartbeat request.
-    document = strip_presence_script(document)
+    # Keep the generated page's existing runtime scripts intact. Some production
+    # surfaces colocate filtering/search behavior with the legacy presence client
+    # in one inline script; removing that whole script breaks reader controls.
+    # The approved redesign script removes the public presence chrome from the DOM.
 
     has_style = f'id="{STYLE_ID}"' in document or f"id='{STYLE_ID}'" in document
     has_script = f'id="{SCRIPT_ID}"' in document or f"id='{SCRIPT_ID}'" in document
