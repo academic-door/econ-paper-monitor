@@ -20,7 +20,7 @@ BASE_HTML = """<!doctype html>
 <header class="site-header"><a class="wordmark" href="/">Econ Papers Daily</a>
 <nav class="nav" id="primary-nav"><a href="/">今日</a><a href="/recent72/">最近72小时</a><a href="/journals/">期刊</a><a href="/working-papers/">工作论文</a><a href="/topics/china/">中国研究</a><a href="/search/">搜索</a></nav>
 <span class="presence">在线</span></header>
-<script>const epd_presence_client = true;</script>
+<script>window.__daily_filters_alive = true; const epd_presence_client = true;</script>
 </body></html>"""
 
 
@@ -38,7 +38,8 @@ def test_production_transform_preserves_indexing_and_canonical() -> None:
     assert "noindex,nofollow,noarchive" not in text
     assert f'id="{STYLE_ID}"' in text
     assert f'id="{SCRIPT_ID}"' in text
-    assert "epd_presence_client" not in text
+    assert "window.__daily_filters_alive = true" in text
+    assert "epd_presence_client" in text
 
 
 def test_production_transform_is_idempotent() -> None:
