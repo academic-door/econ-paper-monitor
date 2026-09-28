@@ -25,6 +25,12 @@
 .preview-banner{position:relative;z-index:20;background:#173f55;color:#fff;padding:.55rem 1rem;text-align:center;font:600 .78rem/1.4 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.04em}
 .preview-banner a{color:#fff;text-decoration:underline;text-underline-offset:2px}
 .site-header{top:0}
+.brand-lockup{display:flex;align-items:center;gap:.65rem;min-width:0}
+.brand-lockup .parent-brand{display:inline-flex;align-items:center;min-height:40px;color:var(--muted);font:600 .68rem/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.brand-lockup .brand-sep{color:var(--line);font-size:1.1rem}
+.brand-lockup .product-brand{display:inline-flex;align-items:center;min-height:40px;color:var(--ink);font:500 .9rem/1.25 var(--serif);white-space:nowrap}
+.brand-lockup a:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+@media(max-width:800px){.brand-lockup{gap:.4rem}.brand-lockup .parent-brand{font-size:.62rem}.brand-lockup .product-brand{font-size:.82rem}.brand-lockup .brand-sep{font-size:.9rem}}
 .context-nav,.presence,.presence-cluster,.page-eyebrow,.more-filters,.empty.home-note{display:none!important}
 .page-hero{display:block!important;padding:3.2rem 0 1.6rem!important;border-bottom:0!important}
 .page-hero h1{font-size:clamp(2.8rem,6vw,5.2rem)!important;margin:0!important}
@@ -637,6 +643,29 @@
 <script id="daily-door-redesign-preview-script">
 (() => {
   const PROD = 'https://academic-door.github.io/econ-paper-monitor';
+  const PORTAL = 'https://academic-door.github.io/';
+  const wordmark = document.querySelector('.wordmark');
+  if (wordmark) {
+    const lockup = document.createElement('div');
+    lockup.className = 'brand-lockup';
+    lockup.setAttribute('aria-label', 'Academic Door 与当前产品');
+    const parent = document.createElement('a');
+    parent.className = 'parent-brand';
+    parent.href = PORTAL;
+    parent.textContent = 'Academic Door · 学术传送门';
+    parent.setAttribute('aria-label', '返回 Academic Door 学术传送门');
+    const sep = document.createElement('span');
+    sep.className = 'brand-sep';
+    sep.setAttribute('aria-hidden', 'true');
+    sep.textContent = '/';
+    const product = document.createElement('a');
+    product.className = 'product-brand';
+    product.href = PROD + '/';
+    product.textContent = '每日之门 · Econ Papers Daily';
+    product.setAttribute('aria-label', '返回 每日之门 Econ Papers Daily');
+    lockup.append(parent, sep, product);
+    wordmark.replaceWith(lockup);
+  }
   const navOrder = ['今日','最近72小时','中国研究','工作论文','期刊','搜索'];
   document.querySelectorAll('nav.nav').forEach((nav) => {
     const links = [...nav.querySelectorAll('a')];

@@ -25,6 +25,12 @@
 .preview-banner{position:relative;z-index:20;background:#173f55;color:#fff;padding:.55rem 1rem;text-align:center;font:600 .78rem/1.4 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.04em}
 .preview-banner a{color:#fff;text-decoration:underline;text-underline-offset:2px}
 .site-header{top:0}
+.brand-lockup{display:flex;align-items:center;gap:.65rem;min-width:0}
+.brand-lockup .parent-brand{display:inline-flex;align-items:center;min-height:40px;color:var(--muted);font:600 .68rem/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.brand-lockup .brand-sep{color:var(--line);font-size:1.1rem}
+.brand-lockup .product-brand{display:inline-flex;align-items:center;min-height:40px;color:var(--ink);font:500 .9rem/1.25 var(--serif);white-space:nowrap}
+.brand-lockup a:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+@media(max-width:800px){.brand-lockup{gap:.4rem}.brand-lockup .parent-brand{font-size:.62rem}.brand-lockup .product-brand{font-size:.82rem}.brand-lockup .brand-sep{font-size:.9rem}}
 .context-nav,.presence,.presence-cluster,.page-eyebrow,.more-filters,.empty.home-note{display:none!important}
 .page-hero{display:block!important;padding:3.2rem 0 1.6rem!important;border-bottom:0!important}
 .page-hero h1{font-size:clamp(2.8rem,6vw,5.2rem)!important;margin:0!important}
@@ -93,25 +99,25 @@
     </section>
     <div class="wrap"><section class="section-head">
   <div><h2>最近72小时</h2><p>按本站首次发现日期展示今天及前两天记录，适合连续查看近 3 天选题池。</p></div>
-  <p>2026-09-26 / 2026-09-25 / 2026-09-24</p>
+  <p>2026-09-26</p>
 </section>
 <section class="stats">
-  <span class="stat"><strong>107</strong><span>近3天新发现</span></span>
-  <span class="stat"><strong>92</strong><span>期刊论文</span></span>
-  <span class="stat"><strong>10</strong><span>工作论文</span></span>
-  <a class="stat china" href="../topics/china/"><strong>14</strong><span>与中国相关</span></a>
+  <span class="stat"><strong>1</strong><span>近3天新发现</span></span>
+  <span class="stat"><strong>0</strong><span>期刊论文</span></span>
+  <span class="stat"><strong>0</strong><span>工作论文</span></span>
+  <a class="stat china" href="../topics/china/"><strong>0</strong><span>与中国相关</span></a>
   <a class="stat" href="../export/recent72.ris"><strong>RIS</strong><span>Zotero 导入</span></a>
   <a class="stat" href="../export/recent72.bib"><strong>BibTeX</strong><span>文献导出</span></a>
 </section>
 <div class="toolbar" id="filters-recent72" data-filter-scope="recent72">
   <input class="control" aria-label="搜索标题、作者或 DOI" data-filter-role="search" type="search" placeholder="搜索">
-  <select class="control" aria-label="筛选期刊" data-filter-role="journal"><option value="">筛选期刊/来源</option><option value="american-economic-journal-microeconomics">American Economic Journal: Microeconomics</option><option value="applied-economics">Applied Economics</option><option value="source-cepr-dp">CEPR Discussion Papers</option><option value="china-economic-review">China Economic Review</option><option value="economic-history-review">Economic History Review</option><option value="economic-journal">Economic Journal</option><option value="economic-modelling">Economic Modelling</option><option value="economic-theory">Economic Theory</option><option value="economics-letters">Economics Letters</option><option value="energy-economics">Energy Economics</option><option value="energy-policy">Energy Policy</option><option value="european-economic-review">European Economic Review</option><option value="source-fed-feds">Federal Reserve FEDS Working Papers</option><option value="food-policy">Food Policy</option><option value="source-iza">IZA Discussion Papers</option><option value="international-economic-review">International Economic Review</option><option value="international-journal-of-game-theory">International Journal of Game Theory</option><option value="international-journal-of-industrial-organization">International Journal of Industrial Organization</option><option value="journal-of-accounting-and-economics">Journal of Accounting and Economics</option><option value="journal-of-agricultural-economics">Journal of Agricultural Economics</option><option value="journal-of-applied-econometrics">Journal of Applied Econometrics</option><option value="journal-of-development-economics">Journal of Development Economics</option><option value="journal-of-econometrics">Journal of Econometrics</option><option value="journal-of-economic-dynamics-and-control">Journal of Economic Dynamics and Control</option><option value="journal-of-economic-psychology">Journal of Economic Psychology</option><option value="journal-of-economic-theory">Journal of Economic Theory</option><option value="journal-of-economics-and-management-strategy">Journal of Economics &amp; Management Strategy</option><option value="journal-of-environmental-economics-and-management">Journal of Environmental Economics and Management</option><option value="journal-of-financial-economics">Journal of Financial Economics</option><option value="journal-of-financial-and-quantitative-analysis">Journal of Financial and Quantitative Analysis</option><option value="journal-of-health-economics">Journal of Health Economics</option><option value="journal-of-industrial-economics">Journal of Industrial Economics</option><option value="journal-of-international-economics">Journal of International Economics</option><option value="journal-of-law-economics-and-organization">Journal of Law, Economics &amp; Organization</option><option value="journal-of-population-economics">Journal of Population Economics</option><option value="journal-of-public-economics">Journal of Public Economics</option><option value="journal-of-risk-and-uncertainty">Journal of Risk and Uncertainty</option><option value="journal-of-the-european-economic-association">Journal of the European Economic Association</option><option value="labour-economics">Labour Economics</option><option value="land-use-policy">Land Use Policy</option><option value="management-science">Management Science</option><option value="mathematical-social-sciences">Mathematical Social Sciences</option><option value="oxford-bulletin-of-economics-and-statistics">Oxford Bulletin of Economics and Statistics</option><option value="public-choice">Public Choice</option><option value="quarterly-journal-of-economics">Quarterly Journal of Economics</option><option value="review-of-accounting-studies">Review of Accounting Studies</option><option value="review-of-economic-design">Review of Economic Design</option><option value="review-of-financial-studies">Review of Financial Studies</option><option value="social-choice-and-welfare">Social Choice and Welfare</option><option value="structural-change-and-economic-dynamics">Structural Change and Economic Dynamics</option><option value="source-voxeu-cepr-columns">VoxEU / CEPR Columns</option></select>
-  <select class="control" aria-label="筛选主题" data-filter-role="field"><option value="">主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
-  <details class="control more-filters"><summary>高级筛选</summary><div class="more-filters-row"><select class="control" aria-label="筛选日期类型" data-filter-role="dateType"><option value="">日期类型</option><option value="available_online">官方在线</option><option value="first_seen">本站首次发现</option><option value="issue">来源期次</option></select><select class="control" aria-label="筛选可信度" data-filter-role="confidence"><option value="">可信度</option><option value="A">A：官方渠道明确日期</option><option value="C">C：Crossref/聚合登记日期</option><option value="F">F：仅本站首次发现</option></select><select class="control" aria-label="筛选来源类型" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="journal_article">期刊论文</option><option value="policy_commentary">研究评论</option><option value="working_paper">工作论文</option></select></div></details>
+  <select class="control" aria-label="筛选期刊" data-filter-role="journal"><option value="">筛选期刊/来源</option><option value="source-voxeu-cepr-columns">VoxEU / CEPR Columns</option></select>
+  <select class="control" aria-label="筛选主题" data-filter-role="field"><option value="">主题</option><option value="public">公共与政治经济学</option><option value="trade">国际贸易</option><option value="history">经济史</option><option value="finance">金融</option></select>
+  <details class="control more-filters"><summary>高级筛选</summary><div class="more-filters-row"><select class="control" aria-label="筛选日期类型" data-filter-role="dateType"><option value="">日期类型</option><option value="available_online">官方在线</option></select><select class="control" aria-label="筛选可信度" data-filter-role="confidence"><option value="">可信度</option><option value="A">A：官方渠道明确日期</option></select></div></details>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">中国</button>
 </div>
 <div class="empty" data-filter-empty="recent72" hidden>没有符合当前筛选条件的论文。</div>
-<div class="lazy-list" data-lazy-list data-lazy-scope="recent72" data-lazy-base="https://academic-door.github.io/econ-paper-monitor" data-lazy-defer="false" data-lazy-manifest="../paper-index/519476c964007491/manifest.json"><div class="lazy-initial"><article class="event" data-event-scope="recent72" data-search="quantifying financial repression through the lens of portfolio choice: a century of evidence  marijn bolhuis, jakree koosakul, neil shenai, jie yang voxeu / cepr columns voxeu / cepr columns " data-journal="source-voxeu-cepr-columns" data-fields="finance public trade history" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="A" data-source-type="policy_commentary">
+<article class="event" data-event-scope="recent72" data-search="quantifying financial repression through the lens of portfolio choice: a century of evidence  marijn bolhuis, jakree koosakul, neil shenai, jie yang voxeu / cepr columns voxeu / cepr columns " data-journal="source-voxeu-cepr-columns" data-fields="finance public trade history" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="policy_commentary">
   <div><div class="time">08:53</div><div class="date-note">2026-09-26</div></div>
   <div>
     <h3><a href="https://academic-door.github.io/econ-paper-monitor/paper/quantifying-financial-repression-through-the-lens-of-portfolio-choice-a-century-of-evide-1bd84a7b42a7/">Quantifying financial repression through the lens of portfolio choice: A century of evidence</a></h3>
@@ -123,114 +129,6 @@
     </div>
   </div>
 </article>
-<article class="event" data-event-scope="recent72" data-search="conflict or synergy: exploring the interaction between carbon pricing policy and capacity mechanism  yilun luo, esmaeil ahmadi, benjamin craig mclellan, tetsuo tezuka energy economics energy economics 10.1016/j.eneco.2026.109612" data-journal="energy-economics" data-fields="environment finance public trade" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
-  <div><div class="time">08:48</div><div class="date-note">2026-09-26</div></div>
-  <div>
-    <h3><a href="https://academic-door.github.io/econ-paper-monitor/paper/conflict-or-synergy-exploring-the-interaction-between-carbon-pricing-policy-and-capacity-548ba8e8d00c/">Conflict or synergy: exploring the interaction between carbon pricing policy and capacity mechanism</a></h3>
-    <p class="authors">Yilun Luo, Esmaeil Ahmadi, Benjamin Craig McLellan, Tetsuo Tezuka</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Energy Economics</span><span class="pill">本站首次发现 2026-09-26 08:48</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-25 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eneco.2026.109612">10.1016/j.eneco.2026.109612</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="the empirical impact of energy transition on developing economies: sectoral analysis and predictive insights  alain soliman, ilyes abid, khaled guesmi, christian urom energy economics energy economics 10.1016/j.eneco.2026.109601" data-journal="energy-economics" data-fields="agriculture environment finance trade" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
-  <div><div class="time">08:48</div><div class="date-note">2026-09-26</div></div>
-  <div>
-    <h3><a href="https://academic-door.github.io/econ-paper-monitor/paper/the-empirical-impact-of-energy-transition-on-developing-economies-sectoral-analysis-and-5d1d84fbf791/">The empirical impact of energy transition on developing economies: Sectoral analysis and predictive insights</a></h3>
-    <p class="authors">Alain Soliman, Ilyes Abid, Khaled Guesmi, Christian Urom</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Energy Economics</span><span class="pill">本站首次发现 2026-09-26 08:48</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-25 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eneco.2026.109601">10.1016/j.eneco.2026.109601</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="the effects of improving working conditions on teacher turnover: heterogeneous responses by work stress levels  tom rongen, luc cobben, frank cörvers, raymond montizaan labour economics labour economics 10.1016/j.labeco.2026.102972" data-journal="labour-economics" data-fields="labor theory education" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
-  <div><div class="time">08:46</div><div class="date-note">2026-09-26</div></div>
-  <div>
-    <h3><a href="https://academic-door.github.io/econ-paper-monitor/paper/the-effects-of-improving-working-conditions-on-teacher-turnover-heterogeneous-responses-f87205040f40/">The Effects of Improving Working Conditions on Teacher Turnover: Heterogeneous Responses by Work Stress Levels</a></h3>
-    <p class="authors">Tom Rongen, Luc Cobben, Frank Cörvers, Raymond Montizaan</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Labour Economics</span><span class="pill">本站首次发现 2026-09-26 08:46</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-25 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.labeco.2026.102972">10.1016/j.labeco.2026.102972</a><span class="pill">劳动</span><span class="pill">理论与博弈</span><span class="pill">教育</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="topology-free constructions of a universal type space as coherent belief hierarchies  satoshi fukuda journal of economic theory journal of economic theory 10.1016/j.jet.2026.106259" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
-  <div><div class="time">08:04</div><div class="date-note">2026-09-26</div></div>
-  <div>
-    <h3><a href="https://academic-door.github.io/econ-paper-monitor/paper/topology-free-constructions-of-a-universal-type-space-as-coherent-belief-hierarchies-080b0fdb983f/">Topology-free Constructions of a Universal Type Space as Coherent Belief Hierarchies</a></h3>
-    <p class="authors">Satoshi Fukuda</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="pill">本站首次发现 2026-09-26 08:04</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-09-25 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106259">10.1016/j.jet.2026.106259</a><span class="pill">理论与博弈</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="governing the unpriced hazard: a land-use policy framework for spatially concentrated seismic risk when markets do not capitalise it  kerem yavuz arslanlı, seda kundak, çağlar göksu, ahmet atıl aşıcı, ali yılmaz 等 land use policy land use policy 10.1016/j.landusepol.2026.108356" data-journal="land-use-policy" data-fields="agriculture development finance public" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
-  <div><div class="time">06:48</div><div class="date-note">2026-09-26</div></div>
-  <div>
-    <h3><a href="https://academic-door.github.io/econ-paper-monitor/paper/governing-the-unpriced-hazard-a-land-use-policy-framework-for-spatially-concentrated-sei-5fd5f9063a75/">Governing the unpriced hazard: A land-use policy framework for spatially concentrated seismic risk when markets do not capitalise it</a></h3>
-    <p class="authors">Kerem Yavuz Arslanlı, Seda Kundak, Çağlar Göksu, Ahmet Atıl Aşıcı, Ali Yılmaz 等</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="pill">本站首次发现 2026-09-26 06:48</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-09-25 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108356">10.1016/j.landusepol.2026.108356</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="low-income families, maternal labor supply, and welfare reform,  viola garstenauer, nawid siassi journal of the european economic association journal of the european economic association 10.1093/jeea/jvag058" data-journal="journal-of-the-european-economic-association" data-fields="development finance labor public" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
-  <div><div class="time">06:01</div><div class="date-note">2026-09-26</div></div>
-  <div>
-    <h3><a href="https://academic-door.github.io/econ-paper-monitor/paper/low-income-families-maternal-labor-supply-and-welfare-reform-df73a0d170ae/">Low-Income Families, Maternal Labor Supply, and Welfare Reform,</a></h3>
-    <p class="authors">Viola Garstenauer, Nawid Siassi</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="pill">本站首次发现 2026-09-26 06:01</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-25 · 来源：RSS</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag058">10.1093/jeea/jvag058</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="recommendation design: can mediators implement correlated equilibria?  mikhail anufriev, john duffy, valentyn panchenko, benjamin young economic journal economic journal 10.1093/ej/ueag123" data-journal="economic-journal" data-fields="trade theory" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
-  <div><div class="time">06:01</div><div class="date-note">2026-09-26</div></div>
-  <div>
-    <h3><a href="https://academic-door.github.io/econ-paper-monitor/paper/recommendation-design-can-mediators-implement-correlated-equilibria-289dccea529a/">Recommendation Design: Can Mediators Implement Correlated Equilibria?</a></h3>
-    <p class="authors">Mikhail Anufriev, John Duffy, Valentyn Panchenko, Benjamin Young</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="pill">本站首次发现 2026-09-26 06:01</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-25 · 来源：RSS</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag123">10.1093/ej/ueag123</a><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="how does wage inequality affect the labor movement?  barbara biasi, zoë cullen, julia gilman, nina roussille quarterly journal of economics quarterly journal of economics 10.1093/qje/qjag046" data-journal="quarterly-journal-of-economics" data-fields="environment labor public education" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
-  <div><div class="time">06:01</div><div class="date-note">2026-09-26</div></div>
-  <div>
-    <h3><a href="https://academic-door.github.io/econ-paper-monitor/paper/how-does-wage-inequality-affect-the-labor-movement-21735bb5446c/">How Does Wage Inequality Affect the Labor Movement?</a></h3>
-    <p class="authors">Barbara Biasi, Zoë Cullen, Julia Gilman, Nina Roussille</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Quarterly Journal of Economics</span><span class="pill">本站首次发现 2026-09-26 06:01</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-25 · 来源：RSS</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/qje/qjag046">10.1093/qje/qjag046</a><span class="pill">环境与气候</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-event-scope="recent72" data-search="are farmers algorithm-averse? the case of decision support tools in crop management  anna massfeller, daniel hermann, alexa leyens, hugo storm food policy food policy 10.1016/j.foodpol.2026.103193" data-journal="food-policy" data-fields="agriculture finance public trade" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
-  <div><div class="time">04:07</div><div class="date-note">2026-09-26</div></div>
-  <div>
-    <h3><a href="https://academic-door.github.io/econ-paper-monitor/paper/are-farmers-algorithm-averse-the-case-of-decision-support-tools-in-crop-management-aef731b3ff42/">Are farmers algorithm-averse? The case of decision support tools in crop management</a></h3>
-    <p class="authors">Anna Massfeller, Daniel Hermann, Alexa Leyens, Hugo Storm</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="pill">本站首次发现 2026-09-26 04:07</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-09-25 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103193">10.1016/j.foodpol.2026.103193</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
-    </div>
-  </div>
-</article></div><button class="control lazy-start" type="button">浏览全部 107 篇</button><div class="empty" data-lazy-empty hidden>没有符合当前筛选条件的论文。</div></div>
 
 <script>
 (() => {
@@ -715,6 +613,29 @@
 <script id="daily-door-redesign-preview-script">
 (() => {
   const PROD = 'https://academic-door.github.io/econ-paper-monitor';
+  const PORTAL = 'https://academic-door.github.io/';
+  const wordmark = document.querySelector('.wordmark');
+  if (wordmark) {
+    const lockup = document.createElement('div');
+    lockup.className = 'brand-lockup';
+    lockup.setAttribute('aria-label', 'Academic Door 与当前产品');
+    const parent = document.createElement('a');
+    parent.className = 'parent-brand';
+    parent.href = PORTAL;
+    parent.textContent = 'Academic Door · 学术传送门';
+    parent.setAttribute('aria-label', '返回 Academic Door 学术传送门');
+    const sep = document.createElement('span');
+    sep.className = 'brand-sep';
+    sep.setAttribute('aria-hidden', 'true');
+    sep.textContent = '/';
+    const product = document.createElement('a');
+    product.className = 'product-brand';
+    product.href = PROD + '/';
+    product.textContent = '每日之门 · Econ Papers Daily';
+    product.setAttribute('aria-label', '返回 每日之门 Econ Papers Daily');
+    lockup.append(parent, sep, product);
+    wordmark.replaceWith(lockup);
+  }
   const navOrder = ['今日','最近72小时','中国研究','工作论文','期刊','搜索'];
   document.querySelectorAll('nav.nav').forEach((nav) => {
     const links = [...nav.querySelectorAll('a')];
