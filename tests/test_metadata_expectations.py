@@ -82,6 +82,54 @@ class MetadataExpectationTests(unittest.TestCase):
         self.assertEqual(expected_missing_reason(item, "abstract"), "correction_notice")
         self.assertIsNone(expected_missing_reason(item, "authors"))
 
+    def test_special_issue_introduction_only_makes_abstract_optional(self):
+        item = record(
+            "Introduction to the Special Issue Honoring Michel Juillard’s Contribution to Macroeconomics",
+            journal="Journal of Economic Dynamics and Control",
+        )
+        self.assertEqual(expected_missing_reason(item, "abstract"), "special_issue_introduction")
+        self.assertIsNone(expected_missing_reason(item, "authors"))
+
+    def test_editorial_introduction_only_makes_abstract_optional(self):
+        item = record("Editor's Introduction", journal="Journal of Money, Credit and Banking")
+        self.assertEqual(expected_missing_reason(item, "abstract"), "editorial_introduction")
+        self.assertIsNone(expected_missing_reason(item, "authors"))
+
+    def test_editor_report_only_makes_abstract_optional(self):
+        item = record("Economic Inquiry 2025 Editor's Report", journal="Economic Inquiry")
+        self.assertEqual(expected_missing_reason(item, "abstract"), "editor_report")
+        self.assertIsNone(expected_missing_reason(item, "authors"))
+
+    def test_quoted_discussion_only_makes_abstract_optional(self):
+        item = record(
+            "Discussion of “Connectivity and Selective Rural Migration”",
+            journal="International Economic Review",
+        )
+        self.assertEqual(expected_missing_reason(item, "abstract"), "discussion_article")
+        self.assertIsNone(expected_missing_reason(item, "authors"))
+
+    def test_public_choice_explicit_book_review_only_makes_abstract_optional(self):
+        item = record(
+            "Public choice book review for FDR: a new political life, by David Beito (2025, Carus Books)",
+            journal="Public Choice",
+        )
+        self.assertEqual(expected_missing_reason(item, "abstract"), "book_review")
+        self.assertIsNone(expected_missing_reason(item, "authors"))
+
+    def test_similar_research_titles_remain_actionable(self):
+        titles = [
+            "Introduction of a New Monetary Policy Instrument",
+            "Discussion of Market Power in Digital Platforms",
+            "Editor Networks and Reporting Quality",
+            "Book Reviews and Household Reading Demand",
+            "Special Issue Effects on Citation Behavior",
+        ]
+        for title in titles:
+            with self.subTest(title=title):
+                item = record(title, journal="Public Choice")
+                self.assertIsNone(expected_missing_reason(item, "abstract"))
+                self.assertIsNone(expected_missing_reason(item, "authors"))
+
     def test_research_record_remains_actionable(self):
         item = record("Market Inefficiencies in Renewable Support Policies")
         self.assertIsNone(expected_missing_reason(item, "abstract"))
