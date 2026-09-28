@@ -23,7 +23,10 @@ def process_html(path: Path) -> None:
     document = path.read_text(encoding="utf-8")
     # The approved redesign removes public presence chrome. Remove its client
     # too so production does not make an otherwise invisible heartbeat request.
-    document = strip_presence_script(document)
+    document = strip_presence_script(
+        document,
+        preserve_shared_interactions=True,
+    )
 
     has_style = f'id="{STYLE_ID}"' in document or f"id='{STYLE_ID}'" in document
     has_script = f'id="{SCRIPT_ID}"' in document or f"id='{SCRIPT_ID}'" in document
