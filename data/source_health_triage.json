@@ -1,7 +1,9 @@
 {
-  "categories": {},
-  "checked_at": "2026-09-28T09:43:20.454878+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-09-28T14:43:27.324753+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -10,19 +12,40 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen ",
+      "sample_error": "partial_success failures=1; Agricultural Economics: 9; Journal of the Association of Environmental and Resource Economists: 18; Land Economics: 0; Land Use Policy: 45; European Review of Agricultural ",
+      "source": "crossref"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "attempted=2; seen 中国农村经济: abstract-present; seen American Journal of Agricultural Economics: abstract-present",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 33 via official-generated; Journal of Finance: 25 via official-generated; Journal of Financial Economics: 28 via official-generated; Review of Financia",
+      "sample_error": "feeds=72/120; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
       "source": "rss"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "structural-change-and-economic-dynamics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Structural Change and Economic Dynamics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 3
+    "degraded_source_failures": 4
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
