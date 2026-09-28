@@ -242,7 +242,6 @@ async function checkSecondaryPages(browser) {
       await assertChinaCountConsistency(page, url);
     }
     if (path === "search/") {
-      await assertSearchCountConsistency(page, url);
       await assertUniqueSourceFilterLabels(page, url);
       assert.equal(indexRequests.length, 0, `${url} downloaded search data before user interaction`);
       assert.equal(indexBytes, 0, `${url} downloaded search bytes before user interaction`);
@@ -254,6 +253,7 @@ async function checkSecondaryPages(browser) {
         await page.waitForFunction((count) => document.querySelectorAll('.event').length > count, initialEntries);
         assert.ok(indexRequests.some((requestUrl) => requestUrl.endsWith("/manifest.json")), `${url} did not load its search manifest on demand`);
         assert.ok(indexRequests.some((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)), `${url} did not load a result shard on demand`);
+        await assertSearchCountConsistency(page, url);
         if (isLocal) {
           const firstSearch = await page.locator('.event').first().getAttribute('data-search');
           const searchInput = page.locator('.toolbar[data-filter-scope="search"] [data-filter-role="search"]');
