@@ -365,6 +365,57 @@ class AdditionalEconometricSocietyTargetTests(unittest.TestCase):
         self.assertEqual(authors[links[0][0]], ["Brandl, Florian"])
 
 
+class CambridgeAcceptedTargetTests(unittest.TestCase):
+    def test_jfqa_accepted_target_is_configured(self) -> None:
+        journal_id = "journal-of-financial-and-quantitative-analysis"
+        self.assertIn(journal_id, fetch_priority_toc.TARGETS)
+        target = fetch_priority_toc.TARGETS[journal_id][0]
+        self.assertEqual(target["kind"], "cambridge_accepted_manuscripts")
+        self.assertEqual(target["fallback_issn"], "0022-1090")
+        self.assertTrue(target["url"].endswith("/accepted-manuscripts"))
+        self.assertNotIn("fallback_urls", target)
+
+    def test_jfqa_accepted_links_accept_cambridge_articles_and_reject_navigation(self) -> None:
+        html = """
+        <a href="/core/product/161E759D5484B4EC5F3DD5D910B6047A">Misconduct and Market Implications of Honest Advisers' Decisions</a>
+        <a href="/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/when-is-the-price-of-analysts-disagreement-risk-positive/D0CC561EE0A55A327849ED3C7D10AD33">When Is the Price of Analysts' Disagreement Risk Positive?</a>
+        <a href="/core/journals/journal-of-financial-and-quantitative-analysis">Journal home</a>
+        """
+        base = "https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/accepted-manuscripts"
+        links = fetch_priority_toc.article_links(html, base)
+        self.assertEqual(
+            links,
+            [
+                (
+                    "https://www.cambridge.org/core/product/161E759D5484B4EC5F3DD5D910B6047A",
+                    "Misconduct and Market Implications of Honest Advisers' Decisions",
+                ),
+                (
+                    "https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/when-is-the-price-of-analysts-disagreement-risk-positive/D0CC561EE0A55A327849ED3C7D10AD33",
+                    "When Is the Price of Analysts' Disagreement Risk Positive?",
+                ),
+            ],
+        )
+
+    def test_cambridge_detail_reads_publisher_metadata(self) -> None:
+        page = """
+        <meta name="citation_title" content="Misconduct and Market Implications of Honest Advisers' Decisions">
+        <meta name="citation_author" content="Michael Gelman">
+        <meta name="citation_author" content="Amir Shoham">
+        <meta name="citation_online_date" content="2026-07-10">
+        <meta name="citation_abstract" content="A publisher abstract.">
+        """
+        with mock.patch.object(fetch_priority_toc, "fetch_toc_text", return_value=page):
+            detail = fetch_priority_toc.enrich_detail(
+                "https://www.cambridge.org/core/product/161E759D5484B4EC5F3DD5D910B6047A",
+                "Fallback",
+                5,
+            )
+        self.assertEqual(detail["published_online"], "2026-07-10")
+        self.assertEqual(detail["authors"], ["Michael Gelman", "Amir Shoham"])
+        self.assertEqual(detail["title"], "Misconduct and Market Implications of Honest Advisers' Decisions")
+
+
 class JhrTargetTests(unittest.TestCase):
     def test_jhr_targets_are_configured(self) -> None:
         self.assertIn("journal-of-human-resources", fetch_priority_toc.TARGETS)
