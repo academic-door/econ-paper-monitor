@@ -1207,6 +1207,7 @@ def main() -> None:
     parser.add_argument("--timeout", type=int, default=20)
     parser.add_argument("--detail-limit", type=int, default=12)
     parser.add_argument("--max-items-per-source", type=int, default=40)
+    parser.add_argument("--status-key", default="priority-toc", help="Operational status key for this invocation.")
     parser.add_argument(
         "--journal",
         action="append",
@@ -1287,7 +1288,7 @@ def main() -> None:
 
     write_json(output, records)
     record_source(
-        "priority-toc",
+        args.status_key,
         # Keep the source usable when at least one priority journal produced
         # records and another optional publisher page was unavailable.
         ok=failures == 0 or bool(records),

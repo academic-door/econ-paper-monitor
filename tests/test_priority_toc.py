@@ -25,7 +25,7 @@ class PriorityTocFallbackTests(unittest.TestCase):
     Econometrica lost both acquisition paths at once.
     """
 
-    def _run_main(self, fetch_target_mock):
+    def _run_main(self, fetch_target_mock, extra_argv=None):
         journals = [{"id": journal_id} for journal_id in fetch_priority_toc.TARGETS]
         timeouts: list[int] = []
 
@@ -41,6 +41,7 @@ class PriorityTocFallbackTests(unittest.TestCase):
                 "--output",
                 str(Path(tmp) / "priority-toc.json"),
             ]
+            argv.extend(extra_argv or [])
             with mock.patch.object(fetch_priority_toc, "load_journals", return_value=journals), \
                     mock.patch.object(fetch_priority_toc, "fetch_target", fetch_target_mock), \
                     mock.patch.object(fetch_priority_toc, "fetch_crossref_fallback", fake_fallback), \
@@ -49,6 +50,14 @@ class PriorityTocFallbackTests(unittest.TestCase):
                 fetch_priority_toc.main()
 
         return timeouts, record_source
+
+    def test_custom_status_key_isolated_for_focused_invocation(self) -> None:
+        _, record_source = self._run_main(
+            mock.Mock(side_effect=RuntimeError("blocked-captcha")),
+            ["--status-key", "priority-toc:jfqa"],
+        )
+
+        self.assertEqual(record_source.call_args.args[0], "priority-toc:jfqa")
 
     def test_fallback_runs_when_publisher_page_raises(self) -> None:
         timeouts, record_source = self._run_main(
