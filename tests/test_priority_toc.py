@@ -406,6 +406,45 @@ class CambridgeAcceptedTargetTests(unittest.TestCase):
             ],
         )
 
+    def test_cambridge_listing_cards_avoid_detail_fanout(self) -> None:
+        html = """
+        <article>
+          <a href="/core/product/161E759D5484B4EC5F3DD5D910B6047A"><span>Misconduct and Market Implications of Honest Advisers' Decisions</span></a>
+          <a href="/core/search?filters%5BauthorTerms%5D=Michael+Gelman">Michael Gelman</a>,
+          <a href="/core/search?filters%5BauthorTerms%5D=Amir+Shoham">Amir Shoham</a>
+          Published online by Cambridge University Press: 10 July 2026, pp. 1-39
+        </article>
+        <article>
+          <a href="/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/when-is-the-price-of-analysts-disagreement-risk-positive/D0CC561EE0A55A327849ED3C7D10AD33">When Is the Price of Analysts' Disagreement Risk Positive?</a>
+          <a href="/core/search?filters%5BauthorTerms%5D=Alexander+David">Alexander David</a>,
+          <a href="/core/search?filters%5BauthorTerms%5D=Amel+Farhat">Amel Farhat</a>
+          Published online by Cambridge University Press: 13 May 2026, pp. 1-88
+        </article>
+        """
+        base = "https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/accepted-manuscripts"
+        blocks = fetch_priority_toc.cambridge_accepted_blocks(html, base)
+        self.assertEqual(len(blocks), 2)
+        self.assertEqual(blocks[0]["authors"], ["Michael Gelman", "Amir Shoham"])
+        self.assertEqual(blocks[0]["published_online"], "2026-07-10")
+        self.assertEqual(blocks[1]["authors"], ["Alexander David", "Amel Farhat"])
+        self.assertEqual(blocks[1]["published_online"], "2026-05-13")
+
+        journal = {"id": "journal-of-financial-and-quantitative-analysis"}
+        target = fetch_priority_toc.TARGETS[journal["id"]][0]
+        with mock.patch.object(fetch_priority_toc, "fetch_toc_text", return_value=html), \
+                mock.patch.object(fetch_priority_toc, "enrich_detail", side_effect=AssertionError("detail fanout")):
+            records = fetch_priority_toc.fetch_target(
+                journal,
+                target,
+                timeout=5,
+                detail_limit=12,
+                max_items=40,
+            )
+        self.assertEqual(len(records), 2)
+        self.assertEqual(records[0]["authors"], ["Michael Gelman", "Amir Shoham"])
+        self.assertEqual(records[0]["published_online"], "2026-07-10")
+        self.assertEqual(records[1]["published_online"], "2026-05-13")
+
     def test_cambridge_detail_reads_publisher_metadata(self) -> None:
         page = """
         <meta name="citation_title" content="Misconduct and Market Implications of Honest Advisers' Decisions">
