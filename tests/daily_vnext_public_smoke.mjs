@@ -159,9 +159,14 @@ async function checkPage(browser, url) {
     const label = await china.getAttribute('aria-label');
     assert.match(label, /0 项/, `${url} disabled China filter should report zero items`);
   } else {
+    const expectedChina = await page.locator('.paper-entry[data-china="true"]').count();
     await china.click();
-    await page.waitForTimeout(250);
-    assert.equal(await visibleEntries(page), await page.locator('.paper-entry[data-china="true"]').count(), `${url} China filter`);
+    await page.waitForFunction(
+      (expected) => document.querySelectorAll('.paper-entry:not([hidden])').length === expected,
+      expectedChina,
+      { timeout: 3000 },
+    );
+    assert.equal(await visibleEntries(page), expectedChina, `${url} China filter`);
   }
   await page.locator('.filter[data-filter="all"]').click();
   const searchable = total > 0
