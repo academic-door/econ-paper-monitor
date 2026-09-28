@@ -101,16 +101,28 @@ async function scopedResultCount(page, scope, url) {
 }
 
 async function assertChinaCountConsistency(page, url) {
-  const totalText = await page.locator('.section-head').first().locator(':scope > p').innerText();
-  const totalMatch = totalText.match(/(\d+)\s*篇/);
-  assert.ok(totalMatch, `${url} China headline total is not parseable`);
-
   const journalStat = Number(await page.locator('.stats a[href="#china-journals"] strong').innerText());
   const workingStat = Number(await page.locator('.stats a[href="#china-working"] strong').innerText());
   const journalResults = await scopedResultCount(page, 'china-journal', url);
   const workingResults = await scopedResultCount(page, 'china-working', url);
 
-  assert.equal(Number(totalMatch[1]), journalResults + workingResults, `${url} China headline total disagrees with result sets`);
+  // The approved redesign intentionally removes the redundant corpus-total
+  // summary section on China pages. Preserve the total check when an exact
+  // "<N> 篇" summary is present, but do not reinterpret section recency copy
+  // such as "最近 7 天 41 篇" as the corpus total.
+  const sideLabels = page.locator('.section-head > p');
+  let headlineTotal = null;
+  for (let index = 0; index < await sideLabels.count(); index += 1) {
+    const text = (await sideLabels.nth(index).innerText()).trim();
+    const match = text.match(/^(\d+)\s*篇$/);
+    if (match) {
+      headlineTotal = Number(match[1]);
+      break;
+    }
+  }
+  if (headlineTotal !== null) {
+    assert.equal(headlineTotal, journalResults + workingResults, `${url} China headline total disagrees with result sets`);
+  }
   assert.equal(journalStat, journalResults, `${url} China journal stat disagrees with result set`);
   assert.equal(workingStat, workingResults, `${url} China working-paper stat disagrees with result set`);
 }
