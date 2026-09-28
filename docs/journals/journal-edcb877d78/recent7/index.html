@@ -840,10 +840,9 @@
   }).observe(document.getElementById('main-content') || document.body, {subtree:true, childList:true});
 
   document.querySelectorAll('details.more-filters').forEach((details) => {
-    details.querySelectorAll('select').forEach((select) => {
-      select.value = '';
-      select.dispatchEvent(new Event('change', {bubbles:true}));
-    });
+    // Advanced controls are removed from the approved public surface. Do not
+    // dispatch synthetic change events here: on Search those events wake the
+    // lazy index before the reader interacts with the page.
     details.remove();
   });
 
@@ -904,20 +903,29 @@
       const current = location.pathname + location.search + location.hash;
       if (next !== current) history.pushState(null, '', next);
     };
-    const applyUrlState = () => {
+    const applyUrlState = ({initial = false} = {}) => {
       const params = new URLSearchParams(location.search);
+      const query = params.get('q') || '';
+      const journalValue = params.get('journal') || '';
+      const fieldValue = params.get('field') || '';
+      const wantedChina = params.get('china') === '1';
+      const hasRequestedState = Boolean(query || journalValue || fieldValue || wantedChina);
       restoringHistory = true;
-      if (search) search.value = params.get('q') || '';
-      if (journal) journal.value = params.get('journal') || '';
-      if (field) field.value = params.get('field') || '';
+      if (search) search.value = query;
+      if (journal) journal.value = journalValue;
+      if (field) field.value = fieldValue;
       if (china) {
-        const wanted = params.get('china') === '1';
         const current = china.getAttribute('aria-pressed') === 'true';
-        if (wanted !== current) china.click();
+        if (wantedChina !== current) china.click();
       }
-      search?.dispatchEvent(new Event('input', {bubbles:true}));
-      journal?.dispatchEvent(new Event('change', {bubbles:true}));
-      field?.dispatchEvent(new Event('change', {bubbles:true}));
+      // On the initial empty Search route, preserve the existing lazy-load
+      // contract by not synthesizing input/change events. Direct URL state and
+      // Back/Forward restoration still dispatch so routed results stay correct.
+      if (!initial || hasRequestedState) {
+        search?.dispatchEvent(new Event('input', {bubbles:true}));
+        journal?.dispatchEvent(new Event('change', {bubbles:true}));
+        field?.dispatchEvent(new Event('change', {bubbles:true}));
+      }
       setTimeout(() => {
         restoringHistory = false;
         update();
@@ -927,7 +935,7 @@
     toolbar.addEventListener('input', changed);
     toolbar.addEventListener('change', changed);
     toolbar.addEventListener('click', changed);
-    window.addEventListener('popstate', applyUrlState);
+    window.addEventListener('popstate', () => applyUrlState());
 
     clear.addEventListener('click', () => {
       if (search) search.value = '';
@@ -942,7 +950,7 @@
       setTimeout(update, 220);
     });
 
-    applyUrlState();
+    applyUrlState({initial:true});
 
     const resultRoot = document.querySelector('[data-lazy-list]');
     if (resultRoot) {

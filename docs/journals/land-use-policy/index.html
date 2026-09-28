@@ -95,7 +95,7 @@
       <nav class="context-nav" aria-label="页面导航"><a class="" href="../../recent72/">最近72小时</a><a class="active" href="../../journals/">期刊</a><a class="" href="../../working-papers/">工作论文</a><a class="" href="../../topics/china/">中国研究</a><a class="" href="../../search/">搜索</a></nav>
     </section>
     <div class="wrap"><section class="section-head"><div><h2>Land Use Policy</h2><p>该期刊历史发现记录。</p></div></section><div class="toolbar">
-  <a class="control primary" href="../../daily/2026-09-28/?journal=land-use-policy">今日 1</a>
+  <a class="control primary" href="../../daily/2026-09-28/?journal=land-use-policy">最新日期 1</a>
   <a class="control" href="../../journals/land-use-policy/recent7/">最近 7 天 11</a>
   <a class="control" href="../../journals/land-use-policy/">全部历史 254</a>
 </div><div class="toolbar" id="filters-default" data-filter-scope="default">
@@ -105,7 +105,7 @@
   <details class="control more-filters"><summary>高级筛选</summary><div class="more-filters-row"><select class="control" aria-label="筛选日期类型" data-filter-role="dateType"><option value="">日期类型</option><option value="available_online">官方在线</option><option value="issue">来源期次</option></select><select class="control" aria-label="筛选可信度" data-filter-role="confidence"><option value="">可信度</option><option value="A">A：官方渠道明确日期</option><option value="C">C：Crossref/聚合登记日期</option><option value="F">F：仅本站首次发现</option></select></div></details>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">中国</button>
 </div>
-<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/6cca1c13ec40004c/manifest.json" data-lazy-filter="journal:land-use-policy"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="configurational morphogenesis under rapid expansion: access network adaptations in kutupalong refugee camp, bangladesh 快速扩张下的形态生成：孟加拉国库图帕隆难民营的通行网络适应 aminreza iranmanesh, hesam kamalipour land use policy land use policy 10.1016/j.landusepol.2026.108360" data-journal="land-use-policy" data-fields="agriculture development macro public" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
+<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/efdb540581d09390/manifest.json" data-lazy-filter="journal:land-use-policy"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="configurational morphogenesis under rapid expansion: access network adaptations in kutupalong refugee camp, bangladesh 快速扩张下的形态生成：孟加拉国库图帕隆难民营的通行网络适应 aminreza iranmanesh, hesam kamalipour land use policy land use policy 10.1016/j.landusepol.2026.108360" data-journal="land-use-policy" data-fields="agriculture development macro public" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
   <div><div class="time">19:06</div><div class="date-note">2026-09-28</div></div>
   <div>
     <h3><a href="../../paper/configurational-morphogenesis-under-rapid-expansion-access-network-adaptations-in-kutupa-79adb719d0ac/">快速扩张下的形态生成：孟加拉国库图帕隆难民营的通行网络适应</a></h3>
@@ -165,7 +165,7 @@
     <p class="authors">Selvi Karasungur, Merve Yavaş</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="pill">本站首次发现 2026-09-24 12:10</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-24 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">官方在线 2026-09-24 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108352">10.1016/j.landusepol.2026.108352</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -850,10 +850,9 @@
   }).observe(document.getElementById('main-content') || document.body, {subtree:true, childList:true});
 
   document.querySelectorAll('details.more-filters').forEach((details) => {
-    details.querySelectorAll('select').forEach((select) => {
-      select.value = '';
-      select.dispatchEvent(new Event('change', {bubbles:true}));
-    });
+    // Advanced controls are removed from the approved public surface. Do not
+    // dispatch synthetic change events here: on Search those events wake the
+    // lazy index before the reader interacts with the page.
     details.remove();
   });
 
@@ -914,20 +913,29 @@
       const current = location.pathname + location.search + location.hash;
       if (next !== current) history.pushState(null, '', next);
     };
-    const applyUrlState = () => {
+    const applyUrlState = ({initial = false} = {}) => {
       const params = new URLSearchParams(location.search);
+      const query = params.get('q') || '';
+      const journalValue = params.get('journal') || '';
+      const fieldValue = params.get('field') || '';
+      const wantedChina = params.get('china') === '1';
+      const hasRequestedState = Boolean(query || journalValue || fieldValue || wantedChina);
       restoringHistory = true;
-      if (search) search.value = params.get('q') || '';
-      if (journal) journal.value = params.get('journal') || '';
-      if (field) field.value = params.get('field') || '';
+      if (search) search.value = query;
+      if (journal) journal.value = journalValue;
+      if (field) field.value = fieldValue;
       if (china) {
-        const wanted = params.get('china') === '1';
         const current = china.getAttribute('aria-pressed') === 'true';
-        if (wanted !== current) china.click();
+        if (wantedChina !== current) china.click();
       }
-      search?.dispatchEvent(new Event('input', {bubbles:true}));
-      journal?.dispatchEvent(new Event('change', {bubbles:true}));
-      field?.dispatchEvent(new Event('change', {bubbles:true}));
+      // On the initial empty Search route, preserve the existing lazy-load
+      // contract by not synthesizing input/change events. Direct URL state and
+      // Back/Forward restoration still dispatch so routed results stay correct.
+      if (!initial || hasRequestedState) {
+        search?.dispatchEvent(new Event('input', {bubbles:true}));
+        journal?.dispatchEvent(new Event('change', {bubbles:true}));
+        field?.dispatchEvent(new Event('change', {bubbles:true}));
+      }
       setTimeout(() => {
         restoringHistory = false;
         update();
@@ -937,7 +945,7 @@
     toolbar.addEventListener('input', changed);
     toolbar.addEventListener('change', changed);
     toolbar.addEventListener('click', changed);
-    window.addEventListener('popstate', applyUrlState);
+    window.addEventListener('popstate', () => applyUrlState());
 
     clear.addEventListener('click', () => {
       if (search) search.value = '';
@@ -952,7 +960,7 @@
       setTimeout(update, 220);
     });
 
-    applyUrlState();
+    applyUrlState({initial:true});
 
     const resultRoot = document.querySelector('[data-lazy-list]');
     if (resultRoot) {

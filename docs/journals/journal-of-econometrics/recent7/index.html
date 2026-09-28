@@ -131,15 +131,15 @@
     </div>
   </div>
 </article>
-<article class="event" data-event-scope="default" data-search="real-time monitoring for stock return predictability in nonstationary volatility environments 非平稳波动环境下股票收益可预测性的实时监测 matei demetrescu, fabian schmidt, a.m. robert taylor journal of econometrics journal of econometrics 10.1016/j.jeconom.2026.106341" data-journal="journal-of-econometrics" data-fields="environment finance econometrics" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
+<article class="event" data-event-scope="default" data-search="real-time monitoring for stock return predictability in nonstationary volatility environments 非平稳波动环境下股票收益可预测性的实时监测 matei demetrescu, fabian schmidt, robert taylor journal of econometrics journal of econometrics 10.1016/j.jeconom.2026.106341" data-journal="journal-of-econometrics" data-fields="environment finance econometrics" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
   <div><div class="time">03:44</div><div class="date-note">2026-09-24</div></div>
   <div>
     <h3><a href="../../../paper/real-time-monitoring-for-stock-return-predictability-in-nonstationary-volatility-environ-29e6cb0b86b1/">非平稳波动环境下股票收益可预测性的实时监测</a></h3>
     <p class="title-original">Real-time monitoring for stock return predictability in nonstationary volatility environments</p>
-    <p class="authors">Matei Demetrescu, Fabian Schmidt, A.M. Robert Taylor</p>
+    <p class="authors">Matei Demetrescu, Fabian Schmidt, Robert Taylor</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="pill">本站首次发现 2026-09-24 03:44</span></span></div>
-      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-09-23 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">日期信息</span><span class="meta-values"><span class="date-chip ">聚合元数据日期 2026-09-23 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106341">10.1016/j.jeconom.2026.106341</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -772,10 +772,9 @@
   }).observe(document.getElementById('main-content') || document.body, {subtree:true, childList:true});
 
   document.querySelectorAll('details.more-filters').forEach((details) => {
-    details.querySelectorAll('select').forEach((select) => {
-      select.value = '';
-      select.dispatchEvent(new Event('change', {bubbles:true}));
-    });
+    // Advanced controls are removed from the approved public surface. Do not
+    // dispatch synthetic change events here: on Search those events wake the
+    // lazy index before the reader interacts with the page.
     details.remove();
   });
 
@@ -836,20 +835,29 @@
       const current = location.pathname + location.search + location.hash;
       if (next !== current) history.pushState(null, '', next);
     };
-    const applyUrlState = () => {
+    const applyUrlState = ({initial = false} = {}) => {
       const params = new URLSearchParams(location.search);
+      const query = params.get('q') || '';
+      const journalValue = params.get('journal') || '';
+      const fieldValue = params.get('field') || '';
+      const wantedChina = params.get('china') === '1';
+      const hasRequestedState = Boolean(query || journalValue || fieldValue || wantedChina);
       restoringHistory = true;
-      if (search) search.value = params.get('q') || '';
-      if (journal) journal.value = params.get('journal') || '';
-      if (field) field.value = params.get('field') || '';
+      if (search) search.value = query;
+      if (journal) journal.value = journalValue;
+      if (field) field.value = fieldValue;
       if (china) {
-        const wanted = params.get('china') === '1';
         const current = china.getAttribute('aria-pressed') === 'true';
-        if (wanted !== current) china.click();
+        if (wantedChina !== current) china.click();
       }
-      search?.dispatchEvent(new Event('input', {bubbles:true}));
-      journal?.dispatchEvent(new Event('change', {bubbles:true}));
-      field?.dispatchEvent(new Event('change', {bubbles:true}));
+      // On the initial empty Search route, preserve the existing lazy-load
+      // contract by not synthesizing input/change events. Direct URL state and
+      // Back/Forward restoration still dispatch so routed results stay correct.
+      if (!initial || hasRequestedState) {
+        search?.dispatchEvent(new Event('input', {bubbles:true}));
+        journal?.dispatchEvent(new Event('change', {bubbles:true}));
+        field?.dispatchEvent(new Event('change', {bubbles:true}));
+      }
       setTimeout(() => {
         restoringHistory = false;
         update();
@@ -859,7 +867,7 @@
     toolbar.addEventListener('input', changed);
     toolbar.addEventListener('change', changed);
     toolbar.addEventListener('click', changed);
-    window.addEventListener('popstate', applyUrlState);
+    window.addEventListener('popstate', () => applyUrlState());
 
     clear.addEventListener('click', () => {
       if (search) search.value = '';
@@ -874,7 +882,7 @@
       setTimeout(update, 220);
     });
 
-    applyUrlState();
+    applyUrlState({initial:true});
 
     const resultRoot = document.querySelector('[data-lazy-list]');
     if (resultRoot) {

@@ -105,7 +105,7 @@
   <details class="control more-filters"><summary>高级筛选</summary><div class="more-filters-row"><select class="control" aria-label="筛选日期类型" data-filter-role="dateType"><option value="">日期类型</option><option value="published_online">官方发布</option><option value="available_online">官方在线</option></select><select class="control" aria-label="筛选可信度" data-filter-role="confidence"><option value="">可信度</option><option value="A">A：官方渠道明确日期</option><option value="C">C：Crossref/聚合登记日期</option><option value="D">D：卷期/印刷日期</option></select></div></details>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">中国</button>
 </div>
-<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/6cca1c13ec40004c/manifest.json" data-lazy-filter="journal:journal-of-economic-dynamics-and-control"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="i think you think i think: hierarchical belief learning and endogenous volatility dynamics 我认为你认为我认为：层级信念学习与内生波动动态 tao wang journal of economic dynamics and control journal of economic dynamics and control 10.1016/j.jedc.2026.105421" data-journal="journal-of-economic-dynamics-and-control" data-fields="finance behavior" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
+<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/efdb540581d09390/manifest.json" data-lazy-filter="journal:journal-of-economic-dynamics-and-control"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="i think you think i think: hierarchical belief learning and endogenous volatility dynamics 我认为你认为我认为：层级信念学习与内生波动动态 tao wang journal of economic dynamics and control journal of economic dynamics and control 10.1016/j.jedc.2026.105421" data-journal="journal-of-economic-dynamics-and-control" data-fields="finance behavior" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="journal_article">
   <div><div class="time">17:43</div><div class="date-note">2026-09-25</div></div>
   <div>
     <h3><a href="../../paper/i-think-you-think-i-think-hierarchical-belief-learning-and-endogenous-volatility-dynamic-7e5078083a11/">我认为你认为我认为：层级信念学习与内生波动动态</a></h3>
@@ -850,10 +850,9 @@
   }).observe(document.getElementById('main-content') || document.body, {subtree:true, childList:true});
 
   document.querySelectorAll('details.more-filters').forEach((details) => {
-    details.querySelectorAll('select').forEach((select) => {
-      select.value = '';
-      select.dispatchEvent(new Event('change', {bubbles:true}));
-    });
+    // Advanced controls are removed from the approved public surface. Do not
+    // dispatch synthetic change events here: on Search those events wake the
+    // lazy index before the reader interacts with the page.
     details.remove();
   });
 
@@ -914,20 +913,29 @@
       const current = location.pathname + location.search + location.hash;
       if (next !== current) history.pushState(null, '', next);
     };
-    const applyUrlState = () => {
+    const applyUrlState = ({initial = false} = {}) => {
       const params = new URLSearchParams(location.search);
+      const query = params.get('q') || '';
+      const journalValue = params.get('journal') || '';
+      const fieldValue = params.get('field') || '';
+      const wantedChina = params.get('china') === '1';
+      const hasRequestedState = Boolean(query || journalValue || fieldValue || wantedChina);
       restoringHistory = true;
-      if (search) search.value = params.get('q') || '';
-      if (journal) journal.value = params.get('journal') || '';
-      if (field) field.value = params.get('field') || '';
+      if (search) search.value = query;
+      if (journal) journal.value = journalValue;
+      if (field) field.value = fieldValue;
       if (china) {
-        const wanted = params.get('china') === '1';
         const current = china.getAttribute('aria-pressed') === 'true';
-        if (wanted !== current) china.click();
+        if (wantedChina !== current) china.click();
       }
-      search?.dispatchEvent(new Event('input', {bubbles:true}));
-      journal?.dispatchEvent(new Event('change', {bubbles:true}));
-      field?.dispatchEvent(new Event('change', {bubbles:true}));
+      // On the initial empty Search route, preserve the existing lazy-load
+      // contract by not synthesizing input/change events. Direct URL state and
+      // Back/Forward restoration still dispatch so routed results stay correct.
+      if (!initial || hasRequestedState) {
+        search?.dispatchEvent(new Event('input', {bubbles:true}));
+        journal?.dispatchEvent(new Event('change', {bubbles:true}));
+        field?.dispatchEvent(new Event('change', {bubbles:true}));
+      }
       setTimeout(() => {
         restoringHistory = false;
         update();
@@ -937,7 +945,7 @@
     toolbar.addEventListener('input', changed);
     toolbar.addEventListener('change', changed);
     toolbar.addEventListener('click', changed);
-    window.addEventListener('popstate', applyUrlState);
+    window.addEventListener('popstate', () => applyUrlState());
 
     clear.addEventListener('click', () => {
       if (search) search.value = '';
@@ -952,7 +960,7 @@
       setTimeout(update, 220);
     });
 
-    applyUrlState();
+    applyUrlState({initial:true});
 
     const resultRoot = document.querySelector('[data-lazy-list]');
     if (resultRoot) {
