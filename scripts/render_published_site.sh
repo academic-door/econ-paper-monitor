@@ -35,6 +35,7 @@ python scripts/build_daily_vnext.py \
 python scripts/build_feed.py --site-url https://academic-door.github.io/econ-paper-monitor/
 python scripts/build_discoverability.py --site-url https://academic-door.github.io/econ-paper-monitor/
 python scripts/render_semantic_scholar_usage.py
+python scripts/apply_redesign_production.py --root docs
 
 test -f docs/index.html
 test -f docs/daily-vnext/index.html
@@ -60,6 +61,10 @@ assert "今日研究时间流" in root and "今日研究时间流" in vnext
 assert 'class="sidebar"' not in root and 'class="sidebar"' not in vnext
 assert 'class="sidebar"' in classic
 assert "title_primary" in detail and "title_secondary" in detail
+assert "daily-door-redesign-preview-style" in root
+assert "daily-door-redesign-preview-script" in root
+assert "Daily Door Redesign Preview v1 · 非正式页面" not in root
+assert "noindex,nofollow,noarchive" not in root
 print("Homepage, Daily vNext, detail, and Classic output contract passed")
 PY
 
