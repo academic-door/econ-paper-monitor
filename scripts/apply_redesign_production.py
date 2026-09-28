@@ -10,7 +10,6 @@ first-discovery semantics remain untouched.
 from __future__ import annotations
 
 import argparse
-import re
 from pathlib import Path
 
 from build_redesign_preview import PREVIEW_SCRIPT, PREVIEW_STYLE, strip_presence_script
@@ -19,32 +18,18 @@ STYLE_ID = "daily-door-redesign-preview-style"
 SCRIPT_ID = "daily-door-redesign-preview-script"
 
 
-def _remove_existing(document: str) -> str:
-    document = re.sub(
-        rf'<style\s+id=["\']{re.escape(STYLE_ID)}["\'][^>]*>.*?</style>\s*',
-        "",
-        document,
-        flags=re.I | re.S,
-    )
-    document = re.sub(
-        rf'<script\s+id=["\']{re.escape(SCRIPT_ID)}["\'][^>]*>.*?</script>\s*',
-        "",
-        document,
-        flags=re.I | re.S,
-    )
-    return document
-
 
 def process_html(path: Path) -> None:
     document = path.read_text(encoding="utf-8")
-    document = _remove_existing(document)
-    # The approved redesign removes public presence chrome.  Remove its client
+    # The approved redesign removes public presence chrome. Remove its client
     # too so production does not make an otherwise invisible heartbeat request.
     document = strip_presence_script(document)
 
-    if PREVIEW_STYLE not in document:
+    has_style = f'id="{STYLE_ID}"' in document or f"id='{STYLE_ID}'" in document
+    has_script = f'id="{SCRIPT_ID}"' in document or f"id='{SCRIPT_ID}'" in document
+    if not has_style:
         document = document.replace("</head>", PREVIEW_STYLE + "\n</head>", 1)
-    if PREVIEW_SCRIPT not in document:
+    if not has_script:
         document = document.replace("</body>", PREVIEW_SCRIPT + "\n</body>", 1)
     path.write_text(document, encoding="utf-8")
 
