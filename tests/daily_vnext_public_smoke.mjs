@@ -30,12 +30,26 @@ async function assertNoPseudoDiscoveryTime(page, url) {
 }
 
 async function assertSearchCountConsistency(page, url) {
-  const summary = (await page.locator('.section-head > p').first().innerText()).match(/(\d+)\s*条/);
   const start = page.locator('.lazy-start').first();
   if (!(await start.count())) return;
+
   const browse = (await start.innerText()).match(/浏览全部\s*(\d+)\s*篇/);
-  assert.ok(summary && browse, `${url} search totals are not parseable`);
-  assert.equal(Number(summary[1]), Number(browse[1]), `${url} search totals disagree`);
+  assert.ok(browse, `${url} search browse total is not parseable`);
+  const resultCount = await scopedResultCount(page, 'search', url);
+  assert.equal(Number(browse[1]), resultCount, `${url} search browse total disagrees with result manifest`);
+
+  // The approved redesign removes the redundant search summary section.
+  // If a legacy/exact corpus total remains, keep validating it, but do not
+  // require the removed section as part of the public contract.
+  const sideLabels = page.locator('.section-head > p');
+  for (let index = 0; index < await sideLabels.count(); index += 1) {
+    const text = (await sideLabels.nth(index).innerText()).trim();
+    const summary = text.match(/^(\d+)\s*条$/);
+    if (summary) {
+      assert.equal(Number(summary[1]), resultCount, `${url} search summary total disagrees with result manifest`);
+      break;
+    }
+  }
 }
 
 async function assertUniqueSourceFilterLabels(page, url) {
