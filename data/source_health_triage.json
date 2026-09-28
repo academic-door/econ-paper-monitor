@@ -1,13 +1,13 @@
 {
   "categories": {
-    "transient_network": 3
+    "transient_network": 1
   },
-  "checked_at": "2026-09-29T01:49:47.522617+08:00",
-  "source_health_degraded_count": 3,
+  "checked_at": "2026-09-29T02:23:05.136312+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -17,26 +17,11 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 33 via official-generated; Journal of Finance: 25 via official-generated; Journal of Financial Economics: 28 via official-generated; Review of Financia",
+      "sample_error": "feeds=72/121; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
       "source": "rss"
     }
   ],
   "sources": [
-    {
-      "category": "transient_network",
-      "category_counts": {
-        "transient_network": 1
-      },
-      "journal_id": "american-economic-journal-macroeconomics",
-      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
-      "source": "American Economic Journal: Macroeconomics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
     {
       "category": "transient_network",
       "category_counts": {
@@ -51,26 +36,11 @@
         "crossref",
         "openalex-recall"
       ]
-    },
-    {
-      "category": "transient_network",
-      "category_counts": {
-        "transient_network": 1
-      },
-      "journal_id": "american-economic-review-insights",
-      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
-      "source": "American Economic Review: Insights",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
     }
   ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 3
   },
-  "total_degraded": 3
+  "total_degraded": 1
 }
