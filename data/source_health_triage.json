@@ -1,46 +1,28 @@
 {
-  "categories": {
-    "needs_investigation": 1
-  },
-  "checked_at": "2026-09-29T17:19:55.175424+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-09-29T18:53:24.060242+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=5; seen 中国农村经济: abstract-present; 2026-09-29 VoxEU / CEPR Columns: abstract-present; 2026-09-29 VoxEU / CEPR Columns: abstract-present; 2026-09-29 VoxEU / CEPR Columns: abstract-present; see",
+      "sample_error": "attempted=17; seen Applied Economics: metadata-only; seen 中国农村经济: abstract-present; seen 经济研究: abstract-present; 2026-09-29 Energy Policy: abstract-present; 2026-09-29 Journal of Financial and Quantit",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=72/120; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
+      "sample_error": "feeds=72/121; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
       "source": "rss"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "journal-of-economic-growth/springer_online_first: PARSER_FAILURE; journal-of-economic-growth/springer_online_first: crossref fallback 1; international-tax-and-public-finance/springer_online_first: PAR",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 3
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }

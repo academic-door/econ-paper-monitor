@@ -1,7 +1,7 @@
 {
   "abstracts": {
-    "available": 7709,
-    "missing": 367,
+    "available": 7710,
+    "missing": 366,
     "missing_by_journal_top": {
       "American Economic Review": 4,
       "Applied Economics": 72,
@@ -17,7 +17,7 @@
       "International Journal of Game Theory": 2,
       "Journal of Accounting and Economics": 4,
       "Journal of Business & Economic Statistics": 4,
-      "Journal of Development Economics": 4,
+      "Journal of Development Economics": 3,
       "Journal of Economic Dynamics and Control": 2,
       "Journal of Economic Literature": 10,
       "Journal of Economic Perspectives": 2,
@@ -34,9 +34,9 @@
       "Review of Accounting Studies": 2,
       "World Development": 6
     },
-    "missing_rate": 0.0454,
-    "missing_recent": 27,
-    "missing_recent_actionable": 23,
+    "missing_rate": 0.0453,
+    "missing_recent": 26,
+    "missing_recent_actionable": 22,
     "missing_recent_expected": 4,
     "missing_today": 0,
     "total": 8076
@@ -54,28 +54,28 @@
   "date_confidence": {
     "A": 4577,
     "B": 60,
-    "C": 2449,
+    "C": 2448,
     "D": 523,
-    "F": 467
+    "F": 468
   },
   "date_source_top": {
     "aea_current_issue": 44,
     "cepr_published_time": 39,
-    "cnki_rss_pubdate": 265,
+    "cnki_rss_pubdate": 264,
     "crossref_doi_created": 21,
-    "crossref_doi_elsevier_created_online": 381,
+    "crossref_doi_elsevier_created_online": 383,
     "crossref_doi_published": 64,
-    "crossref_doi_published_online": 204,
-    "crossref_elsevier_created_online": 741,
+    "crossref_doi_published_online": 205,
+    "crossref_elsevier_created_online": 740,
     "crossref_issue": 60,
-    "crossref_published_online": 551,
+    "crossref_published_online": 564,
     "iza_detail_month": 59,
     "nep_issue_date": 406,
-    "openalex+crossref_crossvalidated": 436,
-    "openalex_publication_date": 41,
+    "openalex+crossref_crossvalidated": 416,
+    "openalex_publication_date": 45,
     "publisher_detail": 982,
     "publisher_published_online": 91,
-    "rss_description_online": 825,
+    "rss_description_online": 827,
     "rss_published": 2317,
     "unknown": 404,
     "world_bank_detail_api": 54
@@ -734,7 +734,7 @@
       {
         "date": "2026-09-24",
         "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_source": "rss_description_online",
         "journal": "Land Use Policy",
         "official_date": "2026-09-24",
         "source_issue": "Land Use Policy",
@@ -814,7 +814,7 @@
       {
         "date": "2026-09-22",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "openalex_publication_date",
         "journal": "Economic Development and Cultural Change",
         "official_date": "2026-09-22",
         "source_issue": null,
@@ -824,7 +824,7 @@
       {
         "date": "2026-09-22",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "openalex_publication_date",
         "journal": "Review of Accounting Studies",
         "official_date": "2026-09-22",
         "source_issue": null,
@@ -850,16 +850,6 @@
         "source_issue": null,
         "title": "Swiftynomics: How Women Mastermind and Redefine Our Economy by Misty L. Heggeness",
         "url": "https://www.aeaweb.org/articles?id=10.1257/jel.20260019"
-      },
-      {
-        "date": "2026-09-19",
-        "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
-        "journal": "Public Choice",
-        "official_date": "2026-09-19",
-        "source_issue": null,
-        "title": "A model of criminal justice discretion",
-        "url": "https://doi.org/10.1007/s11127-026-01468-5"
       }
     ],
     "missing_abstract_recent_actionable": [
@@ -1066,7 +1056,7 @@
       {
         "date": "2026-09-22",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "openalex_publication_date",
         "journal": "Economic Development and Cultural Change",
         "official_date": "2026-09-22",
         "source_issue": null,
@@ -1076,29 +1066,19 @@
       {
         "date": "2026-09-22",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "openalex_publication_date",
         "journal": "Review of Accounting Studies",
         "official_date": "2026-09-22",
         "source_issue": null,
         "title": "Retail investor trading and market reactions to earnings announcements",
         "url": "https://doi.org/10.1007/s11142-026-09994-9"
-      },
-      {
-        "date": "2026-09-19",
-        "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
-        "journal": "Public Choice",
-        "official_date": "2026-09-19",
-        "source_issue": null,
-        "title": "A model of criminal justice discretion",
-        "url": "https://doi.org/10.1007/s11127-026-01468-5"
       }
     ],
     "missing_abstract_recent_expected": [
       {
         "date": "2026-09-24",
         "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_source": "rss_description_online",
         "expectation_reason": "correction_notice",
         "journal": "Land Use Policy",
         "official_date": "2026-09-24",
@@ -1850,8 +1830,29 @@
     "nonpaper_records": [],
     "source_type_errors": [],
     "today_cn_issue_only": [],
-    "today_low_confidence": [],
+    "today_low_confidence": [
+      {
+        "date": "2026-09-29",
+        "date_confidence": "F",
+        "date_source": "sciencedirect_api_load_date",
+        "journal": "Land Use Policy",
+        "official_date": "2026-09-29",
+        "source_issue": null,
+        "title": "Seasonal index-based corn insurance design for Brazil: Insights from Safra and Safrinha",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004436?dgcid=api_sd_search-api-endpoint"
+      }
+    ],
     "untranslated_recent": [
+      {
+        "date": "2026-09-29",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_published_online",
+        "journal": "Journal of Applied Econometrics",
+        "official_date": "2026-09-29",
+        "source_issue": null,
+        "title": "Partial Identification of Population Average and Quantile Treatment Effects in Observational Data Under Sample Selection",
+        "url": "https://doi.org/10.1002/jae.70093"
+      },
       {
         "date": "2026-09-29",
         "date_confidence": "C",
@@ -1951,6 +1952,16 @@
         "source_issue": null,
         "title": "Better work, not always better workers",
         "url": "https://cepr.org/voxeu/columns/better-work-not-always-better-workers"
+      },
+      {
+        "date": "2026-09-29",
+        "date_confidence": "F",
+        "date_source": "sciencedirect_api_load_date",
+        "journal": "Land Use Policy",
+        "official_date": "2026-09-29",
+        "source_issue": null,
+        "title": "Seasonal index-based corn insurance design for Brazil: Insights from Safra and Safrinha",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004436?dgcid=api_sd_search-api-endpoint"
       },
       {
         "date": "2026-09-28",
@@ -2134,11 +2145,11 @@
       },
       {
         "date": "2026-09-28",
-        "date_confidence": "C",
-        "date_source": "crossref_doi_elsevier_created_online",
+        "date_confidence": "A",
+        "date_source": "rss_description_online",
         "journal": "Mathematical Social Sciences",
         "official_date": "2026-09-28",
-        "source_issue": null,
+        "source_issue": "Mathematical Social Sciences",
         "title": "A simple single-axiom characterization of weak order rationalizability",
         "url": "https://doi.org/10.1016/j.mathsocsci.2026.102587"
       },
@@ -2282,6 +2293,16 @@
       {
         "date": "2026-09-29",
         "date_confidence": "C",
+        "date_source": "crossref_doi_published_online",
+        "journal": "Journal of Applied Econometrics",
+        "official_date": "2026-09-29",
+        "source_issue": null,
+        "title": "Partial Identification of Population Average and Quantile Treatment Effects in Observational Data Under Sample Selection",
+        "url": "https://doi.org/10.1002/jae.70093"
+      },
+      {
+        "date": "2026-09-29",
+        "date_confidence": "C",
         "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Energy Policy",
         "official_date": "2026-09-29",
@@ -2324,29 +2345,29 @@
   "source_top": {
     "aea_toc": 127,
     "cn-official": 62,
-    "cnki-rss": 216,
-    "crossref": 3520,
+    "cnki-rss": 215,
+    "crossref": 3521,
     "priority_crossref_fallback": 59,
     "priority_toc": 60,
     "rss": 1970,
-    "sciencedirect_search": 107,
-    "unknown": 174,
+    "sciencedirect_search": 108,
+    "unknown": 173,
     "working_papers": 1781
   },
   "totals": {
     "china_candidates": 228,
-    "china_related_public": 1225,
+    "china_related_public": 1224,
     "cnki_rss_today": 0,
     "crossref_created_today": 4,
-    "crossref_fallback_today": 4,
+    "crossref_fallback_today": 5,
     "duplicates_by_url_or_doi": 0,
     "future_official_date_in_bucket": 0,
-    "historical_records_in_bucket": 64,
+    "historical_records_in_bucket": 63,
     "invalid_journal_ids": 0,
     "malformed_first_seen": 0,
-    "missing_abstract": 367,
-    "missing_abstract_recent": 27,
-    "missing_abstract_recent_actionable": 23,
+    "missing_abstract": 366,
+    "missing_abstract_recent": 26,
+    "missing_abstract_recent_actionable": 22,
     "missing_abstract_recent_expected": 4,
     "missing_abstract_today": 0,
     "missing_authors": 9,
@@ -2355,13 +2376,13 @@
     "missing_authors_recent_expected": 0,
     "missing_authors_today": 0,
     "missing_authors_today_journals": 0,
-    "missing_required_fields": 177,
+    "missing_required_fields": 176,
     "nonpaper_records": 0,
     "recent_sample_records": 500,
     "records": 8076,
     "source_type_errors": 0,
-    "today_journal_records": 7,
-    "today_records": 10,
+    "today_journal_records": 9,
+    "today_records": 12,
     "today_working_papers": 3
   }
 }
