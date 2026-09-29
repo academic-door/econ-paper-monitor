@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-09-30T04:46:34.634439+08:00",
+  "checked_at": "2026-09-30T07:05:12.157704+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -11,18 +11,8 @@
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Agricultural Economics: 10; Journal of the Association of Environmental and Resource Economists: 17; Land Economics: 0; Land Use Policy: 44; European Review of Agricultural",
-      "source": "crossref"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of ",
-      "source": "publisher-detail"
-    },
-    {
       "category": "page_structure_change",
-      "sample_error": "feeds=72/120; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
+      "sample_error": "feeds=32/45; Journal of International Economics: 33 via official-generated; Journal of Finance: 26 via official-generated; Journal of Financial Economics: 28 via official-generated; Review of Financia",
       "source": "rss"
     }
   ],
@@ -35,8 +25,8 @@
       "journal_id": "economic-modelling",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Economic Modelling",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -45,7 +35,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 2
   },
   "total_degraded": 1
 }
