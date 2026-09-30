@@ -110,7 +110,8 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -236,7 +237,7 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_raw_file": "data/raw/rss/2026-09-30.json",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -1320,7 +1321,7 @@
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "persistence-and-structural-breaks-in-u-s-leading-economic-indicators-a-fractional-integr-a9b2bd6f5181",
     "detected_at": "2026-09-29T18:39:05+00:00",
     "doi": "10.1080/00036846.2026.2740194",
@@ -1855,8 +1856,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "the-voting-behavior-of-women-led-mutual-funds-715f84deb304",
     "detected_at": "2026-09-29T16:34:42+00:00",
     "doi": "10.1016/j.jcorpfin.2026.103095",
@@ -1877,7 +1878,7 @@
     "official_date_status": "available",
     "pdf_url": null,
     "pii": "S0929119926001537",
-    "published_online": "2026-09-29",
+    "published_online": "2026-09-28",
     "publisher": "Elsevier BV",
     "raw_data": {
       "crossref_date_source": "crossref_elsevier_created_online",
@@ -1898,11 +1899,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Journal of Corporate Finance",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "The voting behavior of women-led mutual funds",
@@ -1932,7 +1940,7 @@
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "fast-and-efficient-estimation-of-macromodels-with-large-shocks-41c52a20e9bf",
     "detected_at": "2026-09-29T16:34:32+00:00",
     "doi": "10.1080/07350015.2026.2740570",
@@ -2614,7 +2622,7 @@
     "abstract": "The global energy transition is accelerating battery production, creating policy challenges for countries seeking to join low-carbon supply chains. Research on industrial upgrading and global value chains explains integration into production networks. In contrast, research on the development of green industrial paths establishes the importance of regional preconditions, asset modification, and firm- and system-level agency. Less is known, however, about how system-level actors coordinate these elements in structurally constrained and globally interdependent contexts. This paper examines Morocco's EV battery industry and identifies a mechanism and a boundary condition. Drawing on interviews, policy documents, corporate disclosures and secondary data, it identifies policy-mediated cross-path asset alignment: system-level actors translate external regulatory and market pressures into domestic interventions connecting automotive, logistics, mineral-processing and renewable-energy assets with non-local technology and capital. The resulting pathway combines the renewal of phosphate- and cobalt-related activities with diversification into battery-material production and the prospective importation of cell manufacturing. Although this alignment reduces input, logistics, compliance and market-access constraints and may elicit investment commitments, uneven implementation shows that such commitments do not necessarily produce operational capacity, domestic linkages, capability formation, or durable regional value capture. For energy policy, the findings demonstrate both the importance and limits of coordinating industrial, energy and resource policies under external dependence.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "全球能源转型正在加速电池生产，为寻求加入低碳供应链的国家带来了政策挑战。关于产业升级和全球价值链的研究解释了如何融入生产网络。相比之下，关于绿色产业路径发展的研究确立了区域先决条件、资产改造以及企业和系统层面能动性的重要性。然而，对于系统层面行为主体如何在结构性受限且全球相互依存的背景下协调这些要素，人们知之甚少。本文考察摩洛哥的电动汽车电池产业，并识别出一种机制和一个边界条件。基于访谈、政策文件、企业披露和二手数据，本文识别出政策中介的跨路径资产对齐：系统层面行为主体将外部监管和市场压力转化为国内干预措施，将汽车、物流、矿产加工和可再生能源资产与非本地技术和资本连接起来。由此形成的路径将磷酸盐和钴相关活动的更新与向电池材料生产的多元化以及未来电芯制造进口结合起来。尽管这种对齐减少了投入、物流、合规和市场准入方面的约束，并可能引发投资承诺，但不均衡的实施表明，此类承诺并不必然产生运营能力、国内联系、能力形成或持久的区域价值捕获。对于能源政策而言，研究结果既表明了在外依赖下协调产业、能源和资源政策的重要性，也表明了其局限性。",
     "accepted_date": null,
@@ -2628,7 +2636,7 @@
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "battery-industrialisation-and-the-energy-transition-policy-coordination-and-industrial-p-23234ed374cf",
     "detected_at": "2026-09-29T09:14:48+00:00",
     "doi": "10.1016/j.enpol.2026.115632",
@@ -2666,6 +2674,13 @@
         },
         {
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-09-29",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-29",
+          "source": "openalex"
         }
       ]
     },
@@ -2744,14 +2759,14 @@
     "ai_tags": [],
     "authors": [
       "Akhil Sasidharan",
-      "John McHale",
+      "John P. McHale",
       "Jason Harold"
     ],
     "authors_status_code": "available",
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "estimating-the-impact-of-a-star-scientist-move-on-their-own-research-productivity-3af4d8032bc9",
     "detected_at": "2026-09-29T09:12:09+00:00",
     "doi": "10.1016/j.labeco.2026.102973",
@@ -2946,7 +2961,7 @@
     "abstract": "This paper develops a novel empirical framework to estimate exploitation rates (the ratios of unpaid to paid labor time) and tests the hypothesis that globalization fosters their convergence. By integrating the Leontief input–output model with the New Interpretation of Marxian value theory, the analysis distinguishes between value production and value realization, exploring their distinct implications for global exploitation. Drawing on the GLORIA dataset, comprising 1.2 terabytes of input–output data covering 120 sectors across 164 regions from 1990 to 2023, this study offers the most comprehensive empirical investigation of exploitation rates to date. The analysis spans four levels of aggregation (global, national, sectoral, and country–sectoral) and incorporates alternative classifications of productive and unproductive activities. A key methodological innovation is the comparative estimation of exploitation rates before and after the cross-border and cross-sectoral reallocation of value-added. The findings reveal a global fall in exploitation rates accompanied by absolute convergence. Yet this coexists with relative divergence, sustaining a core–periphery structure within global value chains. While most value is produced in peripheral regions, value realization is concentrated in the core. Unequal exchange, manifested through value transfers from high- to low-exploitation activities, conceals the global hierarchy of labor. By focusing solely on realized value, the System of National Accounts obscures these transfers, attributing peripheral value creation to core economies. The data further highlight the growing relevance of the core–periphery divide across industries. The paper reflects on the implications of these dynamics for theories of uneven development.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "本文构建了一个新颖的实证框架，用以估算剥削率（即无酬劳动时间与有酬劳动时间之比），并检验全球化促进剥削率趋同这一假说。通过将列昂惕夫投入产出模型与马克思价值理论的新解释相结合，该分析区分了价值生产与价值实现，并探讨二者对全球剥削的不同含义。本研究依托GLORIA数据集，该数据集包含1.2太字节的投入产出数据，覆盖1990年至2023年间164个地区的120个部门，构成了迄今为止对剥削率最为全面的实证考察。分析涵盖四个加总层次（全球、国家、部门以及国家—部门），并纳入生产性与非生产性活动的替代性分类。一个关键的方法论创新在于，对增加值在跨境和跨部门再配置前后的剥削率进行比较估算。研究发现，全球剥削率下降，并伴随绝对趋同。然而，这与相对分化并存，从而在全球价值链内部维持了核心—外围结构。尽管大部分价值在外围地区生产，价值实现却集中于核心地区。表现为价值从高剥削活动向低剥削活动转移的不平等交换，掩盖了劳动的全球等级结构。国民账户体系仅关注已实现价值，因而遮蔽了这些转移，并将外围的价值创造归因于核心经济体。数据进一步凸显了核心—外围分野在各行业间日益增长的重要性。本文反思了这些动态对不平衡发展理论的含义。",
     "accepted_date": null,
@@ -2993,6 +3008,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-29",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-29",
+          "source": "openalex"
         }
       ]
     },
@@ -3020,13 +3042,13 @@
     "ai_tags": [],
     "authors": [
       "Gervin Ane Apatinga",
-      "Eric Yeboah Tenkorang"
+      "Eric Y. Tenkorang"
     ],
     "authors_status_code": "available",
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "economic-abuse-and-food-insecurity-among-women-living-with-hiv-in-ghana-94b280b9ddc6",
     "detected_at": "2026-09-29T05:41:43+00:00",
     "doi": "10.1016/j.worlddev.2026.107576",

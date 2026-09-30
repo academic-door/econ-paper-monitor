@@ -1,5 +1,75 @@
 [
   {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "The rapid growth of battery energy storage systems in Germany poses a challenge for transmission grid congestion management: while grid operators require reliable schedules several hours before delivery to plan redispatch measures, batteries can continue trading on wholesale markets until shortly before real time. This schedule uncertainty forces grid operators to reserve additional redispatch capacity, increasing system costs. Schedule freezes, as regulatory instruments that limit permissible deviations from submitted schedules during grid-critical periods, offer a preventive approach to increase planning security for grid operators. This paper investigates how different policy designs affect battery operator revenues and grid congestion, proxied by redispatch requirements. We extend the open-source ISEA Battery Revenue Index to simulate schedule freezes affecting cross-market operation in frequency containment reserve, automatic frequency restoration reserve, and intraday continuous trading. Using data from 2024 for two stylized locations in northern and southern Germany, we analyze sensitivity to freeze lead time, freeze frequency, and tolerance margins. Results show that revenue losses compared to unrestricted operation remain modest, amounting to roughly 0.18 € per MW and frozen hour per year ( ≈ -0.12%) at short lead times and increasing to about 3.40 € per MW ( ≈ -2%) at 8-hour lead times under a 20% freeze share. The findings suggest that well-designed schedule freezes can substantially enhance planning security for transmission system operators while imposing only limited costs on battery operators, providing empirical guidance for regulatory design in congested power systems.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Jonas Brucksch",
+      "Lucas Koltermann",
+      "Dirk Uwe Sauer"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-30",
+    "china_relevance_status": "none",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
+    "detail_key": "designing-schedule-freeze-policies-for-congestion-management-impacts-on-battery-energy-s-caeb5a25ccd4",
+    "detected_at": "2026-09-30T20:49:58+00:00",
+    "doi": "10.1016/j.enpol.2026.115625",
+    "fields": [
+      "environmental"
+    ],
+    "first_seen": "2026-09-30T20:49:58+00:00",
+    "id": "doi:10.1016/j.enpol.2026.115625",
+    "identity_aliases": [
+      "10.1016/j.enpol.2026.115625",
+      "designing-schedule-freeze-policies-for-congestion-management-impacts-on-battery-energy-s-caeb5a25ccd4",
+      "https://doi.org/10.1016/j.enpol.2026.115625"
+    ],
+    "issue_date": "2026-10-01",
+    "journal": "Energy Policy",
+    "journal_id": "energy-policy",
+    "journal_short": "EnPol",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0301421526005598",
+    "published_online": "2026-09-30",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-09-30",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-30",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Designing schedule freeze policies for congestion management: Impacts on battery energy storage systems",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://doi.org/10.1016/j.enpol.2026.115625"
+  },
+  {
     "_restored_from_backflow": "2026-10-01",
     "abstract": "Many markets are regulated for paternalistic reasons. We develop a mechanism-design framework to derive the optimal policy mix between price regulation and quantity controls. A budget-constrained planner allocates trade between privately informed buyers and sellers while disagreeing with their valuations. When the planner’s valuations preserve the ranking of agents, price instruments (e.g., sin taxes) are optimal. When the planner instead believes that a high willingness to trade indicates a bias, optimal regulation can restrict quantities or even prohibit transactions. De-biasing interventions offer two benefits beyond economic regulation: improving selection into markets and, for virtuous goods, raising the volume of trade.",
     "abstract_completeness": "full",
@@ -90,8 +160,12 @@
     "url": "https://cepr.org/publications/dp22004"
   },
   {
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -104,7 +178,7 @@
     "available_online": "2026-09-30",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "evidence-graded-front-of-pack-disclosure-for-non-sugar-sweeteners-preventing-category-co-b76858368045",
     "detected_at": "2026-09-30T20:27:28+00:00",
     "doi": "10.1016/j.foodpol.2026.103205",
@@ -124,10 +198,26 @@
     "journal_short": "FP",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0306919226001740",
     "published_online": "2026-09-30",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-30",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-30",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -142,6 +232,8 @@
     "_restored_from_backflow": "2026-10-01",
     "abstract": "When and why will chief executives obey the law, and when and why will they violate it? This article constructs a general framework for analyzing legal (non)compliance by a rational chief executive. It evaluates benefits and costs that might result from executive lawbreaking by reference to three types of objectives that chief executives may have: policy and governance objectives, electoral and political objectives, and personal objectives. Assessing the benefits and costs of lawbreaking requires examining not only the chief executive but also how other actors respond to lawbreaking, including legislatures, courts, civil servants, and market actors. Additional factors, such as the chief executive’s discount rate and risk tolerance, also bear on benefits and costs. Understanding the determinants of executive obedience or disobedience generates both hypotheses for further research and a potential reform agenda for those worried about executive lawbreaking.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -154,7 +246,7 @@
     "available_online": "2026-09-30",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "why-chief-executives-dis-obey-the-law-e97f15cfac63",
     "detected_at": "2026-09-30T20:26:08+00:00",
     "doi": "10.1007/s11127-026-01473-8",
@@ -168,7 +260,7 @@
       "https://doi.org/10.1007/s11127-026-01473-8",
       "why-chief-executives-dis-obey-the-law-e97f15cfac63"
     ],
-    "issue_date": null,
+    "issue_date": "2026-09-30",
     "journal": "Public Choice",
     "journal_id": "public-choice",
     "journal_short": "PC",
@@ -177,6 +269,18 @@
     "published_online": "2026-09-30",
     "publisher": "Springer-Verlag",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-09-30",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-09-30",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
       "fallback": "crossref",
       "issn": "0048-5829",
       "priority_toc_kind": "springer_online_first"
@@ -252,7 +356,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "Compulsory climate policies, including carbon taxes and regulations, have been framed in terms of threats to employment. The ‘job-killing’ narrative has been particularly strong in Canada, where economic concerns have been tied to the consumer carbon tax, leading to its elimination in April 2025. Using a representative web-based survey of communities with fossil fuel-dependent employment in Western Canada (n = 1665), our study aims to: (1) introduce and validate an empirical measure of the perceptions gap between perceived and measured job risk from climate policy, (2) identify the socio-economic, political, and regional determinants of the perceptions gap, and (3) assess how measured risk, perceived risk, and the perceptions gap are associated with support for specific climate policies. We find that perceived and measured job risk are positively correlated, but respondents systematically overestimate risk. Perceived job risk is highest in oil- and gas-producing Alberta, Saskatchewan, and northeastern British Columbia. Sectoral emissions intensity is the strongest predictor of perceived risk. The perceptions gap narrows with higher education and trust in scientists, but widens with income insecurity, right-leaning ideology, and especially engagement with climate delay discourses, which has the largest association. Both measured and perceived risk, and the gap between them, reduce support for most climate policies, particularly industry-focused policies. In contrast, perceived risk and the gap are not significantly associated with support for the fossil fuel consumption tax, suggesting industry policies are seen as more direct threats to employment. The study helps support climate-energy communication and decision-making.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -325,7 +429,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "Formal carbon pricing remains scarce in low- and lower-middle-income economies, yet multilateral programs often coincide with material changes in end-use energy prices. We assemble 45 documented IMF and World Bank program–price episodes during 2002–2023 and convert the observed price changes into carbon-price equivalents; 35 episodes support a same-object estimate, and five of these exceed the global social cost of carbon benchmark of US$184/tCO2. A 161-country panel with 2,368 country-year observations yields an annual price–emissions elasticity of −0.028, which conceals a pronounced income gradient: −0.111 for low- and lower-middle-income (LowMid) economies against a response close to zero in upper-middle- and high-income (Richer) economies. Applying these income-group elasticities to 26 road-fuel windows—18 price increases and 8 declines—as signed emission-equivalent scenarios, the main scenario maps to 4.34 MtCO2 and about US$0.80 billion in modeled global climate value, of which 98.2% is assigned to countries other than the reforming country; the outside share stays at or above 97% under every alternative accounting rule. Less than 2% of the value in the main scenario therefore accrues where the reform occurs, while in price-increase windows the political and distributional costs of higher fuel prices may fall on the reforming country itself.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -338,8 +442,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-30",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "carbon-price-equivalent-signals-in-multilateral-energy-reforms-evidence-from-developing-6e91ffe32332",
     "detected_at": "2026-09-30T16:30:23+00:00",
     "doi": "10.1016/j.eneco.2026.109637",
@@ -399,7 +503,7 @@
     "_status_code": 429,
     "abstract": "The aim of this paper is to determine from market expectations how firms are affected by risks arising from environmental regulation. We use a text-based measure of environmental regulatory stringency derived from U.S. EPA legal documents and industry-level relevance scores to capture time-varying regulatory stringency exposure. We find that environmental regulatory stringency carries a positive and statistically significant return compensation, especially for firms with high cash holdings. For firms with low cash holdings, the effect is highly volatile, showing investors are uncertain about a firm’s future when faced with stricter regulation. Firms’ environmental profiles further matter, as high-emission firms’ returns are negatively affected when regulatory stringency increases. Because regulatory text is released infrequently, challenging real-time risk analysis, we utilise our studies insights to derive a high-frequency, market-expectation capturing Environmental Regulatory Risk Index (ERRI). We show that ERRI captures shifts in investors’ expectations of environmental regulatory stringency and how ERRI reacts during environmental policy and political developments.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -414,8 +518,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-30",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "environmental-regulatory-risk-122ef4eb2fbc",
     "detected_at": "2026-09-30T16:30:23+00:00",
     "doi": "10.1016/j.eneco.2026.109625",
@@ -474,7 +578,7 @@
     "_status": "not_found",
     "abstract": "This study develops a risk-adjusted multi-objective optimization framework for the industrial energy portfolio, accounting for economic efficiency and environmental sustainability under energy price uncertainty. Using monthly energy data for Korea from 2010 to 2023, we identify time-varying price volatility among city gas, electricity, coal, and oil through a VAR-DCC-GARCH model. The resulting conditional covariance matrix is incorporated into a certainty-equivalent (CE) cost framework to reflect industrial decision-makers' risk aversion. Based on this risk-adjusted cost measure, we apply a multi-objective distributionally robust optimization (DRO) model that jointly minimizes CE-based energy costs and greenhouse gas (GHG) emissions. The results reveal that the current industrial energy mix is inefficient and that ignoring price risk and risk aversion leads to substantial underestimation of energy costs. The results also indicate that electricity-intensive portfolios can provide lower emissions and greater cost stability, particularly under risk-averse preferences. Sensitivity analysis shows that higher risk aversion shifts optimal portfolios toward energy sources with lower price volatility, increasing costs with limited additional emission reductions. The findings highlight the importance of integrating price risk, risk preferences, and environmental objectives in industrial energy planning, while suggesting that electrification may serve as a potential pathway toward sustainable industrial energy transitions.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -487,8 +591,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-30",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "risk-adjusted-multi-objective-optimization-of-industrial-energy-portfolios-the-role-of-e-4e24c5636c18",
     "detected_at": "2026-09-30T16:30:23+00:00",
     "doi": "10.1016/j.eneco.2026.109608",
@@ -806,7 +910,7 @@
     "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -872,7 +976,7 @@
     "_status_code": 429,
     "abstract": "This paper constructs a measure of firm level tariff exposure and examines how import and export tariff shocks affect the corporate bond financing activities of Chinese listed firms. The results show that import tariffs imposed by the China side systematically raise the financing costs and reduce the issuance amounts of the affected firms, while unexpectedly the export tariffs imposed by the US side have very limited effects. Further evidence based on the responses of credit ratings and secondary market trading confirm that firms exposed to import tariff shocks suffer from a contraction of funds supply. Moreover, firms with higher external finance dependence, lower asset tangibility, more operation volatilities, or less government affiliations are more adversely affected. Meanwhile, the green bonds exhibit greater resilience during trade conflicts. Overall, this study highlights the central role of import tariffs in shaping the financing capacities of the Chinese firms in the bond markets. Our paper shows that how trade conflicts are transmitted to financial market, which might be a source of fluctuations for the financial market and the aggregate economy.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -890,7 +994,7 @@
     "china_relevance_reason": "journal or topic scope is China economy",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "trade-conflicts-spillovers-not-only-for-goods-but-also-for-bonds-1ba9138e5f15",
     "detected_at": "2026-09-30T16:28:54+00:00",
     "doi": "10.1016/j.chieco.2026.102778",
@@ -951,7 +1055,7 @@
     "_status_code": 429,
     "abstract": "This paper links a teacher-level measure of gender-stereotyped grading—validated against their Implicit Association Test (IAT) scores—to the later schooling and labor-market outcomes of 1.6 million Peruvian students. Exposure to a more stereotyped teacher widens the gender gaps in high-school completion, formal-sector employment, and earnings, driven by boys’ lasting gains rather than by girls’ smaller, short-lived losses. A single year with a math teacher one standard deviation more stereotyped than average raises boys’ on-time graduation by 0.9 percentage points and lowers girls’ by 0.6. Over the five years after high school (ages 17–22), it raises boys’ formal employment by 4%–12% of the mean employment rate and widens the gender pay gap by about 11% in the first two years, while girls’ losses fade thereafter. These effects run through high-school completion, not test scores or college enrollment. The widening gap in male-dominated industries mainly reflects men’s entry rather than women’s exit, and students show little sign of adopting the stereotypes themselves. Where structural barriers already constrain access to higher education, teachers’ stereotypes shape who finishes school and their early labor-market outcomes, rather than who reaches college.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -964,7 +1068,7 @@
     "available_online": "2026-09-30",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "the-long-term-effects-of-teachers-gender-stereotypes-on-labor-outcomes-981502434e97",
     "detected_at": "2026-09-30T16:28:48+00:00",
     "doi": "10.1016/j.jdeveco.2026.103917",
@@ -1025,7 +1129,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "In the past, central banks were also retail institutions, directly accepting deposits from the public. This article studies a historical episode of flight-to-safety during a banking crisis in which large depositors withdrew their deposits from banks, moving them not only abroad or into cash, but also into the central bank. I ask how this safe-haven channel shaped the financial backdrop of democratization in interwar Spain. The 1931 proclamation of the Second Republic turned long-repressed demands for redistribution into a credible, if uncertain, redistributive threat to large depositors, triggering a run on bank deposits and capital flight, to which authorities responded by restricting capital mobility. Because opening and using a Banco de España (BdE) retail account required a very high initial deposit and subsequent contributions, access was formally open but effectively restricted to large bank depositors. Using new branch-level balance-sheet data, I document a stronger flight-to-safety to BdE deposits in cities where banks lost more deposits, show that this inflow was persistent, and find that the BdE did not use it to expand credit or replace banks’ lost intermediation due to the run on their deposits. Flight-to-safety into central bank liabilities thus let large depositors preserve the nominal value of their wealth, but without an offsetting expansion of public (central bank) money, the resulting fall in private money went uncompensated — contributing to the credit contraction that marked the democratic Republic’s first months.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -1037,8 +1141,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-30",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "the-central-bank-as-safe-haven-flight-to-safety-democratization-and-credit-contraction-i-75788f7eac77",
     "detected_at": "2026-09-30T16:28:35+00:00",
     "doi": "10.1016/j.eeh.2026.101789",
@@ -1098,7 +1202,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "For games with complete information, the solution concept of Nash equilibrium imposes an interactive stability condition on players’ behaviour. A correct beliefs assumption forms its epistemic essence. In the more general setting of incomplete information, Bayesian equilibrium constitutes the prevalent solution concept. We provide epistemic characterizations of three canonical versions of Bayesian equilibrium. The key ingredient in terms of reasoning is common belief in rationality, while a correct beliefs assumption is not needed. Bayesian equilibrium therefore lacks the crucial epistemic property of Nash equilibrium and cannot be regarded as its genuine incomplete information counterpart. A gap emerges that we fill by introducing generalized Nash equilibrium, which epistemically requires a correct beliefs assumption. Notably, this new solution concept behaviourally refines Bayesian equilibrium. We make explicit this extra force by showing that three additional conditions – belief independence, belief projection, and type belief invariance – render the weakest version of Bayesian equilibrium equivalent to generalized Nash equilibrium.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -1111,8 +1215,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-30",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "equilibrium-and-incomplete-information-ae77dcc54e2a",
     "detected_at": "2026-09-30T16:28:14+00:00",
     "doi": "10.1016/j.jmateco.2026.103302",
@@ -1169,7 +1273,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -1599,7 +1703,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -1738,7 +1842,7 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": "This paper estimates the dynamic effects of flood shocks on income inequality across Italian NUTS-3 regions over 2000–2020. Combining HANZE flood events with a newly constructed provincial Gini coefficients based on grouped municipal income tax records, we apply a local projections difference-in-differences (LP-DID) approach. Floods increase income inequality in the medium run, with effects peaking around three years after the event before declining. The impact is stronger in economically dense provinces and in areas with higher unemployment and agricultural employment, suggesting that local productive structure, labour market fragility, and sectoral exposure shape the distributional consequences of floods.",
     "abstract_completeness": "full",
@@ -1756,8 +1860,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-30",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "flood-shocks-income-inequality-and-local-economic-structure-evidence-from-italian-nuts-3-54197d74f413",
     "detected_at": "2026-09-30T09:07:18+00:00",
     "doi": "10.1016/j.econlet.2026.113283",
@@ -2713,10 +2817,154 @@
     "url": "https://www.sciencedirect.com/science/article/pii/S0140988326004901?dgcid=api_sd_search-api-endpoint"
   },
   {
+    "_provider": "semantic-scholar",
+    "_restored_from_backflow": "2026-10-01",
+    "_status": "not_found",
+    "abstract": "Through the Malabo Declaration, African governments committed to allocating 10 % of public expenditure to agriculture to achieve 6 % annual agricultural GDP growth and halve poverty by 2025. These objectives remain largely unachieved. The Kampala Declaration adopted in 2025, nevertheless, maintains the 10 % expenditure target, broadens its scope from agriculture to agri-food systems, and sets ambitious goals for output growth and diet affordability by 2035, among others. We argue that optimizing agricultural public expenditure allocation across policies and subsectors is important for advancing this broader transformation agenda. Using PolOpT, a policy optimization tool combining multi-criteria decision-making with a recursive-dynamic computable general equilibrium model, we examine whether meeting the 10 % agricultural spending target can help deliver Malabo’s unmet agricultural growth objective in six sub-Saharan African countries, while accounting for an optimized allocation, alternative financing sources, and multiple socioeconomic objectives. We find that spending 10 % of countries’ budgets on agriculture will not necessarily generate 6 % agricultural GDP growth. Results reveal substantial cross-country variation in budgetary priorities: higher spending matters more where initial spending is low and composition is close to optimal, while improved allocation matters more in countries with higher spending and/or markedly sub-optimal allocations. Optimizing allocations across multiple objectives entails modest agricultural GDP trade-offs and produces substantial gains in employment, poverty reduction, and diet affordability, while reducing the financing burden of the 10 % target. Realizing these gains will require stronger governance and institutional capacity for effective reallocation, together with political commitment and cross-sectoral coordination to sustain reforms over time.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Marco V. Sánchez",
+      "Martín Cicowiez",
+      "Tebila Nakelse"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-30",
+    "china_relevance_status": "none",
+    "date_confidence": "F",
+    "date_source": "sciencedirect_api_load_date",
+    "detail_key": "optimizing-public-spending-allocation-to-advance-caadp-s-agricultural-transformation-age-414b61190308",
+    "detected_at": "2026-09-30T20:47:01+00:00",
+    "doi": "10.1016/j.foodpol.2026.103201",
+    "fields": [
+      "agriculture_environment_resource"
+    ],
+    "first_seen": "2026-09-30T20:47:01+00:00",
+    "id": "doi:10.1016/j.foodpol.2026.103201",
+    "identity_aliases": [
+      "10.1016/j.foodpol.2026.103201",
+      "https://www.sciencedirect.com/science/article/pii/S0306919226001703?dgcid=api_sd_search-api-endpoint",
+      "optimizing-public-spending-allocation-to-advance-caadp-s-agricultural-transformation-age-414b61190308"
+    ],
+    "issue_date": null,
+    "journal": "Food Policy",
+    "journal_id": "food-policy",
+    "journal_short": "FP",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0306919226001703",
+    "published_online": null,
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0306919226001703",
+      "sciencedirect_api_load_date": "2026-09-30T00:00:00.000Z",
+      "sciencedirect_search_issn": "0306-9192",
+      "sciencedirect_search_journal": "Food Policy",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Optimizing public spending allocation to advance CAADP’s agricultural transformation agenda",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0306919226001703?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_restored_from_backflow": "2026-10-01",
+    "_status": "not_found",
+    "abstract": "This paper examines the impacts of family doctors writing an explicit ‘care contract’ with at-risk patients for increased holistic primary care. The intervention was designed to shift the care relationship between the two parties away from episodic curative care and towards a holistic plan for patient welfare. We tracked healthcare utilization, diagnosis, prescription, hospitalization, and mortality outcomes through the universe of patient records. The program caused increased screening, diagnosis and treatment of chronic health issues among enrolled patients by about 10% across these categories, with suggestive evidence that hospitalization declined by 8%. Among ‘mild-risk’ patients, the treatment group experienced annual reductions in all-cause mortality of 20%, in an analysis pre-specified as exploratory.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Kevin Croke",
+      "Benjamin Daniels",
+      "Daniel Rogger"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-30",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "in-sickness-and-in-health-motivating-improved-healthcare-using-holistic-patient-contract-682393183d15",
+    "detected_at": "2026-09-30T20:46:41+00:00",
+    "doi": "10.1016/j.jpubeco.2026.105663",
+    "fields": [
+      "public_political"
+    ],
+    "first_seen": "2026-09-30T20:46:41+00:00",
+    "id": "doi:10.1016/j.jpubeco.2026.105663",
+    "identity_aliases": [
+      "10.1016/j.jpubeco.2026.105663",
+      "https://www.sciencedirect.com/science/article/pii/S004727272600099X?dgcid=api_sd_search-api-endpoint",
+      "in-sickness-and-in-health-motivating-improved-healthcare-using-holistic-patient-contract-682393183d15"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Public Economics",
+    "journal_id": "journal-of-public-economics",
+    "journal_short": "JPubE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S004727272600099X",
+    "published_online": "2026-09-30",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-09-30",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-30",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S004727272600099X",
+      "sciencedirect_api_load_date": "2026-09-30T00:00:00.000Z",
+      "sciencedirect_search_issn": "0047-2727",
+      "sciencedirect_search_journal": "Journal of Public Economics",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "related_versions": [
+      "in-sickness-and-in-health-motivating-improved-healthcare-using-holistic-patient-contract-6e978d8cca1b"
+    ],
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "In sickness and in health: Motivating improved healthcare using holistic patient contracts",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S004727272600099X?dgcid=api_sd_search-api-endpoint",
+    "version_group_key": "version:8f74ebbc61e84125"
+  },
+  {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-01",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
