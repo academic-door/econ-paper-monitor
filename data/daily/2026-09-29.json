@@ -110,7 +110,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -233,9 +233,10 @@
     "url": "https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70159?af=R"
   },
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_raw_file": "data/raw/rss/2026-09-30.json",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -571,8 +572,8 @@
     "china_related_source": "ai",
     "china_relevance_reason": "使用2010-2021年中国A股上市公司样本，研究对象为中国企业，属于中国研究。",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "unveiling-the-role-of-esg-ratings-in-corporate-greenwashing-impacts-on-corporate-green-d-70b2c145aceb",
     "detected_at": "2026-09-30T00:07:16+00:00",
     "doi": "10.1016/j.eneco.2026.109631",
@@ -614,11 +615,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Energy Economics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Unveiling the role of ESG ratings in corporate greenwashing: Impacts on corporate green development and regulatory dynamics",
@@ -629,7 +637,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -723,8 +731,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "beyond-the-grand-tour-the-aspiration-core-approach-to-the-infinite-period-traveling-sale-8fb2f47bd0c4",
     "detected_at": "2026-09-30T00:03:35+00:00",
     "doi": "10.1016/j.jmateco.2026.103305",
@@ -766,11 +774,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Journal of Mathematical Economics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Beyond the grand tour: The aspiration core approach to the Infinite-Period Traveling Salesman Problem",
@@ -922,6 +937,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
         }
       ]
     },
@@ -937,6 +959,7 @@
   {
     "abstract": "Motivated by an application at the Raleigh-Durham International Airport, we consider a service system in which a manager aims to track the number of people in the system based only on noisy observations of arrivals and departures over a time horizon. We study two tracking problems in this context. In the busyness tracking problem, the manager seeks to determine whether the system is busy or not, whereas in the population tracking problem, the manager tracks the number of people in the system and accumulates losses as squared errors. We characterize the cumulative losses of various policies in an asymptotic regime in which the time horizon grows large. We prove general lower bounds on the cumulative loss of any policy and propose relatively simple policies that achieve these lower bounds, up to logarithmic terms. These policies outperform naive tracking policies in many instances. Finally, we characterize the impact of having the ability to periodically inspect the system at a cost. We find that effective population tracking policies take opportunities to reset the population count to accurate estimates to stop the accumulation of error. Without inspections, this is achieved by resetting the population count to zero when a near-empty system is detected based on observing the departure stream. Inspections, although coming at a cost, allow for greater flexibility in the timing of corrections and, hence, improved performance. We demonstrate the performance of our policies using real-world data we collected by installing people-counting sensors at the airport. This paper was accepted by Vivek Farias, data science. Funding: Financial support from the Triangle Impact Challenge 2021 is gratefully acknowledged. Supplemental Material: The online appendix and data files are available at https://doi.org/10.1287/mnsc.2024.05152 .",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
     "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -1009,6 +1032,7 @@
   {
     "abstract": "Short-form video platforms have become central to debates about digital overuse and sleep disruption, yet causal evidence on their behavioral impacts remains limited. We study the effects of adopting short-form video in the context of TikTok, which pioneered the format and accounts for a large share of global short-form video consumption. Using granular smartphone touchstream data from a large opt-in panel of U.S. Android users, we track app usage, screen time, and inferred sleep behavior before and after TikTok adoption. We employ a difference-in-differences framework leveraging a high-frequency app usage data set from nearly 7,000 TikTok adopters. Our findings reveal a significant increase in overall screen time—averaging 221 minutes per week for heavy TikTok users—following TikTok adoption, alongside notable declines in usage of other social media and gaming apps, suggesting a strong substitution effect. The screen time effects are highest during late night hours. We also observe shifts in sleep patterns, including delayed bedtimes and a moderate reduction in sleep duration, among high-intensity users. We observe no effects for low-intensity users, who engage minimally with TikTok postadoption. Our findings show that short-form video adoption expands total digital attention rather than merely reallocating it, with important implications for platform design, regulation, and digital well-being. As a side result, our analysis provides clear evidence of substitutability between TikTok and traditional social media platforms, which has important implications for competition policy. This paper was accepted by D. J. Wu, information systems. Supplemental Material: The online appendix and data files are available at https://doi.org/10.1287/mnsc.2024.08260 .",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
     "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -1279,7 +1303,7 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-09-30",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -1296,7 +1320,7 @@
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "persistence-and-structural-breaks-in-u-s-leading-economic-indicators-a-fractional-integr-a9b2bd6f5181",
     "detected_at": "2026-09-29T18:39:05+00:00",
     "doi": "10.1080/00036846.2026.2740194",
@@ -1664,8 +1688,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "does-the-low-carbon-city-pilot-policy-promote-green-innovation-collaboration-evidence-fr-b1eaec6edbcf",
     "detected_at": "2026-09-29T16:34:47+00:00",
     "doi": "10.1016/j.eneco.2026.109623",
@@ -1707,90 +1731,24 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Energy Economics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Does the Low-Carbon City Pilot policy promote green innovation collaboration? Evidence from knowledge embeddedness and complexity",
     "title_zh": "低碳城市试点政策是否促进了绿色创新合作？——基于知识嵌入性与复杂性的证据",
     "translation_status": "title_translated",
     "url": "https://doi.org/10.1016/j.eneco.2026.109623"
-  },
-  {
-    "_provider": "semantic-scholar",
-    "_status": "not_found",
-    "abstract": "Green credit can finance both abatement and output expansion, so its emissions effect is ambiguous for financially constrained firms. We develop an energy-finance model in which banks post project-contingent terms before a firm selects a verifiable production–abatement plan and carbon prices are realized. The main model separates verified abatement from positive carbon collateral. Green credit lowers emissions only when the technique effect dominates the scale effect. Competitive break-even pricing transmits carbon-price risk to loan rates without distorting risk-neutral operations, whereas lender market power can convert the same risk into lower abatement and higher emissions intensity. Paid allowance allocation acts as a policy-induced financing friction: competitive credit absorbs the upfront cost, while concentrated lending can amplify the debt burden and generate adverse emission responses. A transition-finance extension shows that carbon-deficit borrowers face a reversed default tail and may be harmed by carbon-price support. Additional contract extensions indicate that performance-linked pricing and use-of-proceeds restrictions improve environmental outcomes only when incentives are genuine and funds are not highly fungible. Carbon policy, banking structure, and loan design therefore jointly determine whether green finance produces real decarbonization.",
-    "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
-    "abstract_source": "elsevier_article_api_full",
-    "abstract_status_code": "available",
-    "abstract_zh": null,
-    "accepted_date": null,
-    "ai_tags": [],
-    "authors": [
-      "Lin Zigan",
-      "Lei Yihu"
-    ],
-    "authors_status_code": "available",
-    "available_online": "2026-09-29",
-    "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
-    "detail_key": "green-credit-under-carbon-price-risk-financing-frictions-banking-market-power-and-firm-e-d7bbe75e10da",
-    "detected_at": "2026-09-29T16:34:47+00:00",
-    "doi": "10.1016/j.eneco.2026.109629",
-    "fields": [
-      "environmental"
-    ],
-    "first_seen": "2026-09-29T16:34:47+00:00",
-    "id": "doi:10.1016/j.eneco.2026.109629",
-    "identity_aliases": [
-      "10.1016/j.eneco.2026.109629",
-      "green-credit-under-carbon-price-risk-financing-frictions-banking-market-power-and-firm-e-d7bbe75e10da",
-      "https://doi.org/10.1016/j.eneco.2026.109629"
-    ],
-    "issue_date": "2026-09-29",
-    "journal": "Energy Economics",
-    "journal_id": "energy-economics",
-    "journal_short": "EnEcon",
-    "official_date_status": "available",
-    "pdf_url": null,
-    "pii": "S0140988326005098",
-    "published_online": "2026-09-29",
-    "publisher": "Elsevier BV",
-    "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online",
-      "date_evidence": [
-        {
-          "available_online": "2026-09-29",
-          "date_confidence": "C",
-          "date_source": "crossref_doi_elsevier_created_online",
-          "published_online": "2026-09-29",
-          "source": "crossref-doi"
-        },
-        {
-          "available_online": "2026-09-28",
-          "date_confidence": "A",
-          "date_source": "elsevier_article_api",
-          "published_online": "2026-09-28",
-          "source": "elsevier-article-api"
-        },
-        {
-          "source": "semantic-scholar"
-        }
-      ]
-    },
-    "source": "crossref",
-    "source_issue": null,
-    "source_type": "journal",
-    "source_url": "https://api.crossref.org",
-    "title": "Green credit under carbon price risk: financing frictions, banking market power, and firm emissions",
-    "title_zh": "碳价风险下的绿色信贷：融资摩擦、银行市场势力与企业排放",
-    "translation_status": "title_translated",
-    "url": "https://doi.org/10.1016/j.eneco.2026.109629"
   },
   {
     "_provider": "semantic-scholar",
@@ -1816,8 +1774,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "the-logic-of-tax-planning-behind-abnormal-investment-behavior-evidence-from-a-quasi-natu-a77d34ec65ab",
     "detected_at": "2026-09-29T16:34:44+00:00",
     "doi": "10.1016/j.econmod.2026.107853",
@@ -1870,7 +1828,7 @@
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Economic Modelling",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "The logic of tax planning behind abnormal investment behavior: Evidence from a quasi-natural experiment in China",
@@ -1880,86 +1838,10 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
-    "_status_code": 429,
-    "abstract": "This study examines how the stance of monetary policy shapes the effectiveness of macroprudential tools in mitigating systemic risk. While prior literature highlights the stabilizing role of macroprudential policy, evidence on its interaction with monetary policy is mixed and often neglects differences across instruments. We address this gap by constructing separate indices for tools targeting bank capital and liquidity versus those aimed at borrowers, using a panel of 37 countries (2011–2021) and employing panel fixed-effects and system-GMM estimations. Our results show that only tools targeting bank capital and liquidity significantly reduce systemic risk, measured via an aggregate country-level banks’ Z-score. Importantly, their effectiveness is substantially weakened under a restrictive monetary stance, revealing a critical policy interaction transmitted through bank profitability. These findings highlight the need to consider the prevailing monetary environment when designing macroprudential interventions.",
-    "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
-    "abstract_source": "elsevier_article_api_full",
-    "abstract_status_code": "available",
-    "abstract_zh": null,
-    "accepted_date": null,
-    "ai_tags": [],
-    "authors": [
-      "Lucas Souza Beppler",
-      "Regis Augusto Ely",
-      "Anderson Mutter Teixeira",
-      "Benjamin Miranda Tabak"
-    ],
-    "authors_status_code": "available",
-    "available_online": "2026-09-29",
-    "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
-    "detail_key": "policy-interactions-and-systemic-stability-how-monetary-conditions-influence-macropruden-c0ea648f6dab",
-    "detected_at": "2026-09-29T16:34:44+00:00",
-    "doi": "10.1016/j.econmod.2026.107861",
-    "fields": [
-      "applied_empirical"
-    ],
-    "first_seen": "2026-09-29T16:34:44+00:00",
-    "id": "doi:10.1016/j.econmod.2026.107861",
-    "identity_aliases": [
-      "10.1016/j.econmod.2026.107861",
-      "https://doi.org/10.1016/j.econmod.2026.107861",
-      "policy-interactions-and-systemic-stability-how-monetary-conditions-influence-macropruden-c0ea648f6dab"
-    ],
-    "issue_date": "2026-09-29",
-    "journal": "Economic Modelling",
-    "journal_id": "economic-modelling",
-    "journal_short": "EconMod",
-    "official_date_status": "available",
-    "pdf_url": null,
-    "pii": "S0264999326003901",
-    "published_online": "2026-09-29",
-    "publisher": "Elsevier BV",
-    "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online",
-      "date_evidence": [
-        {
-          "available_online": "2026-09-29",
-          "date_confidence": "C",
-          "date_source": "crossref_doi_elsevier_created_online",
-          "published_online": "2026-09-29",
-          "source": "crossref-doi"
-        },
-        {
-          "available_online": "2026-09-28",
-          "date_confidence": "A",
-          "date_source": "elsevier_article_api",
-          "published_online": "2026-09-28",
-          "source": "elsevier-article-api"
-        },
-        {
-          "source": "semantic-scholar"
-        }
-      ]
-    },
-    "source": "crossref",
-    "source_issue": null,
-    "source_type": "journal",
-    "source_url": "https://api.crossref.org",
-    "title": "Policy interactions and systemic stability: How monetary conditions influence macroprudential effectiveness?",
-    "title_zh": "政策互动与系统性稳定：货币状况如何影响宏观审慎有效性？",
-    "translation_status": "title_translated",
-    "url": "https://doi.org/10.1016/j.econmod.2026.107861"
-  },
-  {
-    "_provider": "semantic-scholar",
     "_status": "not_found",
     "abstract": "This paper explores the interplay between female representation in mutual funds’ management teams and their voting behavior. We find that women-led mutual funds are more likely to support environmental and social (ES) proposals, but not governance ones. This result is robust to excluding sustainable funds, alleviating concerns that the findings are driven by the self-selection of female fund managers into sustainable funds. While women-led mutual funds are also more likely to vote with management in firms headed by female CEOs, this does not conflict with their greater support for ES shareholder proposals. Overall, our results suggest that female representation in fund management teams is related to their voting behavior on ES issues.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -2035,7 +1917,7 @@
     "_status_code": 429,
     "abstract": "We propose a new approach for efficiently estimating and analyzing macroeconomic models subject to large shocks. We apply the methodology to a two-sector model that captures the heterogeneous exposure of different sectors to the COVID-19 pandemic. We solve the model nonlinearly and propose a new nonlinear, non-Gaussian filter designed to handle large shocks and identify their source and time location. Monte Carlo experiments show that the estimation and identification of large shocks are feasible with a massively reduced running time. Empirical results indicate that the pandemic-induced economic downturn can be reconciled with a combination of large demand and supply shocks. Finally, we present a set of counterfactual experiments to filter out potential demand and supply shock complementarities, and perform a robustness exercise to check the sensitivity of the model parameters to large shocks.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -2050,7 +1932,7 @@
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "fast-and-efficient-estimation-of-macromodels-with-large-shocks-41c52a20e9bf",
     "detected_at": "2026-09-29T16:34:32+00:00",
     "doi": "10.1080/07350015.2026.2740570",
@@ -2106,6 +1988,7 @@
   {
     "abstract": "We measure flow diversification in mutual funds using the cross-sectional correlation of daily flows across investor clienteles. Greater flow diversification is associated with lower future flow volatility, smaller subsequent outflows, and lower cash holdings. We decompose flow correlation into predictable and unexpected components. Unexpectedly low flow correlation is associated with higher post-outflow fund returns, mitigating outflow-induced externalities on incumbent shareholders. Flow diversification also dampens the higher flow-performance sensitivity of illiquid funds, partially offsetting strategic complementarities that can generate fragility.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
     "abstract_source": "publisher_meta:citation_abstract",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -2214,6 +2097,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-09-29",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0095069626001531",
@@ -2293,6 +2183,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-09-29",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0304387826002099",
@@ -2316,7 +2213,7 @@
     "_status_code": 429,
     "abstract": "We examine how cultural norms shape attitudes toward immigration. Using representative survey data on German university students from the 1990s, we exploit the stark cultural differences between former East and West Germany to study whether moving to a different cultural environment impacts these attitudes. We address the endogeneity of the decision to move by comparing students who moved across the East-West border with those who moved within the former East Germany. We also exploit plausibly exogenous variation in exposure arising from the national allocation mechanism used to place students at universities. Students who moved from the former East to the former West Germany are around 7 percentage points less likely to strongly support limiting immigration than students who moved within the former East Germany.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -2437,7 +2334,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "Many colleges permit course retakes, yet their effects on academic success remain largely unknown. We study a four-year university that canceled a grade-replacement policy in 1995 and reinstated it in 2001. Exploiting these policy shifts and the disproportionate retaking response among D/F students relative to C students, we estimate the causal effects of retaking using an instrumental-variables design. Grade replacement substantially increased retaking among students who initially earned D/F grades. We find broadly robust evidence that retaking improves same-subject persistence and subsequent performance among students who continue in the subject. Estimates for university-level retention and four-year graduation are less robust, ranging from positive to no detectable effects. Overall, grade replacement encourages struggling students to retake courses without harming their short- or longer-run academic progress.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -2509,7 +2406,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "Human decision making in the newsvendor paradigm systematically deviates from the predictions of expected profit maximization, yet the cognitive mechanisms underlying these deviations remain contested. We investigate whether these biases arise from distorted utility evaluation or from adaptive learning induced by repeated feedback. Across three laboratory experiments ( N = 214 ), we compare behavior under decision from description, decision from experience, and newsvendor environments while varying information availability. The first experiment combines behavioral and electroencephalographic (EEG) data, the second replicates the behavioral findings without EEG, and the third extends the analysis to a multi-alternative setting with continuous demand. We document two robust patterns in newsvendor environments: decision accuracy inferior to random guessing, and positive correlation between choice and realized demand. These patterns are absent in one-shot descriptive decisions and cannot be explained by standard utility-based models. Neural evidence shows that repeated environments engage parietal and frontal activity associated with choice deliberation and feedback-based learning, and that memory encoding differs systematically across demand outcomes. Motivated by these findings, we develop a model incorporating probability matching and asymmetric belief updating, which provides a substantially improved fit to observed choices. Our results demonstrate that repeated feedback fundamentally alters the mechanism of economic decision making, highlighting the central role of learning and belief dynamics in generating newsvendor biases.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -2641,7 +2538,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "Index insurance is promoted for climate risk management, but basis risk limits scalability. This article develops an ex ante, multi-hazard weather-yield index framework for corn in Paraná, Brazil, tailored to the state’s dual-season system (Safra and Safrinha) and the distinct priorities of farmers and insurers. We combine municipality-level yield panels with climate extreme indicators spanning temperature, precipitation, humidity, radiation, wind, and evaporative demand, and evaluate mean- and tail-focused econometric specifications alongside penalised alternatives to guard against overfitting. Basis risk is treated as two-sided and designable by explicitly trading off false negatives (uncompensated losses) and false positives (unnecessary payouts) through a stakeholder-weighted objective, implemented within clustered municipal zones and season-specific windows. Our framework delivers a transparent mapping from alternative basis risk priorities to contract design choices, offering a practical blueprint for piloting credible index insurance where products are not yet established.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": "指数保险被推广用于气候风险管理，但基差风险限制了其可扩展性。本文为巴西巴拉那州的玉米开发了一个事前、多灾害天气—产量指数框架，该框架针对该州的双季种植体系（Safra和Safrinha）以及农户与保险公司各自不同的优先事项而设计。我们将市级产量面板数据与涵盖温度、降水、湿度、辐射、风和蒸发需求的极端气候指标相结合，并评估以均值和尾部为重点的计量经济学设定以及惩罚性替代方案，以防止过拟合。基差风险被视为双向且可设计的，通过利益相关者加权目标函数，在聚类市政区域和特定季节窗口内，明确权衡假阴性（未获补偿的损失）与假阳性（不必要的赔付）。我们的框架提供了从替代性基差风险优先事项到合同设计选择的透明映射，为在尚未建立相关产品的地区试点可信的指数保险提供了实用蓝图。",
@@ -2847,14 +2744,14 @@
     "ai_tags": [],
     "authors": [
       "Akhil Sasidharan",
-      "John P. McHale",
+      "John McHale",
       "Jason Harold"
     ],
     "authors_status_code": "available",
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "estimating-the-impact-of-a-star-scientist-move-on-their-own-research-productivity-3af4d8032bc9",
     "detected_at": "2026-09-29T09:12:09+00:00",
     "doi": "10.1016/j.labeco.2026.102973",
@@ -3116,20 +3013,20 @@
     "abstract": "Economic abuse has recently gained recognition as a distinct form of intimate partner violence in sub-Saharan Africa, with women disproportionately affected. However, limited research has explored its consequences, particularly its impact on food insecurity among women living with HIV, who face compounded vulnerabilities due to stigma, poverty, and health challenges. This study addressed this gap by conducting 39 in-depth interviews with women living with HIV in Ghana who had experienced economic abuse, to understand how this abuse influenced their experiences of food insecurity. Using inductive thematic analysis, we identified critical connections between economic abuse and food insecurity. Participants shared narratives of financial withholding, income sabotage, and coercive control that prevented them from meeting their food needs and those of their children. Many described experiences of self-sacrifice, hunger, and dependence on kinship or religious networks as coping mechanisms. Addressing economic abuse requires stronger legal protections, increased public awareness, and tailored support for women living with HIV.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "经济虐待近年来在撒哈拉以南非洲被认定为亲密伴侣暴力的一种独特形式，女性受影响尤为严重。然而，探讨其后果的研究仍然有限，尤其是其对感染HIV女性粮食不安全状况的影响，而这一群体因污名、贫困和健康挑战而面临多重脆弱性。本研究通过深度访谈加纳39名曾遭受经济虐待的感染HIV女性，以理解这种虐待如何影响她们的粮食不安全经历，从而填补了这一空白。运用归纳性主题分析，我们识别出经济虐待与粮食不安全之间的关键联系。参与者讲述了经济扣留、收入破坏和强制性控制的经历，这些行为使她们无法满足自身及子女的食物需求。许多人描述了自我牺牲、饥饿以及依赖亲属或宗教网络作为应对机制的经历。解决经济虐待问题需要更有力的法律保护、更高的公众意识以及针对感染HIV女性的定制化支持。",
     "accepted_date": null,
     "ai_tags": [],
     "authors": [
       "Gervin Ane Apatinga",
-      "Eric Y. Tenkorang"
+      "Eric Yeboah Tenkorang"
     ],
     "authors_status_code": "available",
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "economic-abuse-and-food-insecurity-among-women-living-with-hiv-in-ghana-94b280b9ddc6",
     "detected_at": "2026-09-29T05:41:43+00:00",
     "doi": "10.1016/j.worlddev.2026.107576",
@@ -3164,6 +3061,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-29",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-29",
+          "source": "openalex"
         }
       ]
     },
@@ -3313,6 +3217,169 @@
     "title_zh": "更好的工作，而非总是更好的工作者",
     "translation_status": "abstract_translated",
     "url": "https://cepr.org/voxeu/columns/better-work-not-always-better-workers"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "Green credit can finance both abatement and output expansion, so its emissions effect is ambiguous for financially constrained firms. We develop an energy-finance model in which banks post project-contingent terms before a firm selects a verifiable production–abatement plan and carbon prices are realized. The main model separates verified abatement from positive carbon collateral. Green credit lowers emissions only when the technique effect dominates the scale effect. Competitive break-even pricing transmits carbon-price risk to loan rates without distorting risk-neutral operations, whereas lender market power can convert the same risk into lower abatement and higher emissions intensity. Paid allowance allocation acts as a policy-induced financing friction: competitive credit absorbs the upfront cost, while concentrated lending can amplify the debt burden and generate adverse emission responses. A transition-finance extension shows that carbon-deficit borrowers face a reversed default tail and may be harmed by carbon-price support. Additional contract extensions indicate that performance-linked pricing and use-of-proceeds restrictions improve environmental outcomes only when incentives are genuine and funds are not highly fungible. Carbon policy, banking structure, and loan design therefore jointly determine whether green finance produces real decarbonization.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Lin Zigan",
+      "Lei Yihu"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-29",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
+    "detail_key": "green-credit-under-carbon-price-risk-financing-frictions-banking-market-power-and-firm-e-d7bbe75e10da",
+    "detected_at": "2026-09-29T16:34:47+00:00",
+    "doi": "10.1016/j.eneco.2026.109629",
+    "fields": [
+      "environmental"
+    ],
+    "first_seen": "2026-09-29T16:34:47+00:00",
+    "id": "doi:10.1016/j.eneco.2026.109629",
+    "identity_aliases": [
+      "10.1016/j.eneco.2026.109629",
+      "green-credit-under-carbon-price-risk-financing-frictions-banking-market-power-and-firm-e-d7bbe75e10da",
+      "https://doi.org/10.1016/j.eneco.2026.109629"
+    ],
+    "issue_date": "2026-09-29",
+    "journal": "Energy Economics",
+    "journal_id": "energy-economics",
+    "journal_short": "EnEcon",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0140988326005098",
+    "published_online": "2026-09-28",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-29",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-29",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-28",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-28",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": "Energy Economics",
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Green credit under carbon price risk: financing frictions, banking market power, and firm emissions",
+    "title_zh": "碳价风险下的绿色信贷：融资摩擦、银行市场势力与企业排放",
+    "translation_status": "title_translated",
+    "url": "https://doi.org/10.1016/j.eneco.2026.109629"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "This study examines how the stance of monetary policy shapes the effectiveness of macroprudential tools in mitigating systemic risk. While prior literature highlights the stabilizing role of macroprudential policy, evidence on its interaction with monetary policy is mixed and often neglects differences across instruments. We address this gap by constructing separate indices for tools targeting bank capital and liquidity versus those aimed at borrowers, using a panel of 37 countries (2011–2021) and employing panel fixed-effects and system-GMM estimations. Our results show that only tools targeting bank capital and liquidity significantly reduce systemic risk, measured via an aggregate country-level banks’ Z-score. Importantly, their effectiveness is substantially weakened under a restrictive monetary stance, revealing a critical policy interaction transmitted through bank profitability. These findings highlight the need to consider the prevailing monetary environment when designing macroprudential interventions.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Lucas Souza Beppler",
+      "Regis Augusto Ely",
+      "Anderson Mutter Teixeira",
+      "Benjamin Miranda Tabak"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-29",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
+    "detail_key": "policy-interactions-and-systemic-stability-how-monetary-conditions-influence-macropruden-c0ea648f6dab",
+    "detected_at": "2026-09-29T16:34:44+00:00",
+    "doi": "10.1016/j.econmod.2026.107861",
+    "fields": [
+      "applied_empirical"
+    ],
+    "first_seen": "2026-09-29T16:34:44+00:00",
+    "id": "doi:10.1016/j.econmod.2026.107861",
+    "identity_aliases": [
+      "10.1016/j.econmod.2026.107861",
+      "https://doi.org/10.1016/j.econmod.2026.107861",
+      "policy-interactions-and-systemic-stability-how-monetary-conditions-influence-macropruden-c0ea648f6dab"
+    ],
+    "issue_date": "2026-09-29",
+    "journal": "Economic Modelling",
+    "journal_id": "economic-modelling",
+    "journal_short": "EconMod",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0264999326003901",
+    "published_online": "2026-09-28",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-29",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-29",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-28",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-28",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-01",
+          "source": "openalex"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": "Economic Modelling",
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Policy interactions and systemic stability: How monetary conditions influence macroprudential effectiveness?",
+    "title_zh": "政策互动与系统性稳定：货币状况如何影响宏观审慎有效性？",
+    "translation_status": "title_translated",
+    "url": "https://doi.org/10.1016/j.econmod.2026.107861"
   },
   {
     "abstract": "This paper analyses how China’s rapid expansion has affected growth in other developing economies through the trade channel. The empirical strategy is a shift-share design that exploits pre-determined variation across countries in the exposure of their exports to China’s import demand and export supply in global markets, well before China became a dominant trader. The paper shows that China’s rising demand for commodities and intermediate goods has had a favorable impact on other developing countries’ growth, while intensified competition from its manufacturing exports has had an adverse effect. The former effect is stronger and therefore the net effect has been positive for most countries. The positive impact is, however, becoming weaker as China’s growth slows down, and developing countries’ longer term growth may also be influenced by the changes in their economic structures induced by China’s trade expansion.",
@@ -3472,6 +3539,7 @@
     "_restored_from_backflow": "2026-09-30",
     "abstract": "We consider official and alternative data sources for measuring and projecting the role of U.S. manufacturing in the global semiconductor manufacturing industry. We find that the government sources we consider face significant limitations for tracking semiconductor fab investment in real time: they use industry and product categories that are too broad, and come with substantial publication lags. We then analyze project-level alternative data from Semiconductor Equipment and Materials International (SEMI), which provides quarterly tracking of individual fab projects with greater timeliness and specificity. Comparing SEMI data with official statistics through 2023, we find broad consistency in investment levels, validating SEMI as a credible supplement to official statistics. This work provides both a practical guide for tracking real-time trends in semiconductor manufacturing and a case study in synthesizing government and alternative data sources.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
     "abstract_status_code": "available",
     "authors": [
       "David M. Byrne",
@@ -3514,5 +3582,41 @@
     "title_zh": "衡量与预测美国半导体制造产能投资",
     "translation_status": "title_translated",
     "url": "https://www.federalreserve.gov/econres/feds/measuring-and-projecting-us-investment-in-semiconductor-manufacturing-capacity.htm"
+  },
+  {
+    "_restored_from_backflow": "2026-10-01",
+    "abstract": "This study analyzes how firms form their inflation expectations after a regime change in monetary policy and a transition to a low-inflation environment. Using the Bank of Israel survey of firms, we document the basic properties of firms' inflation expectations and examine how Israeli firms update their inflation expectations after receiving new information about inflation or monetary policy. We find that even after successful de-dollarization and disinflation, a positive inflation surprise leads to a sizable upward adjustment in inflation expectations. Our results suggest that managers' experiences keep firms attentive to inflation long after price stability is achieved.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "publisher_body:abstract",
+    "abstract_status_code": "available",
+    "authors": [
+      "Gorodnichenko, Yuriy",
+      "Kutai, Ari",
+      "Melnick, Rafi"
+    ],
+    "authors_status_code": "available",
+    "china_relevance_status": "none",
+    "date_confidence": "D",
+    "date_source": "aea_current_issue",
+    "detail_key": "information-and-the-formation-of-inflation-expectations-by-firms-evidence-from-a-survey-3c7add51e6b0",
+    "doi": "10.1257/mac.20230289",
+    "first_seen": "2026-09-29T15:21:50+00:00",
+    "id": "doi:10.1257/mac.20230289",
+    "identity_aliases": [
+      "10.1257/mac.20230289",
+      "https://www.aeaweb.org/articles?id=10.1257/mac.20230289",
+      "information-and-the-formation-of-inflation-expectations-by-firms-evidence-from-a-survey-3c7add51e6b0"
+    ],
+    "issue_date": "2026-10-01",
+    "journal": "American Economic Journal: Macroeconomics",
+    "journal_id": "american-economic-journal-macroeconomics",
+    "official_date_status": "available",
+    "publisher": "American Economic Association",
+    "source_type": "journal",
+    "title": "Information and the Formation of Inflation Expectations by Firms: Evidence from a Survey of Israeli Firms",
+    "title_zh": "企业与通胀预期的形成：来自以色列企业调查的证据",
+    "translation_status": "title_translated",
+    "url": "https://www.aeaweb.org/articles?id=10.1257/mac.20230289"
   }
 ]
