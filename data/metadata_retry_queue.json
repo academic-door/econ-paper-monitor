@@ -7,14 +7,38 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 152,
-    "missing_authors": 1,
-    "weak_date_evidence": 491
+    "missing_abstract": 153,
+    "missing_authors": 2,
+    "weak_date_evidence": 490
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 596,
+  "recent_candidates_before_limit": 597,
   "recent_window_start": "2026-09-03",
   "records": [
+    {
+      "date_confidence": "A",
+      "doi": "10.1093/jeea/jvag062",
+      "first_seen": "2026-10-01T21:47:37+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1093/jeea/jvag062",
+      "journal": "Journal of the European Economic Association",
+      "official_date": "2026-10-01",
+      "priority": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "missing_authors"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Place-Based Policies: A Path to Opportunity or a Mark of Stigma for Targeted Neighborhoods?*",
+      "url": "https://academic.oup.com/jeea/advance-article/doi/10.1093/jeea/jvag062/8859323?rss=1"
+    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -11653,32 +11677,9 @@
       "source_type": "journal",
       "title": "Froebel’s gifts: how the kindergarten movement changed the immigrant family",
       "url": "https://doi.org/10.1007/s10887-026-09271-z"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.enpol.2026.115592",
-      "first_seen": "2026-09-16T19:18:17+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.enpol.2026.115592",
-      "journal": "Energy Policy",
-      "official_date": "2026-09-08",
-      "priority": [
-        0,
-        1,
-        1,
-        24
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "“We love money, not coal”: The political economy of the clean energy transition in Indonesia",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0301421526005264?dgcid=rss_sd_all"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5002,
+  "total_candidates_before_limit": 5003,
   "truncated": true
 }
