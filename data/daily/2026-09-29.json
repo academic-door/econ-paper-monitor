@@ -110,7 +110,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -237,7 +237,7 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_raw_file": "data/raw/rss/2026-09-30.json",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -1321,7 +1321,7 @@
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "persistence-and-structural-breaks-in-u-s-leading-economic-indicators-a-fractional-integr-a9b2bd6f5181",
     "detected_at": "2026-09-29T18:39:05+00:00",
     "doi": "10.1080/00036846.2026.2740194",
@@ -1940,7 +1940,7 @@
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "fast-and-efficient-estimation-of-macromodels-with-large-shocks-41c52a20e9bf",
     "detected_at": "2026-09-29T16:34:32+00:00",
     "doi": "10.1080/07350015.2026.2740570",
@@ -2343,7 +2343,7 @@
     "abstract": "Many colleges permit course retakes, yet their effects on academic success remain largely unknown. We study a four-year university that canceled a grade-replacement policy in 1995 and reinstated it in 2001. Exploiting these policy shifts and the disproportionate retaking response among D/F students relative to C students, we estimate the causal effects of retaking using an instrumental-variables design. Grade replacement substantially increased retaking among students who initially earned D/F grades. We find broadly robust evidence that retaking improves same-subject persistence and subsequent performance among students who continue in the subject. Estimates for university-level retention and four-year graduation are less robust, ranging from positive to no detectable effects. Overall, grade replacement encourages struggling students to retake courses without harming their short- or longer-run academic progress.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -2395,6 +2395,13 @@
         },
         {
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-09-29",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-29",
+          "source": "openalex"
         }
       ]
     },
@@ -2636,7 +2643,7 @@
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "battery-industrialisation-and-the-energy-transition-policy-coordination-and-industrial-p-23234ed374cf",
     "detected_at": "2026-09-29T09:14:48+00:00",
     "doi": "10.1016/j.enpol.2026.115632",
@@ -2759,14 +2766,14 @@
     "ai_tags": [],
     "authors": [
       "Akhil Sasidharan",
-      "John P. McHale",
+      "John McHale",
       "Jason Harold"
     ],
     "authors_status_code": "available",
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "estimating-the-impact-of-a-star-scientist-move-on-their-own-research-productivity-3af4d8032bc9",
     "detected_at": "2026-09-29T09:12:09+00:00",
     "doi": "10.1016/j.labeco.2026.102973",
