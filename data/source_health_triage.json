@@ -1,6 +1,6 @@
 {
   "categories": {},
-  "checked_at": "2026-10-02T07:15:02.286521+08:00",
+  "checked_at": "2026-10-02T09:47:45.060145+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
@@ -9,15 +9,30 @@
       "source": "cn-journals"
     },
     {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Rev",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
       "sample_error": "feeds=72/121; 世界经济: 0 via discovered; Management Science: HTTPError: HTTP Error 403: Forbidden; Management Science: 0 via configured; Journal of Accounting and Economics: 51 via configured; Journal of",
       "source": "rss"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "URLError: <urlopen error timed out>",
+      "source": "working-paper:world-bank-prwp"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: URLError: <urlopen error timed out>; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-",
+      "source": "working-papers"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 2
+    "degraded_source_failures": 5
   },
   "total_degraded": 0
 }
