@@ -1,7 +1,10 @@
 {
-  "categories": {},
-  "checked_at": "2026-10-03T00:23:21.779907+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 2,
+    "permanently_unavailable": 1
+  },
+  "checked_at": "2026-10-03T00:44:13.570924+08:00",
+  "source_health_degraded_count": 3,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -10,24 +13,70 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Agricultural Economics: 10; Journal of the Association of Environmental and Resource Economists: 17; Land Economics: 0; Land Use Policy: 42; European Review of Agricultural",
+      "sample_error": "partial_success failures=3; Journal of Finance: 6; Journal of Financial Economics: 9; Review of Financial Studies: 3; Journal of Development Economics: 12; Economic Development and Cultural Change: 7;",
       "source": "crossref"
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen ",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Economics of Education Review: elsevier",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 66 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=32/45; Journal of International Economics: 34 via official-generated; Journal of Finance: 31 via official-generated; Journal of Financial Economics: 28 via official-generated; Review of Financia",
       "source": "rss"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 29; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Behavior and Organization",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "permanently_unavailable",
+      "category_counts": {
+        "permanently_unavailable": 1
+      },
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 4
   },
-  "total_degraded": 0
+  "total_degraded": 3
 }
