@@ -1,20 +1,12 @@
 {
-  "categories": {
-    "needs_investigation": 2,
-    "permanently_unavailable": 1
-  },
-  "checked_at": "2026-10-03T00:44:13.570924+08:00",
-  "source_health_degraded_count": 3,
+  "categories": {},
+  "checked_at": "2026-10-03T03:54:00.335992+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=3; Journal of Finance: 6; Journal of Financial Economics: 9; Review of Financial Studies: 3; Journal of Development Economics: 12; Economic Development and Cultural Change: 7;",
-      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -27,56 +19,10 @@
       "source": "rss"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 29; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-economic-behavior-and-organization",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Economic Behavior and Organization",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "permanently_unavailable",
-      "category_counts": {
-        "permanently_unavailable": 1
-      },
-      "journal_id": "journal-379b4022ce",
-      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
-      "source": "管理世界",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
-        "cnki-rss",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 3
   },
-  "total_degraded": 3
+  "total_degraded": 0
 }
