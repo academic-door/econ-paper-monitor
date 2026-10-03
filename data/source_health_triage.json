@@ -1,19 +1,12 @@
 {
-  "categories": {
-    "needs_investigation": 1
-  },
-  "checked_at": "2026-10-03T21:27:08.440039+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-10-03T22:53:18.731403+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 6; Journal of Financial Economics: 9; Review of Financial Studies: 3; Journal of Development Economics: 13; Economic Development and Cultural Change: 7;",
-      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -22,30 +15,14 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 34 via official-generated; Journal of Finance: 31 via official-generated; Journal of Financial Economics: 28 via official-generated; Review of Financia",
+      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 66 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 5; public-choice/springer_online_first: PARSER",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 3
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }
