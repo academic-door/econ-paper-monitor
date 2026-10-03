@@ -894,6 +894,44 @@
         "requests": 99,
         "unknown_cost_requests": 0
       }
+    },
+    "2026-10-03": {
+      "china_relevance": {
+        "completion_tokens": 35,
+        "estimated_cost_usd": 9.724e-05,
+        "models": {
+          "deepseek-v4-flash": 1
+        },
+        "off_peak_requests": 1,
+        "peak_requests": 0,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 337,
+        "prompt_tokens": 337,
+        "providers": {
+          "deepseek": 1
+        },
+        "reasoning_tokens": 0,
+        "requests": 1,
+        "unknown_cost_requests": 0
+      },
+      "translation": {
+        "completion_tokens": 4592,
+        "estimated_cost_usd": 0.00484176,
+        "models": {
+          "deepseek-v4-flash": 97
+        },
+        "off_peak_requests": 97,
+        "peak_requests": 0,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 8232,
+        "prompt_tokens": 8232,
+        "providers": {
+          "deepseek": 97
+        },
+        "reasoning_tokens": 0,
+        "requests": 97,
+        "unknown_cost_requests": 0
+      }
     }
   },
   "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing/",
@@ -901,61 +939,61 @@
   "rolling_30d": {
     "by_task": {
       "china_relevance": {
-        "completion_tokens": 4302,
-        "estimated_cost_usd": 0.012076984,
+        "completion_tokens": 4337,
+        "estimated_cost_usd": 0.012174224,
         "models": {
-          "deepseek-v4-flash": 108
+          "deepseek-v4-flash": 109
         },
-        "off_peak_requests": 108,
+        "off_peak_requests": 109,
         "peak_requests": 0,
         "prompt_cache_hit_tokens": 2432,
-        "prompt_cache_miss_tokens": 41912,
-        "prompt_tokens": 44344,
+        "prompt_cache_miss_tokens": 42249,
+        "prompt_tokens": 44681,
         "providers": {
-          "deepseek": 108
+          "deepseek": 109
         },
         "reasoning_tokens": 0,
-        "requests": 108,
+        "requests": 109,
         "unknown_cost_requests": 0
       },
       "translation": {
-        "completion_tokens": 223928,
-        "estimated_cost_usd": 0.229699284,
+        "completion_tokens": 228520,
+        "estimated_cost_usd": 0.234541044,
         "models": {
-          "deepseek-v4-flash": 3427
+          "deepseek-v4-flash": 3524
         },
-        "off_peak_requests": 3427,
+        "off_peak_requests": 3524,
         "peak_requests": 0,
         "prompt_cache_hit_tokens": 1152,
-        "prompt_cache_miss_tokens": 372267,
-        "prompt_tokens": 373419,
+        "prompt_cache_miss_tokens": 380499,
+        "prompt_tokens": 381651,
         "providers": {
-          "deepseek": 3427
+          "deepseek": 3524
         },
         "reasoning_tokens": 0,
-        "requests": 3427,
+        "requests": 3524,
         "unknown_cost_requests": 0
       }
     },
     "total": {
-      "completion_tokens": 228230,
-      "estimated_cost_usd": 0.241776268,
+      "completion_tokens": 232857,
+      "estimated_cost_usd": 0.246715268,
       "models": {
-        "deepseek-v4-flash": 3535
+        "deepseek-v4-flash": 3633
       },
-      "off_peak_requests": 3535,
+      "off_peak_requests": 3633,
       "peak_requests": 0,
       "prompt_cache_hit_tokens": 3584,
-      "prompt_cache_miss_tokens": 414179,
-      "prompt_tokens": 417763,
+      "prompt_cache_miss_tokens": 422748,
+      "prompt_tokens": 426332,
       "providers": {
-        "deepseek": 3535
+        "deepseek": 3633
       },
       "reasoning_tokens": 0,
-      "requests": 3535,
+      "requests": 3633,
       "unknown_cost_requests": 0
     }
   },
-  "updated_at": "2026-10-02T10:51:56+00:00",
+  "updated_at": "2026-10-03T01:26:26+00:00",
   "version": 1
 }
