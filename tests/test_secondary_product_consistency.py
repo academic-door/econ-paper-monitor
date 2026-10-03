@@ -13,17 +13,17 @@ def test_public_nav_uses_one_task_oriented_order_without_visible_rss() -> None:
     home_order = [
         'href="../">今日</a>',
         'href="../recent72/">最近72小时</a>',
-        'href="../journals/">期刊</a>',
-        'href="../working-papers/">工作论文</a>',
         'href="../topics/china/">中国研究</a>',
+        'href="../working-papers/">工作论文</a>',
+        'href="../journals/">期刊</a>',
         'href="../search/">搜索</a>',
     ]
     secondary_order = [
         'href="{BASE}/">今日</a>',
         'href="{BASE}/recent72/">最近72小时</a>',
-        'href="{BASE}/journals/">期刊</a>',
-        'href="{BASE}/working-papers/">工作论文</a>',
         'href="{BASE}/topics/china/">中国研究</a>',
+        'href="{BASE}/working-papers/">工作论文</a>',
+        'href="{BASE}/journals/">期刊</a>',
         'href="{BASE}/search/">搜索</a>',
     ]
     home_nav = template.split('<nav class="nav" id="primary-nav">', 1)[1].split('</nav>', 1)[0]
