@@ -16,8 +16,9 @@ import should_dispatch_monitor  # noqa: E402
 class MonitorCadenceContractTests(unittest.TestCase):
     def test_fast_lane_is_true_quarter_hour_with_full_slot_replacement(self) -> None:
         text = (ROOT / ".github" / "workflows" / "fast-discovery.yml").read_text(encoding="utf-8")
-        self.assertIn('cron: "15,30,45 * * * *"', text)
-        self.assertIn('cron: "0 0-3,5-9,11-15,17-21,23 * * *"', text)
+        self.assertIn('cron: "18,33,48 * * * *"', text)
+        self.assertIn('cron: "3 0-3,5-9,11-15,17-21,23 * * *"', text)
+        self.assertNotIn('cron: "15,30,45 * * * *"', text)
         self.assertIn("--tier hourly_crossref_priority", text)
         self.assertIn("git add data/seen.json data/daily", text)
         self.assertNotIn("git add data\n", text)
@@ -53,6 +54,8 @@ class MonitorCadenceContractTests(unittest.TestCase):
 
     def test_watchdog_is_fallback_not_second_hourly_lane(self) -> None:
         text = (ROOT / ".github" / "workflows" / "watchdog.yml").read_text(encoding="utf-8")
+        self.assertIn('cron: "11,26,41,56 * * * *"', text)
+        self.assertNotIn('cron: "*/15 * * * *"', text)
         self.assertIn("--light-min-minutes 75", text)
         self.assertIn("--full-times 00:00,06:00,12:00,18:00", text)
         self.assertIn("--full-grace-minutes 15", text)
