@@ -3,7 +3,8 @@ name: Monitor Watchdog
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/15 * * * *"
+    # Stagger off common :00/:15/:30/:45 queue peaks; cadence remains 15 minutes.
+    - cron: "11,26,41,56 * * * *"
 
 permissions:
   actions: write
