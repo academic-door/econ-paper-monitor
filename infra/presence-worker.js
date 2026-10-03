@@ -59,8 +59,11 @@ async function fetchScheduleRunsFromWorkflowPages() {
       headers: {
         "Accept": "text/html,application/xhtml+xml",
         "User-Agent": "Academic-Door-Monitor-Liveness/1.0",
+        "Cache-Control": "no-cache",
       },
-      cf: { cacheTtl: 60, cacheEverything: true },
+      // Scheduler truth is time-sensitive; do not let the Worker edge cache
+      // persist GitHub run history across natural schedule windows.
+      cf: { cacheTtl: 0 },
     });
     if (!response.ok) {
       throw new Error(`github_html_${workflow.file}_${response.status}`);
@@ -92,8 +95,10 @@ async function refreshMonitorLiveness(env) {
         "Accept": "application/vnd.github+json",
         "User-Agent": "Academic-Door-Monitor-Liveness/1.0",
         "X-GitHub-Api-Version": "2022-11-28",
+        "Cache-Control": "no-cache",
       },
-      cf: { cacheTtl: 60, cacheEverything: true },
+      // Keep the HTML fallback independent from stale edge history too.
+      cf: { cacheTtl: 0 },
     });
     if (!upstream.ok) {
       throw new Error(`github_api_${upstream.status}`);
