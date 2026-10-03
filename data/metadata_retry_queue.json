@@ -7,12 +7,12 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 145,
+    "missing_abstract": 148,
     "missing_authors": 1,
-    "weak_date_evidence": 490
+    "weak_date_evidence": 487
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 570,
+  "recent_candidates_before_limit": 576,
   "recent_window_start": "2026-09-04",
   "records": [
     {
@@ -926,6 +926,75 @@
       "source_type": "journal",
       "title": "Structural monetary policy and corporate innovation resilience: an empirical study based on China’s MLF collateral expansion",
       "url": "https://doi.org/10.1080/00036846.2026.2742450"
+    },
+    {
+      "date_confidence": "A",
+      "doi": null,
+      "first_seen": "2026-10-03T01:55:38+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://le.uwpress.org/cgi/content/short/le.103.1.102825-0091rv1?rss=1",
+      "journal": "Land Economics",
+      "official_date": "2026-10-02",
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Use of Nonrounded Bids Triggers System 2 Full Information Processing in Discrete: Choice Experiments",
+      "url": "https://le.uwpress.org/cgi/content/short/le.103.1.102825-0091Rv1?rss=1"
+    },
+    {
+      "date_confidence": "A",
+      "doi": null,
+      "first_seen": "2026-10-03T01:55:38+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://le.uwpress.org/cgi/content/short/le.103.2.011926-0008r1v1?rss=1",
+      "journal": "Land Economics",
+      "official_date": "2026-10-02",
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Exploring the Effects of Attribute Translation on Scope Sensitivity in Contingent Valuation: The Case of Seabed Marine Debris Removal",
+      "url": "https://le.uwpress.org/cgi/content/short/le.103.2.011926-0008R1v1?rss=1"
+    },
+    {
+      "date_confidence": "A",
+      "doi": null,
+      "first_seen": "2026-10-03T01:55:38+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://le.uwpress.org/cgi/content/short/le.103.2.060826-0088v1?rss=1",
+      "journal": "Land Economics",
+      "official_date": "2026-10-02",
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The Texas Grand Slam: Robbed by Red Tides?",
+      "url": "https://le.uwpress.org/cgi/content/short/le.103.2.060826-0088v1?rss=1"
     },
     {
       "date_confidence": "C",
@@ -3830,6 +3899,75 @@
       "source_type": "journal",
       "title": "Income inequality as a barrier to the CO<ce:inf loc=post>2</ce:inf>-reducing potential of public investment: evidence from Latin America",
       "url": "https://www.sciencedirect.com/science/article/pii/S0305750X26002731?dgcid=api_sd_search-api-endpoint"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.3368/le.103.1.102825-0091r",
+      "first_seen": "2026-10-02T23:29:46+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.3368/le.103.1.102825-0091r",
+      "journal": "Land Economics",
+      "official_date": "2026-10-02",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Use of Nonrounded Bids Triggers System 2 Full Information Processing in Discrete",
+      "url": "https://doi.org/10.3368/le.103.1.102825-0091r"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.3368/le.103.2.011926-0008r1",
+      "first_seen": "2026-10-02T23:29:46+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.3368/le.103.2.011926-0008r1",
+      "journal": "Land Economics",
+      "official_date": "2026-10-02",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Exploring the Effects of Attribute Translation on Scope Sensitivity in Contingent Valuation",
+      "url": "https://doi.org/10.3368/le.103.2.011926-0008r1"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.3368/le.103.2.060826-0088",
+      "first_seen": "2026-10-02T23:29:46+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.3368/le.103.2.060826-0088",
+      "journal": "Land Economics",
+      "official_date": "2026-10-02",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The Texas Grand Slam",
+      "url": "https://doi.org/10.3368/le.103.2.060826-0088"
     },
     {
       "date_confidence": "F",
@@ -11530,147 +11668,9 @@
       "source_type": "journal",
       "title": "The Labor Market and Health Impacts of Reducing Cesarean Section Deliveries",
       "url": "https://jhr.uwpress.org/content/early/2026/09/01/jhr.1025-14609R2"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.3368/jhr.1025-14615r2",
-      "first_seen": "2026-09-09T17:32:46+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.3368/jhr.1025-14615r2",
-      "journal": "Journal of Human Resources",
-      "official_date": "2026-09-09",
-      "priority": [
-        0,
-        1,
-        1,
-        24
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Affordable Housing During Childhood Improves Long-Term Outcomes of Women and Their Children",
-      "url": "https://jhr.uwpress.org/content/early/2026/09/01/jhr.1025-14615R2"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.3368/jhr.1124-13968r2",
-      "first_seen": "2026-09-09T17:32:46+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.3368/jhr.1124-13968r2",
-      "journal": "Journal of Human Resources",
-      "official_date": "2026-09-09",
-      "priority": [
-        0,
-        1,
-        1,
-        24
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "The Labor Market Costs of Job Displacement by Migrant Status",
-      "url": "https://jhr.uwpress.org/content/early/2026/09/01/jhr.1124-13968R2"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1007/s10797-026-09990-4",
-      "first_seen": "2026-09-08T19:27:58+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1007/s10797-026-09990-4",
-      "journal": "International Tax and Public Finance",
-      "official_date": "2026-09-08",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Tax incentives, compliance costs, and VAT registration: evidence from India",
-      "url": "https://doi.org/10.1007/s10797-026-09990-4"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1007/s10887-026-09271-z",
-      "first_seen": "2026-09-08T19:28:13+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1007/s10887-026-09271-z",
-      "journal": "Journal of Economic Growth",
-      "official_date": "2026-09-08",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Froebel’s gifts: how the kindergarten movement changed the immigrant family",
-      "url": "https://doi.org/10.1007/s10887-026-09271-z"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.enpol.2026.115592",
-      "first_seen": "2026-09-16T19:18:17+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.enpol.2026.115592",
-      "journal": "Energy Policy",
-      "official_date": "2026-09-08",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "“We love money, not coal”: The political economy of the clean energy transition in Indonesia",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0301421526005264?dgcid=rss_sd_all"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jeconom.2026.106319",
-      "first_seen": "2026-09-08T14:22:31+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jeconom.2026.106319",
-      "journal": "Journal of Econometrics",
-      "official_date": "2026-09-08",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Spatio-temporal autoregressions for high dimensional matrix-valued time series",
-      "url": "https://doi.org/10.1016/j.jeconom.2026.106319"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 4995,
+  "total_candidates_before_limit": 5001,
   "truncated": true
 }
