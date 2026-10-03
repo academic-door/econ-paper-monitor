@@ -15,6 +15,21 @@ async function visibleEntries(page, selector = '.paper-entry') {
   return page.locator(`${selector}:not([hidden])`).count();
 }
 
+async function assertApprovedHeaderContract(page, url) {
+  const parent = page.locator('.brand-lockup .parent-brand').first();
+  const product = page.locator('.brand-lockup .product-brand').first();
+  assert.ok(await parent.isVisible(), `${url} parent brand is not visible`);
+  assert.ok(await product.isVisible(), `${url} product identity is not visible`);
+  assert.equal(await parent.getAttribute('href'), 'https://academic-door.github.io/', `${url} parent brand does not link to the portal`);
+  assert.equal((await parent.textContent()).trim(), 'Academic Door · 学术传送门', `${url} parent brand label drifted`);
+  assert.equal((await product.textContent()).trim(), '每日之门 · Econ Papers Daily', `${url} child product label drifted`);
+  const productHref = new URL(await product.getAttribute('href'), page.url()).href;
+  assert.equal(productHref, new URL(root).href, `${url} child product link does not return to Daily Door root`);
+  const labels = await page.locator('.site-header .nav a').evaluateAll((nodes) => nodes.map((node) => (node.textContent || '').trim()));
+  assert.deepEqual(labels, ['今日', '最近72小时', '中国研究', '工作论文', '期刊', '搜索'], `${url} primary navigation order drifted`);
+}
+
+
 
 async function assertNoPseudoDiscoveryTime(page, url) {
   assert.equal(
@@ -160,6 +175,7 @@ async function checkPage(browser, url) {
   const navigationWaitUntil = isLocal ? "networkidle" : "domcontentloaded";
   await page.goto(url, { waitUntil: navigationWaitUntil, timeout: 60000 });
   await page.waitForTimeout(2400);
+  await assertApprovedHeaderContract(page, url);
   assert.equal(errors.length, 0, `${url} page errors: ${errors.join(" | ")}`);
   assert.ok(await page.locator('.hero h1').isVisible(), `${url} Hero title is not visible`);
   assert.ok(await page.locator('.hero-lede').isVisible(), `${url} Hero lede is not visible`);
@@ -224,6 +240,7 @@ async function checkSecondaryPages(browser) {
     });
     const response = await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
     await page.waitForTimeout(500);
+    if (path !== "classic/") await assertApprovedHeaderContract(page, url);
     assert.equal(response?.status(), 200, `${url} did not return 200`);
     assert.equal(errors.length, 0, `${url} page errors: ${errors.join(" | ")}`);
     if (path === "classic/") {
@@ -411,6 +428,7 @@ async function checkDetailPage(browser) {
   page.on("pageerror", (error) => errors.push(String(error)));
   const response = await page.goto(detailUrl, { waitUntil: "networkidle", timeout: 60000 });
   await page.waitForFunction(() => !document.querySelector('#paperRoot')?.classList.contains('detail-loading'));
+  await assertApprovedHeaderContract(page, detailUrl);
   assert.equal(response?.status(), 200, `${detailUrl} did not return 200`);
   assert.equal(errors.length, 0, `${detailUrl} page errors: ${errors.join(" | ")}`);
   assert.ok(await page.locator('.detail-page h1').isVisible(), `${detailUrl} detail title is missing`);
