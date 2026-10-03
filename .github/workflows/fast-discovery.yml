@@ -3,10 +3,11 @@ name: Fast Discovery
 on:
   workflow_dispatch:
   schedule:
-    # True 15-minute TOP/A+ discovery. The :00 slot is replaced by Full
-    # Discovery at UTC 04/10/16/22 (Beijing 12/18/00/06).
-    - cron: "15,30,45 * * * *"
-    - cron: "0 0-3,5-9,11-15,17-21,23 * * *"
+    # True 15-minute TOP/A+ discovery, staggered away from common quarter-hour
+    # queue peaks. The :03 slot is replaced by Full Discovery at UTC
+    # 04/10/16/22 (Beijing 12/18/00/06).
+    - cron: "18,33,48 * * * *"
+    - cron: "3 0-3,5-9,11-15,17-21,23 * * *"
 
 permissions:
   contents: write
