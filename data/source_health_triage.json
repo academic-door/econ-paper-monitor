@@ -1,11 +1,13 @@
 {
-  "categories": {},
-  "checked_at": "2026-10-04T10:28:32.526949+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-10-04T10:40:44.404926+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=3/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 0; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -19,10 +21,26 @@
       "source": "rss"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 24; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 3
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
