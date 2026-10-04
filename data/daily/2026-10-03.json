@@ -53,7 +53,7 @@
     "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -117,7 +117,7 @@
     "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -187,7 +187,7 @@
     "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -253,7 +253,7 @@
     "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -332,8 +332,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-03",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "experience-based-pairwise-comparison-dynamics-62f7087d73b7",
     "detected_at": "2026-10-03T16:30:54+00:00",
     "doi": "10.1016/j.geb.2026.104051",
@@ -375,6 +375,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
@@ -407,8 +414,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-03",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "understanding-heterogeneous-green-transitions-an-evolutionary-approach-to-policy-innovat-10c4aba96ce7",
     "detected_at": "2026-10-03T14:45:13+00:00",
     "doi": "10.1016/j.eneco.2026.109633",
@@ -458,7 +465,7 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
+    "source_issue": "Energy Economics",
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "Understanding heterogeneous green transitions: An evolutionary approach to policy, innovation, and technological change",
@@ -490,8 +497,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "time-of-use-pricing-and-peak-shifting-in-residential-ev-charging-a-quasi-experimental-st-b98f4b564cc4",
     "detected_at": "2026-10-03T14:45:13+00:00",
     "doi": "10.1016/j.eneco.2026.109638",
@@ -541,7 +548,7 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
+    "source_issue": "Energy Economics",
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "Time-of-use pricing and peak shifting in residential EV charging: a quasi-experimental study from China",
@@ -1076,11 +1083,11 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_status": "not_found",
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract": "Against the strategic imperative of rural revitalization in China, this study examines how rural e-commerce contributes to rural revitalization and whether financial technology (FinTech) strengthens this relationship. Baseline regressions show a significant positive association between rural e-commerce and rural revitalization, and the result remains robust to an alternative measure of rural e-commerce, clustered standard errors, a restricted sample, and an instrumental-variable approach. Mechanism analysis shows that rural e-commerce significantly increases household income, supporting the proposed income channel. FinTech also strengthens the positive association between e-commerce and rural revitalization: the interaction terms for overall FinTech development, coverage breadth, usage depth, and digitalization are positive and statistically significant. Heterogeneity analysis further shows that the e-commerce coefficient is statistically significant in villages with larger household bases, greater land area, and larger labour forces. These findings provide empirical evidence on the complementarity between digital commerce and financial services in rural development and offer policy implications for inclusive, digitally enabled rural revitalization.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1090,8 +1097,10 @@
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-03",
-    "china_relevance_reason": "2 位疑似中文姓名作者，且题名或元数据包含中国研究常见主题词，需要 AI 确认",
-    "china_relevance_status": "candidate",
+    "china_related": true,
+    "china_related_source": "rule",
+    "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
+    "china_relevance_status": "confirmed",
     "date_confidence": "C",
     "date_source": "crossref_doi_published_online",
     "detail_key": "rural-e-commerce-and-rural-revitalization-the-income-channel-and-the-complementary-role-715fbd19d583",
@@ -1127,6 +1136,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-03",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-03",
+          "source": "openalex"
         }
       ]
     },
@@ -1144,11 +1160,11 @@
     "_provider": "semantic-scholar",
     "_status": "not_found",
     "_status_code": 429,
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract": "This paper examines the impact of international intermediate input supply shocks on firms’ supply chain diversification and its adjustment direction. Using Chinese firm-level customs data from 2009 to 2016, we find a significant U-shaped relationship between supply shocks and supply chain diversification. When shocks are relatively weak, firms tend to maintain concentrated supply chains due to cost and efficiency considerations. Once shocks exceed a certain threshold, firms increase diversification to mitigate risks. Further analysis shows that firms adjust not only the degree but also the direction of supply chain diversification. In response to supply shocks, firms shift from efficiency-oriented to security-oriented sourcing strategies, increasing imports from countries with regional trade agreements, Belt and Road participation, and lower geopolitical risks, while reducing dependence on politically distant or disaster-prone regions. This paper reveals the dynamic trade-off underlying firms’ supply chain decisions and provides micro-level evidence for understanding how firms in emerging economies respond to global supply disruptions.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1198,6 +1214,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-03",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-03",
+          "source": "openalex"
         }
       ]
     },

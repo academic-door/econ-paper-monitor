@@ -248,7 +248,7 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_raw_file": "data/raw/rss/2026-09-30.json",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -1353,7 +1353,7 @@
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "persistence-and-structural-breaks-in-u-s-leading-economic-indicators-a-fractional-integr-a9b2bd6f5181",
     "detected_at": "2026-09-29T18:39:05+00:00",
     "doi": "10.1080/00036846.2026.2740194",
@@ -1976,7 +1976,7 @@
     "available_online": "2026-09-29",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "fast-and-efficient-estimation-of-macromodels-with-large-shocks-41c52a20e9bf",
     "detected_at": "2026-09-29T16:34:32+00:00",
     "doi": "10.1080/07350015.2026.2740570",
@@ -2492,7 +2492,7 @@
     "abstract": "Human decision making in the newsvendor paradigm systematically deviates from the predictions of expected profit maximization, yet the cognitive mechanisms underlying these deviations remain contested. We investigate whether these biases arise from distorted utility evaluation or from adaptive learning induced by repeated feedback. Across three laboratory experiments ( N = 214 ), we compare behavior under decision from description, decision from experience, and newsvendor environments while varying information availability. The first experiment combines behavioral and electroencephalographic (EEG) data, the second replicates the behavioral findings without EEG, and the third extends the analysis to a multi-alternative setting with continuous demand. We document two robust patterns in newsvendor environments: decision accuracy inferior to random guessing, and positive correlation between choice and realized demand. These patterns are absent in one-shot descriptive decisions and cannot be explained by standard utility-based models. Neural evidence shows that repeated environments engage parietal and frontal activity associated with choice deliberation and feedback-based learning, and that memory encoding differs systematically across demand outcomes. Motivated by these findings, we develop a model incorporating probability matching and asymmetric belief updating, which provides a substantially improved fit to observed choices. Our results demonstrate that repeated feedback fundamentally alters the mechanism of economic decision making, highlighting the central role of learning and belief dynamics in generating newsvendor biases.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -2542,6 +2542,17 @@
           "source": "elsevier-article-api"
         },
         {
+          "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-09-29",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-29",
+          "source": "openalex"
+        },
+        {
+          "published_online": "2026-11-01",
           "source": "semantic-scholar"
         }
       ]
