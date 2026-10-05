@@ -1,23 +1,45 @@
 {
-  "categories": {},
-  "checked_at": "2026-10-05T13:37:22.327350+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-10-05T14:20:11.490519+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "journal-of-the-european-economic-association: HTTPError: HTTP Error 429: Too Many Requests; public-choice: HTTPError: HTTP Error 429: Too Many Requests; quantitative-economics: HTTPError: HTTP Error 4",
+      "source": "openalex-recall"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 35 via official-generated; Journal of Finance: 31 via official-generated; Journal of Financial Economics: 29 via official-generated; Review of Financia",
+      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 66 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 5; social-choice-and-welfare/springer_online_f",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 2
+    "degraded_source_failures": 3
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
