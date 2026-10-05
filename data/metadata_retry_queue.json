@@ -7,11 +7,11 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 139,
+    "missing_abstract": 141,
     "weak_date_evidence": 492
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 557,
+  "recent_candidates_before_limit": 559,
   "recent_window_start": "2026-09-07",
   "records": [
     {
@@ -877,6 +877,54 @@
       "source_type": null,
       "title": "Urban geopolitical risk exposure and energy justice: Evidence from 278 Chinese cities",
       "url": "https://www.sciencedirect.com/science/article/pii/S0301421526005239?dgcid=rss_sd_all"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.worlddev.2026.107574",
+      "first_seen": "2026-10-05T21:39:18+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.worlddev.2026.107574",
+      "journal": "World Development",
+      "official_date": "2026-10-05",
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Deforestation in the Colombian amazon biome: socioeconomic and socio-environmental conflict drivers",
+      "url": "https://doi.org/10.1016/j.worlddev.2026.107574"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.worlddev.2026.107584",
+      "first_seen": "2026-10-05T21:39:18+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.worlddev.2026.107584",
+      "journal": "World Development",
+      "official_date": "2026-10-05",
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Do workers value formal jobs? Evidence from Brazil",
+      "url": "https://doi.org/10.1016/j.worlddev.2026.107584"
     },
     {
       "date_confidence": "C",
@@ -3438,7 +3486,7 @@
       "url": "https://doi.org/10.1016/j.jebo.2026.107772"
     },
     {
-      "date_confidence": "F",
+      "date_confidence": "C",
       "doi": "10.1016/j.jeem.2026.103434",
       "first_seen": "2026-10-05T19:14:39+00:00",
       "historical_backfill": false,
@@ -11619,55 +11667,9 @@
       "source_type": "journal",
       "title": "Heterogeneous preferences for vehicle-to-grid discharging behavior at home across weekday and weekend temporal contexts",
       "url": "https://www.sciencedirect.com/science/article/pii/S0301421526005288?dgcid=rss_sd_all"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.enpol.2026.115598",
-      "first_seen": "2026-09-16T19:18:17+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.enpol.2026.115598",
-      "journal": "Energy Policy",
-      "official_date": "2026-09-09",
-      "priority": [
-        0,
-        1,
-        1,
-        27
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Varieties of decarbonization: Comparing state narratives of Germany, India, and Mexico",
-      "url": "https://www.sciencedirect.com/science/article/pii/S030142152600532X?dgcid=rss_sd_all"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.foodpol.2026.103186",
-      "first_seen": "2026-09-09T17:43:14+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.foodpol.2026.103186",
-      "journal": "Food Policy",
-      "official_date": "2026-09-09",
-      "priority": [
-        0,
-        1,
-        1,
-        27
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Linking smallholders to markets: Understanding how agricultural production outsourcing is linked to crop commercialization in China",
-      "url": "https://doi.org/10.1016/j.foodpol.2026.103186"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5062,
+  "total_candidates_before_limit": 5064,
   "truncated": true
 }
