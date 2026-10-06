@@ -1,9 +1,7 @@
 {
-  "categories": {
-    "needs_investigation": 1
-  },
-  "checked_at": "2026-10-06T11:04:16.081477+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-10-06T16:51:09.297212+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,35 +10,19 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen ",
+      "sample_error": "attempted=11; seen 中国农村经济: abstract-present; 2026-10-06 VoxEU / CEPR Columns: abstract-present; seen Energy Economics: abstract-present; seen Economic Modelling: abstract-present; seen Economic Modell",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 35 via official-generated; Journal of Finance: 31 via official-generated; Journal of Financial Economics: 29 via official-generated; Review of Financia",
+      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 66 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 5; public-choice/springer_online_first: PARSER",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 3
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }
