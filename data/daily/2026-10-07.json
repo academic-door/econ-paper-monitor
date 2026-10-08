@@ -158,7 +158,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -777,7 +777,7 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-08",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -1309,7 +1309,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -1461,7 +1461,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -1758,6 +1758,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
@@ -2250,6 +2257,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },

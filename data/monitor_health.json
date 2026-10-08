@@ -10,21 +10,21 @@
     "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 10590,
+    "seen": 10591,
     "source_crossref_only": 0,
-    "source_degraded": 1,
-    "source_healthy": 92,
+    "source_degraded": 0,
+    "source_healthy": 93,
     "today": 0
   },
   "date": "2026-10-09",
   "failures": [],
-  "generated_at": "2026-10-08T22:12:11+00:00",
+  "generated_at": "2026-10-08T22:38:58+00:00",
   "local_cnki": {
-    "age_hours": 6.0,
+    "age_hours": 0.44,
     "count": 96,
     "fresh": true,
     "freshness_code": "fresh",
-    "last_success_at": "2026-10-08T16:12:21+00:00",
+    "last_success_at": "2026-10-08T22:12:24+00:00",
     "ok": true,
     "source_health": {
       "failed_sources": 0,
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-10-08T21:22:14+00:00",
+    "checked_at": "2026-10-08T22:33:19+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -159,16 +159,6 @@
           ]
         },
         {
-          "journal": "Journal of Agricultural and Resource Economics",
-          "journal_id": "journal-of-agricultural-and-resource-economics",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "Western Agricultural Economics Association",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Review of Accounting Studies",
           "journal_id": "review-of-accounting-studies",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -189,23 +179,13 @@
           ]
         }
       ],
-      "single_path_degraded": [
-        {
-          "journal": "Journal of Agricultural and Resource Economics",
-          "journal_id": "journal-of-agricultural-and-resource-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        }
-      ]
+      "single_path_degraded": []
     }
   },
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 14
+      "count": 13
     }
   ]
 }

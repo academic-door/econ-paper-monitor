@@ -1,5 +1,79 @@
 [
   {
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": null,
+    "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_status": "摘要暂未公开，系统将自动重试",
+    "abstract_status_code": "missing_retry",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Sarah K. Lowder",
+      "Athur Mabiso",
+      "Sara Savastano",
+      "Alessandro Rosi",
+      "Marup Hossain",
+      "Tianyue Hu"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-08",
+    "china_relevance_status": "none",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
+    "detail_key": "small-farms-and-income-generating-activities-in-developing-countries-empirical-insights-ffef8769e1cb",
+    "detected_at": "2026-10-08T22:28:46+00:00",
+    "doi": "10.1016/j.landusepol.2026.108364",
+    "fields": [
+      "agriculture_environment_resource"
+    ],
+    "first_seen": "2026-10-08T22:28:46+00:00",
+    "id": "doi:10.1016/j.landusepol.2026.108364",
+    "identity_aliases": [
+      "10.1016/j.landusepol.2026.108364",
+      "https://doi.org/10.1016/j.landusepol.2026.108364",
+      "small-farms-and-income-generating-activities-in-developing-countries-empirical-insights-ffef8769e1cb"
+    ],
+    "issue_date": "2026-10-09",
+    "journal": "Land Use Policy",
+    "journal_id": "land-use-policy",
+    "journal_short": "LUP",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0264837726004485",
+    "published_online": "2026-10-08",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-10-08",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-08",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Small farms and income generating activities in developing countries: Empirical insights from agricultural development projects",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://doi.org/10.1016/j.landusepol.2026.108364"
+  },
+  {
     "abstract": "Randomized controlled trials (RCTs) provide the most credible estimates of advertising incrementality but are difficult to scale. We propose Predicted Incrementality by Experimentation (PIE), which reframes ad measurement as a campaign-level prediction problem. PIE uses a sample of RCTs to learn a mapping from campaign features to causal effects, then applies it to campaigns not run as RCTs. Because the RCTs identify the causal effects, PIE can incorporate post-determined features—campaign-level aggregates such as test-group outcomes, exposure rates, and last-click conversions, computed after campaign completion. These metrics reflect the consumer behaviors that generate treatment effects, so they carry predictive information about incrementality, even though they would be invalid controls in a causal model. Using 2,226 Meta ad experiments, PIE achieves an out-of-sample [Formula: see text] for incremental conversions per dollar, compared with [Formula: see text] for industry-standard seven-day last-click attribution. In a decision-making framework, PIE disagrees with RCT-based decisions in only 8%–12% of campaigns, compared with 12%–20% for last-click attribution. We conclude that PIE can help scale causal measurement from a limited number of RCTs to a large set of nonexperimental campaigns. This paper was accepted by Raphael Thomadsen, marketing. Supplemental Material: The online appendix and data files are available at https://doi.org/10.1287/mnsc.2023.01108 .",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
@@ -80,7 +154,7 @@
     "available_online": "2026-10-08",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "massive-open-online-courses-and-labor-market-outcomes-evidence-from-colombia-d6b990ad3f74",
     "detected_at": "2026-10-08T21:17:05+00:00",
     "doi": "10.1093/ej/ueag129",
@@ -143,7 +217,7 @@
     "available_online": "2026-10-08",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "heterogeneous-patience-population-growth-and-wealth-accumulation-bfeded92755f",
     "detected_at": "2026-10-08T21:17:05+00:00",
     "doi": "10.1093/ej/ueag128",
@@ -436,8 +510,9 @@
     "url": "https://doi.org/10.3368/jhr.1025-14605r2"
   },
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -508,7 +583,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -579,7 +654,7 @@
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -641,7 +716,8 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -1301,7 +1377,7 @@
     "available_online": "2026-10-08",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "gambling-for-re-election-e3d18b110d97",
     "detected_at": "2026-10-08T16:14:42+00:00",
     "doi": "10.1093/ej/ueag127",
@@ -1687,7 +1763,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -1832,7 +1908,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -2143,5 +2219,73 @@
     "source_url": "https://hdl.handle.net/10986/45702",
     "title": "Breaking into Supply Chains: Experimental Evidence on Procurement Training for Women-Owned SMEs",
     "url": "https://openknowledge.worldbank.org/entities/publication/0bf3f65b-09dc-4ae8-84ec-a2ba82bff00c"
+  },
+  {
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_restored_from_backflow": "2026-10-09",
+    "_status": "skipped_rate_limited",
+    "abstract": "Improving the performance of smallholder farmers requires a comprehensive approach that addresses production risks and inefficiencies. This study employs a mediated stochastic frontier model to examine the impact of bundled drought-index insurance (DII) adoption and participation in Farmer-Based Organization (FBO)-led training on farm productivity and technical efficiency among smallholder farmers in northern Ghana. The empirical results indicate that the adoption of bundled micro- and meso-DII, combined with participation in FBO-led training, is significantly associated with higher maize output. The estimated output gains are reflected in both upward shifts in the production technology frontier and reductions in technical inefficiency. These findings underscore the value of integrating DII with complementary human capital interventions to improve output and highlight the untapped potential of FBOs for enhancing insurance adoption and productivity.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Angela Boakye Afriyie",
+      "Awudu Abdulai"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-08",
+    "china_relevance_status": "none",
+    "date_confidence": "F",
+    "date_source": "sciencedirect_api_load_date",
+    "detail_key": "drought-index-insurance-advisory-services-and-farm-productivity-in-ghana-63a7c482b007",
+    "detected_at": "2026-10-08T22:26:37+00:00",
+    "doi": "10.1016/j.foodpol.2026.103207",
+    "fields": [
+      "agriculture_environment_resource"
+    ],
+    "first_seen": "2026-10-08T22:26:37+00:00",
+    "id": "doi:10.1016/j.foodpol.2026.103207",
+    "identity_aliases": [
+      "10.1016/j.foodpol.2026.103207",
+      "drought-index-insurance-advisory-services-and-farm-productivity-in-ghana-63a7c482b007",
+      "https://www.sciencedirect.com/science/article/pii/S0306919226001764?dgcid=api_sd_search-api-endpoint"
+    ],
+    "issue_date": null,
+    "journal": "Food Policy",
+    "journal_id": "food-policy",
+    "journal_short": "FP",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0306919226001764",
+    "published_online": null,
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0306919226001764",
+      "sciencedirect_api_load_date": "2026-10-08T00:00:00.000Z",
+      "sciencedirect_search_issn": "0306-9192",
+      "sciencedirect_search_journal": "Food Policy",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Drought-index insurance, advisory services and farm productivity in Ghana",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0306919226001764?dgcid=api_sd_search-api-endpoint"
   }
 ]
