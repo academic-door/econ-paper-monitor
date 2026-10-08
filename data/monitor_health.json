@@ -12,15 +12,15 @@
     "recent72_missing": 0,
     "seen": 10536,
     "source_crossref_only": 0,
-    "source_degraded": 1,
-    "source_healthy": 92,
+    "source_degraded": 0,
+    "source_healthy": 93,
     "today": 0
   },
   "date": "2026-10-08",
   "failures": [],
-  "generated_at": "2026-10-08T00:00:32+00:00",
+  "generated_at": "2026-10-08T02:03:19+00:00",
   "local_cnki": {
-    "age_hours": 1.79,
+    "age_hours": 3.84,
     "count": 97,
     "fresh": true,
     "freshness_code": "fresh",
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-10-07T23:54:33+00:00",
+    "checked_at": "2026-10-08T01:57:37+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -159,16 +159,6 @@
           ]
         },
         {
-          "journal": "Journal of Agricultural and Resource Economics",
-          "journal_id": "journal-of-agricultural-and-resource-economics",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "Western Agricultural Economics Association",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Review of Accounting Studies",
           "journal_id": "review-of-accounting-studies",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -189,23 +179,13 @@
           ]
         }
       ],
-      "single_path_degraded": [
-        {
-          "journal": "Journal of Agricultural and Resource Economics",
-          "journal_id": "journal-of-agricultural-and-resource-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        }
-      ]
+      "single_path_degraded": []
     }
   },
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 14
+      "count": 13
     }
   ]
 }
