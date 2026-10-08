@@ -158,7 +158,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -429,8 +429,8 @@
     "china_related_source": "ai",
     "china_relevance_reason": "摘要明确将所提模型应用于中国，研究中国可再生能源扩张与净能源问题，中国是核心应用对象。",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "an-extended-energy-system-model-for-renewable-energy-expansion-planning-the-net-energy-p-c92020c1e302",
     "detected_at": "2026-10-07T23:48:01+00:00",
     "doi": "10.1016/j.eneco.2026.109642",
@@ -480,7 +480,7 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
+    "source_issue": "Energy Economics",
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "An extended energy system model for renewable energy expansion planning: The net energy perspective",
@@ -507,8 +507,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-07",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "artificial-intelligence-technologies-skills-demand-and-employment-evidence-from-linked-j-e85377f3e2f0",
     "detected_at": "2026-10-07T23:47:49+00:00",
     "doi": "10.1016/j.labeco.2026.102974",
@@ -558,7 +558,7 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
+    "source_issue": "Labour Economics",
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "Artificial intelligence technologies, skills demand and employment: Evidence from linked job ads",
@@ -774,13 +774,14 @@
     "url": "https://doi.org/10.1287/mnsc.2024.06298"
   },
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-08",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -838,6 +839,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-07",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0264837726004497",
@@ -931,8 +939,8 @@
     "china_related_source": "ai",
     "china_relevance_reason": "使用2009-2021年中国A股制造业上市公司样本，研究对象为中国企业，属于中国研究。",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "being-collaborative-or-collusive-the-role-of-common-institutional-investors-in-corporate-e64296cc600a",
     "detected_at": "2026-10-07T17:31:14+00:00",
     "doi": "10.1016/j.eneco.2026.109639",
@@ -974,11 +982,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Energy Economics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Being collaborative or collusive? The role of common institutional investors in corporate carbon emissions",
@@ -1049,7 +1064,7 @@
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Energy Policy, Volume 220",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Future in- and out-of-state air pollutant emissions under decarbonization pathways for Massachusetts",
@@ -1075,8 +1090,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-07",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "growth-accounting-with-time-varying-input-intensities-7cf0fd5c74de",
     "detected_at": "2026-10-07T17:31:11+00:00",
     "doi": "10.1016/j.econmod.2026.107876",
@@ -1118,11 +1133,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Economic Modelling",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Growth accounting with time-varying input intensities",
@@ -1149,8 +1171,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-07",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "macroeconomic-implications-of-accounting-standards-483cc49b87d6",
     "detected_at": "2026-10-07T17:30:58+00:00",
     "doi": "10.1016/j.jacceco.2026.101953",
@@ -1192,11 +1214,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Journal of Accounting and Economics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Macroeconomic implications of accounting standards",
@@ -1208,11 +1237,11 @@
     "_provider": "semantic-scholar",
     "_status": "rate_limited",
     "_status_code": 429,
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract": "This study examines the role of business environmental innovation in advancing circular economy practices, with a particular focus on corporate waste recycling. Using a large sample of publicly listed firms from 41 countries over the period of 2007–2024, we provide robust empirical evidence that firms’ engagement in environmental innovation has a positive impact on their waste recycling performance. This relationship is significantly stronger in countries with lower levels of circular economy capability accumulation, suggesting that firms’ strategic decisions play a more critical role in the presence of institutional voids. Further analysis shows that although firms with greater environmental innovation engagement achieve lower waste intensities and higher waste recycling, they also generate larger absolute volumes of waste, pointing to the presence of a potential circular economy rebound effect. This study contributes to the rapidly growing interdisciplinary literature on the circular economy transition and offers important implications for policy design and corporate sustainability strategies.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1258,6 +1287,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-07",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-07",
+          "source": "openalex"
         }
       ]
     },
@@ -1273,11 +1309,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1293,7 +1329,7 @@
     "available_online": "2026-10-07",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "moving-ahead-standing-still-state-led-artificial-intelligence-development-and-the-within-728f35b41929",
     "detected_at": "2026-10-07T17:30:26+00:00",
     "doi": "10.1080/00036846.2026.2745648",
@@ -1327,6 +1363,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-07",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-07",
+          "source": "openalex"
         }
       ]
     },
@@ -1396,6 +1439,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-07",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-07",
+          "source": "openalex"
         }
       ]
     },
@@ -1414,7 +1464,7 @@
     "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1427,7 +1477,7 @@
     "available_online": "2026-10-07",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "temporary-internal-displacement-and-receiving-communities-voting-behavior-e45a3934a02c",
     "detected_at": "2026-10-07T17:29:56+00:00",
     "doi": "10.1007/s11127-026-01476-5",
@@ -1461,6 +1511,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-07",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-07",
+          "source": "openalex"
         }
       ]
     },
@@ -1492,8 +1549,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-07",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "local-incentive-compatibility-in-ordinally-restricted-type-spaces-62d4749e3910",
     "detected_at": "2026-10-07T17:29:34+00:00",
     "doi": "10.1016/j.jmateco.2026.103317",
@@ -1535,11 +1592,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Journal of Mathematical Economics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Local incentive compatibility in ordinally restricted type-spaces",
@@ -1567,7 +1631,7 @@
     "available_online": "2026-10-07",
     "china_relevance_status": "none",
     "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_source": "rss_description_online",
     "detail_key": "queueing-with-deadlines-characterizing-two-transfer-rules-88fbd7c287d2",
     "detected_at": "2026-10-07T17:29:34+00:00",
     "doi": "10.1016/j.jmateco.2026.103319",
@@ -1609,11 +1673,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Journal of Mathematical Economics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Queueing with deadlines: Characterizing two transfer rules",
@@ -1758,7 +1829,7 @@
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "World Development, Volume 210",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Dependent development at the energy transition: placing lithium imaginaries in Neoliberal and Contentious Peru",
@@ -1817,6 +1888,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-07",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-07",
+          "source": "openalex"
         }
       ]
     },
@@ -2091,6 +2169,13 @@
         {
           "published_online": "2026-10-01",
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
@@ -2226,6 +2311,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-07",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-07",
+          "source": "openalex"
         }
       ]
     },
@@ -2356,6 +2448,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-07",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-07",
+          "source": "openalex"
         }
       ]
     },
