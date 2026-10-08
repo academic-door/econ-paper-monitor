@@ -2,10 +2,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -281,7 +282,7 @@
     "accepted_date": null,
     "ai_tags": [],
     "authors": [
-      "Kexin Feng",
+      "可欣 冯",
       "JunJie Guo",
       "Jiansuer Julaiti",
       "Jianjun Li"
@@ -750,6 +751,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-06",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-06",
+          "source": "openalex"
         }
       ]
     },
@@ -1934,7 +1942,7 @@
     "available_online": "2026-10-06",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "household-unit-values-measurement-units-and-the-current-share-stone-index-in-la-aids-est-ba30b2b880fb",
     "detected_at": "2026-10-06T20:37:04+00:00",
     "doi": "10.1080/00036846.2026.2743817",
@@ -2436,7 +2444,7 @@
     "available_online": "2026-10-06",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "information-design-in-cheap-talk-ad4bdc95c759",
     "detected_at": "2026-10-06T15:30:27+00:00",
     "doi": "10.1007/s00199-026-01752-x",
@@ -2514,7 +2522,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "the-belt-and-road-initiative-and-firms-markups-evidence-from-china-5c0309aea175",
     "detected_at": "2026-10-06T15:30:22+00:00",
     "doi": "10.1080/00036846.2026.2740193",
@@ -3117,7 +3125,7 @@
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
