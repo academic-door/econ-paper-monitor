@@ -1,23 +1,28 @@
 {
   "categories": {
-    "needs_investigation": 2
+    "permanently_unavailable": 1
   },
-  "checked_at": "2026-10-08T18:19:48.971895+08:00",
-  "source_health_degraded_count": 2,
+  "checked_at": "2026-10-08T19:29:48.266046+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "partial_success failures=2; Agricultural Economics: 8; Journal of the Association of Environmental and Resource Economists: 17; Land Economics: 7; Land Use Policy: 42; European Review of Agricultural ",
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Agricultural Economics: 8; Journal of the Association of Environmental and Resource Economists: 17; Land Economics: 7; Land Use Policy: 42; European Review of Agricultural ",
       "source": "crossref"
     },
     {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen ",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/119; Applied Economic Perspectives and Policy: 66 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 66 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -33,38 +38,24 @@
   ],
   "sources": [
     {
-      "category": "needs_investigation",
+      "category": "permanently_unavailable",
       "category_counts": {
-        "needs_investigation": 1
+        "permanently_unavailable": 1
       },
-      "journal_id": "american-economic-journal-applied-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
-      "source": "American Economic Journal: Applied Economics",
-      "status_category": null,
-      "status_source": null,
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
       "usable_paths": [
-        "aea-toc",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "public-choice",
-      "sample_error": "journal-of-economic-growth/springer_online_first: crossref fallback 1; journal-of-population-economics/springer_online_first: PARSER_FAILURE; journal-of-population-economics/springer_online_first: cro",
-      "source": "Public Choice",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
+        "cnki-rss",
         "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
-  "total_degraded": 2
+  "total_degraded": 1
 }
