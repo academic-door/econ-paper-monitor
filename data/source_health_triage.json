@@ -1,9 +1,7 @@
 {
-  "categories": {
-    "needs_investigation": 1
-  },
-  "checked_at": "2026-10-09T14:09:10.625734+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-10-09T17:45:39.288070+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -17,7 +15,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 37 via official-generated; Journal of Finance: 35 via official-generated; Journal of Financial Economics: 31 via official-generated; Review of Financia",
+      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 67 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -27,30 +25,14 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
       "source": "working-papers"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfare/springer_online_first: crossref fallback 6; international-tax-and-public-finance/springer_online_first: PARSE",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 5
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }
