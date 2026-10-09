@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-10T00:46:36.508064+08:00",
+  "checked_at": "2026-10-10T01:10:41.751126+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 67 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 67 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -27,12 +27,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "HTTPError: HTTP Error 500: Internal Server Error",
-      "source": "working-paper:iza"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "partial_success failures=2; nber: 30 via specialized-api; iza: HTTPError: HTTP Error 500: Internal Server Error; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
       "source": "working-papers"
     }
   ],
@@ -43,7 +38,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "social-choice-and-welfare/springer_online_first: crossref fallback 6; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_f",
+      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 6; journal-of-economic-growth/springer_online_",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -55,7 +50,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
   "total_degraded": 1
 }
