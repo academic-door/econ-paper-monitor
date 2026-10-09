@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-10T01:10:41.751126+08:00",
+  "checked_at": "2026-10-10T03:37:52.412935+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -12,12 +12,12 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Rev",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 67 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=32/45; Journal of International Economics: 37 via official-generated; Journal of Finance: 37 via official-generated; Journal of Financial Economics: 31 via official-generated; Review of Financia",
       "source": "rss"
     },
     {
@@ -27,7 +27,12 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
+      "sample_error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "source": "working-paper:iza"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "partial_success failures=2; nber: 12 via specialized-api; iza: HTTPError: HTTP Error 500: Internal Server Error; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: Runt",
       "source": "working-papers"
     }
   ],
@@ -38,7 +43,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 6; journal-of-economic-growth/springer_online_",
+      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 24; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -50,7 +55,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
   "total_degraded": 1
 }
