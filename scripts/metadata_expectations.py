@@ -65,6 +65,11 @@ def expected_missing_reason(record: dict[str, Any], field: str) -> str | None:
     # and therefore a missing author remains actionable.
     if field == "abstract" and re.match(r"^introduction to (?:the )?special issue\b", lowered):
         return "special_issue_introduction"
+    if field == "abstract" and re.search(
+        r"(?:^|:\s)(?:an )?introduction to (?:the )?special section$",
+        lowered,
+    ):
+        return "special_section_introduction"
     if field == "abstract" and re.match(r"^editor[’']s introduction\b", lowered):
         return "editorial_introduction"
     if field == "abstract" and re.search(r"\beditor[’']s report$", lowered):

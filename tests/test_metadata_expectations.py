@@ -90,6 +90,31 @@ class MetadataExpectationTests(unittest.TestCase):
         self.assertEqual(expected_missing_reason(item, "abstract"), "special_issue_introduction")
         self.assertIsNone(expected_missing_reason(item, "authors"))
 
+    def test_special_section_introduction_only_makes_abstract_optional(self):
+        titles = [
+            "An Introduction to the Special Section",
+            "Gender and Climate Change in Agriculture: An Introduction to the Special Section",
+        ]
+        for title in titles:
+            with self.subTest(title=title):
+                item = record(title, journal="Australian Journal of Agricultural and Resource Economics")
+                self.assertEqual(
+                    expected_missing_reason(item, "abstract"),
+                    "special_section_introduction",
+                )
+                self.assertIsNone(expected_missing_reason(item, "authors"))
+
+    def test_special_section_research_titles_remain_actionable(self):
+        titles = [
+            "An Introduction to the Special Section Model of Trade",
+            "Climate Change in Agriculture: Evidence from a Special Section",
+        ]
+        for title in titles:
+            with self.subTest(title=title):
+                item = record(title, journal="Australian Journal of Agricultural and Resource Economics")
+                self.assertIsNone(expected_missing_reason(item, "abstract"))
+                self.assertIsNone(expected_missing_reason(item, "authors"))
+
     def test_editorial_introduction_only_makes_abstract_optional(self):
         item = record("Editor's Introduction", journal="Journal of Money, Credit and Banking")
         self.assertEqual(expected_missing_reason(item, "abstract"), "editorial_introduction")
