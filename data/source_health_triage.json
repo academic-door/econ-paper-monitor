@@ -1,13 +1,13 @@
 {
   "categories": {
-    "needs_investigation": 4
+    "needs_investigation": 1
   },
-  "checked_at": "2026-10-11T01:57:25.439057+08:00",
-  "source_health_degraded_count": 4,
+  "checked_at": "2026-10-11T04:08:45.373913+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 37 via official-generated; Journal of Finance: 37 via official-generated; Journal of Financial Economics: 31 via official-generated; Review of Financia",
+      "sample_error": "feeds=75/120; Canadian Journal of Agricultural Economics: 12 via official-generated; Australian Journal of Agricultural and Resource Economics: 67 via official-generated; Applied Economic Perspectives",
       "source": "rss"
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=2; nber: 12 via specialized-api; iza: HTTPError: HTTP Error 500: Internal Server Error; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: Runt",
+      "sample_error": "partial_success failures=2; nber: 30 via specialized-api; iza: HTTPError: HTTP Error 500: Internal Server Error; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna",
       "source": "working-papers"
     }
   ],
@@ -42,56 +42,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "economic-modelling",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Economic Modelling",
-      "status_category": "needs_investigation",
-      "status_source": "publisher-detail",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "journal-of-economic-growth/springer_online_first: crossref fallback 1; journal-of-population-economics/springer_online_first: PARSER_FAILURE; journal-of-population-economics/springer_online_first: cro",
+      "sample_error": "public-choice/springer_online_first: crossref fallback 22; social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfare/springer_online_first: crossref fallback 6; journa",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "quantitative-economics",
-      "sample_error": "journal-of-economic-growth/springer_online_first: crossref fallback 1; journal-of-population-economics/springer_online_first: PARSER_FAILURE; journal-of-population-economics/springer_online_first: cro",
-      "source": "Quantitative Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "theoretical-economics",
-      "sample_error": "journal-of-economic-growth/springer_online_first: crossref fallback 1; journal-of-population-economics/springer_online_first: PARSER_FAILURE; journal-of-population-economics/springer_online_first: cro",
-      "source": "Theoretical Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -102,5 +57,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 4
+  "total_degraded": 1
 }
