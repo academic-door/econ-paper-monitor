@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-10T04:53:05.972843+08:00",
+  "checked_at": "2026-10-10T08:08:13.061421+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -11,13 +11,8 @@
       "source": "cn-journals"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Rev",
-      "source": "publisher-detail"
-    },
-    {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 67 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=32/45; Journal of International Economics: 37 via official-generated; Journal of Finance: 37 via official-generated; Journal of Financial Economics: 31 via official-generated; Review of Financia",
       "source": "rss"
     },
     {
@@ -32,7 +27,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=2; nber: 30 via specialized-api; iza: HTTPError: HTTP Error 500: Internal Server Error; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna",
+      "sample_error": "partial_success failures=2; nber: 12 via specialized-api; iza: HTTPError: HTTP Error 500: Internal Server Error; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: Runt",
       "source": "working-papers"
     }
   ],
@@ -43,7 +38,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 24; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
+      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 22; journal-of-economic-growth/springer_online_first: PARSER_FAILURE; journal-of-economic-gr",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -55,7 +50,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
   "total_degraded": 1
 }
