@@ -92,8 +92,12 @@
     "url": "https://cepr.org/voxeu/columns/your-debt-my-inflation-role-trust-ecb"
   },
   {
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -109,7 +113,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "how-does-artificial-intelligence-enhance-supply-chain-resilience-evidence-from-china-e30b79425c9b",
     "detected_at": "2026-10-10T05:47:08+00:00",
     "doi": "10.1080/00036846.2026.2746463",
@@ -123,7 +127,7 @@
       "how-does-artificial-intelligence-enhance-supply-chain-resilience-evidence-from-china-e30b79425c9b",
       "https://doi.org/10.1080/00036846.2026.2746463"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-09",
     "journal": "Applied Economics",
     "journal_id": "applied-economics",
     "journal_short": "AE",
@@ -132,6 +136,18 @@
     "published_online": "2026-10-09",
     "publisher": "Informa UK (Taylor & Francis)",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-09",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-10-09",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
       "fallback": "crossref",
       "issn": "0003-6846",
       "priority_toc_kind": "tandf_latest_articles"
@@ -144,5 +160,163 @@
     "title_zh": null,
     "translation_status": "missing_abstract",
     "url": "https://doi.org/10.1080/00036846.2026.2746463"
+  },
+  {
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
+    "abstract": "This paper presents a finite-horizon, multiperiod, dynamic model of a durable goods market where owners have private information about product quality. We model product quality as changing stochastically over time and do not require monotonic depreciation. Purchase decisions depend on the endogenous quality distributions of the different types of goods for sale. The framework allows for multiple sources of nonstationarity such as changes in obsolescence and external supply over time. The market equilibrium is defined by prices, quantities, and the quality distributions of the different types of durable goods available for purchase. We use a fixed-point method to provide a formal proof of the existence of equilibrium. We discuss the challenges of computational applications and report a numerical implementation for a stylized 20-period discrete version of the model. Because we allow equilibrium to be nonstationary and quality to change non-monotonically, our framework can be extended to the housing market, the marriage market, and other markets where unobservable quality influences the product or relationship’s value over time.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Maxim Engers",
+      "Monica Hartmann",
+      "Steven Stern"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-10",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "a-dynamic-model-of-equilibrium-with-private-information-b93b9ff3e3c2",
+    "detected_at": "2026-10-10T06:45:06+00:00",
+    "doi": "10.1016/j.jedc.2026.105439",
+    "fields": [
+      "macroeconomics"
+    ],
+    "first_seen": "2026-10-10T06:45:06+00:00",
+    "id": "doi:10.1016/j.jedc.2026.105439",
+    "identity_aliases": [
+      "10.1016/j.jedc.2026.105439",
+      "a-dynamic-model-of-equilibrium-with-private-information-b93b9ff3e3c2",
+      "https://www.sciencedirect.com/science/article/pii/S0165188926001843?dgcid=api_sd_search-api-endpoint"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Economic Dynamics and Control",
+    "journal_id": "journal-of-economic-dynamics-and-control",
+    "journal_short": "JEDC",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0165188926001843",
+    "published_online": "2026-10-10",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-10",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-10",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-10",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-10-10",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0165188926001843",
+      "sciencedirect_api_load_date": "2026-10-10T00:00:00.000Z",
+      "sciencedirect_search_issn": "0165-1889",
+      "sciencedirect_search_journal": "Journal of Economic Dynamics and Control",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "A Dynamic Model of Equilibrium with Private Information",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0165188926001843?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
+    "abstract": "The expansion of intermittent renewable electricity increases supply variability and requires greater flexibility from consumers. This results in welfare losses for agents who are averse to fluctuations. Our model analyzes these welfare consequences by considering short-term and exogenous variability in renewable energy generation. We explore an optimal control problem that determines a welfare-maximizing electricity consumption path by controlling dispatchable energy and storage. This optimization problem identifies three scenarios: no active storage, abundant storage capacities and limited capacities. We then derive an overall consumer welfare function for alternative energy mixes. This allows us to assess the welfare effects of changing the energy mix. In particular, we consider the substitution of dispatchable fossil-fueled energy generation by renewable energy.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Martin DHAUSSY",
+      "Nandeeta NEERUNJUN",
+      "Hubert STAHN"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-10",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "optimal-electricity-consumption-and-storage-under-short-term-renewable-supply-variabilit-06aa25519d07",
+    "detected_at": "2026-10-10T06:45:06+00:00",
+    "doi": "10.1016/j.jedc.2026.105440",
+    "fields": [
+      "macroeconomics"
+    ],
+    "first_seen": "2026-10-10T06:45:06+00:00",
+    "id": "doi:10.1016/j.jedc.2026.105440",
+    "identity_aliases": [
+      "10.1016/j.jedc.2026.105440",
+      "https://www.sciencedirect.com/science/article/pii/S0165188926001855?dgcid=api_sd_search-api-endpoint",
+      "optimal-electricity-consumption-and-storage-under-short-term-renewable-supply-variabilit-06aa25519d07"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Economic Dynamics and Control",
+    "journal_id": "journal-of-economic-dynamics-and-control",
+    "journal_short": "JEDC",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0165188926001855",
+    "published_online": "2026-10-10",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-10",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-10",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-10",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-10-10",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0165188926001855",
+      "sciencedirect_api_load_date": "2026-10-10T00:00:00.000Z",
+      "sciencedirect_search_issn": "0165-1889",
+      "sciencedirect_search_journal": "Journal of Economic Dynamics and Control",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Optimal electricity consumption and storage under short-term renewable supply variability",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0165188926001855?dgcid=api_sd_search-api-endpoint"
   }
 ]
