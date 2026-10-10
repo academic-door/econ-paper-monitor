@@ -1,9 +1,8 @@
 {
   "categories": {
-    "needs_investigation": 1,
-    "permanently_unavailable": 1
+    "needs_investigation": 2
   },
-  "checked_at": "2026-10-10T09:05:41.261016+08:00",
+  "checked_at": "2026-10-10T09:50:46.637100+08:00",
   "source_health_degraded_count": 2,
   "source_status_failures": [
     {
@@ -13,12 +12,17 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Agricultural Economics: 8; Journal of the Association of Environmental and Resource Economists: 19; Land Economics: 7; Land Use Policy: 42; European Review of Agricultural ",
+      "sample_error": "partial_success failures=2; Agricultural Economics: 8; Journal of the Association of Environmental and Resource Economists: 19; Land Economics: 7; Land Use Policy: 42; European Review of Agricultural ",
       "source": "crossref"
     },
     {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 67 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 67 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -44,7 +48,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 22; social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfa",
+      "sample_error": "social-choice-and-welfare/springer_online_first: crossref fallback 6; public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 22; international-tax-",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": "rate_limited",
       "status_source": "crossref",
@@ -54,13 +58,13 @@
       ]
     },
     {
-      "category": "permanently_unavailable",
+      "category": "needs_investigation",
       "category_counts": {
-        "permanently_unavailable": 1
+        "needs_investigation": 1
       },
-      "journal_id": "journal-379b4022ce",
-      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
-      "source": "管理世界",
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
       "status_category": "needs_investigation",
       "status_source": "cn-journals",
       "usable_paths": [
@@ -71,7 +75,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 7
   },
   "total_degraded": 2
 }
