@@ -70,6 +70,28 @@ def latest_discovery_finish(last_light: datetime | None, last_full: datetime | N
     return max(candidates) if candidates else None
 
 
+def latest_owner_workflow_finish(workflow: dict, mode: str) -> datetime | None:
+    """Use authoritative Update workflow history, not local supplement mode labels.
+
+    A local CNKI publish records mode=light for display and may overwrite the
+    denormalized last_light_finished_at. Only GitHub-owned Update runs with a
+    real run ID are allowed to satisfy the Watchdog's core freshness fence.
+    """
+    history = workflow.get("history")
+    if isinstance(history, list):
+        values = [
+            parse_dt(str(entry.get("finished_at") or ""))
+            for entry in history
+            if isinstance(entry, dict)
+            and entry.get("mode") == mode
+            and entry.get("event") in {"schedule", "workflow_dispatch"}
+            and entry.get("run_id")
+        ]
+        valid = [value for value in values if value is not None]
+        return max(valid) if valid else None
+    return parse_dt(str(workflow.get(f"last_{mode}_finished_at", "")))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--light-min-minutes", type=int, default=50)
@@ -84,14 +106,14 @@ def main() -> None:
     now_utc = datetime.now(UTC)
     now_bj = now_utc.astimezone(BEIJING)
 
-    last_full = parse_dt(str(workflow.get("last_full_finished_at", "")))
+    last_full = latest_owner_workflow_finish(workflow, "full")
     full_times = parse_full_times(args.full_times or f"{args.full_after_hour:02d}:{args.full_after_minute:02d}")
     due_full = latest_due_full_window(now_bj, full_times, args.full_grace_minutes)
     if due_full and (last_full is None or last_full.astimezone(BEIJING) < due_full):
         print("full")
         return
 
-    last_light = parse_dt(str(workflow.get("last_light_finished_at", "")))
+    last_light = latest_owner_workflow_finish(workflow, "light")
     last_discovery = latest_discovery_finish(last_light, last_full)
     if last_discovery is None:
         print("light")
