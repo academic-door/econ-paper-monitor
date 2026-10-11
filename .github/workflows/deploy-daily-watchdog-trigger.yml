@@ -1,0 +1,29 @@
+name: Deploy Daily Watchdog external trigger
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "infra/cloudflare/daily-watchdog-trigger/**"
+      - ".github/workflows/deploy-daily-watchdog-trigger.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-daily-watchdog-trigger
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy isolated Cloudflare Cron Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          command: deploy
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: infra/cloudflare/daily-watchdog-trigger
