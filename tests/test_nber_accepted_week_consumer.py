@@ -39,14 +39,13 @@ def complete_week() -> tuple[dict, dict]:
             "zh_title": f"经济学论文{number}",
             "zh_abstract": f"本文研究{number}的经济学问题。",
             "url": f"https://www.nber.org/papers/{number}",
-            "doi": f"10.3386/{number}",
             "week_date": "2026-10-05",
             "issue_date": "2026-10-05",
             "public_date": "2026-10-08",
-            "translation_validity": {
-                "title": {"accepted": True, "english_sha256": digest(title)},
-                "abstract": {"accepted": True, "english_sha256": digest(abstract)},
-            },
+            "translation_state": "valid",
+            "zh_title_valid": True,
+            "zh_abstract_valid": True,
+            "source_text_sha256": consumer.english_source_sha256(title, abstract),
         })
     artifact = {
         "schema_version": 1,
@@ -54,22 +53,22 @@ def complete_week() -> tuple[dict, dict]:
         "accepted": True,
         "source_complete": True,
         "source_kind": "api",
-        "membership_basis": "NBER official New This Week accepted roster",
-        "source_evidence": "owner QA 45/45",
+        "membership_basis": "official-nber-new-this-week-api",
+        "source_evidence": "official New This Week marker; stable=True; official=45; retained=0",
         "paper_count": 45,
-        "build_id": "nber-accepted-20261005-build42",
+        "built_at": "2026-10-11 19:13:59 北京时间",
         "papers": papers,
     }
-    site = {
-        "latest_week": {
-            "week": artifact["week"],
-            "accepted": True,
-            "source_complete": True,
-            "paper_count": 45,
-            "build_id": artifact["build_id"],
-        }
+    artifact["papers_sha256"] = consumer.roster_sha256(papers)
+    status = {
+        "latest_week": artifact["week"],
+        "latest_week_papers": 45,
+        "latest_week_source": "api",
+        "latest_week_source_complete": True,
+        "latest_week_source_evidence": artifact["source_evidence"],
+        "built_at": artifact["built_at"],
     }
-    return artifact, site
+    return artifact, status
 
 
 def apply(artifact, status, *, seen=None, daily=None, cache=None):
@@ -168,9 +167,9 @@ def test_unaccepted_incomplete_wrong_status_or_duplicate_fail_before_any_write()
         lambda x, y: x["papers"].pop(),
         lambda x, y: x["papers"].__setitem__(-1, copy.deepcopy(x["papers"][0])),
         lambda x, y: x["papers"][0].__setitem__("url", "https://evil.example/w35782"),
-        lambda x, y: y["latest_week"].__setitem__("build_id", "other-run"),
-        lambda x, y: y["latest_week"].__setitem__("accepted", False),
-        lambda x, y: y["latest_week"].__setitem__("paper_count", 44),
+        lambda x, y: y.__setitem__("built_at", "other-run"),
+        lambda x, y: y.__setitem__("latest_week_source_complete", False),
+        lambda x, y: y.__setitem__("latest_week_papers", 44),
         lambda x, y: y.pop("latest_week"),
     ]
     for mutation in modifications:
@@ -182,11 +181,21 @@ def test_unaccepted_incomplete_wrong_status_or_duplicate_fail_before_any_write()
 
 def test_unaccepted_stale_zh_and_english_mismatch_never_enter_cache():
     a, s = complete_week()
-    a["papers"][0]["translation_validity"]["title"]["english_sha256"] = "wrong"
-    a["papers"][1]["translation_validity"]["abstract"]["accepted"] = False
+    # ③ explicit stale translation cannot be propagated at all.
+    stale_paper = a["papers"][0]
+    stale_paper["translation_state"] = "stale"
+    stale_paper["zh_title_valid"] = False
+    stale_paper["zh_abstract_valid"] = False
+    stale_paper["zh_title"] = None
+    stale_paper["zh_abstract"] = None
+    no_abstract = a["papers"][1]
+    no_abstract["zh_abstract_valid"] = False
+    no_abstract["zh_abstract"] = None
     no = a["papers"][2]
-    no["zh_title"] = ""
-    # A preexisting English revision cannot inherit a translation of old EN.
+    no["zh_title_valid"] = False
+    no["zh_title"] = None
+    a["papers_sha256"] = consumer.roster_sha256(a["papers"])
+    # A preexisting English revision cannot inherit ③ text from old EN.
     existing = {
         "id": "local",
         "source_id": "nber",
@@ -200,6 +209,12 @@ def test_unaccepted_stale_zh_and_english_mismatch_never_enter_cache():
     assert "title_zh" not in cache["records"].get("10.3386/w35840", {})
     assert "abstract_zh" not in cache["records"].get("10.3386/w35841", {})
     assert report["added"] == 44
+    # Tampering with source English/hash must reject the complete artifact.
+    tampered = copy.deepcopy(a)
+    tampered["papers"][0]["source_text_sha256"] = "0" * 64
+    tampered["papers_sha256"] = consumer.roster_sha256(tampered["papers"])
+    with pytest.raises(consumer.UnacceptedWeek):
+        apply(tampered, s)
 
 
 def test_existing_cache_corrections_are_never_overwritten():
