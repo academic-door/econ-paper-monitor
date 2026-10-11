@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import should_dispatch_monitor  # noqa: E402
 import status  # noqa: E402
 import repair_workflow_status  # noqa: E402
+import assess_fast_recovery  # noqa: E402
 
 
 class MonitorCadenceContractTests(unittest.TestCase):
@@ -66,11 +67,63 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertIn("--full-times 00:00,06:00,12:00,18:00", text)
         self.assertIn("--full-grace-minutes 15", text)
         self.assertIn("Dispatch core monitor fallback", text)
-        self.assertIn("FAST_MAX_AGE_MINUTES=40", text)
+        self.assertIn("python scripts/assess_fast_recovery.py", text)
+        self.assertNotIn("FAST_MAX_AGE_MINUTES=40", text)
         self.assertIn("gh workflow run fast-discovery.yml", text)
         for status in ("pending", "requested", "queued", "waiting", "in_progress"):
             self.assertIn(f'.status == "{status}"', text)
         self.assertIn('.conclusion == "success"', text)
+
+    def test_fast_creation_clock_cannot_be_masked_by_recent_success(self) -> None:
+        now = datetime(2026, 10, 11, 11, 46, tzinfo=UTC)
+        runs = [{
+            "createdAt": "2026-10-11T10:50:20Z",
+            "updatedAt": "2026-10-11T11:13:46Z",
+            "status": "completed",
+            "conclusion": "success",
+        }]
+        result = assess_fast_recovery.assess_fast_runs(runs, now)
+        self.assertTrue(result["stale"])
+        self.assertTrue(result["creation_due"])
+        self.assertFalse(result["success_due"])
+        self.assertEqual(result["active"], 0)
+        self.assertEqual(result["creation_age_minutes"], 55)
+        self.assertEqual(result["success_age_minutes"], 32)
+
+    def test_fast_active_pending_recovery_suppresses_duplicate(self) -> None:
+        now = datetime(2026, 10, 11, 11, 46, tzinfo=UTC)
+        runs = [{
+            "createdAt": "2026-10-11T10:50:20Z",
+            "updatedAt": "2026-10-11T11:13:46Z",
+            "status": "completed",
+            "conclusion": "success",
+        }, {
+            "createdAt": "2026-10-11T11:45:00Z",
+            "status": "pending",
+            "conclusion": None,
+        }]
+        result = assess_fast_recovery.assess_fast_runs(runs, now)
+        self.assertEqual(result["active"], 1)
+        self.assertFalse(result["creation_due"])
+        self.assertFalse(result["success_due"])
+        self.assertFalse(result["stale"])
+
+    def test_fast_failed_latest_creation_does_not_mask_old_success(self) -> None:
+        now = datetime(2026, 10, 11, 11, 46, tzinfo=UTC)
+        runs = [{
+            "createdAt": "2026-10-11T11:45:00Z",
+            "status": "completed",
+            "conclusion": "failure",
+        }, {
+            "createdAt": "2026-10-11T10:40:00Z",
+            "updatedAt": "2026-10-11T10:42:00Z",
+            "status": "completed",
+            "conclusion": "success",
+        }]
+        result = assess_fast_recovery.assess_fast_runs(runs, now)
+        self.assertFalse(result["creation_due"])
+        self.assertTrue(result["success_due"])
+        self.assertTrue(result["stale"])
 
     def test_local_cnki_cannot_advance_core_update_freshness(self) -> None:
         core_finished = "2026-10-11T08:51:59+00:00"
