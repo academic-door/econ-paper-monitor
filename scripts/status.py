@@ -80,6 +80,11 @@ def record_workflow_run(summary: dict[str, Any], path: Path = STATUS_PATH) -> No
 
     last_by_mode: dict[str, str] = {}
     for entry in history:
+        # Only owner Update Paper Monitor runs may advance core/full freshness.
+        # Local CNKI supplements are published as mode=light for the UI, but
+        # must never make the GitHub watchdog skip a missing core recovery.
+        if entry.get("event") not in {"schedule", "workflow_dispatch"} or not entry.get("run_id"):
+            continue
         entry_mode = str(entry.get("mode") or "")
         entry_finished_at = str(entry.get("finished_at") or "")
         if entry_mode and entry_finished_at and entry_mode not in last_by_mode:

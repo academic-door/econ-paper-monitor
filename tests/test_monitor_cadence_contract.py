@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import tempfile
 import unittest
 from datetime import UTC, datetime
 from pathlib import Path
@@ -11,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import should_dispatch_monitor  # noqa: E402
+import status  # noqa: E402
 
 
 class MonitorCadenceContractTests(unittest.TestCase):
@@ -56,7 +58,7 @@ class MonitorCadenceContractTests(unittest.TestCase):
         text = (ROOT / ".github" / "workflows" / "watchdog.yml").read_text(encoding="utf-8")
         self.assertIn('cron: "11,26,41,56 * * * *"', text)
         self.assertNotIn('cron: "*/15 * * * *"', text)
-        self.assertIn("--light-min-minutes 75", text)
+        self.assertIn("--light-min-minutes 60", text)
         self.assertIn("--full-times 00:00,06:00,12:00,18:00", text)
         self.assertIn("--full-grace-minutes 15", text)
         self.assertIn("Dispatch core monitor fallback", text)
@@ -65,6 +67,47 @@ class MonitorCadenceContractTests(unittest.TestCase):
         for status in ("pending", "requested", "queued", "waiting", "in_progress"):
             self.assertIn(f'.status == "{status}"', text)
         self.assertIn('.conclusion == "success"', text)
+
+    def test_local_cnki_cannot_advance_core_update_freshness(self) -> None:
+        core_finished = "2026-10-11T08:51:59+00:00"
+        local_finished = "2026-10-11T10:13:10+00:00"
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "status.json"
+            status.record_workflow_run(
+                {"mode": "light", "event": "schedule",
+                 "run_id": "38125802677", "finished_at": core_finished},
+                path=path,
+            )
+            status.record_workflow_run(
+                {"mode": "light", "event": "local-cnki",
+                 "run_id": "", "finished_at": local_finished},
+                path=path,
+            )
+            saved = status.load_status(path)["workflow"]
+            self.assertEqual(saved["event"], "local-cnki")
+            self.assertEqual(saved["last_light_finished_at"], core_finished)
+            self.assertEqual(
+                should_dispatch_monitor.latest_owner_workflow_finish(saved, "light"),
+                datetime.fromisoformat(core_finished),
+            )
+            # Even a pre-fix denormalized counter must not override run history.
+            saved["last_light_finished_at"] = local_finished
+            self.assertEqual(
+                should_dispatch_monitor.latest_owner_workflow_finish(saved, "light"),
+                datetime.fromisoformat(core_finished),
+            )
+
+    def test_local_only_history_is_not_core_freshness(self) -> None:
+        local = {
+            "last_light_finished_at": "2026-10-11T10:13:10+00:00",
+            "history": [
+                {"mode": "light", "event": "local-cnki",
+                 "finished_at": "2026-10-11T10:13:10+00:00", "run_id": ""},
+            ],
+        }
+        self.assertIsNone(
+            should_dispatch_monitor.latest_owner_workflow_finish(local, "light")
+        )
 
     def test_full_watchdog_grace_preserves_original_slot_for_freshness(self) -> None:
         windows = should_dispatch_monitor.parse_full_times("00:00,06:00,12:00,18:00")
