@@ -90,7 +90,7 @@ def test_full_accepted_45_membership_includes_low_number_late_record_and_actual_
     late = seen["papers"]["doi:10.3386/w35782"]
     assert late["first_seen"] == "2026-10-11T16:20:00+00:00"
     assert late["detected_at"] == late["first_seen_at"] == late["first_seen"]
-    assert late["published_online"] if "published_online" in late else True  # no invented publication time
+    assert "published_online" not in late  # never invent official online date
     assert late["nber_source_public_date"] == "2026-10-08"
     assert late["date_confidence"] == "F"
     assert late["nber_reconciliation_provenance"] == "frontier-door"
@@ -166,7 +166,7 @@ def test_unaccepted_incomplete_wrong_status_or_duplicate_fail_before_any_write()
         lambda x, y: x.__setitem__("source_complete", False),
         lambda x, y: x.__setitem__("schema_version", 99),
         lambda x, y: x["papers"].pop(),
-        lambda x, y: x["papers"].append(copy.deepcopy(x["papers"][0])),
+        lambda x, y: x["papers"].__setitem__(-1, copy.deepcopy(x["papers"][0])),
         lambda x, y: x["papers"][0].__setitem__("url", "https://evil.example/w35782"),
         lambda x, y: y["latest_week"].__setitem__("build_id", "other-run"),
         lambda x, y: y["latest_week"].__setitem__("accepted", False),
@@ -211,6 +211,26 @@ def test_existing_cache_corrections_are_never_overwritten():
     assert cache["records"]["10.3386/w35782"]["title_zh"] == "人工缓存修订"
     assert cache["records"]["10.3386/w35782"]["title"] == "Old English version"
     assert seen["papers"]["doi:10.3386/w35782"]["first_seen"].startswith("2026-10-11")
+
+
+def test_existing_matching_owner_reviewed_cache_beats_upstream_reuse():
+    a, s = complete_week()
+    item = a["papers"][0]
+    cache_input = {"records": {
+        "10.3386/" + item["number"]: {
+            "title": item["title"],
+            "title_zh": "经人工校对的缓存标题",
+            "abstract": item["abstract"],
+            "abstract_hash": hashlib.sha1(item["abstract"].encode("utf-8")).hexdigest(),
+            "abstract_zh": "经人工校对的缓存摘要",
+            "model": "reviewed-owner",
+        }
+    }}
+    seen, _, cache, _ = apply(a, s, cache=cache_input)
+    entry = seen["papers"]["doi:10.3386/" + item["number"]]
+    assert entry["title_zh"] == "经人工校对的缓存标题"
+    assert entry["abstract_zh"] == "经人工校对的缓存摘要"
+    assert cache["records"]["10.3386/" + item["number"]] == cache_input["records"]["10.3386/" + item["number"]]
 
 
 def test_no_workflow_activates_public_consumer_before_producer_97():
