@@ -1,9 +1,10 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 1,
+    "permanently_unavailable": 1
   },
-  "checked_at": "2026-10-12T02:42:28.235825+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-10-12T03:58:25.330578+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -48,12 +49,27 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfare/springer_online_first: crossref fallback 6; public-choice/springer_online_first: PARSER_FAILURE; public-choic",
+      "sample_error": "review-of-economic-design/springer_online_first: PARSER_FAILURE; review-of-economic-design/springer_online_first: crossref fallback 2; international-tax-and-public-finance/springer_online_first: PARSE",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
         "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "permanently_unavailable",
+      "category_counts": {
+        "permanently_unavailable": 1
+      },
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
         "openalex-recall"
       ]
     }
@@ -62,5 +78,5 @@
     "aligned": true,
     "degraded_source_failures": 7
   },
-  "total_degraded": 1
+  "total_degraded": 2
 }
