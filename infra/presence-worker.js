@@ -167,7 +167,10 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === "/monitor-liveness" && request.method === "GET") {
       let snapshot = await readMonitorLiveness(env, origin);
-      if (!snapshot || snapshot.state === "unknown") {
+      // Upgrade persisted pre-deployment native-only snapshots on first read,
+      // rather than serving a misleading unlabelled legacy snapshot until Cron.
+      if (!snapshot || snapshot.state === "unknown" ||
+          snapshot.scope !== "github_native_schedule_only" || !snapshot.observed_creation) {
         snapshot = await refreshMonitorLiveness(env);
       }
       return new Response(JSON.stringify(snapshot), { headers: corsHeaders(origin) });
