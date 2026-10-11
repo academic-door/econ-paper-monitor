@@ -105,7 +105,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          FAST_MAX_AGE_MINUTES=40
+          # Internal creation=25m and success=40m thresholds live in the
+          # tested owner helper; public Fast creation SLA remains 45m.
           if ! RUNS="$(gh run list \
             --repo "${{ github.repository }}" \
             --workflow fast-discovery.yml \
@@ -118,40 +119,15 @@ jobs:
             exit 0
           fi
 
-          ACTIVE="$(printf '%s' "$RUNS" | jq '[.[] | select(
-            .status == "pending" or
-            .status == "requested" or
-            .status == "queued" or
-            .status == "waiting" or
-            .status == "in_progress"
-          )] | length')"
-          LATEST_SUCCESS="$(printf '%s' "$RUNS" | jq -r '[.[] | select(.conclusion == "success")] | sort_by(.updatedAt) | last | .updatedAt // ""')"
-
-          if [ -z "$LATEST_SUCCESS" ]; then
-            echo "No successful Fast Discovery run found; fallback is due when inactive."
-            echo "stale=true" >> "$GITHUB_OUTPUT"
-            echo "active=$ACTIVE" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          LATEST_EPOCH="$(date -u -d "$LATEST_SUCCESS" +%s 2>/dev/null || true)"
-          if [ -z "$LATEST_EPOCH" ]; then
-            echo "::warning::Could not parse latest successful Fast Discovery timestamp '$LATEST_SUCCESS'; skipping Fast fallback."
+          # Creation and successful completion are separate clocks.
+          # A slow run's recent success cannot conceal >45m since creation.
+          if ! DECISION="$(printf '%s' "$RUNS" | python scripts/assess_fast_recovery.py)"; then
+            echo "::warning::Fast freshness assessment failed; skipping unsafe fallback."
             echo "stale=false" >> "$GITHUB_OUTPUT"
-            echo "active=$ACTIVE" >> "$GITHUB_OUTPUT"
+            echo "active=unknown" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
-          NOW_EPOCH="$(date -u +%s)"
-          AGE_MINUTES=$(( (NOW_EPOCH - LATEST_EPOCH) / 60 ))
-          if [ "$AGE_MINUTES" -ge "$FAST_MAX_AGE_MINUTES" ]; then
-            STALE=true
-          else
-            STALE=false
-          fi
-          echo "stale=$STALE" >> "$GITHUB_OUTPUT"
-          echo "active=$ACTIVE" >> "$GITHUB_OUTPUT"
-          echo "Latest successful Fast Discovery age: ${AGE_MINUTES}m; active=${ACTIVE}; stale=${STALE}"
+          printf '%s\n' "$DECISION" >> "$GITHUB_OUTPUT"
       - name: Dispatch fast discovery fallback
         if: steps.fast.outputs.stale == 'true' && steps.fast.outputs.active == '0'
         env:
