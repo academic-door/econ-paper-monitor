@@ -192,7 +192,13 @@ def translate_records(
                 record["title_zh"] = title
                 record["translation_status"] = "native_chinese"
                 changed += 1
-        elif title and not record.get("title_zh") and cached_value.get("title_zh"):
+        elif (
+            title and not record.get("title_zh") and cached_value.get("title_zh")
+            and (
+                cached_value.get("upstream") != "frontier-door"
+                or " ".join(str(cached_value.get("title") or "").split()) == " ".join(title.split())
+            )
+        ):
             record["title_zh"] = cached_value["title_zh"]
             record["translation_status"] = "title_translated_cached"
             changed += 1
