@@ -60,6 +60,9 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertIn('cron: "11,26,41,56 * * * *"', text)
         self.assertNotIn('cron: "*/15 * * * *"', text)
         self.assertIn("--light-min-minutes 60", text)
+        self.assertIn("--creation-min-minutes 70", text)
+        self.assertIn('--workflow update.yml', text)
+        self.assertIn('--json createdAt', text)
         self.assertIn("--full-times 00:00,06:00,12:00,18:00", text)
         self.assertIn("--full-grace-minutes 15", text)
         self.assertIn("Dispatch core monitor fallback", text)
@@ -154,6 +157,28 @@ class MonitorCadenceContractTests(unittest.TestCase):
             }, path)
             recovered = repair_workflow_status.repair_status(path)["workflow"]
             self.assertNotIn("last_light_finished_at", recovered)
+
+    def test_update_creation_clock_survives_slow_full_run(self) -> None:
+        # Live 2026-10-11 evidence: full created 10:42 and finished 11:08.
+        # At 12:04 finish-age=56m (<60), but creation-age=82m. Fallback is
+        # required before the 12:12 public 90m creation deadline.
+        created = datetime.fromisoformat("2026-10-11T10:42:30+00:00")
+        at_1149 = datetime.fromisoformat("2026-10-11T11:49:54+00:00")
+        at_1204 = datetime.fromisoformat("2026-10-11T12:04:54+00:00")
+        self.assertFalse(
+            should_dispatch_monitor.due_core_creation_recovery(created, at_1149, 70)
+        )
+        self.assertTrue(
+            should_dispatch_monitor.due_core_creation_recovery(created, at_1204, 70)
+        )
+        # A newly scheduled Update suppresses unnecessary fallback.
+        newer = datetime.fromisoformat("2026-10-11T11:40:00+00:00")
+        self.assertFalse(
+            should_dispatch_monitor.due_core_creation_recovery(newer, at_1204, 70)
+        )
+        self.assertFalse(
+            should_dispatch_monitor.due_core_creation_recovery(None, at_1204, 70)
+        )
 
     def test_full_watchdog_grace_preserves_original_slot_for_freshness(self) -> None:
         windows = should_dispatch_monitor.parse_full_times("00:00,06:00,12:00,18:00")
