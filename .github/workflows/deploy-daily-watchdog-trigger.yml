@@ -27,3 +27,19 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: infra/cloudflare/daily-watchdog-trigger
+      - name: Verify repo-scoped dispatch secret binding (metadata only)
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          cd infra/cloudflare/daily-watchdog-trigger
+          # Cloudflare secret list returns names/types only, never values.
+          # Do not print the listing or any authentication material.
+          BINDINGS="$(npx --yes wrangler@3.90.0 secret list --name academic-door-daily-watchdog-trigger)"
+          if ! printf '%s' "$BINDINGS" | python -c 'import json,sys; items=json.load(sys.stdin); sys.exit(0 if any(x.get("name")=="GITHUB_ACTIONS_DISPATCH_TOKEN" for x in items) else 1)'; then
+            echo "::error::Cloudflare Worker lacks GITHUB_ACTIONS_DISPATCH_TOKEN binding, or binding metadata is unreadable"
+            exit 1
+          fi
+          echo "Cloudflare Worker dispatch secret binding: configured (name only; value never read)"
