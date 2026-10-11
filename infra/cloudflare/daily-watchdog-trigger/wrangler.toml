@@ -1,0 +1,10 @@
+name = "academic-door-daily-watchdog-trigger"
+main = "worker.mjs"
+compatibility_date = "2026-10-09"
+workers_dev = false
+
+[observability]
+enabled = true
+
+[triggers]
+crons = ["4,19,34,49 * * * *"]

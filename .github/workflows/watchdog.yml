@@ -2,6 +2,19 @@ name: Monitor Watchdog
 
 on:
   workflow_dispatch:
+    inputs:
+      trigger_source:
+        description: "Attribution only; never selects a workflow or recovery action"
+        required: false
+        type: choice
+        default: manual
+        options:
+          - manual
+          - cloudflare-cron
+      scheduled_at:
+        description: "UTC Cloudflare Cron tick for audit correlation only"
+        type: string
+        required: false
   schedule:
     # Stagger off common :00/:15/:30/:45 queue peaks; cadence remains 15 minutes.
     - cron: "11,26,41,56 * * * *"
@@ -12,12 +25,43 @@ permissions:
 
 concurrency:
   group: paper-monitor-watchdog
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   watchdog:
     runs-on: ubuntu-latest
     steps:
+      - name: Record trigger attribution
+        shell: bash
+        env:
+          TRIGGER_EVENT_NAME: ${{ github.event_name }}
+          TRIGGER_INPUT: ${{ inputs.trigger_source }}
+          EXTERNAL_SCHEDULED_AT: ${{ inputs.scheduled_at }}
+        run: |
+          if [ "$TRIGGER_EVENT_NAME" = "schedule" ]; then
+            TRIGGER_SOURCE="github_schedule"
+          elif [ "$TRIGGER_INPUT" = "cloudflare-cron" ]; then
+            TRIGGER_SOURCE="cloudflare_cron_claimed"
+          else
+            TRIGGER_SOURCE="manual"
+          fi
+          # workflow_dispatch attribution remains a claim until a real Cloudflare
+          # scheduled invocation is independently correlated to this run ID.
+          if [[ "$EXTERNAL_SCHEDULED_AT" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[.][0-9]{3}Z$ ]]; then
+            SCHEDULED_AT="$EXTERNAL_SCHEDULED_AT"
+          else
+            SCHEDULED_AT="not-provided"
+          fi
+          echo "WATCHDOG_TRIGGER_SOURCE=$TRIGGER_SOURCE"
+          echo "WATCHDOG_EXTERNAL_SCHEDULED_AT=$SCHEDULED_AT"
+          echo "WATCHDOG_RUN_ID=$GITHUB_RUN_ID"
+          echo "WATCHDOG_RUN_ATTEMPT=$GITHUB_RUN_ATTEMPT"
+          echo "WATCHDOG_WORKFLOW=watchdog.yml"
+          {
+            echo "Trigger: $TRIGGER_SOURCE"
+            echo "External scheduled tick: $SCHEDULED_AT"
+            echo "GitHub run: $GITHUB_RUN_ID"
+          } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
