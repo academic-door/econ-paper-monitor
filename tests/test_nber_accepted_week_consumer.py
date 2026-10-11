@@ -233,6 +233,31 @@ def test_existing_matching_owner_reviewed_cache_beats_upstream_reuse():
     assert cache["records"]["10.3386/" + item["number"]] == cache_input["records"]["10.3386/" + item["number"]]
 
 
+def test_frontier_title_cache_requires_matching_english_before_paid_call():
+    import argparse
+    import translate
+    options = argparse.Namespace(sleep=0, timeout=1, stop_on_error=True)
+    cache = {"10.3386/w35782": {
+        "upstream": "frontier-door",
+        "title": "Canonical accepted English",
+        "title_zh": "已接受的中文",
+    }}
+    revised = [{"doi": "10.3386/w35782", "title": "Materially revised English"}]
+    result = translate.translate_records(
+        revised, options, "unused", "", "", cache,
+        title_limit=0, abstract_limit=0, deadline=None,
+    )
+    assert revised[0].get("title_zh") is None
+    assert result[0] == 0 and result[3] == 0
+    accepted = [{"doi": "10.3386/w35782", "title": "Canonical accepted English"}]
+    result = translate.translate_records(
+        accepted, options, "unused", "", "", cache,
+        title_limit=0, abstract_limit=0, deadline=None,
+    )
+    assert accepted[0]["title_zh"] == "已接受的中文"
+    assert result[3] == 1
+
+
 def test_no_workflow_activates_public_consumer_before_producer_97():
     workflow = (ROOT / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
     ai_workflow = (ROOT / ".github" / "workflows" / "ai-enrichment.yml").read_text(encoding="utf-8")
