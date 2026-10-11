@@ -13,6 +13,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import should_dispatch_monitor  # noqa: E402
 import status  # noqa: E402
+import repair_workflow_status  # noqa: E402
 
 
 class MonitorCadenceContractTests(unittest.TestCase):
@@ -108,6 +109,51 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertIsNone(
             should_dispatch_monitor.latest_owner_workflow_finish(local, "light")
         )
+
+    def test_repair_does_not_resurrect_local_cnki_as_core_light_clock(self) -> None:
+        core_finished = "2026-10-11T08:51:59+00:00"
+        local_finished = "2026-10-11T10:13:10+00:00"
+        full_finished = "2026-10-11T11:08:24+00:00"
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "status.json"
+            status.record_workflow_run(
+                {"mode": "light", "event": "schedule",
+                 "run_id": "38125802677", "finished_at": core_finished},
+                path=path,
+            )
+            status.record_workflow_run(
+                {"mode": "light", "event": "local-cnki",
+                 "run_id": "", "finished_at": local_finished},
+                path=path,
+            )
+            status.record_workflow_run(
+                {"mode": "full", "event": "schedule",
+                 "run_id": "38132912128", "finished_at": full_finished},
+                path=path,
+            )
+            corrupted = status.load_status(path)
+            corrupted["workflow"]["last_light_finished_at"] = local_finished
+            status.save_status(corrupted, path)
+            recovered = repair_workflow_status.repair_status(path)["workflow"]
+            self.assertEqual(recovered["last_light_finished_at"], core_finished)
+            self.assertEqual(recovered["last_full_finished_at"], full_finished)
+            self.assertEqual(recovered["event"], "schedule")
+            self.assertEqual(recovered["history"][1]["event"], "local-cnki")
+
+    def test_local_only_repair_clears_untrusted_denormalized_core_clock(self) -> None:
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "status.json"
+            status.save_status({
+                "workflow": {
+                    "last_light_finished_at": "2026-10-11T10:13:10+00:00",
+                    "history": [{
+                        "mode": "light", "event": "local-cnki", "run_id": "",
+                        "finished_at": "2026-10-11T10:13:10+00:00",
+                    }],
+                },
+            }, path)
+            recovered = repair_workflow_status.repair_status(path)["workflow"]
+            self.assertNotIn("last_light_finished_at", recovered)
 
     def test_full_watchdog_grace_preserves_original_slot_for_freshness(self) -> None:
         windows = should_dispatch_monitor.parse_full_times("00:00,06:00,12:00,18:00")
