@@ -54,6 +54,39 @@ def record_run(summary: dict[str, Any], path: Path = STATUS_PATH) -> None:
     save_status(status, path)
 
 
+def sync_owner_workflow_freshness(workflow: dict[str, Any]) -> None:
+    """Reconcile denormalized core/full clocks from GitHub-owned Update history.
+
+    The local CNKI lane uses mode=light for the UI, but cannot advance either
+    core monitor clock. Clear inherited local-only counters when history is
+    present rather than preserving an unsafe pre-fix value.
+    """
+    history = workflow.get("history")
+    if not isinstance(history, list) or not history:
+        return
+
+    last_by_mode: dict[str, str] = {}
+    for entry in history:
+        if not isinstance(entry, dict):
+            continue
+        if entry.get("event") not in {"schedule", "workflow_dispatch"} or not entry.get("run_id"):
+            continue
+        mode = str(entry.get("mode") or "")
+        finished_at = str(entry.get("finished_at") or "")
+        if mode and finished_at and mode not in last_by_mode:
+            last_by_mode[mode] = finished_at
+
+    for mode, key in (
+        ("full", "last_full_finished_at"),
+        ("light", "last_light_finished_at"),
+        ("single", "last_single_finished_at"),
+    ):
+        if last_by_mode.get(mode):
+            workflow[key] = last_by_mode[mode]
+        else:
+            workflow.pop(key, None)
+
+
 def record_workflow_run(summary: dict[str, Any], path: Path = STATUS_PATH) -> None:
     """Store the latest end-to-end workflow context for dashboards."""
     status = load_status(path)
@@ -78,22 +111,5 @@ def record_workflow_run(summary: dict[str, Any], path: Path = STATUS_PATH) -> No
     )
     del history[30:]
 
-    last_by_mode: dict[str, str] = {}
-    for entry in history:
-        # Only owner Update Paper Monitor runs may advance core/full freshness.
-        # Local CNKI supplements are published as mode=light for the UI, but
-        # must never make the GitHub watchdog skip a missing core recovery.
-        if entry.get("event") not in {"schedule", "workflow_dispatch"} or not entry.get("run_id"):
-            continue
-        entry_mode = str(entry.get("mode") or "")
-        entry_finished_at = str(entry.get("finished_at") or "")
-        if entry_mode and entry_finished_at and entry_mode not in last_by_mode:
-            last_by_mode[entry_mode] = entry_finished_at
-    for entry_mode, key in (
-        ("full", "last_full_finished_at"),
-        ("light", "last_light_finished_at"),
-        ("single", "last_single_finished_at"),
-    ):
-        if last_by_mode.get(entry_mode):
-            workflow[key] = last_by_mode[entry_mode]
+    sync_owner_workflow_freshness(workflow)
     save_status(status, path)
