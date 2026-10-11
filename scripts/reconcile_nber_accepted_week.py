@@ -21,12 +21,12 @@ from common import DATA_DIR, read_json, write_json
 NBER_WEEK_URL = "https://academic-door.github.io/nber-working-papers-cn/data/latest_week.json"
 NBER_STATUS_URL = "https://academic-door.github.io/nber-working-papers-cn/data/site_status.json"
 BEIJING = timezone(timedelta(hours=8))
-NUMBER_RE = re.compile(r"^w\d{4,6}$")
-URL_RE = re.compile(r"^https://www\.nber\.org/papers/(w\d{4,6})$")
-DOI_RE = re.compile(r"^10\.3386/(w\d{4,6})$")
+NUMBER_RE = re.compile(r"^w[1-9]\d{3,7}$")
+URL_RE = re.compile(r"^https://www\.nber\.org/papers/(w[1-9]\d{3,7})$")
+DOI_RE = re.compile(r"^10\.3386/(w[1-9]\d{3,7})$")
 WEEK_RE = re.compile(r"^20\d{2}-\d{2}-\d{2}$")
-MAX_PAPERS = 150
-MAX_BYTES = 900_000
+MAX_PAPERS = 500
+MAX_BYTES = 800_000
 
 
 class UnacceptedWeek(ValueError):
@@ -75,8 +75,20 @@ def existing_nber_number(record: dict[str, Any]) -> str | None:
     return next(iter(candidates))
 
 
+def english_source_sha256(title: Any, abstract: Any) -> str:
+    """Match ③ owner build_site_core.translation_source_hash exactly."""
+    text = f"{canon_english(title)}\n{canon_english(abstract)}"
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def roster_sha256(papers: list[dict[str, Any]]) -> str:
+    encoded = json.dumps(papers, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
 def validate_week(artifact: Any, status: Any) -> tuple[str, str, list[dict[str, Any]]]:
-    if not isinstance(artifact, dict) or artifact.get("schema_version") != 1:
+    """Verify actual ③ PR #102 schema, including immutable build and roster."""
+    if not isinstance(artifact, dict) or type(artifact.get("schema_version")) is not int or artifact["schema_version"] != 1:
         raise UnacceptedWeek("schema_version")
     if artifact.get("accepted") is not True or artifact.get("source_complete") is not True:
         raise UnacceptedWeek("week_not_accepted")
@@ -90,29 +102,41 @@ def validate_week(artifact: Any, status: Any) -> tuple[str, str, list[dict[str, 
     for key in ("source_kind", "membership_basis", "source_evidence"):
         if not isinstance(artifact.get(key), str) or not artifact[key].strip():
             raise UnacceptedWeek("missing_" + key)
-    marker = str(artifact.get("build_id") or artifact.get("built_at") or "").strip()
-    if not marker:
+    kind, evidence = artifact["source_kind"], artifact["source_evidence"]
+    if kind == "api":
+        m = re.search(r"\bstable=True;\s*official=(\d+);\s*retained=(\d+)\b", evidence)
+        if not evidence.startswith("official New This Week marker;") or not m:
+            raise UnacceptedWeek("unverified_official_api_provenance")
+        if int(m.group(1)) != artifact.get("paper_count") or int(m.group(2)) != 0:
+            raise UnacceptedWeek("incomplete_official_api_membership")
+    elif kind == "release_evidence":
+        if artifact["membership_basis"] != "official-public-release-backed" or not evidence.startswith("tracked official NBER release evidence"):
+            raise UnacceptedWeek("unverified_official_release_provenance")
+    else:
+        raise UnacceptedWeek("unaccepted_source_kind")
+    marker = artifact.get("built_at")
+    if not isinstance(marker, str) or not marker.strip():
         raise UnacceptedWeek("missing_build_identity")
     papers = artifact.get("papers")
     expected = artifact.get("paper_count")
-    if not isinstance(expected, int) or isinstance(expected, bool) or not 1 <= expected <= MAX_PAPERS:
+    if type(expected) is not int or not 1 <= expected <= MAX_PAPERS:
         raise UnacceptedWeek("invalid_expected_count")
     if not isinstance(papers, list) or len(papers) != expected:
         raise UnacceptedWeek("incomplete_roster")
     if not isinstance(status, dict):
         raise UnacceptedWeek("missing_site_status")
-    # Status projection is deliberately strict pending producer #97's final
-    # published schema. Never guess readiness from a generic HTTP 200.
-    accepted_status = status.get("latest_week")
-    if not isinstance(accepted_status, dict) or accepted_status.get("accepted") is not True:
-        raise UnacceptedWeek("status_not_accepted")
-    if accepted_status.get("source_complete") is not True:
-        raise UnacceptedWeek("status_incomplete")
-    if accepted_status.get("week") != week or accepted_status.get("paper_count") != expected:
-        raise UnacceptedWeek("status_membership_mismatch")
-    status_marker = str(accepted_status.get("build_id") or accepted_status.get("built_at") or "").strip()
-    if marker != status_marker:
-        raise UnacceptedWeek("status_build_mismatch")
+    if (status.get("latest_week") != week
+        or type(status.get("latest_week_papers")) is not int
+        or status["latest_week_papers"] != expected
+        or status.get("latest_week_source") != kind
+        or status.get("latest_week_source_complete") is not True
+        or status.get("latest_week_source_evidence") != evidence
+        or status.get("built_at") != marker):
+        raise UnacceptedWeek("status_mismatch")
+    if artifact.get("papers_sha256") != roster_sha256(papers):
+        raise UnacceptedWeek("tampered_roster_digest")
+    if len(json.dumps(artifact, ensure_ascii=False).encode("utf-8")) > MAX_BYTES:
+        raise UnacceptedWeek("oversized_upstream")
     seen: set[str] = set()
     for paper in papers:
         if not isinstance(paper, dict):
@@ -123,30 +147,45 @@ def validate_week(artifact: Any, status: Any) -> tuple[str, str, list[dict[str, 
         seen.add(number)
         if not canon_english(paper.get("title")):
             raise UnacceptedWeek("missing_english_title")
-        if not isinstance(paper.get("authors"), list) or any(
-            not isinstance(a, str) for a in paper["authors"]
+        if not isinstance(paper.get("abstract"), str):
+            raise UnacceptedWeek("invalid_english_abstract")
+        if not isinstance(paper.get("authors"), list) or not paper["authors"] or any(
+            not isinstance(a, str) or not a.strip() for a in paper["authors"]
         ):
             raise UnacceptedWeek("invalid_authors")
         for key in ("week_date", "issue_date", "public_date"):
             val = paper.get(key)
-            if val is not None and val != "" and (
-                not isinstance(val, str) or not WEEK_RE.fullmatch(val)
-            ):
-                raise UnacceptedWeek("invalid_source_date")
-        if paper.get("week_date") and paper["week_date"] != week:
+            if val is not None and val != "":
+                if not isinstance(val, str) or not WEEK_RE.fullmatch(val):
+                    raise UnacceptedWeek("invalid_source_date")
+                try:
+                    datetime.strptime(val, "%Y-%m-%d")
+                except ValueError as exc:
+                    raise UnacceptedWeek("invalid_source_calendar_date") from exc
+        if paper.get("week_date") != week:
             raise UnacceptedWeek("paper_week_mismatch")
+        state = paper.get("translation_state")
+        if state not in {"valid", "missing", "stale"}:
+            raise UnacceptedWeek("invalid_translation_state")
+        for key, flag in (("zh_title", "zh_title_valid"), ("zh_abstract", "zh_abstract_valid")):
+            value = paper.get(key)
+            if type(paper.get(flag)) is not bool or (value is not None and not isinstance(value, str)):
+                raise UnacceptedWeek("invalid_translation_field")
+            if paper[flag] is not bool(value) or (state != "valid" and value):
+                raise UnacceptedWeek("unaccepted_translation")
+        if paper.get("source_text_sha256") != english_source_sha256(paper.get("title"), paper.get("abstract")):
+            raise UnacceptedWeek("source_text_hash_mismatch")
     return week, marker, papers
 
 
 def translation_value(paper: dict[str, Any], field: str, en_field: str) -> str | None:
     value = paper.get("zh_title" if field == "title" else "zh_abstract")
-    evidence = paper.get("translation_validity")
-    slot = evidence.get(field) if isinstance(evidence, dict) else None
-    if not isinstance(value, str) or not value.strip() or not isinstance(slot, dict):
+    valid = paper.get("zh_title_valid" if field == "title" else "zh_abstract_valid")
+    if paper.get("translation_state") != "valid" or valid is not True:
         return None
-    if slot.get("accepted") is not True:
+    if paper.get("source_text_sha256") != english_source_sha256(paper.get("title"), paper.get("abstract")):
         return None
-    if slot.get("english_sha256") != digest(paper.get(en_field)):
+    if not isinstance(value, str) or not value.strip():
         return None
     if not re.search(r"[\u4e00-\u9fff]", value):
         return None
