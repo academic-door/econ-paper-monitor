@@ -92,9 +92,32 @@ def latest_owner_workflow_finish(workflow: dict, mode: str) -> datetime | None:
     return parse_dt(str(workflow.get(f"last_{mode}_finished_at", "")))
 
 
+def due_core_creation_recovery(
+    latest_created: datetime | None,
+    now_utc: datetime,
+    threshold_minutes: int,
+) -> bool:
+    """Recover before the public 90-minute *creation* SLA expires.
+
+    A long full run may finish much later than it was created; relying solely
+    on its finish time can miss creation freshness even with a 15m Watchdog.
+    The workflow separately checks active Update runs before dispatching, so
+    this function never creates overlapping writers.
+    """
+    if latest_created is None:
+        return False
+    if latest_created.tzinfo is None:
+        return False
+    return now_utc - latest_created.astimezone(UTC) >= timedelta(
+        minutes=threshold_minutes
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--light-min-minutes", type=int, default=50)
+    parser.add_argument("--latest-created-at", default="")
+    parser.add_argument("--creation-min-minutes", type=int, default=70)
     parser.add_argument("--full-after-hour", type=int, default=8)
     parser.add_argument("--full-after-minute", type=int, default=30)
     parser.add_argument("--full-times", default="")
@@ -111,6 +134,16 @@ def main() -> None:
     due_full = latest_due_full_window(now_bj, full_times, args.full_grace_minutes)
     if due_full and (last_full is None or last_full.astimezone(BEIJING) < due_full):
         print("full")
+        return
+
+    # This is an independent creation-clock fence. It must precede the
+    # completion-clock decision so a long full run cannot mask missed creations.
+    # If GitHub's run-list API is unavailable, keep the existing conservative
+    # completion-history fallback, but do not claim creation SLA verified.
+    if due_core_creation_recovery(
+        parse_dt(args.latest_created_at), now_utc, args.creation_min_minutes
+    ):
+        print("light")
         return
 
     last_light = latest_owner_workflow_finish(workflow, "light")
