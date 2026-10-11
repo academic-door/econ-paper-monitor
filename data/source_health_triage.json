@@ -1,14 +1,19 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 2
   },
-  "checked_at": "2026-10-11T05:44:18.943947+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-10-11T08:12:18.378678+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Agricultural Economics: 9; Journal of the Association of Environmental and Resource Economists: 19; Land Economics: 7; Land Use Policy: 43; European Review of Agricultural ",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -17,7 +22,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 37 via official-generated; Journal of Finance: 37 via official-generated; Journal of Financial Economics: 31 via official-generated; Review of Financia",
+      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 68 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -32,7 +37,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=2; nber: 12 via specialized-api; iza: HTTPError: HTTP Error 500: Internal Server Error; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: Runt",
+      "sample_error": "partial_success failures=2; nber: 30 via specialized-api; iza: HTTPError: HTTP Error 500: Internal Server Error; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna",
       "source": "working-papers"
     }
   ],
@@ -43,19 +48,34 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 22; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
+      "sample_error": "social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfare/springer_online_first: crossref fallback 6; international-tax-and-public-finance/springer_online_first: PARSE",
       "source": "Journal of Agricultural and Resource Economics",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "structural-change-and-economic-dynamics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Structural Change and Economic Dynamics",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
-        "crossref",
+        "rss",
         "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 7
   },
-  "total_degraded": 1
+  "total_degraded": 2
 }
