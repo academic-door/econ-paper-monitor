@@ -73,7 +73,7 @@ jobs:
           # Core discovery is scheduled independently. Wait 75 minutes before
           # core fallback, and give direct full schedules 15 minutes of grace
           # before treating a 00/06/12/18 Beijing slot as missed.
-          DECISION="$(python scripts/should_dispatch_monitor.py --light-min-minutes 75 --full-times 00:00,06:00,12:00,18:00 --full-grace-minutes 15)"
+          DECISION="$(python scripts/should_dispatch_monitor.py --light-min-minutes 60 --full-times 00:00,06:00,12:00,18:00 --full-grace-minutes 15)"
           echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
           echo "Monitor freshness: $DECISION"
       - name: Check local CNKI freshness
