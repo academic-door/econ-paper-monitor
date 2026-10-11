@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { evaluateMonitorLiveness, latestWorkflowPageTimestamp } from "../infra/monitor-liveness.mjs";
+import { evaluateMonitorLiveness, evaluateObservedRunCreation, latestWorkflowPageTimestamp } from "../infra/monitor-liveness.mjs";
 
 const NOW = Date.parse("2026-09-21T12:00:00Z");
 
@@ -70,4 +70,53 @@ test("workflow HTML fallback extracts the newest GitHub relative-time timestamp"
 
 test("workflow HTML fallback fails closed when no GitHub time element exists", () => {
   assert.equal(latestWorkflowPageTimestamp("<html><body>No runs</body></html>"), null);
+});
+
+
+test("external-aligned but unverified dispatch cannot hide native schedule staleness", () => {
+  const recentDispatch = [
+    run("Monitor Watchdog", "2026-09-21T11:56:00Z", { event: "workflow_dispatch" }),
+    run("Fast Discovery", "2026-09-21T11:55:00Z", { event: "workflow_dispatch" }),
+    run("Update Paper Monitor", "2026-09-21T11:52:00Z", { event: "workflow_dispatch" }),
+  ];
+  const native = evaluateMonitorLiveness(recentDispatch, NOW);
+  assert.equal(native.scope, "github_native_schedule_only");
+  assert.equal(native.combined_reliability_verified, false);
+  assert.equal(native.ok, false);
+  assert.deepEqual(native.stale_workflows, [
+    "Monitor Watchdog", "Fast Discovery", "Update Paper Monitor",
+  ]);
+  const observed = evaluateObservedRunCreation(recentDispatch, NOW);
+  assert.equal(observed.creation_fresh, true);
+  assert.equal(observed.state, "creation_fresh_unverified");
+  assert.equal(observed.external_origin_verified, false);
+  assert.equal(observed.acceptance, "not_evaluated");
+  assert.equal(observed.workflows["Monitor Watchdog"].attribution, "workflow_dispatch_unverified");
+});
+
+test("cancelled Fast run supplies creation evidence but never a successful recovery", () => {
+  const observed = evaluateObservedRunCreation([
+    run("Monitor Watchdog", "2026-09-21T11:50:00Z"),
+    run("Fast Discovery", "2026-09-21T11:55:00Z", {
+      event: "workflow_dispatch", status: "completed", conclusion: "cancelled",
+    }),
+    run("Update Paper Monitor", "2026-09-21T11:40:00Z"),
+  ], NOW);
+  assert.equal(observed.creation_fresh, true);
+  assert.equal(observed.workflows["Fast Discovery"].conclusion, "cancelled");
+  assert.equal(observed.workflows["Fast Discovery"].attribution, "workflow_dispatch_unverified");
+  assert.equal(observed.external_origin_verified, false);
+});
+
+test("observed creation reports stale and missing runs without claiming attribution", () => {
+  const observed = evaluateObservedRunCreation([
+    run("Monitor Watchdog", "2026-09-21T11:00:00Z"),
+  ], NOW);
+  assert.equal(observed.creation_fresh, false);
+  assert.equal(observed.state, "creation_stale");
+  assert.deepEqual(observed.stale_workflows, [
+    "Monitor Watchdog", "Fast Discovery", "Update Paper Monitor",
+  ]);
+  assert.equal(observed.workflows["Fast Discovery"].age_minutes, null);
+  assert.equal(observed.workflows["Fast Discovery"].attribution, "missing");
 });
