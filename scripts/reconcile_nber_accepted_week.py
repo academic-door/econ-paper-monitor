@@ -295,7 +295,18 @@ def reconcile(artifact: Any, status: Any, seen: dict[str, Any],
             added += 1
             matches, daily_matches = idx[number], daily_idx[number]
         reused: dict[str, str] = {}
+        # Owner-reviewed cache content takes precedence over an otherwise
+        # eligible upstream translation, when it matches the *same* English.
+        local_cache = result_cache.get("records", {}).get(f"10.3386/{number}", {})
+        if not isinstance(local_cache, dict):
+            local_cache = {}
         for record in matches + daily_matches:
+            for field, en in (("title", "title"), ("abstract", "abstract")):
+                target = "title_zh" if field == "title" else "abstract_zh"
+                if (not record.get(target) and local_cache.get(target)
+                    and canon_english(local_cache.get(en)) == canon_english(record.get(en) or paper.get(en))
+                    and canon_english(record.get(en) or paper.get(en)) == canon_english(paper.get(en))):
+                    record[target] = local_cache[target]
             accepted = attach_accepted_paper(record, paper, week, marker)
             reused.update(accepted)
             translated += len(accepted)
