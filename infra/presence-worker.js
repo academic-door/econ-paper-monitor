@@ -1,7 +1,8 @@
-import { evaluateMonitorLiveness, latestWorkflowPageTimestamp } from "./monitor-liveness.mjs";
+import { evaluateMonitorLiveness, evaluateObservedRunCreation, latestWorkflowPageTimestamp } from "./monitor-liveness.mjs";
 
 const ACTIVE_WINDOW_MS = 120000;
 const GITHUB_SCHEDULE_RUNS_URL = "https://api.github.com/repos/academic-door/econ-paper-monitor/actions/runs?event=schedule&per_page=100";
+const GITHUB_ALL_RUNS_URL = "https://api.github.com/repos/academic-door/econ-paper-monitor/actions/runs?per_page=100";
 const GITHUB_WORKFLOW_PAGES = Object.freeze([
   Object.freeze({ name: "Monitor Watchdog", file: "watchdog.yml" }),
   Object.freeze({ name: "Fast Discovery", file: "fast-discovery.yml" }),
@@ -118,12 +119,40 @@ async function refreshMonitorLiveness(env) {
         schema_version: 1,
         ok: false,
         state: "observer_error",
+        scope: "github_native_schedule_only",
+        combined_reliability_verified: false,
         checked_at: checkedAt,
         stale_workflows: [],
         workflows: {},
         error: `${apiError}; ${String(fallbackError?.message || fallbackError || "unknown_fallback_error")}`.slice(0, 240),
       };
     }
+  }
+  // Keep legacy native schedule health independent from observed creation on
+  // native + dispatch lanes. Neither GitHub metadata nor a dispatch input proves
+  // an independent Cloudflare scheduled invocation.
+  try {
+    const upstream = await fetch(GITHUB_ALL_RUNS_URL, {
+      headers: {
+        "Accept": "application/vnd.github+json",
+        "User-Agent": "Academic-Door-Monitor-Liveness/1.0",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "Cache-Control": "no-cache",
+      },
+      cf: { cacheTtl: 0 },
+    });
+    if (!upstream.ok) throw new Error(`github_all_runs_api_${upstream.status}`);
+    const payload = await upstream.json();
+    snapshot.observed_creation = evaluateObservedRunCreation(payload.workflow_runs, Date.parse(checkedAt));
+  } catch (error) {
+    snapshot.observed_creation = {
+      scope: "github_run_creation_all_supported_events",
+      state: "unavailable",
+      creation_fresh: null,
+      external_origin_verified: false,
+      acceptance: "not_evaluated",
+      error: String(error?.message || error || "unknown_error").slice(0, 120),
+    };
   }
   await storeMonitorLiveness(env, snapshot);
   return snapshot;
@@ -219,6 +248,8 @@ export class PresenceRoom {
           schema_version: 1,
           ok: false,
           state: "unknown",
+          scope: "github_native_schedule_only",
+          combined_reliability_verified: false,
           checked_at: null,
           stale_workflows: [],
           workflows: {},
