@@ -70,9 +70,12 @@ class MonitorCadenceContractTests(unittest.TestCase):
         self.assertIn("python scripts/assess_fast_recovery.py", text)
         self.assertNotIn("FAST_MAX_AGE_MINUTES=40", text)
         self.assertIn("gh workflow run fast-discovery.yml", text)
-        for status in ("pending", "requested", "queued", "waiting", "in_progress"):
-            self.assertIn(f'.status == "{status}"', text)
-        self.assertIn('.conclusion == "success"', text)
+        helper = (ROOT / "scripts" / "assess_fast_recovery.py").read_text(encoding="utf-8")
+        for run_status in ("pending", "requested", "queued", "waiting", "in_progress"):
+            self.assertIn(f'"{run_status}"', helper)
+        self.assertIn('run.get("conclusion") == "success"', helper)
+        self.assertIn("CREATION_MIN_MINUTES = 25", helper)
+        self.assertIn("SUCCESS_MAX_AGE_MINUTES = 40", helper)
 
     def test_fast_creation_clock_cannot_be_masked_by_recent_success(self) -> None:
         now = datetime(2026, 10, 11, 11, 46, tzinfo=UTC)
