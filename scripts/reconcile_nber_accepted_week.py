@@ -420,8 +420,13 @@ def main() -> None:
         # An upstream outage/unready status cannot block normal Daily products.
         summary = {"state": "upstream_unavailable_or_unaccepted", "reason": type(exc).__name__,
                    "detail": str(exc)[:120], "mode": "no_write"}
+        if args.enable_write:
+            # Only the bounded diagnostics may change on an unaccepted/outage
+            # upstream. Never replace Daily seen/cache/day archives with
+            # partial or failed ③ data.
+            write_json(args.data_dir / "nber_accepted_reconciliation_status.json", summary)
         print(json.dumps(summary))
-        # Not currently integrated with workflow or product gate; exit success.
+        # Absence/mismatch in ③ is not a Daily release-gate failure.
 
 
 if __name__ == "__main__":
