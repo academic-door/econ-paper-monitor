@@ -95,3 +95,25 @@ def test_cnki_navigation_and_site_news_still_get_removed(tmp_path):
     )
     assert clean_cn_noise.clean_seen(seen) == 3
     assert set(json.loads(seen.read_text(encoding="utf-8"))["papers"]) == {"article"}
+
+def test_verified_rural_economics_platform_paper_is_not_filtered(tmp_path):
+    path = tmp_path / "seen.json"
+    daily = tmp_path / "2026-09-20.json"
+    article = {
+        "title": "平台经济发展助推实数深度融合的机制与效应研究",
+        "journal": "中国农村经济",
+        "journal_id": "journal-f69300dae2",
+        "source": "cnki-rss",
+        "url": CNKI_ARTICLE_URL,
+        "published_online": "2026-09-20",
+        "first_seen": "2026-10-12T10:11:16+00:00",
+    }
+    path.write_text(json.dumps({"papers": {"paper": article}}, ensure_ascii=False), encoding="utf-8")
+    daily.write_text(json.dumps([article], ensure_ascii=False), encoding="utf-8")
+    assert clean_cn_noise.clean_seen(path) == 0
+    assert clean_cn_noise.clean_daily(daily) == 0
+
+    # Actual site announcements retain the stricter noise filters.
+    article["title"] = "平台公告"
+    path.write_text(json.dumps({"papers": {"news": article}}, ensure_ascii=False), encoding="utf-8")
+    assert clean_cn_noise.clean_seen(path) == 1
