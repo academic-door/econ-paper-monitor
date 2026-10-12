@@ -82,7 +82,12 @@ def merge_records(records: list[dict[str, Any]], *, seen_path: Path, daily_dir: 
         archive_date = archive_date_for_new_record(record, run_date)
         if archive_date:
             path = daily_dir / f"{archive_date}.json"
-            existing = read_json(path, [])
+            # Multiple newly observed articles can share one Beijing date.
+            # Keep the pending merged bucket: re-reading the original file for
+            # every item silently discards all but the final article in a run.
+            existing = changed_daily.get(path)
+            if existing is None:
+                existing = read_json(path, [])
             changed_daily[path] = merge_daily(existing if isinstance(existing, list) else [], [record])
             archived_count += 1
 
