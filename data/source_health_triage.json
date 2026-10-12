@@ -1,8 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 2
+    "needs_investigation": 1,
+    "permanently_unavailable": 1
   },
-  "checked_at": "2026-10-13T05:01:22.242060+08:00",
+  "checked_at": "2026-10-13T06:13:02.190865+08:00",
   "source_health_degraded_count": 2,
   "source_status_failures": [
     {
@@ -12,7 +13,7 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=3; Journal of Finance: 7; Journal of Financial Economics: 9; Review of Financial Studies: 2; Journal of Development Economics: 9; Economic Development and Cultural Change: 7; ",
+      "sample_error": "partial_success failures=1; Journal of Finance: 7; Journal of Financial Economics: 9; Review of Financial Studies: 2; Journal of Development Economics: 9; Economic Development and Cultural Change: 7; ",
       "source": "crossref"
     },
     {
@@ -53,13 +54,13 @@
       ]
     },
     {
-      "category": "needs_investigation",
+      "category": "permanently_unavailable",
       "category_counts": {
-        "needs_investigation": 1
+        "permanently_unavailable": 1
       },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
       "status_category": "needs_investigation",
       "status_source": "cn-journals",
       "usable_paths": [
