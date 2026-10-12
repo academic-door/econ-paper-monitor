@@ -1,7 +1,7 @@
 {
   "abstracts": {
-    "available": 8424,
-    "missing": 381,
+    "available": 8426,
+    "missing": 382,
     "missing_by_journal_top": {
       "American Economic Review": 3,
       "Applied Economics": 65,
@@ -19,7 +19,7 @@
       "International Tax and Public Finance": 2,
       "Journal of Accounting and Economics": 4,
       "Journal of Business & Economic Statistics": 4,
-      "Journal of Development Economics": 3,
+      "Journal of Development Economics": 4,
       "Journal of Economic Literature": 12,
       "Journal of Labor Economics": 10,
       "Journal of Law and Economics": 4,
@@ -34,39 +34,39 @@
       "Review of Accounting Studies": 2,
       "World Development": 6
     },
-    "missing_rate": 0.0433,
+    "missing_rate": 0.0434,
     "missing_recent": 16,
     "missing_recent_actionable": 10,
     "missing_recent_expected": 6,
     "missing_today": 0,
-    "total": 8805
+    "total": 8808
   },
   "authors": {
-    "available": 8796,
+    "available": 8799,
     "missing": 9,
     "missing_recent": 0,
     "missing_recent_actionable": 0,
     "missing_recent_expected": 0,
     "missing_today": 0,
     "missing_today_journals": 0,
-    "total": 8805
+    "total": 8808
   },
   "date_confidence": {
-    "A": 5121,
+    "A": 5123,
     "B": 63,
-    "C": 2588,
+    "C": 2589,
     "D": 524,
     "F": 509
   },
   "date_source_top": {
     "aea_current_issue": 45,
     "cepr_published_time": 39,
-    "cnki_rss_pubdate": 264,
+    "cnki_rss_pubdate": 266,
     "crossref_doi_created": 21,
     "crossref_doi_elsevier_created_online": 455,
     "crossref_doi_published": 65,
     "crossref_doi_published_online": 226,
-    "crossref_elsevier_created_online": 753,
+    "crossref_elsevier_created_online": 754,
     "crossref_issue": 60,
     "crossref_published_online": 608,
     "iza_detail_month": 62,
@@ -1817,34 +1817,45 @@
     ]
   },
   "risk_signals": {
-    "cnki_rss_today": [],
+    "cnki_rss_today": [
+      {
+        "date": "2026-10-12",
+        "date_confidence": "A",
+        "date_source": "cnki_rss_pubdate",
+        "journal": "数量经济技术经济研究",
+        "official_date": "2026-10-12",
+        "source_issue": null,
+        "title": "全国统一大市场发展进程的再测度",
+        "url": "https://kns.cnki.net/kcms2/article/abstract?v=9TisLvyceEMJHSZPW2e5R93wm7jcmRUbWJcJyyQMocnQcIIL2VEgt57TYSjQV0WJYQ20RdK7yWpEQOi9CiNwPgb_9qe_Bc45NkwmpbUsBG8Tsn5n9MG8tDa8WauorwEotcDW62oeMCAcuI5dN3RH6AGvtJS_TdgcrjKkDI_EBjvl93QiuV7B0g=="
+      }
+    ],
     "crossref_created_today": [],
     "crossref_fallback_today": []
   },
   "source_top": {
     "aea_toc": 137,
     "cn-official": 62,
-    "cnki-rss": 215,
+    "cnki-rss": 217,
     "crossref": 3871,
     "priority_crossref_fallback": 71,
     "priority_toc": 60,
     "rss": 2105,
     "sciencedirect_search": 157,
-    "unknown": 205,
+    "unknown": 206,
     "working_papers": 1922
   },
   "totals": {
     "china_candidates": 246,
-    "china_related_public": 1345,
-    "cnki_rss_today": 0,
+    "china_related_public": 1347,
+    "cnki_rss_today": 1,
     "crossref_created_today": 0,
     "crossref_fallback_today": 0,
     "duplicates_by_url_or_doi": 0,
     "future_official_date_in_bucket": 0,
-    "historical_records_in_bucket": 63,
+    "historical_records_in_bucket": 64,
     "invalid_journal_ids": 0,
     "malformed_first_seen": 0,
-    "missing_abstract": 381,
+    "missing_abstract": 382,
     "missing_abstract_recent": 16,
     "missing_abstract_recent_actionable": 10,
     "missing_abstract_recent_expected": 6,
@@ -1855,13 +1866,13 @@
     "missing_authors_recent_expected": 0,
     "missing_authors_today": 0,
     "missing_authors_today_journals": 0,
-    "missing_required_fields": 209,
+    "missing_required_fields": 210,
     "nonpaper_records": 0,
     "recent_sample_records": 500,
-    "records": 8805,
+    "records": 8808,
     "source_type_errors": 0,
-    "today_journal_records": 0,
-    "today_records": 3,
+    "today_journal_records": 1,
+    "today_records": 4,
     "today_working_papers": 3
   }
 }
