@@ -7,13 +7,37 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 131,
+    "missing_abstract": 132,
     "weak_date_evidence": 493
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 528,
+  "recent_candidates_before_limit": 529,
   "recent_window_start": "2026-09-13",
   "records": [
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.worlddev.2026.107575",
+      "first_seen": "2026-10-12T07:52:26+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.worlddev.2026.107575",
+      "journal": "World Development",
+      "official_date": "2026-10-12",
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The emission-inequality nexus across stages of development",
+      "url": "https://doi.org/10.1016/j.worlddev.2026.107575"
+    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -3153,6 +3177,29 @@
     },
     {
       "date_confidence": "F",
+      "doi": "10.3386/w35897",
+      "first_seen": "2026-10-12T08:44:37+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.3386/w35897",
+      "journal": "NBER Working Papers",
+      "official_date": null,
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": "nber",
+      "source_type": "working_paper",
+      "title": "Inverted Gravity",
+      "url": "https://www.nber.org/papers/w35897"
+    },
+    {
+      "date_confidence": "F",
       "doi": null,
       "first_seen": "2026-08-17T07:47:51+00:00",
       "historical_backfill": false,
@@ -3288,29 +3335,6 @@
       "source_type": "journal",
       "title": "Modelling Heterogeneous Dependence in a Copula‐Linked By‐Production Frontier: Evidence From French Dairy Farms",
       "url": "https://doi.org/10.1111/1467-8489.70161"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1111/twec.70169",
-      "first_seen": "2026-10-12T03:06:52+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1111/twec.70169",
-      "journal": "The World Economy",
-      "official_date": "2026-10-11",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Is International Trade Good for You? Individual and Contextual Determinants of Anti‐Trade Attitudes",
-      "url": "https://doi.org/10.1111/twec.70169"
     },
     {
       "date_confidence": "C",
@@ -11638,32 +11662,9 @@
       "source_type": "journal",
       "title": "Reducing antibiotics? experimental evidence from poultry farmers in China",
       "url": "https://doi.org/10.1016/j.worlddev.2026.107555"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2731164",
-      "first_seen": "2026-09-17T09:34:44+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2731164",
-      "journal": "Applied Economics",
-      "official_date": "2026-09-16",
-      "priority": [
-        0,
-        1,
-        1,
-        26
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Policy consistency in targeted VAT incentives: evidence from China’s 2023 additional input VAT deduction schemes",
-      "url": "https://doi.org/10.1080/00036846.2026.2731164"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5122,
+  "total_candidates_before_limit": 5123,
   "truncated": true
 }
