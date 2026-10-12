@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import re
 from pathlib import Path
+from urllib.parse import urlsplit
 from typing import Any
 
 from common import DATA_DIR, read_json, today_str, write_json
@@ -67,6 +68,17 @@ NOISE_URL = (
 
 
 def is_article_url(url: str) -> bool:
+    # CNKI RSS uses an article-detail route, not a journal's legacy ToC URL.
+    # Match the actual host/path, not a substring that a navigation/spoof URL
+    # could include in its query string. CNKI online-first records otherwise
+    # get wrongly removed from the durable seen catalogue on full Update.
+    parsed = urlsplit(url.strip())
+    if (
+        parsed.scheme in {"http", "https"}
+        and parsed.hostname == "kns.cnki.net"
+        and parsed.path.rstrip("/").casefold() == "/kcms2/article/abstract"
+    ):
+        return True
     return any(pattern.lower() in url.lower() for pattern in ARTICLE_URL_PATTERNS)
 
 
