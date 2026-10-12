@@ -1,11 +1,12 @@
 [
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-13",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -18,7 +19,7 @@
     "available_online": "2026-10-12",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "strategic-voting-and-incumbency-advantage-e452fbddae84",
     "detected_at": "2026-10-12T17:53:50+00:00",
     "doi": "10.1007/s00199-026-01755-8",
@@ -205,10 +206,11 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -274,10 +276,11 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -429,7 +432,7 @@
     "available_online": "2026-10-12",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "information-design-in-repeated-interaction-287309f3972c",
     "detected_at": "2026-10-12T16:35:05+00:00",
     "doi": "10.1016/j.jet.2026.106269",
@@ -879,7 +882,7 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-13",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -1464,7 +1467,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -3612,9 +3615,10 @@
     "url": "https://cepr.org/voxeu/columns/financial-sanctions-and-global-payments-network"
   },
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-13",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -3626,13 +3630,14 @@
     "authors": [
       "Heather Huntington",
       "Kate Marple-Cantrell",
+      "Daniel Ayalew Ali",
       "Thea Hilhorst"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-12",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "corrigendum-to-clarifying-overlapping-land-rights-in-semi-formal-systems-the-case-of-mai-13f0ff4bc96a",
     "detected_at": "2026-10-12T19:47:55+00:00",
     "doi": "10.1016/j.landusepol.2026.108351",
@@ -3666,6 +3671,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-12",
+          "source": "crossref-doi"
         }
       ],
       "pii": "S0264837726004357",
@@ -3684,9 +3696,10 @@
     "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004357?dgcid=api_sd_search-api-endpoint"
   },
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-13",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -3699,13 +3712,18 @@
     "authors": [
       "Hossein Azadi",
       "Shaghayegh Ehteshammajd",
+      "Imaneh Goli",
+      "Narges Siamian",
+      "Saghi Movahhd Moghaddam",
+      "Peter Ho",
+      "Kristina Janečková",
       "Petr Sklenička"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-12",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "corrigendum-to-advocacy-and-credibility-of-land-tenure-in-ethiopia-mitigating-conflicts-525ae81e7104",
     "detected_at": "2026-10-12T19:47:55+00:00",
     "doi": "10.1016/j.landusepol.2026.108363",
@@ -3725,12 +3743,27 @@
     "journal_short": "LUP",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0264837726004473",
     "published_online": "2026-10-12",
     "publisher": "Elsevier",
     "raw_data": {
       "date_evidence": [
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-12",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-10-12",
+          "source": "elsevier-article-api"
         }
       ],
       "pii": "S0264837726004473",
@@ -3752,7 +3785,7 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-13",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
