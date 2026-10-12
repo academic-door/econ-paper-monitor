@@ -34,7 +34,6 @@ ARTICLE_URL_PATTERNS = (
 )
 
 NOISE_TEXT = (
-    "平台",
     "数据库",
     "征文",
     "会议",
