@@ -273,10 +273,36 @@ def test_frontier_title_cache_requires_matching_english_before_paid_call():
     assert result[3] == 1
 
 
-def test_no_workflow_activates_public_consumer_before_producer_97():
+def test_accepted_producer_97_consumed_only_in_normal_serialized_daily_update():
     workflow = (ROOT / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
     ai_workflow = (ROOT / ".github" / "workflows" / "ai-enrichment.yml").read_text(encoding="utf-8")
-    assert "reconcile_nber_accepted_week.py" not in workflow
+    assert workflow.count("python scripts/reconcile_nber_accepted_week.py") == 1
+    assert "python scripts/reconcile_nber_accepted_week.py --from-public --enable-write" in workflow
+    assert workflow.index("run: python scripts/remove_seen_backflow.py") < workflow.index("python scripts/reconcile_nber_accepted_week.py") < workflow.index("run: python scripts/audit_ingestion.py")
+    assert "timeout 90s python scripts/reconcile_nber_accepted_week.py" in workflow
     assert "reconcile_nber_accepted_week.py" not in ai_workflow
+    assert "group: paper-monitor-main-writer" in workflow
+    assert "cancel-in-progress: false" in workflow
     assert consumer.NBER_WEEK_URL.endswith("/data/latest_week.json")
     assert consumer.NBER_STATUS_URL.endswith("/data/site_status.json")
+
+
+def test_unready_public_upstream_writes_only_bounded_failure_status(monkeypatch, tmp_path):
+    import json
+    from pathlib import Path
+    import reconcile_nber_accepted_week as module
+    (tmp_path / "daily").mkdir()
+    original = {"papers": {"existing": {"title": "Keep me"}}}
+    (tmp_path / "seen.json").write_text(json.dumps(original), encoding="utf-8")
+    (tmp_path / "translation_cache.json").write_text(json.dumps({"records": {}}), encoding="utf-8")
+    (tmp_path / "daily" / "2026-10-11.json").write_text("[]", encoding="utf-8")
+    def outage(url):
+        raise OSError("temporarily unavailable")
+    monkeypatch.setattr(module, "limited_public_json", outage)
+    monkeypatch.setattr("sys.argv", ["consumer", "--from-public", "--enable-write", "--data-dir", str(tmp_path)])
+    module.main()
+    status = json.loads((tmp_path / "nber_accepted_reconciliation_status.json").read_text(encoding="utf-8"))
+    assert status["state"] == "upstream_unavailable_or_unaccepted"
+    assert json.loads((tmp_path / "seen.json").read_text(encoding="utf-8")) == original
+    assert json.loads((tmp_path / "translation_cache.json").read_text(encoding="utf-8")) == {"records": {}}
+    assert json.loads((tmp_path / "daily" / "2026-10-11.json").read_text(encoding="utf-8")) == []

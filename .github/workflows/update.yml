@@ -312,6 +312,18 @@ jobs:
       - name: Remove already-seen RSS backflow
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/remove_seen_backflow.py
+      # Decision 0022: consume only ③'s accepted, matching public latest-week
+      # artifacts after current Daily dedupe. Retain direct NBER early discovery
+      # and fail open on HTTP/status/schema/translation mismatch. No paid API.
+      - name: Reconcile accepted Frontier Door NBER week
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        shell: bash
+        run: |
+          if timeout 90s python scripts/reconcile_nber_accepted_week.py --from-public --enable-write; then
+            echo "NBER accepted-week reconciliation inspected; consult durable status for acceptance."
+          else
+            echo "::warning::NBER accepted-week reconciliation unavailable; continuing normal Daily release."
+          fi
       - name: Audit ingestion health
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/audit_ingestion.py
