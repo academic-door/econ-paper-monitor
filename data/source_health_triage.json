@@ -1,19 +1,14 @@
 {
   "categories": {
-    "needs_investigation": 2
+    "needs_investigation": 3
   },
-  "checked_at": "2026-10-12T10:31:58.657006+08:00",
-  "source_health_degraded_count": 2,
+  "checked_at": "2026-10-12T11:47:13.889142+08:00",
+  "source_health_degraded_count": 3,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 7; Journal of Financial Economics: 9; Review of Financial Studies: 2; Journal of Development Economics: 9; Economic Development and Cultural Change: 7; ",
-      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -43,7 +38,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 17; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
+      "sample_error": "journal-of-economic-growth/springer_online_first: crossref fallback 1; journal-of-population-economics/springer_online_first: PARSER_FAILURE; journal-of-population-economics/springer_online_first: cro",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -57,20 +52,35 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
+      "journal_id": "quantitative-economics",
+      "sample_error": "journal-of-economic-growth/springer_online_first: crossref fallback 1; journal-of-population-economics/springer_online_first: PARSER_FAILURE; journal-of-population-economics/springer_online_first: cro",
+      "source": "Quantitative Economics",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
-        "cnki-rss",
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "theoretical-economics",
+      "sample_error": "journal-of-economic-growth/springer_online_first: crossref fallback 1; journal-of-population-economics/springer_online_first: PARSER_FAILURE; journal-of-population-economics/springer_online_first: cro",
+      "source": "Theoretical Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
         "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
-  "total_degraded": 2
+  "total_degraded": 3
 }
