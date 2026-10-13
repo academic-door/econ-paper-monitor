@@ -7,11 +7,11 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 135,
+    "missing_abstract": 136,
     "weak_date_evidence": 496
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 551,
+  "recent_candidates_before_limit": 552,
   "recent_window_start": "2026-09-15",
   "records": [
     {
@@ -877,6 +877,30 @@
       "source_type": null,
       "title": "Urban geopolitical risk exposure and energy justice: Evidence from 278 Chinese cities",
       "url": "https://www.sciencedirect.com/science/article/pii/S0301421526005239?dgcid=rss_sd_all"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1007/s00182-026-01015-y",
+      "first_seen": "2026-10-13T19:56:46+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1007/s00182-026-01015-y",
+      "journal": "International Journal of Game Theory",
+      "official_date": "2026-10-13",
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Bargaining with a buyer privately informed of the rival market.",
+      "url": "https://doi.org/10.1007/s00182-026-01015-y"
     },
     {
       "date_confidence": "C",
@@ -11654,32 +11678,9 @@
       "source_type": "journal",
       "title": "Capital-biased tax policy and the labour income share of enterprises",
       "url": "https://doi.org/10.1080/00036846.2026.2733817"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2734533",
-      "first_seen": "2026-09-18T14:20:27+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2734533",
-      "journal": "Applied Economics",
-      "official_date": "2026-09-18",
-      "priority": [
-        0,
-        1,
-        1,
-        26
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Financing and production decisions of capital-constrained agricultural cooperatives under risk mitigation in China",
-      "url": "https://doi.org/10.1080/00036846.2026.2734533"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5159,
+  "total_candidates_before_limit": 5160,
   "truncated": true
 }
