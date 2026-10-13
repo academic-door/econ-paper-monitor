@@ -1,20 +1,14 @@
 {
   "categories": {
-    "needs_investigation": 1,
-    "permanently_unavailable": 1
+    "needs_investigation": 1
   },
-  "checked_at": "2026-10-13T22:17:06.817127+08:00",
-  "source_health_degraded_count": 2,
+  "checked_at": "2026-10-13T23:28:03.854553+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 7; Journal of Financial Economics: 10; Review of Financial Studies: 2; Journal of Development Economics: 9; Economic Development and Cultural Change: 7;",
-      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -44,7 +38,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfare/springer_online_first: crossref fallback 6; public-choice/springer_online_first: PARSER_FAILURE; public-choic",
+      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 17; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -52,26 +46,11 @@
         "crossref",
         "openalex-recall"
       ]
-    },
-    {
-      "category": "permanently_unavailable",
-      "category_counts": {
-        "permanently_unavailable": 1
-      },
-      "journal_id": "journal-379b4022ce",
-      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
-      "source": "管理世界",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
-        "cnki-rss",
-        "openalex-recall"
-      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
-  "total_degraded": 2
+  "total_degraded": 1
 }
