@@ -1,7 +1,8 @@
 [
   {
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -132,7 +133,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -145,7 +146,7 @@
     "authors": [
       "Xiaoying Chen",
       "Jie Song",
-      "Long Chen"
+      "L. Chen"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-12",
@@ -154,7 +155,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "population-ageing-resident-consumption-and-industrial-structural-upgrading-in-china-s-cu-9b1d7610c3aa",
     "detected_at": "2026-10-13T04:27:30+00:00",
     "doi": "10.1080/00036846.2026.2740783",
@@ -188,6 +189,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-12",
+          "source": "openalex"
         }
       ]
     },
@@ -203,7 +211,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -223,7 +231,7 @@
     "available_online": "2026-10-12",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "deflating-bank-transaction-data-for-gdp-nowcasting-whether-and-how-to-use-inflation-lags-e28ae43b061a",
     "detected_at": "2026-10-13T04:27:30+00:00",
     "doi": "10.1080/00036846.2026.2741404",
@@ -257,6 +265,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-12",
+          "source": "openalex"
         }
       ]
     },
@@ -416,6 +431,13 @@
           "date_source": "elsevier_article_api",
           "published_online": "2026-10-12",
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
@@ -510,8 +532,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-12",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "digital-innovation-and-nextgenerationeu-spatial-patterns-in-italian-local-government-per-dce0eb6a0bcb",
     "detected_at": "2026-10-13T03:08:13+00:00",
     "doi": "10.1016/j.strueco.2026.10.003",
@@ -552,11 +574,18 @@
           "date_source": "elsevier_article_api",
           "published_online": "2026-10-12",
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Structural Change and Economic Dynamics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Digital Innovation and NextGenerationEU: Spatial Patterns in Italian Local Government Performance",
@@ -644,7 +673,7 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-13",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -705,6 +734,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-12",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0264837726004357",
@@ -726,7 +762,7 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-13",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -743,7 +779,7 @@
       "Narges Siamian",
       "Saghi Movahhd Moghaddam",
       "Peter Ho",
-      "Kristina Janečková",
+      "Kristina Janeckova",
       "Petr Sklenička"
     ],
     "authors_status_code": "available",
@@ -791,6 +827,13 @@
           "date_source": "elsevier_article_api",
           "published_online": "2026-10-12",
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0264837726004473",
@@ -812,10 +855,10 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-13",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -828,7 +871,7 @@
     "available_online": "2026-10-12",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "strategic-voting-and-incumbency-advantage-e452fbddae84",
     "detected_at": "2026-10-12T17:53:50+00:00",
     "doi": "10.1007/s00199-026-01755-8",
@@ -861,6 +904,13 @@
           "date_source": "crossref_doi_published_online",
           "published_online": "2026-10-12",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-12",
+          "source": "openalex"
         }
       ],
       "fallback": "crossref",
@@ -1018,11 +1068,11 @@
     "_provider": "semantic-scholar",
     "_status": "skipped_rate_limited",
     "_status_code": 429,
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract": "This study examines the causal impact of early-life air pollution on stunting among children aged 0 to 5 years. Exploiting the staggered entry of coal-fired power plants as an exogenous shock, we construct a difference-in-differences model leveraging upwind and downwind county differentials, drawing on ten waves of CHNS data spanning 1989 to 2015. We find that child stunting probability increased significantly in downwind counties following power plant entry relative to upwind counties, indicating substantial adverse effects of early-life air pollution on child growth. Robustness checks support these conclusions. Mechanism analysis reveals that power plant entry elevated PM2.5, PM10, and O3 concentrations in downwind counties, raising child morbidity rates, illness duration, and medical expenditures. Children in downwind counties also experienced reduced nutritional intake, with marked declines in protein, fat, carbohydrate, and energy consumption, accompanied by weight reduction. Heterogeneity analysis indicates that while effects show no significant differences across age and gender, impacts concentrate among families with lower maternal education and household income, as well as in lower income counties and villages. Our findings demonstrate that air pollution from coal-fired power plants generates important negative externalities on rural child health during rapid industrialization, with disproportionate burdens on disadvantaged populations.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1072,6 +1122,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-12",
+          "source": "openalex"
         }
       ]
     },
@@ -1089,11 +1146,11 @@
     "_provider": "semantic-scholar",
     "_status": "skipped_rate_limited",
     "_status_code": 429,
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract": "Employees often possess operational knowledge that is valuable to the firm only if it reaches the executives who allocate resources and set strategic priorities. We examine whether Chinese listed firms that adopt formal channels through which employees can communicate suggestions, ideas, or concerns to senior executives differ in innovation output. Using data on employee-executive communication channels (ECC) for Chinese A-share listed firms over 2007–2024, we document a positive association between ECC adoption and patent output. The association is stronger in firms with more highly educated workforces and higher employee and executive pay. Firms with ECC also produce a higher share of patents developed by multiple inventors, consistent with greater collaborative inventive activity. In an additional analysis, share prices respond positively around the annual report in which an ECC is first disclosed. Taken together, the evidence is consistent with formal upward communication channels serving as an internal governance and coordination mechanism for innovation.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1104,7 +1161,10 @@
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-12",
-    "china_relevance_status": "none",
+    "china_related": true,
+    "china_related_source": "rule",
+    "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
+    "china_relevance_status": "confirmed",
     "date_confidence": "C",
     "date_source": "crossref_doi_published_online",
     "detail_key": "from-employees-to-executives-internal-communication-channels-and-corporate-innovation-a3ff8b10430d",
@@ -1140,6 +1200,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-12",
+          "source": "openalex"
         }
       ]
     },
@@ -1158,7 +1225,7 @@
     "abstract": "Whether and why humans pass on received kindness to unrelated others is crucial for understanding cooperation between strangers. The existing evidence on ‘paying forward’ can be explained in two ways. It may be ‘hard-wired’ or based on imitation. This study examines these channels in a field experiment by observing whether customers who are complimented at a supermarket checkout are more likely to donate to charity later. The study provides the first causal evidence from the field that humans who are treated kindly are significantly kinder to unrelated others without directly imitating behavior.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "人类是否会以及为何会将受到的善意传递给无关联的他人，对于理解陌生人之间的合作至关重要。现有关于“传递善意”的证据可从两种方式解释：它可能是“硬连线”的，也可能是基于模仿的。本研究通过一项田野实验检验这些渠道，观察在超市结账时受到赞美的顾客之后是否更有可能向慈善机构捐款。该研究提供了来自田野的首个因果证据，表明受到友善对待的人会显著地对无关联的他人更友善，且并非通过直接模仿行为。",
     "accepted_date": null,
@@ -1212,6 +1279,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
@@ -1366,7 +1440,7 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
+    "source_issue": "Energy Policy, Volume 220",
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "Innovativeness and social acceptance of wind energy: Behavioural heterogeneity and policy implications from a choice experiment",
@@ -1451,7 +1525,7 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
+    "source_issue": "Energy Policy, Volume 220",
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "Dual-path clean cooking sustainability in Uganda: Multi-criteria analysis and policy insights (2024 – 2050)",
@@ -1520,6 +1594,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-12",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0264999326004116",
@@ -1542,10 +1623,10 @@
     "_restored_from_backflow": "2026-10-13",
     "_status": "rate_limited",
     "_status_code": 429,
-    "abstract": "Can place-based incentives for physical investment strengthen inventive activity in lagging regions? This paper studies Italy’s Mezzogiorno investment tax credit, which subsidised new machinery, plant, and equipment in eligible Southern provinces during 2016–2019. Combining European Patent Office data for 91 Italian provinces over 1980–2019 with a Difference-in-Differences (DiD) framework, the results indicate that the policy increased forward-citation-weighted patenting by 52.5%. Synthetic-DiD and propensity-score-matched DiD yield closely similar estimates. By contrast, unweighted patenting and inventors per capita did not increase reliably. This contrast suggests that the credit raised the technological influence of inventive activity among existing inventive actors rather than broadening the regional inventive base. The estimated response was concentrated in selected technological domains, while point estimates were generally larger in structurally weaker provinces; higher capital intensity and stronger interregional co-invention accompanied these gains. These findings suggest that place-based investment incentives can support technological upgrading of inventive activity in lagging regions, while broader regional innovation-system development requires complementary policies for skills, research capacity, and intangible investment.",
+    "abstract": "This dataset contains the replication materials for the article “Place-Based Investment Incentives and Technological Upgrading in Lagging EU Regions: Province-Level Evidence on Inventive Activity from Italy’s Mezzogiorno”, submitted to Economic Modelling. The study evaluates the effects of Italy’s investment tax credit for the Mezzogiorno on regional inventive activity over 2016–2019 using a long province-level panel and a range of Difference-in-Differences, Synthetic DiD, matching, event-study, heterogeneity, robustness, and falsification analyses. The repository includes Stata code and analysis-ready data needed to reproduce the full empirical workflow for all numbered tables and figures in the article and appendix. The main province-level dataset covers 91 harmonised Italian NUTS-3 provinces over 1980–2019. Additional datasets support technological-field and Pavitt-class heterogeneity, interregional inventor-collaboration analysis, applicant-based patent regionalisation, citation-normalisation checks, cohesion-policy robustness, and placebo exercises. The principal patent and inventor measures are derived from the European Patent Office PATSTAT® database. Because the original PATSTAT data are subject to licensing restrictions and cannot be redistributed, the repository provides synthetic replacements for PATSTAT-derived variables. These synthetic files preserve the identifiers, panel structure, variable names, and relevant distributional characteristics required to execute the replication code, but they are not intended to reproduce the published patent-based numerical estimates exactly. Exact replication of those results requires authorised access to the original PATSTAT data. The cohesion-policy robustness analysis likewise uses a synthetic province-level replacement for the OpenCoesione-based exposure measure because the underlying data used in the study are not freely available for redistribution. The repository is organised into Raw Data, Analysis Data, and Output folders, together with a master Stata script and individual do-files for data construction, descriptive statistics, main estimates, event studies, heterogeneity analysis, production-side and collaboration results, and appendix robustness and placebo tests. Running the master do-file executes the full public replication workflow in sequence.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "针对实体投资的地方性激励能否增强落后地区的发明活动？本文研究意大利的“南方投资税收抵免”政策，该政策在2016—2019年间对符合条件的南部省份的新机器、厂房和设备投资给予补贴。本文结合1980—2019年意大利91个省份的欧洲专利局数据与双重差分（DiD）框架，结果表明，该政策使经前向引用加权的专利产出提高了52.5%。合成双重差分（Synthetic-DiD）与倾向得分匹配双重差分（propensity-score-matched DiD）得到的估计结果高度接近。相比之下，未加权专利产出和人均发明人数量并未可靠增加。这一对比表明，该税收抵免提升了既有发明主体发明活动的技术影响力，而非拓宽了区域发明基础。估计出的响应集中在特定技术领域，而点估计在结构性较弱的省份通常更大；更高的资本密集度和更强的跨区域共同发明伴随这些收益出现。这些发现表明，地方性投资激励能够支持落后地区发明活动的技术升级，而更广泛的区域创新体系发展则需要针对技能、研究能力和无形投资的配套政策。",
     "accepted_date": null,
@@ -1591,6 +1672,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-12",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-29",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-09-29",
+          "source": "openalex"
         }
       ],
       "pii": "S026499932600413X",
@@ -1673,6 +1761,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-12",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0264999326004220",
@@ -1694,10 +1789,10 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-13",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1713,7 +1808,7 @@
     "available_online": "2026-10-12",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "corrigendum-to-information-nudges-for-environmentally-sustainable-food-choices-a-meta-an-eaed3d512b8c",
     "detected_at": "2026-10-12T16:33:44+00:00",
     "doi": "10.1016/j.foodpol.2026.103202",
@@ -1750,6 +1845,13 @@
         },
         {
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-12",
+          "source": "openalex"
         }
       ],
       "pii": "S0306919226001715",
@@ -2271,7 +2373,7 @@
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Energy Policy, Volume 220",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Geopolitical energy shocks and consumer protection under fiscal constraints",
@@ -2285,7 +2387,7 @@
     "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -2304,7 +2406,7 @@
     "available_online": "2026-10-12",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "modeling-tensions-and-tradeoffs-in-community-responses-to-large-scale-solar-development-54f3689617fc",
     "detected_at": "2026-10-12T12:07:57+00:00",
     "doi": "10.1016/j.enpol.2026.115660",
@@ -2342,11 +2444,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-12",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Energy Policy, Volume 220",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Modeling tensions and tradeoffs in community responses to large scale solar development in rural Georgia",
@@ -2405,6 +2514,9 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "source": "openalex"
         }
       ]
     },
@@ -2491,7 +2603,7 @@
     "abstract": "Recent microcredit field experiments document low microcredit uptake and heterogeneous treatment effects. We posit the risk preference of households as a possible explanation. In a randomized field experiment in Bangladesh, we find that, in response to a microcredit intervention, household risk preference is significantly associated with microcredit uptake and its outcomes. Households with a more risk-seeking attitude are more likely to take microcredit, rent more land under fixed-rental contracts than share-cropping, adopt more technology, and expand businesses; these responses are accompanied by higher total income. In contrast, risk-averse households did not show such gains. Our results suggest that risk preference is an important dimension of heterogeneity in microcredit uptake and responses to the intervention.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "近期的微型信贷田野实验记录了微型信贷采纳率低以及处理效应异质性。我们提出家庭风险偏好作为一种可能的解释。在孟加拉国的一项随机田野实验中，我们发现，在应对微型信贷干预时，家庭风险偏好与微型信贷采纳及其结果显著相关。风险偏好更强的家庭更可能接受微型信贷，以固定租金契约而非分成契约租入更多土地，采用更多技术，并扩展业务；这些反应伴随着更高的总收入。相比之下，风险规避型家庭未表现出此类收益。我们的结果表明，风险偏好是微型信贷采纳及对干预反应中异质性的一个重要维度。",
     "accepted_date": null,
@@ -2505,7 +2617,7 @@
     "available_online": "2026-10-12",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "risk-preference-investment-decision-and-household-welfare-evidence-from-a-microcredit-ex-a18513b291c0",
     "detected_at": "2026-10-12T12:02:31+00:00",
     "doi": "10.1016/j.jebo.2026.107790",
@@ -2543,6 +2655,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-12",
+          "source": "openalex"
         }
       ]
     },
@@ -2690,6 +2809,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
@@ -2916,7 +3042,7 @@
     "abstract": "We develop a complete-market production economy in which heterogeneous beliefs about productivity growth affect both asset prices and real activity. Firms must hire workers before productivity is realized, so operating leverage increases the exposure of profits to productivity risk. Because the firm’s discount factor depends on a wealth-weighted aggregation of investor beliefs, shifts in optimism compress risk premia and raise employment, while reversals trigger contractions. This mechanism generates an equilibrium feedback between asset prices, hiring, and risk exposure. A taxonomy of belief systems shows that only extrapolative beliefs produce amplification and endogenous risk build-up. Disciplined by survey expectations, the model jointly matches key asset-pricing, trading-volume, and business-cycle moments.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "我们构建了一个完全市场的生产经济模型，其中关于生产率增长异质信念同时影响资产价格和实际经济活动。企业必须在生产率实现之前雇佣工人，因此经营杠杆增加了利润对生产率风险的暴露。由于企业的贴现因子取决于投资者信念的财富加权聚合，乐观情绪的变动会压缩风险溢价并提高就业，而乐观情绪的反转则引发收缩。这一机制在资产价格、雇佣和风险暴露之间产生了均衡反馈。对信念体系的分类表明，只有外推性信念才会产生放大效应和内生风险积累。在调查预期的约束下，该模型能够同时匹配关键的资产定价、交易量和商业周期特征。",
     "accepted_date": null,
@@ -2964,6 +3090,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-12",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-12",
+          "source": "openalex"
         }
       ]
     },
