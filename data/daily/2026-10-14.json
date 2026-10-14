@@ -17,8 +17,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-14",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "the-1966-special-issue-of-the-qje-on-capital-theory-and-reswitching-a-view-from-the-arch-4bb882c57837",
     "detected_at": "2026-10-14T09:43:38+00:00",
     "doi": "10.1016/j.strueco.2026.10.005",
@@ -72,11 +72,12 @@
     "url": "https://doi.org/10.1016/j.strueco.2026.10.005"
   },
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -155,8 +156,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-14",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "on-utility-functions-for-money-3c3e892e0e3c",
     "detected_at": "2026-10-14T09:41:30+00:00",
     "doi": "10.1016/j.econlet.2026.113313",
@@ -276,7 +277,7 @@
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Land Use Policy, Volume 172",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Behavioural limits of market-led flood-risk allocation: Loss normalisation, investment discounting and planning-led land-use governance in urban China",
@@ -351,10 +352,11 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -484,7 +486,7 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
+    "source_issue": "Land Use Policy, Volume 172",
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "From rules to learning: A GIS-integrated agent-based reinforcement learning framework for simulating farmers’ land-use decisions and sustainable policy design",
@@ -630,5 +632,69 @@
     "title_zh": null,
     "translation_status": "missing_abstract",
     "url": "https://doi.org/10.1007/s00355-026-01680-8"
+  },
+  {
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
+    "abstract": "We show that leading investor disagreement proxies have near-zero cross-correlation – making disagreement pricing inferences challenging. We develop a frictionless model that generates overpricing from latent disagreement, jointly rationalizes major proxies, and generates new testable predictions. Equilibrium interrelationships motivate a new disagreement measure, DIS, which is more predictive of returns cross-sectionally than major proxies and more consistently predictive across macroeconomic regimes. We provide evidence that the friction-based channel of Miller (1977) and a frictionless mechanism coexist and are empirically separable. DIS also provides a micro-founded, disagreement-based account of the IVOL puzzle, absorbing IVOL’s predictability while revealing its regime and friction dependence.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Christian L. Goulding",
+      "Campbell R. Harvey",
+      "Hrvoje Kurtović"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-14",
+    "china_relevance_status": "none",
+    "date_confidence": "F",
+    "date_source": "sciencedirect_api_load_date",
+    "detail_key": "disagreement-of-disagreement-804814d32fcd",
+    "detected_at": "2026-10-14T10:34:03+00:00",
+    "doi": "10.1016/j.jfineco.2026.104379",
+    "fields": [
+      "finance"
+    ],
+    "first_seen": "2026-10-14T10:34:03+00:00",
+    "id": "doi:10.1016/j.jfineco.2026.104379",
+    "identity_aliases": [
+      "10.1016/j.jfineco.2026.104379",
+      "disagreement-of-disagreement-804814d32fcd",
+      "https://www.sciencedirect.com/science/article/pii/S0304405X26001509?dgcid=api_sd_search-api-endpoint"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Financial Economics",
+    "journal_id": "journal-of-financial-economics",
+    "journal_short": "JFE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": null,
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0304405X26001509",
+      "sciencedirect_api_load_date": "2026-10-14T00:00:00.000Z",
+      "sciencedirect_search_issn": "0304-405X",
+      "sciencedirect_search_journal": "Journal of Financial Economics",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Disagreement of disagreement",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0304405X26001509?dgcid=api_sd_search-api-endpoint"
   }
 ]

@@ -2,22 +2,22 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-14T17:50:56.752332+08:00",
+  "checked_at": "2026-10-14T18:44:11.897644+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 10",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
+      "sample_error": "attempted=16; 2026-10-14 Applied Economics: abstract-route-missing; 2026-10-14 Applied Economics: abstract-route-missing; seen Applied Economic Perspectives and Policy: abstract-present; 2026-10-14 St",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 68 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 69 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -38,10 +38,10 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: crossref fallback 4; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/spring",
+      "sample_error": "social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfare/springer_online_first: crossref fallback 7; review-of-economic-studies/restud_official_accepted: 6; journal-o",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "needs_investigation",
+      "status_source": "publisher-detail",
       "usable_paths": [
         "crossref",
         "openalex-recall"
