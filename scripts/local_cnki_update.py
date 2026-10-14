@@ -355,7 +355,7 @@ def main() -> None:
         # Enrichment can contribute publisher dates; normalize once more so
         # a malformed upstream label cannot reach the release gate or canonical data.
         run_step([python, "scripts/normalize_records.py"])
-        run_step([python, "scripts/enrich_china_relevance.py", "--all"])
+        # #371: repair proven 2026-10-12 original observation times after\n        # normalization and before release/publish, in this same local writer.\n        run_step([python, "scripts/reconcile_cnki_first_seen_371.py"])\n        run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         # Regenerate the upstream missing-abstract list so the local supplement
         # keeps it consistent with the just-updated daily/seen data.
         run_step([python, "scripts/build_upstream_missing_abstracts.py"])
