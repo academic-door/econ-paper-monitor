@@ -36,21 +36,33 @@ def _fixture(tmp_path: Path):
         }
         seen["papers"][key] = dict(record)
         by_date[pub_date].append(dict(record))
-    original_older = {
-        "id": "url:preexisting-slJY",
-        "journal": recovery.SLJY,
-        "title": "全国统一大市场发展进程的再测度",
-        "source": "cnki-rss",
-        "available_online": "2026-10-12",
-        "first_seen": "2026-10-12T04:10:51+00:00",
-        "detected_at": "2026-10-12T04:10:51+00:00",
-    }
-    seen["papers"][original_older["id"]] = dict(original_older)
-    by_date["2026-10-12"].append(dict(original_older))
+    originals = (
+        {
+            "id": "url:preexisting-slJY-market",
+            "journal": recovery.SLJY,
+            "title": "全国统一大市场发展进程的再测度",
+            "source": "cnki-rss",
+            "available_online": "2026-10-12",
+            "first_seen": "2026-10-12T04:10:51+00:00",
+            "detected_at": "2026-10-12T04:10:51+00:00",
+        },
+        {
+            "id": "url:preexisting-slJY-productivity",
+            "journal": recovery.SLJY,
+            "title": "因地制宜发展新质生产力的理论逻辑与路径范式",
+            "source": "cnki-rss",
+            "available_online": "2026-10-12",
+            "first_seen": "2026-10-12T10:11:16+00:00",
+            "detected_at": "2026-10-12T10:11:16+00:00",
+        },
+    )
+    for original in originals:
+        seen["papers"][original["id"]] = dict(original)
+        by_date["2026-10-12"].append(dict(original))
     _write(tmp_path / "seen.json", seen)
     for date, records in by_date.items():
         _write(tmp_path / "daily" / f"{date}.json", records)
-    return original_older
+    return {record["id"] for record in originals}
 
 
 def test_original_observation_restored_without_identity_date_or_other_record_mutation(tmp_path):
@@ -64,12 +76,12 @@ def test_original_observation_restored_without_identity_date_or_other_record_mut
     after_seen = json.loads((tmp_path / "seen.json").read_text(encoding="utf-8"))
     for key, previous in before_seen["papers"].items():
         now = after_seen["papers"][key]
-        if key == old["id"]:
+        if key in old:
             assert now == previous
             continue
         assert now["first_seen"] == recovery.ORIGINAL_OBSERVATION
-        assert now["detected_at"] == recovery.ORIGINAL_OBSERVATION
-        assert {k: v for k, v in now.items() if k not in {"first_seen", "detected_at"}} == {
+        assert now["detected_at"] == previous["detected_at"]
+        assert {k: v for k, v in now.items() if k != "first_seen"} == {
             k: v for k, v in previous.items() if k not in {"first_seen", "detected_at"}
         }
     for d in before_daily:
@@ -77,7 +89,8 @@ def test_original_observation_restored_without_identity_date_or_other_record_mut
         assert len(after) == len(before)
         for a, b in zip(after, before):
             assert a["id"] == b["id"]
-            assert a["first_seen"] == (b["first_seen"] if a["id"] == old["id"] else recovery.ORIGINAL_OBSERVATION)
+            assert a["first_seen"] == (b["first_seen"] if a["id"] in old else recovery.ORIGINAL_OBSERVATION)
+            assert a["detected_at"] == b["detected_at"]
             assert a["available_online"] == b["available_online"]
             assert a["date_source"] == b["date_source"] if "date_source" in b else "date_source" not in a
 
