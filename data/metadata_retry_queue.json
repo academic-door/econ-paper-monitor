@@ -1,17 +1,17 @@
 {
   "expected_metadata_gap_counts": {
     "abstract:book_review": 5,
-    "abstract:correction_notice": 6
+    "abstract:correction_notice": 4
   },
   "generated_for": "2026-10-14",
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 137,
+    "missing_abstract": 136,
     "weak_date_evidence": 496
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 555,
+  "recent_candidates_before_limit": 551,
   "recent_window_start": "2026-09-15",
   "records": [
     {
@@ -901,30 +901,6 @@
       "source_type": "journal",
       "title": "Bargaining with a buyer privately informed of the rival market.",
       "url": "https://doi.org/10.1007/s00182-026-01015-y"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jebo.2026.107797",
-      "first_seen": "2026-10-13T23:51:37+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jebo.2026.107797",
-      "journal": "Journal of Economic Behavior and Organization",
-      "official_date": "2026-10-13",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "The Effects of Hype and Social Preferences on Crypto Investing",
-      "url": "https://doi.org/10.1016/j.jebo.2026.107797"
     },
     {
       "date_confidence": "C",
@@ -3483,7 +3459,7 @@
       "url": "https://doi.org/10.1016/j.enpol.2026.115656"
     },
     {
-      "date_confidence": "F",
+      "date_confidence": "C",
       "doi": "10.1016/j.enpol.2026.115663",
       "first_seen": "2026-10-13T22:29:58+00:00",
       "historical_backfill": false,
@@ -3527,6 +3503,29 @@
       "source_type": "journal",
       "title": "Hungry [f]or public Goods? What the Scottish public Demand from an agricultural support scheme",
       "url": "https://doi.org/10.1016/j.foodpol.2026.103210"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.jebo.2026.107797",
+      "first_seen": "2026-10-13T23:51:37+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jebo.2026.107797",
+      "journal": "Journal of Economic Behavior and Organization",
+      "official_date": "2026-10-13",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The Effects of Hype and Social Preferences on Crypto Investing",
+      "url": "https://doi.org/10.1016/j.jebo.2026.107797"
     },
     {
       "date_confidence": "C",
@@ -3944,58 +3943,6 @@
       "source_type": "journal",
       "title": "Heterogeneous beliefs, asset prices, and business cycles",
       "url": "https://doi.org/10.1016/j.jfineco.2026.104382"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.landusepol.2026.108351",
-      "expected_metadata_gaps": {
-        "abstract": "correction_notice"
-      },
-      "first_seen": "2026-10-12T19:47:55+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.landusepol.2026.108351",
-      "journal": "Land Use Policy",
-      "official_date": "2026-10-12",
-      "priority": [
-        0,
-        1,
-        1,
-        2
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Corrigendum to “Clarifying overlapping land rights in semi-formal systems: The case of Mailo Tenant Lands in Uganda” [Land Use Policy 170 (2026) 108139]",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004357?dgcid=api_sd_search-api-endpoint"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.landusepol.2026.108363",
-      "expected_metadata_gaps": {
-        "abstract": "correction_notice"
-      },
-      "first_seen": "2026-10-12T19:47:55+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.landusepol.2026.108363",
-      "journal": "Land Use Policy",
-      "official_date": "2026-10-12",
-      "priority": [
-        0,
-        1,
-        1,
-        2
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Corrigendum to “Advocacy and credibility of land tenure in Ethiopia: Mitigating conflicts and threats” [Land Use Policy 147 (2024) 107265]",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004473?dgcid=api_sd_search-api-endpoint"
     },
     {
       "date_confidence": "C",
@@ -5175,52 +5122,6 @@
       "source_type": "journal",
       "title": "Massive Open Online Courses and Labor Market Outcomes: Evidence from Colombia",
       "url": "https://doi.org/10.1093/ej/ueag129"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.3368/jhr.1025-14605r2",
-      "first_seen": "2026-10-08T17:24:11+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.3368/jhr.1025-14605r2",
-      "journal": "Journal of Human Resources",
-      "official_date": "2026-10-08",
-      "priority": [
-        0,
-        1,
-        1,
-        6
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Political Stressors and Birth Outcomes",
-      "url": "https://doi.org/10.3368/jhr.1025-14605r2"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.3368/jhr.1125-14631r1",
-      "first_seen": "2026-10-08T17:24:11+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.3368/jhr.1125-14631r1",
-      "journal": "Journal of Human Resources",
-      "official_date": "2026-10-08",
-      "priority": [
-        0,
-        1,
-        1,
-        6
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "The Good Daughter?",
-      "url": "https://doi.org/10.3368/jhr.1125-14631r1"
     },
     {
       "date_confidence": "C",
@@ -11679,9 +11580,101 @@
       "source_type": "journal",
       "title": "Evaluating desired outcomes of peatland management",
       "url": "https://doi.org/10.1016/j.landusepol.2026.108349"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1080/00036846.2026.2733800",
+      "first_seen": "2026-09-18T10:36:25+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2733800",
+      "journal": "Applied Economics",
+      "official_date": "2026-09-18",
+      "priority": [
+        0,
+        1,
+        1,
+        26
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "How does public data openness strengthen urban economic resilience? Evidence from Chinese cities",
+      "url": "https://doi.org/10.1080/00036846.2026.2733800"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1080/00036846.2026.2733808",
+      "first_seen": "2026-09-18T10:36:25+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2733808",
+      "journal": "Applied Economics",
+      "official_date": "2026-09-18",
+      "priority": [
+        0,
+        1,
+        1,
+        26
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Preventive health management and elderly consumption: evidence from China",
+      "url": "https://doi.org/10.1080/00036846.2026.2733808"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1080/00036846.2026.2733817",
+      "first_seen": "2026-09-18T14:20:27+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2733817",
+      "journal": "Applied Economics",
+      "official_date": "2026-09-18",
+      "priority": [
+        0,
+        1,
+        1,
+        26
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Capital-biased tax policy and the labour income share of enterprises",
+      "url": "https://doi.org/10.1080/00036846.2026.2733817"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1080/00036846.2026.2734533",
+      "first_seen": "2026-09-18T14:20:27+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2734533",
+      "journal": "Applied Economics",
+      "official_date": "2026-09-18",
+      "priority": [
+        0,
+        1,
+        1,
+        26
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Financing and production decisions of capital-constrained agricultural cooperatives under risk mitigation in China",
+      "url": "https://doi.org/10.1080/00036846.2026.2734533"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5163,
+  "total_candidates_before_limit": 5159,
   "truncated": true
 }
