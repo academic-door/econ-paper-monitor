@@ -423,6 +423,9 @@ jobs:
       - name: Final historical-record quarantine
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/clean_historical_working_papers.py
+      - name: Reconcile CNKI #371 historical first-observation evidence
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/reconcile_cnki_first_seen_371.py
       - name: Enrich China relevance
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py --all
