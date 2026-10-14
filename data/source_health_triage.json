@@ -1,14 +1,19 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 12
   },
-  "checked_at": "2026-10-14T23:01:07.900835+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-10-15T00:28:40.744192+08:00",
+  "source_health_degraded_count": 12,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 8; 世界经济: 8; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=11; Journal of Finance: error TimeoutError: The read operation timed out; Journal of Financial Economics: error TimeoutError: The read operation timed out; Review of Financial",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -37,8 +42,38 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "american-economic-journal-applied-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Journal: Applied Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "aea-toc",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "economic-development-and-cultural-change",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Economic Development and Cultural Change",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 17; review-of-economic-studies/restud_official_accepted: 6; journal-of-economic-growth/sprin",
+      "sample_error": "review-of-economic-design/springer_online_first: PARSER_FAILURE; review-of-economic-design/springer_online_first: crossref fallback 2; journal-of-economic-growth/springer_online_first: PARSER_FAILURE;",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -46,11 +81,145 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-development-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Development Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-environmental-economics-and-management",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Environmental Economics and Management",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-finance",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Finance",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-financial-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Financial Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-international-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of International Economics",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-monetary-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Monetary Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-urban-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Urban Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-economics-and-statistics",
+      "sample_error": "review-of-economic-design/springer_online_first: PARSER_FAILURE; review-of-economic-design/springer_online_first: crossref fallback 2; journal-of-economic-growth/springer_online_first: PARSER_FAILURE;",
+      "source": "Review of Economics and Statistics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "the-world-economy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "The World Economy",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
-  "total_degraded": 1
+  "total_degraded": 12
 }
