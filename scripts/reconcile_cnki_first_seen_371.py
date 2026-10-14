@@ -83,18 +83,13 @@ def reconcile(*, data_dir: Path = DATA_DIR) -> dict[str, int]:
                 changed_seen += 1
             else:
                 changed_daily += 1
-        # Only fix detected_at when it was already present. Do not synthesize
-        # missing metadata or modify source publication/issue dates.
-        if "detected_at" in paper and paper["detected_at"] != ORIGINAL_OBSERVATION:
-            paper["detected_at"] = ORIGINAL_OBSERVATION
+        # detected_at is the genuine later re-observation from recovery.
+        # Preserve it alongside the verified earlier first_seen. Never alter
+        # source publication/issue dates or unrelated metadata.
 
-    if changed_seen or any(
-        p.get("detected_at") == ORIGINAL_OBSERVATION for p, _, dest in edits if dest == "seen"
-    ):
-        # Compare with on-disk data: writing a byte-identical seen catalogue
-        # on every run causes needless 33 MB commits.
-        if seen != read_json(seen_path, {}):
-            write_json(seen_path, seen)
+    # Compare before writing: repeated runs must not create 33 MB no-op commits.
+    if seen != read_json(seen_path, {}):
+        write_json(seen_path, seen)
     for date, path in daily_paths.items():
         if daily[date] != read_json(path, []):
             write_json(path, daily[date])
