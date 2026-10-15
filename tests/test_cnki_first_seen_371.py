@@ -82,7 +82,7 @@ def test_original_observation_restored_without_identity_date_or_other_record_mut
         assert now["first_seen"] == recovery.ORIGINAL_OBSERVATION
         assert now["detected_at"] == previous["detected_at"]
         assert {k: v for k, v in now.items() if k != "first_seen"} == {
-            k: v for k, v in previous.items() if k not in {"first_seen", "detected_at"}
+            k: v for k, v in previous.items() if k != "first_seen"
         }
     for d in before_daily:
         before, after = before_daily[d], json.loads((tmp_path / "daily" / f"{d}.json").read_text(encoding="utf-8"))
