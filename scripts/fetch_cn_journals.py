@@ -58,7 +58,6 @@ AJCASS_LIST_ENDPOINTS = {
 }
 
 NOISE_TEXT = (
-    "平台",
     "数据库",
     "征文",
     "会议",
