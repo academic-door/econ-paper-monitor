@@ -7,12 +7,12 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 133,
+    "missing_abstract": 135,
     "missing_authors": 1,
     "weak_date_evidence": 498
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 558,
+  "recent_candidates_before_limit": 559,
   "recent_window_start": "2026-09-17",
   "records": [
     {
@@ -975,6 +975,54 @@
       "source_type": "journal",
       "title": "Business entertainment, anticorruption, and innovation: evidence from China",
       "url": "https://doi.org/10.1080/00036846.2026.2747852"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1086/744504",
+      "first_seen": "2026-10-15T19:06:20+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1086/744504",
+      "journal": "Journal of Political Economy",
+      "official_date": "2026-10-15",
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Closing Ranks: Organized Labor and Immigration",
+      "url": "https://doi.org/10.1086/744504"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1086/744505",
+      "first_seen": "2026-10-15T19:06:20+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1086/744505",
+      "journal": "Journal of Political Economy",
+      "official_date": "2026-10-15",
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "A Theory of Economic Coercion and Fragmentation",
+      "url": "https://doi.org/10.1086/744505"
     },
     {
       "date_confidence": "F",
@@ -4010,29 +4058,6 @@
       "source_type": "journal",
       "title": "The Efficiency vs. Pricing Accuracy Trade-Off in GMM Estimation of Multifactor Linear Asset Pricing Models",
       "url": "https://doi.org/10.1080/07350015.2026.2743244"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1111/jofi.70082",
-      "first_seen": "2026-10-14T09:00:12+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1111/jofi.70082",
-      "journal": "Journal of Finance",
-      "official_date": "2026-10-14",
-      "priority": [
-        0,
-        1,
-        1,
-        2
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Externalities of Responsible Investments",
-      "url": "https://doi.org/10.1111/jofi.70082"
     },
     {
       "date_confidence": "F",
@@ -11653,32 +11678,9 @@
       "source_type": "journal",
       "title": "Path selection of urban‑scale regulation policies in China in the new era: a perspective from utilizing positive agglomeration externalities",
       "url": "https://doi.org/10.1080/00036846.2026.2734527"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2736168",
-      "first_seen": "2026-09-21T16:27:05+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2736168",
-      "journal": "Applied Economics",
-      "official_date": "2026-09-21",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "The impact of food safety status on voluntary food safety information disclosure: evidence from Chinese listed agricultural product processing enterprises",
-      "url": "https://doi.org/10.1080/00036846.2026.2736168"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5195,
+  "total_candidates_before_limit": 5196,
   "truncated": true
 }
