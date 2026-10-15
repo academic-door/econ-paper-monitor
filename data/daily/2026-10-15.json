@@ -44,7 +44,8 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -114,7 +115,7 @@
     "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -247,7 +248,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "We assess the common ownership hypothesis (COH) in the US banking industry; our preferred estimates do not support it. Public banks offer similar deposit rates in markets where they have common shareholders with rivals and in markets where they do not. Our preferred panel regressions of deposit rates on profit weights implied by the COH yield precise zeros. Estimated effects on deposit quantities also do not support the COH.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -260,8 +261,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-15",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "assessing-the-common-ownership-hypothesis-in-the-us-banking-industry-edce95064603",
     "detected_at": "2026-10-15T14:55:28+00:00",
     "doi": "10.1016/j.ijindorg.2026.103342",
@@ -275,7 +276,7 @@
       "assessing-the-common-ownership-hypothesis-in-the-us-banking-industry-edce95064603",
       "https://www.sciencedirect.com/science/article/pii/S0167718726000949?dgcid=api_sd_search-api-endpoint"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-15",
     "journal": "International Journal of Industrial Organization",
     "journal_id": "international-journal-of-industrial-organization",
     "journal_short": "IJIO",
@@ -295,6 +296,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-15",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-15",
+          "source": "crossref-doi"
         }
       ],
       "pii": "S0167718726000949",
@@ -318,7 +326,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "Private childcare providers in Germany generally cannot be compelled to join municipal clearinghouses, so participation is a binding design constraint. Germany’s first childcare clearinghouse, KitaMatch, runs provider-proposing deferred acceptance (KDA). This paper provides a rationale for that choice based on providers’ participation incentives. Providers hold incomplete priorities, which a public ranking completes subject to provider autonomy: the ranking may resolve comparisons a provider leaves open but may not reverse its strict priorities or alter its acceptable set. Under this refinement, KDA gives each provider its best stable assignment, and its transcript of proposals and rejections certifies which top-priority families are stably enrollable. Participation is robust to any aftermarket that settles on a stable outcome, and the guarantee does not rest on the public tie-breaking.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -331,8 +339,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-15",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "participation-and-revelation-in-the-kitamatch-clearinghouse-37d89d4c28be",
     "detected_at": "2026-10-15T14:55:24+00:00",
     "doi": "10.1016/j.econlet.2026.113290",
@@ -346,7 +354,7 @@
       "https://www.sciencedirect.com/science/article/pii/S0165176526004866?dgcid=api_sd_search-api-endpoint",
       "participation-and-revelation-in-the-kitamatch-clearinghouse-37d89d4c28be"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-15",
     "journal": "Economics Letters",
     "journal_id": "economics-letters",
     "journal_short": "Letters",
@@ -366,6 +374,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-15",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-15",
+          "source": "crossref-doi"
         }
       ],
       "pii": "S0165176526004866",
@@ -387,7 +402,7 @@
     "_status_code": 429,
     "abstract": "Urban sprawl (URS) has become a major challenge to China’s sustainable development under the backdrop of rapid urbanization. Digital-real integration (DRI) provides a new pathway for urban spatial governance, yet its concrete impacts and mechanisms remain insufficiently tested. Based on panel data from 280 prefecture-level Chinese cities between 2013 and 2023, this study constructs a multidimensional DRI index and employs a partially linear double/debiased machine learning (DML) framework to estimate the effect of DRI on URS. Multiple robustness checks, including complementary instrumental-variable analyses, yield results consistent with the baseline finding. The findings show that a one-unit increase in DRI is associated with a 0.06-unit reduction in the URS index, and this conclusion holds under various robustness tests. The mechanism analysis provides evidence consistent with three potential transmission pathways: industrial structure upgrading, stronger aggregate city-level correspondence between employment opportunities and resident population, and reduced dependence on highway commuting. Further heterogeneity analysis reveals that the restraining effect of DRI is more pronounced in eastern regions, major national urban agglomerations, and cities at more advanced stages of urban development. This study not only provides empirical evidence on how digital technologies reshape urban spatial structures but also offers policy implications for implementing differentiated digital governance strategies and enhancing the effectiveness of spatial planning.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -463,7 +478,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "This study examines whether beginning farmers’ race and gender influence consumer support, measured through monetary contributions, voluntary effort, and willingness to pay for agricultural products. Using an incentivized online experiment with 1459 U.S. consumers, we exogenously manipulate the farmer’s race (White, Hispanic, and Black) and gender (male and female) on product labels. We do not detect statistically significant effects of race or gender across the three support outcomes. Overall, our findings indicate broadly similar levels of consumer support across the racial and gender groups studied, while not ruling out smaller or context-dependent forms of discrimination. These findings have implications for the economic viability of beginning farmers.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -596,7 +611,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -617,7 +632,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "business-entertainment-anticorruption-and-innovation-evidence-from-china-0a6b78542657",
     "detected_at": "2026-10-15T13:08:20+00:00",
     "doi": "10.1080/00036846.2026.2747852",
@@ -1990,9 +2005,12 @@
     "url": "https://cepr.org/voxeu/columns/small-beautiful-2050-europes-digital-economy-mesh-not-hub"
   },
   {
+    "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-16",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -2004,7 +2022,7 @@
     "available_online": "2026-10-14",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "acknowledgements-11f4c339fe73",
     "detected_at": "2026-10-15T16:07:44+00:00",
     "doi": "10.1093/jleo/ewag035",
@@ -2018,7 +2036,7 @@
       "acknowledgements-11f4c339fe73",
       "https://doi.org/10.1093/jleo/ewag035"
     ],
-    "issue_date": null,
+    "issue_date": "2026-11-01",
     "journal": "Journal of Law, Economics & Organization",
     "journal_id": "journal-of-law-economics-and-organization",
     "journal_short": "JLEO",
@@ -2027,6 +2045,18 @@
     "published_online": "2026-10-14",
     "publisher": "Oxford University Press",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-14",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-10-14",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
       "fallback": "crossref",
       "issn": "8756-6222",
       "priority_toc_kind": "oup_advance_articles"
@@ -2129,6 +2159,414 @@
     "title_zh": "政府采购能否促进“专精特新”中小企业强链塑链",
     "translation_status": "native_chinese",
     "url": "https://sjjj.magtech.com.cn/CN/Y2026/V49/I10/71"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_restored_from_backflow": "2026-10-16",
+    "_status": "not_found",
+    "abstract": "As electricity becomes more important to meet the energy needs of societies, electricity demand management is increasingly being used. Dynamic pricing, in particular, can contribute to lower consumption during peak periods. Critical peak pricing (CPP) and critical peak rebate (CPR) can be used to specifically target potentially problematic periods and reduce load. Using a very large set of data (15-minute consumption of 13,504 consumers over three winters) and a difference-in-difference (DID) approach, we show that CPP consumers achieve larger reductions than CPR consumers, and that the extent of the reduction in both cases decreases over time. We also find that CPP consumers do not shift their load and larger CPP consumers significantly reduce their consumption in non-critical peak periods. Analyzing subgroups of consumers with different average consumption levels, we also find that the size of the reduction to be heterogeneous across groups. Finally, because CPR requires a reference consumption level, compensated reductions may exceed the causal reductions estimated from the DID analysis, raising potential concerns about the cost-effectiveness and distributional implications of baseline-based rebate programs.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Debbie J. Dupuis",
+      "Pierre-Olivier Pineau",
+      "Luca Trapin"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-15",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "critical-peak-pricing-or-rebate-an-impact-analysis-in-a-cold-climate-market-ee55cb2e86f0",
+    "detected_at": "2026-10-15T16:29:43+00:00",
+    "doi": "10.1016/j.eneco.2026.109644",
+    "fields": [
+      "environmental"
+    ],
+    "first_seen": "2026-10-15T16:29:43+00:00",
+    "id": "doi:10.1016/j.eneco.2026.109644",
+    "identity_aliases": [
+      "10.1016/j.eneco.2026.109644",
+      "critical-peak-pricing-or-rebate-an-impact-analysis-in-a-cold-climate-market-ee55cb2e86f0",
+      "https://www.sciencedirect.com/science/article/pii/S0140988326005244?dgcid=api_sd_search-api-endpoint"
+    ],
+    "issue_date": null,
+    "journal": "Energy Economics",
+    "journal_id": "energy-economics",
+    "journal_short": "EnEcon",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0140988326005244",
+    "published_online": "2026-10-15",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-15",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-10-15",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0140988326005244",
+      "sciencedirect_api_load_date": "2026-10-15T00:00:00.000Z",
+      "sciencedirect_search_issn": "0140-9883",
+      "sciencedirect_search_journal": "Energy Economics",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Critical peak pricing or rebate? An impact analysis in a cold climate market",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0140988326005244?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_restored_from_backflow": "2026-10-16",
+    "_status": "not_found",
+    "abstract": "This study examines governance performance during infrastructure land acquisition and the role of institutional resilience in supporting implementation. Using survey data from 108 public-sector implementers involved in the Jakarta–Bandung High-Speed Railway project in Indonesia, the relationships among institutional resilience capacities, participatory governance, conflict-management mechanisms, and governance performance were analyzed using PLS-SEM. Learning capacity and adaptive capacity were positively related to participatory governance, while buffering capacity was positively related to conflict-management mechanisms. Participatory governance showed no direct relationship with governance performance but its indirect relationship through conflict-management mechanisms was statistically significant. Buffering capacity and adaptive capacity were positively related to governance performance, while learning capacity showed no significant relationship. The findings reveal differentiated governance roles across resilience capacities and distinguish direct capacity–performance relationships from process-based relationships involving stakeholder participation and conflict-management mechanisms. In conflict-prone land acquisition, conflict-management mechanisms emerged as an important governance process linking stakeholder participation with governance performance. The study shows how different resilience capacities support different governance functions during land-acquisition implementation.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Shanshan Lu",
+      "Yudi Azis",
+      "Rora Puspita Sari"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-15",
+    "china_relevance_status": "none",
+    "date_confidence": "F",
+    "date_source": "sciencedirect_api_load_date",
+    "detail_key": "institutional-resilience-and-land-acquisition-governance-participation-and-conflict-mana-bd8dc08950fc",
+    "detected_at": "2026-10-15T16:29:35+00:00",
+    "doi": "10.1016/j.landusepol.2026.108379",
+    "fields": [
+      "agriculture_environment_resource"
+    ],
+    "first_seen": "2026-10-15T16:29:35+00:00",
+    "id": "doi:10.1016/j.landusepol.2026.108379",
+    "identity_aliases": [
+      "10.1016/j.landusepol.2026.108379",
+      "https://www.sciencedirect.com/science/article/pii/S0264837726004631?dgcid=api_sd_search-api-endpoint",
+      "institutional-resilience-and-land-acquisition-governance-participation-and-conflict-mana-bd8dc08950fc"
+    ],
+    "issue_date": null,
+    "journal": "Land Use Policy",
+    "journal_id": "land-use-policy",
+    "journal_short": "LUP",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0264837726004631",
+    "published_online": null,
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0264837726004631",
+      "sciencedirect_api_load_date": "2026-10-15T00:00:00.000Z",
+      "sciencedirect_search_issn": "0264-8377",
+      "sciencedirect_search_journal": "Land Use Policy",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Institutional resilience and land-acquisition governance: Participation and conflict-management mechanisms in the Jakarta–Bandung High-Speed Railway project",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004631?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_restored_from_backflow": "2026-10-16",
+    "_status": "not_found",
+    "abstract": "This paper studies variation in healthcare expenditures across time and space using a model of structural transformation tailored to the healthcare sector. It addresses a key tension: cross-country and time-series data show the health spending share rising with overall consumption, suggesting an aggregate income elasticity above one, yet within countries health spending is flat across household incomes, and quasi-experimental spending responses to oil-driven income shocks rise less than one-for-one with income. The calibrated model reconciles this tension in two ways: First, health spending is equalized across incomes by the government or insurers. Second, with an own-price elasticity greater than one in absolute value, positive shocks outside healthcare such as oil income shocks generate price effects that drive the health share down. I find that rising incomes are indeed the dominant driver of healthcare spending, and that reforms that raise the productivity of the healthcare sector will drive its spending share up.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Fil Babalievsky"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-15",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "structural-transformation-towards-healthcare-4a15885be03a",
+    "detected_at": "2026-10-15T16:29:24+00:00",
+    "doi": "10.1016/j.jmoneco.2026.103998",
+    "fields": [
+      "macroeconomics"
+    ],
+    "first_seen": "2026-10-15T16:29:24+00:00",
+    "id": "doi:10.1016/j.jmoneco.2026.103998",
+    "identity_aliases": [
+      "10.1016/j.jmoneco.2026.103998",
+      "https://www.sciencedirect.com/science/article/pii/S0304393226001133?dgcid=api_sd_search-api-endpoint",
+      "structural-transformation-towards-healthcare-4a15885be03a"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Monetary Economics",
+    "journal_id": "journal-of-monetary-economics",
+    "journal_short": "JME",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0304393226001133",
+    "published_online": "2026-10-15",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-15",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-10-15",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0304393226001133",
+      "sciencedirect_api_load_date": "2026-10-15T00:00:00.000Z",
+      "sciencedirect_search_issn": "0304-3932",
+      "sciencedirect_search_journal": "Journal of Monetary Economics",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Structural transformation towards healthcare",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0304393226001133?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_restored_from_backflow": "2026-10-16",
+    "_status": "not_found",
+    "abstract": "We define and characterize love-for-variety, which measures the consumer's desire to consume more variety of goods, first for general homothetic symmetric preferences, and then for the two classes of GM-CES and the three classes of HSA/HDIA/HIIA. These five classes are pairwise-disjoint with the sole exception of CES. If we depart from CES within GM-CES, the standard CES measure of love-for-variety underestimates the true love-for-variety, potentially by a wide margin. If we depart from CES within HSA/HDIA/HIIA by introducing the 2nd law of demand, the standard CES measure overestimates the true love-for-variety. We illustrate these and other results in an Armington model of competitive trade, where countries differ in the variety of goods they produce, and we show how the ACR formula for the gains from trade needs to be modified.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Kiminori Matsuyama",
+      "Philip Ushchev"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-15",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "love-for-variety-with-an-application-to-an-armington-model-of-competitive-trade-4070885fe573",
+    "detected_at": "2026-10-15T16:29:17+00:00",
+    "doi": "10.1016/j.jinteco.2026.104345",
+    "fields": [
+      "international"
+    ],
+    "first_seen": "2026-10-15T16:29:17+00:00",
+    "id": "doi:10.1016/j.jinteco.2026.104345",
+    "identity_aliases": [
+      "10.1016/j.jinteco.2026.104345",
+      "https://www.sciencedirect.com/science/article/pii/S0022199626001352?dgcid=api_sd_search-api-endpoint",
+      "love-for-variety-with-an-application-to-an-armington-model-of-competitive-trade-4070885fe573"
+    ],
+    "issue_date": null,
+    "journal": "Journal of International Economics",
+    "journal_id": "journal-of-international-economics",
+    "journal_short": "JIE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-10-15",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0022199626001352",
+      "sciencedirect_api_load_date": "2026-10-15T00:00:00.000Z",
+      "sciencedirect_search_issn": "0022-1996",
+      "sciencedirect_search_journal": "Journal of International Economics",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Love-for-variety: with an application to an Armington model of competitive trade",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0022199626001352?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_restored_from_backflow": "2026-10-16",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "This paper studies how securitization affects asset prices and realized excess payoffs when investors hold heterogeneous beliefs. I extend the resale-option asset-pricing model of Harrison and Kreps (1978) by allowing the owner of a long-term asset to issue a finite set of asset-backed securities backed by its future cash flow. These securities are organized into tranches with different payment priorities. The no-tranching benchmark has a unique equilibrium price, but tranching can generate multiple equilibrium prices because separately priced tranches feed back into the asset’s resale value. Securitization weakly raises the equilibrium prices of the underlying asset relative to the no-tranching benchmark. Furthermore, there exists a tranching that raises the lowest equilibrium price strictly above its no-tranching level if and only if, at some state, no agent perceives a distribution of the next-period asset price in the no-tranching benchmark that first-order stochastically dominates the distributions perceived by all other agents. Tranching has ambiguous effects on individual realized excess payoffs, but the aggregate realized excess payoff is nonpositive and weakly decreases as the tranching is refined. When one agent has the finest information partition, securitization may lower some agents’ realized excess payoffs without raising anyone else’s. The results characterize how belief disagreement shapes the effect of security design on asset prices and realized payoffs.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Oliver Pardo"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-15",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "asset-value-and-securitization-under-heterogeneous-beliefs-40106e37e8f6",
+    "detected_at": "2026-10-15T16:29:12+00:00",
+    "doi": "10.1016/j.jmateco.2026.103323",
+    "fields": [
+      "theory"
+    ],
+    "first_seen": "2026-10-15T16:29:12+00:00",
+    "id": "doi:10.1016/j.jmateco.2026.103323",
+    "identity_aliases": [
+      "10.1016/j.jmateco.2026.103323",
+      "asset-value-and-securitization-under-heterogeneous-beliefs-40106e37e8f6",
+      "https://www.sciencedirect.com/science/article/pii/S0304406826001102?dgcid=api_sd_search-api-endpoint"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Mathematical Economics",
+    "journal_id": "journal-of-mathematical-economics",
+    "journal_short": "JMathE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0304406826001102",
+    "published_online": "2026-10-15",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-15",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-10-15",
+          "source": "elsevier-article-api"
+        }
+      ],
+      "pii": "S0304406826001102",
+      "sciencedirect_api_load_date": "2026-10-15T00:00:00.000Z",
+      "sciencedirect_search_issn": "0304-4068",
+      "sciencedirect_search_journal": "Journal of Mathematical Economics",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Asset value and securitization under heterogeneous beliefs",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0304406826001102?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_restored_from_backflow": "2026-10-16",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "We experimentally examine how social information about a reference group’s honesty and generosity affects prosocial behavior, by recipients’ and reference groups’ genders. We vary reference-group gender (men, women, or unspecified) and majority behavior (80% or 20% prosocial). Women exhibit opportunistic conformity: non-prosocial majorities reduce their prosociality, whereas prosocial majorities have negligible effects, regardless of reference-group gender. Men increase prosociality for female reference groups irrespective of majority behavior, suggesting a desire to outcompete women. For male or unspecified groups, men adjust insignificantly toward the majority, though prosocial and non-prosocial treatments differ significantly. Thus, whose behavior matters depends on who receives it.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Haimanti Bhattacharya",
+      "Subhasish Dugar"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-15",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "whose-behavior-matters-gender-and-responses-to-social-information-on-honesty-and-generos-827f299fab6d",
+    "detected_at": "2026-10-15T16:29:09+00:00",
+    "doi": "10.1016/j.econlet.2026.113301",
+    "fields": [
+      "general"
+    ],
+    "first_seen": "2026-10-15T16:29:09+00:00",
+    "id": "doi:10.1016/j.econlet.2026.113301",
+    "identity_aliases": [
+      "10.1016/j.econlet.2026.113301",
+      "https://www.sciencedirect.com/science/article/pii/S0165176526004970?dgcid=api_sd_search-api-endpoint",
+      "whose-behavior-matters-gender-and-responses-to-social-information-on-honesty-and-generos-827f299fab6d"
+    ],
+    "issue_date": null,
+    "journal": "Economics Letters",
+    "journal_id": "economics-letters",
+    "journal_short": "Letters",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-10-15",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0165176526004970",
+      "sciencedirect_api_load_date": "2026-10-15T00:00:00.000Z",
+      "sciencedirect_search_issn": "0165-1765",
+      "sciencedirect_search_journal": "Economics Letters",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Whose behavior matters? Gender and responses to social information on honesty and generosity",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0165176526004970?dgcid=api_sd_search-api-endpoint"
   },
   {
     "abstract": "We study contests in which players privately choose when to exert costly effort toward a random success. A designer who values total effort and at least one success chooses how to allocate a fixed prize and what feedback to provide. The optimal design is a “weighted egalitarian” contest, which resembles a raffle. The designer withholds feedback during an early phase, then reveals successes immediately thereafter. Players work continuously during the early phase, then continue only until success during the late one. Those succeeding early receive more raffle tickets, and hence a higher probability of winning, than those succeeding later.",
