@@ -17,8 +17,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-16",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "does-monetary-policy-affect-labor-income-inequality-evidence-from-state-dependent-transm-cf9d6f9c02aa",
     "detected_at": "2026-10-16T09:07:14+00:00",
     "doi": "10.1016/j.econmod.2026.107902",
@@ -92,8 +92,8 @@
     "available_online": "2026-10-16",
     "china_relevance_reason": "摘要仅出现一次中国相关表述，需确认中国是否为核心研究对象",
     "china_relevance_status": "candidate",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "when-meritocracy-fails-college-expansion-and-the-rise-of-intergenerational-persistence-be741dc0e889",
     "detected_at": "2026-10-16T09:06:35+00:00",
     "doi": "10.1016/j.red.2026.101369",
@@ -315,8 +315,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-15",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_confidence": "A",
+    "date_source": "publisher_published_online",
     "detail_key": "generalizing-the-pareto-principle-with-endogenous-populations-b1671e6f7b33",
     "detected_at": "2026-10-16T05:41:21+00:00",
     "doi": "10.1007/s00199-026-01757-6",
@@ -417,5 +417,73 @@
     "title_zh": null,
     "translation_status": "missing_abstract",
     "url": "https://doi.org/10.1007/s00199-026-01751-y"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "We study the welfare effects of removing explicit and implicit fossil fuel subsidies, the latter via corrective pricing of local air pollution. We map a multi-region general-equilibrium model with global supply chains to granular data on subsidies, marginal external costs, and national income and product accounts. On average, unilateral subsidy removal raises a country’s welfare by 3.2%, generates revenues equal to 3.1% of consumption, and lowers the carbon price needed for Paris targets by 46%. Non-market gains exceed market losses in most countries. Local air pollution pricing drives 97% of net benefits; removing explicit subsidies alone has minor effects on welfare and emissions. A quarter of countries would already reach their Paris climate target, making additional carbon pricing redundant. Combining subsidy removal with carbon pricing dominates carbon pricing alone everywhere. Global multilateral subsidy removal cuts emissions by 27.4% and raises global welfare, excluding climate benefits, by 2.3%. Corrective fossil fuel taxation can align economic, fiscal, and climate goals. (JEL C68, H23, Q43, Q58)",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Tim Kalmey",
+      "Sebastian Rausch",
+      "Jan Schneider"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-16",
+    "china_relevance_status": "none",
+    "date_confidence": "F",
+    "date_source": "sciencedirect_api_load_date",
+    "detail_key": "the-welfare-effects-of-explicit-and-implicit-subsidies-on-fossil-fuels-a45795d8a5ea",
+    "detected_at": "2026-10-16T10:29:52+00:00",
+    "doi": "10.1016/j.jpubeco.2026.105804",
+    "fields": [
+      "public_political"
+    ],
+    "first_seen": "2026-10-16T10:29:52+00:00",
+    "id": "doi:10.1016/j.jpubeco.2026.105804",
+    "identity_aliases": [
+      "10.1016/j.jpubeco.2026.105804",
+      "https://www.sciencedirect.com/science/article/pii/S0047272726002409?dgcid=api_sd_search-api-endpoint",
+      "the-welfare-effects-of-explicit-and-implicit-subsidies-on-fossil-fuels-a45795d8a5ea"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Public Economics",
+    "journal_id": "journal-of-public-economics",
+    "journal_short": "JPubE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0047272726002409",
+    "published_online": null,
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0047272726002409",
+      "sciencedirect_api_load_date": "2026-10-16T00:00:00.000Z",
+      "sciencedirect_search_issn": "0047-2727",
+      "sciencedirect_search_journal": "Journal of Public Economics",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "The welfare effects of explicit and implicit subsidies on fossil fuels",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0047272726002409?dgcid=api_sd_search-api-endpoint"
   }
 ]
