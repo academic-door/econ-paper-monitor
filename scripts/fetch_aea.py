@@ -253,8 +253,8 @@ def main() -> None:
     parser.add_argument("--detail-limit", type=int, default=8)
     parser.add_argument("--max-items-per-journal", type=int, default=30)
     parser.add_argument(
-        "--budget-seconds", type=int, default=0,
-        help="Cooperative wall-clock ceiling below the workflow's hard timeout (0 disables).",
+        "--budget-seconds", type=int, default=260,
+        help="Cooperative wall-clock ceiling below workflow hard timeout (0 disables; default full/update 260s).",
     )
     args = parser.parse_args()
     if args.budget_seconds < 0:
