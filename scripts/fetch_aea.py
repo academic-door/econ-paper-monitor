@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import html
 import re
+import time
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -162,7 +163,22 @@ def enrich_article(url: str, fallback_title: str, timeout: int) -> dict[str, obj
     }
 
 
-def fetch_journal(journal: dict, code: str, *, timeout: int, detail_limit: int, max_items: int) -> tuple[list[dict], list[str]]:
+def bounded_timeout(timeout: int, deadline: float | None) -> int:
+    """Never start an HTTP call that could cross the overall AEA time budget."""
+    if deadline is None:
+        return timeout
+    return max(0, min(timeout, int(deadline - time.monotonic())))
+
+
+def fetch_journal(
+    journal: dict,
+    code: str,
+    *,
+    timeout: int,
+    detail_limit: int,
+    max_items: int,
+    deadline: float | None = None,
+) -> tuple[list[dict], list[str]]:
     records: list[dict] = []
     errors: list[str] = []
     pages = [
@@ -171,8 +187,12 @@ def fetch_journal(journal: dict, code: str, *, timeout: int, detail_limit: int, 
     ]
     seen_urls: set[str] = set()
     for page_kind, page_url in pages:
+        request_timeout = bounded_timeout(timeout, deadline)
+        if not request_timeout:
+            errors.append(f"{page_kind}: BUDGET_EXHAUSTED (not observed)")
+            continue
         try:
-            html_text = fetch_text(page_url, timeout=timeout)
+            html_text = fetch_text(page_url, timeout=request_timeout)
         except Exception as exc:
             errors.append(f"{page_kind}: {type(exc).__name__}: {exc}")
             continue
@@ -181,7 +201,13 @@ def fetch_journal(journal: dict, code: str, *, timeout: int, detail_limit: int, 
             if url in seen_urls:
                 continue
             seen_urls.add(url)
-            detail = enrich_article(url, title, timeout) if len(records) < detail_limit else {"title": title}
+            detail = {"title": title}
+            if len(records) < detail_limit:
+                detail_timeout = bounded_timeout(timeout, deadline)
+                if detail_timeout:
+                    detail = enrich_article(url, title, detail_timeout)
+                else:
+                    errors.append(f"{page_kind}: DETAIL_BUDGET_EXHAUSTED (metadata not observed)")
             doi = detail.get("doi") if isinstance(detail.get("doi"), str) else doi_from_article_url(url)
             records.append(
                 article_record(
@@ -212,6 +238,8 @@ def journal_status_entry(records: list[dict], errors: list[str]) -> dict[str, ob
         "ok": bool(records) or not errors,
         "count": len(records),
         "message": "; ".join(errors) if errors else "ok",
+        # Source transport or partial records never establish official roster parity.
+        "roster_verification": "VERIFICATION_DUE" if errors else "NOT_RECONCILED",
     }
 
 
@@ -224,12 +252,21 @@ def main() -> None:
     parser.add_argument("--timeout", type=int, default=15)
     parser.add_argument("--detail-limit", type=int, default=8)
     parser.add_argument("--max-items-per-journal", type=int, default=30)
+    parser.add_argument(
+        "--budget-seconds", type=int, default=260,
+        help="Cooperative wall-clock ceiling below workflow hard timeout (0 disables; default full/update 260s).",
+    )
     args = parser.parse_args()
+    if args.budget_seconds < 0:
+        parser.error("--budget-seconds must be nonnegative")
+    deadline = time.monotonic() + args.budget_seconds if args.budget_seconds else None
 
     output = args.output or DATA_DIR / "raw" / "aea" / f"{today_str()}.json"
     run_date = today_str()
     snapshot_payload = read_json(SNAPSHOT_PATH, {"journals": {}})
-    snapshot = snapshot_payload.get("journals") if isinstance(snapshot_payload, dict) else None
+    if not isinstance(snapshot_payload, dict):
+        snapshot_payload = {"journals": {}}
+    snapshot = snapshot_payload.get("journals")
     if not isinstance(snapshot, dict):
         snapshot = {}
     promotions = sentinel_promotions(SENTINEL_PATH, run_date)
@@ -241,18 +278,33 @@ def main() -> None:
     if args.only:
         selected = {value.strip() for value in args.only.split(",") if value.strip()}
         journals = [journal for journal in journals if str(journal.get("id") or "") in selected]
-    for journal in journals:
+    # Round-robin starts ensure one slow journal cannot starve later official sources.
+    start_index = int(snapshot_payload.get("next_journal_index") or 0) % len(journals) if journals else 0
+    journals = journals[start_index:] + journals[:start_index]
+    resume_index = None
+    observed_any = False
+    for position, journal in enumerate(journals):
         code = AEA_CODES.get(str(journal.get("id") or ""))
         if not code:
             continue
-        fetched, errors = fetch_journal(
-            journal,
-            code,
-            timeout=args.timeout,
-            detail_limit=args.detail_limit,
-            max_items=args.max_items_per_journal,
-        )
-        annotate_snapshot_records(fetched, str(journal.get("id") or ""), snapshot, promotions)
+        if deadline is not None and bounded_timeout(args.timeout, deadline) == 0:
+            fetched, errors = [], ["not_attempted: BUDGET_EXHAUSTED (not observed)"]
+        else:
+            fetched, errors = fetch_journal(
+                journal,
+                code,
+                timeout=args.timeout,
+                detail_limit=args.detail_limit,
+                max_items=args.max_items_per_journal,
+                deadline=deadline,
+            )
+        if resume_index is None and any("BUDGET_EXHAUSTED" in error for error in errors):
+            resume_index = (start_index + position) % len(journals)
+        # An unattempted/failed source must not be silently initialized as
+        # an observed baseline or advance the last-valid snapshot timestamp.
+        if fetched or not errors:
+            annotate_snapshot_records(fetched, str(journal.get("id") or ""), snapshot, promotions)
+            observed_any = True
         records.extend(fetched)
         journal_id = str(journal.get("id") or "")
         journal_status[journal_id] = journal_status_entry(fetched, errors)
@@ -263,7 +315,14 @@ def main() -> None:
             messages.append(f"{journal.get('id')}: {len(fetched)}")
 
     write_json(output, records)
-    write_json(SNAPSHOT_PATH, {"updated_at": now_iso(), "journals": snapshot})
+    # Only actually observed identities enter the snapshot; skipped journals
+    # remain unverified. Retrying begins with the first budget-limited journal.
+    next_index = resume_index if resume_index is not None else ((start_index + 1) % len(journals) if journals else 0)
+    write_json(SNAPSHOT_PATH, {
+        "updated_at": now_iso() if observed_any else snapshot_payload.get("updated_at"),
+        "journals": snapshot,
+        "next_journal_index": next_index,
+    })
     record_source(
         "aea-toc",
         # A failed optional page must not turn a successful partial harvest
@@ -272,7 +331,12 @@ def main() -> None:
         ok=failures == 0 or bool(records),
         count=len(records),
         message="; ".join(messages) or str(output),
-        details={"journals": journal_status, "partial_failures": failures},
+        details={
+            "journals": journal_status,
+            "partial_failures": failures,
+            "roster_verification": "VERIFICATION_DUE" if failures else "NOT_RECONCILED",
+            "budget_seconds": args.budget_seconds,
+        },
     )
     print(f"wrote {len(records)} AEA records to {output}")
     for message in messages:

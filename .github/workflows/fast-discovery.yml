@@ -32,7 +32,7 @@ jobs:
       - name: Fetch TOP/A+ RSS feeds
         run: python scripts/fetch_rss.py --tier hourly_crossref_priority
       - name: Fetch TOP/A+ AEA TOCs
-        run: timeout 3m python scripts/fetch_aea.py --tier hourly_crossref_priority --detail-limit 4 --max-items-per-journal 20
+        run: timeout 3m python scripts/fetch_aea.py --tier hourly_crossref_priority --detail-limit 4 --max-items-per-journal 20 --budget-seconds 150
       - name: Fetch TOP/A+ priority publisher TOCs
         shell: bash
         run: |
