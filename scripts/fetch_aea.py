@@ -264,7 +264,9 @@ def main() -> None:
     output = args.output or DATA_DIR / "raw" / "aea" / f"{today_str()}.json"
     run_date = today_str()
     snapshot_payload = read_json(SNAPSHOT_PATH, {"journals": {}})
-    snapshot = snapshot_payload.get("journals") if isinstance(snapshot_payload, dict) else None
+    if not isinstance(snapshot_payload, dict):
+        snapshot_payload = {"journals": {}}
+    snapshot = snapshot_payload.get("journals")
     if not isinstance(snapshot, dict):
         snapshot = {}
     promotions = sentinel_promotions(SENTINEL_PATH, run_date)
@@ -280,6 +282,7 @@ def main() -> None:
     start_index = int(snapshot_payload.get("next_journal_index") or 0) % len(journals) if journals else 0
     journals = journals[start_index:] + journals[:start_index]
     resume_index = None
+    observed_any = False
     for position, journal in enumerate(journals):
         code = AEA_CODES.get(str(journal.get("id") or ""))
         if not code:
@@ -297,7 +300,11 @@ def main() -> None:
             )
         if resume_index is None and any("BUDGET_EXHAUSTED" in error for error in errors):
             resume_index = (start_index + position) % len(journals)
-        annotate_snapshot_records(fetched, str(journal.get("id") or ""), snapshot, promotions)
+        # An unattempted/failed source must not be silently initialized as
+        # an observed baseline or advance the last-valid snapshot timestamp.
+        if fetched or not errors:
+            annotate_snapshot_records(fetched, str(journal.get("id") or ""), snapshot, promotions)
+            observed_any = True
         records.extend(fetched)
         journal_id = str(journal.get("id") or "")
         journal_status[journal_id] = journal_status_entry(fetched, errors)
@@ -312,7 +319,7 @@ def main() -> None:
     # remain unverified. Retrying begins with the first budget-limited journal.
     next_index = resume_index if resume_index is not None else ((start_index + 1) % len(journals) if journals else 0)
     write_json(SNAPSHOT_PATH, {
-        "updated_at": now_iso(),
+        "updated_at": now_iso() if observed_any else snapshot_payload.get("updated_at"),
         "journals": snapshot,
         "next_journal_index": next_index,
     })
