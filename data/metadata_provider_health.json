@@ -1,12 +1,12 @@
 {
   "latest": {
     "candidates": 200,
-    "checked_at": "2026-10-16T10:40:53+00:00",
+    "checked_at": "2026-10-16T14:58:10+00:00",
     "providers": {
       "crossref": {
         "attempts": 150,
-        "available": 99,
-        "empty": 51,
+        "available": 94,
+        "empty": 56,
         "empty_burst": false,
         "failed": 0,
         "rate_limited": 0,
@@ -17,8 +17,8 @@
       "elsevier": {
         "api_key_configured": true,
         "attempts": 150,
-        "available": 51,
-        "empty": 99,
+        "available": 55,
+        "empty": 95,
         "empty_burst": false,
         "failed": 0,
         "inst_token_configured": true,
@@ -26,7 +26,7 @@
         "retried_after_empty": false,
         "skipped": 0,
         "statuses": {
-          "available": 51
+          "available": 55
         }
       },
       "elsevier-pii": {
@@ -41,8 +41,8 @@
       },
       "openalex": {
         "attempts": 150,
-        "available": 127,
-        "empty": 23,
+        "available": 110,
+        "empty": 40,
         "empty_burst": false,
         "failed": 0,
         "rate_limited": 0,
@@ -53,7 +53,7 @@
       "semantic-scholar": {
         "api_key_configured": true,
         "attempts": 150,
-        "available": 5,
+        "available": 4,
         "control": {
           "circuit_open": true,
           "client_target_rps": 0.2,
@@ -69,126 +69,31 @@
           "provider": "semantic-scholar",
           "provider_rate_limit_rps": 1.0,
           "rate_limited_count": 2,
-          "recent_attempts": 7,
+          "recent_attempts": 6,
           "recent_rate_limited": 2,
-          "recent_rate_limited_ratio": 0.2857,
+          "recent_rate_limited_ratio": 0.3333,
           "recent_window": 20,
           "skip_after": 20,
           "workload_class": "metadata_recovery"
         },
         "empty": 0,
         "empty_burst": false,
-        "failed": 145,
+        "failed": 146,
         "rate_limited": 2,
         "retried_after_empty": false,
-        "skipped": 143,
+        "skipped": 144,
         "statuses": {
           "rate_limited": 2,
-          "skipped_rate_limited": 143
+          "skipped_rate_limited": 144
         }
       }
     },
     "recovered": {
-      "abstract": 1,
-      "date": 58
+      "abstract": 4,
+      "date": 52
     }
   },
   "runs": [
-    {
-      "candidates": 200,
-      "checked_at": "2026-10-13T22:40:01+00:00",
-      "providers": {
-        "crossref": {
-          "attempts": 150,
-          "available": 97,
-          "empty": 53,
-          "empty_burst": false,
-          "failed": 0,
-          "rate_limited": 0,
-          "retried_after_empty": false,
-          "skipped": 0,
-          "statuses": {}
-        },
-        "elsevier": {
-          "api_key_configured": true,
-          "attempts": 150,
-          "available": 52,
-          "empty": 98,
-          "empty_burst": false,
-          "failed": 0,
-          "inst_token_configured": true,
-          "rate_limited": 0,
-          "retried_after_empty": false,
-          "skipped": 0,
-          "statuses": {
-            "available": 52
-          }
-        },
-        "elsevier-pii": {
-          "api_key_configured": true,
-          "attempts": 50,
-          "available": 50,
-          "empty": 0,
-          "failed": 0,
-          "statuses": {
-            "available": 50
-          }
-        },
-        "openalex": {
-          "attempts": 150,
-          "available": 106,
-          "empty": 44,
-          "empty_burst": false,
-          "failed": 0,
-          "rate_limited": 0,
-          "retried_after_empty": false,
-          "skipped": 0,
-          "statuses": {}
-        },
-        "semantic-scholar": {
-          "api_key_configured": true,
-          "attempts": 150,
-          "available": 16,
-          "control": {
-            "circuit_open": true,
-            "client_target_rps": 0.2,
-            "configured_concurrency": "shared_global_start_gate",
-            "consecutive_terminal_rate_limited": 1,
-            "endpoint_class": "academic_graph_paper_details",
-            "fast_trip_after_consecutive_rate_limits": 2,
-            "fast_trip_terminal_rate_limit_budget": 4,
-            "key_configured": true,
-            "keyed_max_retries": 0,
-            "last_retry_after_seconds": null,
-            "min_interval_seconds": 5.0,
-            "provider": "semantic-scholar",
-            "provider_rate_limit_rps": 1.0,
-            "rate_limited_count": 4,
-            "recent_attempts": 20,
-            "recent_rate_limited": 4,
-            "recent_rate_limited_ratio": 0.2,
-            "recent_window": 20,
-            "skip_after": 20,
-            "workload_class": "metadata_recovery"
-          },
-          "empty": 0,
-          "empty_burst": false,
-          "failed": 134,
-          "rate_limited": 4,
-          "retried_after_empty": false,
-          "skipped": 129,
-          "statuses": {
-            "not_found": 1,
-            "rate_limited": 4,
-            "skipped_rate_limited": 129
-          }
-        }
-      },
-      "recovered": {
-        "abstract": 2,
-        "date": 58
-      }
-    },
     {
       "candidates": 200,
       "checked_at": "2026-10-14T01:24:12+00:00",
@@ -1978,6 +1883,100 @@
       "recovered": {
         "abstract": 1,
         "date": 58
+      }
+    },
+    {
+      "candidates": 200,
+      "checked_at": "2026-10-16T14:58:10+00:00",
+      "providers": {
+        "crossref": {
+          "attempts": 150,
+          "available": 94,
+          "empty": 56,
+          "empty_burst": false,
+          "failed": 0,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {}
+        },
+        "elsevier": {
+          "api_key_configured": true,
+          "attempts": 150,
+          "available": 55,
+          "empty": 95,
+          "empty_burst": false,
+          "failed": 0,
+          "inst_token_configured": true,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {
+            "available": 55
+          }
+        },
+        "elsevier-pii": {
+          "api_key_configured": true,
+          "attempts": 50,
+          "available": 50,
+          "empty": 0,
+          "failed": 0,
+          "statuses": {
+            "available": 50
+          }
+        },
+        "openalex": {
+          "attempts": 150,
+          "available": 110,
+          "empty": 40,
+          "empty_burst": false,
+          "failed": 0,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {}
+        },
+        "semantic-scholar": {
+          "api_key_configured": true,
+          "attempts": 150,
+          "available": 4,
+          "control": {
+            "circuit_open": true,
+            "client_target_rps": 0.2,
+            "configured_concurrency": "shared_global_start_gate",
+            "consecutive_terminal_rate_limited": 2,
+            "endpoint_class": "academic_graph_paper_details",
+            "fast_trip_after_consecutive_rate_limits": 2,
+            "fast_trip_terminal_rate_limit_budget": 4,
+            "key_configured": true,
+            "keyed_max_retries": 0,
+            "last_retry_after_seconds": null,
+            "min_interval_seconds": 5.0,
+            "provider": "semantic-scholar",
+            "provider_rate_limit_rps": 1.0,
+            "rate_limited_count": 2,
+            "recent_attempts": 6,
+            "recent_rate_limited": 2,
+            "recent_rate_limited_ratio": 0.3333,
+            "recent_window": 20,
+            "skip_after": 20,
+            "workload_class": "metadata_recovery"
+          },
+          "empty": 0,
+          "empty_burst": false,
+          "failed": 146,
+          "rate_limited": 2,
+          "retried_after_empty": false,
+          "skipped": 144,
+          "statuses": {
+            "rate_limited": 2,
+            "skipped_rate_limited": 144
+          }
+        }
+      },
+      "recovered": {
+        "abstract": 4,
+        "date": 52
       }
     }
   ]
