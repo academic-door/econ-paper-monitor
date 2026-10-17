@@ -1,7 +1,10 @@
 [
   {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -17,7 +20,7 @@
     "available_online": "2026-10-17",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "carbon-taxes-crowd-out-low-carbon-choices-evidence-from-a-consumer-experiment-40cfb7955e1e",
     "detected_at": "2026-10-17T08:06:06+00:00",
     "doi": "10.1016/j.jebo.2026.107798",
@@ -37,10 +40,26 @@
     "journal_short": "JEBO",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0167268126003859",
     "published_online": "2026-10-17",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-10-17",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-17",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -54,6 +73,7 @@
   {
     "abstract": "Public debt is at or near record highs across the OECD, increasing the pressure on governments to restore fiscal sustainability over time. This column draws on new cross-country evidence showing that the output costs of fiscal consolidation are modest and short-lived on average, and that lasting scars are hard to detect. But averages conceal a critical asymmetry: consolidations launched in high-debt environments are markedly more contractionary, and in more than half of the episodes in the sample the debt ratio was still higher three years after consolidation. Initial fiscal conditions matter more for outcomes than the choice between spending cuts and tax increases.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
     "abstract_status_code": "available",
     "abstract_zh": "经合组织各国的公共债务正处于或接近历史高位，这加大了政府随时间推移恢复财政可持续性的压力。本专栏借鉴新的跨国证据表明，财政整顿的产出成本平均而言温和且短暂，难以发现持久性创伤。但平均值掩盖了一个关键的不对称性：在高债务环境下启动的整顿具有明显更强的紧缩效应，且在样本中超过一半的情形下，整顿三年后债务比率仍更高。初始财政状况对结果的影响大于削减支出与增税之间的选择。",
     "authors": [
@@ -99,6 +119,7 @@
   {
     "abstract": "Financial crises routinely trigger sweeping overhauls of financial regulation, but whose interests do these reforms serve? Using data on financial policies in 88 democracies between 1973 and 2015, this column shows that leaders facing a binding term limit roll back financial liberalisation roughly three times more than leaders who can run again – but only in the wake of a financial crisis. The reforms they enact tend to favour incumbent banks over the general public. The effect is concentrated in countries where revolving doors between politics and finance are common, brings post-government career benefits to policymakers, but leads to no gains in banking stability.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
     "abstract_status_code": "available",
     "abstract_zh": "金融危机 routinely 引发金融监管的全面改革，但这些改革服务于谁的利益？本文利用1973年至2015年间88个民主国家的金融政策数据表明，面临刚性任期限制的领导人逆转金融自由化的程度大约是能够竞选连任的领导人的三倍——但仅在金融危机之后。他们实施的改革往往偏向现有银行而非普通公众。这一效应集中在政治与金融之间“旋转门”现象普遍的国家，为政策制定者带来卸任后的职业收益，却未能在银行稳定性方面带来任何改善。",
     "authors": [
@@ -159,7 +180,7 @@
     "available_online": "2026-10-16",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "revisiting-the-tax-spend-nexus-in-t-rkiye-evidence-from-time-varying-granger-causality-c4d7ad6bd05b",
     "detected_at": "2026-10-17T01:41:36+00:00",
     "doi": "10.1080/00036846.2026.2750275",
@@ -192,6 +213,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-16",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-16",
+          "source": "openalex"
         }
       ],
       "fallback": "crossref",
