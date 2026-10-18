@@ -998,7 +998,13 @@ def fetch_journal(journal: dict[str, Any], url: str, limit: int) -> tuple[list[d
             return records, f"glsj-current-year-empty, {GLSJ_LAST_NOTE}"
         return records, "glsj-captcha-or-empty"
 
-    html_text = fetch_text_partial(url, timeout=25)
+    # JQTE can consume the whole 75s per-journal outer deadline after
+    # repeated HTTPS/proxy failures (four request routes times 25 seconds).
+    # Bound each route to 12s; the workflow also disables retries/details
+    # for this one source so a genuine failure is recorded and committed.
+    html_text = fetch_text_partial(
+        url, timeout=12 if journal_id == "journal-edcb877d78" else 25
+    )
     if journal_id == "journal-679eaa2a0c":
         return parse_world_economy(html_text, journal, limit), "magtech-toc"
     if journal_id == "journal-edcb877d78":
@@ -1094,9 +1100,14 @@ def main() -> None:
             records.extend(fetched)
             messages.append(f"{journal_id}: {len(fetched)} via {mode}")
             source_ok = not (
-                journal_id == "journal-379b4022ce"
-                and not fetched
-                and ("current-year-empty" not in mode or "time-budget-exhausted" in mode)
+                (
+                    journal_id == "journal-379b4022ce"
+                    and not fetched
+                    and ("current-year-empty" not in mode or "time-budget-exhausted" in mode)
+                )
+                # An empty JQTE TOC cannot establish an official member set.
+                # Keep the local CNKI supplement eligible for retry.
+                or (journal_id == "journal-edcb877d78" and not fetched)
             )
             journal_summaries.append(
                 {
@@ -1110,7 +1121,11 @@ def main() -> None:
                     "fallback": "local-cnki-rss" if not source_ok else None,
                     "fallback_status": "queued" if not source_ok else "not-needed",
                     "message": (
-                        "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source"
+                        (
+                            "official JQTE returned no verifiable issue members"
+                            if journal_id == "journal-edcb877d78"
+                            else "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source"
+                        )
                         if not source_ok
                         else f"{len(fetched)} via {mode}"
                     ),
