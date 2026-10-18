@@ -119,7 +119,7 @@ def compare_pages(homepage: str, issue_page: str) -> list[dict[str, str]]:
     issue_rows = extract_links(issue_page)
     expected = [(r["file_no"], title_key(r["title"])) for r in rows]
     observed = [(r["file_no"], title_key(r["title"])) for r in issue_rows]
-    if not observed or len(set(x[0] for x in issue_rows)) != len(issue_rows):
+    if not observed or len(set(x["file_no"] for x in issue_rows)) != len(issue_rows):
         raise ObservationBlocked("issue-list roster empty or duplicate")
     if expected != observed:
         raise ObservationBlocked("homepage / official issue-list order or member identity differs")
