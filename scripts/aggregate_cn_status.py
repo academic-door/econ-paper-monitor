@@ -25,6 +25,50 @@ def aggregate_ok(rows: list[dict[str, Any]], found_outputs: int) -> bool:
     return bool(rows) and found_outputs == len(rows) and all(bool(row.get("ok")) for row in rows)
 
 
+def journal_result_row(
+    journal_id: str,
+    journal_title: str,
+    payload: Any,
+    status_payload: Any,
+) -> dict[str, Any]:
+    """Fail closed when a per-journal process is killed before writing output.
+
+    The 75s outer timeout can leave neither JSON nor a sidecar status. Such a
+    failed source must never have fallback_status=not-needed or ok=True.
+    """
+    exists = isinstance(payload, list)
+    item = (
+        status_payload[0]
+        if isinstance(status_payload, list)
+        and status_payload
+        and isinstance(status_payload[0], dict)
+        else {}
+    )
+    source_ok = exists and bool(item) and bool(item.get("ok"))
+    if not exists:
+        detail = str(item.get("message") or "").strip()
+        message = "missing output" + (f"; {detail}" if detail else "")
+        mode = "missing-output"
+    elif not item:
+        message = "missing source-status sidecar"
+        mode = "missing-status"
+    else:
+        message = str(item.get("message") or ("ok" if source_ok else "source failed"))
+        mode = item.get("mode") or "official-source"
+    return {
+        "journal_id": journal_id,
+        "journal": journal_title,
+        "ok": source_ok,
+        "count": len(payload) if exists else 0,
+        "mode": mode,
+        "attempts": item.get("attempts", 0) if item else 0,
+        "retryable": bool(item.get("retryable")) if source_ok else True,
+        "fallback": None if source_ok else item.get("fallback") or "local-cnki-rss",
+        "fallback_status": "not-needed" if source_ok else "queued",
+        "message": message,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=today_str())
@@ -45,20 +89,13 @@ def main() -> None:
             found_outputs += 1
         count = len(payload) if exists else 0
         total += count
-        status_item = status_payload[0] if isinstance(status_payload, list) and status_payload else {}
         rows.append(
-            {
-                "journal_id": journal_id,
-                "journal": journal.get("title") or journal_id,
-                "ok": bool(status_item.get("ok")) if status_item else exists,
-                "count": count,
-                "mode": status_item.get("mode") or "official-source",
-                "attempts": status_item.get("attempts") or 1,
-                "retryable": bool(status_item.get("retryable")),
-                "fallback": status_item.get("fallback"),
-                "fallback_status": status_item.get("fallback_status") or "not-needed",
-                "message": status_item.get("message") or ("ok" if exists else "missing output"),
-            }
+            journal_result_row(
+                journal_id,
+                journal.get("title") or journal_id,
+                payload,
+                status_payload,
+            )
         )
 
     if found_outputs == 0:
