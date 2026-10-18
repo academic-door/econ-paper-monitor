@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-19T00:38:35.921582+08:00",
+  "checked_at": "2026-10-19T01:12:49.728615+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -12,12 +12,17 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Agricultural Economics: 8; Journal of the Association of Environmental and Resource Economists: 10; Land Economics: 7; Land Use Policy: 45; European Review of Agricultural ",
+      "sample_error": "partial_success failures=1; Agricultural Economics: 2; Journal of the Association of Environmental and Resource Economists: 9; Land Economics: 0; Land Use Policy: 45; European Review of Agricultural E",
       "source": "crossref"
     },
     {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
+      "source": "publisher-detail"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 69 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 69 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -50,7 +55,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
   "total_degraded": 1
 }
