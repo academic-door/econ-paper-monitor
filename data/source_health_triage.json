@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 2
   },
-  "checked_at": "2026-10-18T21:42:09.263313+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-10-18T22:01:31.332377+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,7 +12,7 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 8; Journal of Financial Economics: 11; Review of Financial Studies: 2; Journal of Development Economics: 11; Economic Development and Cultural Change: 2",
+      "sample_error": "partial_success failures=2; Agricultural Economics: 8; Journal of the Association of Environmental and Resource Economists: 11; Land Economics: 7; Land Use Policy: 45; European Review of Agricultural ",
       "source": "crossref"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 39 via official-generated; Journal of Finance: 39 via official-generated; Journal of Financial Economics: 34 via official-generated; Review of Financia",
+      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 69 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
       "source": "working-papers"
     }
   ],
@@ -43,12 +43,27 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "review-of-economic-design/springer_online_first: PARSER_FAILURE; review-of-economic-design/springer_online_first: crossref fallback 3; review-of-economic-studies/restud_official_accepted: 6; journal-o",
+      "sample_error": "social-choice-and-welfare/springer_online_first: crossref fallback 8; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_f",
       "source": "Journal of Agricultural and Resource Economics",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Behavior and Organization",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
-        "crossref",
+        "rss",
         "openalex-recall"
       ]
     }
@@ -57,5 +72,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 1
+  "total_degraded": 2
 }
