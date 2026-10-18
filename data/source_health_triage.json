@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-18T20:30:20.321595+08:00",
+  "checked_at": "2026-10-18T21:42:09.263313+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -12,13 +12,8 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=3; Journal of Finance: 8; Journal of Financial Economics: 11; Review of Financial Studies: 2; Journal of Development Economics: 11; Economic Development and Cultural Change: 2",
+      "sample_error": "partial_success failures=1; Journal of Finance: 8; Journal of Financial Economics: 11; Review of Financial Studies: 2; Journal of Development Economics: 11; Economic Development and Cultural Change: 2",
       "source": "crossref"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "journal-of-the-european-economic-association: HTTPError: HTTP Error 429: Too Many Requests; public-choice: HTTPError: HTTP Error 429: Too Many Requests; quantitative-economics: HTTPError: HTTP Error 4",
-      "source": "openalex-recall"
     },
     {
       "category": "needs_investigation",
@@ -48,18 +43,19 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
+      "sample_error": "review-of-economic-design/springer_online_first: PARSER_FAILURE; review-of-economic-design/springer_online_first: crossref fallback 3; review-of-economic-studies/restud_official_accepted: 6; journal-o",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
-        "crossref"
+        "crossref",
+        "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 7
+    "degraded_source_failures": 6
   },
   "total_degraded": 1
 }
