@@ -44,7 +44,7 @@ CN_HOME_URLS = {
     "journal-ba9f46c919": "https://erj.ajcass.com/#/",
     "journal-379b4022ce": "https://glsj.chinajournal.net.cn/WKB/WebPublication/index.aspx?mid=glsj",
     "journal-bf2aa9381f": "http://ciejournal.ajcass.com/?jumpnotice=201606280001",
-    "journal-edcb877d78": "http://www.jqte.net/sljjjsjjyj/ch/index.aspx",
+    "journal-edcb877d78": "https://www.jqte.net/sljjjsjjyj/ch/index.aspx",
 }
 
 AJCASS_JOURNAL_IDS = {
