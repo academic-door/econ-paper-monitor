@@ -2,7 +2,8 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -21,7 +22,7 @@
     "available_online": "2026-10-17",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "when-bad-news-is-good-news-implicit-government-guarantees-and-stock-price-crash-risk-019c793e6361",
     "detected_at": "2026-10-17T22:30:48+00:00",
     "doi": "10.1080/00036846.2026.2748524",
@@ -55,6 +56,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-17",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-17",
+          "source": "openalex"
         }
       ]
     },
@@ -245,8 +253,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "global-supply-chain-disruptions-and-corporate-risk-taking-evidence-from-china-1285ce7baa85",
     "detected_at": "2026-10-17T16:31:36+00:00",
     "doi": "10.1016/j.econmod.2026.107908",
@@ -668,7 +676,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -679,16 +687,16 @@
     "accepted_date": null,
     "ai_tags": [],
     "authors": [
-      "Andres Cuadros-Meñaca",
+      "Andres Cuadros‐Meñaca",
       "Shahina Amin",
       "Imam Alam",
-      "Yu (Jade) Chu"
+      "Yu Chu"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-17",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "need-for-speed-internet-access-and-women-s-employment-in-colombia-01f4729e1dbf",
     "detected_at": "2026-10-17T16:30:59+00:00",
     "doi": "10.1080/00036846.2026.2747149",
@@ -722,6 +730,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-17",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-17",
+          "source": "openalex"
         }
       ]
     },
@@ -1178,11 +1193,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1195,7 +1210,7 @@
     "available_online": "2026-10-17",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "occupational-ai-exposure-and-formal-volunteering-the-role-of-occupational-structure-3e1ba4132677",
     "detected_at": "2026-10-17T14:15:39+00:00",
     "doi": "10.1080/00036846.2026.2750283",
@@ -1228,6 +1243,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-17",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-17",
+          "source": "openalex"
         }
       ],
       "fallback": "crossref",
@@ -1266,7 +1288,7 @@
     "available_online": "2026-10-17",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "corrigendum-to-how-economic-growth-renewable-electricity-and-natural-resources-contribut-ff371e8c2b7f",
     "detected_at": "2026-10-17T13:38:36+00:00",
     "doi": "10.1016/j.enpol.2026.115665",
@@ -1303,6 +1325,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-17",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-17",
+          "source": "openalex"
         }
       ],
       "pii": "S0301421526005999",
@@ -1326,7 +1355,7 @@
     "abstract": "The emergence of artificial intelligence (AI) has heightened interest in personalizing computer assisted learning (CAL) programs to tailor their instruction to individual students. Despite the proliferation of AI-driven CAL programs, evidence for their effectiveness remains limited. We present findings from a field experiment in rural China examining whether an AI-driven personalized CAL program improves student achievement. We randomly assign 8647 students from 315 primary school classes to one of three treatment arms: (i) AI-CAL, (ii) non-personalized CAL (active control), and (iii) non-CAL educational activities (pure control). Results indicate that AI-CAL does not significantly improve achievement, with estimates precise enough to rule out non-trivial positive effects. This finding holds across the difficulty of assessment items and across the baseline achievement of students. If anything, AI-CAL might be less effective than non-personalized CAL for students in the middle tercile of baseline achievement. These findings call for caution when scaling AI-driven educational technologies.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "人工智能的出现激发了人们对个性化计算机辅助学习（CAL）项目的更大兴趣，以期根据学生个体情况调整教学。尽管人工智能驱动的CAL项目不断增多，但其有效性的证据仍然有限。我们呈现了一项在中国农村开展的实地实验研究结果，考察人工智能驱动的个性化CAL项目是否能提高学生成绩。我们将来自315个小学班级的8647名学生随机分配到三种处理组之一：（i）AI-CAL，（ii）非个性化CAL（主动对照），以及（iii）非CAL教育活动（纯对照）。结果表明，AI-CAL并未显著提高成绩，估计结果足够精确，可以排除非平凡的正向效应。这一发现适用于不同难度的评估题目以及不同基线成绩的学生。如果说有什么不同的话，对于基线成绩处于中间三分之一的学生而言，AI-CAL可能不如非个性化CAL有效。这些发现呼吁在推广人工智能驱动的教育技术时保持谨慎。",
     "accepted_date": null,
@@ -1384,6 +1413,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-17",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-17",
+          "source": "openalex"
         }
       ],
       "pii": "S0272775726000920",
@@ -1423,7 +1459,7 @@
     "available_online": "2026-10-17",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "the-role-of-immigrant-caregivers-in-improving-the-welfare-of-elders-and-reducing-public-075988f87d79",
     "detected_at": "2026-10-17T11:41:36+00:00",
     "doi": "10.1007/s00148-026-01216-5",
@@ -1460,6 +1496,13 @@
         {
           "published_online": "2026-10-17",
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-17",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-17",
+          "source": "openalex"
         }
       ],
       "fallback": "crossref",
@@ -1478,11 +1521,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1499,7 +1542,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "rural-e-commerce-village-governance-and-income-among-low-income-rural-households-evidenc-8e7b0bd57215",
     "detected_at": "2026-10-17T10:30:47+00:00",
     "doi": "10.1080/00036846.2026.2749710",
@@ -1533,6 +1576,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-17",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-17",
+          "source": "openalex"
         }
       ]
     },
@@ -1794,7 +1844,7 @@
     "_status_code": 429,
     "abstract": "Studies of the revenue-expenditure nexus support each of its four hypotheses, as does the Turkish evidence. Most assume a time-invariant causal link, which is implausible for an economy exposed to frequent macroeconomic and policy shocks. This study examines changes in the direction of causality between real tax revenues and non-interest expenditures, applying the lag-augmented recursive evolving Granger causality test to monthly Turkish general budget data over 2006M1 to 2026M4. The results reveal repeated shifts: institutional separation until 2015, interrupted by spend-and-tax in 2011 and 2012, tax-and-spend from 2015, fiscal synchronization in 2017 and 2018, spend-and-tax during the 2019 slowdown, separation during the pandemic, tax-and-spend from mid-2021 and fiscal synchronization from early 2022 onward. These episodes coincide with phases of fiscal policy, from the electoral cycles and tax amnesties of the mid-2010s to the post-earthquake consolidation. Causality from revenue to expenditure in the mid-2010s and the final synchronization survive conditioning on inflation, industrial production and the exchange rate, whereas controlling for activity largely removes the 2017–2018 synchronization. The question of which side of the budget leads therefore has no time-invariant answer in Türkiye, and the answerable question is when each side leads.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -1806,7 +1856,7 @@
     "available_online": "2026-10-16",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "revisiting-the-tax-spend-nexus-in-t-rkiye-evidence-from-time-varying-granger-causality-c4d7ad6bd05b",
     "detected_at": "2026-10-17T01:41:36+00:00",
     "doi": "10.1080/00036846.2026.2750275",
