@@ -2,13 +2,23 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-18T19:09:30.748907+08:00",
+  "checked_at": "2026-10-18T20:30:20.321595+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=3; Journal of Finance: 8; Journal of Financial Economics: 11; Review of Financial Studies: 2; Journal of Development Economics: 11; Economic Development and Cultural Change: 2",
+      "source": "crossref"
+    },
+    {
+      "category": "rate_limited",
+      "sample_error": "journal-of-the-european-economic-association: HTTPError: HTTP Error 429: Too Many Requests; public-choice: HTTPError: HTTP Error 429: Too Many Requests; quantitative-economics: HTTPError: HTTP Error 4",
+      "source": "openalex-recall"
     },
     {
       "category": "needs_investigation",
@@ -43,14 +53,13 @@
       "status_category": null,
       "status_source": null,
       "usable_paths": [
-        "crossref",
-        "openalex-recall"
+        "crossref"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 7
   },
   "total_degraded": 1
 }
