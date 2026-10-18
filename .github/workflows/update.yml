@@ -250,11 +250,22 @@ jobs:
             journal-edcb877d78
           do
             echo "Fetching Chinese journal: $JOURNAL"
+            EXTRA_ARGS=()
+            if [ "$JOURNAL" = "journal-edcb877d78" ]; then
+              # Four HTTPS/default-proxy/direct request routes are bounded
+              # to 12s each for JQTE. Avoid retries and detail enrichment
+              # overrunning the 75s outer kill before status can be written.
+              EXTRA_ARGS=(--retries 0)
+              JOURNAL_DETAIL_LIMIT=0
+            else
+              JOURNAL_DETAIL_LIMIT=${{ steps.mode.outputs.cn_detail_limit }}
+            fi
             timeout 75s python scripts/fetch_cn_journals.py \
               --tier "${{ steps.mode.outputs.tier }}" \
               --only "$JOURNAL" \
               --output "data/raw/cn/${DATE}-${JOURNAL}.json" \
-              --detail-limit ${{ steps.mode.outputs.cn_detail_limit }} \
+              --detail-limit "$JOURNAL_DETAIL_LIMIT" \
+              "${EXTRA_ARGS[@]}" \
               || echo "::warning::Chinese journal fetch timed out or failed: $JOURNAL"
           done
       # CNKI RSS is intentionally absent from the public GitHub runner.
