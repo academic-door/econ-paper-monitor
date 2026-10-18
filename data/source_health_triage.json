@@ -2,18 +2,13 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-19T01:12:49.728615+08:00",
+  "checked_at": "2026-10-19T01:50:58.312341+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Agricultural Economics: 2; Journal of the Association of Environmental and Resource Economists: 9; Land Economics: 0; Land Use Policy: 45; European Review of Agricultural E",
-      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -43,10 +38,10 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
+      "sample_error": "social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfare/springer_online_first: crossref fallback 8; international-tax-and-public-finance/springer_online_first: PARSE",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -55,7 +50,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
   "total_degraded": 1
 }
