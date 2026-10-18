@@ -1,26 +1,51 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DAILY_DATE="$(python - <<'PY'
+# The writer freezes this Beijing business date at acquisition start.
+# Re-reading the wall clock here can cross midnight and wrongly request
+# tomorrow's archive before its first scheduled producer has created it.
+DAILY_DATE="${MONITOR_RUN_DATE:-$(python - <<'PY'
 from datetime import datetime
 from zoneinfo import ZoneInfo
 print(datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d"))
 PY
-)"
+)}"
 
-python - "$DAILY_DATE" <<'PY'
+if python - "$DAILY_DATE" <<'PY'
 import json
 import sys
+from datetime import date
 from pathlib import Path
 
-path = Path("data/daily") / f"{sys.argv[1]}.json"
+value = sys.argv[1]
+try:
+    parsed = date.fromisoformat(value)
+    if parsed.isoformat() != value:
+        raise ValueError("date must be ISO YYYY-MM-DD")
+except ValueError:
+    raise SystemExit(f"invalid frozen Beijing business date: {value!r}")
+
+path = Path("data/daily") / f"{value}.json"
 if not path.exists():
-    raise SystemExit(f"canonical daily file is missing: {path}")
+    # This is not a signal that a different day's archive is today's news.
+    # Keep the previous published site unchanged and let the next natural
+    # producer try again instead of publishing a false-date homepage.
+    print(f"::warning::Daily render deferred: canonical archive missing for {value}; site unchanged.")
+    raise SystemExit(2)
 payload = json.loads(path.read_text(encoding="utf-8"))
 if not isinstance(payload, list) or any(not isinstance(item, dict) for item in payload):
     raise SystemExit(f"canonical daily file is not a list of records: {path}")
 print(f"Canonical input validated: {path} ({len(payload)} records)")
 PY
+then
+  :
+else
+  code=$?
+  if [ "$code" -eq 2 ]; then
+    exit 0
+  fi
+  exit "$code"
+fi
 
 rm -rf docs/paper-index
 python scripts/render_site.py
