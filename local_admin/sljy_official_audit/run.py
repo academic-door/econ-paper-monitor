@@ -42,9 +42,10 @@ def exclusive_lock(path: Path):
     """A process-owned file lock releases on crash; never delete a live lock."""
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a+b") as handle:
-        handle.seek(0)
-        if handle.read(1) != b"x":
-            handle.seek(0)
+        # On Windows a second handle cannot read the locked byte; inspect
+        # only the file length before attempting the nonblocking lock.
+        handle.seek(0, os.SEEK_END)
+        if handle.tell() == 0:
             handle.write(b"x")
             handle.flush()
         handle.seek(0)
