@@ -108,14 +108,14 @@ def refresh_canonical_clone(repo: Path) -> str:
         "academic-door/econ-paper-monitor"
     ):
         raise RuntimeError("audit clone remote does not match owner repository")
-    command(["git", "-C", str(repo), "fetch", "--depth=1", "--no-tags", "origin", "main"], timeout=240)
+    network_command(["git", "-C", str(repo), "fetch", "--depth=1", "--no-tags", "origin", "main"], timeout=240)
     # This reset is permitted ONLY in the dedicated disposable audit clone.
     command(["git", "-C", str(repo), "reset", "--hard", "FETCH_HEAD"], timeout=180)
     sha = command(["git", "-C", str(repo), "rev-parse", "HEAD"])
     # GitHub REST may intermittently EOF on this local network even when
     # authenticated git fetch succeeds. Verify the same remote main ref
     # through the git transport, without using a second credential lane.
-    current = command([
+    current = network_command([
         "git", "-C", str(repo), "ls-remote", "origin", "refs/heads/main",
     ], timeout=45).split()[0]
     if sha != current:
