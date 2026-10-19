@@ -136,11 +136,15 @@ def evaluate(root: Path) -> dict[str, Any]:
             capture_output=True, text=True, encoding="utf-8",
             errors="replace", timeout=150, check=False,
             cwd=str(repo),
+            env={**os.environ, "PYTHONUTF8": "1", "PYTHONIOENCODING": "utf-8"},
         )
         try:
             audit = json.loads(result.stdout)
         except json.JSONDecodeError as exc:
-            raise RuntimeError(f"auditor did not return structured evidence (exit={result.returncode})") from exc
+            raise RuntimeError(
+                f"auditor returned no JSON (exit={result.returncode}): "
+                + result.stderr.strip()[-450:]
+            ) from exc
         record["audit"] = audit
         accepted = (
             result.returncode == 0
