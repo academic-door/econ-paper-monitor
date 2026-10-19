@@ -36,6 +36,7 @@ def test_success_writes_immutable_observation_and_last_accepted(tmp_path, monkey
     assert json.loads((tmp_path / "evidence" / "last_accepted.json").read_text())["success"]
     assert len(list((tmp_path / "evidence").glob("observation-*.json"))) == 1
     assert Path(call.call_args.args[0][1]).name == "audit_sljy_official.py"
+    assert call.call_args.kwargs["env"]["PYTHONIOENCODING"] == "utf-8"
 
 
 def test_failure_keeps_last_accepted_observation_untouched(tmp_path, monkeypatch):
