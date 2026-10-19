@@ -1,7 +1,7 @@
 [
   {
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -233,7 +233,7 @@
     "available_online": "2026-10-18",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "selecting-an-intra-profile-dictator-2defc8ac6247",
     "detected_at": "2026-10-18T13:36:16+00:00",
     "doi": "10.1007/s00355-026-01683-5",
@@ -297,7 +297,7 @@
     "available_online": "2026-10-18",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "collective-ambiguity-attitude-as-response-to-individuals-ones-and-belief-disagreements-39db4420fffe",
     "detected_at": "2026-10-18T13:36:10+00:00",
     "doi": "10.1007/s00199-026-01756-7",
@@ -348,7 +348,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -366,8 +366,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-18",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "corrigendum-to-removing-the-fine-print-disclosure-standardized-products-and-consumer-out-13eec4fafd8c",
     "detected_at": "2026-10-18T11:51:01+00:00",
     "doi": "10.1016/j.jfineco.2026.104385",
@@ -470,7 +470,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "We study the interaction between monetary and macroprudential policy when banks have market power and funding costs are subject to a lower bound. In a Cournot loan market, banks lend more than a macroprudential authority’s target, and the authority can implement its target with a state-contingent capital requirement. Above the funding floor, a monetary tightening raises the target-implementing capital ratio. Below the floor, the target-implementing capital ratio becomes unresponsive to monetary policy.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -482,8 +482,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-18",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "monetary-and-macroprudential-policy-with-imperfectly-competitive-banks-4a066572e80f",
     "detected_at": "2026-10-18T22:29:25+00:00",
     "doi": "10.1016/j.econlet.2026.113307",
@@ -497,7 +497,7 @@
       "https://www.sciencedirect.com/science/article/pii/S0165176526005033?dgcid=api_sd_search-api-endpoint",
       "monetary-and-macroprudential-policy-with-imperfectly-competitive-banks-4a066572e80f"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-19",
     "journal": "Economics Letters",
     "journal_id": "economics-letters",
     "journal_short": "Letters",
@@ -517,6 +517,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-18",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-18",
+          "source": "crossref-doi"
         }
       ],
       "pii": "S0165176526005033",
