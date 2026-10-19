@@ -95,3 +95,10 @@ def test_process_lock_serializes_independent_invocations(tmp_path):
                 pass
     with runner.exclusive_lock(tmp_path / "lock"):
         pass
+
+
+def test_transient_git_failure_retries_without_loosening_transport(monkeypatch):
+    monkeypatch.setattr(runner.time, "sleep", lambda _: None)
+    with patch.object(runner, "command", side_effect=[RuntimeError("handshake unavailable"), "current-sha"]) as operation:
+        assert runner.network_command(["git", "ls-remote", "origin"], timeout=10) == "current-sha"
+    assert operation.call_count == 2
