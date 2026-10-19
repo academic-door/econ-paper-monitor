@@ -12,6 +12,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,6 +36,18 @@ def command(argv: list[str], *, timeout: int = 180) -> str:
         raise RuntimeError(f"{argv[0]} operation failed (exit={result.returncode}): "
                            + result.stderr.strip()[-400:])
     return result.stdout.strip()
+
+
+def network_command(argv: list[str], *, timeout: int) -> str:
+    """Retry a bounded number of transient GitHub network faults."""
+    for attempt in range(3):
+        try:
+            return command(argv, timeout=timeout)
+        except (RuntimeError, subprocess.TimeoutExpired):
+            if attempt == 2:
+                raise
+            time.sleep(2 * (attempt + 1))
+    raise AssertionError("unreachable")
 
 
 @contextlib.contextmanager
