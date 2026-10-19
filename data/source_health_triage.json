@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-19T12:36:09.002574+08:00",
+  "checked_at": "2026-10-19T13:48:49.582373+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -12,12 +12,12 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=4; seen 管理世界: abstract-route-missing; seen American Journal of Agricultural Economics: abstract-present; 2026-10-19 VoxEU / CEPR Columns: abstract-present; 2026-10-19 VoxEU / CEPR Columns: a",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 69 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=32/45; Journal of International Economics: 40 via official-generated; Journal of Finance: 39 via official-generated; Journal of Financial Economics: 34 via official-generated; Review of Financia",
       "source": "rss"
     },
     {
@@ -26,8 +26,13 @@
       "source": "working-paper:cepr-dp"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
+      "category": "transient_network",
+      "sample_error": "URLError: <urlopen error [Errno -3] Temporary failure in name resolution>",
+      "source": "working-paper:imf-working-papers"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=2; nber: 29 via nber-number-scan; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: URLError: <urlopen error [Errno -3] Temporary failure in name ",
       "source": "working-papers"
     }
   ],
@@ -38,7 +43,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "international-tax-and-public-finance/springer_online_first: crossref fallback 4; public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; social-",
+      "sample_error": "public-choice/springer_online_first: crossref fallback 16; economic-theory/springer_online_first: PARSER_FAILURE; economic-theory/springer_online_first: crossref fallback 15; journal-of-economic-growt",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -50,7 +55,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
   "total_degraded": 1
 }
