@@ -99,10 +99,12 @@ def refresh_canonical_clone(repo: Path) -> str:
     # This reset is permitted ONLY in the dedicated disposable audit clone.
     command(["git", "-C", str(repo), "reset", "--hard", "FETCH_HEAD"], timeout=180)
     sha = command(["git", "-C", str(repo), "rev-parse", "HEAD"])
+    # GitHub REST may intermittently EOF on this local network even when
+    # authenticated git fetch succeeds. Verify the same remote main ref
+    # through the git transport, without using a second credential lane.
     current = command([
-        "gh", "api", f"repos/{REPOSITORY}/git/ref/heads/main",
-        "--jq", ".object.sha",
-    ], timeout=25)
+        "git", "-C", str(repo), "ls-remote", "origin", "refs/heads/main",
+    ], timeout=45).split()[0]
     if sha != current:
         raise RuntimeError("main advanced while audit snapshot was refreshing; no current parity")
     if not (repo / "scripts" / "audit_sljy_official.py").is_file():
