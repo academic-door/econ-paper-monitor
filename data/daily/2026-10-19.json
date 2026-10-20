@@ -346,7 +346,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -502,7 +502,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -579,7 +579,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -1081,8 +1081,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-19",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "from-global-value-chains-to-local-jobs-exploring-fdi-induced-job-creation-in-eu-27-b270874537c2",
     "detected_at": "2026-10-19T16:36:41+00:00",
     "doi": "10.1016/j.strueco.2026.10.006",
@@ -1123,11 +1123,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Structural Change and Economic Dynamics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "From Global Value Chains to Local Jobs: Exploring FDI-induced Job Creation in EU-27",
@@ -1141,7 +1148,7 @@
     "abstract": "A seller can produce two units of a good. Each unit can be customized into one of two versions, and buyers privately learn their valuations for each version. First I consider the case when the second unit costs more to produce than the first. Under certain distributional conditions the search for the optimal mechanism can be restricted to a class where there is no uncertainty about the number of units the buyer will receive, i.e. the buyer chooses whether to get 0, 1, or 2 units. However, there still may be uncertainty over which version the buyer will get. Buyers whose valuation for their favorite version is high, both in absolute terms and relative to the other version, purchase two units of their favorite version with certainty. Buyers with low values are excluded from purchasing. Buyers with values in the intermediate range typically get a lottery over different versions. I compare the fully optimal mechanism with the mechanism that optimally sells each unit separately and show that the solutions coincide when the fully optimal mechanism is deterministic, but they may differ otherwise. In the case when the cost of the second unit is not higher than the cost of the first the optimal mechanism only contains options with 0 and 2 units. The solution in this case can be shown to be isomorphic to a single unit case.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "一个卖方可以生产两单位商品。每单位商品可定制为两种版本之一，买方私下获知其对每种版本的估值。首先，我考虑第二单位生产成本高于第一单位的情形。在某些分布条件下，最优机制的搜寻可限制在一类机制中，即买方将获得多少单位不存在不确定性，也就是说，买方选择获得0、1或2单位。然而，买方将获得哪个版本仍可能存在不确定性。对于那些对其最偏好版本估值较高（无论绝对值还是相对于另一版本）的买方，会确定购买两单位其最偏好版本。估值较低的买方被排除在购买之外。估值处于中间范围的买方通常会获得不同版本的抽签。我将完全最优机制与分别最优销售每单位的机制进行比较，并表明当完全最优机制为确定性时两者一致，否则可能不同。在第二单位成本不高于第一单位成本的情形下，最优机制仅包含0单位和2单位的选项。此情形下的解可证明与单单位情形同构。",
     "accepted_date": null,
@@ -1152,8 +1159,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-19",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "selling-two-units-of-a-customizable-good-c6bc5bdf9a33",
     "detected_at": "2026-10-19T16:36:01+00:00",
     "doi": "10.1016/j.jmateco.2026.103315",
@@ -1195,11 +1202,18 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
     "source": "crossref",
-    "source_issue": null,
+    "source_issue": "Journal of Mathematical Economics",
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Selling two units of a customizable good",
@@ -1594,7 +1608,7 @@
     "available_online": "2026-10-19",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "renewable-natural-resources-regime-shift-and-hysteresis-0118b9b06881",
     "detected_at": "2026-10-19T12:28:56+00:00",
     "doi": "10.1007/s10640-026-01120-2",
@@ -1678,7 +1692,7 @@
     "available_online": "2026-10-19",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "how-will-hybrid-work-schedules-impact-the-demand-for-natural-resources-the-case-of-urban-b4482aa59123",
     "detected_at": "2026-10-19T11:09:26+00:00",
     "doi": "10.1007/s10640-026-01123-z",
@@ -1756,8 +1770,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-19",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "assortative-matching-and-network-structure-in-the-over-the-counter-credit-default-swap-m-7c8784f758f4",
     "detected_at": "2026-10-19T10:04:55+00:00",
     "doi": "10.1016/j.econmod.2026.107890",
@@ -1799,6 +1813,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
