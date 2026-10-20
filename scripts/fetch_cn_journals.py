@@ -760,6 +760,7 @@ def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int, *, deadline: f
     """
     global GLSJ_LAST_NOTE
     current_year = int(today_str()[:4])
+    validation_seen = False
     bases = (
         "https://glsj.chinajournal.net.cn/WKB2/WebPublication/",
         "https://glsj.chinajournal.net.cn/WKB/WebPublication/",
@@ -768,6 +769,7 @@ def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int, *, deadline: f
         for issue in current_issue_candidates():
             request_timeout = remaining_timeout(deadline, 5)
             if request_timeout is None:
+                GLSJ_LAST_NOTE = "time-budget-exhausted"
                 return []
             url = f"{base}wkTextContent.aspx?colType=4&yt={current_year}&st={issue:02d}"
             try:
@@ -775,8 +777,10 @@ def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int, *, deadline: f
             except Exception:
                 continue
             if glsj_validation_page(page):
-                GLSJ_LAST_NOTE = "archive-validation"
-                return []
+                # Try one different first-party archive base before declaring
+                # verification blocked; never scan all issues on a CAPTCHA.
+                validation_seen = True
+                break
             if "paperDigest.aspx" not in page:
                 continue
             page_issue_match = re.search(r"(20\d{2})年\s*(\d{1,2})期(?:目次)?", clean_text(page))
@@ -816,6 +820,8 @@ def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int, *, deadline: f
                     return records
             if records:
                 return records
+    if validation_seen:
+        GLSJ_LAST_NOTE = "archive-validation"
     return []
 
 
@@ -911,7 +917,7 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
         break
     if not latest_page:
         archive_records = fetch_glsj_archive_issue(journal, limit, deadline=deadline)
-        if GLSJ_LAST_NOTE == "archive-validation":
+        if GLSJ_LAST_NOTE in {"archive-validation", "time-budget-exhausted"}:
             return records
         if archive_records:
             issue_text = str(archive_records[0].get("source_issue") or "")
