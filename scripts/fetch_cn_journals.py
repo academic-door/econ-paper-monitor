@@ -741,9 +741,15 @@ def remaining_timeout(deadline: float, cap: int) -> int | None:
     return min(cap, remaining) if remaining > 0 else None
 
 
-def current_issue_candidates() -> range:
+def current_issue_candidates() -> list[int]:
+    """Search the current plausible issue first; a future issue is lower priority."""
     month = datetime.now(ZoneInfo("Asia/Shanghai")).month
-    return range(min(12, month + 1), 0, -1)
+    return [month] + ([month + 1] if month < 12 else []) + list(range(month - 1, 0, -1))
+
+
+def glsj_validation_page(page: str) -> bool:
+    """CBPT can return HTTP-200 login/challenge instead of a publisher TOC."""
+    return "showValidateCode.aspx" in page or "login.css" in page
 
 
 def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int, *, deadline: float) -> list[dict[str, Any]]:
@@ -752,6 +758,7 @@ def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int, *, deadline: f
     The public chinajournal host exposes the 2026 issue pages reliably even
     when the older CBPT ``.ashx`` endpoint returns an empty/validation page.
     """
+    global GLSJ_LAST_NOTE
     current_year = int(today_str()[:4])
     bases = (
         "https://glsj.chinajournal.net.cn/WKB2/WebPublication/",
@@ -767,6 +774,9 @@ def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int, *, deadline: f
                 page = fetch_text_partial(url, timeout=request_timeout, max_bytes=900_000)
             except Exception:
                 continue
+            if glsj_validation_page(page):
+                GLSJ_LAST_NOTE = "archive-validation"
+                return []
             if "paperDigest.aspx" not in page:
                 continue
             page_issue_match = re.search(r"(20\d{2})年\s*(\d{1,2})期(?:目次)?", clean_text(page))
@@ -844,7 +854,7 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
         ).read().decode("utf-8", errors="replace")
     except Exception:
         first_page = ""
-    if first_page and ("showValidateCode.aspx" in first_page or "login.css" in first_page):
+    if first_page and glsj_validation_page(first_page):
         GLSJ_LAST_NOTE = "first-publish-validation"
         return records
     if first_page and "暂无内容" not in first_page and "鏆傛棤鍐呭" not in first_page and "paperDigest.aspx" in first_page:
@@ -891,13 +901,18 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
             ).read().decode("utf-8", errors="replace")
         except Exception:
             continue
-        if "暂无内容" in page or "showValidateCode.aspx" in page or "login.css" in page or "paperDigest.aspx" not in page or len(page) < 200:
+        if glsj_validation_page(page):
+            GLSJ_LAST_NOTE = "current-issue-validation"
+            return records
+        if "暂无内容" in page or "paperDigest.aspx" not in page or len(page) < 200:
             continue
         latest_page = page
         latest_endpoint = endpoint
         break
     if not latest_page:
         archive_records = fetch_glsj_archive_issue(journal, limit, deadline=deadline)
+        if GLSJ_LAST_NOTE == "archive-validation":
+            return records
         if archive_records:
             issue_text = str(archive_records[0].get("source_issue") or "")
             issue_match = re.search(r"第(\d+)期", issue_text)
@@ -918,7 +933,7 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
                 ).read().decode("utf-8", errors="replace")
             except Exception:
                 continue
-            if "showValidateCode.aspx" in page or "login.css" in page:
+            if glsj_validation_page(page):
                 GLSJ_LAST_NOTE = "captcha-or-validation"
                 return records
             count = page.count("paperDigest.aspx")
@@ -1100,11 +1115,7 @@ def main() -> None:
             records.extend(fetched)
             messages.append(f"{journal_id}: {len(fetched)} via {mode}")
             source_ok = not (
-                (
-                    journal_id == "journal-379b4022ce"
-                    and not fetched
-                    and ("current-year-empty" not in mode or "time-budget-exhausted" in mode)
-                )
+                (journal_id == "journal-379b4022ce" and not fetched)
                 # An empty JQTE TOC cannot establish an official member set.
                 # Keep the local CNKI supplement eligible for retry.
                 or (journal_id == "journal-edcb877d78" and not fetched)
