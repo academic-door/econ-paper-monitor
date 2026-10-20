@@ -2,13 +2,18 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-21T03:47:39.618454+08:00",
+  "checked_at": "2026-10-21T04:11:14.458363+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Agricultural Economics: 8; Journal of the Association of Environmental and Resource Economists: 9; Land Economics: 7; Land Use Policy: 42; European Review of Agricultural E",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -17,7 +22,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 40 via official-generated; Journal of Finance: 39 via official-generated; Journal of Financial Economics: 22 via official-generated; Review of Financia",
+      "sample_error": "feeds=75/119; Canadian Journal of Agricultural Economics: 12 via official-generated; Australian Journal of Agricultural and Resource Economics: 72 via official-generated; Applied Economic Perspectives",
       "source": "rss"
     },
     {
@@ -27,7 +32,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
       "source": "working-papers"
     }
   ],
@@ -38,19 +43,18 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 4; public-choice/springer_online_first: PARSER",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: crossref fallback 4; journal-of-economic-growth/springer_online_first: PARSER_FAILURE; journal-of-economic-growth/springer_online_first: cro",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "rate_limited",
+      "status_source": "crossref",
       "usable_paths": [
-        "crossref",
         "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
   "total_degraded": 1
 }
