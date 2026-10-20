@@ -1,14 +1,19 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 2
   },
-  "checked_at": "2026-10-20T09:54:18.465822+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-10-20T11:11:40.740379+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Journal of Finance: 8; Journal of Financial Economics: 11; Review of Financial Studies: 3; Journal of Development Economics: 11; Economic Development and Cultural Change: 2",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -38,7 +43,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; journal-of-economic-growth/springer_online_first: PARSER_FAILURE; journal-of-economic-gr",
+      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 4; public-choice/springer_online_first: PARSER",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -46,11 +51,26 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
-  "total_degraded": 1
+  "total_degraded": 2
 }
