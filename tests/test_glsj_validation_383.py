@@ -84,7 +84,25 @@ def test_archive_challenge_stops_fallback_search(monkeypatch):
     rows = cn.fetch_glsj_archive_issue(JOURNAL, 20, deadline=cn.time.monotonic() + 45)
     assert rows == []
     assert cn.GLSJ_LAST_NOTE == "archive-validation"
-    assert len(attempts) == 1
+    assert len(attempts) == 2  # one challenge per first-party archive base
+
+
+def test_second_official_archive_base_can_recover_after_first_challenge(monkeypatch):
+    pages = [CHALLENGE, '<li><a href="paperDigest.aspx?paperID=xyz">Valid research title</a></li>']
+    calls = []
+    def varied_page(url, timeout, max_bytes):
+        calls.append(url)
+        return pages.pop(0)
+    monkeypatch.setattr(cn, "fetch_text_partial", varied_page)
+    monkeypatch.setattr(cn, "make_record", lambda journal, title, url, **kwargs: {
+        "title": cn.clean_text(title), "url": url, "source_issue": kwargs.get("source_issue")
+    })
+    cn.GLSJ_LAST_NOTE = ""
+    rows = cn.fetch_glsj_archive_issue(JOURNAL, 20, deadline=cn.time.monotonic() + 45)
+    assert len(rows) == 1
+    assert rows[0]["title"] == "Valid research title"
+    assert len(calls) == 2
+    assert calls[0] != calls[1]
 
 
 def test_empty_management_world_not_reported_as_healthy(tmp_path, monkeypatch):
