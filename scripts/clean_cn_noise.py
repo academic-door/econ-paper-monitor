@@ -78,6 +78,17 @@ def is_article_url(url: str) -> bool:
         and parsed.path.rstrip("/").casefold() == "/kcms2/article/abstract"
     ):
         return True
+    # SJJJ first-party online-first articles use a different canonical Magtech
+    # detail route from printed-issue /CN/Y... pages. Only trust the exact host
+    # and article path; a publisher URL embedded in an unrelated query is noise.
+    if (
+        parsed.scheme == "https"
+        and parsed.hostname == "sjjj.magtech.com.cn"
+        and re.fullmatch(r"/CN/abstract/abstract\\d+\\.shtml", parsed.path, re.I)
+        and not parsed.query
+        and not parsed.fragment
+    ):
+        return True
     return any(pattern.lower() in url.lower() for pattern in ARTICLE_URL_PATTERNS)
 
 
