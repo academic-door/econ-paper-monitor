@@ -747,6 +747,19 @@ def main() -> None:
                     enriched += 1
                     daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
             continue
+        # Publisher online-first dates may precede genuine Daily discovery by months.
+        # For a *new* verified SJJJ roster identity, persist the real detected_at
+        # as the canonical Daily first_seen anchor. Existing seen/daily matches
+        # above retain their original first_seen; do not backdate or re-archive.
+        raw_provenance = record.get("raw_data")
+        if (
+            record.get("source") == "cn-official"
+            and record.get("journal_id") == "journal-679eaa2a0c"
+            and isinstance(raw_provenance, dict)
+            and raw_provenance.get("source_scope") == "PUBLISHER_VISIBLE_ONLINE_FIRST_ONLY"
+            and record.get("detected_at")
+        ):
+            record["first_seen"] = record["detected_at"]
         seen_papers[record_id] = {
             "title": record.get("title"),
             "journal": record.get("journal"),
