@@ -26,6 +26,7 @@ MAX_BYTES = 300_000
 ITEM_RE = re.compile(r"""<li\b[^>]*\bid\s*=\s*["']art(\d+)["'][\s\S]*?</li>""", re.I)
 TITLE_RE = re.compile(r"""class\s*=\s*["']j-title-1["'][^>]*>[\s\S]*?<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)</a>""", re.I)
 AUTHOR_RE = re.compile(r"""class\s*=\s*["']j-author["'][^>]*>([\s\S]*?)</div>""", re.I)
+ABSTRACT_RE = re.compile(r"""class\s*=\s*["']j-abstract["'][^>]*>([\s\S]*?)</div>""", re.I)
 PREPUB_RE = re.compile(r"预出版日期\s*:\s*(20\d{2}-\d{2}-\d{2})")
 PAGING_RE = re.compile(r"第\s*(\d+)\s*页\s*共\s*(\d+)\s*页\s*共\s*(\d+)\s*条记录")
 
@@ -75,6 +76,7 @@ def parse_roster(page: str, journal: dict[str, Any], *,
         block = item.group(0)
         title_match = TITLE_RE.search(block)
         authors_match = AUTHOR_RE.search(block)
+        abstract_match = ABSTRACT_RE.search(block)
         date_match = PREPUB_RE.search(clean_text(block))
         if not title_match or not date_match:
             raise SourceBlocked(f"publisher member {article_id} missing title or date")
@@ -90,6 +92,7 @@ def parse_roster(page: str, journal: dict[str, Any], *,
         record = make_record(
             journal, clean_title(title_match.group(2)), url,
             authors=split_authors(authors_match.group(1) if authors_match else None),
+            abstract=clean_text(abstract_match.group(1)) if abstract_match else None,
             available_online=prepublished, published_online=prepublished,
             date_source="official_publish_date", source_url=OFFICIAL_URL,
         )
