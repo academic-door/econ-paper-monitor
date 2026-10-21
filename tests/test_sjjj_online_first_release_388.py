@@ -17,6 +17,8 @@ import clean_cn_noise
 import clean_historical_working_papers
 import dedupe
 import release_gate
+import normalize_records
+import remove_seen_backflow
 
 DATE = "2026-10-21"
 DETECTED = "2026-10-21T07:02:00+00:00"
@@ -124,6 +126,23 @@ def test_online_first_new_five_survive_dedupe_quarantine_noise_and_release_gate(
         ["clean_cn_noise.py", "--daily-dir", str(daily), "--seen", str(seen_path)],
     )
     clean_cn_noise.main()
+
+    # Replay the next production stages: normalization and seen-backflow
+    # filtering must preserve all genuine observed first discoveries.
+    monkeypatch.setattr(normalize_records, "record_source", lambda *_a, **_kw: None)
+    monkeypatch.setattr(
+        sys, "argv",
+        ["normalize_records.py", "--daily-dir", str(daily), "--date", DATE],
+    )
+    normalize_records.main()
+    monkeypatch.setattr(remove_seen_backflow, "record_source", lambda *_a, **_kw: None)
+    monkeypatch.setattr(
+        sys, "argv",
+        ["remove_seen_backflow.py", "--daily-dir", str(daily),
+         "--seen", str(seen_path), "--date", DATE,
+         "--future-records", str(tmp_path / "future.json")],
+    )
+    remove_seen_backflow.main()
 
     # Idempotent second run must not create duplicates or rewrite first_seen.
     monkeypatch.setattr(
