@@ -7,20 +7,20 @@
     "external_sentinel_out_of_scope_references": 6,
     "formal_journal_missing": 0,
     "formal_journals": 106,
-    "missing_abstract_today": 0,
+    "missing_abstract_today": 4,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 11112,
+    "seen": 11122,
     "source_crossref_only": 0,
-    "source_degraded": 2,
-    "source_healthy": 91,
-    "today": 2
+    "source_degraded": 1,
+    "source_healthy": 92,
+    "today": 11
   },
   "date": "2026-10-21",
   "failures": [],
-  "generated_at": "2026-10-21T05:43:39+00:00",
+  "generated_at": "2026-10-21T08:17:26+00:00",
   "local_cnki": {
-    "age_hours": 1.52,
+    "age_hours": 4.08,
     "count": 90,
     "fresh": true,
     "freshness_code": "fresh",
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-10-21T05:42:53+00:00",
+    "checked_at": "2026-10-21T08:16:28+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -63,16 +63,6 @@
           "journal_id": "economic-theory",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
           "publisher": "Springer-Verlag",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "American Economic Journal: Microeconomics",
-          "journal_id": "american-economic-journal-microeconomics",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "American Economic Association",
           "usable_paths": [
             "crossref",
             "openalex-recall"
@@ -201,15 +191,6 @@
       ],
       "single_path_degraded": [
         {
-          "journal": "American Economic Journal: Microeconomics",
-          "journal_id": "american-economic-journal-microeconomics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Journal of Agricultural and Resource Economics",
           "journal_id": "journal-of-agricultural-and-resource-economics",
           "next_action": "add or verify an independent fallback path",
@@ -224,7 +205,11 @@
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 15
+      "count": 14
+    },
+    {
+      "code": "missing_abstract_today",
+      "count": 4
     }
   ]
 }
