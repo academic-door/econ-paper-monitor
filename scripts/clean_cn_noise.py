@@ -84,7 +84,7 @@ def is_article_url(url: str) -> bool:
     if (
         parsed.scheme == "https"
         and parsed.hostname == "sjjj.magtech.com.cn"
-        and re.fullmatch(r"/CN/abstract/abstract\\d+\\.shtml", parsed.path, re.I)
+        and re.fullmatch(r"/CN/abstract/abstract\d+\.shtml", parsed.path, re.I)
         and not parsed.query
         and not parsed.fragment
     ):
