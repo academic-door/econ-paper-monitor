@@ -7,12 +7,12 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 144,
+    "missing_abstract": 145,
     "missing_authors": 1,
     "weak_date_evidence": 499
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 548,
+  "recent_candidates_before_limit": 549,
   "recent_window_start": "2026-09-23",
   "records": [
     {
@@ -999,6 +999,30 @@
       "source_type": "journal",
       "title": "Does industrial intelligence help urban environmental legislation reduce pollution emissions? Evidence from industrial robot applications in China",
       "url": "https://doi.org/10.1080/00036846.2026.2752130"
+    },
+    {
+      "date_confidence": "F",
+      "doi": "10.1257/app.20240669",
+      "first_seen": "2026-10-21T18:51:25+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1257/app.20240669",
+      "journal": "American Economic Journal: Applied Economics",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Technology, Information and State Capacity: Experimental Evidence from Illegal Mining in Colombia",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/app.20240669"
     },
     {
       "date_confidence": "F",
@@ -11662,32 +11686,9 @@
       "source_type": "journal",
       "title": "Perceptions of inequality and group-specific public goods",
       "url": "https://www.sciencedirect.com/science/article/pii/S0167268126003458?dgcid=api_sd_search-api-endpoint"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jebo.2026.107767",
-      "first_seen": "2026-09-26T18:04:46+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jebo.2026.107767",
-      "journal": "Journal of Economic Behavior and Organization",
-      "official_date": "2026-09-26",
-      "priority": [
-        0,
-        1,
-        1,
-        26
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Coordination and leadership: The impact of artificial intelligence",
-      "url": "https://doi.org/10.1016/j.jebo.2026.107767"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5283,
+  "total_candidates_before_limit": 5284,
   "truncated": true
 }
