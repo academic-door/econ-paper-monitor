@@ -2,9 +2,14 @@
   "categories": {
     "needs_investigation": 2
   },
-  "checked_at": "2026-10-22T01:42:29.691267+08:00",
+  "checked_at": "2026-10-22T02:40:12.247237+08:00",
   "source_health_degraded_count": 2,
   "source_status_failures": [
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=3; Journal of Finance: 2; Journal of Financial Economics: 9; Review of Financial Studies: 2; Journal of Development Economics: 10; Economic Development and Cultural Change: 4;",
+      "source": "crossref"
+    },
     {
       "category": "needs_investigation",
       "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
@@ -33,7 +38,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 4; public-choice/springer_online_first: PARSER",
+      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -60,7 +65,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 5
   },
   "total_degraded": 2
 }
