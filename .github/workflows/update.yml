@@ -268,6 +268,19 @@ jobs:
               "${EXTRA_ARGS[@]}" \
               || echo "::warning::Chinese journal fetch timed out or failed: $JOURNAL"
           done
+      # First-party online-first scope is separate from the latest printed
+      # issue TOC. Do not fold this source into the cn-journals 6/6 count.
+      - name: Fetch World Economy official online-first roster
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        shell: bash
+        run: |
+          if timeout 45s python scripts/fetch_sjjj_online_first.py \
+            --output "data/raw/cn/${MONITOR_RUN_DATE}-sjjj-online-first.json" \
+            --timeout 15; then
+            echo "SJJJ first-party visible online-first roster observed; check source_scope and observation time."
+          else
+            echo "::warning::SJJJ official online-first source blocked/unverified; do not claim publisher roster parity."
+          fi
       # CNKI RSS is intentionally absent from the public GitHub runner.
       # GitHub runner IPs are rejected intermittently (HTTP 418), and a failed
       # public attempt must never overwrite the last successful local CNKI
