@@ -2,10 +2,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -260,6 +261,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
@@ -334,6 +342,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-20",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0165176526005173",
@@ -354,7 +369,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -371,7 +386,7 @@
     "available_online": "2026-10-20",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "community-based-intervention-and-infant-mortality-among-adolescent-mothers-evidence-from-9492d575ea7d",
     "detected_at": "2026-10-20T19:43:31+00:00",
     "doi": "10.1086/744559",
@@ -447,7 +462,7 @@
     "available_online": "2026-10-20",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "does-local-employment-growth-accelerate-exits-from-social-assistance-evidence-from-brazi-3dfe102d70f3",
     "detected_at": "2026-10-20T19:43:31+00:00",
     "doi": "10.1086/744558",
@@ -522,7 +537,7 @@
     "available_online": "2026-10-20",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "implementing-an-optimal-tax-plan-with-short-term-debt-0b53faa1078e",
     "detected_at": "2026-10-20T19:06:34+00:00",
     "doi": "10.1086/744576",
@@ -597,7 +612,7 @@
     "available_online": "2026-10-20",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "welfare-and-the-act-of-choosing-7bcdc9e2e7d5",
     "detected_at": "2026-10-20T19:06:34+00:00",
     "doi": "10.1086/744577",
@@ -741,8 +756,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-20",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "when-mortality-jumps-optimal-portfolio-design-for-defined-contribution-pension-schemes-799997fd7295",
     "detected_at": "2026-10-20T14:51:39+00:00",
     "doi": "10.1016/j.jedc.2026.105443",
@@ -783,6 +798,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-20",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0165188926001880",
@@ -792,7 +814,7 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
+    "source_issue": "Journal of Economic Dynamics and Control",
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "When mortality jumps: optimal portfolio design for defined contribution pension schemes",
@@ -860,6 +882,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-20",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0899825626001612",
@@ -973,7 +1002,7 @@
     "china_relevance_reason": "研究对象为209个中国城市的外卖平台进入与犯罪率，使用中国司法判决数据，核心背景和数据均属中国。",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "impact-of-the-gig-economy-on-crime-a-case-study-of-food-delivery-platforms-122b5769226a",
     "detected_at": "2026-10-20T11:58:22+00:00",
     "doi": "10.1080/00036846.2026.2749705",
@@ -1347,7 +1376,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "executives-academic-experience-and-corporate-esg-performance-evidence-from-chinese-liste-0626249432e3",
     "detected_at": "2026-10-20T05:53:26+00:00",
     "doi": "10.1080/00036846.2026.2749701",
@@ -1428,7 +1457,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "merge-to-surge-rural-bank-m-a-and-county-level-economic-resilience-in-china-f84acfa1eb20",
     "detected_at": "2026-10-20T05:53:26+00:00",
     "doi": "10.1080/00036846.2026.2750276",
