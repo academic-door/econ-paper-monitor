@@ -306,7 +306,7 @@
     "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -321,7 +321,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "does-agricultural-endowment-slow-down-structural-transformation-an-empirical-examination-35c01979a225",
     "detected_at": "2026-10-22T19:58:57+00:00",
     "doi": "10.1007/s10887-026-09275-9",
@@ -369,11 +369,11 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -391,7 +391,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "audit-independence-and-year-end-government-spending-surges-evidence-from-china-315242bd424e",
     "detected_at": "2026-10-22T16:57:55+00:00",
     "doi": "10.1007/s10797-026-10010-8",
@@ -935,7 +935,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -1012,11 +1012,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1308,7 +1308,7 @@
     "accepted_date": null,
     "ai_tags": [],
     "authors": [
-      "Jan Michael Bauer",
+      "Jan M. Bauer",
       "Jeffrey M. Brunstrom",
       "Giulia Priolo",
       "Lucia A. Reisch"
@@ -1317,7 +1317,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "asymmetric-behavioural-responses-to-updating-caloric-information-02c86256bf3e",
     "detected_at": "2026-10-22T13:47:32+00:00",
     "doi": "10.1007/s11166-026-09511-y",
@@ -1391,7 +1391,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "causal-effects-of-coupon-expiration-on-consumer-acceptance-evidence-from-heterogeneous-t-d27ecc71523d",
     "detected_at": "2026-10-22T13:01:10+00:00",
     "doi": "10.1080/00036846.2026.2750980",
@@ -1449,7 +1449,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -1468,7 +1468,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "male-officials-response-to-gender-based-affirmative-action-evidence-from-local-governmen-8119aa854ae2",
     "detected_at": "2026-10-22T13:01:10+00:00",
     "doi": "10.1080/00036846.2026.2752122",
@@ -2385,7 +2385,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "flexible-employment-and-household-financial-vulnerability-evidence-from-china-bd4aaf049c8e",
     "detected_at": "2026-10-22T08:56:34+00:00",
     "doi": "10.1080/00036846.2026.2749711",
@@ -3005,6 +3005,8 @@
     "_restored_from_backflow": "2026-10-23",
     "abstract": "We study an agency model in which the principal knows the agent-optimal actions in response to K “known” contracts but is unaware of other actions available or their costs, and seeks a contract to maximize worst-case profits. The optimal contract is a mixture of the known contracts and output. Moreover, when K=1, the single known contract maximizes the principal’s profit guarantee, whereas with two known contracts, the optimal mixture puts positive weight on one of the known contracts. Our methodology is straightforward to implement, a point that we demonstrate using data from an experimental study of different incentive schemes.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -3017,7 +3019,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "robust-contracts-a-revealed-preference-approach-57de53c7d653",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01472",
@@ -3031,7 +3033,7 @@
       "https://doi.org/10.1162/rest_a_01472",
       "robust-contracts-a-revealed-preference-approach-57de53c7d653"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-13",
     "journal": "Review of Economics and Statistics",
     "journal_id": "review-of-economics-and-statistics",
     "journal_short": "REStat",
@@ -3040,6 +3042,25 @@
     "published_online": "2026-10-13",
     "publisher": "MIT Press",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-10-13",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2024-08-22",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-08-22",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
       "fallback": "crossref",
       "issn": "0034-6535",
       "priority_toc_kind": "restat_current"
@@ -3057,6 +3078,8 @@
     "_restored_from_backflow": "2026-10-23",
     "abstract": "Parole was eliminated for many U.S. offenders by truth-in-sentencing (TIS) laws in the 1990s. I exploit the introduction of TIS in Arizona to explore its impact on offenders before, during, and after incarceration. TIS offenders were assigned significantly shorter sentences, largely eliminating the intended increase in punishment. These offenders reduced their rehabilitative effort while incarcerated, with rule infractions increasing by 22% and education enrollment falling by 24%. Finally, TIS offenders became 23% more likely to return to prison for a new conviction. I argue these effects were driven by TIS removing parole incentives, given that time served remained largely unchanged.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -3068,7 +3091,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "truth-in-sentencing-incentives-and-recidivism-b09e3795be95",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01538",
@@ -3082,7 +3105,7 @@
       "https://doi.org/10.1162/rest_a_01538",
       "truth-in-sentencing-incentives-and-recidivism-b09e3795be95"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-13",
     "journal": "Review of Economics and Statistics",
     "journal_id": "review-of-economics-and-statistics",
     "journal_short": "REStat",
@@ -3091,6 +3114,25 @@
     "published_online": "2026-10-13",
     "publisher": "MIT Press",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-10-13",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2024-11-25",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-11-25",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
       "fallback": "crossref",
       "issn": "0034-6535",
       "priority_toc_kind": "restat_current"
@@ -3108,6 +3150,8 @@
     "_restored_from_backflow": "2026-10-23",
     "abstract": "A growing literature examining labor market returns to college major is motivated by large returns to skill. Prior research focuses on mean effects rather than earnings growth and variability. Using administrative data from Texas, we find that mean differences mask important features of the returns to college majors. First, earnings growth varies across fields. Second, there is considerable effect heterogeneity across workers. Third, major choice affects earnings variability within workers over time. We use our results to simulate a lifecyle utility model and compare midcareer utility and mean earnings returns across fields while highlighting the important role of risk preferences.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -3122,7 +3166,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "returns-to-college-major-choice-average-and-distributional-effects-career-trajectories-a-62642cbdeaa6",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01503",
@@ -3136,7 +3180,7 @@
       "https://doi.org/10.1162/rest_a_01503",
       "returns-to-college-major-choice-average-and-distributional-effects-career-trajectories-a-62642cbdeaa6"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-13",
     "journal": "Review of Economics and Statistics",
     "journal_id": "review-of-economics-and-statistics",
     "journal_short": "REStat",
@@ -3145,6 +3189,25 @@
     "published_online": "2026-10-13",
     "publisher": "MIT Press",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-10-13",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2024-09-16",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-09-16",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
       "fallback": "crossref",
       "issn": "0034-6535",
       "priority_toc_kind": "restat_current"
@@ -3162,6 +3225,8 @@
     "_restored_from_backflow": "2026-10-23",
     "abstract": "The low-frequency movements of economic variables play a prominent role in policy analysis and decision-making. We develop a robust estimation approach for these slow-moving trend processes which is guided by a judicious choice of priors and is characterized by sparsity. We present novel stylized facts from longer-run survey expectations that inform the structure of the estimation procedure. The general version of the proposed Bayesian estimator with a spike-and-slab prior accounts explicitly for cyclical dynamics. We show that it performs well in simulations against relevant benchmarks and report empirical estimates of trend growth for U.S. output and annual mean temperature.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -3175,7 +3240,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "sparse-trend-estimation-c08031242914",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01506",
@@ -3189,7 +3254,7 @@
       "https://doi.org/10.1162/rest_a_01506",
       "sparse-trend-estimation-c08031242914"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-13",
     "journal": "Review of Economics and Statistics",
     "journal_id": "review-of-economics-and-statistics",
     "journal_short": "REStat",
@@ -3198,6 +3263,25 @@
     "published_online": "2026-10-13",
     "publisher": "MIT Press",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-10-13",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2024-09-16",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-09-16",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
       "fallback": "crossref",
       "issn": "0034-6535",
       "priority_toc_kind": "restat_current"
@@ -3215,6 +3299,8 @@
     "_restored_from_backflow": "2026-10-23",
     "abstract": "This paper exploits the historical system of salt taxation in France to study the impact of extractive taxes on long-term economic development. Salt tax rates exhibited significant spatial variation, leading to discontinuous jumps in salt prices. Adopting a spatial regression-discontinuity design, we estimate the causal effect of the tax using original historical data. We extract geolocalized individual-level information on almost 70 million individuals living near tax borders between 1400 and 1900. These exogenous rate differentials had large effects, as areas burdened by lower rates exhibit higher economic development. These effects emerged after the tax’s introduction and persisted post-abrogation to the present day.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -3227,7 +3313,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "taxation-with-a-grain-of-salt-the-long-term-effect-of-extractive-fiscal-institutions-on-3517c83f4c0c",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest.a.1616",
@@ -3241,7 +3327,7 @@
       "https://doi.org/10.1162/rest.a.1616",
       "taxation-with-a-grain-of-salt-the-long-term-effect-of-extractive-fiscal-institutions-on-3517c83f4c0c"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-13",
     "journal": "Review of Economics and Statistics",
     "journal_id": "review-of-economics-and-statistics",
     "journal_short": "REStat",
@@ -3250,6 +3336,25 @@
     "published_online": "2026-10-13",
     "publisher": "MIT Press",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-10-13",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2025-10-29",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2025-10-29",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
       "fallback": "crossref",
       "issn": "0034-6535",
       "priority_toc_kind": "restat_current"
@@ -3267,6 +3372,7 @@
     "_restored_from_backflow": "2026-10-23",
     "abstract": "We propose improved standard errors and an asymptotic theory for two-way clustered panels. Our theory allows for arbitrary serial dependence in the common time effects, which is excluded by existing two-way methods. Our asymptotic distribution theory is the first which allows for this level of interdependence. Under weak conditions, we demonstrate that OLS is asymptotically normal, our proposed variance estimator is consistent, and t-ratios are asymptotically standard normal. The results extend to two-way fixed-effect models; we argue that two-way clustering is still necessary even if two-way fixed effects are included. Simulation and empirical illustration are provided.",
     "abstract_completeness": "full",
+    "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -3280,7 +3386,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "standard-errors-for-two-way-clustering-with-serially-correlated-time-effects-24278bc59ce4",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01507",
@@ -3294,7 +3400,7 @@
       "https://doi.org/10.1162/rest_a_01507",
       "standard-errors-for-two-way-clustering-with-serially-correlated-time-effects-24278bc59ce4"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-13",
     "journal": "Review of Economics and Statistics",
     "journal_id": "review-of-economics-and-statistics",
     "journal_short": "REStat",
@@ -3303,6 +3409,25 @@
     "published_online": "2026-10-13",
     "publisher": "MIT Press",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-10-13",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2024-09-16",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-09-16",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
       "fallback": "crossref",
       "issn": "0034-6535",
       "priority_toc_kind": "restat_current"
@@ -3320,6 +3445,7 @@
     "_restored_from_backflow": "2026-10-23",
     "abstract": "We study self-organized teams in dynamic contests. Using data from Kaggle, we document that teams outperform solo players, but few players choose to form teams. Every new team alters the composition of players, discouraging less productive solo players to make submissions. We estimate the structural parameters of a dynamic contest model, including the team formation and submission costs. We find that team formation incentives diminish with the number of teams, as do the incentives to make submissions. We empirically evaluate the productivity-discouragement tradeoff caused by teamwork and discuss implications for contest design, including facilitating teamwork and hosting open competitions.",
     "abstract_completeness": "full",
+    "abstract_source": "crossref_doi",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -3332,7 +3458,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "teamwork-in-contests-c93a7c904743",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01509",
@@ -3346,7 +3472,7 @@
       "https://doi.org/10.1162/rest_a_01509",
       "teamwork-in-contests-c93a7c904743"
     ],
-    "issue_date": null,
+    "issue_date": "2026-10-13",
     "journal": "Review of Economics and Statistics",
     "journal_id": "review-of-economics-and-statistics",
     "journal_short": "REStat",
@@ -3355,6 +3481,25 @@
     "published_online": "2026-10-13",
     "publisher": "MIT Press",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-13",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-10-13",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2024-09-16",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-09-16",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
       "fallback": "crossref",
       "issn": "0034-6535",
       "priority_toc_kind": "restat_current"
