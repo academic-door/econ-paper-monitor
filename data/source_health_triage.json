@@ -1,13 +1,19 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 1,
+    "transient_network": 8
   },
-  "checked_at": "2026-10-22T19:42:12.524207+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-10-22T21:06:29.302733+08:00",
+  "source_health_degraded_count": 9,
   "source_status_failures": [
     {
+      "category": "transient_network",
+      "sample_error": "american-economic-journal-microeconomics: 0 (forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out); american-economic-journal-applied-econ",
+      "source": "aea-toc"
+    },
+    {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -17,7 +23,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 40 via official-generated; Journal of Finance: 39 via official-generated; Journal of Financial Economics: 22 via official-generated; Review of Financia",
+      "sample_error": "feeds=32/45; Journal of International Economics: 40 via official-generated; Journal of Finance: 39 via official-generated; Journal of Financial Economics: 23 via official-generated; Review of Financia",
       "source": "rss"
     },
     {
@@ -27,19 +33,139 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 0 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavail",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
       "source": "working-papers"
     }
   ],
   "sources": [
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-journal-applied-economics",
+      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
+      "source": "American Economic Journal: Applied Economics",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-journal-economic-policy",
+      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
+      "source": "American Economic Journal: Economic Policy",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-journal-macroeconomics",
+      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
+      "source": "American Economic Journal: Macroeconomics",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-journal-microeconomics",
+      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
+      "source": "American Economic Journal: Microeconomics",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-review",
+      "sample_error": "forthcoming: RemoteDisconnected: Remote end closed connection without response; current-issue: TimeoutError: The read operation timed out",
+      "source": "American Economic Review",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-review-insights",
+      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
+      "source": "American Economic Review: Insights",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
     {
       "category": "needs_investigation",
       "category_counts": {
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
+      "sample_error": "social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfare/springer_online_first: crossref fallback 8; public-choice/springer_online_first: PARSER_FAILURE; public-choic",
       "source": "Journal of Agricultural and Resource Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "journal-of-economic-literature",
+      "sample_error": "american-economic-journal-microeconomics: 0 (forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out); american-economic-journal-applied-econ",
+      "source": "Journal of Economic Literature",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "journal-of-economic-perspectives",
+      "sample_error": "american-economic-journal-microeconomics: 0 (forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out); american-economic-journal-applied-econ",
+      "source": "Journal of Economic Perspectives",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
@@ -50,7 +176,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
-  "total_degraded": 1
+  "total_degraded": 9
 }
