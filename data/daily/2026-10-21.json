@@ -115,10 +115,11 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -134,7 +135,7 @@
     "china_relevance_reason": "3 位疑似中文姓名作者，且题名或元数据包含中国研究常见主题词，需要 AI 确认",
     "china_relevance_status": "candidate",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "aigc-and-total-factor-productivity-in-emerging-market-media-firms-mechanisms-heterogenei-231299386b91",
     "detected_at": "2026-10-22T04:34:48+00:00",
     "doi": "10.1080/00036846.2026.2752123",
@@ -168,6 +169,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-21",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-21",
+          "source": "openalex"
         }
       ]
     },
@@ -398,7 +406,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -410,14 +418,14 @@
     "ai_tags": [],
     "authors": [
       "Xuan Feng",
-      "Linghan Huang",
+      "Li Huang",
       "Yu Su"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-21",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "revisiting-momentum-crashes-volatility-timing-across-developed-and-emerging-markets-04dfb6c31f99",
     "detected_at": "2026-10-21T22:47:08+00:00",
     "doi": "10.1080/00036846.2026.2749703",
@@ -451,6 +459,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-21",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-21",
+          "source": "openalex"
         }
       ]
     },
@@ -583,6 +598,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-21",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-21",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-21",
+          "source": "openalex"
         }
       ],
       "pii": "S0305750X26002901",
@@ -762,7 +784,7 @@
     "available_online": "2026-10-21",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "a-strategic-buffer-or-a-market-burden-rhetorical-patriotism-and-managerial-earnings-pres-69b081b447dd",
     "detected_at": "2026-10-21T15:03:48+00:00",
     "doi": "10.1080/00036846.2026.2749706",
@@ -796,6 +818,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-21",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-21",
+          "source": "openalex"
         }
       ]
     },
@@ -813,11 +842,11 @@
     "_provider": "semantic-scholar",
     "_status": "skipped_rate_limited",
     "_status_code": 429,
-    "abstract": null,
-    "abstract_completeness": "missing",
+    "abstract": "Housing market activity in Tehran declined considerably during the two armed conflicts with Israel and the United States in 2025 and 2026. However, nominal asking prices declined briefly and then recovered quickly. This pattern and the related changes in the governance of Tehran’s housing market are the focus of our investigation. We use an event-centred descriptive case-study design. Our evidence is based on legal and administrative records, government statements, media reports in Persian and English, online listings, and market reports available through mid-August 2026. Documented housing transactions declined significantly during the 12-Day War in 2025. During the 40-Day War in 2026, daily online listings declined from more than 8,000 to about 500. Selected asking-price observations indicate declines around both conflicts followed by recoveries, although these observations cannot establish changes in realized prices or demand. Public authorities also reported temporary accommodation, repairs, accelerated permits, project-specific density incentives, lease extensions, and shelter planning. The evidence shows that implementation was more successful for temporary accommodation and minor repairs to damaged buildings. Evidence on actual permit processing and shelter delivery remains limited. The Tehran case shows how posted prices can rebound despite impaired market functioning and why emergency measures should be assessed by implementation status.",
+    "abstract_completeness": "full",
     "abstract_enrichment_status": "metadata-only",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -865,6 +894,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-21",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-21",
+          "source": "openalex"
         }
       ]
     },
@@ -880,11 +916,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -903,7 +939,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "does-industrial-intelligence-help-urban-environmental-legislation-reduce-pollution-emiss-eb187c2dd488",
     "detected_at": "2026-10-21T15:03:48+00:00",
     "doi": "10.1080/00036846.2026.2752130",
@@ -937,6 +973,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-21",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-21",
+          "source": "openalex"
         }
       ]
     },
@@ -1096,8 +1139,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-21",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "negative-electricity-prices-and-strategic-energy-storage-resources-with-high-renewable-p-25fae1f6c88d",
     "detected_at": "2026-10-21T15:02:07+00:00",
     "doi": "10.1016/j.eneco.2026.109654",
@@ -1138,6 +1181,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-21",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0140988326005347",
@@ -1169,16 +1219,16 @@
     "ai_tags": [],
     "authors": [
       "Muhammad Shabaz",
-      "Mosab I. Tabash",
+      "Mosab Ismail Tabash",
       "Umaid A. Sheikh",
       "Hamid Beladi",
-      "Shawkat Hammoudeh"
+      "Shawkat M. Hammoudeh"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-21",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "trade-wars-geopolitical-risk-and-volatility-dynamics-in-sustainable-and-conventional-ene-2c2251d19852",
     "detected_at": "2026-10-21T15:02:07+00:00",
     "doi": "10.1016/j.eneco.2026.109658",
@@ -1219,6 +1269,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-21",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0140988326005384",
@@ -1379,6 +1436,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-21",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0264999326004347",
@@ -1416,8 +1480,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-21",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "inequality-of-opportunity-and-discrimination-a4b00fd05a8b",
     "detected_at": "2026-10-21T15:01:42+00:00",
     "doi": "10.1016/j.joep.2026.102949",
@@ -1458,6 +1522,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-21",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0167487026000735",
@@ -1757,6 +1828,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ]
     },
@@ -1774,11 +1852,11 @@
     "_provider": "semantic-scholar",
     "_status": "skipped_rate_limited",
     "_status_code": 429,
-    "abstract": null,
-    "abstract_completeness": "missing",
+    "abstract": "Using daily trading data from the Shanghai stock market from January 2016 to December 2024, this paper extracts a liquidity factor, a leverage factor, and an expectation factor through a dynamic factor model from spot market trading, margin buying and short selling, and derivatives trading to capture multidimensional investor sentiment. Based on the DCC-GARCH framework, this study integrates VIRF with GFEVD to explore the volatility spillovers between investor sentiment and market returns. The results indicate that the overall spillover intensity within the system is significantly time-varying. On average, 25.80% of the forecast error variance of market returns can be explained by shocks from investor sentiment. Sub-sample estimates demonstrate that volatility spillovers from investor sentiment to market returns were primarily caused by the leverage factor from 2018 to 2024, but the expectation factor and the liquidity factor contributed to excessive volatility in market returns during the periods from 2020 to 2022 and from 2023 to 2024, respectively. Market returns also transmitted volatility spillovers back to the expectation factor during the Sino-U.S. trade war. The structure of the volatility spillover networks is event-driven, shaped by the Sino-U.S. trade war, the COVID-19 pandemic, and the stock market reforms.",
+    "abstract_completeness": "full",
     "abstract_enrichment_status": "metadata-only",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1827,6 +1905,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-21",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-21",
+          "source": "openalex"
         }
       ]
     },

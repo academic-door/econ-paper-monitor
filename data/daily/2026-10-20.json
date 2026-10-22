@@ -2,11 +2,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -24,7 +24,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "geopolitical-friction-and-corporate-tail-risk-evidence-from-the-us-china-trade-war-2d0f4cd80ffd",
     "detected_at": "2026-10-21T09:28:57+00:00",
     "doi": "10.1080/00036846.2026.2750973",
@@ -58,6 +58,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-20",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-20",
+          "source": "openalex"
         }
       ]
     },
@@ -537,7 +544,7 @@
     "available_online": "2026-10-20",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "implementing-an-optimal-tax-plan-with-short-term-debt-0b53faa1078e",
     "detected_at": "2026-10-20T19:06:34+00:00",
     "doi": "10.1086/744576",
@@ -612,7 +619,7 @@
     "available_online": "2026-10-20",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "welfare-and-the-act-of-choosing-7bcdc9e2e7d5",
     "detected_at": "2026-10-20T19:06:34+00:00",
     "doi": "10.1086/744577",
@@ -1471,7 +1478,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "merge-to-surge-rural-bank-m-a-and-county-level-economic-resilience-in-china-f84acfa1eb20",
     "detected_at": "2026-10-20T05:53:26+00:00",
     "doi": "10.1080/00036846.2026.2750276",
@@ -1533,7 +1540,7 @@
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,

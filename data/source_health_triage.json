@@ -1,10 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 4,
-    "transient_network": 1
+    "needs_investigation": 2
   },
-  "checked_at": "2026-10-22T17:40:13.905322+08:00",
-  "source_health_degraded_count": 5,
+  "checked_at": "2026-10-22T18:29:52.034402+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,13 +11,18 @@
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Agricultural Economics: 8; Journal of the Association of Environmental and Resource Economists: 9; Land Economics: 7; Land Use Policy: 40; European Review of Agricultural E",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
+      "sample_error": "attempted=26; 2026-10-22 Economics Letters: abstract-present; 2026-10-22 经济研究: abstract-present; 2026-10-22 经济研究: abstract-present; 2026-10-22 经济研究: abstract-present; 2026-10-22 经济研究: abstract-present",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 71 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 71 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -34,60 +38,15 @@
   ],
   "sources": [
     {
-      "category": "transient_network",
-      "category_counts": {
-        "transient_network": 1
-      },
-      "journal_id": "american-economic-journal-applied-economics",
-      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
-      "source": "American Economic Journal: Applied Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "american-economic-journal-microeconomics",
-      "sample_error": "not_attempted: BUDGET_EXHAUSTED (not observed)",
-      "source": "American Economic Journal: Microeconomics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "american-economic-review-insights",
-      "sample_error": "not_attempted: BUDGET_EXHAUSTED (not observed)",
-      "source": "American Economic Review: Insights",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
       "category": "needs_investigation",
       "category_counts": {
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
+      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 4; public-choice/springer_online_first: PARSER",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "rate_limited",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -98,20 +57,20 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-economic-literature",
-      "sample_error": "not_attempted: BUDGET_EXHAUSTED (not observed)",
-      "source": "Journal of Economic Literature",
-      "status_category": null,
-      "status_source": null,
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
       "usable_paths": [
-        "crossref",
+        "cnki-rss",
         "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
-  "total_degraded": 5
+  "total_degraded": 2
 }

@@ -12,19 +12,19 @@
     "recent72_missing": 0,
     "seen": 11187,
     "source_crossref_only": 0,
-    "source_degraded": 5,
-    "source_healthy": 88,
-    "today": 21
+    "source_degraded": 2,
+    "source_healthy": 91,
+    "today": 22
   },
   "date": "2026-10-22",
   "failures": [],
-  "generated_at": "2026-10-22T10:14:12+00:00",
+  "generated_at": "2026-10-22T10:34:06+00:00",
   "local_cnki": {
-    "age_hours": 6.03,
-    "count": 91,
+    "age_hours": 0.33,
+    "count": 89,
     "fresh": true,
     "freshness_code": "fresh",
-    "last_success_at": "2026-10-22T04:12:39+00:00",
+    "last_success_at": "2026-10-22T10:14:24+00:00",
     "ok": true,
     "source_health": {
       "failed_sources": 0,
@@ -44,30 +44,10 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-10-22T09:40:13+00:00",
+    "checked_at": "2026-10-22T10:29:51+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
-        {
-          "journal": "Journal of Economic Literature",
-          "journal_id": "journal-of-economic-literature",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "American Economic Association",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "American Economic Review: Insights",
-          "journal_id": "american-economic-review-insights",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "American Economic Association",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
         {
           "journal": "International Journal of Game Theory",
           "journal_id": "international-journal-of-game-theory",
@@ -83,16 +63,6 @@
           "journal_id": "economic-theory",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
           "publisher": "Springer-Verlag",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "American Economic Journal: Microeconomics",
-          "journal_id": "american-economic-journal-microeconomics",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "American Economic Association",
           "usable_paths": [
             "crossref",
             "openalex-recall"
@@ -143,16 +113,6 @@
           "journal_id": "review-of-economics-and-statistics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
           "publisher": "MIT Press",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "American Economic Journal: Applied Economics",
-          "journal_id": "american-economic-journal-applied-economics",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "American Economic Association",
           "usable_paths": [
             "crossref",
             "openalex-recall"
@@ -231,47 +191,20 @@
       ],
       "single_path_degraded": [
         {
-          "journal": "Journal of Economic Literature",
-          "journal_id": "journal-of-economic-literature",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "American Economic Review: Insights",
-          "journal_id": "american-economic-review-insights",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "American Economic Journal: Microeconomics",
-          "journal_id": "american-economic-journal-microeconomics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "American Economic Journal: Applied Economics",
-          "journal_id": "american-economic-journal-applied-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Journal of Agricultural and Resource Economics",
           "journal_id": "journal-of-agricultural-and-resource-economics",
           "next_action": "add or verify an independent fallback path",
           "usable_paths": [
             "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "数量经济技术经济研究",
+          "journal_id": "journal-edcb877d78",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "cnki-rss",
             "openalex-recall"
           ]
         }
@@ -281,7 +214,7 @@
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 18
+      "count": 14
     },
     {
       "code": "missing_abstract_today",

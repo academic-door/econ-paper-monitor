@@ -21,8 +21,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "trade-fragmentation-without-currency-realignment-evidence-from-the-u-s-china-trade-war-d46638f411d5",
     "detected_at": "2026-10-22T09:34:21+00:00",
     "doi": "10.1016/j.econlet.2026.113316",
@@ -96,8 +96,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "nonlinear-panel-data-models-with-robust-correlated-random-effects-52634c19b82f",
     "detected_at": "2026-10-22T09:34:21+00:00",
     "doi": "10.1016/j.econlet.2026.113317",
@@ -170,8 +170,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "pair-rationality-and-top-trading-cycles-on-single-peaked-and-single-dipped-domains-1c258351275e",
     "detected_at": "2026-10-22T09:34:21+00:00",
     "doi": "10.1016/j.econlet.2026.113314",
@@ -754,7 +754,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -1184,5 +1184,71 @@
     "source_url": "https://cepr.org/rss/vox-content",
     "title": "Establishment-level evidence on California’s fast-food minimum wage",
     "url": "https://cepr.org/voxeu/columns/establishment-level-evidence-californias-fast-food-minimum-wage"
+  },
+  {
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
+    "abstract": "New energy infrastructure is often met with a so-called ‘not-in-my-backyard’ mentality in local residents. While much research on this topic has focused on renewable energies, little is known about the factors influencing public opinion on where to host deep geological repositories for high-level radioactive waste. Thus, this study conducts two experiments to investigate the effects of two potential explanatory factors and how they interact in a representative sample of German residents (N = 3015). Drawing on the literature on the ‘not-in-my-backyard’ mentality, the first experiment reveals that higher spatial proximity – i.e., a smaller distance in kilometers between a person's place of residence and the potential location of a nuclear waste repository – increases individuals' perceived personal relevance of the hosting decision. However, the second experiment shows that this effect is conditioned by regional belonging. While feeling affected by the hosting decision decreases for spatially distant sites that are located outside a person's own region, perceived relevance remains high when spatially distant sites are still located within a person's own region. Furthermore, mediation analysis reveals that this moderation effect also translates into stronger opposition against the decision and a higher likelihood for individuals' opinion expression even if the site is located further away. Future research should therefore extend the idea of ‘not-in-my-backyard (NIMBY)’ and should consider public opinion on energy infrastructure also as a ‘not-in-our-backyard (NIOBY)’ phenomenon in which social collectives rather than just individuals feel affected. This may also assist policy-makers when planning participatory practices with local publics on their energy projects.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Johannes Kaiser"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-22",
+    "china_relevance_status": "none",
+    "date_confidence": "F",
+    "date_source": "sciencedirect_api_load_date",
+    "detail_key": "not-in-my-backyard-or-not-in-our-backyard-the-influence-of-spatial-proximity-and-regiona-1992aa8f64d6",
+    "detected_at": "2026-10-22T10:25:07+00:00",
+    "doi": "10.1016/j.enpol.2026.115676",
+    "fields": [
+      "environmental"
+    ],
+    "first_seen": "2026-10-22T10:25:07+00:00",
+    "id": "doi:10.1016/j.enpol.2026.115676",
+    "identity_aliases": [
+      "10.1016/j.enpol.2026.115676",
+      "https://www.sciencedirect.com/science/article/pii/S0301421526006105?dgcid=api_sd_search-api-endpoint",
+      "not-in-my-backyard-or-not-in-our-backyard-the-influence-of-spatial-proximity-and-regiona-1992aa8f64d6"
+    ],
+    "issue_date": null,
+    "journal": "Energy Policy",
+    "journal_id": "energy-policy",
+    "journal_short": "EnPol",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0301421526006105",
+    "published_online": null,
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ],
+      "pii": "S0301421526006105",
+      "sciencedirect_api_load_date": "2026-10-22T00:00:00.000Z",
+      "sciencedirect_search_issn": "0301-4215",
+      "sciencedirect_search_journal": "Energy Policy",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "‘Not in my backyard’ or ‘Not in our backyard’? The influence of spatial proximity and regional belonging on attitudes and opinion expression on site selection for a nuclear waste repository",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0301421526006105?dgcid=api_sd_search-api-endpoint"
   }
 ]
