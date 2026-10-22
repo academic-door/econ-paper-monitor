@@ -1,11 +1,78 @@
 [
   {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": null,
+    "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only",
+    "abstract_status": "摘要暂未公开，系统将自动重试",
+    "abstract_status_code": "missing_retry",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Runhai Yuan",
+      "Haiyu Wang",
+      "Yuanchao Zhang"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-21",
+    "china_relevance_reason": "3 位疑似中文姓名作者，且题名或元数据包含中国研究常见主题词，需要 AI 确认",
+    "china_relevance_status": "candidate",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_published_online",
+    "detail_key": "aigc-and-total-factor-productivity-in-emerging-market-media-firms-mechanisms-heterogenei-231299386b91",
+    "detected_at": "2026-10-22T04:34:48+00:00",
+    "doi": "10.1080/00036846.2026.2752123",
+    "fields": [
+      "applied_empirical"
+    ],
+    "first_seen": "2026-10-22T04:34:48+00:00",
+    "id": "doi:10.1080/00036846.2026.2752123",
+    "identity_aliases": [
+      "10.1080/00036846.2026.2752123",
+      "aigc-and-total-factor-productivity-in-emerging-market-media-firms-mechanisms-heterogenei-231299386b91",
+      "https://doi.org/10.1080/00036846.2026.2752123"
+    ],
+    "issue_date": "2026-10-21",
+    "journal": "Applied Economics",
+    "journal_id": "applied-economics",
+    "journal_short": "AE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-10-21",
+    "publisher": "Informa UK Limited",
+    "raw_data": {
+      "crossref_date_source": "crossref_published_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-10-21",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-10-21",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "AIGC and total factor productivity in emerging-market media firms: mechanisms, heterogeneity, and industrial spillovers",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://doi.org/10.1080/00036846.2026.2752123"
+  },
+  {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_status": "skipped_rate_limited",
     "abstract": "This study examines when bootstrap resampling improves the accuracy of propensity score matching estimators for causal inference with observational data. Existing research focuses on the validity of bootstrap procedures for matching estimators, providing limited guidance on the conditions under which resampling improves estimators. We develop a heuristic framework highlighting the role of a utilization rate, which measures how broadly control units are used across resampled matches, and evaluate its implications through simulations. The results suggest that estimator performance reflects a tradeoff between matching quality and variance reduction through noise aggregation. When treatment assignment is nearly deterministic and overlap is limited, bootstrapping may reduce accuracy. However, bootstrap resampling can improve estimation when treated and control groups exhibit substantial overlap, allowing information to be combined from a broader set of control observations. Results suggest that data structure, rather than computational intensity, is an important determinant of whether resampling improves estimation.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -19,8 +86,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-21",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "revisiting-bootstrap-inference-in-propensity-score-matching-implications-for-causal-esti-aa3589358962",
     "detected_at": "2026-10-22T00:43:51+00:00",
     "doi": "10.1016/j.econmod.2026.107894",
@@ -217,7 +284,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -560,7 +627,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -629,7 +696,8 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only",
@@ -701,7 +769,7 @@
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1589,7 +1657,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -1672,8 +1740,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-21",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_confidence": "A",
+    "date_source": "publisher_meta:citation_online_date",
     "detail_key": "vanishing-borders-ethnicity-and-trade-costs-at-the-origin-of-the-yugoslav-market-d662448acfce",
     "detected_at": "2026-10-21T08:13:23+00:00",
     "doi": "10.1017/s0022050726101466",
@@ -2028,8 +2096,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "中文期刊默认与中国相关",
     "china_relevance_status": "confirmed",
-    "date_confidence": "F",
-    "date_source": "official_publish_date",
+    "date_confidence": "A",
+    "date_source": "publisher_meta:citation_online_date",
     "detail_key": "paper-24a6ed762f8c",
     "detected_at": "2026-10-21T08:15:20+00:00",
     "doi": null,
@@ -2086,8 +2154,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "中文期刊默认与中国相关",
     "china_relevance_status": "confirmed",
-    "date_confidence": "F",
-    "date_source": "official_publish_date",
+    "date_confidence": "A",
+    "date_source": "publisher_meta:citation_online_date",
     "detail_key": "paper-42e16df5643f",
     "detected_at": "2026-10-21T08:15:20+00:00",
     "doi": null,
@@ -2142,8 +2210,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "中文期刊默认与中国相关",
     "china_relevance_status": "confirmed",
-    "date_confidence": "F",
-    "date_source": "official_publish_date",
+    "date_confidence": "A",
+    "date_source": "publisher_meta:citation_online_date",
     "detail_key": "paper-99dddf62780f",
     "detected_at": "2026-10-21T08:15:20+00:00",
     "doi": null,
@@ -2199,8 +2267,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "中文期刊默认与中国相关",
     "china_relevance_status": "confirmed",
-    "date_confidence": "F",
-    "date_source": "official_publish_date",
+    "date_confidence": "A",
+    "date_source": "publisher_meta:citation_online_date",
     "detail_key": "paper-fb48192af494",
     "detected_at": "2026-10-21T08:15:20+00:00",
     "doi": null,
@@ -2463,7 +2531,9 @@
     "url": "https://www.aeaweb.org/articles?id=10.1257/pol.20250938"
   },
   {
+    "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-22",
+    "_status": "not_found",
     "abstract": "Using a rule in Brazil exempting small-value public purchases from competitive bidding, this paper reveals an efficiency-quality trade-off in public procurement. Discretionary purchases are 17% costlier than auctions, but two-fifths of this premium reflects more expensive and higher-quality brands, as measured by independent consumer product testing scores and pharmaceutical quality violation records from health authorities. While discretion introduces inefficiencies, it can also benefit public service delivery by enabling the acquisition of more reliable products. Consistent with this, hospitals using discretion to purchase higher-quality medicines are associated with lower inpatient mortality. These findings emphasize the need for regulations that balance efficiency and quality concerns when limiting discretion.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
@@ -2505,7 +2575,12 @@
       "aea_code": "pol",
       "aea_first_observed": true,
       "aea_page": "forthcoming",
-      "aea_snapshot_baseline": false
+      "aea_snapshot_baseline": false,
+      "date_evidence": [
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "aea_toc",
     "source_issue": "American Economic Journal: Economic Policy",
@@ -2573,7 +2648,9 @@
     "url": "https://www.aeaweb.org/articles?id=10.1257/pol.20250443"
   },
   {
+    "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-10-22",
+    "_status": "not_found",
     "abstract": "The central trade-off for designing Disability Insurance (DI) is between providing insurance to those in need while maintaining incentives to work. This paper develops a novel revealed-preference approach to identify the insurance value of DI benefits. We show that comparing the DI take-up response to a change in benefits versus a change in wages identifies the insurance value. Implementing our framework in Canada, we estimate that increasing DI benefits by $1 creates an additional disincentive cost of $0.60 but creates an insurance value of $2.20. Thus, our approach suggests that DI benefits are not overly generous in the Canadian context.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
@@ -2616,7 +2693,12 @@
       "aea_code": "pol",
       "aea_first_observed": true,
       "aea_page": "forthcoming",
-      "aea_snapshot_baseline": false
+      "aea_snapshot_baseline": false,
+      "date_evidence": [
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "related_versions": [
       "measuring-the-value-of-disability-insurance-from-take-up-decisions-559be10d5f4e",
@@ -2691,6 +2773,8 @@
     "url": "https://www.aeaweb.org/articles?id=10.1257/pol.20250372"
   },
   {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
     "abstract": "We provide a framework for recovering second-best optimal tolls when policymakers exempt clean vehicles from congestion prices. Our framework includes congestion and emissions externalities, plus policy responses like changes in vehicle ownership, leakage, and residential sorting. Using Swedish administrative microdata, we identify these responses by exploiting vehicle- and location-based exemptions from Stockholm’s congestion charge. Commuters respond by adopting exempted alternative fuel vehicles, shifting trips away from conventional and toward alternative fuel vehicles, and changing where they live and work. We combine these estimates with our optimal tax framework to recover an optimal congestion charge of €10.09 per trip in Stockholm.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
@@ -2734,7 +2818,12 @@
       "aea_code": "pol",
       "aea_first_observed": true,
       "aea_page": "forthcoming",
-      "aea_snapshot_baseline": false
+      "aea_snapshot_baseline": false,
+      "date_evidence": [
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "aea_toc",
     "source_issue": "American Economic Journal: Economic Policy",
@@ -2856,6 +2945,8 @@
     "url": "https://www.aeaweb.org/articles?id=10.1257/pol.20250524"
   },
   {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
     "abstract": "This paper shows that family firms serve as vehicles for inheritance tax avoidance among the wealthy. Exploiting a tax reform in Catalonia (Spain) that widened the tax gap between favored and non-favored assets, I document a shift in inherited wealth toward family firm equity, consistent with affluent testators channeling private assets into existing firms before death. Heirs unwind these positions when the mandatory holding period expires. Linking inheritance and wealth tax records, I estimate that this behavior reduces combined tax revenues by 10% annually. Preferential treatment of family firms may therefore undermine effective wealth taxation in broad wealth tax systems.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
@@ -2897,7 +2988,12 @@
       "aea_code": "pol",
       "aea_first_observed": true,
       "aea_page": "forthcoming",
-      "aea_snapshot_baseline": false
+      "aea_snapshot_baseline": false,
+      "date_evidence": [
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "aea_toc",
     "source_issue": "American Economic Journal: Economic Policy",
