@@ -7,12 +7,12 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 144,
+    "missing_abstract": 143,
     "missing_authors": 1,
     "weak_date_evidence": 499
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 567,
+  "recent_candidates_before_limit": 566,
   "recent_window_start": "2026-09-23",
   "records": [
     {
@@ -39,30 +39,6 @@
       "source_type": "journal",
       "title": "Acknowledgements",
       "url": "https://doi.org/10.1093/jleo/ewag035"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.worlddev.2026.107605",
-      "first_seen": "2026-10-22T07:45:46+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.worlddev.2026.107605",
-      "journal": "World Development",
-      "official_date": "2026-10-22",
-      "priority": [
-        0,
-        0,
-        1,
-        0
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Is it abundance or scarcity? Reassessing freshwater resources and civil war onset (1960–2023)",
-      "url": "https://doi.org/10.1016/j.worlddev.2026.107605"
     },
     {
       "date_confidence": "C",
@@ -3495,7 +3471,7 @@
       "url": "https://doi.org/10.1016/j.enpol.2026.115669"
     },
     {
-      "date_confidence": "F",
+      "date_confidence": "C",
       "doi": "10.1016/j.enpol.2026.115672",
       "first_seen": "2026-10-22T04:33:35+00:00",
       "historical_backfill": false,
@@ -3516,6 +3492,29 @@
       "source_type": "journal",
       "title": "Perceived market potential of blue coal in Poland: the role of regulatory signals and consumer demand as seen by fuel distributors",
       "url": "https://www.sciencedirect.com/science/article/pii/S0301421526006063?dgcid=api_sd_search-api-endpoint"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.worlddev.2026.107605",
+      "first_seen": "2026-10-22T07:45:46+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.worlddev.2026.107605",
+      "journal": "World Development",
+      "official_date": "2026-10-22",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Is it abundance or scarcity? Reassessing freshwater resources and civil war onset (1960–2023)",
+      "url": "https://doi.org/10.1016/j.worlddev.2026.107605"
     },
     {
       "date_confidence": "C",
@@ -4071,11 +4070,11 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1017/s0022050726101466",
-      "first_seen": "2026-10-21T08:13:23+00:00",
+      "doi": "10.1111/roie.70097",
+      "first_seen": "2026-10-22T09:34:53+00:00",
       "historical_backfill": false,
-      "identity": "doi:10.1017/s0022050726101466",
-      "journal": "Journal of Economic History",
+      "identity": "doi:10.1111/roie.70097",
+      "journal": "Review of International Economics",
       "official_date": "2026-10-21",
       "priority": [
         0,
@@ -4089,8 +4088,8 @@
       "recency_basis": "official_date",
       "source_id": null,
       "source_type": "journal",
-      "title": "Vanishing Borders: Ethnicity and Trade Costs at the Origin of the Yugoslav Market",
-      "url": "https://doi.org/10.1017/s0022050726101466"
+      "title": "The Dominance of the Dollar: A Privilege or A Catastrophe?",
+      "url": "https://doi.org/10.1111/roie.70097"
     },
     {
       "date_confidence": "F",
@@ -4344,29 +4343,6 @@
       "source_type": "journal",
       "title": "Market Externalities of Tax Evasion",
       "url": "https://www.aeaweb.org/articles?id=10.1257/pol.20250938"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1287/mnsc.2025.03301",
-      "first_seen": "2026-10-21T22:47:35+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1287/mnsc.2025.03301",
-      "journal": "Management Science",
-      "official_date": "2026-10-21",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Share Issues vs. Share Repurchases",
-      "url": "https://doi.org/10.1287/mnsc.2025.03301"
     },
     {
       "date_confidence": "C",
@@ -11685,9 +11661,32 @@
       "source_type": "journal",
       "title": "How does information about inequalities affect fairness views and policy preferences?: Evidence from a randomized survey experiment",
       "url": "https://www.sciencedirect.com/science/article/pii/S0167268126003367?dgcid=api_sd_search-api-endpoint"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.jeconom.2026.106344",
+      "first_seen": "2026-09-28T21:51:24+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jeconom.2026.106344",
+      "journal": "Journal of Econometrics",
+      "official_date": "2026-09-28",
+      "priority": [
+        0,
+        1,
+        1,
+        24
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Treatment evaluation at the intensive and extensive margins",
+      "url": "https://doi.org/10.1016/j.jeconom.2026.106344"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5302,
+  "total_candidates_before_limit": 5297,
   "truncated": true
 }
