@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 2
+    "needs_investigation": 3
   },
-  "checked_at": "2026-10-23T01:01:48.694568+08:00",
-  "source_health_degraded_count": 2,
+  "checked_at": "2026-10-23T02:00:42.140424+08:00",
+  "source_health_degraded_count": 3,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,7 +12,7 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=2; Agricultural Economics: 8; Journal of the Association of Environmental and Resource Economists: 9; Land Economics: 7; Land Use Policy: 40; European Review of Agricultural E",
+      "sample_error": "partial_success failures=2; Journal of Finance: 3; Journal of Financial Economics: 10; Review of Financial Studies: 2; Journal of Development Economics: 10; Economic Development and Cultural Change: 4",
       "source": "crossref"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 71 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=32/45; Journal of International Economics: 40 via official-generated; Journal of Finance: 39 via official-generated; Journal of Financial Economics: 23 via official-generated; Review of Financia",
       "source": "rss"
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
       "source": "working-papers"
     }
   ],
@@ -45,8 +45,8 @@
       "journal_id": "economic-modelling",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Economic Modelling",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
+      "status_category": "needs_investigation",
+      "status_source": "publisher-detail",
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -58,12 +58,27 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_first: crossref fallback 5; public-choice/springer_online_first: PARSER",
+      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; social-choice-and-welfare/springer_online_first: PARSER_FAILURE; social-choice-and-welfa",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
         "openalex-recall"
       ]
     }
@@ -72,5 +87,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 2
+  "total_degraded": 3
 }
