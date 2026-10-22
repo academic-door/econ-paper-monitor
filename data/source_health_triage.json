@@ -1,14 +1,18 @@
 {
   "categories": {
-    "needs_investigation": 1,
-    "transient_network": 1
+    "needs_investigation": 1
   },
-  "checked_at": "2026-10-22T15:00:28.663721+08:00",
-  "source_health_degraded_count": 2,
+  "checked_at": "2026-10-22T15:40:09.043897+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
+      "category": "needs_investigation",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 0; 数量经济技术经济研究: 10",
+      "source": "cn-journals"
+    },
+    {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=2; Journal of Finance: 5; Journal of Financial Economics: 10; Review of Financial Studies: 2; Journal of Development Economics: 10; Economic Development and Cultural Change: 4",
+      "sample_error": "partial_success failures=1; Journal of Finance: 2; Journal of Financial Economics: 10; Review of Financial Studies: 2; Journal of Development Economics: 10; Economic Development and Cultural Change: 4",
       "source": "crossref"
     },
     {
@@ -34,27 +38,12 @@
   ],
   "sources": [
     {
-      "category": "transient_network",
-      "category_counts": {
-        "transient_network": 1
-      },
-      "journal_id": "american-economic-journal-macroeconomics",
-      "sample_error": "forthcoming: TimeoutError: The read operation timed out; current-issue: TimeoutError: The read operation timed out",
-      "source": "American Economic Journal: Macroeconomics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
       "category": "needs_investigation",
       "category_counts": {
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "social-choice-and-welfare/springer_online_first: crossref fallback 8; public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; international-tax-",
+      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; journal-of-economic-growth/springer_online_first: PARSER_FAILURE; journal-of-economic-gr",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -66,7 +55,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
-  "total_degraded": 2
+  "total_degraded": 1
 }
