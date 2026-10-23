@@ -7,12 +7,12 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 143,
+    "missing_abstract": 145,
     "missing_authors": 1,
     "weak_date_evidence": 499
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 608,
+  "recent_candidates_before_limit": 609,
   "recent_window_start": "2026-09-24",
   "records": [
     {
@@ -39,6 +39,54 @@
       "source_type": "journal",
       "title": "Acknowledgements",
       "url": "https://doi.org/10.1093/jleo/ewag035"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.jebo.2026.107812",
+      "first_seen": "2026-10-23T13:51:28+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jebo.2026.107812",
+      "journal": "Journal of Economic Behavior and Organization",
+      "official_date": "2026-10-23",
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Identifying the impact of exposure to armed conflict on individual preferences and field behavior: Evidence from Turkish draft Veterans",
+      "url": "https://doi.org/10.1016/j.jebo.2026.107812"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.landusepol.2026.108390",
+      "first_seen": "2026-10-23T14:40:08+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.landusepol.2026.108390",
+      "journal": "Land Use Policy",
+      "official_date": "2026-10-23",
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Fintech, climate shocks, and agricultural land use transition: Evidence from farmers in China",
+      "url": "https://doi.org/10.1016/j.landusepol.2026.108390"
     },
     {
       "date_confidence": "C",
@@ -3538,29 +3586,6 @@
       "source_type": "journal",
       "title": "The rise and fall of Northvolt: From sustainability to battery geopolitics and industrial failure in the European Nordics",
       "url": "https://doi.org/10.1016/j.enpol.2026.115640"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.geb.2026.104066",
-      "first_seen": "2026-10-23T02:46:59+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.geb.2026.104066",
-      "journal": "Games and Economic Behavior",
-      "official_date": "2026-10-23",
-      "priority": [
-        0,
-        1,
-        1,
-        0
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Equivalence and Near-Equivalence of Solutions to Principal-Agent Problems",
-      "url": "https://doi.org/10.1016/j.geb.2026.104066"
     },
     {
       "date_confidence": "C",
@@ -11655,32 +11680,9 @@
       "source_type": "journal",
       "title": "From Access to Achievement: The Primary School-Age Impacts of an At-Scale Preschool Construction Program in Highly Deprived Communities",
       "url": "https://www.aeaweb.org/articles?id=10.1257/app.20240364"
-    },
-    {
-      "date_confidence": "F",
-      "doi": "10.1257/app.20240370",
-      "first_seen": "2026-07-16T05:09:14+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1257/app.20240370",
-      "journal": "American Economic Journal: Applied Economics",
-      "official_date": "2026-10-01",
-      "priority": [
-        0,
-        1,
-        1,
-        22
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "All Roads Lead to Rome: Global Air Connectivity and Bilateral Trade",
-      "url": "https://www.aeaweb.org/articles?id=10.1257/app.20240370"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5367,
+  "total_candidates_before_limit": 5368,
   "truncated": true
 }
