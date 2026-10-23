@@ -47,7 +47,7 @@
     "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -183,13 +183,13 @@
     "authors": [
       "Phillip Wild",
       "Nancy Spencer",
-      "Lucas Skoufa"
+      "Lucas A. Skoufa"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "gas-turbine-firming-opportunities-in-the-transition-of-the-australian-national-electrici-16ed9e6b1958",
     "detected_at": "2026-10-23T00:40:49+00:00",
     "doi": "10.1016/j.enpol.2026.115671",
@@ -227,6 +227,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-22",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-22",
+          "source": "openalex"
         }
       ]
     },
@@ -719,7 +726,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -738,7 +745,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "does-agricultural-endowment-slow-down-structural-transformation-an-empirical-examination-35c01979a225",
     "detected_at": "2026-10-22T19:58:57+00:00",
     "doi": "10.1007/s10887-026-09275-9",
@@ -772,6 +779,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-22",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-22",
+          "source": "openalex"
         }
       ]
     },
@@ -787,11 +801,11 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "skipped_rate_limited",
+    "_status": "rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -799,7 +813,7 @@
     "ai_tags": [],
     "authors": [
       "Wenyue Chu",
-      "Baozhu Wang",
+      "王宝珠",
       "Yongwei Ye"
     ],
     "authors_status_code": "available",
@@ -809,7 +823,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "audit-independence-and-year-end-government-spending-surges-evidence-from-china-315242bd424e",
     "detected_at": "2026-10-22T16:57:55+00:00",
     "doi": "10.1007/s10797-026-10010-8",
@@ -843,6 +857,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-22",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-22",
+          "source": "openalex"
         }
       ]
     },
@@ -964,6 +985,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-22",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-22",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-22",
+          "source": "openalex"
         }
       ],
       "pii": "S0301421526005847",
@@ -1000,8 +1028,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "oil-extraction-under-production-sharing-agreements-constraints-development-timing-and-ev-5fed77684486",
     "detected_at": "2026-10-22T16:34:23+00:00",
     "doi": "10.1016/j.eneco.2026.109661",
@@ -1060,27 +1088,19 @@
     "url": "https://www.sciencedirect.com/science/article/pii/S0140988326005414?dgcid=api_sd_search-api-endpoint"
   },
   {
-    "_circuit_open": true,
-    "_provider": "semantic-scholar",
-    "_restored_from_backflow": "2026-10-23",
-    "_status": "skipped_rate_limited",
-    "_status_code": 429,
     "abstract": "This paper studies how informal property rights regimes that emerge in frontier environments shape the long-run development of local state institutions. I examine this question in the context of British colonial settlement on the island of Newfoundland. Early settlement relied on an informal property rights regime governing access to coastal infrastructure in the fishery. I measure historical exposure using geographic variation in proximity to flat coastline, which determined the location of early settlements and fishing sites. I show that greater exposure is associated with a lower likelihood that settlements established incorporated municipal governments during the twentieth century and increased reliance on weaker forms of local governance. Even among incorporated municipalities, historically exposed settlements were slower to adopt property taxation. Exposure is also associated with weaker formal property rights today, measured by higher rates of title conflict, and weaker political and civic engagement. These findings suggest that while informal institutions may effectively govern frontier economies, they can also discourage the long-run development of formal local state institutions.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "available",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
-    "abstract_zh": null,
-    "accepted_date": null,
-    "ai_tags": [],
     "authors": [
       "Blair Long"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_elsevier_created_online",
     "detail_key": "informal-property-rights-and-long-run-state-capacity-evidence-from-local-governments-in-c9774ec24c45",
     "detected_at": "2026-10-22T16:33:58+00:00",
     "doi": "10.1016/j.eeh.2026.101792",
@@ -1099,30 +1119,10 @@
     "journal_id": "explorations-in-economic-history",
     "journal_short": "EEH",
     "official_date_status": "available",
-    "pdf_url": null,
     "pii": "S0014498326000537",
     "published_online": "2026-10-22",
     "publisher": "Elsevier",
     "raw_data": {
-      "date_evidence": [
-        {
-          "available_online": "2026-10-22",
-          "date_confidence": "C",
-          "date_source": "crossref_doi_elsevier_created_online",
-          "published_online": "2026-10-22",
-          "source": "crossref-doi"
-        },
-        {
-          "available_online": "2026-10-22",
-          "date_confidence": "A",
-          "date_source": "elsevier_article_api",
-          "published_online": "2026-10-22",
-          "source": "elsevier-article-api"
-        },
-        {
-          "source": "semantic-scholar"
-        }
-      ],
       "pii": "S0014498326000537",
       "sciencedirect_api_load_date": "2026-10-22T00:00:00.000Z",
       "sciencedirect_search_issn": "0014-4983",
@@ -1130,11 +1130,9 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "Informal property rights and long-run state capacity: Evidence from local governments in Newfoundland",
-    "title_zh": null,
     "translation_status": "missing_abstract",
     "url": "https://www.sciencedirect.com/science/article/pii/S0014498326000537?dgcid=api_sd_search-api-endpoint"
   },
@@ -1145,7 +1143,7 @@
     "abstract": "This paper asks whether hydrogen technology patents improve ecological performance, and under what conditions. Using a balanced panel of 48 countries over 2000–2024 and a multidimensional patent value index, we estimate two-way fixed effects models for the load capacity factor (LCF), the ratio of biocapacity to the ecological footprint. We find that hydrogen patent value is positively associated with the LCF, with a level-dependent magnitude: a one-standard-deviation increase in transformed patent value is associated with an LCF 4.2% higher for an economy at ecological balance and 6.3% higher for one in ecological deficit. This gain comes mainly from a smaller ecological footprint and only marginally from greater biocapacity. The result holds under a shift-share instrument, heteroskedasticity-based identification, weak-instrument-robust inference, plausible-exogeneity analysis and dynamic panel estimation. Turning to mechanisms, a joint parallel-mediation model attributes 6.8% of the total effect to technical human capital and 7.2% to hydrogen production subsidy policy. The association is positive in both fossil-dependence groups, without a robust difference between them, but significant only in below-median-income economies. Panel threshold estimates show that it strengthens once institutional quality exceeds approximately 0.31 on a 0–1 index, turns from negative to positive once internet penetration passes about 92%, and becomes positive and statistically significant once a country operates three or more carbon capture, utilisation and storage (CCUS) facilities. For policy, hydrogen innovation is better assessed alongside absorptive capacity, digital infrastructure and operational carbon-management capacity than as a standalone environmental instrument.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "本文探讨氢技术专利是否改善生态绩效以及在何种条件下改善。使用2000—2024年48个国家的平衡面板和多维专利价值指数，我们针对负载容量因子（LCF，即生物承载力与生态足迹之比）估计双向固定效应模型。我们发现，氢专利价值与LCF呈正相关，且其幅度依赖于水平：转换后专利价值每增加一个标准差，处于生态平衡的经济体LCF高4.2%，处于生态赤字的经济体高6.3%。这一增益主要来自生态足迹缩小，仅边际上来自生物承载力提高。该结果在移动份额工具变量、基于异方差的识别、弱工具稳健推断、合理外生性分析和动态面板估计下均成立。在机制方面，联合平行中介模型将总效应的6.8%归因于技术人力资本，7.2%归因于氢生产补贴政策。该关联在两个化石依赖组中均为正，二者之间无稳健差异，但仅在中位数收入以下经济体中显著。面板门槛估计显示，一旦制度质量超过0—1指数上约0.31，该关联增强；一旦互联网普及率超过约92%，该关联由负转正；一旦一国运营三个及以上碳捕集、利用与封存（CCUS）设施，该关联变为正且统计显著。在政策上，氢创新更适合与吸收能力、数字基础设施和运营性碳管理能力一并评估，而非作为独立的环境工具。",
     "accepted_date": null,
@@ -1157,7 +1155,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "when-do-hydrogen-technology-patents-improve-ecological-performance-cross-country-evidenc-7bc8a0b6c861",
     "detected_at": "2026-10-22T15:06:51+00:00",
     "doi": "10.1016/j.enpol.2026.115673",
@@ -1195,6 +1193,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-22",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-22",
+          "source": "openalex"
         }
       ]
     },
@@ -1283,11 +1288,10 @@
     "_provider": "semantic-scholar",
     "_status": "skipped_rate_limited",
     "_status_code": 429,
-    "abstract": null,
-    "abstract_completeness": "missing",
+    "abstract": "This study examines how a digital administrative transition affects supplier eligibility and procurement competition. On 4 April 2022, the U.S. federal government replaced the DUNS identifier with the Unique Entity Identifier and introduced a new entity-validation process. We link predetermined registration-expiration dates to subsequent supplier histories, solicitations, and contract awards. A local discontinuity design retains expiration dates recorded before the transition, including for suppliers subsequently receiving administrative extensions. Suppliers scheduled to expire just after the cut-off were 12.5% points more likely to become inactive within 30 days, accumulated 7.4 additional inactive days over 60 days, and were 3.4% points less likely to obtain a contract within 180 days. Greater market exposure to post-transition renewals is associated with fewer offers, more single bidding, greater incumbent advantage, and higher prices for standardized products. The competition effect is stronger in markets dependent on small suppliers and weaker in markets with deeper historical supplier pools. These findings connect the continuity of administrative eligibility to bidder participation and the terms obtained by public buyers.",
+    "abstract_completeness": "full",
     "abstract_enrichment_status": "metadata-only",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1298,7 +1302,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex+crossref_crossvalidated",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "administrative-infrastructure-and-procurement-competition-evidence-from-the-u-s-supplier-49d171152297",
     "detected_at": "2026-10-22T15:06:10+00:00",
     "doi": "10.1080/00036846.2026.2747150",
@@ -1356,11 +1360,10 @@
     "_provider": "semantic-scholar",
     "_status": "skipped_rate_limited",
     "_status_code": 429,
-    "abstract": null,
-    "abstract_completeness": "missing",
+    "abstract": "The Energy-Saving and Emission-Reduction Fiscal Policy Comprehensive Demonstration Cities program represents a targeted green policy instrument and serves as an important policy initiative for advancing China’s carbon peaking and carbon neutrality goals. Using the implementation of this pilot program as a quasi-natural experiment, this study examines the impact of the policy on corporate green innovation based on a sample of listed firms in high-emission industries in China from 2007 to 2024. Employing a multi-period difference-in-differences (DID) model, we find that the Energy-Saving and Emission-Reduction Fiscal Policy significantly promotes corporate green innovation. The mechanism analysis further indicates that the alleviation of financing constraints and the optimization of human capital structure may serve as important mechanisms through which the ESER fiscal policy promotes corporate green innovation. Meanwhile, environmental regulation exerts a negative moderating effect on this relationship. Further analysis demonstrates that the positive effect of the policy on green innovation is more pronounced among large-scale enterprises, firms located in central cities, and firms in regions with stronger fiscal capacity. This study provides empirical evidence on the micro-level innovation effects of green fiscal policies and identifies the boundary conditions under which such policies influence corporate green innovation.",
+    "abstract_completeness": "full",
     "abstract_enrichment_status": "metadata-only",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1375,7 +1378,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "openalex+crossref_crossvalidated",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "energy-saving-and-emission-reduction-fiscal-policy-and-green-innovation-in-high-emission-8cfbf4b6a9dd",
     "detected_at": "2026-10-22T15:06:10+00:00",
     "doi": "10.1080/00036846.2026.2750274",
@@ -1433,11 +1436,11 @@
     "_provider": "semantic-scholar",
     "_status": "skipped_rate_limited",
     "_status_code": 429,
-    "abstract": null,
-    "abstract_completeness": "missing",
+    "abstract": "Relative debt financing costs may contain information about internal resource allocation. This paper examines Chinese A-share firms from 2016 to 2025 using a leave-one-out premium relative to industry-year peers and a risk-adjusted premium net of observable fundamentals and industry-year conditions. Higher premia are associated with larger other-receivable balances, an accounting proxy for fund occupation. A one-standard-deviation increase in the risk-adjusted premium corresponds to an increase in other receivables equal to about 5.1% of the sample mean. The association remains in matched samples, alternative specifications, and models with industry-year and province-year fixed effects. Within-industry-year permutation tests place the observed coefficients in the upper tail of their reassignment distributions. The association is stronger among firms with persistent losses, persistent low growth, and severe financing constraints. Higher premia also accompany greater refinancing exposure and lower real investment.",
+    "abstract_completeness": "full",
     "abstract_enrichment_status": "abstract-route-missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract_source": "openalex",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1448,7 +1451,8 @@
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-22",
-    "china_relevance_status": "none",
+    "china_relevance_reason": "摘要仅出现一次中国相关表述，需确认中国是否为核心研究对象",
+    "china_relevance_status": "candidate",
     "date_confidence": "C",
     "date_source": "crossref_doi_published_online",
     "detail_key": "debt-price-premia-and-controlling-shareholder-tunnelling-a859c056b7c1",
@@ -1484,6 +1488,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-22",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-22",
+          "source": "openalex"
         }
       ]
     },
@@ -1518,8 +1529,8 @@
     "china_related_source": "ai",
     "china_relevance_reason": "研究对象为140万中国大学新生，使用中国高校行政数据，核心背景是中国高校班级分配制度，属于直接的中国研究。",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "relative-affluence-and-mental-health-evidence-from-quasi-random-class-assignments-80905b2a9874",
     "detected_at": "2026-10-22T15:04:08+00:00",
     "doi": "10.1016/j.jdeveco.2026.103954",
@@ -1561,6 +1572,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-22",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0304387826002373",
@@ -1600,7 +1618,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "do-long-term-yields-help-to-estimate-short-term-risk-premia-506427805a95",
     "detected_at": "2026-10-22T14:51:46+00:00",
     "doi": "10.1016/j.jfineco.2026.104386",
@@ -1634,6 +1652,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-10-22",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-22",
+          "source": "openalex"
         }
       ]
     },
@@ -1662,7 +1687,7 @@
     "authors": [
       "Marlene Yu Lilin Wätzold",
       "Amanda Cooke",
-      "Carolina Ocampo‐Ariza",
+      "Carolina Ocampo-Ariza",
       "Bruno Paz",
       "Françoise Umarishavu",
       "Meike Wollni"
@@ -1671,7 +1696,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "voluntary-sustainability-standards-and-economic-and-ecological-outcomes-panel-evidence-f-ef9b28a3ccb6",
     "detected_at": "2026-10-22T13:48:05+00:00",
     "doi": "10.1016/j.worlddev.2026.107602",
@@ -1803,11 +1828,10 @@
     "_circuit_open": true,
     "_provider": "semantic-scholar",
     "_status": "skipped_rate_limited",
-    "abstract": null,
-    "abstract_completeness": "missing",
+    "abstract": "This paper examines how coupon expiration time affects consumer acceptance using observational scenario-survey data and causal machine learning. Because the mechanism assigning the expiration attribute is undocumented and responses are stated acceptance in hypothetical scenarios, we treat the two-hour (versus one-day) window as an observational exposure identified under selection-on-observables, supported by cross-fitted propensity scores, balance diagnostics, and sensitivity analysis. The Context-Contingent Time Preference (CCTP) framework supplies directional predictions about situational moderation. Inverse-probability weighting estimates the two-hour window reduces stated acceptance by 18.3% points (cluster-robust SE =0.014); propensity score matching yields ATT =−0.160 (5,305 pairs). On a held-out confirmation sample, the penalty is pervasive but amplified by urgency (βˆ=−0.087, SE =0.041) and destinations over 25 minutes away (θˆ=−0.147, SE =0.041), most severe at the intersection of solitude and urgency (−0.134, SE =0.032), and attenuated by social presence (+0.088, SE =0.022; composition-adjusted +0.047, SE =0.032). It concentrates in restaurant and coffee-house coupons and is absent for bar coupons. Simulations show effect-based targeting reduces conversion losses (29–42%) versus random allocation; propensity-based targeting performs worse than random. An E-value of 2.13 benchmarks sensitivity. Results concern stated, not revealed, acceptance.",
+    "abstract_completeness": "full",
     "abstract_enrichment_status": "metadata-only",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1818,7 +1842,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex+crossref_crossvalidated",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "causal-effects-of-coupon-expiration-on-consumer-acceptance-evidence-from-heterogeneous-t-d27ecc71523d",
     "detected_at": "2026-10-22T13:01:10+00:00",
     "doi": "10.1080/00036846.2026.2750980",
@@ -1878,11 +1902,10 @@
     "_provider": "semantic-scholar",
     "_status": "skipped_rate_limited",
     "_status_code": 429,
-    "abstract": null,
-    "abstract_completeness": "missing",
+    "abstract": "Using data on local officials and local government debt (LGD) in Chinese prefecture-level cities from 2006 to 2012, this article examines the effect of gender-based affirmative action (AA) for female officials on the behaviours of their male counterparts. We find that female officials have a promotion advantage under China’s gender-based AA policies. Using the provincial share of female municipal party secretaries as a proxy for the intensity of gender-based AA, we find that gender-based AA is associated with higher LGD in male-led cities. This effect is stronger where male officials face greater promotion incentives and where female officials have higher educational attainment. We also find that this effect is more pronounced among cities led by male officials with higher competence. In addition, gender-based AA is associated with higher infrastructure investment in male-led cities. The findings suggest that, under China’s tournament-style promotion system, gender-based AA raises promotion pressure on male officials and stimulates more proactive political competition among non-beneficiaries.",
+    "abstract_completeness": "full",
     "abstract_enrichment_status": "metadata-only",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1893,9 +1916,12 @@
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-22",
-    "china_relevance_status": "none",
+    "china_related": true,
+    "china_related_source": "rule",
+    "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
+    "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "male-officials-response-to-gender-based-affirmative-action-evidence-from-local-governmen-8119aa854ae2",
     "detected_at": "2026-10-22T13:01:10+00:00",
     "doi": "10.1080/00036846.2026.2752122",
@@ -1969,7 +1995,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "not-in-my-backyard-or-not-in-our-backyard-the-influence-of-spatial-proximity-and-regiona-1992aa8f64d6",
     "detected_at": "2026-10-22T10:25:07+00:00",
     "doi": "10.1016/j.enpol.2026.115676",
@@ -2006,6 +2032,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-22",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-22",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-22",
+          "source": "openalex"
         }
       ],
       "pii": "S0301421526006105",
@@ -3020,7 +3053,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "income-responsiveness-of-household-energy-expenditure-across-life-cycle-stages-evidence-f988179bf5e7",
     "detected_at": "2026-10-22T04:35:18+00:00",
     "doi": "10.1016/j.enpol.2026.115669",
@@ -3097,7 +3130,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "perceived-market-potential-of-blue-coal-in-poland-the-role-of-regulatory-signals-and-con-5d4634eeb53e",
     "detected_at": "2026-10-22T04:33:35+00:00",
     "doi": "10.1016/j.enpol.2026.115672",
@@ -3134,6 +3167,13 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-22",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-22",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-22",
+          "source": "openalex"
         }
       ],
       "pii": "S0301421526006063",
@@ -3525,7 +3565,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "crossref_published_online",
     "detail_key": "truth-in-sentencing-incentives-and-recidivism-b09e3795be95",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01538",
@@ -3600,7 +3640,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "crossref_published_online",
     "detail_key": "returns-to-college-major-choice-average-and-distributional-effects-career-trajectories-a-62642cbdeaa6",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01503",
@@ -3674,7 +3714,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "crossref_published_online",
     "detail_key": "sparse-trend-estimation-c08031242914",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01506",
@@ -3747,7 +3787,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_source": "crossref_published_online",
     "detail_key": "taxation-with-a-grain-of-salt-the-long-term-effect-of-extractive-fiscal-institutions-on-3517c83f4c0c",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest.a.1616",
