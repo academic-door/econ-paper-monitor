@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 2
   },
-  "checked_at": "2026-10-23T21:00:31.701642+08:00",
+  "checked_at": "2026-10-23T21:30:23.279019+08:00",
   "source_health_degraded_count": 2,
   "source_status_failures": [
     {
@@ -11,8 +11,8 @@
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=3; Journal of Finance: 3; Journal of Financial Economics: 10; Review of Financial Studies: 3; Journal of Development Economics: 10; Economic Development and Cultural Change: 4",
+      "category": "needs_investigation",
+      "sample_error": "partial_success failures=1; Journal of Finance: 3; Journal of Financial Economics: 10; Review of Financial Studies: 3; Journal of Development Economics: 10; Economic Development and Cultural Change: 4",
       "source": "crossref"
     },
     {
@@ -43,7 +43,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "social-choice-and-welfare/springer_online_first: crossref fallback 8; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; international-tax-and-public-finance/springer_online_f",
+      "sample_error": "public-choice/springer_online_first: PARSER_FAILURE; public-choice/springer_online_first: crossref fallback 16; international-tax-and-public-finance/springer_online_first: PARSER_FAILURE; internationa",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -57,13 +57,13 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Behavior and Organization",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
-        "cnki-rss",
+        "rss",
         "openalex-recall"
       ]
     }
