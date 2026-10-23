@@ -1,7 +1,10 @@
 [
   {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -18,7 +21,7 @@
     "available_online": "2026-10-23",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "intelligent-on-site-photograph-interpretation-by-coupling-deep-learning-and-a-clue-knowl-6ab2014b9bf1",
     "detected_at": "2026-10-23T02:47:16+00:00",
     "doi": "10.1016/j.landusepol.2026.108375",
@@ -38,10 +41,26 @@
     "journal_short": "LUP",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S026483772600459X",
     "published_online": "2026-10-23",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-10-23",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-23",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -53,8 +72,12 @@
     "url": "https://doi.org/10.1016/j.landusepol.2026.108375"
   },
   {
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -67,8 +90,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-23",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "equivalence-and-near-equivalence-of-solutions-to-principal-agent-problems-8057b221752d",
     "detected_at": "2026-10-23T02:46:59+00:00",
     "doi": "10.1016/j.geb.2026.104066",
@@ -88,10 +111,30 @@
     "journal_short": "GEB",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0899825626001624",
     "published_online": "2026-10-23",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-10-23",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-23",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-23",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-10-23",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -105,6 +148,7 @@
   {
     "abstract": "Social media has lowered the barriers to political communication, allowing politicians to reach large audiences without relying on traditional media. Yet easier access does not imply an equal distribution of attention. This column examines this distinction by linking daily data on Twitter likes and campaign contributions for US Members of Congress in 2019–2020. The market for attention is winner-takes-all: returns become substantial only when politicians go viral, and a handful of stars capture a disproportionate share of the gains. Social media has combined unusually broad access to political communication with a highly unequal distribution of attention – and of the financial returns associated with it.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
     "abstract_status_code": "available",
     "authors": [
       "Johannes Böken, Mirko Draca, Nicola Mastrorocco, Arianna Ornaghi"
@@ -147,6 +191,7 @@
   {
     "abstract": "Official development assistance fell by 23% in 2025, the largest drop on record. Aid disbursements have tended to coincide with deposits in offshore banks. This column argues that once the Panama Papers raised the cost of offshore banking, part of that diversion migrated to cryptocurrency. Linking World Bank disbursements to blockchain forensics, it finds sharp, short-lived surges of anonymous crypto activity on tax-haven exchanges in the month aid arrives, implying leakage of two to six cents per aid dollar. The public ledgers that carry diverted funds also make them detectable, which argues for supervision timed to the moment the money lands.",
     "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
     "abstract_status_code": "available",
     "authors": [
       "Sumit Agarwal, Peiyi Jin, Eswar Prasad, Daniel Rabetti"
@@ -192,7 +237,7 @@
     "_status": "skipped_rate_limited",
     "abstract": "Protected areas are increasingly expected to secure both biodiversity and Indigenous territorial rights, but that dual mandate breaks down where the rights-holders are peoples living in isolation, who cannot be consulted, cannot sit on a management council and cannot consent to any use of their territory. In Brazil, many live in Conservation Units (CUs) rather than in regularized Indigenous Lands (ILs). While both are recognized as protected areas (PAs), only ILs are expressly designated to secure Indigenous territorial rights. Through spatial analysis of Indigenous Peoples in Isolation (IPI) records, CUs, and ILs, combined with a systematic review of CU management plans, this article demonstrates that current PA management policy is structurally unprepared to address the territorial protection demands of isolated Indigenous groups. Of the 124 IPI records analyzed, 22 (17.7%) are located exclusively within CUs, 29 (23.3%) are in areas where CUs and ILs overlap, 65 are exclusively in ILs, and eight are outside any protected area. Fifty CUs of different categories and levels of institutional governance are associated with at least one IPI record. Of these, 23 are fully protected (IUCN Categories Ia and II), and 27 are for sustainable use (IUCN Categories IV, V, and VI). Only five of the 50 CUs have specific territorial policies for IPI. These figures reveal a governance gap that existing PA management policy has systematically failed to address: the majority of CUs with IPI presence operate without any formal zoning or protocol for these populations. Addressing this gap requires stronger inter-institutional coordination between FUNAI and ICMBio, IPI-specific governance measures in CU management plans, and formal protocols to ensure territorial protection while respecting Indigenous peoples' decision to remain in isolation. Equivalent overlaps between conservation-designated areas and peoples in isolation occur in Colombia, Ecuador, Peru and Bolivia, so the mismatch identified here is structural to any country operating two territorial protection systems under two different mandates.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
