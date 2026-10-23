@@ -43,11 +43,12 @@
     "url": "https://ideas.repec.org/p/oec/ecoaaa/1878-en.html"
   },
   {
+    "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -183,13 +184,13 @@
     "authors": [
       "Phillip Wild",
       "Nancy Spencer",
-      "Lucas A. Skoufa"
+      "Lucas Skoufa"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "gas-turbine-firming-opportunities-in-the-transition-of-the-australian-national-electrici-16ed9e6b1958",
     "detected_at": "2026-10-23T00:40:49+00:00",
     "doi": "10.1016/j.enpol.2026.115671",
@@ -726,7 +727,7 @@
   {
     "_circuit_open": true,
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "skipped_rate_limited",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -745,7 +746,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "does-agricultural-endowment-slow-down-structural-transformation-an-empirical-examination-35c01979a225",
     "detected_at": "2026-10-22T19:58:57+00:00",
     "doi": "10.1007/s10887-026-09275-9",
@@ -823,7 +824,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "audit-independence-and-year-end-government-spending-surges-evidence-from-china-315242bd424e",
     "detected_at": "2026-10-22T16:57:55+00:00",
     "doi": "10.1007/s10797-026-10010-8",
@@ -937,18 +938,18 @@
       "Donal Brown",
       "Marie Claire Brisbois",
       "Lucie Middlemiss",
-      "Mark E. Davis",
+      "Mark Davis",
       "Ruth Bookbinder",
       "Iain Cairns",
-      "Matthew Hannon",
+      "Matt Hannon",
       "Anne Owen",
-      "Steve M. Hall"
+      "Steve Hall"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "a-relational-retrofitting-void-in-the-private-rented-sector-the-brighton-and-hove-loop-d1234bac5659",
     "detected_at": "2026-10-22T16:34:26+00:00",
     "doi": "10.1016/j.enpol.2026.115650",
@@ -1022,7 +1023,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "oil-extraction-under-production-sharing-agreements-constraints-development-timing-and-ev-5fed77684486",
     "detected_at": "2026-10-22T16:34:23+00:00",
     "doi": "10.1016/j.eneco.2026.109661",
@@ -1045,6 +1046,15 @@
     "published_online": "2026-10-22",
     "publisher": "Elsevier",
     "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-10-22",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-22",
+          "source": "crossref-doi"
+        }
+      ],
       "pii": "S0140988326005414",
       "sciencedirect_api_load_date": "2026-10-22T00:00:00.000Z",
       "sciencedirect_search_issn": "0140-9883",
@@ -1503,8 +1513,8 @@
     "china_related_source": "ai",
     "china_relevance_reason": "研究对象为140万中国大学新生，使用中国高校行政数据，核心背景是中国高校班级分配制度，属于直接的中国研究。",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "rss_description_online",
     "detail_key": "relative-affluence-and-mental-health-evidence-from-quasi-random-class-assignments-80905b2a9874",
     "detected_at": "2026-10-22T15:04:08+00:00",
     "doi": "10.1016/j.jdeveco.2026.103954",
@@ -1562,7 +1572,7 @@
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
-    "source_issue": null,
+    "source_issue": "Journal of Development Economics",
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
     "title": "Relative affluence and mental health: Evidence from quasi-random class assignments",
@@ -1592,7 +1602,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "do-long-term-yields-help-to-estimate-short-term-risk-premia-506427805a95",
     "detected_at": "2026-10-22T14:51:46+00:00",
     "doi": "10.1016/j.jfineco.2026.104386",
@@ -1661,7 +1671,7 @@
     "authors": [
       "Marlene Yu Lilin Wätzold",
       "Amanda Cooke",
-      "Carolina Ocampo‐Ariza",
+      "Carolina Ocampo-Ariza",
       "Bruno Paz",
       "Françoise Umarishavu",
       "Meike Wollni"
@@ -1670,7 +1680,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "voluntary-sustainability-standards-and-economic-and-ecological-outcomes-panel-evidence-f-ef9b28a3ccb6",
     "detected_at": "2026-10-22T13:48:05+00:00",
     "doi": "10.1016/j.worlddev.2026.107602",
@@ -1734,7 +1744,7 @@
     "accepted_date": null,
     "ai_tags": [],
     "authors": [
-      "Jan Michael Bauer",
+      "Jan M. Bauer",
       "Jeffrey M. Brunstrom",
       "Giulia Priolo",
       "Lucia A. Reisch"
@@ -1743,7 +1753,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "asymmetric-behavioural-responses-to-updating-caloric-information-02c86256bf3e",
     "detected_at": "2026-10-22T13:47:32+00:00",
     "doi": "10.1007/s11166-026-09511-y",
@@ -1817,7 +1827,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "causal-effects-of-coupon-expiration-on-consumer-acceptance-evidence-from-heterogeneous-t-d27ecc71523d",
     "detected_at": "2026-10-22T13:01:10+00:00",
     "doi": "10.1080/00036846.2026.2750980",
@@ -1897,7 +1907,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "male-officials-response-to-gender-based-affirmative-action-evidence-from-local-governmen-8119aa854ae2",
     "detected_at": "2026-10-22T13:01:10+00:00",
     "doi": "10.1080/00036846.2026.2752122",
@@ -1971,7 +1981,7 @@
     "available_online": "2026-10-22",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "not-in-my-backyard-or-not-in-our-backyard-the-influence-of-spatial-proximity-and-regiona-1992aa8f64d6",
     "detected_at": "2026-10-22T10:25:07+00:00",
     "doi": "10.1016/j.enpol.2026.115676",
@@ -2821,7 +2831,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "flexible-employment-and-household-financial-vulnerability-evidence-from-china-bd4aaf049c8e",
     "detected_at": "2026-10-22T08:56:34+00:00",
     "doi": "10.1080/00036846.2026.2749711",
@@ -3476,7 +3486,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "robust-contracts-a-revealed-preference-approach-57de53c7d653",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01472",
@@ -3555,7 +3565,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "truth-in-sentencing-incentives-and-recidivism-b09e3795be95",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01538",
@@ -3630,7 +3640,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "returns-to-college-major-choice-average-and-distributional-effects-career-trajectories-a-62642cbdeaa6",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01503",
@@ -3670,6 +3680,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2024-09-25",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-09-25",
+          "source": "openalex"
         }
       ],
       "fallback": "crossref",
@@ -3704,7 +3721,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "sparse-trend-estimation-c08031242914",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest_a_01506",
@@ -3744,6 +3761,17 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2024-09-25",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-09-25",
+          "source": "openalex"
+        },
+        {
+          "published_online": "2024-09-16",
+          "source": "semantic-scholar"
         }
       ],
       "fallback": "crossref",
@@ -3777,7 +3805,7 @@
     "available_online": "2026-10-13",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "taxation-with-a-grain-of-salt-the-long-term-effect-of-extractive-fiscal-institutions-on-3517c83f4c0c",
     "detected_at": "2026-10-22T22:19:07+00:00",
     "doi": "10.1162/rest.a.1616",
@@ -3816,6 +3844,10 @@
           "source": "openalex"
         },
         {
+          "source": "semantic-scholar"
+        },
+        {
+          "published_online": "2025-10-29",
           "source": "semantic-scholar"
         }
       ],
@@ -3890,6 +3922,17 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2024-09-25",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-09-25",
+          "source": "openalex"
+        },
+        {
+          "published_online": "2022-01-27",
+          "source": "semantic-scholar"
         }
       ],
       "fallback": "crossref",
@@ -3961,6 +4004,17 @@
           "source": "openalex"
         },
         {
+          "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2024-09-25",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-09-25",
+          "source": "openalex"
+        },
+        {
+          "published_online": "2024-09-16",
           "source": "semantic-scholar"
         }
       ],
