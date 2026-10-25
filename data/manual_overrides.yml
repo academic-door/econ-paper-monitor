@@ -261,3 +261,24 @@ records:
     published_online: "2024-09-16"
     date_source: "publisher_mitpress_online_early_verified"
     date_confidence: "A"
+
+  # RESTAT #389: Lisbon ISEG affiliated research centre explicitly lists
+  # "Available online: 22 August 2024" for this exact journal DOI.
+  # Institutional first-observation evidence, NOT MIT Press direct confirmation.
+  # https://www.iseg.ulisboa.pt/advance/publicacoes/artigos/
+  "10.1162/rest_a_01486":
+    available_online: "2024-08-22"
+    published_online: "2024-08-22"
+    date_source: "institutional_online_date_verified"
+    date_confidence: "B"
+
+  # RESTAT #389: DOI-matched 2024-06-03 bibliographic date in SciSpace,
+  # independently corroborated by a contemporaneous June 2024 article review.
+  # This is NOT publisher direct proof; preserve weaker evidence tier.
+  # https://scispace.com/papers/how-competition-shapes-peer-effects-evidence-from-a-4we4w5rjt5
+  # https://yuzhang.net/2024/06/26/20240626-REStat-%E5%8D%B7%E7%8E%8B%E5%AE%A4%E5%8F%8B%E7%9A%84%E8%B4%9F%E9%9D%A2%E5%BD%B1%E5%93%8D/
+  "10.1162/rest_a_01471":
+    available_online: "2024-06-03"
+    published_online: "2024-06-03"
+    date_source: "independent_bibliographic_online_date"
+    date_confidence: "C"
