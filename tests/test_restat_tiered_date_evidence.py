@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import apply_overrides  # noqa: E402
 import date_provenance  # noqa: E402
 import render_site  # noqa: E402
+import enrich_metadata  # noqa: E402
 from common import DATA_DIR  # noqa: E402
 
 
@@ -90,3 +91,40 @@ def test_both_public_surfaces_explicitly_disclose_nonpublisher_provenance() -> N
         assert render_site.public_date_line(record) == f"{public_label} {date} · 来源：{provenance_label}"
         assert "官方在线" not in render_site.public_date_line(record)
         assert "来源：Crossref" not in render_site.public_date_line(record)
+
+
+def test_same_grade_crossref_metadata_cannot_undo_curated_online_date() -> None:
+    for doi, (date, source, grade, _evidence, _label) in CASES.items():
+        row = {
+            "doi": doi,
+            "date_source": source,
+            "date_confidence": grade,
+            "available_online": date,
+            "published_online": date,
+            "first_seen": "2026-10-22T22:50:14+00:00",
+        }
+        incoming = {
+            "date_source": "crossref_doi_published_online",
+            "date_confidence": "C",
+            "published_online": "2026-10-13",
+            "available_online": "2026-10-13",
+            "abstract": "An independently retrieved abstract.",
+        }
+        assert enrich_metadata.merge_metadata(row, incoming)
+        assert row["published_online"] == date
+        assert row["date_source"] == source
+        assert row["date_confidence"] == grade
+        assert row["abstract"] == "An independently retrieved abstract."
+        assert row["first_seen"] == "2026-10-22T22:50:14+00:00"
+
+        # New first-party evidence at a stronger grade remains authoritative.
+        assert enrich_metadata.merge_metadata(row, {
+            "date_source": "publisher_published_online",
+            "date_confidence": "A",
+            "published_online": "2024-06-02",
+            "available_online": "2024-06-02",
+        })
+        assert row["published_online"] == "2024-06-02"
+        assert row["date_source"] == "publisher_published_online"
+        assert row["date_confidence"] == "A"
+        assert row["first_seen"] == "2026-10-22T22:50:14+00:00"
