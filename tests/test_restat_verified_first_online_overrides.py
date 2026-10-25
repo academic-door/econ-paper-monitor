@@ -12,6 +12,8 @@ from date_provenance import OFFICIAL, date_kind  # noqa: E402
 
 
 VERIFIED = {
+    "10.1162/rest_a_01461": "2024-06-14",
+    "10.1162/rest_a_01514": "2024-09-16",
     "10.1162/rest_a_01533": "2024-11-25",
     "10.1162/rest_a_01540": "2024-11-25",
     "10.1162/rest_a_01545": "2024-11-25",
@@ -30,7 +32,7 @@ VERIFIED = {
 
 def test_restat_verified_dates_are_scoped_to_exact_legacy_dois() -> None:
     overrides = apply_overrides.load_overrides(DATA_DIR / "manual_overrides.yml")
-    assert len(VERIFIED) == 13
+    assert len(VERIFIED) == 15
     for doi, expected in VERIFIED.items():
         correction = overrides[doi]
         assert correction["available_online"] == expected
