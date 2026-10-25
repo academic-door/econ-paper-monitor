@@ -871,6 +871,10 @@ def confidence_label(value: str) -> str:
 
 def public_date_label(record: dict[str, Any]) -> str:
     date_source = str(record.get("date_source") or "").casefold()
+    if date_source == "institutional_online_date_verified":
+        return "研究机构记录在线日期"
+    if date_source == "independent_bibliographic_online_date":
+        return "独立文献索引日期"
     if date_source.startswith("cnki_rss"):
         return "官方发布"
     if "crossref" in date_source:
@@ -916,6 +920,10 @@ def date_source_label(record: dict[str, Any]) -> str:
     source = str(record.get("source") or "").casefold()
     date_source = str(record.get("date_source") or "").casefold()
     source_url = str(record.get("source_url") or "").casefold()
+    if date_source == "institutional_online_date_verified":
+        return "研究机构发表记录"
+    if date_source == "independent_bibliographic_online_date":
+        return "独立文献索引"
     if "pdf" in date_source:
         return "PDF"
     if date_source == "tandf_issue_date_fallback":
