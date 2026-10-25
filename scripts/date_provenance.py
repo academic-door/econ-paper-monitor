@@ -22,12 +22,14 @@ from typing import Any
 # Evidence tiers, strongest first.
 OFFICIAL = "official"
 REGISTRY = "registry"
+REFERENCED = "referenced"
 ISSUE = "issue"
 UNKNOWN = "unknown"
 
 DATE_KIND_LABELS = {
     OFFICIAL: "官方在线日期",
     REGISTRY: "登记日期",
+    REFERENCED: "参考在线日期",
     ISSUE: "卷期日期",
     UNKNOWN: "日期",
 }
@@ -44,6 +46,8 @@ _SOURCE_RULES: tuple[tuple[str, str, str], ...] = (
     ("cepr_published_time", "CEPR 页面", OFFICIAL),
     ("iza_detail_month", "出版社页面", ISSUE),
     ("crossref_issue", "Crossref 卷期", ISSUE),
+    ("institutional_online_date", "研究机构发表记录", REFERENCED),
+    ("independent_bibliographic_online_date", "独立文献索引", REFERENCED),
     ("crossref", "Crossref", REGISTRY),
     ("openalex", "OpenAlex", REGISTRY),
     ("nep_", "RePEc NEP", ISSUE),

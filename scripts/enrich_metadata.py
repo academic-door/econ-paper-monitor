@@ -817,8 +817,21 @@ def merge_metadata(record: dict[str, Any], metadata: dict[str, Any]) -> bool:
     confidence_rank = {"A": 0, "B": 1, "C": 2, "D": 3, "F": 4, "unknown": 5, "": 6}
     existing_confidence = str(record.get("date_confidence") or "")
     incoming_confidence = str(metadata.get("date_confidence") or "")
+    # Provenance-verified manual corrections must not be clobbered by another
+    # same-grade generic registry lookup in a later enrichment pass. A
+    # stronger date or a publisher source can still replace these values.
+    existing_source = str(record.get("date_source") or "").casefold()
+    incoming_source = str(metadata.get("date_source") or "").casefold()
+    evidence_pinned = existing_source in {
+        "institutional_online_date_verified",
+        "independent_bibliographic_online_date",
+    }
+    incoming_registry = incoming_source.startswith(("crossref", "openalex", "unpaywall", "semantic_scholar"))
+    existing_rank = confidence_rank.get(existing_confidence, 6)
+    incoming_rank = confidence_rank.get(incoming_confidence, 6)
     protect_existing_dates = bool(record.get("available_online") or record.get("published_online")) and (
-        confidence_rank.get(incoming_confidence, 6) > confidence_rank.get(existing_confidence, 6)
+        incoming_rank > existing_rank
+        or (evidence_pinned and incoming_registry and incoming_rank >= existing_rank)
     )
     date_fields = {
         "accepted_date",
