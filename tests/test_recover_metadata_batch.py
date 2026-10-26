@@ -980,3 +980,70 @@ class TestElsevierProvider:
             )
             assert "elsevier" in providers_elsevier
             assert els_mock.call_count == 1
+
+
+def test_s2_skipped_when_only_existing_c_date_can_be_upgraded(tmp_path: Path) -> None:
+    """An existing C online date cannot be upgraded by S2 alone."""
+    data_dir = make_data_dir(tmp_path)
+    record = sample_record(
+        abstract=provider_metadata()["openalex"]["abstract"],
+        authors=["Existing Author"],
+        available_online="2026-07-28",
+        published_online="2026-07-28",
+        date_confidence="C",
+    )
+    write_json(data_dir / "daily" / "2026-07-31.json", [record])
+    write_json(data_dir / "seen.json", {"papers": {"seen-test": record}})
+    with patch(
+        "recover_metadata_batch.openalex_doi_metadata",
+        return_value=provider_metadata()["openalex"],
+    ), patch(
+        "recover_metadata_batch.crossref_doi_metadata",
+        return_value=provider_metadata()["crossref"],
+    ), patch("recover_metadata_batch.semantic_scholar_doi_metadata") as s2:
+        report = run_recovery(
+            data_dir=data_dir, limit=1, recent_days=5000,
+            timeout=10, workers=1, dry_run=False,
+        )
+    s2.assert_not_called()
+    assert report["provider_health"]["semantic-scholar"]["skipped_not_needed"] == 1
+    assert report["provider_health"]["semantic-scholar"]["rate_limited"] == 0
+    assert report["field_attribution"]["date_quality_upgrade"]["openalex+crossref"] == 1
+    record_after = json.loads(
+        (data_dir / "daily" / "2026-07-31.json").read_text(encoding="utf-8")
+    )[0]
+    assert record_after["date_confidence"] == "B"
+    assert record_after["first_seen"] == record["first_seen"]
+
+
+def test_s2_only_usable_abstract_has_measured_marginal_gain(tmp_path: Path) -> None:
+    """A real field fill is counted once, not as an API availability tally."""
+    data_dir = make_data_dir(tmp_path)
+    record = sample_record(
+        authors=["Known Author"], date_confidence="A",
+        available_online="2026-07-28", published_online="2026-07-28",
+    )
+    write_json(data_dir / "daily" / "2026-07-31.json", [record])
+    write_json(data_dir / "seen.json", {"papers": {"seen-test": record}})
+    s2_abstract = provider_metadata()["openalex"]["abstract"]
+    with patch(
+        "recover_metadata_batch.openalex_doi_metadata", return_value={}
+    ), patch(
+        "recover_metadata_batch.crossref_doi_metadata", return_value={}
+    ), patch(
+        "recover_metadata_batch.semantic_scholar_doi_metadata",
+        return_value={"abstract": s2_abstract, "abstract_source": "semantic_scholar"},
+    ):
+        report = run_recovery(
+            data_dir=data_dir, limit=1, recent_days=5000,
+            timeout=10, workers=1, dry_run=False,
+        )
+    assert report["field_attribution"]["abstract"]["semantic-scholar"] == 1
+    assert report["field_attribution"].get("date_newly_filled", {}) == {}
+    stored = json.loads(
+        (data_dir / "daily" / "2026-07-31.json").read_text(encoding="utf-8")
+    )[0]
+    assert stored["abstract_source"] == "semantic_scholar"
+    assert stored["first_seen"] == record["first_seen"]
+    health = json.loads((data_dir / "metadata_provider_health.json").read_text())
+    assert health["latest"]["field_attribution"]["abstract"]["semantic-scholar"] == 1
