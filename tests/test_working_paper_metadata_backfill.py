@@ -142,7 +142,7 @@ class ScheduledBackfillTests(unittest.TestCase):
         self.assertTrue(changed)
         self.assertFalse(authors_enriched)
         self.assertTrue(abstract_enriched)
-        self.assertEqual(record["abstract"], official)
+        self.assertEqual(record["abstract"], official.strip())
         self.assertEqual(record["abstract_source"], "iza_official_detail")
         self.assertEqual(record["abstract_status_code"], "available")
         for key in ("first_seen", "published_online", "date_confidence", "date_source", "authors", "title", "detail_key", "id"):
