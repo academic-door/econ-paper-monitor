@@ -79,3 +79,17 @@ def test_global_limit_does_not_starve_later_scheduled_source(tmp_path: Path, mon
 
     assert len(attempted) == 20
     assert "cepr-dp" in attempted
+
+
+
+def test_production_backfill_lookback_includes_actual_iza_gap_shard() -> None:
+    """The Oct 16 IZA abstract debt must be selectable on Oct 26."""
+    from unittest.mock import patch
+
+    with patch.object(scheduled_backfill, "today_str", lambda: "2026-10-26"):
+        assert "2026-10-16" in scheduled_backfill.target_dates(14)
+        assert "2026-10-16" not in scheduled_backfill.target_dates(7)
+    workflow = (ROOT / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
+    assert "backfill_iza_authors.py --days 14 --limit 20 --timeout 10" in workflow
+
+

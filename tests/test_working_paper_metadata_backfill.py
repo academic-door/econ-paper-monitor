@@ -58,14 +58,20 @@ class ScheduledBackfillTests(unittest.TestCase):
         }
         self.assertTrue(needs_scheduled_repair(record, "cepr-dp"))
 
-    def test_iza_abstract_only_gap_does_not_broaden_contract(self):
-        record = {
-            "source_id": "iza",
-            "authors": ["Existing Author"],
-            "abstract": None,
-            "url": "https://www.iza.org/publications/dp/19321/example",
-        }
-        self.assertFalse(needs_scheduled_repair(record, "iza"))
+    def test_iza_abstract_only_gap_is_scheduled_from_official_page(self):
+        # Two real Oct 2026 records (IZA DP 18991/18992) have complete authors
+        # but missing abstracts, while first-party details provide full text.
+        for number in (18991, 18992):
+            record = {
+                "source_id": "iza",
+                "authors": ["Existing Author"],
+                "abstract": None,
+                "url": f"https://www.iza.org/publications/dp/{number}/example",
+            }
+            self.assertTrue(needs_scheduled_repair(record, "iza"))
+        self.assertFalse(needs_scheduled_repair(
+            {"authors": ["Existing Author"], "abstract": "Already present"}, "iza"
+        ))
 
     def test_repair_record_fetches_cepr_canonical_url_and_preserves_title(self):
         record = {
@@ -102,6 +108,60 @@ class ScheduledBackfillTests(unittest.TestCase):
         self.assertEqual(record["abstract_status_code"], "available")
         self.assertEqual(record["abstract_enrichment_status"], "available")
         self.assertEqual(record["first_seen"], "2026-09-03T21:27:47+00:00")
+
+    def test_iza_abstract_only_recovery_preserves_all_existing_identity_and_dates(self):
+        record = {
+            "source_id": "iza",
+            "title": "AI Adoption by Firms: Insights from the Literature and the German Innovation Survey",
+            "url": "https://www.iza.org/publications/dp/18991/test",
+            "id": "iza-dp18991",
+            "authors": ["Gastón P. Fernández", "Christian Rammer", "Dirk Czarnitzki"],
+            "abstract": None,
+            "first_seen": "2026-10-16T19:38:06+00:00",
+            "published_online": "",
+            "date_confidence": "F",
+            "date_source": "unknown",
+            "detail_key": "unchanged-route",
+        }
+        snapshot = dict(record)
+        official = "This publisher-authored IZA abstract describes the evidence on firm adoption of " * 4
+
+        def simulated_page(candidate, source, *, timeout):
+            self.assertIsNot(candidate, record)
+            self.assertEqual(source["id"], "iza")
+            candidate.update({
+                "abstract": official, "title": "Changed unrelated title",
+                "authors": ["Wrong"], "published_online": "2026-10-01",
+                "date_source": "publisher_detail", "date_confidence": "B",
+                "first_seen": "2026-10-20T00:00:00+00:00",
+            })
+            return candidate
+
+        with patch("backfill_iza_authors.enrich_record_from_detail", side_effect=simulated_page):
+            changed, authors_enriched, abstract_enriched = repair_record(record, {"id": "iza"}, timeout=10)
+        self.assertTrue(changed)
+        self.assertFalse(authors_enriched)
+        self.assertTrue(abstract_enriched)
+        self.assertEqual(record["abstract"], official.strip())
+        self.assertEqual(record["abstract_source"], "iza_official_detail")
+        self.assertEqual(record["abstract_status_code"], "available")
+        for key in ("first_seen", "published_online", "date_confidence", "date_source", "authors", "title", "detail_key", "id"):
+            self.assertEqual(record[key], snapshot[key])
+
+    def test_iza_short_page_description_does_not_fill_missing_abstract(self):
+        record = {
+            "source_id": "iza", "authors": ["Existing"], "abstract": None,
+            "url": "https://www.iza.org/publications/dp/18992/test",
+            "first_seen": "2026-10-16T19:38:06+00:00",
+        }
+        original = dict(record)
+        with patch("backfill_iza_authors.enrich_record_from_detail",
+                   side_effect=lambda candidate, source, timeout: {**candidate, "abstract": "Site navigation"}):
+            changed, authors_enriched, abstract_enriched = repair_record(record, {"id": "iza"}, timeout=10)
+        self.assertFalse(changed)
+        self.assertFalse(authors_enriched)
+        self.assertFalse(abstract_enriched)
+        self.assertEqual(record, original)
 
     def test_repair_record_reports_no_change_when_enrichment_returns_nothing(self):
         record = {

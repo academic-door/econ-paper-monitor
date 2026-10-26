@@ -106,7 +106,10 @@ def needs_scheduled_repair(record: dict, source_id: str) -> bool:
     missing_authors = not record.get("authors")
     missing_abstract = not str(record.get("abstract") or "").strip()
     if source_id == "iza":
-        return missing_authors
+        # Recent IZA detail pages carry first-party abstracts. Historically the
+        # scheduled repair only revisited missing-author records, overlooking
+        # abstract-only gaps even when the official page was public.
+        return missing_authors or missing_abstract
     if source_id == "cepr-dp":
         return missing_authors or missing_abstract
     if source_id == "oecd-working-papers":
@@ -190,6 +193,19 @@ def repair_record(record: dict, source: dict, *, timeout: int) -> tuple[bool, bo
     canonical_url = canonical_detail_url(source_id, before_url)
     if canonical_url != before_url:
         record["url"] = canonical_url
+
+    # Abstract-only IZA recovery may never rewrite the accepted author/date/
+    # first-discovery/identity fields. Treat the detail parser as an independent
+    # candidate: copy only a plausible abstract, else preserve the original.
+    if source_id == "iza" and before_authors and not before_abstract.strip():
+        candidate = enrich_record_from_detail(dict(record), source, timeout=timeout)
+        abstract = str(candidate.get("abstract") or "").strip()
+        if len(abstract) >= 160:
+            record["abstract"] = abstract
+            record["abstract_source"] = "iza_official_detail"
+            apply_metadata_state(record)
+            return True, False, True
+        return canonical_url != before_url, False, False
 
     updated = enrich_record_from_detail(record, source, timeout=timeout)
     if source_id == "oecd-working-papers" and (
