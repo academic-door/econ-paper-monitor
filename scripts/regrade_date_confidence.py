@@ -36,7 +36,8 @@ _A_PREFIXES = (
     "pdf",
     "official_first_publish",
 )
-_B_EXACT = {"tandf_issue_date_fallback", "iza_detail_month"}
+_B_EXACT = {"tandf_issue_date_fallback", "iza_detail_month", "institutional_online_date_verified"}
+_C_EXACT = {"independent_bibliographic_online_date"}
 
 
 def valid_iso(value: Any) -> date | None:
@@ -61,6 +62,8 @@ def confidence_for(record: dict[str, Any], run_date: str) -> str:
         return "A"
     if source in _B_EXACT:
         return "B"
+    if source in _C_EXACT:
+        return "C"
     if source.startswith("crossref"):
         return "D" if source.endswith("_issue") else "C"
     if source.startswith("openalex") or "unpaywall" in source:
