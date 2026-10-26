@@ -1049,3 +1049,34 @@ def test_s2_only_usable_abstract_has_measured_marginal_gain(tmp_path: Path) -> N
     assert stored["first_seen"] == record["first_seen"]
     health = json.loads((data_dir / "metadata_provider_health.json").read_text())
     assert health["latest"]["field_attribution"]["abstract"]["semantic-scholar"] == 1
+
+
+def test_s2_still_allowed_when_only_issue_date_exists(tmp_path: Path) -> None:
+    """Issue/print dates must not suppress missing first-online dates."""
+    data_dir = make_data_dir(tmp_path)
+    record = sample_record(
+        abstract=provider_metadata()["openalex"]["abstract"],
+        authors=["Known Author"], issue_date="2026-07-01",
+        date_confidence="C", available_online="", published_online="",
+    )
+    write_json(data_dir / "daily" / "2026-07-31.json", [record])
+    write_json(data_dir / "seen.json", {"papers": {"seen-test": record}})
+    with patch("recover_metadata_batch.openalex_doi_metadata", return_value={}), patch(
+        "recover_metadata_batch.crossref_doi_metadata", return_value={}
+    ), patch(
+        "recover_metadata_batch.semantic_scholar_doi_metadata",
+        return_value={"published_online": "2026-07-28"},
+    ) as s2:
+        report = run_recovery(
+            data_dir=data_dir, limit=1, recent_days=5000,
+            timeout=10, workers=1, dry_run=False,
+        )
+    s2.assert_called_once()
+    assert report["field_attribution"]["date_newly_filled"]["semantic-scholar"] == 1
+    actual = json.loads(
+        (data_dir / "daily" / "2026-07-31.json").read_text(encoding="utf-8")
+    )[0]
+    assert actual["published_online"] == "2026-07-28"
+    assert actual["date_confidence"] == "C"
+    assert actual["issue_date"] == "2026-07-01"
+    assert actual["first_seen"] == record["first_seen"]
