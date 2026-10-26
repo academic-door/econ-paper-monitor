@@ -128,6 +128,14 @@ def record_has_official_date(record: dict[str, Any]) -> bool:
     return any(str(record.get(field) or "").strip() for field in DATE_FIELDS)
 
 
+def record_has_online_date(record: dict[str, Any]) -> bool:
+    """Issue/print dates are not first-online availability evidence."""
+    return any(
+        str(record.get(field) or "").strip()
+        for field in ("official_date", "available_online", "published_online")
+    )
+
+
 def record_needs_date(record: dict[str, Any]) -> bool:
     confidence = str(record.get("date_confidence") or "")
     if confidence in STRONG_DATE_CONFIDENCE:
@@ -1072,7 +1080,7 @@ def run_recovery(
         s2_needed = any(
             record_needs_abstract(record)
             or record_needs_authors(record)
-            or (record_needs_date(record) and not record_has_official_date(record))
+            or (record_needs_date(record) and not record_has_online_date(record))
             for _, record in records_by_doi[doi]
         )
         providers, errors = fetch_metadata_for_doi(
@@ -1156,7 +1164,7 @@ def run_recovery(
         providers = providers_by_doi[doi]
         for path, record in occurrences:
             before_needs = needs_recovery(record)
-            had_date = record_has_official_date(record)
+            had_date = record_has_online_date(record)
             did_change, fields = apply_recovery(record, providers)
             for field in fields:
                 grain = "date_quality_upgrade" if field == "date" and had_date else (
