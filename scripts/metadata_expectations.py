@@ -47,6 +47,11 @@ def expected_missing_reason(record: dict[str, Any], field: str) -> str | None:
         return "editorial"
     if "outstanding reviewer appreciation" in lowered:
         return "reviewer_acknowledgement"
+    # OUP JLEO Vol 42(3) categorizes this exact DOI as referee
+    # acknowledgements, not a research article. Limit the exception to
+    # the verified journal/title identity; preserve the archival record.
+    if journal == "journal of law, economics & organization" and lowered == "acknowledgements":
+        return "reviewer_acknowledgement"
     if re.match(r"^announcing\b.*\beditors?\b", lowered):
         return "editorial_announcement"
 

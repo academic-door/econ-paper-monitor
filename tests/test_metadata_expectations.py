@@ -53,6 +53,21 @@ class MetadataExpectationTests(unittest.TestCase):
         self.assertEqual(expected_missing_reason(item, "abstract"), "reviewer_acknowledgement")
         self.assertEqual(expected_missing_reason(item, "authors"), "reviewer_acknowledgement")
 
+    def test_jleo_2026_acknowledgements_are_expected_non_research_gaps(self):
+        item = record(
+            "Acknowledgements",
+            journal="Journal of Law, Economics & Organization",
+            doi="10.1093/jleo/ewag035",
+            first_seen="2026-10-15T16:07:44+00:00",
+        )
+        self.assertEqual(expected_missing_reason(item, "abstract"), "reviewer_acknowledgement")
+        self.assertEqual(expected_missing_reason(item, "authors"), "reviewer_acknowledgement")
+        # An unrelated journal or non-exact research title remains actionable.
+        self.assertIsNone(expected_missing_reason(record("Acknowledgements"), "abstract"))
+        self.assertIsNone(expected_missing_reason(
+            record("Acknowledgements in bargaining models", journal=item["journal"]), "authors"
+        ))
+
     def test_editor_announcement_expects_abstract_and_authors_missing(self):
         item = record(
             "Announcing new JCE editors and new journal subtitle, journal of comparative economics: Political economy",
@@ -182,6 +197,20 @@ class ProductAuditTrustTests(unittest.TestCase):
         self.assertEqual(totals["missing_authors_recent_actionable"], 0)
         self.assertEqual(totals["missing_authors_recent_expected"], 1)
 
+    def test_jleo_acknowledgements_gap_is_expected_not_hidden(self):
+        item = record(
+            "Acknowledgements",
+            journal="Journal of Law, Economics & Organization",
+            doi="10.1093/jleo/ewag035",
+        )
+        totals = self._totals(item)
+        self.assertEqual(totals["missing_abstract_recent"], 1)
+        self.assertEqual(totals["missing_abstract_recent_actionable"], 0)
+        self.assertEqual(totals["missing_abstract_recent_expected"], 1)
+        self.assertEqual(totals["missing_authors_recent"], 1)
+        self.assertEqual(totals["missing_authors_recent_actionable"], 0)
+        self.assertEqual(totals["missing_authors_recent_expected"], 1)
+
     def test_book_review_keeps_missing_author_actionable(self):
         totals = self._totals(
             record(
@@ -217,6 +246,14 @@ class RetryQueueTrustTests(unittest.TestCase):
                 "authors": "reviewer_acknowledgement",
             },
         )
+
+    def test_jleo_acknowledgements_do_not_enter_retry_queue(self):
+        item = record(
+            "Acknowledgements",
+            journal="Journal of Law, Economics & Organization",
+            doi="10.1093/jleo/ewag035",
+        )
+        self.assertIsNone(queue_item(item, self.anchor, self.recent_start))
 
     def test_book_review_still_retries_missing_reviewer_author(self):
         item = record(
