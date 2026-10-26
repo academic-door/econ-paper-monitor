@@ -38,6 +38,7 @@ def _aggregate(
     by_day: dict[str, dict[str, int]] = defaultdict(
         lambda: {
             "attempts": 0,
+            "api_calls": 0,
             "available": 0,
             "empty": 0,
             "not_found": 0,
@@ -51,6 +52,7 @@ def _aggregate(
     )
     totals = {
         "attempts": 0,
+        "api_calls": 0,
         "available": 0,
         "empty": 0,
         "not_found": 0,
@@ -74,7 +76,14 @@ def _aggregate(
             return
         checked = run.get("checked_at")
         attempts = int(entry.get("attempts") or 0)
-        if attempts > 0 and checked:
+        statuses = entry.get("statuses") if isinstance(entry.get("statuses"), dict) else {}
+        # attempts denotes candidate opportunities, not actual S2 HTTP calls.
+        api_calls = (
+            max(0, attempts - int(statuses.get("skipped_rate_limited") or 0)
+                - int(statuses.get("skipped_not_needed") or 0))
+            if provider == "semantic-scholar" else attempts
+        )
+        if api_calls > 0 and checked:
             if last_used_at is None or str(checked) > last_used_at:
                 last_used_at = str(checked)
         if "api_key_configured" in entry:
@@ -85,9 +94,9 @@ def _aggregate(
         if isinstance(headers, dict) and headers:
             if rate_limit_headers is None or _remaining(headers) < _remaining(rate_limit_headers):
                 rate_limit_headers = headers
-        statuses = entry.get("statuses") if isinstance(entry.get("statuses"), dict) else {}
         row = {
             "attempts": attempts,
+            "api_calls": api_calls,
             "available": int(entry.get("available") or 0),
             "empty": int(entry.get("empty") or 0),
             "not_found": int(statuses.get("not_found") or 0),
@@ -123,7 +132,7 @@ def _aggregate(
 
     today = datetime.now(BEIJING_TZ).date()
     weekly = sum(
-        row["attempts"]
+        row["api_calls"]
         for day, row in by_day.items()
         if datetime.fromisoformat(day).date() >= today - timedelta(days=6)
     )
