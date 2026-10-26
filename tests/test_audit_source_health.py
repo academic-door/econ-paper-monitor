@@ -73,6 +73,38 @@ class InspectJournalTests(unittest.TestCase):
         self.assertEqual(row["level"], "degraded")
         self.assertEqual(row["degradation_reason"], "failed_path")
 
+    def test_priority_toc_failure_message_does_not_leak_other_journals(self):
+        status = make_status(
+            {"count": 8, "ok": True, "publisher_ok": False, "outcomes": ["HTTP_BLOCK"]},
+            journal_id="quarterly-journal-of-economics",
+        )
+        status["sources"]["priority-toc"]["message"] = (
+            "unrelated-springer-journal/springer_online_first: PARSER_FAILURE"
+        )
+        row = self._row(
+            registry_entry(rss_status="configured", rss_count=20),
+            status,
+            journal=PRIORITY_JOURNAL,
+            journal_id="quarterly-journal-of-economics",
+        )
+        self.assertEqual(row["level"], "healthy")
+        self.assertEqual(row["failed_paths"], [{"path": "priority-toc", "message": "HTTP_BLOCK"}])
+
+    def test_priority_toc_transport_failure_uses_its_own_outcome(self):
+        journal = {
+            "id": "journal-of-agricultural-and-resource-economics",
+            "title": "Journal of Agricultural and Resource Economics",
+            "publisher": "Western Agricultural Economics Association",
+        }
+        status = make_status(
+            {"count": 0, "ok": False, "publisher_ok": False, "outcomes": ["NETWORK_FAILURE"]},
+            journal_id=journal["id"],
+        )
+        status["sources"]["priority-toc"]["message"] = "unrelated-springer-journal: PARSER_FAILURE"
+        row = self._row(registry_entry(crossref_status="error"), status, journal=journal, journal_id=journal["id"])
+        self.assertEqual(row["level"], "unavailable")
+        self.assertEqual(row["failed_paths"], [{"path": "priority-toc", "message": "NETWORK_FAILURE"}])
+
     def test_crossref_only_is_degraded(self):
         row = self._row(registry_entry())
         self.assertEqual(row["level"], "degraded")
