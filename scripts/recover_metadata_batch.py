@@ -1264,8 +1264,10 @@ def run_recovery(
         "doi_candidates": len(candidate_dois),
         "pii_candidates": len(candidate_piis),
         "daily_occurrences": len(candidates) + len(pii_candidates),
+        # Provider availability must not count rate-limit/circuit/no-action status
+        # objects as successful metadata responses.
         "providers": {
-            name: sum(1 for providers in providers_by_doi.values() if providers.get(name))
+            name: int((provider_health.get(name) or {}).get("available") or 0)
             for name in ("openalex", "crossref", "semantic-scholar", "elsevier")
         },
         "provider_health": provider_health,
