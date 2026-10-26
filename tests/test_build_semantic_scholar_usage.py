@@ -164,3 +164,15 @@ def test_empty_health_is_honest(tmp_path: Path) -> None:
     assert usage["days_since_last_use"] is None
     assert usage["providers"]["elsevier"]["weekly_requests_7d"] == 0
     assert usage["providers"]["elsevier"]["rate_limit_headers"] is None
+
+
+def test_skipped_not_needed_is_distinct_from_rate_limit(tmp_path: Path) -> None:
+    data_dir = make_data_dir(tmp_path)
+    p = data_dir / "metadata_provider_health.json"
+    payload = json.loads(p.read_text(encoding="utf-8"))
+    payload["latest"]["providers"]["semantic-scholar"]["statuses"]["skipped_not_needed"] = 5
+    write_json(p, payload)
+    usage = build_usage(data_dir)
+    assert usage["total"]["skipped_not_needed"] == 5
+    assert usage["total"]["rate_limited"] == 65
+    assert usage["total"]["attempts"] == 450
