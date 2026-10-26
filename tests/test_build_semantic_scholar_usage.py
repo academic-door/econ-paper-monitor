@@ -176,3 +176,16 @@ def test_skipped_not_needed_is_distinct_from_rate_limit(tmp_path: Path) -> None:
     assert usage["total"]["skipped_not_needed"] == 5
     assert usage["total"]["rate_limited"] == 65
     assert usage["total"]["attempts"] == 450
+
+
+def test_latest_mirror_does_not_double_count_existing_run(tmp_path: Path) -> None:
+    data_dir = make_data_dir(tmp_path)
+    path = data_dir / "metadata_provider_health.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["latest"] = payload["runs"][-1]
+    write_json(path, payload)
+    usage = build_usage(data_dir)
+    assert usage["total"]["runs"] == 2
+    assert usage["total"]["attempts"] == 300
+    assert usage["total"]["available"] == 210
+    assert usage["total"]["rate_limited"] == 35
