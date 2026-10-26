@@ -20,7 +20,7 @@ IZA_PROBES = {
 @pytest.mark.parametrize("number,url", IZA_PROBES.items())
 def test_iza_detail_html_live_structure_probe(number: str, url: str) -> None:
     try:
-        html = fetch_text(url, timeout=8)
+        html = fetch_text(url, timeout=12)
     except (HTTPError, URLError, TimeoutError, OSError) as exc:
         pytest.fail(f"IZA-{number} TRANSPORT {type(exc).__name__} status={getattr(exc, 'code', 'na')}")
 
