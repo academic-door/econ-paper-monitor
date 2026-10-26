@@ -73,6 +73,11 @@ jobs:
         run: python scripts/apply_overrides.py
       - name: Normalize daily records
         run: python scripts/normalize_records.py
+      # Keep the fast writer's daily date shards consistent with the metadata
+      # corrections it just applied. Full Update already runs the same repair;
+      # bound the fast pass to recent input shards to protect its 15m budget.
+      - name: Repair corrected archive dates
+        run: python scripts/repair_official_date_archives.py --max-files 45
       - name: Remove already-seen RSS backflow
         run: python scripts/remove_seen_backflow.py
       - name: Enforce existing release gate
