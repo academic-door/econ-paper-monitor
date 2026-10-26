@@ -341,8 +341,47 @@ def _value_score(value: Any) -> int:
     return len(str(value or ""))
 
 
-def merge_record(primary: dict[str, Any], alias: dict[str, Any]) -> bool:
+def _crossref_issue_only(record: dict[str, Any]) -> bool:
+    """A Crossref 'published' issue date cannot assert first online publication.
+
+    Normalization already downgrades this provisional metadata. Guard merges
+    against an older seen copy resurrecting its C grade on alternating runs.
+    """
+    if str(record.get("source") or "") != "crossref":
+        return False
+    if str(record.get("date_source") or "") not in {"crossref_published", "crossref_issue"}:
+        return False
+    raw = record.get("raw_data")
+    raw_date_source = raw.get("crossref_date_source") if isinstance(raw, dict) else None
+    if raw_date_source not in (None, "", "crossref_published", "crossref_issue"):
+        return False
+    if any(record.get(field) for field in ("available_online", "official_date", "accepted_date")):
+        return False
+    issue = record.get("issue_date")
+    published = record.get("published_online")
+    return bool(issue) and (not published or published == issue)
+
+
+def _canonicalize_crossref_issue_only(record: dict[str, Any]) -> bool:
+    if not _crossref_issue_only(record):
+        return False
     changed = False
+    for field, value in (
+        ("published_online", None),
+        ("date_source", "crossref_issue"),
+        ("date_confidence", "D"),
+    ):
+        if record.get(field) != value:
+            record[field] = value
+            changed = True
+    return changed
+
+
+def merge_record(primary: dict[str, Any], alias: dict[str, Any]) -> bool:
+    # Harmonize evidence before rank-based daily/seen merges. The canonical
+    # discovery clock is deliberately outside this date-confidence repair.
+    changed = _canonicalize_crossref_issue_only(primary)
+    alias_issue_only = _crossref_issue_only(alias)
     aliases = set(primary.get("identity_aliases") or [])
     for record in (primary, alias):
         # Historical seen IDs were once derived from reusable NEP issue
@@ -380,8 +419,12 @@ def merge_record(primary: dict[str, Any], alias: dict[str, Any]) -> bool:
 
     confidence_rank = {"": 0, "F": 0, "unknown": 0, "D": 1, "C": 2, "B": 3, "A": 4}
     incoming_rank = confidence_rank.get(str(alias.get("date_confidence") or ""), 0)
+    if alias_issue_only:
+        incoming_rank = min(incoming_rank, confidence_rank["D"])
     current_rank = confidence_rank.get(str(primary.get("date_confidence") or ""), 0)
     for field in DATE_FIELDS:
+        if field == "published_online" and alias_issue_only:
+            continue  # Never resurrect the issue date as independent online.
         if alias.get(field) and (not primary.get(field) or incoming_rank > current_rank):
             primary[field] = alias[field]
             changed = True

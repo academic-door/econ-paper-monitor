@@ -11,6 +11,7 @@ from public_integrity import (  # noqa: E402
     audit_integrity,
     audit_machine_path_leaks,
     repair_public_integrity,
+    merge_record,
 )
 
 def record(
@@ -398,3 +399,84 @@ def test_canonical_route_key_idempotent_and_fallback():
     assert k1 == k2 == pi.calculate_detail_key(r)
     nodoi={"detail_key":"legacy-key","title":"T","journal":"J"}
     assert pi.canonical_route_key(nodoi, "legacy-key") == "legacy-key"
+
+
+def test_crossref_issue_confidence_no_longer_flaps_from_legacy_seen() -> None:
+    # Exact production JEEM cohort: archived D, seen had stale C for
+    # Crossref published == issue without independent online evidence.
+    primary = {
+        "source": "crossref", "doi": "10.1016/j.jeem.2026.103338",
+        "date_source": "crossref_issue", "date_confidence": "D",
+        "published_online": None, "issue_date": "2026-06-01",
+        "available_online": None,
+        "raw_data": {"crossref_date_source": "crossref_published"},
+        "first_seen": "2026-06-16T18:16:44+00:00",
+    }
+    stale_seen = dict(primary, date_source="crossref_published",
+                      date_confidence="C", published_online="2026-06-01")
+    first_seen = primary["first_seen"]
+    merge_record(primary, stale_seen)
+    assert (primary["date_source"], primary["date_confidence"], primary["published_online"]) == (
+        "crossref_issue", "D", None
+    )
+    assert merge_record(stale_seen, primary) is True
+    assert (stale_seen["date_source"], stale_seen["date_confidence"], stale_seen["published_online"]) == (
+        "crossref_issue", "D", None
+    )
+    assert merge_record(primary, stale_seen) is False
+    assert merge_record(stale_seen, primary) is False
+    assert primary["first_seen"] == stale_seen["first_seen"] == first_seen
+
+
+def test_crossref_rawless_issue_provenance_becomes_stable() -> None:
+    legacy = {
+        "source": "crossref", "doi": "10.1016/j.euroecorev.2026.105384",
+        "date_source": "crossref_published", "date_confidence": "C",
+        "published_online": "2026-07-01", "issue_date": "2026-07-01",
+        "available_online": None, "first_seen": "2026-06-16T14:15:11-04:00",
+    }
+    merge_record(legacy, {})
+    assert legacy["date_source"] == "crossref_issue"
+    assert legacy["date_confidence"] == "D"
+    assert legacy["published_online"] is None
+    assert legacy["issue_date"] == "2026-07-01"
+    assert legacy["first_seen"] == "2026-06-16T14:15:11-04:00"
+    assert not merge_record(legacy, {})
+
+
+def test_explicit_crossref_online_date_may_legitimately_upgrade_issue_confidence() -> None:
+    primary = {
+        "source": "crossref", "doi": "10.1016/j.jeem.2026.103338",
+        "date_source": "crossref_issue", "date_confidence": "D",
+        "issue_date": "2026-06-01",
+    }
+    verified = {
+        "source": "crossref", "doi": primary["doi"],
+        "date_source": "crossref_published_online", "date_confidence": "C",
+        "published_online": "2026-05-24", "issue_date": "2026-06-01",
+        "available_online": "2026-05-24",
+        "raw_data": {"crossref_date_source": "crossref_published_online"},
+    }
+    merge_record(primary, verified)
+    assert primary["date_source"] == "crossref_published_online"
+    assert primary["date_confidence"] == "C"
+    assert primary["available_online"] == "2026-05-24"
+    assert primary["published_online"] == "2026-05-24"
+
+
+def test_verified_publisher_online_evidence_ignores_crossref_issue_alias() -> None:
+    publisher = {
+        "source": "crossref", "doi": "10.1016/j.jeem.2026.103338",
+        "date_source": "publisher_published_online", "date_confidence": "A",
+        "published_online": "2026-05-24", "available_online": "2026-05-24",
+        "issue_date": "2026-06-01",
+    }
+    stale = {
+        "source": "crossref", "doi": publisher["doi"],
+        "date_source": "crossref_published", "date_confidence": "C",
+        "published_online": "2026-06-01", "issue_date": "2026-06-01",
+    }
+    merge_record(publisher, stale)
+    assert publisher["date_source"] == "publisher_published_online"
+    assert publisher["date_confidence"] == "A"
+    assert publisher["published_online"] == "2026-05-24"
