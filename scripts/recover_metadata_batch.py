@@ -596,15 +596,23 @@ def elsevier_pii_metadata(pii: str, timeout: int) -> dict[str, Any]:
 def fetch_metadata_for_doi(
     doi: str,
     timeout: int,
+    *,
+    semantic_scholar_needed: bool = True,
 ) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
-    """Fetch metadata from every configured provider for one DOI."""
+    """Fetch metadata without probing S2 for records it cannot improve."""
     providers: dict[str, dict[str, Any]] = {}
     errors: dict[str, str] = {}
     getters = (
         ("openalex", openalex_doi_metadata),
         ("crossref", crossref_doi_metadata),
-        ("semantic-scholar", semantic_scholar_doi_metadata),
     )
+    if semantic_scholar_needed:
+        getters += (("semantic-scholar", semantic_scholar_doi_metadata),)
+    else:
+        providers["semantic-scholar"] = {
+            "_status": "skipped_not_needed",
+            "_provider": "semantic-scholar",
+        }
     if doi.startswith("10.1016/"):
         getters = getters + (("elsevier", elsevier_doi_metadata),)
     for name, getter in getters:
@@ -650,7 +658,8 @@ def summarize_provider_health(
             "statuses": dict(statuses),
             "rate_limited": int(statuses.get("rate_limited", 0)),
             "skipped": int(statuses.get("skipped_rate_limited", 0)),
-            "failed": attempts - available - empty,
+            "skipped_not_needed": int(statuses.get("skipped_not_needed", 0)),
+            "failed": attempts - available - empty - int(statuses.get("skipped_not_needed", 0)),
         }
         if rate_limits:
             health[name]["rate_limit_headers"] = min(
@@ -714,6 +723,7 @@ def write_provider_health(
     candidates: int,
     recovered_fields: Counter[str],
     checked_at: str,
+    field_attribution: dict[str, dict[str, int]] | None = None,
 ) -> None:
     """Persist a bounded provider-health history for operational audit."""
     path = data_dir / "metadata_provider_health.json"
@@ -728,12 +738,43 @@ def write_provider_health(
             "checked_at": checked_at,
             "candidates": candidates,
             "recovered": dict(recovered_fields),
+            "field_attribution": field_attribution or {},
             "providers": provider_health,
         }
     )
     payload["runs"] = runs[-20:]
     payload["latest"] = runs[-1]
     write_json(path, payload)
+
+
+def recovered_field_provider(
+    field: str,
+    record: dict[str, Any],
+    providers: dict[str, dict[str, Any]],
+) -> str:
+    """Attribute applied fields, never raw provider response availability."""
+    if field == "abstract":
+        for name in ("openalex", "crossref", "semantic-scholar", "elsevier"):
+            value = clean_abstract_text((providers.get(name) or {}).get("abstract"))
+            if not is_placeholder_abstract(value):
+                return name
+    if field == "authors":
+        for name in ("openalex", "crossref", "semantic-scholar"):
+            value = (providers.get(name) or {}).get("authors")
+            if isinstance(value, list) and value:
+                return name
+    if field == "date":
+        source = str(record.get("date_source") or "")
+        if source == "openalex+crossref_crossvalidated":
+            return "openalex+crossref"
+        if source == "elsevier+crossref_crossvalidated":
+            return "elsevier+crossref"
+        if source.startswith("semantic_scholar"):
+            return "semantic-scholar"
+        for prefix, name in (("openalex", "openalex"), ("crossref", "crossref"), ("elsevier", "elsevier")):
+            if source.startswith(prefix):
+                return name
+    return "unknown"
 
 
 def apply_recovery(
@@ -1026,7 +1067,17 @@ def run_recovery(
     changed_records_by_path: dict[Path, list[dict[str, Any]]] = defaultdict(list)
 
     def process_doi(doi: str) -> tuple[str, dict[str, Any]]:
-        providers, errors = fetch_metadata_for_doi(doi, timeout)
+        # S2 cannot upgrade an existing C date: only corroborating OA/Crossref
+        # or Elsevier/Crossref evidence can. Keep S2 for missing fields.
+        s2_needed = any(
+            record_needs_abstract(record)
+            or record_needs_authors(record)
+            or (record_needs_date(record) and not record_has_official_date(record))
+            for _, record in records_by_doi[doi]
+        )
+        providers, errors = fetch_metadata_for_doi(
+            doi, timeout, semantic_scholar_needed=s2_needed
+        )
         for name in errors:
             api_errors[name] += 1
         return doi, providers
@@ -1094,6 +1145,10 @@ def run_recovery(
     # retry rebuilds the DOI provider-health table above.
     provider_health["elsevier-pii"] = summarize_elsevier_pii_health(providers_by_pii)
 
+    # Record actual applied field gains once per DOI, not per response or shard.
+    field_attribution: dict[str, Counter[str]] = defaultdict(Counter)
+    attributed_doi_fields: set[tuple[str, str]] = set()
+
     # Apply recovery to every canonical daily occurrence.
     for doi, occurrences in records_by_doi.items():
         if doi not in providers_by_doi:
@@ -1101,7 +1156,16 @@ def run_recovery(
         providers = providers_by_doi[doi]
         for path, record in occurrences:
             before_needs = needs_recovery(record)
+            had_date = record_has_official_date(record)
             did_change, fields = apply_recovery(record, providers)
+            for field in fields:
+                grain = "date_quality_upgrade" if field == "date" and had_date else (
+                    "date_newly_filled" if field == "date" else field
+                )
+                key = (doi, grain)
+                if key not in attributed_doi_fields:
+                    field_attribution[grain][recovered_field_provider(field, record, providers)] += 1
+                    attributed_doi_fields.add(key)
             if did_change:
                 changed_records_by_path[path].append(record)
             for field in fields:
@@ -1183,6 +1247,7 @@ def run_recovery(
             candidates=len(candidate_dois) + len(candidate_piis),
             recovered_fields=recovered_fields,
             checked_at=now_iso(),
+            field_attribution={k: dict(v) for k, v in field_attribution.items()},
         )
     else:
         daily_changed = 0
@@ -1206,6 +1271,7 @@ def run_recovery(
         "provider_health": provider_health,
         "provider_empty_burst": retried_after_empty,
         "recovered": dict(recovered_fields),
+        "field_attribution": {k: dict(v) for k, v in field_attribution.items()},
         "date_confidence_changes": dict(date_confidence_changes),
         "shortfall": dict(shortfall),
         "errors": {
