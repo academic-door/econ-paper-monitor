@@ -164,3 +164,63 @@ def test_empty_health_is_honest(tmp_path: Path) -> None:
     assert usage["days_since_last_use"] is None
     assert usage["providers"]["elsevier"]["weekly_requests_7d"] == 0
     assert usage["providers"]["elsevier"]["rate_limit_headers"] is None
+
+
+def test_skipped_not_needed_is_distinct_from_rate_limit(tmp_path: Path) -> None:
+    data_dir = make_data_dir(tmp_path)
+    p = data_dir / "metadata_provider_health.json"
+    payload = json.loads(p.read_text(encoding="utf-8"))
+    payload["latest"]["providers"]["semantic-scholar"]["statuses"]["skipped_not_needed"] = 5
+    write_json(p, payload)
+    usage = build_usage(data_dir)
+    assert usage["total"]["skipped_not_needed"] == 5
+    assert usage["total"]["rate_limited"] == 65
+    assert usage["total"]["attempts"] == 450
+
+
+def test_latest_mirror_does_not_double_count_existing_run(tmp_path: Path) -> None:
+    data_dir = make_data_dir(tmp_path)
+    path = data_dir / "metadata_provider_health.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["latest"] = payload["runs"][-1]
+    write_json(path, payload)
+    usage = build_usage(data_dir)
+    assert usage["total"]["runs"] == 2
+    assert usage["total"]["attempts"] == 300
+    assert usage["total"]["available"] == 210
+    assert usage["total"]["rate_limited"] == 35
+
+
+def test_usage_counts_actual_s2_calls_not_skipped_candidates(tmp_path: Path) -> None:
+    data_dir = make_data_dir(tmp_path)
+    path = data_dir / "metadata_provider_health.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["latest"]["providers"]["semantic-scholar"]["statuses"] = {
+        "rate_limited": 1, "skipped_rate_limited": 139,
+        "skipped_not_needed": 10,
+    }
+    write_json(path, payload)
+    usage = build_usage(data_dir)
+    assert usage["total"]["attempts"] == 450
+    assert usage["total"]["api_calls"] == 301
+    assert usage["total"]["skipped"] == 139
+    assert usage["total"]["skipped_not_needed"] == 10
+
+
+def test_s2_no_real_api_call_does_not_advance_last_used(tmp_path: Path) -> None:
+    data_dir = tmp_path / "data"
+    write_json(data_dir / "metadata_provider_health.json", {
+        "runs": [], "latest": {
+            "checked_at": _TS_LATEST,
+            "providers": {
+                "semantic-scholar": {
+                    "attempts": 1, "available": 0,
+                    "statuses": {"skipped_not_needed": 1},
+                },
+            },
+        },
+    })
+    usage = build_usage(data_dir)
+    assert usage["total"]["attempts"] == 1
+    assert usage["total"]["api_calls"] == 0
+    assert usage["last_used_at"] is None
