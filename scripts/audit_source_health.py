@@ -166,10 +166,20 @@ def specialized_paths(
             if journal_fresh or (not isinstance(per_journal, dict) and status_entry_is_fresh(entry, now, max_age)):
                 paths.append(path_name)
             elif checked_fresh:
+                # The batch-level message lists failures across unrelated journals.
+                # Attribute only this journal's recorded error or outcome here.
+                journal_result = per_journal if isinstance(per_journal, dict) else {}
+                outcomes = journal_result.get("outcomes")
+                outcome_message = ", ".join(str(item) for item in outcomes) if isinstance(outcomes, list) else ""
                 failures.append(
                     {
                         "path": path_name,
-                        "message": (per_journal or {}).get("error") or (per_journal or {}).get("message") or entry.get("message") or "source check failed",
+                        "message": (
+                            journal_result.get("error")
+                            or journal_result.get("message")
+                            or outcome_message
+                            or "no per-journal source result"
+                        ),
                     }
                 )
             if entry.get("updated_at"):
