@@ -20,6 +20,8 @@ jobs:
           python-version: "3.11"
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest
+      - name: Temporary IZA official markup diagnostic (draft PR only)
+        run: python -m pytest -q tests/test_iza_live_markup_probe.py
       - name: Generate Daily homepage contract fixtures
         shell: bash
         run: |
