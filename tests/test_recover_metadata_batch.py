@@ -1007,6 +1007,7 @@ def test_s2_skipped_when_only_existing_c_date_can_be_upgraded(tmp_path: Path) ->
         )
     s2.assert_not_called()
     assert report["provider_health"]["semantic-scholar"]["skipped_not_needed"] == 1
+    assert report["providers"]["semantic-scholar"] == 0
     assert report["provider_health"]["semantic-scholar"]["rate_limited"] == 0
     assert report["field_attribution"]["date_quality_upgrade"]["openalex+crossref"] == 1
     record_after = json.loads(
@@ -1039,6 +1040,7 @@ def test_s2_only_usable_abstract_has_measured_marginal_gain(tmp_path: Path) -> N
             timeout=10, workers=1, dry_run=False,
         )
     assert report["field_attribution"]["abstract"]["semantic-scholar"] == 1
+    assert report["providers"]["semantic-scholar"] == 1
     assert report["field_attribution"].get("date_newly_filled", {}) == {}
     stored = json.loads(
         (data_dir / "daily" / "2026-07-31.json").read_text(encoding="utf-8")
