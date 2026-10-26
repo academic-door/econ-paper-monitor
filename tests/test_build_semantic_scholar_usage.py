@@ -224,3 +224,15 @@ def test_s2_no_real_api_call_does_not_advance_last_used(tmp_path: Path) -> None:
     assert usage["total"]["attempts"] == 1
     assert usage["total"]["api_calls"] == 0
     assert usage["last_used_at"] is None
+
+
+def test_usage_report_runs_after_current_metadata_batch_in_production() -> None:
+    """Never publish a previous-batch usage count alongside today's field attribution."""
+    workflow = (ROOT / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
+    batch = workflow.index("- name: Batch recover metadata from independent indexes")
+    usage = workflow.index("- name: Build Semantic Scholar usage report")
+    integrity = workflow.index("- name: Repair public data integrity")
+    assert batch < usage < integrity
+    # No extra producer/writer or invocation; only an in-job sequence change.
+    assert workflow.count("run: python scripts/build_semantic_scholar_usage.py") == 1
+    assert workflow.count("run: |\n          if timeout 20m python scripts/recover_metadata_batch.py") == 1
