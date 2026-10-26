@@ -441,6 +441,12 @@ jobs:
       - name: Normalize enriched metadata
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/normalize_records.py
+      # Date/abstract enrichment can reintroduce Crossref fallback dates after
+      # the earlier manual-override pass. Reapply exact verified DOI corrections
+      # before the final archive placement, preserving canonical first_seen.
+      - name: Re-apply verified DOI overrides after enrichment
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/apply_overrides.py
       - name: Repair enriched official-date archives
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/repair_official_date_archives.py
