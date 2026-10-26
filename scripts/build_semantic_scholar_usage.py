@@ -108,7 +108,13 @@ def _aggregate(
 
     for run in runs:
         absorb(run)
-    absorb(latest)
+    # metadata_provider_health.latest mirrors runs[-1] in production.
+    # Counting it again silently exaggerates candidate/API usage.
+    if latest and not any(
+        isinstance(run, dict) and run.get("checked_at") == latest.get("checked_at")
+        for run in runs
+    ):
+        absorb(latest)
 
     by_day_list = [
         {"date": day, **by_day[day]}
