@@ -3,11 +3,14 @@ from __future__ import annotations
 
 import re
 from urllib.error import HTTPError, URLError
+from pathlib import Path
+import sys
 
 import pytest
 
-from scripts.common import fetch_text
-from scripts.fetch_preprints import first_match, meta_values
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+from common import fetch_text
+from fetch_preprints import meta_values
 
 IZA_PROBES = {
     "18991": "https://www.iza.org/publications/dp/18991/ai-adoption-by-firms-insights-from-the-literature-and-the-german-innovation-survey",
@@ -26,14 +29,9 @@ def test_iza_detail_html_live_structure_probe(number: str, url: str) -> None:
     body_start = html.lower().find("<body")
     actual = next((p for p in reversed(positions) if p > body_start), -1)
     descriptions = meta_values(html, ["citation_abstract", "dc.description", "description", "og:description"])
-    # Generic parser selectors on present production code.
-    patterns = [
-        r'<div[^>]+class=["\\'][^"\\']*page-header__intro[^"\\']*["\\'][^>]*>\\s*<div[^>]*>\\s*<p[^>]*>(.*?)</p>',
-        r'<h2[^>]*>\\s*Abstract\\s*</h2>\\s*<p[^>]*>(.*?)</p>',
-        r'<div[^>]+class=["\\'][^"\\']*abstract[^"\\']*["\\'][^>]*>(.*?)</div>',
-        r'<section[^>]+class=["\\'][^"\\']*abstract[^"\\']*["\\'][^>]*>(.*?)</section>',
-    ]
-    matched = [len(first_match([p], html) or "") for p in patterns]
+    # Structural markers only; no full abstract text is logged.
+    patterns = ["page-header__intro", r"<h2[^>]*>\\s*Abstract", r"class=.{0,35}abstract", r"<meta"]
+    matched = [len(re.findall(p, html, re.I | re.S)) for p in patterns]
     # Just the short boundary before the body text, strip any long textual data.
     prefix = html[max(0, actual-360):actual] if actual >= 0 else ""
     structure = re.sub(r'(?<=>)[^<>]{30,}', 'TEXT', prefix)
