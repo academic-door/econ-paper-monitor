@@ -419,8 +419,6 @@ jobs:
           fi
         env:
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
-      - name: Build Semantic Scholar usage report
-        run: python scripts/build_semantic_scholar_usage.py
       - name: Batch recover metadata from independent indexes
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
@@ -434,6 +432,10 @@ jobs:
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
           ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
           ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
+      # Read the batch's just-written provider health in the SAME full run.
+      # In light runs recovery is skipped; this still reports the last full batch.
+      - name: Build Semantic Scholar usage report
+        run: python scripts/build_semantic_scholar_usage.py
 
       - name: Repair public data integrity
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
