@@ -36,8 +36,8 @@
     },
     "missing_rate": 0.0445,
     "missing_recent": 33,
-    "missing_recent_actionable": 29,
-    "missing_recent_expected": 4,
+    "missing_recent_actionable": 28,
+    "missing_recent_expected": 5,
     "missing_today": 1,
     "total": 9481
   },
@@ -45,8 +45,8 @@
     "available": 9470,
     "missing": 11,
     "missing_recent": 1,
-    "missing_recent_actionable": 1,
-    "missing_recent_expected": 0,
+    "missing_recent_actionable": 0,
+    "missing_recent_expected": 1,
     "missing_today": 0,
     "missing_today_journals": 0,
     "total": 9481
@@ -54,8 +54,8 @@
   "date_confidence": {
     "A": 5546,
     "B": 64,
-    "C": 2852,
-    "D": 464,
+    "C": 2792,
+    "D": 524,
     "F": 555
   },
   "date_source_top": {
@@ -67,7 +67,7 @@
     "crossref_doi_published": 65,
     "crossref_doi_published_online": 255,
     "crossref_elsevier_created_online": 763,
-    "crossref_published": 70,
+    "crossref_issue": 60,
     "crossref_published_online": 679,
     "iza_detail_month": 62,
     "nep_issue_date": 406,
@@ -1213,16 +1213,6 @@
         "source_issue": null,
         "title": "A Theory of Economic Coercion and Fragmentation",
         "url": "https://doi.org/10.1086/744505"
-      },
-      {
-        "date": "2026-10-15",
-        "date_confidence": "C",
-        "date_source": "crossref_published_online",
-        "journal": "Journal of Law, Economics & Organization",
-        "official_date": "2026-10-14",
-        "source_issue": null,
-        "title": "Acknowledgements",
-        "url": "https://doi.org/10.1093/jleo/ewag035"
       }
     ],
     "missing_abstract_recent_expected": [
@@ -1269,6 +1259,17 @@
         "source_issue": "Labour Economics",
         "title": "Corrigendum to “The labor market effects of subminimum wage elimination: Evidence from a national analysis” [Labour Economics, Volume 100, June 2026, 102884]",
         "url": "https://doi.org/10.1016/j.labeco.2026.102975"
+      },
+      {
+        "date": "2026-10-15",
+        "date_confidence": "C",
+        "date_source": "crossref_published_online",
+        "expectation_reason": "reviewer_acknowledgement",
+        "journal": "Journal of Law, Economics & Organization",
+        "official_date": "2026-10-14",
+        "source_issue": null,
+        "title": "Acknowledgements",
+        "url": "https://doi.org/10.1093/jleo/ewag035"
       }
     ],
     "missing_abstract_today": [
@@ -1295,11 +1296,13 @@
         "url": "https://doi.org/10.1093/jleo/ewag035"
       }
     ],
-    "missing_authors_recent_actionable": [
+    "missing_authors_recent_actionable": [],
+    "missing_authors_recent_expected": [
       {
         "date": "2026-10-15",
         "date_confidence": "C",
         "date_source": "crossref_published_online",
+        "expectation_reason": "reviewer_acknowledgement",
         "journal": "Journal of Law, Economics & Organization",
         "official_date": "2026-10-14",
         "source_issue": null,
@@ -1307,7 +1310,6 @@
         "url": "https://doi.org/10.1093/jleo/ewag035"
       }
     ],
-    "missing_authors_recent_expected": [],
     "missing_authors_today": [],
     "missing_required_fields": [
       {
@@ -2360,13 +2362,13 @@
     "malformed_first_seen": 0,
     "missing_abstract": 422,
     "missing_abstract_recent": 33,
-    "missing_abstract_recent_actionable": 29,
-    "missing_abstract_recent_expected": 4,
+    "missing_abstract_recent_actionable": 28,
+    "missing_abstract_recent_expected": 5,
     "missing_abstract_today": 1,
     "missing_authors": 11,
     "missing_authors_recent": 1,
-    "missing_authors_recent_actionable": 1,
-    "missing_authors_recent_expected": 0,
+    "missing_authors_recent_actionable": 0,
+    "missing_authors_recent_expected": 1,
     "missing_authors_today": 0,
     "missing_authors_today_journals": 0,
     "missing_required_fields": 209,

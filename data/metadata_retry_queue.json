@@ -1,45 +1,21 @@
 {
   "expected_metadata_gap_counts": {
     "abstract:book_review": 3,
-    "abstract:correction_notice": 4
+    "abstract:correction_notice": 4,
+    "abstract:reviewer_acknowledgement": 1,
+    "authors:reviewer_acknowledgement": 1
   },
   "generated_for": "2026-10-26",
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 141,
-    "missing_authors": 1,
+    "missing_abstract": 140,
     "weak_date_evidence": 499
   },
   "recent_candidates": 500,
   "recent_candidates_before_limit": 592,
   "recent_window_start": "2026-09-27",
   "records": [
-    {
-      "date_confidence": "C",
-      "doi": "10.1093/jleo/ewag035",
-      "first_seen": "2026-10-15T16:07:44+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1093/jleo/ewag035",
-      "journal": "Journal of Law, Economics & Organization",
-      "official_date": "2026-10-14",
-      "priority": [
-        0,
-        0,
-        0,
-        12
-      ],
-      "reasons": [
-        "missing_abstract",
-        "missing_authors",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Acknowledgements",
-      "url": "https://doi.org/10.1093/jleo/ewag035"
-    },
     {
       "date_confidence": "C",
       "doi": "10.1016/j.foodpol.2026.103185",
@@ -7705,6 +7681,33 @@
       "source_type": "journal",
       "title": "The Efficiency vs. Pricing Accuracy Trade-Off in GMM Estimation of Multifactor Linear Asset Pricing Models",
       "url": "https://doi.org/10.1080/07350015.2026.2743244"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1093/jleo/ewag035",
+      "expected_metadata_gaps": {
+        "abstract": "reviewer_acknowledgement",
+        "authors": "reviewer_acknowledgement"
+      },
+      "first_seen": "2026-10-15T16:07:44+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1093/jleo/ewag035",
+      "journal": "Journal of Law, Economics & Organization",
+      "official_date": "2026-10-14",
+      "priority": [
+        0,
+        1,
+        1,
+        12
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Acknowledgements",
+      "url": "https://doi.org/10.1093/jleo/ewag035"
     },
     {
       "date_confidence": "F",
