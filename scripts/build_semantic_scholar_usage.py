@@ -43,6 +43,7 @@ def _aggregate(
             "not_found": 0,
             "rate_limited": 0,
             "skipped": 0,
+            "skipped_not_needed": 0,
             "http_error": 0,
             "provider_error": 0,
             "runs": 0,
@@ -55,6 +56,7 @@ def _aggregate(
         "not_found": 0,
         "rate_limited": 0,
         "skipped": 0,
+        "skipped_not_needed": 0,
         "http_error": 0,
         "provider_error": 0,
         "runs": 0,
@@ -91,6 +93,7 @@ def _aggregate(
             "not_found": int(statuses.get("not_found") or 0),
             "rate_limited": int(statuses.get("rate_limited") or 0),
             "skipped": int(statuses.get("skipped_rate_limited") or 0),
+            "skipped_not_needed": int(statuses.get("skipped_not_needed") or 0),
             "http_error": int(statuses.get("http_error") or 0),
             "provider_error": int(statuses.get("provider_error") or 0),
         }
