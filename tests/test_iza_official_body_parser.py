@@ -56,7 +56,7 @@ def test_real_iza_body_container_beats_identical_generic_seo(capsys) -> None:
         with patch.object(fetch_preprints, "fetch_text", return_value=html) as fetch:
             result = fetch_preprints.enrich_record_from_detail(item, SOURCE, timeout=10)
         assert fetch.call_count == 1
-        assert result["abstract"] == " ".join(texts).strip()
+        assert result["abstract"] == " ".join(part.strip() for part in texts)
         assert SEO not in result["abstract"]
         assert result["first_seen"] == DATE
         assert result["authors"] == ["Original Author"]
@@ -71,7 +71,7 @@ def test_iza_abstract_only_repair_preserves_source_truth_identity_and_dates() ->
         changed, authors, abstracts = repair_record(item, SOURCE, timeout=10)
     assert fetch.call_count == 1
     assert (changed, authors, abstracts) == (True, False, True)
-    assert item["abstract"] == " ".join((PAR1, PAR2)).strip()
+    assert item["abstract"] == " ".join(part.strip() for part in (PAR1, PAR2))
     assert item["abstract_source"] == "iza_official_detail"
     assert item["abstract_status_code"] == "available"
     for key, value in original.items():
