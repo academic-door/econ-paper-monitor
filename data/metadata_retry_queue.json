@@ -9,11 +9,11 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 144,
+    "missing_abstract": 145,
     "weak_date_evidence": 500
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 605,
+  "recent_candidates_before_limit": 607,
   "recent_window_start": "2026-09-29",
   "records": [
     {
@@ -927,6 +927,30 @@
       "source_type": "journal",
       "title": "Optimal taxation of robotic capital with a binding minimum wage",
       "url": "https://doi.org/10.1007/s10797-026-10011-7"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.jpubeco.2026.105808",
+      "first_seen": "2026-10-27T21:51:32+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jpubeco.2026.105808",
+      "journal": "Journal of Public Economics",
+      "official_date": "2026-10-27",
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Fiscal accountability: Institutional discipline and behavioral frictions",
+      "url": "https://doi.org/10.1016/j.jpubeco.2026.105808"
     },
     {
       "date_confidence": "F",
@@ -3885,6 +3909,29 @@
       "source_type": "journal",
       "title": "The Weight of Compliance: Anti-Money Laundering Enforcement, Banking Sector Composition, and Lending",
       "url": "https://doi.org/10.1017/s002210902610338x"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1093/ej/ueag137",
+      "first_seen": "2026-10-27T21:51:28+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1093/ej/ueag137",
+      "journal": "Economic Journal",
+      "official_date": "2026-10-27",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Motherhood and Constraints during Job Search",
+      "url": "https://doi.org/10.1093/ej/ueag137"
     },
     {
       "date_confidence": "C",
@@ -11641,55 +11688,9 @@
       "source_type": "journal",
       "title": "Monopsony power and the transferability of intangible capital",
       "url": "https://doi.org/10.1080/00036846.2026.2740782"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2740785",
-      "first_seen": "2026-10-03T09:58:16+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2740785",
-      "journal": "Applied Economics",
-      "official_date": "2026-10-03",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Does international supply shock necessitate supply chain diversification? Evidence from China’s imports of intermediate goods",
-      "url": "https://doi.org/10.1080/00036846.2026.2740785"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2742444",
-      "first_seen": "2026-10-03T09:58:16+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2742444",
-      "journal": "Applied Economics",
-      "official_date": "2026-10-03",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Rural E-Commerce and rural revitalization: the income channel and the complementary role of FinTech",
-      "url": "https://doi.org/10.1080/00036846.2026.2742444"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5423,
+  "total_candidates_before_limit": 5425,
   "truncated": true
 }
