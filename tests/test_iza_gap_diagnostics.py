@@ -81,9 +81,9 @@ def test_iza_missing_abstract_logs_selector_origin_only(capsys) -> None:
         ('<div class="page-header__intro"><div><p>Official body abstract</p></div></div>',
          "detail_selector"),
         ('<meta name="description" content="A generic site introduction">',
-         "generic_meta"),
+         "none"),
         ('<script type="application/ld+json">{"description": "Description from structured data"}</script>',
-         "jsonld"),
+         "none"),
         ('<html><body><h1>Official page title</h1></body></html>',
          "none"),
     ]
