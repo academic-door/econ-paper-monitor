@@ -10,17 +10,17 @@
     "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 11497,
+    "seen": 11498,
     "source_crossref_only": 0,
-    "source_degraded": 1,
-    "source_healthy": 92,
+    "source_degraded": 2,
+    "source_healthy": 91,
     "today": 0
   },
   "date": "2026-10-28",
   "failures": [],
-  "generated_at": "2026-10-27T22:41:19+00:00",
+  "generated_at": "2026-10-27T23:42:37+00:00",
   "local_cnki": {
-    "age_hours": 0.48,
+    "age_hours": 1.5,
     "count": 96,
     "fresh": true,
     "freshness_code": "fresh",
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-10-27T22:37:45+00:00",
+    "checked_at": "2026-10-27T23:41:39+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -196,6 +196,15 @@
           "next_action": "add or verify an independent fallback path",
           "usable_paths": [
             "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "数量经济技术经济研究",
+          "journal_id": "journal-edcb877d78",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "cnki-rss",
             "openalex-recall"
           ]
         }
