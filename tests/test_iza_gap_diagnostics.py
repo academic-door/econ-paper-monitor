@@ -70,3 +70,34 @@ def test_other_sources_remain_silent(capsys) -> None:
     with patch.object(fetch_preprints, "fetch_text", side_effect=TimeoutError("private")):
         fetch_preprints.enrich_record_from_detail(item, {"id": "cepr-dp"}, timeout=10)
     assert capsys.readouterr().out == ""
+
+
+def test_iza_missing_abstract_logs_selector_origin_only(capsys) -> None:
+    # Pure offline fixtures: route is classified from the same fetched HTML.
+    # Neither page content nor an additional network request may reach logs.
+    fixtures = [
+        ('<meta name="citation_abstract" content="Official scholarly abstract">',
+         "citation_meta"),
+        ('<div class="page-header__intro"><div><p>Official body abstract</p></div></div>',
+         "detail_selector"),
+        ('<meta name="description" content="A generic site introduction">',
+         "generic_meta"),
+        ('<script type="application/ld+json">{"description": "Description from structured data"}</script>',
+         "jsonld"),
+        ('<html><body><h1>Official page title</h1></body></html>',
+         "none"),
+    ]
+    for html, origin in fixtures:
+        item = record()
+        with patch.object(fetch_preprints, "fetch_text", return_value=html) as fetch:
+            fetch_preprints.enrich_record_from_detail(item, SOURCE, timeout=10)
+        output = capsys.readouterr().out
+        assert fetch.call_count == 1
+        assert f"status=transport_ok" in output
+        assert f"origin={origin}" in output
+        assert html not in output
+        assert "Official scholarly abstract" not in output
+        assert "Official body abstract" not in output
+        assert "generic site introduction" not in output
+        assert "Description from structured data" not in output
+        assert item["first_seen"] == "2026-10-16T19:38:06Z"
