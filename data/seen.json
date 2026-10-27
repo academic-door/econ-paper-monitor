@@ -108180,9 +108180,12 @@
       "url": "https://www.sciencedirect.com/science/article/pii/S0165188926001880?dgcid=api_sd_search-api-endpoint"
     },
     "doi:10.1016/j.jedc.2026.105444": {
+      "_error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)>",
+      "_provider": "semantic-scholar",
+      "_status": "error",
       "abstract": "We propose a Simulated Minimum Distance (SMD) estimator based on the Wasserstein distance for estimating parameters in economic models with intractable likelihoods, such as Agent-Based Models (ABM). This approach avoids the need for complex likelihood approximations and is robust even when model and data distributions have non-overlapping support. Simulating the two- and three-type Brock and Hommes (1998) asset pricing model, we show that the estimator is more accurate than a likelihood-based Bayesian benchmark, in particular in the estimation of the behavioral parameters. We conclude with an empirical application of the Brock and Hommes (BH) model to S&P 500 data. Overall, the Simulated Wasserstein Minimum Distance Estimator (SWMDE) offers a flexible and computationally efficient tool for structural estimation in models where likelihood-based inference is infeasible or unreliable.",
       "abstract_completeness": "full",
-      "abstract_enrichment_status": "metadata-only",
+      "abstract_enrichment_status": "available",
       "abstract_source": "elsevier_article_api_full",
       "abstract_status_code": "available",
       "authors": [
@@ -108216,7 +108219,12 @@
       "published_online": "2026-10-26",
       "publisher": "Elsevier BV",
       "raw_data": {
-        "crossref_date_source": "crossref_elsevier_created_online"
+        "crossref_date_source": "crossref_elsevier_created_online",
+        "date_evidence": [
+          {
+            "source": "semantic-scholar"
+          }
+        ]
       },
       "source": "crossref",
       "source_type": "journal",
@@ -389676,6 +389684,56 @@
       "translation_status": "title_translated",
       "url": "https://nep.repec.org/nep-dev/2026-06-22#p6"
     },
+    "url:2041d1a435f91bb8": {
+      "abstract": "东北财经大学工商管理学院成立于1994年6月,是东北财经大学最早成立的全日制学院。学院坚持立德树人根本任务,以卓越党建引领人才培养,始终牢记为党育人、为国育才初心使命。学院坚持“特色化、品牌化、平台化、生态化”发展理念,紧紧围绕“中国式管理”和“数智化转型”两个学科方向,实施“学科战略化、科研组织化、行政学术化、学术生态化”的新发展战略,主动对接教育强国建设战略需求,以学科创新支...",
+      "abstract_completeness": "preview",
+      "abstract_enrichment_status": "available",
+      "abstract_status": "来源仅提供摘要预览，系统将自动重试完整摘要",
+      "abstract_status_code": "preview_truncated",
+      "abstract_truncated": true,
+      "abstract_zh": "东北财经大学工商管理学院成立于1994年6月,是东北财经大学最早成立的全日制学院。学院坚持立德树人根本任务,以卓越党建引领人才培养,始终牢记为党育人、为国育才初心使命。学院坚持“特色化、品牌化、平台化、生态化”发展理念,紧紧围绕“中国式管理”和“数智化转型”两个学科方向,实施“学科战略化、科研组织化、行政学术化、学术生态化”的新发展战略,主动对接教育强国建设战略需求,以学科创新支...",
+      "authors": [],
+      "authors_status": "作者信息待核验",
+      "authors_status_code": "missing_retry",
+      "available_online": "2026-10-05",
+      "china_related": true,
+      "china_related_source": "rule",
+      "china_relevance_reason": "中文期刊默认与中国相关",
+      "china_relevance_status": "confirmed",
+      "date_confidence": "A",
+      "date_source": "cnki_rss_pubdate",
+      "detail_key": "paper-2041d1a435f9",
+      "detected_at": "2026-10-27T04:11:06+00:00",
+      "doi": null,
+      "fields": [
+        "chinese"
+      ],
+      "first_seen": "2026-10-27T04:11:06+00:00",
+      "id": "url:2041d1a435f91bb8",
+      "identity_aliases": [
+        "https://kns.cnki.net/kcms2/article/abstract?v=ebmZV7IQtJnulBPxIuagSF4GlaskJuSidoZgXGjaU4VAw01SNMWHbyC7-qCB2YaMbAOFn9scCXnx4PGjv41uH_m_Xo8NCteP0Wy8QcqkfrcFgdXQoT6vhZ-F7dR_TFFUfcVA5tV3fp-YlVPcg1tc9RftzeHICSNUtunxkzli5vHbX9sYQymBdg=="
+      ],
+      "journal": "管理世界",
+      "journal_id": "journal-379b4022ce",
+      "journal_short": "管理世界",
+      "official_date_status": "available",
+      "published_online": "2026-10-05",
+      "publisher": "国务院发展研究中心",
+      "raw_data": {
+        "cnki_channel_pubdate_raw": "Tue, 27 Oct 2026 04:11:15 GMT",
+        "cnki_code": "GLSJ",
+        "cnki_feed_url": "direct:https://rss.cnki.net/knavi/rss/GLSJ?pcode=CJFD,CCJD",
+        "cnki_priority": "supplement",
+        "cnki_pubdate_raw": "Sun, 04 Oct 2026 16:00:00 GMT"
+      },
+      "source": "cnki-rss",
+      "source_type": "journal",
+      "source_url": "direct:https://rss.cnki.net/knavi/rss/GLSJ?pcode=CJFD,CCJD",
+      "title": "东北财经大学工商管理学院简介",
+      "title_zh": "东北财经大学工商管理学院简介",
+      "translation_status": "native_chinese",
+      "url": "https://kns.cnki.net/kcms2/article/abstract?v=ebmZV7IQtJnulBPxIuagSF4GlaskJuSidoZgXGjaU4VAw01SNMWHbyC7-qCB2YaMbAOFn9scCXnx4PGjv41uH_m_Xo8NCteP0Wy8QcqkfrcFgdXQoT6vhZ-F7dR_TFFUfcVA5tV3fp-YlVPcg1tc9RftzeHICSNUtunxkzli5vHbX9sYQymBdg=="
+    },
     "url:20481b420983057f": {
       "abstract_completeness": "missing",
       "abstract_enrichment_status": "abstract-route-missing",
@@ -425254,6 +425312,7 @@
     "url:4a49145bc5f6b30c": {
       "abstract": "Agreements between manufacturers and retailers can affect competition across brands and stores. This column documents retail price patterns in the US consumer battery industry and uses a model estimated from purchase data to explore two potential mechanisms: changes in downstream retail pricing and changes in upstream wholesale contracting. Counterfactual simulations illustrate how these mechanisms could jointly weaken competition. In the scenarios examined, the wholesale channel generates the larger consumer welfare loss. The findings highlight the importance of considering both channels when evaluating the potential effects of vertical agreements.",
       "abstract_completeness": "full",
+      "abstract_enrichment_status": "available",
       "abstract_status_code": "available",
       "authors": [
         "Zhonglin Li, Hsin-Tien Tiffany Tsai"
@@ -476992,6 +477051,7 @@
     "url:8893a525475955df": {
       "abstract": "Health programmes must clear cost-effectiveness thresholds, but social care faces no such test. This column uses Spain's 2007 long-term care reform to show that access to cash subsidies and publicly funded home help raised life satisfaction, reduced loneliness, and increased survival, at a cost per quality-adjusted life year well below the thresholds applied to health programmes. The results suggest that part of a national care service could be funded by replacing less cost-effective health programmes with social care.",
       "abstract_completeness": "full",
+      "abstract_enrichment_status": "available",
       "abstract_status_code": "available",
       "authors": [
         "Joan Costa-i-Font, Sergi Jiménez-Martín, Cristina Vilaplana Prieto"
@@ -511432,7 +511492,6 @@
       ],
       "authors_status_code": "available",
       "available_online": "2026-06-15",
-      "china_relevance_reason": "摘要仅出现一次中国相关表述，需确认中国是否为核心研究对象",
       "china_relevance_status": "none",
       "date_confidence": "D",
       "date_source": "nep_issue_date",
