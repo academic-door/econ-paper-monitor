@@ -402,9 +402,18 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     if not url:
         return record
     source_id = str(source.get("id") or "")
+    # Diagnose only existing IZA abstract gaps. Never retry or fetch a second
+    # page for observability; no page text or credentials enter CI logs.
+    iza_abstract_gap = source_id == "iza" and not str(record.get("abstract") or "").strip()
+    iza_number_match = re.search(r"/dp/(\d+)", str(url), flags=re.I) if iza_abstract_gap else None
+    iza_number = iza_number_match.group(1) if iza_number_match else "unknown"
     try:
         html_text = fetch_text(str(url), timeout=timeout)
-    except Exception:
+    except Exception as exc:
+        if iza_abstract_gap:
+            http_status = getattr(exc, "code", None)
+            code_label = str(http_status) if isinstance(http_status, int) else "none"
+            print(f"iza abstract detail dp={iza_number} status=transport_error error={type(exc).__name__} http={code_label}")
         return record
 
     title_meta_names = ["citation_title", "dc.title", "og:title"]
@@ -448,6 +457,13 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
         or generic_description
         or json_ld_value(html_text, ["description", "abstract"])
     )
+    if iza_abstract_gap:
+        candidate_length = len(clean_text(abstract)) if abstract else 0
+        candidate_status = (
+            "candidate" if abstract and not is_boilerplate_text(abstract)
+            else "boilerplate" if abstract else "selector_miss"
+        )
+        print(f"iza abstract detail dp={iza_number} status=transport_ok abstract={candidate_status} chars={candidate_length}")
     if abstract and not is_boilerplate_text(abstract):
         record["abstract"] = clean_text(abstract)
 
