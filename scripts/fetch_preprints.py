@@ -478,7 +478,7 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     # Diagnose only existing IZA abstract gaps. Never retry or fetch a second
     # page for observability; no page text or credentials enter CI logs.
     iza_abstract_gap = source_id == "iza" and not str(record.get("abstract") or "").strip()
-    iza_number_match = re.search(r"/dp/(\d+)", str(url), flags=re.I) if iza_abstract_gap else None
+    iza_number_match = re.search(r"/dp/(\d+)", str(url), flags=re.I) if source_id == "iza" else None
     iza_number = iza_number_match.group(1) if iza_number_match else "unknown"
     try:
         html_text = fetch_text(str(url), timeout=timeout)
