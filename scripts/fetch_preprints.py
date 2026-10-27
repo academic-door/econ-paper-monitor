@@ -458,12 +458,24 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
         or json_ld_value(html_text, ["description", "abstract"])
     )
     if iza_abstract_gap:
+        # Classify the already-fetched candidate's *selector origin*, not its
+        # text. This is diagnostic-only: no new request or eligibility change.
+        if (meta_values(html_text, ["citation_abstract", "dc.description"]) or [None])[0]:
+            candidate_origin = "citation_meta"
+        elif first_match(detail_abstract_patterns, html_text):
+            candidate_origin = "detail_selector"
+        elif generic_description:
+            candidate_origin = "generic_meta"
+        elif json_ld_value(html_text, ["description", "abstract"]):
+            candidate_origin = "jsonld"
+        else:
+            candidate_origin = "none"
         candidate_length = len(clean_text(abstract)) if abstract else 0
         candidate_status = (
             "candidate" if abstract and not is_boilerplate_text(abstract)
             else "boilerplate" if abstract else "selector_miss"
         )
-        print(f"iza abstract detail dp={iza_number} status=transport_ok abstract={candidate_status} chars={candidate_length}")
+        print(f"iza abstract detail dp={iza_number} status=transport_ok abstract={candidate_status} chars={candidate_length} origin={candidate_origin}")
     if abstract and not is_boilerplate_text(abstract):
         record["abstract"] = clean_text(abstract)
 
