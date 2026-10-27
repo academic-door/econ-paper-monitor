@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import html
+from html.parser import HTMLParser
 import json
 import re
 from email.utils import parsedate_to_datetime
@@ -297,6 +298,78 @@ def iza_detail_authors(html_text: str) -> list[str]:
     return list(dict.fromkeys(authors))[:12]
 
 
+
+def iza_official_body_abstract(html_text: str, *, dp_number: str) -> str | None:
+    """Return IZA's verified article-body paragraphs; never the site's SEO meta.
+
+    G21 first-party hosted HTML inspection (#402) confirmed both DP 18991 and
+    18992 place their actual abstract in
+    div.element-copyexpandable.cms-richtext > p.
+    Fail closed when the official DP number is absent or the body is ambiguous.
+    """
+    if not dp_number.isdecimal() or not re.search(
+        rf"\bIZA\s+Discussion\s+Paper\s+No\.?\s*{re.escape(dp_number)}\b",
+        clean_text(html_text),
+        flags=re.I,
+    ):
+        return None
+
+    class BodyParagraphs(HTMLParser):
+        def __init__(self) -> None:
+            super().__init__(convert_charrefs=True)
+            self.div_depth = 0
+            self.target_depth: int | None = None
+            self.in_paragraph = False
+            self.parts: list[str] = []
+            self.paragraphs: list[str] = []
+            self.blocks: list[list[str]] = []
+
+        def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+            if tag == "div":
+                self.div_depth += 1
+                classes = {
+                    token
+                    for key, value in attrs if key == "class" and value
+                    for token in value.split()
+                }
+                if self.target_depth is None and {
+                    "element-copyexpandable", "cms-richtext"
+                }.issubset(classes):
+                    self.target_depth = self.div_depth
+                    self.paragraphs = []
+            elif self.target_depth is not None and tag == "p" and not self.in_paragraph:
+                self.in_paragraph = True
+                self.parts = []
+            elif self.in_paragraph and tag == "br":
+                self.parts.append(" ")
+
+        def handle_data(self, data: str) -> None:
+            if self.in_paragraph:
+                self.parts.append(data)
+
+        def handle_endtag(self, tag: str) -> None:
+            if tag == "p" and self.in_paragraph:
+                paragraph = clean_text("".join(self.parts))
+                if paragraph:
+                    self.paragraphs.append(paragraph)
+                self.parts = []
+                self.in_paragraph = False
+            elif tag == "div":
+                if self.target_depth == self.div_depth:
+                    self.blocks.append(self.paragraphs)
+                    self.paragraphs = []
+                    self.target_depth = None
+                    self.in_paragraph = False
+                    self.parts = []
+                self.div_depth = max(0, self.div_depth - 1)
+
+    parser = BodyParagraphs()
+    parser.feed(html_text)
+    candidates = [" ".join(paragraphs) for paragraphs in parser.blocks
+                  if paragraphs and 160 <= len(" ".join(paragraphs)) <= 9000]
+    return candidates[0] if len(candidates) == 1 else None
+
+
 def detect_paper_number(source: dict[str, Any], title: str, url: str | None) -> str | None:
     source_id = str(source.get("id") or "")
     text = f"{title} {url or ''}"
@@ -450,23 +523,34 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
         r'<div[^>]+class=["\'][^"\']*abstract[^"\']*["\'][^>]*>(.*?)</div>',
         r'<section[^>]+class=["\'][^"\']*abstract[^"\']*["\'][^>]*>(.*?)</section>',
     ]
-    generic_description = None if source_id == "nber" else (meta_values(html_text, ["description", "og:description"]) or [None])[0]
+    # IZA's actual first-party abstract is multi-paragraph HTML, not the
+    # short generic site description. Only use the verified official DOM path.
+    iza_body = (
+        iza_official_body_abstract(html_text, dp_number=iza_number)
+        if source_id == "iza"
+        and urlparse(str(url)).hostname in {"iza.org", "www.iza.org"}
+        and iza_number != "unknown"
+        else None
+    )
+    citation_abstract = (meta_values(html_text, ["citation_abstract", "dc.description"]) or [None])[0]
+    detail_abstract = first_match(detail_abstract_patterns, html_text)
+    generic_description = None if source_id in {"nber", "iza"} else (meta_values(html_text, ["description", "og:description"]) or [None])[0]
+    structured_description = None if source_id == "iza" else json_ld_value(html_text, ["description", "abstract"])
     abstract = (
-        (meta_values(html_text, ["citation_abstract", "dc.description"]) or [None])[0]
-        or first_match(detail_abstract_patterns, html_text)
-        or generic_description
-        or json_ld_value(html_text, ["description", "abstract"])
+        iza_body or citation_abstract or detail_abstract
+        or generic_description or structured_description
     )
     if iza_abstract_gap:
-        # Classify the already-fetched candidate's *selector origin*, not its
-        # text. This is diagnostic-only: no new request or eligibility change.
-        if (meta_values(html_text, ["citation_abstract", "dc.description"]) or [None])[0]:
+        # Only selector origin/length is logged; never publisher text.
+        if iza_body:
+            candidate_origin = "iza_body"
+        elif citation_abstract:
             candidate_origin = "citation_meta"
-        elif first_match(detail_abstract_patterns, html_text):
+        elif detail_abstract:
             candidate_origin = "detail_selector"
         elif generic_description:
             candidate_origin = "generic_meta"
-        elif json_ld_value(html_text, ["description", "abstract"]):
+        elif structured_description:
             candidate_origin = "jsonld"
         else:
             candidate_origin = "none"
