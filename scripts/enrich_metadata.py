@@ -1098,6 +1098,79 @@ def ajcass_content_metadata(record: dict[str, Any], timeout: int) -> dict[str, A
     return {"abstract": abstract, "abstract_source": "ajcass_official_api"}
 
 
+# Exact six DOI identities whose full publisher description fields were verified
+# by ② G22 on a real hosted runner (Issue #412 / diagnostic PR #413).
+# Other Springer and UChicago journals are deliberately NOT swept by this path.
+SPRINGER_TAX_N2_ALLOWLIST = frozenset({
+    "10.1007/s10797-026-10011-7",
+    "10.1007/s10797-026-10004-6",
+    "10.1007/s10797-026-10009-1",
+    "10.1007/s10797-026-10008-2",
+    "10.1007/s10797-026-09999-9",
+    "10.1007/s10797-026-10010-8",
+})
+
+
+def verified_springer_tax_abstract(record: dict[str, Any], timeout: int) -> dict[str, str]:
+    """Recover only the six first-party, hosted-verified Springer abstracts.
+
+    Public metadata only; preserve all date, first_seen, author and identity
+    fields. One HTTPS request, no retries, default verified TLS, 1 MiB limit.
+    A publisher landing/challenge/teaser or article-identity mismatch yields no
+    metadata, never synthetic text.
+    """
+    if str(record.get("journal") or "") != "International Tax and Public Finance":
+        return {}
+    doi = normalize_doi(str(record.get("doi") or "")) or ""
+    if doi not in SPRINGER_TAX_N2_ALLOWLIST:
+        return {}
+    expected_title = clean_text(str(record.get("title") or "")).casefold()
+    if len(expected_title) < 24:
+        return {}
+    url = f"https://link.springer.com/article/{doi}"
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "Academic-Door-Daily-Door-Source-Quality-Audit/1.0",
+            "Accept": "text/html",
+        },
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=min(max(1, timeout), 8)) as response:
+            if response.status != 200 or response.headers.get_content_type() != "text/html":
+                return {}
+            if urllib.parse.urlparse(response.geturl()).hostname != "link.springer.com":
+                return {}
+            body = response.read(1_048_577)
+    except (OSError, TimeoutError, urllib.error.URLError):
+        return {}
+    if len(body) > 1_048_576:
+        return {}
+    html_text = body.decode("utf-8", errors="replace")
+    if doi not in html_text.casefold():
+        return {}
+    meta = parse_meta(html_text)
+    heading = re.search(r"<h1\b[^>]*>([\s\S]*?)</h1>", html_text, flags=re.I)
+    page_title = clean_text(
+        meta.get("citation_title")
+        or (heading.group(1) if heading else "")
+    ).casefold()
+    if page_title != expected_title:
+        return {}
+    abstract = clean_abstract_text(meta.get("dc.description"))
+    if (
+        len(abstract) < 180
+        or len(abstract) > 12_000
+        or re.search(r"(?:\.{3,}|…+)\s*$", abstract)
+        or "this is a preview of subscription content" in abstract.casefold()
+    ):
+        return {}
+    return {
+        "abstract": abstract,
+        "abstract_source": "springer_publisher_meta:dc.description",
+    }
+
+
 def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     if str(record.get("abstract") or "").strip() and record.get("authors"):
         return False, "abstract-present"
@@ -1130,6 +1203,12 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
             changed = merge_metadata(record, metadata) or changed
             if str(record.get("abstract") or "").strip():
                 return changed, "metadata-updated:elsevier-article-api"
+
+    if not str(record.get("abstract") or "").strip():
+        verified = verified_springer_tax_abstract(record, timeout)
+        if verified:
+            changed = merge_metadata(record, verified) or changed
+            return changed, "metadata-updated:springer-publisher-meta"
 
     return changed, "abstract-route-missing" if not changed else "metadata-only"
 
