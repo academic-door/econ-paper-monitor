@@ -56,6 +56,14 @@ def test_fixture_sizes_render_without_layout_contract_breaks(daily_builder, tmp_
     assert len(re.findall(r'class="paper-entry\b', html)) == count
     assert result["final_render_count"] == count
     assert "今日暂无新发现" in html if count == 0 else "今日研究时间流" in html
+    # Home timeline timestamp is the latest first discovery, not last site refresh.
+    assert "更新于 " not in html
+    if count:
+        assert "最新发现于 " in html
+        assert "北京时间 · 按本站首次发现时间" in html
+    else:
+        assert "今日尚无新发现" in html
+        assert "暂无更新 北京时间" not in html
 
 
 def test_missing_optional_fields_are_hidden_and_search_index_stays_compact(daily_builder, tmp_path):
