@@ -1150,7 +1150,7 @@ def verified_springer_tax_abstract(record: dict[str, Any], timeout: int) -> dict
     if doi not in html_text.casefold():
         return {}
     meta = parse_meta(html_text)
-    heading = re.search(r"<h1\\b[^>]*>([\\s\\S]*?)</h1>", html_text, flags=re.I)
+    heading = re.search(r"<h1\b[^>]*>([\s\S]*?)</h1>", html_text, flags=re.I)
     page_title = clean_text(
         meta.get("citation_title")
         or (heading.group(1) if heading else "")
@@ -1161,7 +1161,7 @@ def verified_springer_tax_abstract(record: dict[str, Any], timeout: int) -> dict
     if (
         len(abstract) < 180
         or len(abstract) > 12_000
-        or re.search(r"(?:\\.{3,}|…+)\\s*$", abstract)
+        or re.search(r"(?:\.{3,}|…+)\s*$", abstract)
         or "this is a preview of subscription content" in abstract.casefold()
     ):
         return {}
