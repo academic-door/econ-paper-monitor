@@ -20,6 +20,8 @@ jobs:
           python-version: "3.11"
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest
+      - name: G22 N2 production parser six-DOI read-only audit
+        run: python scripts/n2_production_parser_probe_g22.py
       - name: Generate Daily homepage contract fixtures
         shell: bash
         run: |
