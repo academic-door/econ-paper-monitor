@@ -1,6 +1,6 @@
 """G22 N2 isolated, read-only publisher abstract transport probe. DO NOT MERGE.
 
-One standard-TLS unauthenticated GET per public URL (8s timeout, bounded body).
+One standard-TLS unauthenticated GET per public URL (8s timeout, <=1MiB body).
 Never logs publisher text/abstract/HTML, credentials or cookies.
 Only reports bounded status, matching title and parseable full abstract presence.
 """
@@ -17,9 +17,10 @@ from enrich_metadata import extract_page_metadata, clean_text
 PROBES = [
     ("SPRINGER_TAX_A", "https://link.springer.com/article/10.1007/s10797-026-10011-7", "Optimal taxation of robotic capital with a binding minimum wage"),
     ("SPRINGER_TAX_B", "https://link.springer.com/article/10.1007/s10797-026-10004-6", "Local public goods as a double-edged sword"),
-    ("CN_CIE_HTTP", "http://ciejournal.ajcass.com/Magazine/Show?id=123766", "加快构建新发展格局"),
-    ("CN_CIE_HTTPS", "https://ciejournal.ajcass.com/Magazine/Show?id=123766", "加快构建新发展格局"),
-    ("UCHICAGO_JOLE", "https://www.journals.uchicago.edu/doi/10.1086/744672", "Childbirth and Welfare Inequality"),
+    ("SPRINGER_TAX_C", "https://link.springer.com/article/10.1007/s10797-026-10009-1", "Framed norms: the effect of choice and belief information on tax compliance"),
+    ("SPRINGER_TAX_D", "https://link.springer.com/article/10.1007/s10797-026-10008-2", "A poorly targeted subsidy? The fiscal and social costs of EU VAT expenditures"),
+    ("SPRINGER_TAX_E", "https://link.springer.com/article/10.1007/s10797-026-09999-9", "Subsidy salience and the effectiveness of green policies"),
+    ("SPRINGER_TAX_F", "https://link.springer.com/article/10.1007/s10797-026-10010-8", "Audit independence and year-end government spending surges: evidence from China"),
 ]
 
 def run_one(name, url, title):
@@ -30,13 +31,13 @@ def run_one(name, url, title):
     try:
         with urllib.request.urlopen(req,timeout=8,context=ssl.create_default_context() if url.startswith("https") else None) as response:
             status=response.status
-            body=response.read(140001)
+            body=response.read(1048577)
             mime=response.headers.get_content_type()
     except urllib.error.HTTPError as exc:
         return {"name":name,"result":"HTTP_ERROR","status":exc.code}
     except (urllib.error.URLError,TimeoutError,OSError) as exc:
         return {"name":name,"result":"TRANSPORT_ERROR","class":type(exc.reason).__name__ if isinstance(exc,urllib.error.URLError) else type(exc).__name__}
-    if len(body)>140000:
+    if len(body)>1048576:
         return {"name":name,"status":status,"mime":mime,"result":"TRUNCATED"}
     html=body.decode("utf-8",errors="replace")
     meta=extract_page_metadata(html)
