@@ -49,7 +49,9 @@ def main():
     for name, row in found[:10]:
         print(f"JARE-G22 daily_match shard={name} id={row.get('id')} doi={row.get('doi')} first_seen={row.get('first_seen')} title={row.get('title')}")
     seen = read(ROOT / "data" / "seen.json")
-    items = list(seen.values()) if isinstance(seen, dict) else seen if isinstance(seen, list) else []
+    papers = seen.get("papers") if isinstance(seen, dict) else None
+    assert isinstance(papers, dict), "Expected canonical seen.json {papers: {...}} schema"
+    items = list(papers.values())
     found_seen = [row for row in items if matches(row)]
     print(f"JARE-G22 canonical_seen_items={len(items)} canonical_seen_matches={len(found_seen)}")
     for row in found_seen[:10]:
