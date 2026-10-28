@@ -1,7 +1,7 @@
 {
   "expected_metadata_gap_counts": {
-    "abstract:book_review": 4,
-    "abstract:correction_notice": 4,
+    "abstract:book_review": 3,
+    "abstract:correction_notice": 3,
     "abstract:reviewer_acknowledgement": 1,
     "authors:reviewer_acknowledgement": 1
   },
@@ -9,89 +9,13 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 150,
-    "missing_authors": 3,
+    "missing_abstract": 146,
     "weak_date_evidence": 500
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 615,
+  "recent_candidates_before_limit": 619,
   "recent_window_start": "2026-09-30",
   "records": [
-    {
-      "date_confidence": "F",
-      "doi": null,
-      "first_seen": "2026-10-28T18:08:00+00:00",
-      "historical_backfill": false,
-      "identity": "url:https://ideas.repec.org/p/imf/imfwpa/2026-221.html",
-      "journal": "IMF Working Papers",
-      "official_date": null,
-      "priority": [
-        0,
-        0,
-        0,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "missing_authors",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "first_seen",
-      "source_id": "imf-working-papers",
-      "source_type": "policy_paper",
-      "title": "The Global Fiscal Actions (GFA) Dataset",
-      "url": "https://ideas.repec.org/p/imf/imfwpa/2026-221.html"
-    },
-    {
-      "date_confidence": "F",
-      "doi": null,
-      "first_seen": "2026-10-28T18:08:00+00:00",
-      "historical_backfill": false,
-      "identity": "url:https://ideas.repec.org/p/imf/imfwpa/2026-222.html",
-      "journal": "IMF Working Papers",
-      "official_date": null,
-      "priority": [
-        0,
-        0,
-        0,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "missing_authors",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "first_seen",
-      "source_id": "imf-working-papers",
-      "source_type": "policy_paper",
-      "title": "Recurring Natural Disasters and Macroeconomic Scarring: A Risk Adjusted DIGNAD Framework",
-      "url": "https://ideas.repec.org/p/imf/imfwpa/2026-222.html"
-    },
-    {
-      "date_confidence": "F",
-      "doi": null,
-      "first_seen": "2026-10-28T18:08:00+00:00",
-      "historical_backfill": false,
-      "identity": "url:https://ideas.repec.org/p/imf/imfwpa/2026-223.html",
-      "journal": "IMF Working Papers",
-      "official_date": null,
-      "priority": [
-        0,
-        0,
-        0,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "missing_authors",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "first_seen",
-      "source_id": "imf-working-papers",
-      "source_type": "policy_paper",
-      "title": "Effectiveness of Monetary Policy Transmission in Morocco amid Reforms to the Monetary Policy Framework",
-      "url": "https://ideas.repec.org/p/imf/imfwpa/2026-223.html"
-    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -1459,30 +1383,6 @@
       "source_type": "journal",
       "title": "Competition for market share, oversupply, and price rigidity under sequential supply decisions",
       "url": "https://doi.org/10.1007/s00182-026-01017-w"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/07350015.2026.2755404",
-      "first_seen": "2026-10-26T20:34:30+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/07350015.2026.2755404",
-      "journal": "Journal of Business & Economic Statistics",
-      "official_date": "2026-10-26",
-      "priority": [
-        0,
-        0,
-        1,
-        3
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "When Asynchronicity Meets Price Staleness: Robust Estimation of High-Frequency Covariance",
-      "url": "https://doi.org/10.1080/07350015.2026.2755404"
     },
     {
       "date_confidence": "C",
@@ -4013,6 +3913,29 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1016/j.enpol.2026.115677",
+      "first_seen": "2026-10-28T21:02:52+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.enpol.2026.115677",
+      "journal": "Energy Policy",
+      "official_date": "2026-10-28",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The energy security paradox of technology innovation in the energy transition",
+      "url": "https://doi.org/10.1016/j.enpol.2026.115677"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1016/j.enpol.2026.115683",
       "first_seen": "2026-10-28T10:39:15+00:00",
       "historical_backfill": false,
@@ -4081,6 +4004,29 @@
       "url": "https://www.sciencedirect.com/science/article/pii/S0167268126003860?dgcid=rss_sd_all"
     },
     {
+      "date_confidence": "F",
+      "doi": "10.1016/j.landusepol.2026.108407",
+      "first_seen": "2026-10-28T21:00:39+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.landusepol.2026.108407",
+      "journal": "Land Use Policy",
+      "official_date": "2026-10-28",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "German farmers' preferences for peatland rewetting schemes: Autonomy, flexibility and institutional trust",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004916?dgcid=api_sd_search-api-endpoint"
+    },
+    {
       "date_confidence": "C",
       "doi": "10.1111/iere.70124",
       "first_seen": "2026-10-28T18:00:01+00:00",
@@ -4125,6 +4071,75 @@
       "source_type": "journal",
       "title": "Real Activity and Uncertainty Shocks: The Long and the Short of It",
       "url": "https://doi.org/10.1111/iere.70127"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1287/mnsc.2023.02703",
+      "first_seen": "2026-10-28T21:02:40+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1287/mnsc.2023.02703",
+      "journal": "Management Science",
+      "official_date": "2026-10-28",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Robust Auction Design with Support Information",
+      "url": "https://doi.org/10.1287/mnsc.2023.02703"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1287/mnsc.2025.00714",
+      "first_seen": "2026-10-28T21:02:40+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1287/mnsc.2025.00714",
+      "journal": "Management Science",
+      "official_date": "2026-10-28",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "From Employer Responsibility to Environmental Irresponsibility: Unintended Impacts of Social Insurance Law on Pollution Emissions",
+      "url": "https://doi.org/10.1287/mnsc.2025.00714"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1287/mnsc.2025.03608",
+      "first_seen": "2026-10-28T21:02:40+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1287/mnsc.2025.03608",
+      "journal": "Management Science",
+      "official_date": "2026-10-28",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Estimating the Pricing Kernel: A Simple Regression-Based Dimension-Reduction Approach",
+      "url": "https://doi.org/10.1287/mnsc.2025.03608"
     },
     {
       "date_confidence": "C",
@@ -4263,29 +4278,6 @@
       "source_type": "journal",
       "title": "The complexities and failures of Australia’s East Coast Gas Market",
       "url": "https://doi.org/10.1016/j.enpol.2026.115686"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jacceco.2026.101957",
-      "first_seen": "2026-10-27T20:40:25+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jacceco.2026.101957",
-      "journal": "Journal of Accounting and Economics",
-      "official_date": "2026-10-27",
-      "priority": [
-        0,
-        1,
-        1,
-        2
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Diversification versus Consumption Motives for Early Exercise of Employee Stock Options",
-      "url": "https://doi.org/10.1016/j.jacceco.2026.101957"
     },
     {
       "date_confidence": "C",
@@ -4562,6 +4554,29 @@
       "source_type": "journal",
       "title": "The Impact of Early Investments in Urban School Systems in the United States",
       "url": "https://doi.org/10.1017/s0022050726101570"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1017/s002210902610338x",
+      "first_seen": "2026-10-27T10:02:56+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1017/s002210902610338x",
+      "journal": "Journal of Financial and Quantitative Analysis",
+      "official_date": "2026-10-27",
+      "priority": [
+        0,
+        1,
+        1,
+        2
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The Weight of Compliance: Anti-Money Laundering Enforcement, Banking Sector Composition, and Lending",
+      "url": "https://doi.org/10.1017/s002210902610338x"
     },
     {
       "date_confidence": "F",
@@ -4841,6 +4856,29 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1017/eec.2026.10067",
+      "first_seen": "2026-10-26T16:34:51+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1017/eec.2026.10067",
+      "journal": "Experimental Economics",
+      "official_date": "2026-10-26",
+      "priority": [
+        0,
+        1,
+        1,
+        3
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Failures of contingent reasoning in screening decisions",
+      "url": "https://doi.org/10.1017/eec.2026.10067"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1017/s0022050726101429",
       "first_seen": "2026-10-26T13:59:56+00:00",
       "historical_backfill": false,
@@ -4864,6 +4902,29 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1017/s0022109026103366",
+      "first_seen": "2026-10-26T04:33:19+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1017/s0022109026103366",
+      "journal": "Journal of Financial and Quantitative Analysis",
+      "official_date": "2026-10-26",
+      "priority": [
+        0,
+        1,
+        1,
+        3
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Synthesizing Information-Driven Insider Trade Signals",
+      "url": "https://doi.org/10.1017/s0022109026103366"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1080/07350015.2026.2752982",
       "first_seen": "2026-10-26T20:34:30+00:00",
       "historical_backfill": false,
@@ -4884,6 +4945,29 @@
       "source_type": "journal",
       "title": "Local Information for Global Network Estimation in Latent Space Models",
       "url": "https://doi.org/10.1080/07350015.2026.2752982"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1080/07350015.2026.2755404",
+      "first_seen": "2026-10-26T20:34:30+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/07350015.2026.2755404",
+      "journal": "Journal of Business & Economic Statistics",
+      "official_date": "2026-10-26",
+      "priority": [
+        0,
+        1,
+        1,
+        3
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "When Asynchronicity Meets Price Staleness: Robust Estimation of High-Frequency Covariance",
+      "url": "https://doi.org/10.1080/07350015.2026.2755404"
     },
     {
       "date_confidence": "F",
@@ -5186,6 +5270,29 @@
       "source_type": "journal",
       "title": "Housing bubbles and monetary policy",
       "url": "https://doi.org/10.1016/j.econmod.2026.107892"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.econmod.2026.107897",
+      "first_seen": "2026-10-24T08:58:07+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.econmod.2026.107897",
+      "journal": "Economic Modelling",
+      "official_date": "2026-10-24",
+      "priority": [
+        0,
+        1,
+        1,
+        5
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Laffer curves in Brazil: The tax evasion effect",
+      "url": "https://doi.org/10.1016/j.econmod.2026.107897"
     },
     {
       "date_confidence": "C",
@@ -11576,130 +11683,9 @@
       "source_type": "journal",
       "title": "Customer Overlap and Diversion Ratios",
       "url": "https://www.aeaweb.org/articles?id=10.1257/aeri.20260018"
-    },
-    {
-      "date_confidence": "F",
-      "doi": "10.1257/jel.20260021",
-      "expected_metadata_gaps": {
-        "abstract": "book_review"
-      },
-      "first_seen": "2026-10-06T16:31:28+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1257/jel.20260021",
-      "journal": "Journal of Economic Literature",
-      "official_date": null,
-      "priority": [
-        0,
-        1,
-        1,
-        23
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "first_seen",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Money beyond Borders: Global Currencies from Croesus to Crypto by Barry Eichengreen",
-      "url": "https://www.aeaweb.org/articles?id=10.1257/jel.20260021"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.eneco.2026.109622",
-      "expected_metadata_gaps": {
-        "abstract": "correction_notice"
-      },
-      "first_seen": "2026-10-05T19:18:20+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.eneco.2026.109622",
-      "journal": "Energy Economics",
-      "official_date": "2026-10-05",
-      "priority": [
-        0,
-        1,
-        1,
-        24
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Corrigendum to “Equity markets and ESG dynamics: Assessing spillovers and portfolio strategies through time-varying parameters” [Energy Econ., 134 (2024), 107548]",
-      "url": "https://doi.org/10.1016/j.eneco.2026.109622"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.enpol.2026.115637",
-      "first_seen": "2026-10-05T19:18:21+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.enpol.2026.115637",
-      "journal": "Energy Policy",
-      "official_date": "2026-10-05",
-      "priority": [
-        0,
-        1,
-        1,
-        24
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Evaluating the global economy-wide impact of energy efficiency policies in buildings",
-      "url": "https://doi.org/10.1016/j.enpol.2026.115637"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jebo.2026.107772",
-      "first_seen": "2026-10-05T14:32:22+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jebo.2026.107772",
-      "journal": "Journal of Economic Behavior and Organization",
-      "official_date": "2026-10-05",
-      "priority": [
-        0,
-        1,
-        1,
-        24
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Information, goal setting and performance: Experimental evidence",
-      "url": "https://doi.org/10.1016/j.jebo.2026.107772"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jeem.2026.103434",
-      "first_seen": "2026-10-05T19:14:39+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jeem.2026.103434",
-      "journal": "Journal of Environmental Economics and Management",
-      "official_date": "2026-10-05",
-      "priority": [
-        0,
-        1,
-        1,
-        24
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Devour the future: Locust plagues and educational disruption in Ethiopia",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0095069626001543?dgcid=api_sd_search-api-endpoint"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5443,
+  "total_candidates_before_limit": 5447,
   "truncated": true
 }
