@@ -55,10 +55,69 @@ def describe(label: str, url: str) -> dict[str, object]:
             data["xml_parse"] = "INVALID_OR_TRUNCATED"
     return data
 
+def inspect_real_oai_identifier() -> None:
+    """One page of identifiers, optionally one GetRecord with a REAL returned ID."""
+    import json
+    from urllib.parse import quote
+    endpoint = "https://ageconsearch.umn.edu/oai2d"
+    url = endpoint + "?verb=ListIdentifiers&metadataPrefix=marcxml&from=2026-09-01"
+    req = urllib.request.Request(url, headers={"User-Agent": "Academic-Door-Daily-Door-Source-Audit/1.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=9, context=ssl.create_default_context()) as response:
+            body = response.read(131073)
+            code = response.status
+    except urllib.error.HTTPError as exc:
+        print("JARE-AGECON-SAFE " + json.dumps(
+            {"name": "AGECON_OAI_IDENTIFIERS", "status": exc.code, "result": "HTTP_ERROR"}, sort_keys=True
+        ), flush=True)
+        return
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        print("JARE-AGECON-SAFE " + json.dumps(
+            {"name": "AGECON_OAI_IDENTIFIERS", "result": "TRANSPORT_ERROR", "class": type(exc).__name__}, sort_keys=True
+        ), flush=True)
+        return
+
+    if len(body) > 131072:
+        print("JARE-AGECON-SAFE " + json.dumps(
+            {"name": "AGECON_OAI_IDENTIFIERS", "status": code, "result": "TRUNCATED_PAGE"}, sort_keys=True
+        ), flush=True)
+        return
+    try:
+        root = ET.fromstring(body)
+    except ET.ParseError:
+        print("JARE-AGECON-SAFE " + json.dumps(
+            {"name": "AGECON_OAI_IDENTIFIERS", "status": code, "result": "NON_XML"}, sort_keys=True
+        ), flush=True)
+        return
+
+    headers = root.findall(".//{*}header")
+    dates = sorted(
+        d.text or "" for d in root.findall(".//{*}header/{*}datestamp") if d.text
+    )
+    ids = [i.text for i in root.findall(".//{*}header/{*}identifier") if i.text]
+    print("JARE-AGECON-SAFE " + json.dumps({
+        "name": "AGECON_OAI_IDENTIFIERS", "status": code,
+        "xml_root": root.tag.split("}")[-1], "headers_in_first_page": len(headers),
+        "first_id_present": bool(ids), "resumption_token_present": any(
+            x.text for x in root.findall(".//{*}resumptionToken")
+        ),
+        "metadata_modified_min": dates[0] if dates else None,
+        "metadata_modified_max": dates[-1] if dates else None,
+        "oai_errors": len(root.findall(".//{*}error")),
+        "note": "datestamp is index modification, NOT publisher first-online date",
+    }, sort_keys=True), flush=True)
+    if ids:
+        get_url = endpoint + "?verb=GetRecord&metadataPrefix=marcxml&identifier=" + quote(ids[0], safe="")
+        print("JARE-AGECON-SAFE " + json.dumps(
+            describe("AGECON_OAI_REAL_ID_GETRECORD", get_url), sort_keys=True
+        ), flush=True)
+
+
 def main() -> None:
     import json
     for label, url in PROBES.items():
         print("JARE-AGECON-SAFE " + json.dumps(describe(label, url), sort_keys=True), flush=True)
+    inspect_real_oai_identifier()
     print("JARE-AGECON-SAFE AUDIT_COMPLETE no_source_mutation=true no_publisher_acceptance_inferred=true")
 
 if __name__ == "__main__":
