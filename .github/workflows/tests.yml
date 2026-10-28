@@ -20,6 +20,8 @@ jobs:
           python-version: "3.11"
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest
+      - name: One-shot JARE official REST and HTML transport triage (unmerged diagnostic)
+        run: python scripts/jare_transport_probe_g21.py
       - name: Generate Daily homepage contract fixtures
         shell: bash
         run: |
