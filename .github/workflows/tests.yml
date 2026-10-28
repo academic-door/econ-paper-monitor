@@ -20,6 +20,8 @@ jobs:
           python-version: "3.11"
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest
+      - name: G22 isolated one-shot AgEcon OAI/RePEc transport diagnostic
+        run: python scripts/jare_agecon_oai_probe_g22.py
       - name: Generate Daily homepage contract fixtures
         shell: bash
         run: |
