@@ -1,0 +1,23 @@
+name: G22 N2 Isolated Read-only Publisher Diagnosis
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "scripts/n2_production_parser_probe_g22.py"
+      - ".github/workflows/g22-n2-readonly-diagnostic.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  official-source-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Inspect one official-page identity check (read-only)
+        run: python scripts/n2_production_parser_probe_g22.py
