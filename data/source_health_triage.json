@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-29T06:38:18.648453+08:00",
+  "checked_at": "2026-10-29T07:16:00.727784+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -11,13 +11,13 @@
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Agricultural Economics: 8; Journal of the Association of Environmental and Resource Economists: 10; Land Economics: 7; Land Use Policy: 40; European Review of Agricultural ",
-      "source": "crossref"
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
+      "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=75/121; Applied Economic Perspectives and Policy: 72 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
+      "sample_error": "feeds=32/45; Journal of International Economics: 40 via official-generated; Journal of Finance: 40 via official-generated; Journal of Financial Economics: 27 via official-generated; Review of Financia",
       "source": "rss"
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
       "source": "working-papers"
     }
   ],
@@ -38,10 +38,10 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "CHALLENGE",
+      "sample_error": "NETWORK_FAILURE",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
         "openalex-recall"
