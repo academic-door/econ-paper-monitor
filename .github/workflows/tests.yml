@@ -20,6 +20,8 @@ jobs:
           python-version: "3.11"
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest
+      - name: Temporary G22 read-only JARE canonical presence audit
+        run: python scripts/jare_canonical_presence_probe_g22.py
       - name: Generate Daily homepage contract fixtures
         shell: bash
         run: |
