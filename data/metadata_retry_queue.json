@@ -10,39 +10,13 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 144,
-    "missing_authors": 1,
+    "missing_abstract": 143,
     "weak_date_evidence": 499
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 648,
+  "recent_candidates_before_limit": 649,
   "recent_window_start": "2026-09-30",
   "records": [
-    {
-      "date_confidence": "F",
-      "doi": "10.1257/pol.20240582",
-      "first_seen": "2026-10-29T14:10:57+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1257/pol.20240582",
-      "journal": "American Economic Journal: Economic Policy",
-      "official_date": null,
-      "priority": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "reasons": [
-        "missing_abstract",
-        "missing_authors",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "first_seen",
-      "source_id": null,
-      "source_type": null,
-      "title": "The Unintended Consequences of Academic Leniency",
-      "url": "https://www.aeaweb.org/articles?id=10.1257/pol.20240582"
-    },
     {
       "date_confidence": "C",
       "doi": "10.1080/00036846.2026.2750282",
@@ -4002,6 +3976,52 @@
       "source_type": null,
       "title": "Monopolistic Data Dumping",
       "url": "https://www.aeaweb.org/articles?id=10.1257/mic.20250260"
+    },
+    {
+      "date_confidence": "F",
+      "doi": "10.1257/pol.20240582",
+      "first_seen": "2026-10-29T14:10:57+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1257/pol.20240582",
+      "journal": "American Economic Journal: Economic Policy",
+      "official_date": "2026-11-01",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": null,
+      "title": "The Unintended Consequences of Academic Leniency",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/pol.20240582"
+    },
+    {
+      "date_confidence": "F",
+      "doi": "10.1257/pol.20240586",
+      "first_seen": "2026-07-30T14:39:18+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1257/pol.20240586",
+      "journal": "American Economic Journal: Economic Policy",
+      "official_date": "2026-11-01",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Childhood Health Shocks and the Intergenerational Transmission of Inequality",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/pol.20240586"
     },
     {
       "date_confidence": "D",
@@ -11663,29 +11683,6 @@
       "source_type": "journal",
       "title": "Robot adoption and regional innovation: evidence from Chinese cities",
       "url": "https://doi.org/10.1080/00036846.2026.2745654"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.3368/jhr.1025-14605r2",
-      "first_seen": "2026-10-08T17:24:11+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.3368/jhr.1025-14605r2",
-      "journal": "Journal of Human Resources",
-      "official_date": "2026-10-08",
-      "priority": [
-        0,
-        1,
-        1,
-        21
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Political Stressors and Birth Outcomes",
-      "url": "https://doi.org/10.3368/jhr.1025-14605r2"
     }
   ],
   "total_candidates": 500,
