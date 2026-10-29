@@ -7,6 +7,7 @@ from __future__ import annotations
 import io
 import sys
 import unittest
+from copy import deepcopy
 import urllib.error
 from email.message import Message
 from pathlib import Path
@@ -136,6 +137,119 @@ class SpringerTaxRecoveryTests(unittest.TestCase):
         self.assertEqual(entry["abstract"], ABSTRACT)
         self.assertEqual(entry["abstract_source"], "springer_publisher_meta:dc.description")
         self.assertEqual({k: entry[k] for k in before}, before)
+
+
+    def test_index_abstract_retry_cannot_replace_publisher_date_with_preprint_date(self):
+        entry = record(
+            doi="10.1007/s10797-026-10008-2",
+            title="A poorly targeted subsidy? The fiscal and social costs of EU VAT expenditures",
+            date_confidence="C",
+            published_online="2026-10-24",
+            available_online="2026-10-24",
+            raw_data={"date_evidence": [{"source": "crossref-doi", "published_online": "2026-10-24"}]},
+        )
+        original = deepcopy(entry)
+        crossref = {
+            "available_online": "2026-10-24",
+            "published_online": "2026-10-24",
+            "date_confidence": "C",
+            "date_source": "crossref_doi_published_online",
+            "authors": ["Different Author"],
+        }
+        # April 14 is the same-titled Research Square PREPRINT, not the
+        # Springer journal article's October 24 first publication date.
+        openalex = {
+            "available_online": "2026-04-14",
+            "published_online": "2026-04-14",
+            "date_confidence": "C",
+            "date_source": "openalex_publication_date",
+            "abstract": ABSTRACT,
+            "abstract_source": "openalex",
+        }
+        with (
+            patch.object(enrich_metadata, "crossref_doi_metadata", return_value=crossref),
+            patch.object(enrich_metadata, "openalex_doi_metadata", return_value=openalex),
+            patch.object(enrich_metadata, "semantic_scholar_doi_metadata", return_value={}),
+            patch.object(enrich_metadata, "verified_springer_tax_abstract") as publisher,
+        ):
+            changed, status = enrich_metadata.enrich_abstract_record(entry, timeout=8)
+        self.assertTrue(changed)
+        self.assertEqual(status, "metadata-updated:openalex")
+        self.assertEqual(entry["abstract"], ABSTRACT)
+        self.assertEqual(entry["abstract_source"], "openalex")
+        publisher.assert_not_called()
+        for key in ("doi", "title", "first_seen", "available_online", "published_online",
+                    "date_source", "date_confidence", "authors", "raw_data"):
+            self.assertEqual(entry[key], original[key], key)
+
+    def test_missing_abstract_does_not_write_date_evidence_from_indexes(self):
+        entry = record(
+            date_confidence="C",
+            published_online="2026-10-27",
+            raw_data={"date_evidence": [{"source": "crossref", "published_online": "2026-10-27"}]},
+        )
+        original = deepcopy(entry)
+        with (
+            patch.object(enrich_metadata, "crossref_doi_metadata", return_value={
+                "published_online": "2026-04-14", "date_source": "crossref_doi_published_online",
+                "date_confidence": "C", "authors": ["Replacement Author"],
+            }),
+            patch.object(enrich_metadata, "openalex_doi_metadata", return_value={}),
+            patch.object(enrich_metadata, "semantic_scholar_doi_metadata", return_value={}),
+            patch.object(enrich_metadata, "verified_springer_tax_abstract", return_value={}),
+        ):
+            changed, status = enrich_metadata.enrich_abstract_record(entry, timeout=8)
+        self.assertFalse(changed)
+        self.assertEqual(status, "abstract-route-missing")
+        self.assertEqual(entry, original)
+
+    def test_abstract_only_can_fill_missing_authors_without_date_writes(self):
+        entry = record(authors=[], date_confidence="C", published_online="2026-10-27")
+        original = deepcopy(entry)
+        with (
+            patch.object(enrich_metadata, "crossref_doi_metadata", return_value={
+                "authors": ["Verified Author"],
+                "published_online": "2026-04-14",
+                "date_source": "crossref_doi_published_online",
+                "date_confidence": "C",
+            }),
+            patch.object(enrich_metadata, "openalex_doi_metadata", return_value={}),
+            patch.object(enrich_metadata, "semantic_scholar_doi_metadata", return_value={}),
+            patch.object(enrich_metadata, "verified_springer_tax_abstract", return_value={}),
+        ):
+            changed, status = enrich_metadata.enrich_abstract_record(entry, timeout=8)
+        self.assertTrue(changed)
+        self.assertEqual(status, "metadata-only")
+        self.assertEqual(entry["authors"], ["Verified Author"])
+        for key in ("doi", "title", "first_seen", "available_online", "published_online",
+                    "date_source", "date_confidence"):
+            self.assertEqual(entry[key], original[key], key)
+
+    def test_elsevier_abstract_only_keeps_date_fields(self):
+        entry = record(
+            journal="Energy Economics", doi="10.1016/j.eneco.2026.100001",
+            date_confidence="C", published_online="2026-10-27",
+        )
+        original = deepcopy(entry)
+        with (
+            patch.object(enrich_metadata, "crossref_doi_metadata", return_value={}),
+            patch.object(enrich_metadata, "openalex_doi_metadata", return_value={}),
+            patch.object(enrich_metadata, "semantic_scholar_doi_metadata", return_value={}),
+            patch.object(enrich_metadata, "elsevier_api_metadata", return_value={
+                "abstract": ABSTRACT,
+                "abstract_source": "elsevier_article_api",
+                "published_online": "2026-04-14",
+                "date_source": "elsevier_article_api",
+                "date_confidence": "A",
+            }),
+        ):
+            changed, status = enrich_metadata.enrich_abstract_record(entry, timeout=8)
+        self.assertTrue(changed)
+        self.assertEqual(status, "metadata-updated:elsevier-article-api")
+        self.assertEqual(entry["abstract"], ABSTRACT)
+        for key in ("doi", "title", "first_seen", "available_online", "published_online",
+                    "date_source", "date_confidence", "authors"):
+            self.assertEqual(entry[key], original[key], key)
 
 
 if __name__ == "__main__":
