@@ -1,7 +1,7 @@
 {
   "abstracts": {
-    "available": 9206,
-    "missing": 429,
+    "available": 9207,
+    "missing": 430,
     "missing_by_journal_top": {
       "American Economic Review": 3,
       "Applied Economics": 72,
@@ -17,7 +17,7 @@
       "IZA Discussion Papers": 2,
       "International Economic Review": 4,
       "International Journal of Game Theory": 4,
-      "International Tax and Public Finance": 3,
+      "International Tax and Public Finance": 4,
       "Journal of Accounting and Economics": 4,
       "Journal of Development Economics": 3,
       "Journal of Economic Literature": 15,
@@ -34,48 +34,48 @@
       "World Development": 6,
       "中国工业经济": 9
     },
-    "missing_rate": 0.0445,
-    "missing_recent": 40,
+    "missing_rate": 0.0446,
+    "missing_recent": 41,
     "missing_recent_actionable": 36,
-    "missing_recent_expected": 4,
+    "missing_recent_expected": 5,
     "missing_today": 3,
-    "total": 9635
+    "total": 9637
   },
   "authors": {
-    "available": 9624,
+    "available": 9626,
     "missing": 11,
     "missing_recent": 0,
     "missing_recent_actionable": 0,
     "missing_recent_expected": 0,
     "missing_today": 0,
     "missing_today_journals": 0,
-    "total": 9635
+    "total": 9637
   },
   "date_confidence": {
-    "A": 5636,
+    "A": 5633,
     "B": 64,
-    "C": 2847,
+    "C": 2851,
     "D": 534,
-    "F": 554
+    "F": 555
   },
   "date_source_top": {
     "aea_current_issue": 45,
     "cepr_published_time": 39,
     "cnki_rss_pubdate": 310,
     "crossref_doi_created": 21,
-    "crossref_doi_elsevier_created_online": 564,
+    "crossref_doi_elsevier_created_online": 570,
     "crossref_doi_published": 65,
     "crossref_doi_published_online": 289,
     "crossref_elsevier_created_online": 766,
     "crossref_issue": 70,
-    "crossref_published_online": 647,
+    "crossref_published_online": 658,
     "iza_detail_month": 62,
     "nep_issue_date": 406,
-    "openalex+crossref_crossvalidated": 452,
-    "openalex_publication_date": 42,
+    "openalex+crossref_crossvalidated": 442,
+    "openalex_publication_date": 39,
     "publisher_detail": 1168,
     "publisher_published_online": 115,
-    "rss_description_online": 1087,
+    "rss_description_online": 1088,
     "rss_published": 2821,
     "unknown": 489,
     "world_bank_detail_api": 77
@@ -636,6 +636,16 @@
         "date": "2026-10-28",
         "date_confidence": "C",
         "date_source": "crossref_doi_published_online",
+        "journal": "International Tax and Public Finance",
+        "official_date": "2026-10-28",
+        "source_issue": null,
+        "title": "Introduction to the special issue on public sector capacities: selected papers from the 2025 IIPF congress",
+        "url": "https://doi.org/10.1007/s10797-026-10005-5"
+      },
+      {
+        "date": "2026-10-28",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_published_online",
         "journal": "Applied Economics",
         "official_date": "2026-10-28",
         "source_issue": null,
@@ -935,7 +945,7 @@
       {
         "date": "2026-10-20",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Economic Development and Cultural Change",
         "official_date": "2026-10-20",
         "source_issue": null,
@@ -955,7 +965,7 @@
       {
         "date": "2026-10-20",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Journal of Political Economy",
         "official_date": "2026-10-20",
         "source_issue": null,
@@ -1327,7 +1337,7 @@
       {
         "date": "2026-10-20",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Economic Development and Cultural Change",
         "official_date": "2026-10-20",
         "source_issue": null,
@@ -1347,7 +1357,7 @@
       {
         "date": "2026-10-20",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Journal of Political Economy",
         "official_date": "2026-10-20",
         "source_issue": null,
@@ -1366,6 +1376,17 @@
       }
     ],
     "missing_abstract_recent_expected": [
+      {
+        "date": "2026-10-28",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_published_online",
+        "expectation_reason": "special_issue_introduction",
+        "journal": "International Tax and Public Finance",
+        "official_date": "2026-10-28",
+        "source_issue": null,
+        "title": "Introduction to the special issue on public sector capacities: selected papers from the 2025 IIPF congress",
+        "url": "https://doi.org/10.1007/s10797-026-10005-5"
+      },
       {
         "date": "2026-10-26",
         "date_confidence": "F",
@@ -2151,12 +2172,23 @@
     "nonpaper_records": [],
     "source_type_errors": [],
     "today_cn_issue_only": [],
-    "today_low_confidence": [],
+    "today_low_confidence": [
+      {
+        "date": "2026-10-29",
+        "date_confidence": "F",
+        "date_source": "sciencedirect_api_load_date",
+        "journal": "Journal of Public Economics",
+        "official_date": "2026-10-29",
+        "source_issue": null,
+        "title": "State capacity and wildfire mitigation: Evidence from state-led forest conservation in China",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0047272726002501?dgcid=api_sd_search-api-endpoint"
+      }
+    ],
     "untranslated_recent": [
       {
         "date": "2026-10-29",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Journal of Financial Intermediation",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2185,8 +2217,8 @@
       },
       {
         "date": "2026-10-29",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Economics Letters",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2195,8 +2227,8 @@
       },
       {
         "date": "2026-10-29",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Economics Letters",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2205,8 +2237,8 @@
       },
       {
         "date": "2026-10-29",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Games and Economic Behavior",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2235,8 +2267,8 @@
       },
       {
         "date": "2026-10-29",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Journal of International Economics",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2292,6 +2324,26 @@
         "source_issue": null,
         "title": "Social conflicts and conflict management capacity for global energy transition: a cross-national analysis",
         "url": "https://doi.org/10.1080/00036846.2026.2753036"
+      },
+      {
+        "date": "2026-10-29",
+        "date_confidence": "F",
+        "date_source": "sciencedirect_api_load_date",
+        "journal": "Journal of Public Economics",
+        "official_date": "2026-10-29",
+        "source_issue": null,
+        "title": "State capacity and wildfire mitigation: Evidence from state-led forest conservation in China",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0047272726002501?dgcid=api_sd_search-api-endpoint"
+      },
+      {
+        "date": "2026-10-28",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_published_online",
+        "journal": "International Tax and Public Finance",
+        "official_date": "2026-10-28",
+        "source_issue": null,
+        "title": "Introduction to the special issue on public sector capacities: selected papers from the 2025 IIPF congress",
+        "url": "https://doi.org/10.1007/s10797-026-10005-5"
       },
       {
         "date": "2026-10-28",
@@ -2405,8 +2457,8 @@
       },
       {
         "date": "2026-10-28",
-        "date_confidence": "C",
-        "date_source": "crossref_doi_elsevier_created_online",
+        "date_confidence": "A",
+        "date_source": "elsevier_article_api",
         "journal": "Journal of Corporate Finance",
         "official_date": "2026-10-28",
         "source_issue": null,
@@ -2415,11 +2467,11 @@
       },
       {
         "date": "2026-10-28",
-        "date_confidence": "C",
-        "date_source": "crossref_doi_elsevier_created_online",
+        "date_confidence": "A",
+        "date_source": "rss_description_online",
         "journal": "Journal of Health Economics",
         "official_date": "2026-10-28",
-        "source_issue": null,
+        "source_issue": "Journal of Health Economics",
         "title": "External reference pricing versus price controls under endogenous product quality",
         "url": "https://doi.org/10.1016/j.jhealeco.2026.103195"
       },
@@ -2632,26 +2684,6 @@
         "source_issue": null,
         "title": "Information Networks and Inflation Expectations: Evidence from Professional Forecasters and Conflicts",
         "url": "https://ideas.repec.org/p/imf/imfwpa/2026-225.html"
-      },
-      {
-        "date": "2026-10-28",
-        "date_confidence": "A",
-        "date_source": "publisher_detail",
-        "journal": "IMF Working Papers",
-        "official_date": "2026-10-23",
-        "source_issue": null,
-        "title": "Understanding Over-Optimism in Tax Revenue-to-GDP Forecasts under IMF-supported Programs",
-        "url": "https://ideas.repec.org/p/imf/imfwpa/2026-224.html"
-      },
-      {
-        "date": "2026-10-28",
-        "date_confidence": "A",
-        "date_source": "publisher_detail",
-        "journal": "IMF Working Papers",
-        "official_date": "2026-10-23",
-        "source_issue": null,
-        "title": "Effectiveness of Monetary Policy Transmission in Morocco amid Reforms to the Monetary Policy Framework",
-        "url": "https://ideas.repec.org/p/imf/imfwpa/2026-223.html"
       }
     ]
   },
@@ -2660,8 +2692,8 @@
     "crossref_created_today": [
       {
         "date": "2026-10-29",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Journal of Financial Intermediation",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2670,8 +2702,8 @@
       },
       {
         "date": "2026-10-29",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Economics Letters",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2680,8 +2712,8 @@
       },
       {
         "date": "2026-10-29",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Economics Letters",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2690,8 +2722,8 @@
       },
       {
         "date": "2026-10-29",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Games and Economic Behavior",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2710,8 +2742,8 @@
       },
       {
         "date": "2026-10-29",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Journal of International Economics",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2743,6 +2775,16 @@
       {
         "date": "2026-10-29",
         "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
+        "journal": "Journal of Financial Intermediation",
+        "official_date": "2026-10-29",
+        "source_issue": null,
+        "title": "Are low interest rates firing back? Interest rate risk in the banking book and bank lending in a rising interest rate environment",
+        "url": "https://doi.org/10.1016/j.jfi.2026.101234"
+      },
+      {
+        "date": "2026-10-29",
+        "date_confidence": "C",
         "date_source": "crossref_doi_published_online",
         "journal": "Applied Economics",
         "official_date": "2026-10-29",
@@ -2764,6 +2806,36 @@
         "date": "2026-10-29",
         "date_confidence": "C",
         "date_source": "crossref_doi_elsevier_created_online",
+        "journal": "Economics Letters",
+        "official_date": "2026-10-29",
+        "source_issue": null,
+        "title": "Strait of Hormuz crisis and euro area financial market spillovers: An event-targeted approach",
+        "url": "https://doi.org/10.1016/j.econlet.2026.113324"
+      },
+      {
+        "date": "2026-10-29",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
+        "journal": "Economics Letters",
+        "official_date": "2026-10-29",
+        "source_issue": null,
+        "title": "Rounding in data deposits distorts meta-analytic heterogeneity",
+        "url": "https://doi.org/10.1016/j.econlet.2026.113302"
+      },
+      {
+        "date": "2026-10-29",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
+        "journal": "Games and Economic Behavior",
+        "official_date": "2026-10-29",
+        "source_issue": null,
+        "title": "When should firms promote consumer learning? An experimental study",
+        "url": "https://doi.org/10.1016/j.geb.2026.104073"
+      },
+      {
+        "date": "2026-10-29",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Journal of Financial Economics",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2779,6 +2851,16 @@
         "source_issue": null,
         "title": "Do Experimental Asset Market Results Replicate? High‐Powered Preregistered Replications of 17 Key Results",
         "url": "https://doi.org/10.1111/jofi.70100"
+      },
+      {
+        "date": "2026-10-29",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
+        "journal": "Journal of International Economics",
+        "official_date": "2026-10-29",
+        "source_issue": null,
+        "title": "Offshoring and voting patterns in the US",
+        "url": "https://doi.org/10.1016/j.jinteco.2026.104348"
       },
       {
         "date": "2026-10-29",
@@ -2816,29 +2898,29 @@
     "aea_toc": 161,
     "cn-official": 102,
     "cnki-rss": 239,
-    "crossref": 4243,
+    "crossref": 4244,
     "priority_crossref_fallback": 125,
     "priority_toc": 60,
     "rss": 2168,
-    "sciencedirect_search": 251,
+    "sciencedirect_search": 252,
     "unknown": 205,
     "working_papers": 2081
   },
   "totals": {
     "china_candidates": 256,
-    "china_related_public": 1528,
+    "china_related_public": 1529,
     "cnki_rss_today": 0,
     "crossref_created_today": 8,
-    "crossref_fallback_today": 7,
+    "crossref_fallback_today": 12,
     "duplicates_by_url_or_doi": 0,
     "future_official_date_in_bucket": 0,
     "historical_records_in_bucket": 75,
     "invalid_journal_ids": 0,
     "malformed_first_seen": 0,
-    "missing_abstract": 429,
-    "missing_abstract_recent": 40,
+    "missing_abstract": 430,
+    "missing_abstract_recent": 41,
     "missing_abstract_recent_actionable": 36,
-    "missing_abstract_recent_expected": 4,
+    "missing_abstract_recent_expected": 5,
     "missing_abstract_today": 3,
     "missing_authors": 11,
     "missing_authors_recent": 0,
@@ -2849,10 +2931,10 @@
     "missing_required_fields": 209,
     "nonpaper_records": 0,
     "recent_sample_records": 500,
-    "records": 9635,
+    "records": 9637,
     "source_type_errors": 0,
-    "today_journal_records": 12,
-    "today_records": 14,
+    "today_journal_records": 13,
+    "today_records": 15,
     "today_working_papers": 2
   }
 }
