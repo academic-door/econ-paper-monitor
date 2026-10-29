@@ -9,11 +9,11 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 148,
+    "missing_abstract": 149,
     "weak_date_evidence": 500
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 627,
+  "recent_candidates_before_limit": 628,
   "recent_window_start": "2026-09-30",
   "records": [
     {
@@ -1400,7 +1400,30 @@
       "authors_status": "作者信息待核验",
       "authors_status_code": "missing_retry",
       "date_confidence": "C",
-      "detail_key": "the-local-economic-and-welfare-consequences-of-demand-shocks-for-coal-country-21a513b46993",
+      "doi": "10.1080/00036846.2026.2753036",
+      "first_seen": "2026-10-29T04:08:45+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2753036",
+      "journal": "Applied Economics",
+      "official_date": "2026-10-28",
+      "priority": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Social conflicts and conflict management capacity for global energy transition: a cross-national analysis",
+      "url": "https://doi.org/10.1080/00036846.2026.2753036"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1086/743935",
       "first_seen": "2026-10-28T20:09:09+00:00",
       "historical_backfill": false,
@@ -15715,40 +15738,9 @@
       "source_type": "journal",
       "title": "From coast to cost: Mispricing and reform scenarios in Italy’s coastal concession system",
       "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004424?dgcid=api_sd_search-api-endpoint"
-    },
-    {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
-      "authors": [],
-      "authors_status": "作者信息待核验",
-      "authors_status_code": "missing_retry",
-      "date_confidence": "C",
-      "detail_key": "the-belt-and-road-initiative-and-firms-markups-evidence-from-china-5c0309aea175",
-      "doi": "10.1080/00036846.2026.2740193",
-      "first_seen": "2026-10-06T15:30:22+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2740193",
-      "journal": "Applied Economics",
-      "official_date": "2026-10-06",
-      "official_date_status": "available",
-      "priority": [
-        0,
-        1,
-        1,
-        23
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "The Belt and Road Initiative and firms’ markups: evidence from China",
-      "url": "https://doi.org/10.1080/00036846.2026.2740193"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5455,
+  "total_candidates_before_limit": 5456,
   "truncated": true
 }
