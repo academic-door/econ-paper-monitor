@@ -1,7 +1,7 @@
 {
   "abstracts": {
-    "available": 9185,
-    "missing": 431,
+    "available": 9186,
+    "missing": 432,
     "missing_by_journal_top": {
       "American Economic Review": 3,
       "Applied Economics": 66,
@@ -19,7 +19,7 @@
       "International Journal of Game Theory": 4,
       "International Tax and Public Finance": 9,
       "Journal of Accounting and Economics": 4,
-      "Journal of Development Economics": 3,
+      "Journal of Development Economics": 4,
       "Journal of Economic Literature": 15,
       "Journal of Labor Economics": 15,
       "Journal of Monetary Economics": 3,
@@ -34,25 +34,25 @@
       "World Development": 6,
       "中国工业经济": 9
     },
-    "missing_rate": 0.0448,
+    "missing_rate": 0.0449,
     "missing_recent": 43,
     "missing_recent_actionable": 39,
     "missing_recent_expected": 4,
     "missing_today": 1,
-    "total": 9616
+    "total": 9618
   },
   "authors": {
-    "available": 9605,
-    "missing": 11,
+    "available": 9606,
+    "missing": 12,
     "missing_recent": 0,
     "missing_recent_actionable": 0,
     "missing_recent_expected": 0,
     "missing_today": 0,
     "missing_today_journals": 0,
-    "total": 9616
+    "total": 9618
   },
   "date_confidence": {
-    "A": 5622,
+    "A": 5624,
     "B": 64,
     "C": 2842,
     "D": 534,
@@ -61,7 +61,7 @@
   "date_source_top": {
     "aea_current_issue": 45,
     "cepr_published_time": 39,
-    "cnki_rss_pubdate": 310,
+    "cnki_rss_pubdate": 311,
     "crossref_doi_created": 21,
     "crossref_doi_elsevier_created_online": 566,
     "crossref_doi_published": 65,
@@ -604,8 +604,8 @@
     "missing_abstract_recent": [
       {
         "date": "2026-10-29",
-        "date_confidence": "C",
-        "date_source": "crossref_elsevier_created_online",
+        "date_confidence": "A",
+        "date_source": "elsevier_article_api",
         "journal": "Journal of Economic Theory",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -1036,8 +1036,8 @@
     "missing_abstract_recent_actionable": [
       {
         "date": "2026-10-29",
-        "date_confidence": "C",
-        "date_source": "crossref_elsevier_created_online",
+        "date_confidence": "A",
+        "date_source": "elsevier_article_api",
         "journal": "Journal of Economic Theory",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -1474,8 +1474,8 @@
     "missing_abstract_today": [
       {
         "date": "2026-10-29",
-        "date_confidence": "C",
-        "date_source": "crossref_elsevier_created_online",
+        "date_confidence": "A",
+        "date_source": "elsevier_article_api",
         "journal": "Journal of Economic Theory",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2188,15 +2188,26 @@
         "url": "https://www.aeaweb.org/articles?id=10.1257/jel.64.3.1058.r5"
       }
     ],
-    "nonpaper_records": [],
+    "nonpaper_records": [
+      {
+        "date": "2026-10-05",
+        "date_confidence": "A",
+        "date_source": "cnki_rss_pubdate",
+        "journal": "管理世界",
+        "official_date": "2026-10-05",
+        "source_issue": null,
+        "title": "东北财经大学工商管理学院简介",
+        "url": "https://kns.cnki.net/kcms2/article/abstract?v=_oeCfPpuuXEHx9dPVGLD0_lNgAWy7HLmQ-67p5q1iQ_pAFaNZULTykQQht_aLCJP0Nkt1pZLzP0TBtsE1YurriMO1Vg0jiFla5qqrb_Lp3SHmEpw1dgeRs7g3eAacwEG-TI1QA3pE0FA1L_h5MNBgZ4IjyA4OQJ3v9VeuyxRmVZjGt4j3C4wiw=="
+      }
+    ],
     "source_type_errors": [],
     "today_cn_issue_only": [],
     "today_low_confidence": [],
     "untranslated_recent": [
       {
         "date": "2026-10-29",
-        "date_confidence": "C",
-        "date_source": "crossref_elsevier_created_online",
+        "date_confidence": "A",
+        "date_source": "elsevier_article_api",
         "journal": "Journal of Economic Theory",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2530,8 +2541,8 @@
     "crossref_created_today": [
       {
         "date": "2026-10-29",
-        "date_confidence": "C",
-        "date_source": "crossref_elsevier_created_online",
+        "date_confidence": "A",
+        "date_source": "elsevier_article_api",
         "journal": "Journal of Economic Theory",
         "official_date": "2026-10-29",
         "source_issue": null,
@@ -2539,57 +2550,46 @@
         "url": "https://doi.org/10.1016/j.jet.2026.106272"
       }
     ],
-    "crossref_fallback_today": [
-      {
-        "date": "2026-10-29",
-        "date_confidence": "C",
-        "date_source": "crossref_elsevier_created_online",
-        "journal": "Journal of Economic Theory",
-        "official_date": "2026-10-29",
-        "source_issue": null,
-        "title": "Strategic Ignorance and Information Design",
-        "url": "https://doi.org/10.1016/j.jet.2026.106272"
-      }
-    ]
+    "crossref_fallback_today": []
   },
   "source_top": {
     "aea_toc": 161,
     "cn-official": 102,
-    "cnki-rss": 239,
+    "cnki-rss": 240,
     "crossref": 4227,
     "priority_crossref_fallback": 124,
     "priority_toc": 60,
     "rss": 2168,
     "sciencedirect_search": 251,
-    "unknown": 205,
+    "unknown": 206,
     "working_papers": 2079
   },
   "totals": {
     "china_candidates": 255,
-    "china_related_public": 1526,
+    "china_related_public": 1527,
     "cnki_rss_today": 0,
     "crossref_created_today": 1,
-    "crossref_fallback_today": 1,
+    "crossref_fallback_today": 0,
     "duplicates_by_url_or_doi": 0,
     "future_official_date_in_bucket": 0,
-    "historical_records_in_bucket": 75,
+    "historical_records_in_bucket": 76,
     "invalid_journal_ids": 0,
     "malformed_first_seen": 0,
-    "missing_abstract": 431,
+    "missing_abstract": 432,
     "missing_abstract_recent": 43,
     "missing_abstract_recent_actionable": 39,
     "missing_abstract_recent_expected": 4,
     "missing_abstract_today": 1,
-    "missing_authors": 11,
+    "missing_authors": 12,
     "missing_authors_recent": 0,
     "missing_authors_recent_actionable": 0,
     "missing_authors_recent_expected": 0,
     "missing_authors_today": 0,
     "missing_authors_today_journals": 0,
-    "missing_required_fields": 209,
-    "nonpaper_records": 0,
+    "missing_required_fields": 210,
+    "nonpaper_records": 1,
     "recent_sample_records": 500,
-    "records": 9616,
+    "records": 9618,
     "source_type_errors": 0,
     "today_journal_records": 1,
     "today_records": 1,

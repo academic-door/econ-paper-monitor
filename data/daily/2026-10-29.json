@@ -1,7 +1,10 @@
 [
   {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -14,8 +17,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-29",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "strategic-ignorance-and-information-design-f6261af11875",
     "detected_at": "2026-10-29T01:39:05+00:00",
     "doi": "10.1016/j.jet.2026.106272",
@@ -35,10 +38,30 @@
     "journal_short": "JET",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0022053126001328",
     "published_online": "2026-10-29",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-10-29",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-29",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-29",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-10-29",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
