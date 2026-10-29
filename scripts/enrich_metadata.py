@@ -1171,6 +1171,23 @@ def verified_springer_tax_abstract(record: dict[str, Any], timeout: int) -> dict
     }
 
 
+def merge_abstract_only_fields(record: dict[str, Any], metadata: dict[str, Any]) -> bool:
+    """Retry abstract/author fields without touching canonical date evidence.
+
+    General DOI provider metadata may contain a preprint publication date or
+    an unstable registry date. Abstract-only retries must not reinterpret a
+    journal's online publication date or rewrite first-discovery provenance.
+    """
+    scoped: dict[str, Any] = {}
+    if not str(record.get("abstract") or "").strip() and metadata.get("abstract"):
+        scoped["abstract"] = metadata["abstract"]
+        if metadata.get("abstract_source"):
+            scoped["abstract_source"] = metadata["abstract_source"]
+    if not record.get("authors") and metadata.get("authors"):
+        scoped["authors"] = metadata["authors"]
+    return merge_metadata(record, scoped) if scoped else False
+
+
 def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     if str(record.get("abstract") or "").strip() and record.get("authors"):
         return False, "abstract-present"
@@ -1191,16 +1208,14 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
             metadata = getter(doi, timeout)
             if not metadata:
                 continue
-            changed = append_date_evidence(record, source, metadata) or changed
-            changed = merge_metadata(record, metadata) or changed
+            changed = merge_abstract_only_fields(record, metadata) or changed
             if str(record.get("abstract") or "").strip():
                 return changed, f"metadata-updated:{source}"
 
     if publisher_bucket(record) == "Elsevier" and doi.startswith("10.1016/"):
         metadata = elsevier_api_metadata(doi, timeout)
         if metadata:
-            changed = append_date_evidence(record, "elsevier-article-api", metadata) or changed
-            changed = merge_metadata(record, metadata) or changed
+            changed = merge_abstract_only_fields(record, metadata) or changed
             if str(record.get("abstract") or "").strip():
                 return changed, "metadata-updated:elsevier-article-api"
 
