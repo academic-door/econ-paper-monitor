@@ -293,6 +293,36 @@ class VerifiedSpringerOverrideAcceptanceTests(unittest.TestCase):
         "10.1007/s10797-026-10010-8": ("2026-10-22", 1455),
     }
 
+    def assert_canonical_applied_and_recovery_replay(self, entry, override):
+        """Prove shipped canonical acceptance AND the first missing->full transition.
+
+        Previously the regression test required apply_to_record() to return True
+        on already-recovered production records, which made successful rollout
+        incorrectly fail all subsequent main-branch test runs.
+        """
+        accepted = deepcopy(entry)
+        self.assertEqual(entry.get("abstract"), override["abstract"])
+        self.assertEqual(entry.get("abstract_source"), "publisher_page_verified")
+        self.assertEqual(entry.get("abstract_status_code"), "available")
+        self.assertEqual(entry.get("abstract_completeness"), "full")
+        self.assertEqual(entry.get("abstract_enrichment_status"), "available")
+        self.assertNotIn("abstract_status", entry)
+        self.assertFalse(apply_overrides.apply_to_record(entry, override))
+        self.assertEqual(entry, accepted)
+
+        # Replay the exact migration from missing metadata, without mutating
+        # any real archive or first-discovery / publication-date evidence.
+        missing = deepcopy(accepted)
+        missing["abstract"] = None
+        missing.pop("abstract_source", None)
+        missing["abstract_status_code"] = "missing_retry"
+        missing["abstract_completeness"] = "missing"
+        missing["abstract_enrichment_status"] = "metadata-only"
+        missing["abstract_status"] = "摘要暂未公开，系统将自动重试"
+        self.assertTrue(apply_overrides.apply_to_record(missing, override))
+        self.assertEqual(missing, accepted)
+        self.assertFalse(apply_overrides.apply_to_record(missing, override))
+
     def test_all_six_exact_source_matched_overrides_are_idempotent_and_preserve_dates(self):
         root = Path(__file__).resolve().parents[1]
         overrides = apply_overrides.load_overrides(root / "data" / "manual_overrides.yml")
@@ -312,8 +342,7 @@ class VerifiedSpringerOverrideAcceptanceTests(unittest.TestCase):
                 self.assertEqual(len(override["abstract"]), expected_length)
                 self.assertEqual(entry["published_online"], online_date)
                 original = deepcopy(entry)
-                self.assertTrue(apply_overrides.apply_to_record(entry, override))
-                self.assertFalse(apply_overrides.apply_to_record(entry, override))
+                self.assert_canonical_applied_and_recovery_replay(entry, override)
                 self.assertEqual(entry["abstract"], override["abstract"])
                 self.assertEqual(entry["abstract_source"], "publisher_page_verified")
                 self.assertEqual(entry["abstract_status_code"], "available")
@@ -337,7 +366,7 @@ class VerifiedSpringerOverrideAcceptanceTests(unittest.TestCase):
             with self.subTest(doi=doi):
                 entry = papers[f"doi:{doi}"]
                 original = deepcopy(entry)
-                self.assertTrue(apply_overrides.apply_to_record(entry, overrides[doi]))
+                self.assert_canonical_applied_and_recovery_replay(entry, overrides[doi])
                 self.assertEqual(entry["abstract"], overrides[doi]["abstract"])
                 self.assertEqual(entry["abstract_source"], "publisher_page_verified")
                 self.assertEqual(entry["abstract_status_code"], "available")
