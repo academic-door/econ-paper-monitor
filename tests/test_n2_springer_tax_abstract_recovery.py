@@ -5,6 +5,7 @@ Tests never request real publisher URLs or copy real publisher text.
 from __future__ import annotations
 
 import io
+import json
 import sys
 import unittest
 from copy import deepcopy
@@ -15,6 +16,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import enrich_metadata  # noqa: E402
+import apply_overrides  # noqa: E402
 
 DOI = "10.1007/s10797-026-10011-7"
 TITLE = "Optimal taxation of robotic capital with a binding minimum wage"
@@ -279,6 +281,95 @@ class SpringerTaxRecoveryTests(unittest.TestCase):
         self.assertEqual(entry["date_source"], "crossref_doi_published_online")
         self.assertEqual(entry["first_seen"], original_first_seen)
         self.assertEqual(entry["raw_data"]["date_evidence"][0]["source"], "crossref-doi")
+
+
+class VerifiedSpringerOverrideAcceptanceTests(unittest.TestCase):
+    EXPECTED = {
+        "10.1007/s10797-026-10011-7": ("2026-10-27", 1542),
+        "10.1007/s10797-026-10004-6": ("2026-10-27", 888),
+        "10.1007/s10797-026-10009-1": ("2026-10-24", 1081),
+        "10.1007/s10797-026-10008-2": ("2026-10-24", 1650),
+        "10.1007/s10797-026-09999-9": ("2026-10-24", 532),
+        "10.1007/s10797-026-10010-8": ("2026-10-22", 1455),
+    }
+
+    def test_all_six_exact_source_matched_overrides_are_idempotent_and_preserve_dates(self):
+        root = Path(__file__).resolve().parents[1]
+        overrides = apply_overrides.load_overrides(root / "data" / "manual_overrides.yml")
+        records = [
+            record
+            for day in ("2026-10-22", "2026-10-24", "2026-10-27")
+            for record in json.loads((root / "data" / "daily" / f"{day}.json").read_text(encoding="utf-8"))
+            if record.get("doi") in self.EXPECTED
+        ]
+        self.assertEqual({entry["doi"] for entry in records}, set(self.EXPECTED))
+        for entry in records:
+            doi = entry["doi"]
+            with self.subTest(doi=doi):
+                online_date, expected_length = self.EXPECTED[doi]
+                override = overrides[doi]
+                self.assertEqual(override["abstract_source"], "publisher_page_verified")
+                self.assertEqual(len(override["abstract"]), expected_length)
+                self.assertEqual(entry["published_online"], online_date)
+                original = deepcopy(entry)
+                self.assertTrue(apply_overrides.apply_to_record(entry, override))
+                self.assertFalse(apply_overrides.apply_to_record(entry, override))
+                self.assertEqual(entry["abstract"], override["abstract"])
+                self.assertEqual(entry["abstract_source"], "publisher_page_verified")
+                self.assertEqual(entry["abstract_status_code"], "available")
+                self.assertEqual(entry["abstract_completeness"], "full")
+                self.assertEqual(entry["abstract_enrichment_status"], "available")
+                self.assertNotIn("abstract_status", entry)
+                for key in (
+                    "first_seen", "available_online", "published_online", "date_source",
+                    "date_confidence", "doi", "title", "authors", "raw_data",
+                ):
+                    self.assertEqual(entry.get(key), original.get(key), key)
+
+    def test_seen_ledger_six_doi_overrides_are_identity_and_date_preserving(self):
+        # CI has repository-local access to the complete 41MB seen ledger;
+        # chat-level GitHub contents API cannot independently read it.
+        root = Path(__file__).resolve().parents[1]
+        overrides = apply_overrides.load_overrides(root / "data" / "manual_overrides.yml")
+        seen = json.loads((root / "data" / "seen.json").read_text(encoding="utf-8"))
+        papers = seen["papers"]
+        for doi in self.EXPECTED:
+            with self.subTest(doi=doi):
+                entry = papers[f"doi:{doi}"]
+                original = deepcopy(entry)
+                self.assertTrue(apply_overrides.apply_to_record(entry, overrides[doi]))
+                self.assertEqual(entry["abstract"], overrides[doi]["abstract"])
+                self.assertEqual(entry["abstract_source"], "publisher_page_verified")
+                self.assertEqual(entry["abstract_status_code"], "available")
+                self.assertEqual(entry["abstract_completeness"], "full")
+                for key in (
+                    "first_seen", "available_online", "published_online", "date_source",
+                    "date_confidence", "doi", "title", "authors", "raw_data",
+                ):
+                    self.assertEqual(entry.get(key), original.get(key), key)
+                self.assertFalse(apply_overrides.apply_to_record(entry, overrides[doi]))
+
+    def test_non_abstract_override_keeps_missing_state(self):
+        entry = record(
+            abstract_status_code="missing_retry",
+            abstract_completeness="missing",
+            abstract_enrichment_status="metadata-only",
+            abstract_status="摘要暂未公开，系统将自动重试",
+        )
+        self.assertTrue(apply_overrides.apply_to_record(entry, {"title_zh": "标题"}))
+        self.assertEqual(entry["abstract_status_code"], "missing_retry")
+        self.assertEqual(entry["abstract_completeness"], "missing")
+        self.assertEqual(entry["abstract_enrichment_status"], "metadata-only")
+        self.assertIn("abstract_status", entry)
+
+    def test_empty_abstract_does_not_set_available_status(self):
+        entry = record(
+            abstract_status_code="missing_retry",
+            abstract_completeness="missing",
+            abstract_enrichment_status="metadata-only",
+        )
+        self.assertFalse(apply_overrides.apply_to_record(entry, {}))
+        self.assertEqual(entry["abstract_status_code"], "missing_retry")
 
 
 if __name__ == "__main__":

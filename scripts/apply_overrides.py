@@ -49,6 +49,22 @@ def apply_to_record(record: dict[str, Any], override: dict[str, Any]) -> bool:
         if record.get(target_key) != value:
             record[target_key] = value
             changed = True
+    # A verified abstract must not retain the prior missing/retry UI status.
+    # This only applies when the manual override explicitly supplies nonempty
+    # abstract text; never infer availability from a publisher URL alone.
+    if isinstance(override.get("abstract"), str) and override["abstract"].strip():
+        for field, value in (
+            ("abstract_status_code", "available"),
+            ("abstract_completeness", "full"),
+            ("abstract_enrichment_status", "available"),
+        ):
+            if record.get(field) != value:
+                record[field] = value
+                changed = True
+        for stale_field in ("abstract_status", "abstract_truncated"):
+            if stale_field in record:
+                record.pop(stale_field)
+                changed = True
     if override.get("title_zh") and record.get("translation_status") != "manual_title":
         record["translation_status"] = "manual_title"
         changed = True
