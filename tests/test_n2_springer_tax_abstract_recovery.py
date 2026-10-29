@@ -252,5 +252,34 @@ class SpringerTaxRecoveryTests(unittest.TestCase):
             self.assertEqual(entry[key], original[key], key)
 
 
+    def test_explicit_date_only_fallback_still_updates_date_metadata(self):
+        entry = record(
+            date_confidence="C", published_online="2026-10-27",
+            raw_data={"date_evidence": []},
+        )
+        original_first_seen = entry["first_seen"]
+        with (
+            patch.object(enrich_metadata, "crossref_doi_metadata", return_value={
+                "available_online": "2026-10-26",
+                "published_online": "2026-10-26",
+                "date_source": "crossref_doi_published_online",
+                "date_confidence": "A",
+            }),
+            patch.object(enrich_metadata, "openalex_doi_metadata", return_value={}),
+            patch.object(enrich_metadata, "semantic_scholar_doi_metadata", return_value={}),
+            patch.object(enrich_metadata, "verified_springer_tax_abstract", return_value={}),
+        ):
+            changed, status = enrich_metadata.enrich_abstract_record(
+                entry, timeout=8, allow_date_metadata=True
+            )
+        self.assertTrue(changed)
+        self.assertEqual(status, "metadata-only")
+        self.assertEqual(entry["available_online"], "2026-10-26")
+        self.assertEqual(entry["published_online"], "2026-10-26")
+        self.assertEqual(entry["date_source"], "crossref_doi_published_online")
+        self.assertEqual(entry["first_seen"], original_first_seen)
+        self.assertEqual(entry["raw_data"]["date_evidence"][0]["source"], "crossref-doi")
+
+
 if __name__ == "__main__":
     unittest.main()
