@@ -326,6 +326,29 @@ class VerifiedSpringerOverrideAcceptanceTests(unittest.TestCase):
                 ):
                     self.assertEqual(entry.get(key), original.get(key), key)
 
+    def test_seen_ledger_six_doi_overrides_are_identity_and_date_preserving(self):
+        # CI has repository-local access to the complete 41MB seen ledger;
+        # chat-level GitHub contents API cannot independently read it.
+        root = Path(__file__).resolve().parents[1]
+        overrides = apply_overrides.load_overrides(root / "data" / "manual_overrides.yml")
+        seen = json.loads((root / "data" / "seen.json").read_text(encoding="utf-8"))
+        papers = seen["papers"]
+        for doi in self.EXPECTED:
+            with self.subTest(doi=doi):
+                entry = papers[f"doi:{doi}"]
+                original = deepcopy(entry)
+                self.assertTrue(apply_overrides.apply_to_record(entry, overrides[doi]))
+                self.assertEqual(entry["abstract"], overrides[doi]["abstract"])
+                self.assertEqual(entry["abstract_source"], "publisher_page_verified")
+                self.assertEqual(entry["abstract_status_code"], "available")
+                self.assertEqual(entry["abstract_completeness"], "full")
+                for key in (
+                    "first_seen", "available_online", "published_online", "date_source",
+                    "date_confidence", "doi", "title", "authors", "raw_data",
+                ):
+                    self.assertEqual(entry.get(key), original.get(key), key)
+                self.assertFalse(apply_overrides.apply_to_record(entry, overrides[doi]))
+
     def test_non_abstract_override_keeps_missing_state(self):
         entry = record(
             abstract_status_code="missing_retry",
