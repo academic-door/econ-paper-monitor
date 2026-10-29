@@ -1,9 +1,9 @@
 {
   "counts": {
     "duplicates": 0,
-    "external_sentinel_broader_relevant_candidates": 13,
+    "external_sentinel_broader_relevant_candidates": 14,
     "external_sentinel_econ_expand_candidates": 0,
-    "external_sentinel_missing": 0,
+    "external_sentinel_missing": 1,
     "external_sentinel_out_of_scope_references": 2,
     "formal_journal_missing": 0,
     "formal_journals": 106,
@@ -18,9 +18,9 @@
   },
   "date": "2026-10-30",
   "failures": [],
-  "generated_at": "2026-10-29T19:05:21+00:00",
+  "generated_at": "2026-10-29T20:30:16+00:00",
   "local_cnki": {
-    "age_hours": 2.87,
+    "age_hours": 4.28,
     "count": 91,
     "fresh": true,
     "freshness_code": "fresh",
@@ -37,14 +37,14 @@
   "sentinel": {
     "checked_at": null,
     "counts": {
-      "broader_relevant_candidates": 13,
+      "broader_relevant_candidates": 14,
       "econ_expand_candidates": 0,
-      "formal_scope_missing": 0,
+      "formal_scope_missing": 1,
       "out_of_scope_references": 2
     }
   },
   "source_health": {
-    "checked_at": "2026-10-29T19:04:14+00:00",
+    "checked_at": "2026-10-29T20:29:24+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -206,6 +206,10 @@
     {
       "code": "formal_sources_crossref_plus_recall",
       "count": 14
+    },
+    {
+      "code": "external_sentinel_formal_scope_missing",
+      "count": 1
     }
   ]
 }
