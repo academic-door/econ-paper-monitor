@@ -1188,7 +1188,9 @@ def merge_abstract_only_fields(record: dict[str, Any], metadata: dict[str, Any])
     return merge_metadata(record, scoped) if scoped else False
 
 
-def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
+def enrich_abstract_record(
+    record: dict[str, Any], timeout: int, *, allow_date_metadata: bool = False
+) -> tuple[bool, str]:
     if str(record.get("abstract") or "").strip() and record.get("authors"):
         return False, "abstract-present"
     changed = False
@@ -1208,14 +1210,22 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
             metadata = getter(doi, timeout)
             if not metadata:
                 continue
-            changed = merge_abstract_only_fields(record, metadata) or changed
+            if allow_date_metadata:
+                changed = append_date_evidence(record, source, metadata) or changed
+                changed = merge_metadata(record, metadata) or changed
+            else:
+                changed = merge_abstract_only_fields(record, metadata) or changed
             if str(record.get("abstract") or "").strip():
                 return changed, f"metadata-updated:{source}"
 
     if publisher_bucket(record) == "Elsevier" and doi.startswith("10.1016/"):
         metadata = elsevier_api_metadata(doi, timeout)
         if metadata:
-            changed = merge_abstract_only_fields(record, metadata) or changed
+            if allow_date_metadata:
+                changed = append_date_evidence(record, "elsevier-article-api", metadata) or changed
+                changed = merge_metadata(record, metadata) or changed
+            else:
+                changed = merge_abstract_only_fields(record, metadata) or changed
             if str(record.get("abstract") or "").strip():
                 return changed, "metadata-updated:elsevier-article-api"
 
@@ -1507,7 +1517,9 @@ def main() -> None:
                 did_change = update_abstract_attempt_status(record, status) or did_change
             elif args.date_only:
                 if str(record.get("source_id") or "") in {"cepr-dp", "fed-feds"}:
-                    did_change, status = enrich_abstract_record(record, args.timeout)
+                    did_change, status = enrich_abstract_record(
+                        record, args.timeout, allow_date_metadata=True
+                    )
                 else:
                     did_change, status = enrich_record(record, args.timeout)
             else:
