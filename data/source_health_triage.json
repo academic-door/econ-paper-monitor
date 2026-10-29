@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-10-30T06:13:11.022386+08:00",
+  "checked_at": "2026-10-30T06:35:44.147056+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -11,13 +11,8 @@
       "source": "cn-journals"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
-      "source": "publisher-detail"
-    },
-    {
       "category": "page_structure_change",
-      "sample_error": "feeds=32/45; Journal of International Economics: 42 via official-generated; Journal of Finance: 41 via official-generated; Journal of Financial Economics: 28 via official-generated; Review of Financia",
+      "sample_error": "feeds=75/120; Applied Economic Perspectives and Policy: 72 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -27,7 +22,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
       "source": "working-papers"
     }
   ],
@@ -50,7 +45,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 4
   },
   "total_degraded": 1
 }
