@@ -23,6 +23,9 @@ class AppliedEconomicsOperaOverrides(unittest.TestCase):
         "10.1080/00036846.2026.2750976": ("2026-10-29", "2026-10-29", 1223),
         "10.1080/00036846.2026.2753036": ("2026-10-29", "2026-10-28", 1394),
         "10.1080/00036846.2026.2747147": ("2026-10-28", "2026-10-28", 1202),
+        "10.1080/00036846.2026.2750282": ("2026-10-29", "2026-10-29", 1159),
+        "10.1080/00036846.2026.2754322": ("2026-10-29", "2026-10-28", 1508),
+        "10.1080/00036846.2026.2753041": ("2026-10-29", "2026-10-28", 1572),
     }
 
     @classmethod
@@ -43,7 +46,7 @@ class AppliedEconomicsOperaOverrides(unittest.TestCase):
         ):
             self.assertEqual(transformed.get(key), original.get(key), key)
 
-    def test_exact_three_original_daily_records_and_status(self):
+    def test_exact_six_original_daily_records_and_status(self):
         self.assertEqual(set(self.records), set(self.EXPECTED))
         for doi, (bucket, publisher_date, length) in self.EXPECTED.items():
             with self.subTest(doi=doi):
@@ -52,7 +55,11 @@ class AppliedEconomicsOperaOverrides(unittest.TestCase):
                 self.assertEqual(len(override["abstract"]), length)
                 original = self.records[doi]
                 self.assertEqual(original["published_online"], publisher_date)
-                self.assertEqual(original["first_seen"][:10], bucket if doi.endswith("2750976") else "2026-10-29")
+                self.assertEqual(original["first_seen"][:10], "2026-10-29")
+                bucket_records = json.loads(
+                    (ROOT / "data" / "daily" / f"{bucket}.json").read_text(encoding="utf-8")
+                )
+                self.assertIn(doi, {r.get("doi") for r in bucket_records})
                 after = deepcopy(original)
                 self.assertTrue(apply_overrides.apply_to_record(after, override))
                 self.assertFalse(apply_overrides.apply_to_record(after, override))
