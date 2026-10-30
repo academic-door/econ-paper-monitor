@@ -10,11 +10,11 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 140,
+    "missing_abstract": 142,
     "weak_date_evidence": 499
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 651,
+  "recent_candidates_before_limit": 653,
   "recent_window_start": "2026-10-01",
   "records": [
     {
@@ -40,6 +40,30 @@
       "source_type": "journal",
       "title": "Strategy-proofness in domains of lexicographic preferences: a characterization",
       "url": "https://doi.org/10.1007/s00355-026-01684-4"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.euroecorev.2026.105507",
+      "first_seen": "2026-10-30T08:51:51+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.euroecorev.2026.105507",
+      "journal": "European Economic Review",
+      "official_date": "2026-10-30",
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Risk-sharing with a central authority: Free-riding, lack of commitment, and bail-outs",
+      "url": "https://doi.org/10.1016/j.euroecorev.2026.105507"
     },
     {
       "date_confidence": "C",
@@ -88,6 +112,30 @@
       "source_type": "journal",
       "title": "Liquidity constraints and staggered income disbursement: evidence from TANF, SNAP, and medicaid",
       "url": "https://doi.org/10.1016/j.jpubeco.2026.105785"
+    },
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-10-30T09:27:54+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://www.cambridge.org/core/product/815b9794d044508312b9cf95ccbef15d",
+      "journal": "Journal of Financial and Quantitative Analysis",
+      "official_date": "2026-10-30",
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Launching for the “Greater Good”: Spillover Effect of ESG Funds",
+      "url": "https://www.cambridge.org/core/product/815B9794D044508312B9CF95CCBEF15D"
     },
     {
       "date_confidence": "F",
@@ -11634,55 +11682,9 @@
       "source_type": "journal",
       "title": "Why do people migrate irregularly? Evidence from a lab-in-the-field experiment in West Africa",
       "url": "https://doi.org/10.1016/j.jpubeco.2026.105800"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jpubeco.2026.105801",
-      "first_seen": "2026-10-09T09:23:25+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jpubeco.2026.105801",
-      "journal": "Journal of Public Economics",
-      "official_date": "2026-10-09",
-      "priority": [
-        0,
-        1,
-        1,
-        21
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Morality and climate policy attitudes",
-      "url": "https://doi.org/10.1016/j.jpubeco.2026.105801"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.landusepol.2026.108366",
-      "first_seen": "2026-10-10T00:04:35+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.landusepol.2026.108366",
-      "journal": "Land Use Policy",
-      "official_date": "2026-10-09",
-      "priority": [
-        0,
-        1,
-        1,
-        21
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Identification of territorial spatial conflict and its influencing factors from a cross-scale and multi-dimensional perspective: A case study of the Three Gorges Reservoir area, China",
-      "url": "https://doi.org/10.1016/j.landusepol.2026.108366"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5485,
+  "total_candidates_before_limit": 5487,
   "truncated": true
 }
