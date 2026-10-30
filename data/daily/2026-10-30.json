@@ -79,7 +79,7 @@
     "available_online": "2026-10-30",
     "china_relevance_status": "none",
     "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_source": "rss_description_online",
     "detail_key": "signaling-with-burned-money-and-transparent-motives-aed19246165d",
     "detected_at": "2026-10-30T10:31:18+00:00",
     "doi": "10.1016/j.econlet.2026.113329",
@@ -112,6 +112,16 @@
           "date_source": "elsevier_article_api",
           "published_online": "2026-10-30",
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-10-30",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-30",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "semantic-scholar"
         }
       ]
     },
@@ -163,10 +173,23 @@
     "journal_short": "Letters",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S016517652600515X",
     "published_online": "2026-10-30",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-10-30",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-30",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": "Economics Letters",
@@ -303,7 +326,7 @@
   {
     "abstract": "Agents with independent risks (regions) often create unions and delegate re-distributive power to a central institution (center) that provides risk-sharing through costly transfers. However, there is the risk that regions free-ride on each other; this risk may be exacerbated when the center cannot commit to future policies. We study a differential game of two regions that make savings decisions and a benevolent center that sets transfers but lacks commitment. We show that this fully dynamic savings game of high complexity can be characterized and computed. One region always ends up bankrupt and the center provides a bail-out: as the poor region enters bankruptcy, there is an upward jump in transfers to the poor region that coincides with a downward jump in the poor region’s consumption. Delegation to a center is Pareto-improving provided that the center’s welfare weights reflect initial wealth differences between regions. However, once regions’ wealth and the center’s welfare weights tilt sufficiently, the dynamics turn unstable, hastening impoverishment and bail-outs.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -316,8 +339,8 @@
     "authors_status_code": "available",
     "available_online": "2026-10-30",
     "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "elsevier_article_api",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "risk-sharing-with-a-central-authority-free-riding-lack-of-commitment-and-bail-outs-2f7a8b579329",
     "detected_at": "2026-10-30T08:51:51+00:00",
     "doi": "10.1016/j.euroecorev.2026.105507",
@@ -426,7 +449,7 @@
     "_raw_file": "data/raw/crossref-priority/2026-10-30.json",
     "abstract": "Households often participate in multiple safety net programs at the same time. We estimate impacts on the monthly cycle of drug overdoses when an individual enrolled in multiple safety net programs receives benefit transfers spread out across the month rather than concentrated on a single day. We find that receiving program transfers on different days reduced the likelihood of an overdose in the month by 33 percent and the number of overdoses by 40 percent. These reductions are due to a 54 percent decrease in the likelihood of overdose in the week of the transfer for the second transfer received in the month. Our results suggest that coordinating the interaction of when transfers arrive from different safety net programs is a potentially important policy lever.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -492,7 +515,7 @@
     "_raw_file": "data/raw/crossref-priority/2026-10-30.json",
     "abstract": "Household food waste imposes substantial economic and environmental costs, yet its behavioral determinants remain imperfectly understood. Because food consumption unfolds over multiple stages, it creates scope for dynamically inconsistent choices that may turn good intentions into waste. We investigate this relationship using a nationally representative survey from Germany that combines targeted measures of food purchasing, consumption, and waste with individual present-bias parameters elicited from monetary intertemporal trade-off questions. More present-biased individuals waste significantly more food: a 10% increase in dynamic inconsistency is associated with roughly 2% more waste. This relationship is robust across specifications, replicated using a self-reported procrastination proxy, and stable several weeks later in a second survey wave. We also identify and empirically validate the mechanism linking present bias to food waste: dynamically inconsistent individuals are more likely to deviate from their own consumption intentions, and these deviations are strongly predictive of food waste. Our findings identify present bias as a systematic and previously overlooked driver of avoidable household food waste, suggesting that food policies need to address behavior along the full consumption chain.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -888,5 +911,67 @@
     "title_zh": null,
     "translation_status": "missing_abstract",
     "url": "https://doi.org/10.1080/00036846.2026.2754984"
+  },
+  {
+    "abstract": "This paper develops the long-span asymptotic theory for the maximum likelihood (ML) estimator of parameters in the discretely sampled fractional Ornstein-Uhlenbeck (fOU) process. It is shown that the convergence rate is a continuous function of the Hurst parameter (i.e., H), and the asymptotic distribution is always Gaussian, facilitating statistical inference. The asymptotic theory is different from that of existing estimators in the literature. Simulation results indicate that the ML method offers more accurate parameter estimates compared to the existing estimators and the derived asymptotic distribution can closely approximate the finite-sample distribution. In the empirical analysis, we fit the fOU process to daily logarithmic RV and daily logarithmic trading volume series for ten exchange-traded funds. The ML estimate of H always lies substantially below 1/2, supporting the roughness hypothesis documented in the literature. Moreover, the fOU process with the ML estimate and the conditional mean predictor outperformed two sets of competitors — the fOU process with existing estimates and predictive formula, and established models, including HAR, log-HAR, ARFIMA, Cauchy processes and Brownian semistationary processes with the power law kernel — in out-of-sample forecasting.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Xiaohu Wang",
+      "Weilin Xiao",
+      "Chen Zhang"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-10-30",
+    "china_relevance_status": "none",
+    "date_confidence": "F",
+    "date_source": "sciencedirect_api_load_date",
+    "detail_key": "maximum-likelihood-estimation-of-fractional-ornstein-uhlenbeck-process-with-discretely-s-ceab7dc1c8d8",
+    "detected_at": "2026-10-30T10:56:50+00:00",
+    "doi": "10.1016/j.jeconom.2026.106351",
+    "fields": [
+      "econometrics"
+    ],
+    "first_seen": "2026-10-30T10:56:50+00:00",
+    "id": "doi:10.1016/j.jeconom.2026.106351",
+    "identity_aliases": [
+      "10.1016/j.jeconom.2026.106351",
+      "https://www.sciencedirect.com/science/article/pii/S0304407626001715?dgcid=api_sd_search-api-endpoint",
+      "maximum-likelihood-estimation-of-fractional-ornstein-uhlenbeck-process-with-discretely-s-ceab7dc1c8d8"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Econometrics",
+    "journal_id": "journal-of-econometrics",
+    "journal_short": "JoE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0304407626001715",
+    "published_online": null,
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "elsevier-article-api"
+        }
+      ],
+      "pii": "S0304407626001715",
+      "sciencedirect_api_load_date": "2026-10-30T00:00:00.000Z",
+      "sciencedirect_search_issn": "0304-4076",
+      "sciencedirect_search_journal": "Journal of Econometrics",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Maximum likelihood estimation of fractional Ornstein-Uhlenbeck process with discretely sampled data",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0304407626001715?dgcid=api_sd_search-api-endpoint"
   }
 ]
