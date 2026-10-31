@@ -156,3 +156,53 @@ class OupRestudFeedTests(unittest.TestCase):
         self.assertEqual(records[1]["doi"], "10.1093/restud/rdag097")
         self.assertEqual(records[1]["published_online"], "2026-08-28")
         self.assertEqual(records[0]["source"], "rss")
+
+
+JFQA_JOURNAL = {
+    "id": "journal-of-financial-and-quantitative-analysis",
+    "title": "Journal of Financial and Quantitative Analysis",
+    "short_name": "JFQA",
+    "publisher": "Cambridge University Press",
+}
+
+JFQA_FORTHCOMING_XML = """<?xml version="1.0"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/modules/" version="2.0">
+  <channel><title>Forthcoming Articles – JFQA</title>
+    <item>
+      <title>Production-Based Option Pricing</title>
+      <link>https://jfqa.org/2026/10/20/production-based-option-pricing/</link>
+      <dc:creator>JFQA Admin</dc:creator>
+      <pubDate>Tue, 20 Oct 2026 17:08:08 +0000</pubDate>
+      <description>Andrea Gamba and Alessio Saretto ♦ We show that a structural model generates implied volatility surfaces.</description>
+      <guid>https://jfqa.org/?p=10814</guid>
+    </item>
+  </channel>
+</rss>"""
+
+
+class JfqaFirstPartyForthcomingTests(unittest.TestCase):
+    def test_identity_only_accepts_exact_official_forthcoming_feed(self):
+        self.assertTrue(fetch_rss.feed_identity_matches(
+            JFQA_FORTHCOMING_XML, JFQA_JOURNAL, fetch_rss.JFQA_FORTHCOMING_FEED))
+        self.assertFalse(fetch_rss.feed_identity_matches(
+            JFQA_FORTHCOMING_XML, JFQA_JOURNAL, "https://untrusted.example/feed"))
+        self.assertFalse(fetch_rss.feed_identity_matches(
+            JFQA_FORTHCOMING_XML, JOURNAL, fetch_rss.JFQA_FORTHCOMING_FEED))
+
+    def test_real_authors_and_forthcoming_date_semantics(self):
+        record, = fetch_rss.parse_feed(
+            JFQA_FORTHCOMING_XML, JFQA_JOURNAL, fetch_rss.JFQA_FORTHCOMING_FEED)
+        self.assertEqual(record["title"], "Production-Based Option Pricing")
+        self.assertEqual(record["journal_id"], JFQA_JOURNAL["id"])
+        self.assertEqual(record["authors"], ["Andrea Gamba", "Alessio Saretto"])
+        self.assertEqual(record["available_online"], "2026-10-20")
+        self.assertIsNone(record["published_online"])
+        self.assertIsNone(record["accepted_date"])
+        self.assertEqual(record["date_source"], "rss_published")
+        self.assertEqual(record["raw_data"]["publication_stage"], "jfqa_forthcoming")
+
+    def test_wordpress_admin_is_never_used_as_article_author(self):
+        xml = JFQA_FORTHCOMING_XML.replace(
+            "Andrea Gamba and Alessio Saretto ♦ ", "")
+        record, = fetch_rss.parse_feed(xml, JFQA_JOURNAL, fetch_rss.JFQA_FORTHCOMING_FEED)
+        self.assertEqual(record["authors"], [])
