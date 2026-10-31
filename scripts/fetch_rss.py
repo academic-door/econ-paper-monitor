@@ -285,7 +285,7 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
                 # The publisher gives actual paper authors before the diamond
                 # separating its byline from the article abstract.
                 byline = (description or "").split("♦", 1)[0].strip() if "♦" in (description or "") else ""
-                authors = [part.strip() for part in re.split(r"\\s+and\\s+|\\s*,\\s*", byline) if part.strip()]
+                authors = [part.strip() for part in re.split(r"\s+and\s+|\s*,\s*", byline) if part.strip()]
             identifier = child_text_any(item, ["identifier", "doi"])
             record = make_record(title, link, published, journal, feed_url, description=description, guid=guid, identifier=identifier, authors=authors)
             if journal.get("id") == "journal-of-financial-and-quantitative-analysis" and feed_url == JFQA_FORTHCOMING_FEED:
