@@ -302,7 +302,7 @@
     "available_online": "2026-10-30",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "the-equity-adjusted-social-cost-of-carbon-cf7290db75a7",
     "detected_at": "2026-10-30T20:40:21+00:00",
     "doi": "10.1086/744731",
@@ -373,7 +373,7 @@
     "available_online": "2026-10-30",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "last-resort-insurance-wildfires-and-the-regulation-of-a-crashing-market-058e9cf6c238",
     "detected_at": "2026-10-30T20:40:21+00:00",
     "doi": "10.1086/744732",
@@ -615,6 +615,16 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-10-30",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-30",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-10-30",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
         }
       ],
       "pii": "S0301421526006130",
@@ -917,7 +927,7 @@
     "available_online": "2026-10-30",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "optimal-reserve-prices-under-seller-uncertainty-8b4a43d33e40",
     "detected_at": "2026-10-30T16:32:51+00:00",
     "doi": "10.1007/s00199-026-01758-5",
@@ -1053,13 +1063,13 @@
     "authors": [
       "I-Hung Kuan",
       "Yizao Liu",
-      "YuXiang Zhang"
+      "Yuxiang Zhang"
     ],
     "authors_status_code": "available",
     "available_online": "2026-10-30",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "universal-free-school-meals-and-household-food-spending-heterogeneous-effects-across-two-440be6e28817",
     "detected_at": "2026-10-30T12:49:23+00:00",
     "doi": "10.1016/j.foodpol.2026.103226",
@@ -1132,7 +1142,7 @@
     "available_online": "2026-10-30",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "asymptotic-value-in-zero-sum-stochastic-games-with-vanishing-stage-duration-and-public-s-386989372bde",
     "detected_at": "2026-10-30T12:08:16+00:00",
     "doi": "10.1007/s00182-026-01018-9",
@@ -1189,10 +1199,10 @@
     "url": "https://doi.org/10.1007/s00182-026-01018-9"
   },
   {
-    "abstract": "This paper develops the long-span asymptotic theory for the maximum likelihood (ML) estimator of parameters in the discretely sampled fractional Ornstein-Uhlenbeck (fOU) process. It is shown that the convergence rate is a continuous function of the Hurst parameter (i.e., H), and the asymptotic distribution is always Gaussian, facilitating statistical inference. The asymptotic theory is different from that of existing estimators in the literature. Simulation results indicate that the ML method offers more accurate parameter estimates compared to the existing estimators and the derived asymptotic distribution can closely approximate the finite-sample distribution. In the empirical analysis, we fit the fOU process to daily logarithmic RV and daily logarithmic trading volume series for ten exchange-traded funds. The ML estimate of H always lies substantially below 1/2, supporting the roughness hypothesis documented in the literature. Moreover, the fOU process with the ML estimate and the conditional mean predictor outperformed two sets of competitors — the fOU process with existing estimates and predictive formula, and established models, including HAR, log-HAR, ARFIMA, Cauchy processes and Brownian semistationary processes with the power law kernel — in out-of-sample forecasting.",
+    "abstract": "This paper first derives two analytic formulae for the autocovariance of the discretely sampled fractional Ornstein-Uhlenbeck (fOU) process. Utilizing the analytic formulae, two main applications are demonstrated: (i) investigation of the accuracy of the likelihood approximation by the Whittle method; (ii) the optimal forecasts with fOU based on discretely sampled data. The finite sample performance of the Whittle method and the derived analytic formula motivate us to introduce a feasible exact maximum likelihood (ML) method to estimate the fOU process. The long-span asymptotic theory of the ML estimator is established, where the convergence rate is a smooth function of the Hurst parameter (i.e., H) and the limiting distribution is always Gaussian, facilitating statistical inference. The asymptotic theory is different from that of some existing estimators studied in the literature, which are discontinuous at H = 3/4 and involve non-standard limiting distributions. The simulation results indicate that the ML method provides more accurate parameter estimates than all the existing methods, and the proposed optimal forecast formula offers a more precise forecast than the existing formula. The fOU process is applied to fit daily realized volatility (RV) and daily trading volume series. When forecasting RVs, it is found that the forecasts generated using the optimal forecast formula together with the ML estimates outperform those generated from all possible combinations of alternative estimation methods and alternative forecast formula.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "本文针对离散抽样分数Ornstein-Uhlenbeck（fOU）过程中参数的最大似然（ML）估计量，建立了长跨度渐近理论。研究表明，收敛速率是Hurst参数（即H）的连续函数，且渐近分布始终为高斯分布，便于统计推断。该渐近理论与文献中现有估计量的渐近理论不同。模拟结果表明，相较于现有估计量，ML方法能提供更精确的参数估计，且所推导的渐近分布能很好地近似有限样本分布。在实证分析中，我们将fOU过程拟合至十只交易所交易基金的日对数已实现波动率（RV）和日对数交易量序列。H的ML估计值始终显著低于1/2，支持了文献中记载的粗糙性假说。此外，采用ML估计和条件均值预测器的fOU过程在样本外预测中优于两组竞争者——采用现有估计和预测公式的fOU过程，以及包括HAR、log-HAR、ARFIMA、Cauchy过程及具有幂律核的布朗半平稳过程在内的既有模型。",
     "accepted_date": null,
@@ -1244,6 +1254,9 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "source": "openalex"
         }
       ],
       "pii": "S0304407626001715",
@@ -2083,7 +2096,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "policy-discontinuity-and-waves-of-growth-evidence-from-chinese-provinces-6fcba0a12dc1",
     "detected_at": "2026-10-30T03:08:22+00:00",
     "doi": "10.1080/00036846.2026.2754984",
