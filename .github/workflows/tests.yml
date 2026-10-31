@@ -41,26 +41,6 @@ jobs:
           )
           python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output docs/index.html --report "$RUNNER_TEMP/daily-home-report.json"
           python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output docs/daily-vnext/index.html --report "$RUNNER_TEMP/daily-vnext-report.json"
-      - name: One-shot JFQA live RSS transport qualification (PR 421 only)
-        timeout-minutes: 1
-        run: |
-          python - <<'PY'
-          import sys
-          from pathlib import Path
-          sys.path.insert(0, str(Path("scripts").resolve()))
-          from fetch_rss import JFQA_FORTHCOMING_FEED, fetch_feed_with_retry, feed_identity_matches, parse_feed
-          from common import load_journals, DATA_DIR
-          journal = next(j for j in load_journals(DATA_DIR / "journals.yml") if j["id"] == "journal-of-financial-and-quantitative-analysis")
-          payload = fetch_feed_with_retry(JFQA_FORTHCOMING_FEED, timeout=12, attempts=1)
-          assert feed_identity_matches(payload, journal, JFQA_FORTHCOMING_FEED), "JFQA channel identity rejected"
-          records = parse_feed(payload, journal, JFQA_FORTHCOMING_FEED)
-          matching = [r for r in records if r["title"] == "Production-Based Option Pricing"]
-          assert len(matching) == 1, "Expected one exact title in current official feed"
-          assert matching[0]["authors"] == ["Andrea Gamba", "Alessio Saretto"], "Publisher byline identity invalid"
-          assert matching[0]["available_online"] == "2026-10-20"
-          assert matching[0]["published_online"] is None
-          print(f"JFQA_RUNNER_SOURCE_OK items={len(records)} exact_target=1 author_correct=1 stage_correct=1")
-          PY
       - name: Run regression tests
         run: python -m pytest -q
       - name: Test independent scheduler liveness
