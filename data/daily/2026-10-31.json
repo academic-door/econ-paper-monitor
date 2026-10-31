@@ -2,6 +2,7 @@
   {
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -23,7 +24,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "identifying-administrative-villages-for-rural-revitalization-a-case-study-in-the-loess-h-df77830d0679",
     "detected_at": "2026-10-31T03:39:59+00:00",
     "doi": "10.1016/j.landusepol.2026.108406",
@@ -43,10 +44,23 @@
     "journal_short": "LUP",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0264837726004904",
     "published_online": "2026-10-31",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-10-31",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-31",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -60,6 +74,7 @@
   {
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -69,10 +84,10 @@
       "Matt Van Essen"
     ],
     "authors_status_code": "available",
-    "available_online": "2026-10-31",
+    "available_online": "2026-10-30",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "equity-equilibrium-for-cooperative-games-36d947cb47cd",
     "detected_at": "2026-10-31T01:26:20+00:00",
     "doi": "10.1016/j.jet.2026.106274",
@@ -92,10 +107,27 @@
     "journal_short": "JET",
     "official_date_status": "available",
     "pdf_url": null,
-    "published_online": "2026-10-31",
+    "pii": "S0022053126001341",
+    "published_online": "2026-10-30",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-10-31",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-10-31",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-10-30",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-10-30",
+          "source": "elsevier-article-api"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
