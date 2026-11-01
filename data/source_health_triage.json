@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 2
   },
-  "checked_at": "2026-11-01T18:38:04.316185+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-11-01T19:24:55.724875+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,13 +11,13 @@
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
+      "category": "needs_investigation",
       "sample_error": "partial_success failures=1; Agricultural Economics: 5; Journal of the Association of Environmental and Resource Economists: 13; Land Economics: 7; Land Use Policy: 40; European Review of Agricultural ",
       "source": "crossref"
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=17; seen Applied Economics: abstract-route-missing; seen 管理世界: abstract-route-missing; 2026-11-01 Journal of Economic Behavior and Organization: abstract-present; 2026-11-01 VoxEU / CEPR Col",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
       "source": "publisher-detail"
     },
     {
@@ -45,10 +45,25 @@
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "NETWORK_FAILURE",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "rate_limited",
+      "status_category": "needs_investigation",
       "status_source": "crossref",
       "usable_paths": [
         "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Behavior and Organization",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
         "openalex-recall"
       ]
     }
@@ -57,5 +72,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 1
+  "total_degraded": 2
 }
