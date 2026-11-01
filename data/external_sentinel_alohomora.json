@@ -1,5 +1,5 @@
 {
-  "alo_count": 228,
+  "alo_count": 229,
   "broader_out_of_scope_by_journal": [
     [
       "JM Online First",
@@ -10,15 +10,15 @@
   "broader_relevant_candidate_count": 18,
   "counts": {
     "broader_relevant_candidates": 18,
-    "current_possible_missing": 70,
+    "current_possible_missing": 71,
     "econ_expand_candidates": 0,
     "formal_scope_missing": 2,
     "out_of_scope_references": 1,
-    "unknown_scope_candidates": 49
+    "unknown_scope_candidates": 50
   },
   "crossref_lookup_limit": 20,
   "crossref_lookups": 13,
-  "current_possible_missing_count": 70,
+  "current_possible_missing_count": 71,
   "econ_expand_candidate_count": 0,
   "formal_scope_missing_count": 2,
   "local_not_in_external": [
@@ -571,7 +571,7 @@
     {
       "author": "Dustin Benton, Michael Winter, H. Charles J. Godfray",
       "date": "2026-10-27",
-      "date_source": "crossref_doi_elsevier_created_online",
+      "date_source": "openalex_publication_date",
       "doi": "10.1016/j.landusepol.2026.108391",
       "in_monitor_list": true,
       "journal": "Land Use Policy",
@@ -2306,6 +2306,10 @@
       7
     ],
     [
+      "JBF in Press",
+      5
+    ],
+    [
       "JES Early View",
       5
     ],
@@ -2316,10 +2320,6 @@
     [
       "MKSC Advance",
       5
-    ],
-    [
-      "JBF in Press",
-      4
     ],
     [
       "Biometrika Advance",
@@ -2448,6 +2448,25 @@
   ],
   "missing_in_monitor_list_count": 2,
   "missing_sample": [
+    {
+      "author": "Rosalind L. Bennett, Manju Puri, Paul E. Soto",
+      "china_like": false,
+      "date": "01 Nov 2026",
+      "external_first_seen_date": "2026-11-01",
+      "first_seen_at": "2026-11-01 00:00:00",
+      "in_monitor_list": false,
+      "journal": "JBF in Press",
+      "lag_days": null,
+      "link": "https://www.sciencedirect.com/science/article/pii/S0378426626002256",
+      "mapped_journal": "Journal of Banking and Finance",
+      "official_date": null,
+      "official_date_source": null,
+      "reason": "出版社 in press/in progress 页面比 Crossref 更早，需强化 Publisher TOC/PII/RSS 链路。",
+      "scope_bucket": "unknown_scope",
+      "tier": "F3",
+      "timeliness_bucket": "current_or_unknown",
+      "title": "Inside the Boardroom: Evidence from the Board Structure and Meeting Minutes of Community Banks"
+    },
     {
       "author": "Ivan Boldyrev, Ivan Moscati, Robert Sugden",
       "china_like": false,
@@ -3378,31 +3397,12 @@
       "tier": "SS",
       "timeliness_bucket": "current_or_unknown",
       "title": "Central Banks as Educators: Lessons From Instructional Design"
-    },
-    {
-      "author": "Z Xu, D Witten, A Shojaie",
-      "china_like": false,
-      "date": "28 Oct 2026",
-      "external_first_seen_date": "2026-10-28",
-      "first_seen_at": "2026-10-28 00:00:00",
-      "in_monitor_list": false,
-      "journal": "Biometrika Advance",
-      "lag_days": null,
-      "link": "https://doi.org/10.1093/biomet/asag050",
-      "mapped_journal": "Biometrika Advance",
-      "official_date": null,
-      "official_date_source": null,
-      "reason": "需人工复核：可能是清单外来源，也可能是期刊别名未映射。",
-      "scope_bucket": "unknown_scope",
-      "tier": "SS",
-      "timeliness_bucket": "current_or_unknown",
-      "title": "Semiparametrically efficient semi-supervised statistical inference"
     }
   ],
   "old_backflow": [],
   "old_backflow_count": 0,
   "out_of_scope_reference_count": 1,
-  "possible_missing_count": 70,
+  "possible_missing_count": 71,
   "scope_policy": {
     "broader_relevant_candidate_names": [
       "Journal of Accounting and Economics",
@@ -3541,5 +3541,5 @@
     ]
   },
   "source": "https://api3.alohomora.live",
-  "unknown_scope_candidate_count": 49
+  "unknown_scope_candidate_count": 50
 }
