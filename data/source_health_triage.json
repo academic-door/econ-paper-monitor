@@ -1,14 +1,19 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 5
   },
-  "checked_at": "2026-11-02T13:53:30.321153+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-11-02T15:07:52.578815+08:00",
+  "source_health_degraded_count": 5,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=4; Journal of Finance: 3; Journal of Financial Economics: 8; Review of Financial Studies: error TimeoutError: The read operation timed out; Journal of Development Economics: e",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -46,11 +51,70 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-development-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Development Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-the-association-of-environmental-and-resource-economists",
+      "sample_error": "HTTP_BLOCK",
+      "source": "Journal of the Association of Environmental and Resource Economists",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "rand-journal-of-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "RAND Journal of Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-financial-studies",
+      "sample_error": "HTTP_BLOCK",
+      "source": "Review of Financial Studies",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
-  "total_degraded": 1
+  "total_degraded": 5
 }
