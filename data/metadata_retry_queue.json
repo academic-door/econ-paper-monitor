@@ -1,7 +1,7 @@
 {
   "expected_metadata_gap_counts": {
     "abstract:book_review": 3,
-    "abstract:correction_notice": 3,
+    "abstract:correction_notice": 4,
     "abstract:reviewer_acknowledgement": 1,
     "abstract:special_issue_introduction": 1,
     "authors:reviewer_acknowledgement": 1
@@ -14,7 +14,7 @@
     "weak_date_evidence": 499
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 554,
+  "recent_candidates_before_limit": 555,
   "recent_window_start": "2026-10-05",
   "records": [
     {
@@ -3295,7 +3295,32 @@
       "authors_status": "作者信息待核验",
       "authors_status_code": "missing_retry",
       "date_confidence": "C",
-      "detail_key": "conservation-governance-challenges-in-the-karakoram-analyzing-the-institutional-transiti-480920b16f2f",
+      "doi": "10.1016/j.jebo.2026.107815",
+      "expected_metadata_gaps": {
+        "abstract": "correction_notice"
+      },
+      "first_seen": "2026-11-02T21:52:34+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jebo.2026.107815",
+      "journal": "Journal of Economic Behavior and Organization",
+      "official_date": "2026-11-02",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Corrigendum to “Strategic priority-based course allocation” [Journal of Economic Behavior &amp; Organization 226 (2024) 106701]",
+      "url": "https://doi.org/10.1016/j.jebo.2026.107815"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1016/j.landusepol.2026.108408",
       "first_seen": "2026-11-02T10:37:59+00:00",
       "historical_backfill": false,
@@ -15656,40 +15681,9 @@
       "source_type": "journal",
       "title": "Same intervention, different outcomes: The politics of energy transition planning in Ghana and Kenya",
       "url": "https://doi.org/10.1016/j.enpol.2026.115641"
-    },
-    {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
-      "authors": [],
-      "authors_status": "作者信息待核验",
-      "authors_status_code": "missing_retry",
-      "date_confidence": "C",
-      "detail_key": "modeling-optimal-incentives-for-the-electric-vehicle-market-d579b29a622f",
-      "doi": "10.1016/j.enpol.2026.115646",
-      "first_seen": "2026-10-08T10:15:44+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.enpol.2026.115646",
-      "journal": "Energy Policy",
-      "official_date": "2026-10-08",
-      "official_date_status": "available",
-      "priority": [
-        0,
-        1,
-        1,
-        26
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Modeling optimal incentives for the electric vehicle market",
-      "url": "https://doi.org/10.1016/j.enpol.2026.115646"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5511,
+  "total_candidates_before_limit": 5512,
   "truncated": true
 }
