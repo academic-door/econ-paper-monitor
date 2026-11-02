@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 5
   },
-  "checked_at": "2026-11-02T15:07:52.578815+08:00",
+  "checked_at": "2026-11-02T16:29:20.869378+08:00",
   "source_health_degraded_count": 5,
   "source_status_failures": [
     {
@@ -12,7 +12,7 @@
     },
     {
       "category": "transient_network",
-      "sample_error": "partial_success failures=4; Journal of Finance: 3; Journal of Financial Economics: 8; Review of Financial Studies: error TimeoutError: The read operation timed out; Journal of Development Economics: e",
+      "sample_error": "partial_success failures=5; Journal of Finance: error TimeoutError: The read operation timed out; Journal of Financial Economics: 8; Review of Financial Studies: 5; Journal of Development Economics: 1",
       "source": "crossref"
     },
     {
@@ -42,6 +42,21 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "european-economic-review",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "European Economic Review",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "NETWORK_FAILURE",
       "source": "Journal of Agricultural and Resource Economics",
@@ -57,38 +72,9 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-development-economics",
+      "journal_id": "journal-of-economic-behavior-and-organization",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Development Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-the-association-of-environmental-and-resource-economists",
-      "sample_error": "HTTP_BLOCK",
-      "source": "Journal of the Association of Environmental and Resource Economists",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "rand-journal-of-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "RAND Journal of Economics",
+      "source": "Journal of Economic Behavior and Organization",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
@@ -101,11 +87,26 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "review-of-financial-studies",
-      "sample_error": "HTTP_BLOCK",
-      "source": "Review of Financial Studies",
+      "journal_id": "journal-of-finance",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Finance",
       "status_category": "transient_network",
       "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-political-economy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Political Economy",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "rss",
         "openalex-recall"
