@@ -206,3 +206,74 @@ class JfqaFirstPartyForthcomingTests(unittest.TestCase):
             "Andrea Gamba and Alessio Saretto ♦ ", "")
         record, = fetch_rss.parse_feed(xml, JFQA_JOURNAL, fetch_rss.JFQA_FORTHCOMING_FEED)
         self.assertEqual(record["authors"], [])
+
+
+RESTUD_ACCEPTED_JOURNAL = {
+    "id": "review-of-economic-studies",
+    "title": "Review of Economic Studies",
+    "short_name": "REStud",
+    "publisher": "Oxford University Press",
+}
+RESTUD_ACCEPTED_XML = """<?xml version="1.0"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel><title>Accepted Papers - The Review of Economic Studies</title>
+    <item>
+      <title>From Design to Disclosure</title>
+      <link>https://www.restud.com/from-design-to-disclosure/</link>
+      <dc:creator>Ann</dc:creator>
+      <pubDate>Mon, 02 Nov 2026 17:51:41 +0000</pubDate>
+      <category>Accepted Papers</category>
+      <description>We study the role of hard information in contractual and market settings.</description>
+      <guid>/?p=4021</guid>
+    </item>
+    <item>
+      <title>Fertility and Family Leave Policies in Germany: Optimal Policy Design in a Dynamic Framework</title>
+      <link>https://www.restud.com/fertility-and-family-leave-policies-in-germany-optimal-policy-design-in-a-dynamic-framework/</link>
+      <dc:creator>Ann</dc:creator>
+      <pubDate>Mon, 02 Nov 2026 17:43:27 +0000</pubDate>
+      <category>Accepted Papers</category>
+      <description>A life-cycle discrete-choice model for fertility and labour supply.</description>
+      <guid>/?p=4017</guid>
+    </item>
+  </channel>
+</rss>"""
+
+
+class RestudOfficialAcceptedFeedTests(unittest.TestCase):
+    def test_first_party_channel_identity_and_scope(self):
+        self.assertTrue(fetch_rss.feed_identity_matches(
+            RESTUD_ACCEPTED_XML, RESTUD_ACCEPTED_JOURNAL, fetch_rss.RESTUD_ACCEPTED_FEED))
+        self.assertFalse(fetch_rss.feed_identity_matches(
+            RESTUD_ACCEPTED_XML, JOURNAL, fetch_rss.RESTUD_ACCEPTED_FEED))
+
+    def test_two_accepted_papers_have_correct_stage_and_no_admin_author(self):
+        items = fetch_rss.parse_feed(RESTUD_ACCEPTED_XML, RESTUD_ACCEPTED_JOURNAL, fetch_rss.RESTUD_ACCEPTED_FEED)
+        self.assertEqual(len(items), 2)
+        self.assertEqual([r["title"] for r in items], [
+            "From Design to Disclosure",
+            "Fertility and Family Leave Policies in Germany: Optimal Policy Design in a Dynamic Framework",
+        ])
+        for record in items:
+            self.assertEqual(record["journal_id"], RESTUD_ACCEPTED_JOURNAL["id"])
+            self.assertEqual(record["authors"], [])
+            self.assertEqual(record["available_online"], "2026-11-02")
+            self.assertIsNone(record["published_online"])
+            self.assertIsNone(record["accepted_date"])
+            self.assertEqual(record["date_source"], "rss_published")
+            self.assertEqual(record["raw_data"]["publication_stage"], "restud_accepted")
+            self.assertEqual(record["source"], "rss")
+
+    def test_title_identity_reconciles_with_later_oup_doi_record(self):
+        import dedupe
+        accepted, = fetch_rss.parse_feed(
+            RESTUD_ACCEPTED_XML.replace(
+                '<item>\n      <title>Fertility and Family Leave Policies in Germany: Optimal Policy Design in a Dynamic Framework</title>',
+                '<other>\n      <title>Fertility and Family Leave Policies in Germany: Optimal Policy Design in a Dynamic Framework</title>'
+            ).replace('</item>\n  </channel>', '</other>\n  </channel>'),
+            RESTUD_ACCEPTED_JOURNAL, fetch_rss.RESTUD_ACCEPTED_FEED,
+        )[:1]
+        later = {**accepted, "source": "crossref", "doi": "10.1093/restud/example", "url": "https://doi.org/10.1093/restud/example"}
+        self.assertIn(
+            "journal-title:review of economic studies:from design to disclosure",
+            dedupe.record_match_keys(accepted) & dedupe.record_match_keys(later),
+        )
