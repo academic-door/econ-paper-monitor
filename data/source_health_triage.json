@@ -1,14 +1,19 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 3
   },
-  "checked_at": "2026-11-03T22:27:40.498893+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-11-03T23:58:34.159143+08:00",
+  "source_health_degraded_count": 3,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=2; Journal of Finance: 4; Journal of Financial Economics: 8; Review of Financial Studies: 5; Journal of Development Economics: 9; Economic Development and Cultural Change: 2; ",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -51,11 +56,41 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-environmental-economics-and-management",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Environmental Economics and Management",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "land-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Land Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 7
   },
-  "total_degraded": 1
+  "total_degraded": 3
 }
