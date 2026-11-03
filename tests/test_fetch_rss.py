@@ -265,14 +265,15 @@ class RestudOfficialAcceptedFeedTests(unittest.TestCase):
 
     def test_title_identity_reconciles_with_later_oup_doi_record(self):
         import dedupe
-        accepted, = fetch_rss.parse_feed(
-            RESTUD_ACCEPTED_XML.replace(
-                '<item>\n      <title>Fertility and Family Leave Policies in Germany: Optimal Policy Design in a Dynamic Framework</title>',
-                '<other>\n      <title>Fertility and Family Leave Policies in Germany: Optimal Policy Design in a Dynamic Framework</title>'
-            ).replace('</item>\n  </channel>', '</other>\n  </channel>'),
-            RESTUD_ACCEPTED_JOURNAL, fetch_rss.RESTUD_ACCEPTED_FEED,
-        )[:1]
-        later = {**accepted, "source": "crossref", "doi": "10.1093/restud/example", "url": "https://doi.org/10.1093/restud/example"}
+        accepted = fetch_rss.parse_feed(
+            RESTUD_ACCEPTED_XML, RESTUD_ACCEPTED_JOURNAL, fetch_rss.RESTUD_ACCEPTED_FEED
+        )[0]
+        later = {
+            **accepted,
+            "source": "crossref",
+            "doi": "10.1093/restud/example",
+            "url": "https://doi.org/10.1093/restud/example",
+        }
         self.assertIn(
             "journal-title:review of economic studies:from design to disclosure",
             dedupe.record_match_keys(accepted) & dedupe.record_match_keys(later),
