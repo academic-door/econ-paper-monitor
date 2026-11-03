@@ -361,66 +361,63 @@
       "ok": true,
       "selected_sources": 6,
       "successful_sources": 6,
-      "updated_at": "2026-11-03T04:12:28+00:00"
+      "updated_at": "2026-11-03T10:10:43+00:00"
     },
     "publisher-detail": {
       "publishers": [
         {
-          "ab_dates": 0,
-          "attempted": 113,
-          "changed": 9,
+          "ab_dates": 1,
+          "attempted": 7,
+          "changed": 2,
           "degraded": true,
-          "failures": 113,
+          "failures": 6,
           "fallbacks": [
             "crossref-doi",
             "openalex"
           ],
-          "message": "elsevier-metadata-only:112, HTTPError:1",
+          "message": "abstract-present:5, abstract-route-missing:2",
           "publisher": "Elsevier",
           "retryable": true,
           "statuses": {
-            "HTTPError": 1,
-            "elsevier-metadata-only": 112
+            "abstract-present": 5,
+            "abstract-route-missing": 2
           },
-          "success_rate": 0.0
+          "success_rate": 0.1429
         },
         {
           "ab_dates": 0,
-          "attempted": 1,
-          "changed": 1,
-          "degraded": true,
-          "failures": 1,
+          "attempted": 0,
+          "changed": 0,
+          "degraded": false,
+          "failures": 0,
           "fallbacks": [
             "crossref-doi",
             "openalex"
           ],
-          "message": "crossref-doi-fallback:1",
+          "message": "",
           "publisher": "OUP",
-          "retryable": true,
-          "statuses": {
-            "crossref-doi-fallback": 1
-          },
-          "success_rate": 0.0
+          "retryable": false,
+          "statuses": {},
+          "success_rate": 0
         },
         {
-          "ab_dates": 0,
-          "attempted": 6,
-          "changed": 3,
-          "degraded": true,
-          "failures": 5,
+          "ab_dates": 3,
+          "attempted": 3,
+          "changed": 1,
+          "degraded": false,
+          "failures": 0,
           "fallbacks": [
             "crossref-doi",
             "openalex"
           ],
-          "message": "crossref-doi-fallback:4, updated:1, openalex-fallback:1",
+          "message": "abstract-present:2, abstract-route-missing:1",
           "publisher": "Other",
-          "retryable": true,
+          "retryable": false,
           "statuses": {
-            "crossref-doi-fallback": 4,
-            "openalex-fallback": 1,
-            "updated": 1
+            "abstract-present": 2,
+            "abstract-route-missing": 1
           },
-          "success_rate": 0.0
+          "success_rate": 1.0
         },
         {
           "ab_dates": 0,
@@ -440,22 +437,24 @@
         },
         {
           "ab_dates": 0,
-          "attempted": 0,
+          "attempted": 2,
           "changed": 0,
-          "degraded": false,
-          "failures": 0,
+          "degraded": true,
+          "failures": 2,
           "fallbacks": [
             "crossref-doi",
             "openalex"
           ],
-          "message": "",
+          "message": "abstract-present:2",
           "publisher": "Wiley",
-          "retryable": false,
-          "statuses": {},
-          "success_rate": 0
+          "retryable": true,
+          "statuses": {
+            "abstract-present": 2
+          },
+          "success_rate": 0.0
         }
       ],
-      "updated_at": "2026-11-03T04:33:47+00:00"
+      "updated_at": "2026-11-03T10:12:00+00:00"
     }
   },
   "sources": {
@@ -513,10 +512,10 @@
       "updated_at": "2026-09-07T08:31:57+00:00"
     },
     "china-relevance": {
-      "count": 3215,
-      "message": "candidates=659 changed=5",
+      "count": 3217,
+      "message": "candidates=659 changed=1",
       "ok": true,
-      "updated_at": "2026-11-03T09:41:51+00:00"
+      "updated_at": "2026-11-03T10:12:44+00:00"
     },
     "clean-cn-noise": {
       "count": 0,
@@ -540,7 +539,7 @@
       "count": 99,
       "message": "经济研究: accepted=17 filtered=3 stale=0 latest_research=2026-09-20; 管理世界: accepted=13 filtered=7 stale=0 latest_research=2026-10-05; 世界经济: accepted=16 filtered=4 stale=0 latest_research=2026-10-10; 数量经济技术经济研究: accepted=16 filtered=4 stale=0 latest_research=2026-10-15; 中国工业经济: accepted=19 filtered=1 stale=0 latest_research=2026-10-30; 中国农村经济: accepted=18 filtered=2 stale=0 latest_research=2026-10-26",
       "ok": true,
-      "updated_at": "2026-11-03T04:12:28+00:00"
+      "updated_at": "2026-11-03T10:10:43+00:00"
     },
     "crossref": {
       "count": 253,
@@ -570,9 +569,9 @@
     },
     "formal-journal-audit": {
       "count": 106,
-      "message": "formal=106 raw_today=64 daily_today=7 missed=0",
+      "message": "formal=106 raw_today=10 daily_today=7 missed=0",
       "ok": true,
-      "updated_at": "2026-11-03T09:40:47+00:00"
+      "updated_at": "2026-11-03T10:12:47+00:00"
     },
     "historical-backfill-quarantine": {
       "count": 1,
@@ -593,16 +592,16 @@
       "updated_at": "2026-11-03T09:40:46+00:00"
     },
     "local-cnki-publish": {
-      "count": 1,
-      "message": "published to origin/main",
-      "ok": true,
-      "updated_at": "2026-11-03T04:14:35+00:00"
+      "count": 0,
+      "message": "pending",
+      "ok": false,
+      "updated_at": "2026-11-03T10:12:48+00:00"
     },
     "local-cnki-run": {
       "count": 1,
       "message": "finished; log=local_admin/logs/local-cnki-update.log",
       "ok": true,
-      "updated_at": "2026-11-03T04:14:21+00:00"
+      "updated_at": "2026-11-03T10:12:48+00:00"
     },
     "manual-overrides": {
       "count": 39,
@@ -611,10 +610,10 @@
       "updated_at": "2026-11-03T09:40:09+00:00"
     },
     "normalize-records": {
-      "count": 380,
-      "message": "files=146 duplicates_removed=1 duplicate_files=1 seen_source_types=0 seen_abstracts=0 public_integrity_repairs=1",
+      "count": 382,
+      "message": "files=147 duplicates_removed=1 duplicate_files=1 seen_source_types=0 seen_abstracts=1 public_integrity_repairs=1",
       "ok": true,
-      "updated_at": "2026-11-03T09:41:33+00:00"
+      "updated_at": "2026-11-03T10:12:27+00:00"
     },
     "openalex-recall": {
       "count": 117,
@@ -1005,23 +1004,23 @@
       "updated_at": "2026-11-03T04:19:34+00:00"
     },
     "publisher-detail": {
-      "attempted": 120,
-      "count": 13,
-      "failures": 119,
+      "attempted": 12,
+      "count": 3,
+      "failures": 8,
       "fallbacks": [
         "crossref-doi",
         "openalex"
       ],
-      "message": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economics of Education Review: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only; seen Economic Modelling: elsevier-metadata-only",
+      "message": "attempted=12; 2026-11-03 Food Policy: abstract-route-missing; 2026-11-03 Journal of Environmental Economics and Management: abstract-route-missing; seen 管理世界: abstract-route-missing; seen Agricultural Economics: abstract-present; seen Agricultural Economics: abstract-present; 2026-11-03 VoxEU / CEPR Columns: abstract-present; 2026-11-03 VoxEU / CEPR Columns: abstract-present; 2026-11-03 Energy Economics: abstract-present; 2026-11-03 Economics of Education Review: abstract-present; 2026-11-03 Structural Change and Economic Dynamics: abstract-present; 2026-11-03 Journal of Economic Dynamics and Control: abstract-present; 2026-11-03 Economics Letters: abstract-present",
       "ok": false,
       "retryable": true,
-      "updated_at": "2026-11-03T04:33:47+00:00"
+      "updated_at": "2026-11-03T10:12:00+00:00"
     },
     "recent72-coverage-audit": {
       "count": 0,
-      "message": "dates=2026-11-03,2026-11-02,2026-11-01 raw=2486 daily=83 covered=80 seen=2348 missing=0",
+      "message": "dates=2026-11-03,2026-11-02,2026-11-01 raw=459 daily=83 covered=0 seen=441 missing=0",
       "ok": true,
-      "updated_at": "2026-11-03T09:40:49+00:00"
+      "updated_at": "2026-11-03T10:12:46+00:00"
     },
     "remove-seen-backflow": {
       "count": 0,
@@ -1182,9 +1181,18 @@
   },
   "workflow": {
     "date": "2026-11-03",
-    "event": "workflow_dispatch",
-    "finished_at": "2026-11-03T09:42:02+00:00",
+    "event": "local-cnki",
+    "finished_at": "2026-11-03T10:12:48+00:00",
     "history": [
+      {
+        "event": "local-cnki",
+        "finished_at": "2026-11-03T10:12:48+00:00",
+        "mode": "light",
+        "mode_label": "本地中文补充",
+        "run_id": "",
+        "run_url": "",
+        "schedule": ""
+      },
       {
         "event": "workflow_dispatch",
         "finished_at": "2026-11-03T09:42:02+00:00",
@@ -1445,24 +1453,15 @@
         "run_id": "41394882727",
         "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/41394882727",
         "schedule": ""
-      },
-      {
-        "event": "workflow_dispatch",
-        "finished_at": "2026-11-02T04:41:10+00:00",
-        "mode": "full",
-        "mode_label": "全量监测",
-        "run_id": "41387864713",
-        "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/41387864713",
-        "schedule": ""
       }
     ],
     "last_full_finished_at": "2026-11-03T04:37:11+00:00",
     "last_light_finished_at": "2026-11-03T09:42:02+00:00",
     "mode": "light",
-    "mode_label": "快速监测",
-    "run_id": "41610174003",
-    "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/41610174003",
+    "mode_label": "本地中文补充",
+    "run_id": "",
+    "run_url": "",
     "schedule": "",
-    "updated_at": "2026-11-03T09:42:02+00:00"
+    "updated_at": "2026-11-03T10:12:48+00:00"
   }
 }
