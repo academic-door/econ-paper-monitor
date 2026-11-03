@@ -17,6 +17,8 @@ from status import record_source
 
 
 ATOM = "{http://www.w3.org/2005/Atom}"
+JFQA_FORTHCOMING_FEED = "https://jfqa.org/category/forthcoming-articles/feed/"
+
 
 
 def fetch_feed_with_retry(url: str, timeout: int = 30, attempts: int = 2) -> str:
@@ -45,7 +47,7 @@ def fetch_journal_feed(journal: dict[str, Any], source: dict[str, str]) -> tuple
     for attempt in range(2):
         try:
             xml_text = fetch_feed_with_retry(source["url"])
-            if not feed_identity_matches(xml_text, journal):
+            if not feed_identity_matches(xml_text, journal, source["url"]):
                 raise ValueError("RSS feed identity does not match configured journal")
             return parse_feed(xml_text, journal, source["url"]), None
         except Exception as exc:  # noqa: BLE001 - retry once, then surface.
@@ -278,8 +280,20 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
             published = parse_date(child_text_any(item, ["pubDate", "date", "dc:date", "updated", "published"]))
             description = child_text_any(item, ["description", "summary", "content"])
             authors = child_texts_any(item, ["creator", "author", "dc:creator"])
+            if journal.get("id") == "journal-of-financial-and-quantitative-analysis" and feed_url == JFQA_FORTHCOMING_FEED:
+                # WordPress dc:creator is "JFQA Admin", not the article author.
+                # The publisher gives actual paper authors before the diamond
+                # separating its byline from the article abstract.
+                byline = (description or "").split("♦", 1)[0].strip() if "♦" in (description or "") else ""
+                authors = [part.strip() for part in re.split(r"\s+and\s+|\s*,\s*", byline) if part.strip()]
             identifier = child_text_any(item, ["identifier", "doi"])
-            records.append(make_record(title, link, published, journal, feed_url, description=description, guid=guid, identifier=identifier, authors=authors))
+            record = make_record(title, link, published, journal, feed_url, description=description, guid=guid, identifier=identifier, authors=authors)
+            if journal.get("id") == "journal-of-financial-and-quantitative-analysis" and feed_url == JFQA_FORTHCOMING_FEED:
+                # WordPress post date evidences first-party availability of a
+                # forthcoming paper, NOT its later Cambridge formal online date.
+                record["published_online"] = None
+                record["raw_data"]["publication_stage"] = "jfqa_forthcoming"
+            records.append(record)
         return [record for record in records if record["title"]]
 
     entries = root.findall(f".//{ATOM}entry")
@@ -316,7 +330,7 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
     return [record for record in records if record["title"]]
 
 
-def feed_identity_matches(xml_text: str, journal: dict[str, Any]) -> bool:
+def feed_identity_matches(xml_text: str, journal: dict[str, Any], feed_url: str | None = None) -> bool:
     """Reject a valid RSS feed that belongs to a different journal.
 
     Some publisher platforms reuse short journal codes.  A successful HTTP/XML
@@ -349,6 +363,11 @@ def feed_identity_matches(xml_text: str, journal: dict[str, Any]) -> bool:
             compact = compact_name(value)
             if compact:
                 candidates.append(compact)
+    # The JFQA first-party WordPress Forthcoming channel is not titled with
+    # the full journal name. Only this exact official feed may use its short
+    # channel identity; other journal feeds retain the strict generic check.
+    if journal.get("id") == "journal-of-financial-and-quantitative-analysis" and feed_url == JFQA_FORTHCOMING_FEED:
+        return "forthcomingarticlesjfqa" in candidates
     if not candidates:
         return True
     return any(expected in candidate or candidate in expected for candidate in candidates)

@@ -61,7 +61,7 @@ class AppliedEconomicsOperaOverrides(unittest.TestCase):
                 )
                 self.assertIn(doi, {r.get("doi") for r in bucket_records})
                 after = deepcopy(original)
-                self.assertTrue(apply_overrides.apply_to_record(after, override))
+                self.assertFalse(apply_overrides.apply_to_record(after, override))
                 self.assertFalse(apply_overrides.apply_to_record(after, override))
                 self.assertEqual(after["abstract"], override["abstract"])
                 self.assertEqual(after["abstract_source"], "publisher_page_verified")
@@ -80,12 +80,39 @@ class AppliedEconomicsOperaOverrides(unittest.TestCase):
                 record = seen["papers"][f"doi:{doi}"]
                 before = deepcopy(record)
                 after = deepcopy(record)
-                self.assertTrue(apply_overrides.apply_to_record(after, self.overrides[doi]))
+                self.assertFalse(apply_overrides.apply_to_record(after, self.overrides[doi]))
                 self.assertEqual(after["abstract"], self.overrides[doi]["abstract"])
                 self.assertEqual(after["abstract_source"], "publisher_page_verified")
                 self.assertEqual(after["abstract_status_code"], "available")
                 self.assertFalse(apply_overrides.apply_to_record(after, self.overrides[doi]))
                 self.assert_preserves_canonical_evidence(after, before)
+
+
+    def test_missing_record_replay_transitions_once_then_is_idempotent(self):
+        # Separately exercise the original missing -> verified-full transition.
+        # Canonical Daily and seen are now already applied; reapplication must
+        # be a no-op. This cloned fixture must never write production files.
+        for doi in self.EXPECTED:
+            with self.subTest(doi=doi):
+                original = self.records[doi]
+                entry = deepcopy(original)
+                for field in (
+                    "abstract", "abstract_source", "abstract_status_code",
+                    "abstract_completeness", "abstract_enrichment_status",
+                ):
+                    entry.pop(field, None)
+                entry["abstract_status"] = "missing_retry"
+                before = deepcopy(entry)
+                self.assertTrue(apply_overrides.apply_to_record(entry, self.overrides[doi]))
+                self.assertFalse(apply_overrides.apply_to_record(entry, self.overrides[doi]))
+                self.assertEqual(entry["abstract"], self.overrides[doi]["abstract"])
+                self.assertEqual(entry["abstract_source"], "publisher_page_verified")
+                self.assertEqual(entry["abstract_status_code"], "available")
+                self.assertEqual(entry["abstract_completeness"], "full")
+                self.assertEqual(entry["abstract_enrichment_status"], "available")
+                self.assertNotIn("abstract_status", entry)
+                self.assert_preserves_canonical_evidence(entry, before)
+
 
 
 if __name__ == "__main__":
