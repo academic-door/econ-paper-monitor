@@ -10,13 +10,37 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 97,
+    "missing_abstract": 95,
     "weak_date_evidence": 494
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 566,
+  "recent_candidates_before_limit": 569,
   "recent_window_start": "2026-10-05",
   "records": [
+    {
+      "date_confidence": "C",
+      "doi": "10.1007/s00199-026-01753-w",
+      "first_seen": "2026-11-03T13:14:05+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1007/s00199-026-01753-w",
+      "journal": "Economic Theory",
+      "official_date": "2026-11-03",
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "On the optimal location of public charging stations in a monocentric city",
+      "url": "https://doi.org/10.1007/s00199-026-01753-w"
+    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -403,54 +427,6 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2749709",
-      "first_seen": "2026-11-02T14:39:17+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2749709",
-      "journal": "Applied Economics",
-      "official_date": "2026-11-02",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Does agricultural mechanization increase risk exposure for smallholder rice farmers? Evidence from Central China",
-      "url": "https://doi.org/10.1080/00036846.2026.2749709"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2753037",
-      "first_seen": "2026-11-02T10:36:28+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2753037",
-      "journal": "Applied Economics",
-      "official_date": "2026-11-02",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Talent attraction policies and firm-level AI intensity: evidence from listed firms in China",
-      "url": "https://doi.org/10.1080/00036846.2026.2753037"
-    },
-    {
-      "date_confidence": "C",
       "doi": "10.1080/00036846.2026.2757193",
       "first_seen": "2026-11-03T10:36:52+00:00",
       "historical_backfill": false,
@@ -472,30 +448,6 @@
       "source_type": "journal",
       "title": "Managerial voice amidst conflicting signals: ESG rating divergence and interactive disclosure",
       "url": "https://doi.org/10.1080/00036846.2026.2757193"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2757781",
-      "first_seen": "2026-11-02T14:39:17+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2757781",
-      "journal": "Applied Economics",
-      "official_date": "2026-11-02",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Differential ageing and the fiscal response to debt: two channels of OECD fiscal space",
-      "url": "https://doi.org/10.1080/00036846.2026.2757781"
     },
     {
       "date_confidence": "C",
@@ -2548,6 +2500,52 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1093/rfs/hhag095",
+      "first_seen": "2026-11-03T13:07:08+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1093/rfs/hhag095",
+      "journal": "Review of Financial Studies",
+      "official_date": "2026-11-03",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The Cross-section of Subjective Expectations: Understanding Prices and Anomalies",
+      "url": "https://doi.org/10.1093/rfs/hhag095"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1093/rfs/hhag096",
+      "first_seen": "2026-11-03T13:07:08+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1093/rfs/hhag096",
+      "journal": "Review of Financial Studies",
+      "official_date": "2026-11-03",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Forward Return Expectations",
+      "url": "https://doi.org/10.1093/rfs/hhag096"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1111/iere.70129",
       "first_seen": "2026-11-03T11:57:05+00:00",
       "historical_backfill": false,
@@ -2801,6 +2799,52 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1080/00036846.2026.2749709",
+      "first_seen": "2026-11-02T14:39:17+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2749709",
+      "journal": "Applied Economics",
+      "official_date": "2026-11-02",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Does agricultural mechanization increase risk exposure for smallholder rice farmers? Evidence from Central China",
+      "url": "https://doi.org/10.1080/00036846.2026.2749709"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1080/00036846.2026.2753037",
+      "first_seen": "2026-11-02T10:36:28+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2753037",
+      "journal": "Applied Economics",
+      "official_date": "2026-11-02",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Talent attraction policies and firm-level AI intensity: evidence from listed firms in China",
+      "url": "https://doi.org/10.1080/00036846.2026.2753037"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1080/00036846.2026.2754315",
       "first_seen": "2026-11-02T15:57:09+00:00",
       "historical_backfill": false,
@@ -2821,6 +2865,29 @@
       "source_type": "journal",
       "title": "Implications of monetary and macroprudential policies on financial Inclusion in EMDEs: do institutional quality and regulation matter?",
       "url": "https://doi.org/10.1080/00036846.2026.2754315"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1080/00036846.2026.2757781",
+      "first_seen": "2026-11-02T14:39:17+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2757781",
+      "journal": "Applied Economics",
+      "official_date": "2026-11-02",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Differential ageing and the fiscal response to debt: two channels of OECD fiscal space",
+      "url": "https://doi.org/10.1080/00036846.2026.2757781"
     },
     {
       "date_confidence": "C",
@@ -11563,78 +11630,9 @@
       "source_type": "journal",
       "title": "Mechanisms and pathways for the integrated development of coal power and renewable energy under the coupling of electricity, carbon, and green certificate markets",
       "url": "https://doi.org/10.1016/j.enpol.2026.115642"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.enpol.2026.115659",
-      "first_seen": "2026-10-09T16:39:14+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.enpol.2026.115659",
-      "journal": "Energy Policy",
-      "official_date": "2026-10-09",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Morocco's nuclear option readiness (2026–2050): A governance-first approach aligned with the IAEA milestones framework",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0301421526005938?dgcid=api_sd_search-api-endpoint"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jebo.2026.107793",
-      "first_seen": "2026-10-09T02:05:22+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jebo.2026.107793",
-      "journal": "Journal of Economic Behavior and Organization",
-      "official_date": "2026-10-09",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Finite foresight in Chomp",
-      "url": "https://doi.org/10.1016/j.jebo.2026.107793"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jebo.2026.107795",
-      "first_seen": "2026-10-09T11:22:48+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jebo.2026.107795",
-      "journal": "Journal of Economic Behavior and Organization",
-      "official_date": "2026-10-09",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Revealing tax evasion: Experimental evidence from a representative survey of Indonesian firms",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0167268126003823?dgcid=api_sd_search-api-endpoint"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5523,
+  "total_candidates_before_limit": 5526,
   "truncated": true
 }
