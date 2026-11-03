@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 3
+    "needs_investigation": 13
   },
-  "checked_at": "2026-11-03T14:59:13.421310+08:00",
-  "source_health_degraded_count": 3,
+  "checked_at": "2026-11-03T16:23:57.326275+08:00",
+  "source_health_degraded_count": 13,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,8 +11,8 @@
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=2; Journal of Finance: 4; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 9; Economic Development and Cultural Change: 2; ",
+      "category": "transient_network",
+      "sample_error": "partial_success failures=12; Journal of Finance: 4; Journal of Financial Economics: 8; Review of Financial Studies: error TimeoutError: The read operation timed out; Journal of Development Economics: ",
       "source": "crossref"
     },
     {
@@ -42,8 +42,82 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "american-economic-journal-economic-policy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Journal: Economic Policy",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "aea-toc",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "american-economic-review",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Review",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "aea-toc",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "environmental-and-resource-economics",
+      "sample_error": "PARSER_FAILURE",
+      "source": "Environmental and Resource Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "european-economic-review",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "European Economic Review",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "international-economic-review",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "International Economic Review",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "CHALLENGE",
+      "sample_error": "NETWORK_FAILURE",
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": null,
       "status_source": null,
@@ -72,13 +146,88 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
+      "journal_id": "journal-of-economic-theory",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Theory",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
-        "cnki-rss",
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-environmental-economics-and-management",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Environmental Economics and Management",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-international-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of International Economics",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "land-use-policy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Land Use Policy",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-economic-studies",
+      "sample_error": "HTTP_BLOCK, PARSER_FAILURE",
+      "source": "Review of Economic Studies",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-financial-studies",
+      "sample_error": "HTTP_BLOCK",
+      "source": "Review of Financial Studies",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
         "openalex-recall"
       ]
     }
@@ -87,5 +236,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 3
+  "total_degraded": 13
 }
