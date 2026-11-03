@@ -18,6 +18,7 @@ from status import record_source
 
 ATOM = "{http://www.w3.org/2005/Atom}"
 JFQA_FORTHCOMING_FEED = "https://jfqa.org/category/forthcoming-articles/feed/"
+RESTUD_ACCEPTED_FEED = "https://www.restud.com/accepted-papers/feed/"
 
 
 
@@ -286,6 +287,10 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
                 # separating its byline from the article abstract.
                 byline = (description or "").split("♦", 1)[0].strip() if "♦" in (description or "") else ""
                 authors = [part.strip() for part in re.split(r"\s+and\s+|\s*,\s*", byline) if part.strip()]
+            elif journal.get("id") == "review-of-economic-studies" and feed_url == RESTUD_ACCEPTED_FEED:
+                # REStud's WordPress dc:creator is the site editor ("Ann"),
+                # not a verified article byline. Do not propagate it as author.
+                authors = []
             identifier = child_text_any(item, ["identifier", "doi"])
             record = make_record(title, link, published, journal, feed_url, description=description, guid=guid, identifier=identifier, authors=authors)
             if journal.get("id") == "journal-of-financial-and-quantitative-analysis" and feed_url == JFQA_FORTHCOMING_FEED:
@@ -293,6 +298,11 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
                 # forthcoming paper, NOT its later Cambridge formal online date.
                 record["published_online"] = None
                 record["raw_data"]["publication_stage"] = "jfqa_forthcoming"
+            elif journal.get("id") == "review-of-economic-studies" and feed_url == RESTUD_ACCEPTED_FEED:
+                # The first-party Accepted Papers blog timestamp is evidence
+                # of availability, NOT the later OUP published-online date.
+                record["published_online"] = None
+                record["raw_data"]["publication_stage"] = "restud_accepted"
             records.append(record)
         return [record for record in records if record["title"]]
 
