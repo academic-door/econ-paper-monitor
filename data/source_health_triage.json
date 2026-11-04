@@ -1,14 +1,19 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 6
   },
-  "checked_at": "2026-11-04T08:13:27.927720+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-11-04T09:37:17.650558+08:00",
+  "source_health_degraded_count": 6,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=5; Journal of Finance: 4; Journal of Financial Economics: 8; Review of Financial Studies: error TimeoutError: The read operation timed out; Journal of Development Economics: e",
+      "source": "crossref"
     },
     {
       "category": "page_structure_change",
@@ -32,6 +37,36 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "american-economic-journal-microeconomics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Journal: Microeconomics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "aea-toc",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "american-economic-review-insights",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Review: Insights",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "aea-toc",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "NETWORK_FAILURE",
       "source": "Journal of Agricultural and Resource Economics",
@@ -41,11 +76,56 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-development-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Development Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-labor-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Labor Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-financial-studies",
+      "sample_error": "HTTP_BLOCK",
+      "source": "Review of Financial Studies",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 5
   },
-  "total_degraded": 1
+  "total_degraded": 6
 }
