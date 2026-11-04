@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-11-04T22:42:04.267536+08:00",
+  "checked_at": "2026-11-05T00:00:24.162696+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -27,12 +27,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "HTTPError: HTTP Error 504: Target not responding",
-      "source": "working-paper:nber"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "partial_success failures=2; nber: HTTPError: HTTP Error 504: Target not responding; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: C",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
       "source": "working-papers"
     }
   ],
@@ -55,7 +50,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
   "total_degraded": 1
 }
