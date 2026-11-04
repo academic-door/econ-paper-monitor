@@ -1,5 +1,8 @@
 [
   {
+    "_circuit_open": true,
+    "_provider": "semantic-scholar",
+    "_status": "skipped_rate_limited",
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "abstract-route-missing",
@@ -278,7 +281,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "harnessing-wind-energy-for-rural-development-the-state-orchestrated-approach-to-realizin-4fd1f3c5b741",
     "detected_at": "2026-11-02T20:10:38+00:00",
     "doi": "10.1016/j.enpol.2026.115687",
@@ -313,6 +316,16 @@
         },
         {
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-11-02",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-11-02",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
         }
       ]
     },
@@ -345,7 +358,7 @@
     "available_online": "2026-11-02",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "openalex+crossref_crossvalidated",
     "detail_key": "a-multi-threshold-change-plane-autoregressive-model-3a2202e00bf0",
     "detected_at": "2026-11-02T18:56:43+00:00",
     "doi": "10.1080/07350015.2026.2757073",
@@ -419,7 +432,7 @@
     "available_online": "2026-11-02",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "state-varying-model-averaging-prediction-c6434d457994",
     "detected_at": "2026-11-02T18:56:43+00:00",
     "doi": "10.1080/07350015.2026.2757286",
@@ -478,7 +491,7 @@
     "abstract": "The expansion of wind power plays a crucial role in the European Union's decarbonization strategy. However, the social acceptance of wind power projects, particularly among landowners and non-landowners, remains a significant concern. Drawing on behavioural insights of the social acceptance literature, this study examines the beliefs, attitudes, and behavioural intentions of these groups towards wind power. We focus on the national context of Finland, where wind energy development has accelerated in recent years. Utilizing survey data from 2,103 respondents, including forest owners and non-forest owners, the study employs Structural Equation Modelling (SEM) and regression models to explore how beliefs shape attitudes, policy support and forest owners' behavioural intentions. The acceptance measures indicate that non-forest owners held more favourable attitudes towards wind power, associating it with environmental benefits and economic opportunities, while forest owners expressed greater concerns about landscape changes, land ownership, and economic impacts. The SEM model reveals that attitudes toward wind power were strongly influenced by beliefs about energy production and local impacts, which, in turn, shaped policy support. Additionally, forest owners’ willingness to lease land for wind turbines was associated with higher income level, owned land area size, and positive attitudes towards wind power. These findings highlight the need for tailored landscape-orientated policies that address explicitly address landowners’ concerns while fostering broader societal support for wind power. Enhancing procedural and distributive justice, improving compensation mechanisms, and integrating participatory planning processes could help accommodate resistance and facilitate a just energy transition.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -495,7 +508,7 @@
     "available_online": "2026-11-02",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "wind-energy-acceptance-and-forest-owners-land-leasing-intentions-the-role-of-beliefs-and-6dd3bf44f171",
     "detected_at": "2026-11-02T16:37:48+00:00",
     "doi": "10.1016/j.enpol.2026.115674",
@@ -530,6 +543,16 @@
         },
         {
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-11-02",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-11-02",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
         }
       ]
     },
@@ -636,7 +659,7 @@
     "available_online": "2026-11-02",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "implications-of-monetary-and-macroprudential-policies-on-financial-inclusion-in-emdes-do-2ff2a88fbc60",
     "detected_at": "2026-11-02T15:57:09+00:00",
     "doi": "10.1080/00036846.2026.2754315",
@@ -692,78 +715,6 @@
     "url": "https://doi.org/10.1080/00036846.2026.2754315"
   },
   {
-    "abstract": "It is widely accepted that water markets can support adaptation to climate change. However, quantifying this adaptive capacity is difficult as it requires models that represent both stochastic water supplies and forward-looking behaviour by market participants. We develop a stochastic dynamic model of the Murray-Darling Basin water market in which irrigators form rational expectations over future water prices, and make monthly water use, annual crop planting, and long-run investment decisions. The model is solved using reinforcement learning methods to approximate expectations, combined with mathematical programming to estimate market equilibrium. We validate the model against observed prices and irrigation activity from 2008 to 09 to 2021–22 and apply it to an ensemble of 37 CMIP6 climate projections for the southern Basin. Under drier future climates, water markets support adaptation through increased inter-regional trade flows into the downstream Murray, and larger storage reserves through more conservative crop planting. However, under the driest projections, inter-regional trade constraints bind, price differences widen across zones, and long-run irrigation development contracts by up to 16 per cent. The results highlight both the value and the limits of market-based adaptation, with implications for the design of water market institutions under a non-stationary climate.",
-    "abstract_completeness": "full",
-    "abstract_enrichment_status": "available",
-    "abstract_source": "crossref_doi",
-    "abstract_status_code": "available",
-    "abstract_zh": null,
-    "accepted_date": null,
-    "ai_tags": [],
-    "authors": [
-      "Neal Hughes",
-      "Maruge Zhao",
-      "Andrew John",
-      "Avril Horne"
-    ],
-    "authors_status_code": "available",
-    "available_online": "2026-11-02",
-    "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_published_online",
-    "detail_key": "water-markets-for-climate-change-adaptation-trade-storage-and-investment-under-stochasti-2eacb322f0d6",
-    "detected_at": "2026-11-02T14:43:28+00:00",
-    "doi": "10.1007/s10640-026-01127-9",
-    "fields": [
-      "agriculture_environment_resource"
-    ],
-    "first_seen": "2026-11-02T14:43:28+00:00",
-    "id": "doi:10.1007/s10640-026-01127-9",
-    "identity_aliases": [
-      "10.1007/s10640-026-01127-9",
-      "https://doi.org/10.1007/s10640-026-01127-9",
-      "water-markets-for-climate-change-adaptation-trade-storage-and-investment-under-stochasti-2eacb322f0d6"
-    ],
-    "issue_date": "2026-11-02",
-    "journal": "Environmental and Resource Economics",
-    "journal_id": "environmental-and-resource-economics",
-    "journal_short": "ERE",
-    "official_date_status": "available",
-    "pdf_url": null,
-    "published_online": "2026-11-02",
-    "publisher": "Springer Science and Business Media LLC",
-    "raw_data": {
-      "crossref_date_source": "crossref_published_online",
-      "date_evidence": [
-        {
-          "available_online": "2026-11-02",
-          "date_confidence": "C",
-          "date_source": "crossref_doi_published_online",
-          "published_online": "2026-11-02",
-          "source": "crossref-doi"
-        },
-        {
-          "source": "semantic-scholar"
-        },
-        {
-          "available_online": "2026-11-01",
-          "date_confidence": "C",
-          "date_source": "openalex_publication_date",
-          "published_online": "2026-11-01",
-          "source": "openalex"
-        }
-      ]
-    },
-    "source": "crossref",
-    "source_issue": null,
-    "source_type": "journal",
-    "source_url": "https://api.crossref.org",
-    "title": "Water Markets for Climate Change Adaptation: Trade, Storage, and Investment Under Stochastic Water Supply",
-    "title_zh": null,
-    "translation_status": "skipped",
-    "url": "https://doi.org/10.1007/s10640-026-01127-9"
-  },
-  {
     "abstract": "Debt arithmetic rests on two schedules: how much the primary balance improves when debt rises, and how far the interest a government pays exceeds its economy’s growth. This article estimates how both move with differential ageing, a country’s departure from the OECD-wide ageing path within a year, on 33 OECD economies over 1985 to 2024. The response of the primary balance to debt shows no detectable gradient in differential ageing: point estimates bracket zero, and 90% intervals exclude changes of more than about half the response per ten dependency points. Future ageing predicts current fiscal behaviour, and the combined gradient stays within that bound. The differential part of the fall in the primary balance is indistinguishable from zero. The interest-growth differential widens with differential ageing on gross interest, by about two points per ten dependency points, an imprecise association whose point estimate is zero net of receipts. Carried to 2050 as conditional scenarios with their joint uncertainty, the gradients leave every margin intact in most draws when only ageing beyond the OECD path counts; extrapolated to total projected ageing beyond the observed range, they exhaust the historical response for five members, a count from none to ten across specifications.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
@@ -780,7 +731,7 @@
     "available_online": "2026-11-02",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "differential-ageing-and-the-fiscal-response-to-debt-two-channels-of-oecd-fiscal-space-b38ea84fbc74",
     "detected_at": "2026-11-02T14:39:17+00:00",
     "doi": "10.1080/00036846.2026.2757781",
@@ -857,7 +808,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "does-agricultural-mechanization-increase-risk-exposure-for-smallholder-rice-farmers-evid-6810d13a32f8",
     "detected_at": "2026-11-02T14:39:17+00:00",
     "doi": "10.1080/00036846.2026.2749709",
@@ -1122,7 +1073,7 @@
     "available_online": "2026-11-02",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "do-protected-areas-affect-the-income-levels-in-remote-regions-evidence-from-italian-inne-a30fc349bbf4",
     "detected_at": "2026-11-02T12:11:26+00:00",
     "doi": "10.1007/s10640-026-01122-0",
@@ -1182,7 +1133,7 @@
     "abstract": "Understanding household food behavior is key to anticipating the welfare effects of economic shocks, particularly in urban areas where COVID-19 disrupted livelihoods and food access. While a growing body of literature documents the pandemic’s effects on food security, few studies explicitly integrate households’ pre-pandemic sensitivity to income and price changes. This study examines household food demand in Dakar, Senegal, and evaluates the simulated effects of COVID-19-related income contractions and food price increases on food security and diet quality. Using statistically matched household surveys, we estimate a censored Quadratic Almost Ideal Demand System model with subgroup-specific elasticities and develop a microsimulation model incorporating a heterogeneous Engel transmission channel across six counterfactual scenarios combining three income levels with two food price scenarios. The estimates reveal that households are highly sensitive to price shocks, particularly for staples and animal-source foods, while income shocks transmit partially to food expenditure, with subgroup-specific transmission. Simulated shocks reduce average caloric intake by 17%–36% and lower the food security rate from 52% at baseline to between 40% and 22% depending on the scenario, with statistically significant heterogeneity across sociodemographic groups. The Resilient Diet Deprivation index further reveals a simultaneous deterioration in diet quality through wider and deeper food group deficits, with the contribution of staples and animal-source foods to dietary deprivation rising across all scenarios. These findings underscore the importance of price stabilization policies, nutrition-sensitive interventions, and targeted social protection to strengthen household resilience in urban West Africa.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -1233,6 +1184,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-11-02",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-11-02",
+          "source": "openalex"
         }
       ]
     },
@@ -1404,7 +1362,7 @@
     "abstract": "Global commitments to conserve 30% of land by 2030 place renewed emphasis on protected areas (PAs), yet governance shortcomings and distributional conflicts often undermine both conservation and socio-economic development outcomes. This paper examines PA governance in Central Karakoram National Park (CKNP), Pakistan’s largest national park in Gilgit-Baltistan (GB), a region marked by constitutional ambiguity, contested land tenure, and infrastructure-driven market integration. Using a historical institutionalist lens, we examine CKNP’s historical trajectories and critical junctures, institutional continuity and change, input and output legitimacy, and implications for co-management. We combine archival and institutional analysis of legislation and management plans with field observations, semi-structured interviews and focus group discussions involving state agencies, park authorities, NGOs, and local communities in seven buffer-zone valleys. We find that administrative reforms and departmental restructuring shifted conservation authority to GB, while participatory, zoning, sustainable-use, and benefit-sharing provisions were layered onto a centralized, exclusionary 1975 legal framework. Input legitimacy remains constrained by uneven consultation, limited decision-making influence, and inadequate information for meaningful participation, whereas output legitimacy is weakened by limited implementation capacity associated with chronic understaffing, project dependence, and limited public financing. Dispersed implementation responsibilities and unresolved property and access rights concerns undermine both decision-making processes and governance performance, leaving co-management largely consultative and uneven. We conclude that co-management could be advanced through valley-level forums with clear decision-making mandates and representation, strengthened and trusted field staffing, sustained public resourcing, and transparent and equitable benefit-sharing. The study highlights how frontier conditions, historical institutional legacies, and valley-specific dynamics shape PA governance.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": "到2030年保护30%土地的全球承诺再次凸显了保护区的重要性，然而治理缺陷和分配冲突往往同时削弱保护与社会经济发展成效。本文考察巴基斯坦中央喀喇昆仑国家公园的保护区治理，该公园位于吉尔吉特-巴尔蒂斯坦，是巴基斯坦最大的国家公园，该地区以宪法地位模糊、土地权属存在争议以及基础设施驱动的市场整合为特征。我们运用历史制度主义视角，考察中央喀喇昆仑国家公园的历史轨迹与关键节点、制度连续性与变迁、输入合法性与输出合法性及其对共管的影响。我们将关于立法和管理计划的档案与制度分析，与实地观察、半结构化访谈和焦点小组讨论相结合，参与方包括七个缓冲带山谷中的国家机构、公园管理部门、非政府组织和当地社区。我们发现，行政改革和部门重组将保护权转移到吉尔吉特-巴尔蒂斯坦，而参与式、分区、可持续利用和惠益分享条款则被叠加在一个集中化、排他性的1975年法律框架之上。输入合法性仍受制于不均衡的协商、有限的决策影响力以及不足以支撑有意义参与的信息，而输出合法性则因与长期人手不足、项目依赖和公共融资有限相关的实施能力不足而受到削弱。分散的实施责任以及未解决的财产权和准入权问题，既损害决策过程也损害治理绩效，使共管在很大程度上停留在协商层面且不均衡。我们得出结论，共管可以通过以下方式推进：建立具有明确决策授权和代表性的山谷级论坛，加强并建立值得信赖的实地人员队伍，提供持续的公共资源，以及实现透明和公平的惠益分享。本研究凸显了边疆条件、历史制度遗产和山谷特定动态如何塑造保护区治理。",
     "accepted_date": null,
@@ -1454,6 +1412,16 @@
         },
         {
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-11-02",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-11-02",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
         }
       ]
     },
