@@ -384,7 +384,7 @@ def repair_rest_accepted_blog_date(record: dict[str, Any]) -> bool:
         return False
     if str(record.get("journal") or "") != "Review of Economic Studies":
         return False
-    if str(record.get("url") or "").lower().startswith("https://www.restud.com/") is False:
+    if not str(record.get("url") or "").lower().startswith("https://www.restud.com/"):
         return False
     if record.get("doi") or raw.get("publication_stage") not in {None, "restud_accepted"}:
         return False
