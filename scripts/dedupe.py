@@ -725,7 +725,7 @@ def main() -> None:
     daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
     touched_daily_paths: set[Path] = set()
     for path, records in daily_records_by_path.items():
-        if any(repair_rest_accepted_blog_date(record) for record in records):
+        if sum(repair_rest_accepted_blog_date(record) for record in records):
             touched_daily_paths.add(path)
     new_records_by_date: dict[str, list[dict[str, Any]]] = {}
     enriched = 0
