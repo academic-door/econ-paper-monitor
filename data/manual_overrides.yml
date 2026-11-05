@@ -1,6 +1,17 @@
 # Manual record corrections. Keys are DOI values when available.
 # Use this for high-confidence fixes that upstream metadata does not expose.
 records:
+  # REStud Accepted Papers: first-party article bylines verified 2026-11-06.
+  # Paper landing pages identify these authors; WordPress RSS creator "Ann"
+  # is the website editor and must NOT be used as paper author.
+  "url:550f02ebc50f31c0":
+    authors:
+      - "S. Nageeb Ali"
+      - "Andreas Kleiner"
+      - "Kun Zhang"
+  "url:97a35b87fb1e51e3":
+    authors:
+      - "Hanna Wang"
   "10.1086/743246":
     accepted_date: "2026-07-17"
   "10.1016/j.jinteco.2026.104309":
