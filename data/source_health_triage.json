@@ -2,12 +2,12 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-11-05T16:17:29.376704+08:00",
+  "checked_at": "2026-11-05T17:31:02.005655+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -26,8 +26,13 @@
       "source": "working-paper:cepr-dp"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
+      "category": "transient_network",
+      "sample_error": "TimeoutError: The read operation timed out",
+      "source": "working-paper:iza"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=2; nber: 12 via specialized-api; iza: TimeoutError: The read operation timed out; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeErr",
       "source": "working-papers"
     }
   ],
@@ -50,7 +55,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
   "total_degraded": 1
 }
