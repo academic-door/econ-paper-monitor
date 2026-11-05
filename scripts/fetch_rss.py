@@ -10,7 +10,7 @@ from typing import Any
 from xml.etree import ElementTree
 import re
 
-from common import DATA_DIR, fetch_text, filter_journals_by_tier, load_journals, today_str, write_json
+from common import DATA_DIR, clean_abstract_text, fetch_text, filter_journals_by_tier, load_journals, today_str, write_json
 from sources.record import article_record
 from sources.registry import load_registry, save_registry, feeds_for_journal
 from status import record_source
@@ -258,6 +258,29 @@ def extract_doi(*values: str | None) -> str | None:
     return None
 
 
+def jfqa_verified_forthcoming_abstract(item: ElementTree.Element) -> str | None:
+    """Read the full first-party abstract, never WP's truncated RSS teaser.
+
+    The article body has a unique diamond-prefixed abstract paragraph followed
+    by a separate 'Read it' link. Fail closed on changed/missing markup.
+    """
+    body = item.find("{http://purl.org/rss/1.0/modules/content/}encoded")
+    full_text = (body.text or "") if body is not None else ""
+    # WordPress <description> is truncated with '[…]'; only the
+    # official untruncated content:encoded source is eligible.
+    match = re.search(r"<p\\b[^>]*>\\s*♦\\s*([\\s\\S]*?)</p>", full_text, flags=re.I)
+    if not match:
+        return None
+    abstract = clean_abstract_text(match.group(1))
+    if (
+        len(abstract) < 150 or len(abstract) > 12_000
+        or re.search(r"(?:\\.\\.\\.|…|\\[\\s*…\\s*\\])\\s*$", abstract)
+        or "the post" in abstract.casefold()
+    ):
+        return None
+    return abstract
+
+
 def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[dict[str, Any]]:
     if "<html" in xml_text[:500].casefold():
         raise ValueError("feed URL returned HTML, not RSS/Atom")
@@ -298,6 +321,13 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
                 # forthcoming paper, NOT its later Cambridge formal online date.
                 record["published_online"] = None
                 record["raw_data"]["publication_stage"] = "jfqa_forthcoming"
+                verified_abstract = jfqa_verified_forthcoming_abstract(item)
+                if verified_abstract:
+                    record["abstract"] = verified_abstract
+                    record["abstract_source"] = "jfqa_official_forthcoming:content_encoded"
+                    record["abstract_status_code"] = "available"
+                    record["abstract_completeness"] = "full"
+                    record["abstract_enrichment_status"] = "available"
             elif journal.get("id") == "review-of-economic-studies" and feed_url == RESTUD_ACCEPTED_FEED:
                 # The first-party Accepted Papers blog timestamp is evidence
                 # of availability, NOT the later OUP published-online date.
