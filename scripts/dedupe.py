@@ -372,6 +372,31 @@ def covered_by_derived_doi(record: dict[str, Any], daily_records: list[dict[str,
     return any(str(item.get("doi") or "").startswith(prefix) for item in daily_records)
 
 
+def repair_rest_accepted_blog_date(record: dict[str, Any]) -> bool:
+    """Undo a WordPress post timestamp misread as formal OUP online publication.
+
+    Applies only to the publisher-operated REStud Accepted Papers landing
+    pages, without a DOI or independent formal date evidence. Seen entries
+    may not retain raw_data.stage, hence explicit journal+URL scoping.
+    """
+    raw = record.get("raw_data") if isinstance(record.get("raw_data"), dict) else {}
+    if record.get("journal_id") not in {None, "", "review-of-economic-studies"}:
+        return False
+    if str(record.get("journal") or "") != "Review of Economic Studies":
+        return False
+    if str(record.get("url") or "").lower().startswith("https://www.restud.com/") is False:
+        return False
+    if record.get("doi") or raw.get("publication_stage") not in {None, "restud_accepted"}:
+        return False
+    if str(record.get("date_source") or "") != "publisher_meta:article:published_time":
+        return False
+    if not record.get("published_online") or record.get("published_online") != record.get("available_online"):
+        return False
+    record["published_online"] = None
+    record["date_source"] = "rss_published"
+    return True
+
+
 def build_seen_index(seen_papers: dict[str, dict[str, Any]]) -> dict[str, str]:
     index: dict[str, str] = {}
     for record_id, record in seen_papers.items():
@@ -689,6 +714,9 @@ def main() -> None:
 
     seen = read_json(args.seen, {"papers": {}})
     seen_papers = seen.setdefault("papers", {})
+    # Repair only proven staged REStud blog-date provenance in the persistent
+    # seen ledger; this never changes identity, first_seen or archive date.
+    repaired_seen = sum(repair_rest_accepted_blog_date(record) for record in seen_papers.values() if isinstance(record, dict))
     pruned = prune_navigation_noise_from_seen(seen_papers)
     pruned += collapse_seen_duplicates(seen_papers)
     pruned += prune_navigation_noise_from_daily(args.daily_dir)
@@ -696,6 +724,9 @@ def main() -> None:
     seen_index = build_seen_index(seen_papers)
     daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
     touched_daily_paths: set[Path] = set()
+    for path, records in daily_records_by_path.items():
+        if any(repair_rest_accepted_blog_date(record) for record in records):
+            touched_daily_paths.add(path)
     new_records_by_date: dict[str, list[dict[str, Any]]] = {}
     enriched = 0
     suppressed = 0
@@ -793,7 +824,7 @@ def main() -> None:
 
     write_json(args.seen, seen)
     new_total = sum(len(items) for items in new_records_by_date.values())
-    record_source("dedupe", ok=True, count=new_total, message=f"daily_total={daily_total} seen={len(seen_papers)} enriched={enriched} suppressed={suppressed} pruned={pruned}")
+    record_source("dedupe", ok=True, count=new_total, message=f"daily_total={daily_total} seen={len(seen_papers)} enriched={enriched} suppressed={suppressed} pruned={pruned} repaired_seen={repaired_seen}")
     record_run({"new": new_total, "daily_total": daily_total, "seen": len(seen_papers), "enriched": enriched, "suppressed": suppressed, "pruned": pruned})
     print(f"new={new_total} daily_total={daily_total} seen={len(seen_papers)} enriched={enriched} suppressed={suppressed} pruned={pruned}")
 
