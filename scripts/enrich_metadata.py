@@ -822,6 +822,21 @@ def merge_metadata(record: dict[str, Any], metadata: dict[str, Any]) -> bool:
     # stronger date or a publisher source can still replace these values.
     existing_source = str(record.get("date_source") or "").casefold()
     incoming_source = str(metadata.get("date_source") or "").casefold()
+    # A first-party Accepted/Forthcoming WordPress post is evidence of
+    # availability, not proof of the subsequent journal published-online date.
+    # Retain abstract/author enrichment, and allow separate DOI/OUP/Cambridge
+    # evidence to update publication dates when actually verified.
+    raw_stage = (record.get("raw_data") or {}).get("publication_stage")
+    if (
+        raw_stage in {"restud_accepted", "jfqa_forthcoming"}
+        and incoming_source.startswith("publisher_meta:")
+    ):
+        metadata = {
+            key: value for key, value in metadata.items()
+            if key not in {"published_online", "date_source", "date_confidence",
+                           "available_online", "accepted_date", "issue_date"}
+        }
+        incoming_source = ""
     evidence_pinned = existing_source in {
         "institutional_online_date_verified",
         "independent_bibliographic_online_date",
