@@ -278,3 +278,52 @@ class RestudOfficialAcceptedFeedTests(unittest.TestCase):
             "journal-title:review of economic studies:from design to disclosure",
             dedupe.record_match_keys(accepted) & dedupe.record_match_keys(later),
         )
+
+
+class JfqaFullOfficialAbstractTests(unittest.TestCase):
+    def make_xml(self, abstract_html):
+        return JFQA_FORTHCOMING_XML.replace(
+            '<rss xmlns:dc=', '<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc='
+        ).replace(
+            '<guid>https://jfqa.org/?p=10814</guid>',
+            '<guid>https://jfqa.org/?p=10814</guid>'
+            '<content:encoded><![CDATA[<h4>Andrea Gamba and Alessio Saretto</h4>'
+            '<p class="wp-block-paragraph">♦ ' + abstract_html + '</p>'
+            '<p class="wp-block-paragraph">Read it <a href="https://jfqa.org/">here</a>.</p>'
+            ']]></content:encoded>',
+        )
+
+    def test_full_abstract_from_encoded_only_with_provenance(self):
+        paragraph = ("A full verified first-party abstract explains an economic "
+                     "mechanism, provides evidence, and reports an interpretation "
+                     "without inferring either a formal online publication date "
+                     "or an earlier first discovery. " * 2)
+        xml = self.make_xml(paragraph)
+        record, = fetch_rss.parse_feed(xml, JFQA_JOURNAL, fetch_rss.JFQA_FORTHCOMING_FEED)
+        self.assertEqual(record["abstract"], paragraph.strip())
+        self.assertEqual(record["abstract_source"], "jfqa_official_forthcoming:content_encoded")
+        self.assertEqual(record["abstract_status_code"], "available")
+        self.assertEqual(record["abstract_completeness"], "full")
+        self.assertIsNone(record["published_online"])
+        self.assertNotIn("Read it", record["abstract"])
+        import dedupe
+        existing = {**record, "abstract": None, "abstract_source": None, "abstract_status_code": "missing_retry"}
+        self.assertTrue(dedupe.enrich_record(existing, record))
+        self.assertEqual(existing["abstract"], paragraph.strip())
+        self.assertEqual(existing["abstract_source"], "jfqa_official_forthcoming:content_encoded")
+        self.assertFalse(dedupe.enrich_record(existing, record))
+
+    def test_truncated_or_missing_encoded_body_not_accepted_as_abstract(self):
+        for content in ["", "too short", "Abstract text that ends ...", "missing mark"]:
+            with self.subTest(content=content):
+                xml = self.make_xml(content)
+                if content == "missing mark":
+                    xml = xml.replace("♦ missing mark", "missing mark")
+                record, = fetch_rss.parse_feed(xml, JFQA_JOURNAL, fetch_rss.JFQA_FORTHCOMING_FEED)
+                self.assertFalse(record.get("abstract"))
+
+    def test_no_abstract_for_excerpt_only_feed_item(self):
+        record, = fetch_rss.parse_feed(
+            JFQA_FORTHCOMING_XML, JFQA_JOURNAL, fetch_rss.JFQA_FORTHCOMING_FEED
+        )
+        self.assertFalse(record.get("abstract"))
