@@ -65,6 +65,14 @@ def apply_to_record(record: dict[str, Any], override: dict[str, Any]) -> bool:
             if stale_field in record:
                 record.pop(stale_field)
                 changed = True
+    if isinstance(override.get("authors"), list) and override["authors"]:
+        # An explicit, verified byline overrides any old missing-author UI status.
+        if record.get("authors_status_code") != "available":
+            record["authors_status_code"] = "available"
+            changed = True
+        if record.get("authors_status"):
+            record.pop("authors_status")
+            changed = True
     if override.get("title_zh") and record.get("translation_status") != "manual_title":
         record["translation_status"] = "manual_title"
         changed = True
