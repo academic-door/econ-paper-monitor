@@ -1,19 +1,14 @@
 {
   "categories": {
-    "needs_investigation": 3
+    "needs_investigation": 1
   },
-  "checked_at": "2026-11-06T05:08:29.853697+08:00",
-  "source_health_degraded_count": 3,
+  "checked_at": "2026-11-06T06:04:02.896053+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=4; Journal of Finance: 4; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 11; Economic Development and Cultural Change: 0;",
-      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -22,7 +17,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=33/46; Journal of International Economics: 43 via official-generated; Journal of Finance: 44 via official-generated; Journal of Financial Economics: 30 via official-generated; Review of Financia",
+      "sample_error": "feeds=77/123; Applied Economic Perspectives and Policy: 73 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered; Management Science: 12",
       "source": "rss"
     },
     {
@@ -32,7 +27,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
       "source": "working-papers"
     }
   ],
@@ -51,41 +46,11 @@
         "crossref",
         "openalex-recall"
       ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-economic-behavior-and-organization",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Economic Behavior and Organization",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
-        "cnki-rss",
-        "openalex-recall"
-      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
-  "total_degraded": 3
+  "total_degraded": 1
 }
