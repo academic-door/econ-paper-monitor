@@ -2,6 +2,7 @@
   {
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -18,8 +19,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "journal or topic scope is China economy",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "exchange-rate-exposure-and-global-sourcing-reconfiguration-75995f91b39e",
     "detected_at": "2026-11-06T09:22:15+00:00",
     "doi": "10.1016/j.chieco.2026.102793",
@@ -44,7 +45,26 @@
     "published_online": "2026-11-06",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-11-06",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-11-06",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-11-06",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-11-06",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -56,22 +76,23 @@
     "url": "https://doi.org/10.1016/j.chieco.2026.102793"
   },
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract": "This paper investigates how an exogenous increase in parental schooling, driven by Indonesia’s Sekolah Dasar INPRES school construction program, affects children’s educational outcomes. Linking parents to their children aged 13–17 in the 2010 census, we estimate the effects using two-stage least squares (2SLS). Under the 2SLS identification assumptions, each additional year of parental schooling raises children’s school attendance by 1.8 percentage points and junior high school completion by 1.7 percentage points. The mechanism analysis reveals that the estimated schooling effect remains largely unchanged after considering observed candidate channels, while reduced fertility may represent an indirect channel.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "publisher_meta:dc.description",
+    "abstract_status_code": "available",
     "abstract_zh": null,
-    "accepted_date": null,
+    "accepted_date": "2026-10-25",
     "ai_tags": [],
     "authors": [
-      "Li Li",
-      "Haoming Liu"
+      "Li, Li",
+      "Liu, Haoming"
     ],
     "authors_status_code": "available",
     "available_online": "2026-11-06",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_confidence": "A",
+    "date_source": "publisher_published_online",
     "detail_key": "intergenerational-transmission-of-education-evidence-from-school-construction-in-indones-fa70134449ee",
     "detected_at": "2026-11-06T09:20:54+00:00",
     "doi": "10.1007/s00148-026-01224-5",
@@ -111,6 +132,7 @@
     "_raw_file": "data/raw/crossref-priority/2026-11-06.json",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -125,7 +147,7 @@
     "available_online": "2026-11-06",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "tantalus-curse-multigenerational-persistence-of-welfare-dependency-in-switzerland-1f96fd50beb6",
     "detected_at": "2026-11-06T05:38:17+00:00",
     "doi": "10.1016/j.jebo.2026.107833",
@@ -145,10 +167,23 @@
     "journal_short": "JEBO",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0167268126004208",
     "published_online": "2026-11-06",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-11-06",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-11-06",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -160,23 +195,23 @@
     "url": "https://doi.org/10.1016/j.jebo.2026.107833"
   },
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_enrichment_status": "abstract-route-missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract": "This study analyzes intergenerational occupational mobility in Türkiye using the 2021 Family Structure Survey. Applying mobility matrices, Altham’s statistics, and rank-rank correlations across four birth cohorts (from 1951 to 1994), we separate structural economic change from genuine social fluidity. The results reveal a clear divergence. While absolute mobility rose significantly due to de-agrarianization and service-sector expansion, relative mobility stagnated or declined after controlling for these shifts. This implies an economic transformation created movement without improving equality of opportunity. We identify asymmetric permeability: a “sticky top” where the children of professionals are protected by a “glass floor,” and a “sticky floor” where origins in agricultural or low-status positions lead primarily to manual labor. The analysis uncovers considerable heterogeneity. Mobility is highly gendered, with daughters facing stronger status persistence than sons, and spatially fractured.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "publisher_meta:dc.description",
+    "abstract_status_code": "available",
     "abstract_zh": null,
-    "accepted_date": null,
+    "accepted_date": "2026-10-17",
     "ai_tags": [],
     "authors": [
-      "Meryem Türel",
-      "Ensar Yılmaz"
+      "Türel, Meryem",
+      "Yılmaz, Ensar"
     ],
     "authors_status_code": "available",
     "available_online": "2026-11-06",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_confidence": "A",
+    "date_source": "publisher_published_online",
     "detail_key": "stuck-in-place-intergenerational-occupational-mobility-in-t-rkiye-0670c33753c2",
     "detected_at": "2026-11-06T04:34:34+00:00",
     "doi": "10.1007/s00148-026-01222-7",
