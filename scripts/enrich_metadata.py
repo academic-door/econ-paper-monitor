@@ -35,6 +35,7 @@ from common import (
     today_str,
     write_json,
 )
+from sources.uchicago_jle import verified_jle_abstract
 from public_integrity import strong_identity_keys
 from status import load_status, now, record_source, save_status
 
@@ -1261,6 +1262,12 @@ def enrich_abstract_record(
         if verified:
             changed = merge_metadata(record, verified) or changed
             return changed, "metadata-updated:springer-publisher-meta"
+
+    if not str(record.get("abstract") or "").strip():
+        verified = verified_jle_abstract(record, timeout)
+        if verified:
+            changed = merge_abstract_only_fields(record, verified) or changed
+            return changed, "metadata-updated:uchicago-jle-official"
 
     return changed, "abstract-route-missing" if not changed else "metadata-only"
 
