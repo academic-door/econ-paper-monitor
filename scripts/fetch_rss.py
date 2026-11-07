@@ -12,6 +12,7 @@ import re
 
 from common import DATA_DIR, fetch_text, filter_journals_by_tier, load_journals, today_str, write_json
 from sources.record import article_record
+from sources.jfqa_official import verified_forthcoming_abstract
 from sources.registry import load_registry, save_registry, feeds_for_journal
 from status import record_source
 
@@ -298,6 +299,16 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
                 # forthcoming paper, NOT its later Cambridge formal online date.
                 record["published_online"] = None
                 record["raw_data"]["publication_stage"] = "jfqa_forthcoming"
+                # WordPress description is a truncated teaser. An untruncated
+                # content:encoded paragraph is independently publisher supplied.
+                encoded = item.find("{http://purl.org/rss/1.0/modules/content/}encoded")
+                abstract = verified_forthcoming_abstract(encoded.text if encoded is not None else None)
+                if abstract:
+                    record["abstract"] = abstract
+                    record["abstract_source"] = "jfqa_forthcoming_official:content_encoded"
+                    record["abstract_status_code"] = "available"
+                    record["abstract_completeness"] = "full"
+                    record["abstract_enrichment_status"] = "available"
             elif journal.get("id") == "review-of-economic-studies" and feed_url == RESTUD_ACCEPTED_FEED:
                 # The first-party Accepted Papers blog timestamp is evidence
                 # of availability, NOT the later OUP published-online date.

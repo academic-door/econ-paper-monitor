@@ -636,6 +636,25 @@ def enrich_record(existing: dict[str, Any], incoming: dict[str, Any]) -> bool:
         if not has_value(existing.get(field)) and has_value(incoming.get(field)):
             existing[field] = incoming[field]
             changed = True
+    # An exact JFQA first-party RSS match can fill older Daily and seen rows.
+    # Preserve the verified full-abstract provenance and clear retry flags,
+    # without touching first_seen, author identity or publication dates.
+    if (
+        incoming.get("abstract_source") == "jfqa_forthcoming_official:content_encoded"
+        and has_value(incoming.get("abstract"))
+        and existing.get("abstract") == incoming.get("abstract")
+    ):
+        for field, value in (
+            ("abstract_source", incoming["abstract_source"]),
+            ("abstract_status_code", "available"),
+            ("abstract_completeness", "full"),
+            ("abstract_enrichment_status", "available"),
+        ):
+            if existing.get(field) != value:
+                existing[field] = value
+                changed = True
+        if existing.pop("abstract_status", None) is not None:
+            changed = True
     if existing.get("translation_status") in {None, "missing_abstract"} and incoming.get("translation_status") == "native_chinese":
         existing["translation_status"] = incoming["translation_status"]
         changed = True
