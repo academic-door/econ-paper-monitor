@@ -2,6 +2,7 @@
   {
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -14,8 +15,8 @@
     "authors_status_code": "available",
     "available_online": "2026-11-07",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "occupational-exposure-to-decarbonization-shocks-direct-and-supply-chain-measures-308271fde329",
     "detected_at": "2026-11-07T08:36:25+00:00",
     "doi": "10.1016/j.euroecorev.2026.105514",
@@ -35,10 +36,27 @@
     "journal_short": "EER",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0014292126002588",
     "published_online": "2026-11-07",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-11-07",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-11-07",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-11-07",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-11-07",
+          "source": "elsevier-article-api"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -50,22 +68,26 @@
     "url": "https://doi.org/10.1016/j.euroecorev.2026.105514"
   },
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract": "This paper examines the spillover effects of private tutoring on students’ academic and noncognitive outcomes. Utilizing nationally representative data on middle school students randomly assigned to classes in China, we find that exposure to a higher proportion of classmates participating in private tutoring reduces students’ academic performance and noncognitive skills. We provide evidence that these effects operate through deteriorating classroom atmosphere and reducing student effort rather than through affecting teacher or parent behaviors. Our heterogeneity analyses show that these effects are more pronounced among male students, students with a rural hukou, students from lower socioeconomic backgrounds, and students with lower ability. Furthermore, these effects are more pronounced among non-tutored students who are as academically competitive as their tutored peers, and in schools located in municipalities and provincial capitals.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "publisher_meta:dc.description",
+    "abstract_status_code": "available",
     "abstract_zh": null,
-    "accepted_date": null,
+    "accepted_date": "2026-10-16",
     "ai_tags": [],
     "authors": [
-      "Zhengwei Yan",
-      "Xu Zhang"
+      "Yan, Zhengwei",
+      "Zhang, Xu"
     ],
     "authors_status_code": "available",
     "available_online": "2026-11-07",
-    "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "china_related": true,
+    "china_related_source": "rule",
+    "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
+    "china_relevance_status": "confirmed",
+    "date_confidence": "A",
+    "date_source": "publisher_published_online",
     "detail_key": "the-externalities-of-private-tutoring-on-students-academic-and-noncognitive-outcomes-evi-19852993a3a4",
     "detected_at": "2026-11-07T05:42:24+00:00",
     "doi": "10.1007/s00148-026-01220-9",
