@@ -85,7 +85,7 @@
     "available_online": "2026-11-04",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "t-rkiye-s-gas-market-reform-a-hybrid-institutional-pathway-for-competition-and-resilienc-1e9db533f219",
     "detected_at": "2026-11-05T02:22:29+00:00",
     "doi": "10.1016/j.enpol.2026.115675",
@@ -784,7 +784,7 @@
     "available_online": "2026-11-04",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "openalex_publication_date",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "the-heterogeneous-transmission-of-geopolitical-energy-shocks-a-structural-framework-caaf216612a8",
     "detected_at": "2026-11-04T16:36:21+00:00",
     "doi": "10.1016/j.enpol.2026.115693",
@@ -2157,7 +2157,7 @@
     "available_online": "2026-11-04",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_source": "openalex_publication_date",
     "detail_key": "who-pays-for-heritage-examining-form-function-tensions-in-singapore-s-hawker-centre-poli-16e8b32c9978",
     "detected_at": "2026-11-04T09:59:43+00:00",
     "doi": "10.1016/j.foodpol.2026.103225",
@@ -2403,83 +2403,6 @@
     "title_zh": null,
     "translation_status": "skipped",
     "url": "https://doi.org/10.1111/jofi.70098"
-  },
-  {
-    "_provider": "semantic-scholar",
-    "_status": "not_found",
-    "abstract": "Treatment effect heterogeneity with respect to covariates is common in instrumental variable (IV) analyses. An intuitive approach, which we call the interacted two-stage least squares (2sls), is to regress the outcome on the treatment, covariates, and treatment-covariate interactions, using the IV, covariates, and IV-covariate interactions as instruments. We clarify the causal interpretation of the interacted 2sls under the local average treatment effect (LATE) framework when the IV is valid conditional on the covariates. Our main findings are twofold. First, we show that the coefficients on the treatment-covariate interactions from the interacted 2sls identify treatment effect heterogeneity with respect to covariates among compliers for any outcome-generating process if and only if the product of the IV propensity score and the covariates is linear in the covariates, a requirement we call the linear IV-covariate interactions condition. Second, when the covariate vector has dimension K and includes a constant term, we show that the linear IV-covariate interactions condition requires the IV propensity score to take at most K distinct values. The condition holds when (a) the covariates take exactly K distinct values, or (b) the IV is randomly assigned independently of the covariates, but is restrictive beyond these cases. These results underscore the difficulty of interpreting regression coefficients from specifications with treatment-covariate interactions when the covariates are not saturated and the IV is not unconditionally randomized, absent correct specification of the outcome model. We then connect these results to the literature on LATE estimation, and show that under the linear IV-covariate interactions condition, the interacted 2sls with covariates demeaned by their complier means recovers the LATE as a single coefficient.",
-    "abstract_completeness": "full",
-    "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
-    "abstract_status_code": "available",
-    "abstract_zh": null,
-    "accepted_date": null,
-    "ai_tags": [],
-    "authors": [
-      "Anqi Zhao",
-      "Peng Ding",
-      "Fan Li"
-    ],
-    "authors_status_code": "available",
-    "available_online": "2026-11-04",
-    "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
-    "detail_key": "two-stage-least-squares-with-treatment-covariate-interactions-for-treatment-effect-heter-d99571613f79",
-    "detected_at": "2026-11-04T05:39:04+00:00",
-    "doi": "10.1016/j.jeconom.2026.106324",
-    "fields": [
-      "econometrics"
-    ],
-    "first_seen": "2026-11-04T05:39:04+00:00",
-    "id": "doi:10.1016/j.jeconom.2026.106324",
-    "identity_aliases": [
-      "10.1016/j.jeconom.2026.106324",
-      "https://doi.org/10.1016/j.jeconom.2026.106324",
-      "two-stage-least-squares-with-treatment-covariate-interactions-for-treatment-effect-heter-d99571613f79"
-    ],
-    "issue_date": "2026-11-04",
-    "journal": "Journal of Econometrics",
-    "journal_id": "journal-of-econometrics",
-    "journal_short": "JoE",
-    "official_date_status": "available",
-    "pdf_url": null,
-    "pii": "S0304407626001442",
-    "published_online": "2026-11-04",
-    "publisher": "Elsevier BV",
-    "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online",
-      "date_evidence": [
-        {
-          "available_online": "2026-11-04",
-          "date_confidence": "C",
-          "date_source": "crossref_doi_elsevier_created_online",
-          "published_online": "2026-11-04",
-          "source": "crossref-doi"
-        },
-        {
-          "source": "elsevier-article-api"
-        },
-        {
-          "source": "semantic-scholar"
-        },
-        {
-          "available_online": "2026-11-01",
-          "date_confidence": "C",
-          "date_source": "openalex_publication_date",
-          "published_online": "2026-11-01",
-          "source": "openalex"
-        }
-      ]
-    },
-    "source": "crossref",
-    "source_issue": "Journal of Econometrics, Volume 258",
-    "source_type": "journal",
-    "source_url": "https://api.crossref.org",
-    "title": "Two-stage least squares with treatment-covariate interactions for treatment effect heterogeneity",
-    "title_zh": null,
-    "translation_status": "missing_abstract",
-    "url": "https://doi.org/10.1016/j.jeconom.2026.106324"
   },
   {
     "abstract": "Bankers may benefit from the upside of risk-taking through bonuses, while taxpayers may ultimately bear the costs when things go badly wrong. After the Global Financial Crisis, regulators set out to change how bank executives are paid. This column examines how compensation practices have evolved since then and how they relate to bank risk. Longer deferral horizons, as mandated in the EU, have reduced bank risk-taking, but evidence on bonus caps is inconclusive. The 2023 banking turmoil shows that bank boards and supervisors play a crucial role in ensuring good governance of compensation frameworks.",
