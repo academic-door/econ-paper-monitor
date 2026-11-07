@@ -1125,19 +1125,31 @@ SPRINGER_TAX_N2_ALLOWLIST = frozenset({
     "10.1007/s10797-026-10010-8",
 })
 
+# Official raw publisher HTML independently verified to expose full
+# dc.description and exact citation_title for these three identities.
+# Actual hosted runner reachability remains subject to natural producer readback.
+SPRINGER_N2_ADDITIONAL_EXACT = {
+    "10.1007/s10640-026-01129-7": "Environmental and Resource Economics",
+    "10.1007/s00148-026-01220-9": "Journal of Population Economics",
+    "10.1007/s00182-026-01017-w": "International Journal of Game Theory",
+}
+
 
 def verified_springer_tax_abstract(record: dict[str, Any], timeout: int) -> dict[str, str]:
-    """Recover only the six first-party, hosted-verified Springer abstracts.
+    """Recover only exact publisher-verified, DOI-scoped Springer abstracts.
 
+    Six earlier tax DOIs were hosted-runner tested; three additional DOI pages
+    have verified official full metadata pending natural runner acceptance.
     Public metadata only; preserve all date, first_seen, author and identity
     fields. One HTTPS request, no retries, default verified TLS, 1 MiB limit.
     A publisher landing/challenge/teaser or article-identity mismatch yields no
     metadata, never synthetic text.
     """
-    if str(record.get("journal") or "") != "International Tax and Public Finance":
-        return {}
+    journal = str(record.get("journal") or "")
     doi = normalize_doi(str(record.get("doi") or "")) or ""
-    if doi not in SPRINGER_TAX_N2_ALLOWLIST:
+    tax_verified = journal == "International Tax and Public Finance" and doi in SPRINGER_TAX_N2_ALLOWLIST
+    additional_verified = SPRINGER_N2_ADDITIONAL_EXACT.get(doi) == journal
+    if not (tax_verified or additional_verified):
         return {}
     expected_title = clean_text(str(record.get("title") or "")).casefold()
     if len(expected_title) < 24:
