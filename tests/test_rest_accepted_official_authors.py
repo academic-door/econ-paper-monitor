@@ -36,8 +36,19 @@ class OfficialRestudAuthorsTests(unittest.TestCase):
                 first_seen = entry["first_seen"]
                 available_online = entry["available_online"]
                 record_id = entry["id"]
-                self.assertTrue(apply_overrides.apply_to_record(entry, overrides[record_id]))
+                # Production may have already applied these verified overrides.
+                # The behavior contract is idempotence, not a mandatory
+                # mutation of an already-correct canonical record.
+                apply_overrides.apply_to_record(entry, overrides[record_id])
                 self.assertFalse(apply_overrides.apply_to_record(entry, overrides[record_id]))
+                missing = deepcopy(original)
+                missing["authors"] = []
+                missing["authors_status_code"] = "missing_retry"
+                missing["authors_status"] = "作者信息待核验"
+                self.assertTrue(apply_overrides.apply_to_record(missing, overrides[record_id]))
+                self.assertFalse(apply_overrides.apply_to_record(missing, overrides[record_id]))
+                self.assertEqual(missing["authors"], overrides[record_id]["authors"])
+                self.assertEqual(missing["first_seen"], first_seen)
                 self.assertEqual(entry["authors_status_code"], "available")
                 self.assertFalse(entry.get("authors_status"))
                 self.assertEqual(entry["first_seen"], first_seen)
