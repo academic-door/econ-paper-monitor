@@ -1,14 +1,25 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 4,
+    "transient_network": 5
   },
-  "checked_at": "2026-11-07T21:42:32.712347+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-11-07T23:04:56.099367+08:00",
+  "source_health_degraded_count": 9,
   "source_status_failures": [
+    {
+      "category": "transient_network",
+      "sample_error": "american-economic-review: 0 (forthcoming: URLError: <urlopen error timed out>; current-issue: URLError: <urlopen error timed out>); american-economic-review-insights: 0 (forthcoming: URLError: <urlope",
+      "source": "aea-toc"
+    },
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Journal of Finance: 4; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 11; Economic Development and Cultural Change: 0;",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -33,6 +44,96 @@
   ],
   "sources": [
     {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-journal-applied-economics",
+      "sample_error": "forthcoming: URLError: <urlopen error timed out>; current-issue: URLError: <urlopen error timed out>",
+      "source": "American Economic Journal: Applied Economics",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-journal-economic-policy",
+      "sample_error": "forthcoming: URLError: <urlopen error timed out>; current-issue: BUDGET_EXHAUSTED (not observed)",
+      "source": "American Economic Journal: Economic Policy",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "american-economic-journal-macroeconomics",
+      "sample_error": "not_attempted: BUDGET_EXHAUSTED (not observed)",
+      "source": "American Economic Journal: Macroeconomics",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-journal-microeconomics",
+      "sample_error": "forthcoming: URLError: <urlopen error timed out>; current-issue: URLError: <urlopen error timed out>",
+      "source": "American Economic Journal: Microeconomics",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-review",
+      "sample_error": "forthcoming: URLError: <urlopen error timed out>; current-issue: URLError: <urlopen error timed out>",
+      "source": "American Economic Review",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "transient_network",
+      "category_counts": {
+        "transient_network": 1
+      },
+      "journal_id": "american-economic-review-insights",
+      "sample_error": "forthcoming: URLError: <urlopen error timed out>; current-issue: URLError: <urlopen error timed out>",
+      "source": "American Economic Review: Insights",
+      "status_category": "transient_network",
+      "status_source": "aea-toc",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
       "category": "needs_investigation",
       "category_counts": {
         "needs_investigation": 1
@@ -46,11 +147,41 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-economic-literature",
+      "sample_error": "no per-journal source result",
+      "source": "Journal of Economic Literature",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-economic-perspectives",
+      "sample_error": "no per-journal source result",
+      "source": "Journal of Economic Perspectives",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 7
   },
-  "total_degraded": 1
+  "total_degraded": 9
 }
