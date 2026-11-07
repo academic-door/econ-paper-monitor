@@ -70,7 +70,7 @@ class JfqaFullAbstractTests(unittest.TestCase):
         self.assertEqual(record["raw_data"]["publication_stage"], "jfqa_forthcoming")
 
         existing = {
-            "id": record["id"],
+            "id": dedupe.stable_id(record),
             "title": record["title"],
             "journal": record["journal"],
             "journal_id": record["journal_id"],
