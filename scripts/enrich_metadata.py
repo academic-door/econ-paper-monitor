@@ -37,6 +37,7 @@ from common import (
 )
 from public_integrity import strong_identity_keys
 from status import load_status, now, record_source, save_status
+from sources.tandf_applied_economics import verified_applied_economics_abstract
 
 
 MONTHS = {
@@ -1232,6 +1233,12 @@ def enrich_abstract_record(
                 changed = merge_abstract_only_fields(record, metadata) or changed
             if str(record.get("abstract") or "").strip():
                 return changed, f"metadata-updated:{source}"
+
+    if not str(record.get("abstract") or "").strip():
+        verified = verified_applied_economics_abstract(record, timeout)
+        if verified:
+            changed = merge_abstract_only_fields(record, verified) or changed
+            return changed, "metadata-updated:tandf-applied-economics-official"
 
     if publisher_bucket(record) == "Elsevier" and doi.startswith("10.1016/"):
         metadata = elsevier_api_metadata(doi, timeout)
