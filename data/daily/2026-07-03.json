@@ -1,5 +1,220 @@
 [
   {
+    "abstract": "Peer influence on effort devoted to some activity is often studied when effort is unobserved, and the researcher instead observes an outcome that combines effort with other shocks. For instance, in education, achievement measures such as GPA reflect both effort and idiosyncratic GPA shocks. We propose an alternative approach that circumvents this approximation. Our framework distinguishes unobserved shocks to GPA that do not affect effort from preference shocks that do affect effort levels. We show that peer effects estimates obtained using our approach can differ significantly from classical estimates (where effort is approximated) if the network includes isolated students. Applying our approach to data on high school students in the United States, we find that peer effect estimates relying on GPA as a proxy for effort are 40% lower than those obtained using our approach.",
+    "abstract_completeness": "full",
+    "abstract_source": "crossref_doi",
+    "abstract_status_code": "available",
+    "abstract_zh": "摘要 当努力程度不可观测，而研究者仅能观察到结合了努力与其他冲击的最终结果时，关于同伴效应对某项活动投入程度的影响研究往往面临挑战。例如在教育领域，GPA等学业成就指标既反映努力程度，也包含个体特有的GPA冲击。本文提出一种规避此类近似处理的新方法。我们的分析框架将不影响努力程度的不可观测GPA冲击与确实影响努力水平的偏好冲击进行区分。研究表明，当社交网络中存在孤立学生时，采用本方法获得的同伴效应估计值可能与经典方法（将努力程度近似处理）存在显著差异。通过将本方法应用于美国高中生数据，我们发现，以GPA作为努力程度代理变量的同伴效应估计值，比采用本方法获得的估计值低40%。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Aristide Houndetoungan",
+      "Cristelle Kouame",
+      "Michael Vlassopoulos"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-07-03",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "rss_published",
+    "detail_key": "identifying-peer-effects-in-networks-with-unobserved-effort-and-isolated-students-68acbcfad29a",
+    "detected_at": "2026-07-04T06:45:30+00:00",
+    "doi": "10.1002/jae.70069",
+    "fields": [
+      "applied_empirical"
+    ],
+    "first_seen": "2026-07-04T06:45:30+00:00",
+    "id": "doi:10.1002/jae.70069",
+    "identity_aliases": [
+      "10.1002/jae.70069",
+      "https://doi.org/10.1002/jae.70069",
+      "identifying-peer-effects-in-networks-with-unobserved-effort-and-isolated-students-68acbcfad29a"
+    ],
+    "issue_date": "2026-07-03",
+    "journal": "Journal of Applied Econometrics",
+    "journal_id": "journal-of-applied-econometrics",
+    "journal_short": "JAE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-10-02",
+    "publisher": "Wiley",
+    "raw_data": {
+      "crossref_date_source": "crossref_published_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-07-03",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-07-03",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2024-01-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2024-01-01",
+          "source": "openalex"
+        },
+        {
+          "available_online": "2026-07-03",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-07-03",
+          "source": "openalex"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Identifying Peer Effects in Networks with Unobserved Effort and Isolated Students",
+    "title_zh": "识别未观测努力与孤立学生网络中的同伴效应",
+    "translation_status": "abstract_translated",
+    "url": "https://doi.org/10.1002/jae.70069"
+  },
+  {
+    "_restored_from_backflow": "2026-07-04",
+    "abstract": "Lévy processes are widely used in financial modeling due to their ability to capture discontinuities and heavy tails, which are common in high‐frequency asset return data. However, parameter estimation remains a challenge when associated likelihoods are unavailable or costly to compute. We propose a fast and accurate method for Lévy parameter estimation using the neural Bayes estimation (NBE) framework—a simulation‐based, likelihood‐free approach that leverages permutation‐invariant neural networks to approximate Bayes estimators. We contribute new theoretical results, showing that NBE results in consistent estimators whose risk converges to that of the Bayes estimator under mild conditions. Moreover, through extensive simulations across several Lévy models, we show that NBE outperforms traditional methods in both accuracy and runtime, while also enabling two complementary approaches to uncertainty quantification. We illustrate our approach on a challenging high‐frequency cryptocurrency return dataset, where the method captures evolving parameter dynamics and delivers reliable and interpretable inference at a fraction of the computational cost of traditional methods. We investigate nearly a decade of high‐frequency Bitcoin returns, requiring less than one minute to estimate parameters under the proposed approach.",
+    "abstract_completeness": "full",
+    "abstract_source": "crossref_doi",
+    "abstract_status_code": "available",
+    "abstract_zh": "摘要 莱维过程因其能够捕捉高频资产收益数据中常见的间断性和厚尾特征，在金融建模中得到广泛应用。然而，当相关似然函数不可用或计算成本高昂时，参数估计仍面临挑战。我们提出了一种基于神经贝叶斯估计（NBE）框架的快速精确莱维参数估计方法——这是一种基于模拟的无似然方法，利用置换不变神经网络来近似贝叶斯估计量。我们贡献了新的理论成果，证明在温和条件下，NBE可得到一致估计量，其风险收敛至贝叶斯估计量的风险水平。此外，通过针对多个莱维模型的大量模拟实验，我们表明NBE在精度和运行时间上均优于传统方法，同时还能实现两种互补的不确定性量化方法。我们以具有挑战性的高频加密货币收益数据集为例进行方法验证，该方法能够捕捉动态变化的参数特征，并以传统方法计算成本的一小部分提供可靠且可解释的推断。我们研究了近十年高频比特币收益数据，在提出的方法下，参数估计耗时不足一分钟。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Nicolas Coloma",
+      "William Kleiber"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-07-03",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "rss_published",
+    "detail_key": "fast-likelihood-free-parameter-estimation-for-l-vy-processes-33d9bc735627",
+    "detected_at": "2026-07-03T18:43:04+00:00",
+    "doi": "10.1002/jae.70075",
+    "fields": [
+      "applied_empirical"
+    ],
+    "first_seen": "2026-07-03T18:43:04+00:00",
+    "id": "doi:10.1002/jae.70075",
+    "identity_aliases": [
+      "10.1002/jae.70075",
+      "fast-likelihood-free-parameter-estimation-for-l-vy-processes-33d9bc735627",
+      "https://doi.org/10.1002/jae.70075"
+    ],
+    "issue_date": "2026-07-03",
+    "journal": "Journal of Applied Econometrics",
+    "journal_id": "journal-of-applied-econometrics",
+    "journal_short": "JAE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-10-02",
+    "publisher": "Wiley",
+    "raw_data": {
+      "crossref_date_source": "crossref_published_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-07-03",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-07-03",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2025-05-03",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2025-05-03",
+          "source": "openalex"
+        },
+        {
+          "available_online": "2026-07-03",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-07-03",
+          "source": "openalex"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Fast Likelihood‐Free Parameter Estimation for Lévy Processes",
+    "title_zh": "莱维过程的快速无似然参数估计",
+    "translation_status": "abstract_translated",
+    "url": "https://doi.org/10.1002/jae.70075"
+  },
+  {
+    "abstract": "We estimate the first time‐varying, county‐level index of housing supply elasticities across the United States, using a structural vector autoregression model with sign restrictions to identify the effect of a positive demand shock. This index reveals four features of the supply curve in different local housing markets. First, supply elasticities are low, on average, generating faster price growth than housing unit growth for most of the country. Second, there is significant variation in elasticities across counties, both urban and rural. Third, elasticities have declined in more counties than they have risen over time, particularly in large urban markets. Fourth, these new estimates predict housing quantity growth better than previous models in the literature.",
+    "abstract_completeness": "full",
+    "abstract_source": "crossref_doi",
+    "abstract_status_code": "available",
+    "abstract_zh": "摘要 我们利用带有符号约束的结构向量自回归模型识别正向需求冲击效应，首次估算了美国各县级住房供给弹性的时变指数。该指数揭示了不同地方住房市场供给曲线的四个特征：第一，平均而言供给弹性较低，导致全国大部分地区房价增速快于住房单元增速；第二，城乡各县之间的弹性存在显著差异；第三，随时间推移，弹性下降的县数量多于上升的县，尤其是在大型城市市场；第四，相较于文献中的既有模型，这些新估计值能更准确地预测住房数量增长。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Wesley A. Miller",
+      "Anthony W. Orlando",
+      "Christian L. Redfearn"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-07-03",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "rss_published",
+    "detail_key": "housing-supply-elasticities-a-structural-vector-autoregression-approach-111e4c7f5010",
+    "detected_at": "2026-07-03T13:08:15+00:00",
+    "doi": "10.1002/jae.70073",
+    "fields": [
+      "applied_empirical"
+    ],
+    "first_seen": "2026-07-03T13:08:15+00:00",
+    "id": "doi:10.1002/jae.70073",
+    "identity_aliases": [
+      "10.1002/jae.70073",
+      "housing-supply-elasticities-a-structural-vector-autoregression-approach-111e4c7f5010",
+      "https://doi.org/10.1002/jae.70073"
+    ],
+    "issue_date": "2026-07-03",
+    "journal": "Journal of Applied Econometrics",
+    "journal_id": "journal-of-applied-econometrics",
+    "journal_short": "JAE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-10-02",
+    "publisher": "Wiley",
+    "raw_data": {
+      "crossref_date_source": "crossref_published_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-07-03",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_published_online",
+          "published_online": "2026-07-03",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-07-03",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-07-03",
+          "source": "openalex"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Housing Supply Elasticities: A Structural Vector Autoregression Approach",
+    "title_zh": "住房供给弹性：结构向量自回归方法",
+    "translation_status": "abstract_translated",
+    "url": "https://doi.org/10.1002/jae.70073"
+  },
+  {
     "abstract": "Frontier Market (FM) status serves as a steppingstone for Low-Income Countries (LICs) aspiring to become Emerging Markets (EMs). Since the concept first emerged over three decades ago, FMs have gained substantial investment appeal, particularly after the 2008 Global Financial Crisis. At the same time, the recent series of global shocks starting with the COVID-19 pandemic highlighted the countries’ persistent vulnerabilities. This paper seeks to deepen our understanding of FMs by offering new analysis on the determinants of frontier market status and, using a dynamic country sample, examining the factors that help LICs attain and lose FM status. It finds that building robust macroeconomic fundamentals and ensuring good governance are critical for becoming an FM. In addition, the paper identifies flexible exchange rates, substantial official reserve buffers, and relatively low public debt and deficit levels as key contributors to lessening the sensitivity of FMs’ sovereign spreads to changes in global financial conditions.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
@@ -49,6 +264,60 @@
     "title_zh": "前沿市场：市场增长驱动因素与主权风险分析",
     "translation_status": "title_translated",
     "url": "https://econpapers.repec.org/RePEc:imf:imfwpa:2026/140"
+  },
+  {
+    "abstract": "This study investigates the impact of changing gender bias on the career advancement and forecasting performance of female analysts. By using the #MeToo movement as a shock to the prevailing gender-based discrimination, we find that women experience improvements in participation and promotion in the equity research profession. #MeToo has fostered a more gender-inclusive environment both in the brokerages where analysts work and the firms they cover, as evidenced by more performance based promotion assessments and improved access to management for female analysts. Female analysts’ forecast performance improves significantly after #MeToo, in terms of accuracy, frequency, timeliness, depth, and breadth. The improvement is more pronounced when the movement triggers heightened awareness of gender bias. Collectively, this study demonstrates how the #MeToo movement reduces gender bias in equity research profession and enhances female analyst performance.",
+    "abstract_completeness": "full",
+    "abstract_source": "publisher_meta:dc.description",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Rubin Hao",
+      "Shikong Scott Luo",
+      "Jing Xue",
+      "Haoyi Yang"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-07-03",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "rss_published",
+    "detail_key": "gender-bias-and-female-analyst-performance-evidence-from-the-metoo-movement-756b15aacdaa",
+    "detected_at": "2026-11-08T11:26:26+00:00",
+    "doi": "10.1007/s11142-026-09976-x",
+    "fields": [
+      "finance"
+    ],
+    "first_seen": "2026-11-08T11:26:26+00:00",
+    "id": "doi:10.1007/s11142-026-09976-x",
+    "identity_aliases": [
+      "10.1007/s11142-026-09976-x",
+      "gender-bias-and-female-analyst-performance-evidence-from-the-metoo-movement-756b15aacdaa",
+      "https://link.springer.com/article/10.1007/s11142-026-09976-x"
+    ],
+    "issue_date": null,
+    "journal": "Review of Accounting Studies",
+    "journal_id": "review-of-accounting-studies",
+    "journal_short": "RAST",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-07-03",
+    "publisher": "Springer",
+    "raw_data": {
+      "pii": null,
+      "rss_feed_url": "https://link.springer.com/search.rss?facet-journal-id=11142",
+      "rss_guid": "10.1007/s11142-026-09976-x"
+    },
+    "source": "rss",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://link.springer.com/search.rss?facet-journal-id=11142",
+    "title": "Gender bias and female analyst performance: evidence from the #MeToo movement",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://link.springer.com/article/10.1007/s11142-026-09976-x"
   },
   {
     "abstract": "We examine the effect of eviction moratoria enacted in 2020 in the United States on intimate partner violence (IPV). Leveraging the differential implementation of state‐level policies and detailed criminal incident data, we estimate that eviction moratoria decreased reported IPV by 12% relative to the pre‐treatment average. These results are driven by a 28% reduction in IPV against Black women, who are disproportionately the targets of eviction. We also contribute to the literature by constructing a more comprehensive, up‐to‐date dataset on eviction moratoria in the United States.",
@@ -472,80 +741,6 @@
     "url": "https://econpapers.repec.org/RePEc:imf:imfwpa:2026/141"
   },
   {
-    "abstract": "Peer influence on effort devoted to some activity is often studied when effort is unobserved, and the researcher instead observes an outcome that combines effort with other shocks. For instance, in education, achievement measures such as GPA reflect both effort and idiosyncratic GPA shocks. We propose an alternative approach that circumvents this approximation. Our framework distinguishes unobserved shocks to GPA that do not affect effort from preference shocks that do affect effort levels. We show that peer effects estimates obtained using our approach can differ significantly from classical estimates (where effort is approximated) if the network includes isolated students. Applying our approach to data on high school students in the United States, we find that peer effect estimates relying on GPA as a proxy for effort are 40% lower than those obtained using our approach.",
-    "abstract_completeness": "full",
-    "abstract_source": "crossref_doi",
-    "abstract_status_code": "available",
-    "abstract_zh": "摘要 当努力程度不可观测，而研究者仅能观察到结合了努力与其他冲击的最终结果时，关于同伴效应对某项活动投入程度的影响研究往往面临挑战。例如在教育领域，GPA等学业成就指标既反映努力程度，也包含个体特有的GPA冲击。本文提出一种规避此类近似处理的新方法。我们的分析框架将不影响努力程度的不可观测GPA冲击与确实影响努力水平的偏好冲击进行区分。研究表明，当社交网络中存在孤立学生时，采用本方法获得的同伴效应估计值可能与经典方法（将努力程度近似处理）存在显著差异。通过将本方法应用于美国高中生数据，我们发现，以GPA作为努力程度代理变量的同伴效应估计值，比采用本方法获得的估计值低40%。",
-    "accepted_date": null,
-    "ai_tags": [],
-    "authors": [
-      "Aristide Houndetoungan",
-      "Cristelle Kouame",
-      "Michael Vlassopoulos"
-    ],
-    "authors_status_code": "available",
-    "available_online": "2026-07-03",
-    "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "rss_published",
-    "detail_key": "identifying-peer-effects-in-networks-with-unobserved-effort-and-isolated-students-68acbcfad29a",
-    "detected_at": "2026-07-04T06:45:30+00:00",
-    "doi": "10.1002/jae.70069",
-    "fields": [
-      "applied_empirical"
-    ],
-    "first_seen": "2026-07-04T06:45:30+00:00",
-    "id": "doi:10.1002/jae.70069",
-    "identity_aliases": [
-      "10.1002/jae.70069",
-      "https://doi.org/10.1002/jae.70069",
-      "identifying-peer-effects-in-networks-with-unobserved-effort-and-isolated-students-68acbcfad29a"
-    ],
-    "issue_date": "2026-07-03",
-    "journal": "Journal of Applied Econometrics",
-    "journal_id": "journal-of-applied-econometrics",
-    "journal_short": "JAE",
-    "official_date_status": "available",
-    "pdf_url": null,
-    "published_online": "2026-10-02",
-    "publisher": "Wiley",
-    "raw_data": {
-      "crossref_date_source": "crossref_published_online",
-      "date_evidence": [
-        {
-          "available_online": "2026-07-03",
-          "date_confidence": "C",
-          "date_source": "crossref_doi_published_online",
-          "published_online": "2026-07-03",
-          "source": "crossref-doi"
-        },
-        {
-          "available_online": "2024-01-01",
-          "date_confidence": "C",
-          "date_source": "openalex_publication_date",
-          "published_online": "2024-01-01",
-          "source": "openalex"
-        },
-        {
-          "available_online": "2026-07-03",
-          "date_confidence": "C",
-          "date_source": "openalex_publication_date",
-          "published_online": "2026-07-03",
-          "source": "openalex"
-        }
-      ]
-    },
-    "source": "crossref",
-    "source_issue": null,
-    "source_type": "journal",
-    "source_url": "https://api.crossref.org",
-    "title": "Identifying Peer Effects in Networks with Unobserved Effort and Isolated Students",
-    "title_zh": "识别未观测努力与孤立学生网络中的同伴效应",
-    "translation_status": "abstract_translated",
-    "url": "https://doi.org/10.1002/jae.70069"
-  },
-  {
     "_restored_from_backflow": "2026-07-04",
     "abstract": "We construct a continuous-time, monetary model with frictional goods and labour markets to revisit the long-run relationship between inflation and unemployment. By endogenising the value of consumers’ outside options and market power in accordance with standard consumer search theory, we generate novel predictions for the slope of the long-run Phillips curve, optimal monetary policy, and outcomes at the frictionless limit. The relationship between inflation and unemployment is non-monotone and, at low inflation rates, an increase in inflation reduces unemployment. The Friedman rule is suboptimal when firms’ average bargaining power across markets is low. Markups and markdowns vanish as frictions disappear.",
     "abstract_completeness": "full",
@@ -840,80 +1035,6 @@
     "title_zh": "《经济动力学与控制杂志》量子计算在经济学与金融中应用专刊",
     "translation_status": "abstract_translated_cached",
     "url": "https://doi.org/10.1016/j.jedc.2026.105383"
-  },
-  {
-    "_restored_from_backflow": "2026-07-04",
-    "abstract": "Lévy processes are widely used in financial modeling due to their ability to capture discontinuities and heavy tails, which are common in high‐frequency asset return data. However, parameter estimation remains a challenge when associated likelihoods are unavailable or costly to compute. We propose a fast and accurate method for Lévy parameter estimation using the neural Bayes estimation (NBE) framework—a simulation‐based, likelihood‐free approach that leverages permutation‐invariant neural networks to approximate Bayes estimators. We contribute new theoretical results, showing that NBE results in consistent estimators whose risk converges to that of the Bayes estimator under mild conditions. Moreover, through extensive simulations across several Lévy models, we show that NBE outperforms traditional methods in both accuracy and runtime, while also enabling two complementary approaches to uncertainty quantification. We illustrate our approach on a challenging high‐frequency cryptocurrency return dataset, where the method captures evolving parameter dynamics and delivers reliable and interpretable inference at a fraction of the computational cost of traditional methods. We investigate nearly a decade of high‐frequency Bitcoin returns, requiring less than one minute to estimate parameters under the proposed approach.",
-    "abstract_completeness": "full",
-    "abstract_source": "crossref_doi",
-    "abstract_status_code": "available",
-    "abstract_zh": "摘要 莱维过程因其能够捕捉高频资产收益数据中常见的间断性和厚尾特征，在金融建模中得到广泛应用。然而，当相关似然函数不可用或计算成本高昂时，参数估计仍面临挑战。我们提出了一种基于神经贝叶斯估计（NBE）框架的快速精确莱维参数估计方法——这是一种基于模拟的无似然方法，利用置换不变神经网络来近似贝叶斯估计量。我们贡献了新的理论成果，证明在温和条件下，NBE可得到一致估计量，其风险收敛至贝叶斯估计量的风险水平。此外，通过针对多个莱维模型的大量模拟实验，我们表明NBE在精度和运行时间上均优于传统方法，同时还能实现两种互补的不确定性量化方法。我们以具有挑战性的高频加密货币收益数据集为例进行方法验证，该方法能够捕捉动态变化的参数特征，并以传统方法计算成本的一小部分提供可靠且可解释的推断。我们研究了近十年高频比特币收益数据，在提出的方法下，参数估计耗时不足一分钟。",
-    "accepted_date": null,
-    "ai_tags": [],
-    "authors": [
-      "Nicolas Coloma",
-      "William Kleiber"
-    ],
-    "authors_status_code": "available",
-    "available_online": "2026-07-03",
-    "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "rss_published",
-    "detail_key": "fast-likelihood-free-parameter-estimation-for-l-vy-processes-33d9bc735627",
-    "detected_at": "2026-07-03T18:43:04+00:00",
-    "doi": "10.1002/jae.70075",
-    "fields": [
-      "applied_empirical"
-    ],
-    "first_seen": "2026-07-03T18:43:04+00:00",
-    "id": "doi:10.1002/jae.70075",
-    "identity_aliases": [
-      "10.1002/jae.70075",
-      "fast-likelihood-free-parameter-estimation-for-l-vy-processes-33d9bc735627",
-      "https://doi.org/10.1002/jae.70075"
-    ],
-    "issue_date": "2026-07-03",
-    "journal": "Journal of Applied Econometrics",
-    "journal_id": "journal-of-applied-econometrics",
-    "journal_short": "JAE",
-    "official_date_status": "available",
-    "pdf_url": null,
-    "published_online": "2026-10-02",
-    "publisher": "Wiley",
-    "raw_data": {
-      "crossref_date_source": "crossref_published_online",
-      "date_evidence": [
-        {
-          "available_online": "2026-07-03",
-          "date_confidence": "C",
-          "date_source": "crossref_doi_published_online",
-          "published_online": "2026-07-03",
-          "source": "crossref-doi"
-        },
-        {
-          "available_online": "2025-05-03",
-          "date_confidence": "C",
-          "date_source": "openalex_publication_date",
-          "published_online": "2025-05-03",
-          "source": "openalex"
-        },
-        {
-          "available_online": "2026-07-03",
-          "date_confidence": "C",
-          "date_source": "openalex_publication_date",
-          "published_online": "2026-07-03",
-          "source": "openalex"
-        }
-      ]
-    },
-    "source": "crossref",
-    "source_issue": null,
-    "source_type": "journal",
-    "source_url": "https://api.crossref.org",
-    "title": "Fast Likelihood‐Free Parameter Estimation for Lévy Processes",
-    "title_zh": "莱维过程的快速无似然参数估计",
-    "translation_status": "abstract_translated",
-    "url": "https://doi.org/10.1002/jae.70075"
   },
   {
     "_restored_from_backflow": "2026-07-04",
@@ -1494,73 +1615,6 @@
     "title_zh": "持续的力量：需求冲击与货币政策如何塑造宏观经济结果",
     "translation_status": "abstract_translated",
     "url": "https://cepr.org/publications/dp21694"
-  },
-  {
-    "abstract": "We estimate the first time‐varying, county‐level index of housing supply elasticities across the United States, using a structural vector autoregression model with sign restrictions to identify the effect of a positive demand shock. This index reveals four features of the supply curve in different local housing markets. First, supply elasticities are low, on average, generating faster price growth than housing unit growth for most of the country. Second, there is significant variation in elasticities across counties, both urban and rural. Third, elasticities have declined in more counties than they have risen over time, particularly in large urban markets. Fourth, these new estimates predict housing quantity growth better than previous models in the literature.",
-    "abstract_completeness": "full",
-    "abstract_source": "crossref_doi",
-    "abstract_status_code": "available",
-    "abstract_zh": "摘要 我们利用带有符号约束的结构向量自回归模型识别正向需求冲击效应，首次估算了美国各县级住房供给弹性的时变指数。该指数揭示了不同地方住房市场供给曲线的四个特征：第一，平均而言供给弹性较低，导致全国大部分地区房价增速快于住房单元增速；第二，城乡各县之间的弹性存在显著差异；第三，随时间推移，弹性下降的县数量多于上升的县，尤其是在大型城市市场；第四，相较于文献中的既有模型，这些新估计值能更准确地预测住房数量增长。",
-    "accepted_date": null,
-    "ai_tags": [],
-    "authors": [
-      "Wesley A. Miller",
-      "Anthony W. Orlando",
-      "Christian L. Redfearn"
-    ],
-    "authors_status_code": "available",
-    "available_online": "2026-07-03",
-    "china_relevance_status": "none",
-    "date_confidence": "A",
-    "date_source": "rss_published",
-    "detail_key": "housing-supply-elasticities-a-structural-vector-autoregression-approach-111e4c7f5010",
-    "detected_at": "2026-07-03T13:08:15+00:00",
-    "doi": "10.1002/jae.70073",
-    "fields": [
-      "applied_empirical"
-    ],
-    "first_seen": "2026-07-03T13:08:15+00:00",
-    "id": "doi:10.1002/jae.70073",
-    "identity_aliases": [
-      "10.1002/jae.70073",
-      "housing-supply-elasticities-a-structural-vector-autoregression-approach-111e4c7f5010",
-      "https://doi.org/10.1002/jae.70073"
-    ],
-    "issue_date": "2026-07-03",
-    "journal": "Journal of Applied Econometrics",
-    "journal_id": "journal-of-applied-econometrics",
-    "journal_short": "JAE",
-    "official_date_status": "available",
-    "pdf_url": null,
-    "published_online": "2026-10-02",
-    "publisher": "Wiley",
-    "raw_data": {
-      "crossref_date_source": "crossref_published_online",
-      "date_evidence": [
-        {
-          "available_online": "2026-07-03",
-          "date_confidence": "C",
-          "date_source": "crossref_doi_published_online",
-          "published_online": "2026-07-03",
-          "source": "crossref-doi"
-        },
-        {
-          "available_online": "2026-07-03",
-          "date_confidence": "C",
-          "date_source": "openalex_publication_date",
-          "published_online": "2026-07-03",
-          "source": "openalex"
-        }
-      ]
-    },
-    "source": "crossref",
-    "source_issue": null,
-    "source_type": "journal",
-    "source_url": "https://api.crossref.org",
-    "title": "Housing Supply Elasticities: A Structural Vector Autoregression Approach",
-    "title_zh": "住房供给弹性：结构向量自回归方法",
-    "translation_status": "abstract_translated",
-    "url": "https://doi.org/10.1002/jae.70073"
   },
   {
     "abstract": "A firm’s gross margin increases by 0.8 p.p.after forming a new direct board connection to a product market peer. Gross margin also rises by 0.4 p.p.after a connection is formed to a peer indirectly through a third intermediate firm. Further, using barcode-level data of 2.7 million products, we show that new board connections are related to higher consumer good prices, a greater tendency for market allocation, and slower new product introductions. The effects are stronger when the newly connected peers share corporate customers or have similar business descriptions and hold when controlling for other inter-firm relationships.",
