@@ -36,6 +36,7 @@ from common import (
     write_json,
 )
 from sources.uchicago_jle import verified_jle_abstract
+from sources.sciencedirect_jpub import verified_jpub_abstract
 from public_integrity import strong_identity_keys
 from status import load_status, now, record_source, save_status
 from sources.tandf_applied_economics import verified_applied_economics_abstract
@@ -1263,6 +1264,12 @@ def enrich_abstract_record(
                 changed = merge_abstract_only_fields(record, metadata) or changed
             if str(record.get("abstract") or "").strip():
                 return changed, "metadata-updated:elsevier-article-api"
+
+    if not str(record.get("abstract") or "").strip():
+        verified = verified_jpub_abstract(record, timeout)
+        if verified:
+            changed = merge_abstract_only_fields(record, verified) or changed
+            return changed, "metadata-updated:sciencedirect-jpub-official"
 
     if not str(record.get("abstract") or "").strip():
         verified = verified_springer_tax_abstract(record, timeout)
