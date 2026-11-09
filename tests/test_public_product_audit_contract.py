@@ -33,7 +33,9 @@ def test_public_product_audit_guards_live_qa_regressions() -> None:
 def test_public_product_audit_stays_on_existing_browser_smoke_lane() -> None:
     workflow = WORKFLOW.read_text(encoding="utf-8")
 
-    assert "runs-on: ubuntu-latest" in workflow
+    # The existing Browser Smoke lane must use a Playwright 1.55-supported OS,
+    # rather than an auto-upgraded ubuntu-latest that may become unsupported.
+    assert "runs-on: ubuntu-24.04" in workflow
     assert "playwright@1.55.0" in workflow
     assert "npx playwright install --with-deps chromium" in workflow
     assert "schedule:" not in workflow

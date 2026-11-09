@@ -33,7 +33,9 @@ jobs:
           - name: mobile
             viewport_width: 390
     if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
-    runs-on: ubuntu-latest
+    # Playwright 1.55.0 Chromium cannot install on the new ubuntu26.04 runner.
+    # Pin a supported image so smoke tests still exercise the real browsers.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
