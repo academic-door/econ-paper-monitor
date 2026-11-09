@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-11-09T18:58:40.803195+08:00",
+  "checked_at": "2026-11-09T20:15:50.960385+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -12,12 +12,12 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=27; 2026-11-09 NBER Working Papers: abstract-present; 2026-11-09 NBER Working Papers: abstract-present; 2026-11-09 NBER Working Papers: abstract-present; 2026-11-09 NBER Working Papers: abst",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
       "source": "publisher-detail"
     },
     {
-      "category": "page_structure_change",
-      "sample_error": "feeds=88/123; Canadian Journal of Agricultural Economics: 12 via official-generated; Australian Journal of Agricultural and Resource Economics: 58 via official-generated; Applied Economic Perspectives",
+      "category": "needs_investigation",
+      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 44 via official-generated; Journal of Finance: 44 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
       "source": "working-papers"
     }
   ],
@@ -40,8 +40,8 @@
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "NETWORK_FAILURE",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
         "openalex-recall"
