@@ -839,7 +839,12 @@ def jare_advance_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
             plain,
             flags=re.I,
         )
-        numeric_date = re.search(r"\b(\d{1,2}/\d{1,2}/20\d{2})\b", plain)
+        # Numeric date inference only belongs to the legacy h1 card shape.
+        # A modern h3 abstract may itself quote unrelated dates.
+        numeric_date = (
+            re.search(r"\b(\d{1,2}/\d{1,2}/20\d{2})\b", plain)
+            if match.group("level") == "1" else None
+        )
         published = parse_date(new_date.group(1)) if new_date else (
             parse_date(numeric_date.group(1)) if numeric_date else None
         )
