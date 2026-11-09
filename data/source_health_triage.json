@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 2
+    "needs_investigation": 1
   },
-  "checked_at": "2026-11-09T07:49:05.445895+08:00",
-  "source_health_degraded_count": 2,
+  "checked_at": "2026-11-09T08:06:00.549740+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,8 +11,8 @@
       "source": "cn-journals"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; Journal of Finance: 4; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 11; Economic Development and Cultural Change: 0;",
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Journal of Finance: 3; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 11; Economic Development and Cultural Change: 0;",
       "source": "crossref"
     },
     {
@@ -51,26 +51,11 @@
         "crossref",
         "openalex-recall"
       ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-economic-behavior-and-organization",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Economic Behavior and Organization",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
     }
   ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 2
+  "total_degraded": 1
 }
