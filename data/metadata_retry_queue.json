@@ -9,20 +9,37 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 76,
-    "weak_date_evidence": 495
+    "missing_abstract": 77,
+    "weak_date_evidence": 494
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 521,
+  "recent_candidates_before_limit": 522,
   "recent_window_start": "2026-10-11",
   "records": [
     {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
-      "authors": [],
-      "authors_status": "作者信息待核验",
-      "authors_status_code": "missing_retry",
+      "date_confidence": "A",
+      "doi": "10.1016/j.geb.2026.104075",
+      "first_seen": "2026-11-09T10:06:06+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.geb.2026.104075",
+      "journal": "Games and Economic Behavior",
+      "official_date": "2026-11-09",
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The Impact of Connectivity on the Production and Diffusion of Knowledge",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0899825626001715?dgcid=rss_sd_all"
+    },
+    {
       "date_confidence": "C",
       "detail_key": "tax-evasion-at-the-top-of-the-income-distribution-91046cbbe207",
       "doi": "10.1016/j.jpubeco.2026.105812",
@@ -15641,40 +15658,9 @@
       "source_type": "journal",
       "title": "Taxation with a Grain of Salt: The Long-Term Effect of Extractive Fiscal Institutions on Development",
       "url": "https://doi.org/10.1162/rest.a.1616"
-    },
-    {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
-      "authors": [],
-      "authors_status": "作者信息待核验",
-      "authors_status_code": "missing_retry",
-      "date_confidence": "C",
-      "detail_key": "estimating-substitution-patterns-and-demand-curvature-in-discrete-choice-models-of-produ-92b67e40702e",
-      "doi": "10.1162/rest_a_01463",
-      "first_seen": "2026-10-22T22:50:14+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1162/rest_a_01463",
-      "journal": "Review of Economics and Statistics",
-      "official_date": "2026-10-13",
-      "official_date_status": "available",
-      "priority": [
-        0,
-        1,
-        1,
-        27
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Estimating Substitution Patterns and Demand Curvature in Discrete-Choice Models of Product Differentiation",
-      "url": "https://doi.org/10.1162/rest_a_01463"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5525,
+  "total_candidates_before_limit": 5526,
   "truncated": true
 }
