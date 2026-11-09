@@ -113,3 +113,18 @@ def test_current_card_truncated_abstract_is_not_canonical():
     parsed = toc.jare_advance_blocks(teaser, "https://jareonline.org/preprint-online/")
     assert len(parsed) == 1
     assert parsed[0]["abstract"] is None
+
+
+def test_modern_article_body_numeric_date_is_not_publisher_online_date():
+    page = (
+        '<h3 class="elementor-heading-title">'
+        '<a href="https://ageconsearch.umn.edu/record/4002/files/preprint.pdf">'
+        'Modern Card Without Published Date</a></h3>'
+        '<div class="jare-abstract"><div id="jare-abs-4002">'
+        'This synthetic article discusses a policy adopted on 12/31/2026 '
+        'and examines long-run economic outcomes in several regions.'
+        '</div></div>'
+    )
+    records = toc.jare_advance_blocks(page, "https://jareonline.org/preprint-online/")
+    assert len(records) == 1
+    assert records[0]["published_online"] is None
