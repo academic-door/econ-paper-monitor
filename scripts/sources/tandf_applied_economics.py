@@ -17,6 +17,7 @@ from common import clean_abstract_text, normalize_doi
 
 
 APPLIED_ECONOMICS_EXACT = {
+    "10.1080/00036846.2026.2760527": "Quantity or quality? The impacts of carbon emission trading system on green technology innovation: evidence from a quasi-natural experiment conducted in China",
     "10.1080/00036846.2026.2756530": "Can policy-induced fair competition promote firm cooperative green innovation? Evidence from China’s Competition Review System",
     "10.1080/00036846.2026.2750978": "The macroeconomic effects of local government debt structure in China",
     "10.1080/00036846.2026.2758392": "The impact of government subsidies on labor income share: evidence from Chinese listed firms",
