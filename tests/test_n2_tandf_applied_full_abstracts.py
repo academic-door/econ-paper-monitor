@@ -1,4 +1,4 @@
-"""Nine exact official Applied Economics full abstracts: bounded fixtures."""
+"""Exactly scoped official Applied Economics full abstracts: bounded fixtures."""
 from __future__ import annotations
 
 import io
@@ -79,7 +79,7 @@ def record(doi: str, title: str) -> dict:
 
 class AppliedEconomicsFirstPartyTests(unittest.TestCase):
     @patch.object(tandf.urllib.request, "urlopen")
-    def test_nine_exact_articles_have_complete_abstracts(self, urlopen):
+    def test_allowlisted_exact_articles_have_complete_abstracts(self, urlopen):
         for doi, title in tandf.APPLIED_ECONOMICS_EXACT.items():
             with self.subTest(doi=doi):
                 url = f"https://www.tandfonline.com/doi/abs/{doi}"
@@ -89,7 +89,7 @@ class AppliedEconomicsFirstPartyTests(unittest.TestCase):
                 self.assertEqual(got["abstract_source"], "tandf_applied_economics_official:abstractId1")
                 self.assertEqual(urlopen.call_args.kwargs["timeout"], 8)
                 self.assertEqual(urlopen.call_args.args[0].full_url, url)
-        self.assertEqual(urlopen.call_count, 9)
+        self.assertEqual(urlopen.call_count, len(tandf.APPLIED_ECONOMICS_EXACT))
 
     @patch.object(tandf.urllib.request, "urlopen")
     def test_out_of_scope_source_is_never_fetched(self, urlopen):
