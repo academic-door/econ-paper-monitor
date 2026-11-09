@@ -91,3 +91,25 @@ def test_unknown_card_without_date_or_abstract_does_not_invent_fields():
     assert result[0]["published_online"] is None
     assert result[0]["authors"] == []
     assert result[0]["abstract"] is None
+
+
+def test_current_card_truncated_abstract_is_not_canonical():
+    teaser = current_card(
+        4001,
+        "A verified JARE preprint with a deliberately truncated preview",
+        "Source, Verified",
+        "September 15, 2026",
+    )
+    teaser = teaser.replace(
+        "The analysis reports implications for economic research and tax policy.",
+        "The analysis reports implications for economic research and tax policy...",
+    )
+    # The layout's CSS clamp does not justify storing a truncated preview.
+    # Test a literal ellipsis in the raw article's only visible text.
+    teaser = teaser.replace(
+        "and the robustness of the interpretation.",
+        "and the robustness...",
+    )
+    parsed = toc.jare_advance_blocks(teaser, "https://jareonline.org/preprint-online/")
+    assert len(parsed) == 1
+    assert parsed[0]["abstract"] is None
