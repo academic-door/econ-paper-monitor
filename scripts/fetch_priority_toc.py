@@ -802,10 +802,15 @@ def jare_rest_blocks(payload_text: str) -> list[dict[str, Any]]:
 
 
 def jare_advance_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
-    """Parse official JARE Published Online cards without fetching the PDF host."""
+    """Parse first-party JARE Published Online cards across official Elementor layouts.
+
+    The September-2026 cards use h3 headings, a screen-reader-only link suffix,
+    jare-by-w, jare-abs-N and "Published online Month DD, YYYY". Older h1 and
+    By:/numeric-date cards remain compatible. Never fetch Agecon PDFs here.
+    """
     pattern = re.compile(
-        r'<h1[^>]*class=["\'][^"\']*elementor-heading-title[^"\']*["\'][^>]*>\s*'
-        r'<a[^>]+href=["\'](?P<href>https?://ageconsearch\.umn\.edu/[^"\']+)["\'][^>]*>(?P<title>.*?)</a>\s*</h1>',
+        r'<h(?P<level>[1-6])\b[^>]*class=["\'][^"\']*elementor-heading-title[^"\']*["\'][^>]*>\s*'
+        r'<a[^>]+href=["\'](?P<href>https?://ageconsearch\.umn\.edu/[^"\']+)["\'][^>]*>(?P<title>.*?)</a>\s*</h(?P=level)>',
         flags=re.I | re.S,
     )
     matches = list(pattern.finditer(html_text))
@@ -814,26 +819,66 @@ def jare_advance_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
     for index, match in enumerate(matches):
         end = matches[index + 1].start() if index + 1 < len(matches) else len(html_text)
         context = html_text[match.start():end]
-        title = clean_text(match.group("title"))
+        # The new official card has an accessible helper span inside the link,
+        # not a title suffix. Never put "(opens in a new tab)" into identity.
+        title_html = re.sub(
+            r'<span\b[^>]*class=["\'][^"\']*\bjare-sr\b[^"\']*["\'][^>]*>.*?</span>',
+            "",
+            match.group("title"),
+            flags=re.I | re.S,
+        )
+        title = clean_text(title_html)
         url = urljoin(base_url, html.unescape(match.group("href")).strip())
         if not title or len(title) < 8 or url in seen:
             continue
         seen.add(url)
         plain = clean_text(context)
-        date_match = re.search(r"\b(\d{1,2}/\d{1,2}/20\d{2})\b", plain)
-        published = parse_date(date_match.group(1)) if date_match else None
-        authors: list[str] = []
-        if date_match:
-            author_match = re.search(r"\bBy:\s*(.+)$", plain[:date_match.start()].strip(), flags=re.I)
-            if author_match:
-                authors = [clean_text(author) for author in author_match.group(1).split(";")]
-                authors = [author for author in authors if author][:12]
-        abstract_match = re.search(
-            r"\bAbstract\b\s*(.+?)(?:\s+Download Full Article\b|$)",
+
+        new_date = re.search(
+            r"\bPublished\s+online\s+([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2})\b",
             plain,
+            flags=re.I,
+        )
+        numeric_date = re.search(r"\b(\d{1,2}/\d{1,2}/20\d{2})\b", plain)
+        published = parse_date(new_date.group(1)) if new_date else (
+            parse_date(numeric_date.group(1)) if numeric_date else None
+        )
+
+        authors: list[str] = []
+        byline_match = re.search(
+            r'class=["\'][^"\']*\bjare-by-w\b[^"\']*["\'][^>]*>.*?'
+            r'<div[^>]*class=["\'][^"\']*\belementor-widget-container\b[^"\']*["\'][^>]*>'
+            r'(?P<byline>.*?)</div>',
+            context,
             flags=re.I | re.S,
         )
-        abstract = clean_text(abstract_match.group(1)) if abstract_match else None
+        if byline_match:
+            raw_byline = re.sub(r"^\s*By\s*:?\s*", "", clean_text(byline_match.group("byline")), flags=re.I)
+            authors = [clean_text(part).lstrip(" ,;") for part in raw_byline.split(";")]
+        elif numeric_date:
+            old_byline = re.search(r"\bBy:\s*(.+)$", plain[:numeric_date.start()].strip(), flags=re.I)
+            if old_byline:
+                authors = [clean_text(part) for part in old_byline.group(1).split(";")]
+        authors = [person for person in authors if person][:12]
+
+        current_abstract = re.search(
+            r'<div\b[^>]*\bid=["\']jare-abs-\d+["\'][^>]*>(?P<abstract>.*?)</div>',
+            context,
+            flags=re.I | re.S,
+        )
+        abstract: str | None = None
+        if current_abstract:
+            verified = clean_text(current_abstract.group("abstract"))
+            if len(verified) >= 60 and not verified.endswith(("...", "…")):
+                abstract = verified
+        else:
+            old_abstract = re.search(
+                r"\bAbstract\b\s*(.+?)(?:\s+Download Full Article\b|$)",
+                plain,
+                flags=re.I | re.S,
+            )
+            abstract = clean_text(old_abstract.group(1)) if old_abstract else None
+
         blocks.append({
             "url": url,
             "title": title,
