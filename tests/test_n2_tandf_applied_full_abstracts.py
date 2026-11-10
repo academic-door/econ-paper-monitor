@@ -135,5 +135,41 @@ class AppliedEconomicsFirstPartyTests(unittest.TestCase):
             self.assertEqual(entry[field], old_value)
 
 
+    def test_three_new_source_verified_dois_have_exact_titles(self):
+        expected = {
+            "10.1080/00036846.2026.2761031": "Fiscal innovation subsidies, factor allocation, and SME export performance: evidence from China’s innovation fund for technology-based SMEs",
+            "10.1080/00036846.2026.2743846": "The determinants of young people’s access to a significant job in Spain",
+            "10.1080/00036846.2026.2761046": "Can climate policy uncertainty reduce corporate cost stickiness?",
+        }
+        for doi, title in expected.items():
+            self.assertEqual(tandf.APPLIED_ECONOMICS_EXACT.get(doi), title)
+
+    @patch("builtins.print")
+    @patch.object(tandf.urllib.request, "urlopen")
+    def test_hosted_http_block_reports_only_bounded_outcome(self, urlopen, printed):
+        doi, title = next(iter(tandf.APPLIED_ECONOMICS_EXACT.items()))
+        urlopen.side_effect = tandf.urllib.error.HTTPError(
+            f"https://www.tandfonline.com/doi/abs/{doi}", 403, "Forbidden", None, None
+        )
+        self.assertEqual(tandf.verified_applied_economics_abstract(record(doi, title), 8), {})
+        printed.assert_called_once_with(
+            f"TANDF_FIRST_PARTY_ABSTRACT doi={doi} outcome=HTTP_403"
+        )
+        self.assertNotIn("Forbidden", str(printed.call_args))
+
+    @patch("builtins.print")
+    @patch.object(tandf.urllib.request, "urlopen")
+    def test_hosted_missing_named_abstract_is_explicit_failure(self, urlopen, printed):
+        doi, title = next(iter(tandf.APPLIED_ECONOMICS_EXACT.items()))
+        url = f"https://www.tandfonline.com/doi/abs/{doi}"
+        urlopen.return_value = FakeResponse(
+            html_fixture(doi, title, heading="INTRODUCTION"), url
+        )
+        self.assertEqual(tandf.verified_applied_economics_abstract(record(doi, title), 8), {})
+        printed.assert_called_once_with(
+            f"TANDF_FIRST_PARTY_ABSTRACT doi={doi} outcome=NAMED_ABSTRACT_MISSING"
+        )
+
+
 if __name__ == "__main__":
     unittest.main()
