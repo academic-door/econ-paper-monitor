@@ -99,5 +99,5 @@ def test_full_run_has_bounded_separate_publisher_step_and_durable_raw_file():
     assert "--journal journal-of-agricultural-and-resource-economics" in focused
     assert '"priority-toc:jare"' in focused
     assert 'data/raw/priority-toc-jare/' in focused
-    assert '"publisher_ok"' not in focused or "publisher_ok" in focused
+    assert "consult per-journal publisher_ok" in focused
     assert "HOSTED_CHECK_INCOMPLETE" in focused
