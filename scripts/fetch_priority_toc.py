@@ -370,6 +370,13 @@ def fetch_one(url: str, timeout: int) -> str:
                 payload = response.read()
                 charset = response.headers.get_content_charset() or "utf-8"
         except Exception:
+            # JARE first-party transport must never downgrade TLS verification
+            # when its REST or official HTML host is unavailable on CI.
+            # Preserve other legacy publisher adapter behavior in this patch.
+            if (urllib.parse.urlsplit(url).hostname or "").casefold() in {
+                "jareonline.org", "www.jareonline.org"
+            }:
+                raise
             context = ssl._create_unverified_context()
             with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
                 payload = response.read()
