@@ -5,7 +5,11 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+from unittest import mock
+from urllib.error import URLError
+
 import audit_source_health
+import fetch_priority_toc as toc
 
 
 JARE = "journal-of-agricultural-and-resource-economics"
@@ -101,3 +105,16 @@ def test_full_run_has_bounded_separate_publisher_step_and_durable_raw_file():
     assert 'data/raw/priority-toc-jare/' in focused
     assert "consult per-journal publisher_ok" in focused
     assert "HOSTED_CHECK_INCOMPLETE" in focused
+
+
+def test_jare_official_source_never_falls_back_to_unverified_tls():
+    with mock.patch.object(toc.urllib.request, "urlopen", side_effect=URLError("TLS error")) as open_url:
+        with mock.patch.object(toc.ssl, "_create_unverified_context") as unsafe:
+            try:
+                toc.fetch_one("https://jareonline.org/preprint-online/", timeout=6)
+            except toc.PublisherTransportError as error:
+                assert error.outcome == "NETWORK_FAILURE"
+            else:
+                raise AssertionError("a failed strict TLS request must not be accepted")
+            assert open_url.call_count == 1
+            unsafe.assert_not_called()
