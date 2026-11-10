@@ -1,19 +1,14 @@
 {
   "categories": {
-    "needs_investigation": 10
+    "needs_investigation": 6
   },
-  "checked_at": "2026-11-10T13:50:25.465035+08:00",
-  "source_health_degraded_count": 10,
+  "checked_at": "2026-11-10T15:02:44.393170+08:00",
+  "source_health_degraded_count": 6,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "partial_success failures=7; Journal of Finance: error TimeoutError: The read operation timed out; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 1",
-      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -42,21 +37,6 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "american-economic-review",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
-      "source": "American Economic Review",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "aea-toc",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Journal of Agricultural and Resource Economics",
@@ -64,21 +44,6 @@
       "status_source": null,
       "usable_paths": [
         "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-economic-behavior-and-organization",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Economic Behavior and Organization",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
         "openalex-recall"
       ]
     },
@@ -102,26 +67,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-finance",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Finance",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "journal-of-the-association-of-environmental-and-resource-economists",
       "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
       "source": "Journal of the Association of Environmental and Resource Economists",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "openalex-recall"
       ]
@@ -134,8 +84,8 @@
       "journal_id": "quantitative-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Quantitative Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -161,21 +111,6 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "the-world-economy",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "The World Economy",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "theoretical-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Theoretical Economics",
@@ -189,7 +124,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
-  "total_degraded": 10
+  "total_degraded": 6
 }
