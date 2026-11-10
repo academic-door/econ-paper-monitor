@@ -1,14 +1,19 @@
 {
   "categories": {
-    "needs_investigation": 3
+    "needs_investigation": 5
   },
-  "checked_at": "2026-11-10T09:58:35.534322+08:00",
-  "source_health_degraded_count": 3,
+  "checked_at": "2026-11-10T11:19:16.554847+08:00",
+  "source_health_degraded_count": 5,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "partial_success failures=2; Journal of Finance: 4; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 11; Economic Development and Cultural Change: 0;",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -37,6 +42,36 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "american-economic-review-insights",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Review: Insights",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "aea-toc",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "games-and-economic-behavior",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Games and Economic Behavior",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Journal of Agricultural and Resource Economics",
@@ -55,8 +90,8 @@
       "journal_id": "quantitative-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Quantitative Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "needs_investigation",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -80,7 +115,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
-  "total_degraded": 3
+  "total_degraded": 5
 }
