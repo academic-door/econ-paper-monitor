@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 3
   },
-  "checked_at": "2026-11-11T01:02:31.441697+08:00",
+  "checked_at": "2026-11-11T01:51:45.975258+08:00",
   "source_health_degraded_count": 3,
   "source_status_failures": [
     {
@@ -11,9 +11,19 @@
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Agricultural Economics: 6; Journal of the Association of Environmental and Resource Economists: 15; Land Economics: 7; Land Use Policy: 40; European Review of Agricultural ",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
       "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
       "source": "priority-toc:jare"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
+      "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
@@ -40,8 +50,8 @@
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "NETWORK_FAILURE",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "needs_investigation",
-      "status_source": "priority-toc:jare",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -80,7 +90,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 7
   },
   "total_degraded": 3
 }
