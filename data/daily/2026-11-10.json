@@ -3,6 +3,7 @@
     "_raw_file": "data/raw/crossref-priority/2026-11-10.json",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -16,7 +17,7 @@
     "available_online": "2026-11-10",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "beyond-generations-old-age-allowance-and-girls-educational-investment-in-nepal-24ab65446e86",
     "detected_at": "2026-11-10T05:40:11+00:00",
     "doi": "10.1016/j.worlddev.2026.107617",
@@ -40,7 +41,19 @@
     "published_online": "2026-11-10",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-11-10",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-11-10",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
