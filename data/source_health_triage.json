@@ -1,13 +1,13 @@
 {
   "categories": {
-    "needs_investigation": 4
+    "needs_investigation": 3
   },
-  "checked_at": "2026-11-10T21:55:47.181752+08:00",
-  "source_health_degraded_count": 4,
+  "checked_at": "2026-11-10T23:16:30.580735+08:00",
+  "source_health_degraded_count": 3,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 6; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 6; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -21,8 +21,8 @@
       "source": "publisher-detail"
     },
     {
-      "category": "transient_network",
-      "sample_error": "feeds=33/46; Journal of International Economics: 44 via official-generated; Journal of Finance: 44 via official-generated; Journal of Financial Economics: 32 via official-generated; Review of Financia",
+      "category": "needs_investigation",
+      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 44 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -47,21 +47,6 @@
       "source": "Journal of Agricultural and Resource Economics",
       "status_category": "needs_investigation",
       "status_source": "priority-toc:jare",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "land-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Land Economics",
-      "status_category": "transient_network",
-      "status_source": "rss",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -102,5 +87,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 4
+  "total_degraded": 3
 }
