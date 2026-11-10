@@ -151,6 +151,21 @@ def specialized_paths(
         ("priority-toc", "priority-toc", PRIORITY_TOC_JOURNALS),
     ):
         entry = sources.get(source_id) or {}
+        if source_id == "priority-toc" and journal_id == "journal-of-agricultural-and-resource-economics":
+            # The broad priority publisher batch may hit its global wall
+            # timeout before recording *any* new per-journal results. Read the
+            # latest separate JARE first-party source check, but never let an
+            # older success mask a newer failure (or the reverse).
+            dedicated = sources.get("priority-toc:jare") or {}
+            dedicated_rows = dedicated.get("journals") or {}
+            dedicated_age = status_age_days(dedicated.get("updated_at"), now)
+            broad_age = status_age_days(entry.get("updated_at"), now)
+            if (
+                isinstance(dedicated_rows.get(journal_id), dict)
+                and dedicated_age is not None
+                and (broad_age is None or dedicated_age <= broad_age)
+            ):
+                entry = dedicated
         per_journal = (entry.get("journals") or {}).get(journal_id)
         checked_fresh = status_age_days(entry.get("updated_at"), now) is not None and status_age_days(entry.get("updated_at"), now) <= max_age
         journal_fresh = (

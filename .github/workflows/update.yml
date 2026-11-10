@@ -162,6 +162,41 @@ jobs:
           else
             echo "::warning::JFQA accepted-manuscript source timed out or failed; broad RSS/Crossref paths remain available."
           fi
+      # JARE's official REST/HTML source must not be held hostage by the
+      # broad priority-TOC batch's recurring 8-minute wall timeout. One
+      # source-scoped FULL pass also persists a current publisher outcome for
+      # the subsequent formal source-health audit. Existing global batch stays.
+      - name: Fetch JARE official Published Online (bounded)
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        shell: bash
+        run: |
+          mkdir -p data/raw/priority-toc-jare
+          if timeout 75s python scripts/fetch_priority_toc.py \
+            --journal journal-of-agricultural-and-resource-economics \
+            --output "data/raw/priority-toc-jare/${MONITOR_RUN_DATE}.json" \
+            --status-key "priority-toc:jare" \
+            --workers 1 --timeout 6 --detail-limit 0 --max-items-per-source 40; then
+            echo "JARE official source checked; consult per-journal publisher_ok for the outcome."
+          else
+            # An outer timeout or unexpected exit did not publish a source result.
+            # Record this as *failed* rather than retaining an old healthy check.
+            python - <<'PY'
+          import sys
+          sys.path.insert(0, "scripts")
+          from status import record_source
+          record_source(
+              "priority-toc:jare", ok=False, count=0,
+              message="HOSTED_CHECK_INCOMPLETE: JARE dedicated source step failed or timed out",
+              details={"journals": {
+                  "journal-of-agricultural-and-resource-economics": {
+                      "ok": False, "publisher_ok": False, "count": 0,
+                      "fallback_count": 0, "outcomes": ["HOSTED_CHECK_INCOMPLETE"],
+                  }
+              }, "partial_failures": 1},
+          )
+          PY
+            echo "::warning::JARE official source check incomplete; preserving fallback and degraded source health."
+          fi
       - name: Fetch priority publisher TOCs
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         shell: bash
