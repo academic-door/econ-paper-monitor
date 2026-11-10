@@ -27,6 +27,9 @@ APPLIED_ECONOMICS_EXACT = {
     "10.1080/00036846.2026.2760522": "Executives with environmental backgrounds and corporate greenwashing: evidence from Chinese listed firms",
     "10.1080/00036846.2026.2757187": "Digital finance and economic green development",
     "10.1080/00036846.2026.2756531": "Regional divergence in energy transition under the joint constraints of green finance development and climate policy uncertainty",
+    "10.1080/00036846.2026.2761031": "Fiscal innovation subsidies, factor allocation, and SME export performance: evidence from China’s innovation fund for technology-based SMEs",
+    "10.1080/00036846.2026.2743846": "The determinants of young people’s access to a significant job in Spain",
+    "10.1080/00036846.2026.2761046": "Can climate policy uncertainty reduce corporate cost stickiness?",
 }
 
 
@@ -95,31 +98,50 @@ def verified_applied_economics_abstract(record: dict[str, Any], timeout: int) ->
             "Accept": "text/html",
         },
     )
+    def outcome(code: str) -> None:
+        # Public exact DOI and an operational outcome only: no publisher HTML,
+        # abstract text, access tokens, cookies, or exception bodies in logs.
+        print(f"TANDF_FIRST_PARTY_ABSTRACT doi={doi} outcome={code}")
+
     try:
         with urllib.request.urlopen(request, timeout=min(max(int(timeout), 1), 8)) as response:
             if response.status != 200 or response.headers.get_content_type() != "text/html":
+                outcome("NON_HTML_OR_NON_200")
                 return {}
             parsed_url = urllib.parse.urlsplit(response.geturl())
             if parsed_url.scheme != "https" or parsed_url.hostname not in {
                 "www.tandfonline.com", "tandfonline.com"
             }:
+                outcome("NON_PUBLISHER_REDIRECT")
                 return {}
             data = response.read(1_048_577)
+    except urllib.error.HTTPError as exc:
+        outcome(f"HTTP_{exc.code}")
+        return {}
     except (OSError, TimeoutError, urllib.error.URLError):
+        outcome("NETWORK_FAILURE")
         return {}
     if len(data) > 1_048_576:
+        outcome("RESPONSE_TOO_LARGE")
         return {}
 
     html = data.decode("utf-8", errors="replace")
     if doi not in html.casefold():
+        outcome("DOI_MISMATCH")
         return {}
     parsed = _OfficialAbstract()
     parsed.feed(html)
-    if parsed.citation_title.strip().casefold() != expected.casefold() or not parsed.paragraph_done:
+    if parsed.citation_title.strip().casefold() != expected.casefold():
+        outcome("TITLE_MISMATCH")
+        return {}
+    if not parsed.paragraph_done:
+        outcome("NAMED_ABSTRACT_MISSING")
         return {}
     abstract = clean_abstract_text("".join(parsed.paragraph_parts))
     if not (180 <= len(abstract) <= 12_000) or abstract.endswith(("...", "…", "[…]", "[...]")):
+        outcome("ABSTRACT_PREVIEW_OR_INVALID")
         return {}
+    outcome("SUCCESS")
     return {
         "abstract": abstract,
         "abstract_source": "tandf_applied_economics_official:abstractId1",
