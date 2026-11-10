@@ -54,26 +54,26 @@
   "date_confidence": {
     "A": 6153,
     "B": 64,
-    "C": 2869,
+    "C": 2867,
     "D": 552,
     "F": 571
   },
   "date_source_top": {
     "aea_current_issue": 62,
     "cepr_published_time": 39,
-    "cnki_rss_pubdate": 320,
-    "crossref_doi_created": 21,
-    "crossref_doi_elsevier_created_online": 617,
-    "crossref_doi_published": 65,
-    "crossref_doi_published_online": 301,
-    "crossref_elsevier_created_online": 777,
+    "cnki_rss_pubdate": 319,
+    "crossref_doi_elsevier_created_online": 622,
+    "crossref_doi_published": 64,
+    "crossref_doi_published_online": 302,
+    "crossref_elsevier_created_online": 775,
     "crossref_issue": 71,
-    "crossref_published_online": 610,
+    "crossref_published_online": 606,
     "iza_detail_month": 62,
     "nep_issue_date": 406,
-    "openalex+crossref_crossvalidated": 414,
-    "openalex_publication_date": 52,
+    "openalex+crossref_crossvalidated": 417,
+    "openalex_publication_date": 48,
     "publisher_detail": 1224,
+    "publisher_meta:citation_online_date": 22,
     "publisher_published_online": 119,
     "rss_description_online": 1194,
     "rss_published": 3146,
@@ -1618,10 +1618,10 @@
       },
       {
         "date": "2026-11-10",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
         "journal": "Economics Letters",
-        "official_date": "2026-11-09",
+        "official_date": "2026-11-10",
         "source_issue": null,
         "title": "Centrality crowding in asset prices: A limited-attention network model",
         "url": "https://www.sciencedirect.com/science/article/pii/S0165176526005306?dgcid=api_sd_search-api-endpoint"
@@ -2100,8 +2100,30 @@
   },
   "risk_signals": {
     "cnki_rss_today": [],
-    "crossref_created_today": [],
-    "crossref_fallback_today": []
+    "crossref_created_today": [
+      {
+        "date": "2026-11-10",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
+        "journal": "Economics Letters",
+        "official_date": "2026-11-10",
+        "source_issue": null,
+        "title": "Centrality crowding in asset prices: A limited-attention network model",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0165176526005306?dgcid=api_sd_search-api-endpoint"
+      }
+    ],
+    "crossref_fallback_today": [
+      {
+        "date": "2026-11-10",
+        "date_confidence": "C",
+        "date_source": "crossref_doi_elsevier_created_online",
+        "journal": "Economics Letters",
+        "official_date": "2026-11-10",
+        "source_issue": null,
+        "title": "Centrality crowding in asset prices: A limited-attention network model",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0165176526005306?dgcid=api_sd_search-api-endpoint"
+      }
+    ]
   },
   "source_top": {
     "aea_toc": 164,
@@ -2119,8 +2141,8 @@
     "china_candidates": 268,
     "china_related_public": 1633,
     "cnki_rss_today": 0,
-    "crossref_created_today": 0,
-    "crossref_fallback_today": 0,
+    "crossref_created_today": 1,
+    "crossref_fallback_today": 1,
     "duplicates_by_url_or_doi": 0,
     "future_official_date_in_bucket": 0,
     "historical_records_in_bucket": 76,
