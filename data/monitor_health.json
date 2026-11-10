@@ -7,24 +7,24 @@
     "external_sentinel_out_of_scope_references": 2,
     "formal_journal_missing": 0,
     "formal_journals": 106,
-    "missing_abstract_today": 1,
+    "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 12153,
+    "seen": 12157,
     "source_crossref_only": 0,
-    "source_degraded": 10,
-    "source_healthy": 94,
-    "today": 4
+    "source_degraded": 3,
+    "source_healthy": 100,
+    "today": 9
   },
   "date": "2026-11-10",
   "failures": [],
-  "generated_at": "2026-11-10T10:18:08+00:00",
+  "generated_at": "2026-11-10T11:16:03+00:00",
   "local_cnki": {
-    "age_hours": 6.09,
+    "age_hours": 1.05,
     "count": 97,
     "fresh": true,
     "freshness_code": "fresh",
-    "last_success_at": "2026-11-10T04:12:51+00:00",
+    "last_success_at": "2026-11-10T10:13:10+00:00",
     "ok": true,
     "source_health": {
       "failed_sources": 0,
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-11-10T10:17:01+00:00",
+    "checked_at": "2026-11-10T11:11:41+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -84,6 +84,7 @@
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
           "publisher": "The University of Chicago Press",
           "usable_paths": [
+            "crossref",
             "openalex-recall"
           ]
         },
@@ -110,24 +111,6 @@
       ],
       "single_path_degraded": [
         {
-          "journal": "European Economic Review",
-          "journal_id": "european-economic-review",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of Economic Theory",
-          "journal_id": "journal-of-economic-theory",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Theoretical Economics",
           "journal_id": "theoretical-economics",
           "next_action": "add or verify an independent fallback path",
@@ -137,55 +120,11 @@
           ]
         },
         {
-          "journal": "RAND Journal of Economics",
-          "journal_id": "rand-journal-of-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of Economic Behavior and Organization",
-          "journal_id": "journal-of-economic-behavior-and-organization",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of Public Economics",
-          "journal_id": "journal-of-public-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of Development Economics",
-          "journal_id": "journal-of-development-economics",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "rss",
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Quantitative Economics",
           "journal_id": "quantitative-economics",
           "next_action": "add or verify an independent fallback path",
           "usable_paths": [
             "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
-          "journal": "Journal of the Association of Environmental and Resource Economists",
-          "journal_id": "journal-of-the-association-of-environmental-and-resource-economists",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
             "openalex-recall"
           ]
         },
@@ -205,10 +144,6 @@
     {
       "code": "formal_sources_crossref_plus_recall",
       "count": 6
-    },
-    {
-      "code": "missing_abstract_today",
-      "count": 1
     }
   ]
 }
