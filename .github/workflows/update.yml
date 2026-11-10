@@ -181,7 +181,9 @@ jobs:
             # An outer timeout or unexpected exit did not publish a source result.
             # Record this as *failed* rather than retaining an old healthy check.
             python - <<'PY'
-          from scripts.status import record_source
+          import sys
+          sys.path.insert(0, "scripts")
+          from status import record_source
           record_source(
               "priority-toc:jare", ok=False, count=0,
               message="HOSTED_CHECK_INCOMPLETE: JARE dedicated source step failed or timed out",
