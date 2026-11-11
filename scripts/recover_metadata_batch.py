@@ -820,7 +820,7 @@ def apply_recovery(
                 continue
             if is_preview and (
                 len(abstract) < len(prior_abstract) + 80
-                or re.search(r"(?:\\.{3,}|…+)\\s*$", abstract)
+                or re.search(r"(?:\.{3,}|…+)\s*$", abstract)
                 or "preview of subscription content" in abstract.casefold()
             ):
                 # Keep the honest preview unless the DOI-indexed source
