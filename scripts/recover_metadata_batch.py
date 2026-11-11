@@ -767,9 +767,12 @@ def recovered_field_provider(
 ) -> str:
     """Attribute applied fields, never raw provider response availability."""
     if field == "abstract":
+        # A preview may reject one provider's excerpt and accept another's
+        # longer body: attribute the actual saved text, not the first reply.
+        saved = clean_abstract_text(record.get("abstract"))
         for name in ("openalex", "crossref", "semantic-scholar", "elsevier"):
             value = clean_abstract_text((providers.get(name) or {}).get("abstract"))
-            if not is_placeholder_abstract(value):
+            if saved and value == saved:
                 return name
     if field == "authors":
         for name in ("openalex", "crossref", "semantic-scholar"):
