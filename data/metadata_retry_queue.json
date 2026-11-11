@@ -1,7 +1,8 @@
 {
   "expected_metadata_gap_counts": {
     "abstract:book_review": 4,
-    "abstract:correction_notice": 2
+    "abstract:correction_notice": 2,
+    "abstract:special_issue_introduction": 1
   },
   "generated_for": "2026-11-11",
   "historical_backfill_candidates": 0,
@@ -11,7 +12,7 @@
     "weak_date_evidence": 496
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 527,
+  "recent_candidates_before_limit": 528,
   "recent_window_start": "2026-10-13",
   "records": [
     {
@@ -1833,6 +1834,32 @@
       "source_type": "journal",
       "title": "Firm Heterogeneity and the Impact of Immigration: Evidence from German Establishments",
       "url": "https://doi.org/10.1086/744485"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.jdeveco.2026.103965",
+      "expected_metadata_gaps": {
+        "abstract": "special_issue_introduction"
+      },
+      "first_seen": "2026-11-11T00:51:59+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jdeveco.2026.103965",
+      "journal": "Journal of Development Economics",
+      "official_date": "2026-11-11",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Introduction to Special Issue: Integrating Earth Observation into Impact Studies in Agriculture and Climate Change",
+      "url": "https://doi.org/10.1016/j.jdeveco.2026.103965"
     },
     {
       "date_confidence": "D",
@@ -11580,32 +11607,9 @@
       "source_type": "journal",
       "title": "Auditing post-disaster recovery as land-use governance: Public investment after the 2024 floods in the Valencian Region, Spain",
       "url": "https://doi.org/10.1016/j.landusepol.2026.108371"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.landusepol.2026.108374",
-      "first_seen": "2026-10-14T04:33:53+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.landusepol.2026.108374",
-      "journal": "Land Use Policy",
-      "official_date": "2026-10-14",
-      "priority": [
-        0,
-        1,
-        1,
-        28
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "From rules to learning: A GIS-integrated agent-based reinforcement learning framework for simulating farmers’ land-use decisions and sustainable policy design",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004588?dgcid=api_sd_search-api-endpoint"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5553,
+  "total_candidates_before_limit": 5554,
   "truncated": true
 }
