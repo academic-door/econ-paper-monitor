@@ -118,6 +118,34 @@ def record_needs_abstract(record: dict[str, Any]) -> bool:
     )
 
 
+def doi_for_recovery(record: dict[str, Any]) -> str | None:
+    """Lookup-only DOI in two publisher RSS URL families; never mutate identity."""
+    explicit = normalize_doi(record.get("doi"))
+    if explicit:
+        return explicit
+    for field in ("url", "source_url"):
+        raw_url = str(record.get(field) or "")
+        if not raw_url or len(raw_url) > 2048:
+            continue
+        parts = urllib.parse.urlsplit(raw_url)
+        # These RSS families commonly omit the DOI field while the publisher
+        # link already embeds the authoritative DOI.
+        if (parts.hostname or "").casefold() not in {
+            "pubsonline.informs.org",
+            "www.tandfonline.com",
+            "tandfonline.com",
+        }:
+            continue
+        match = re.fullmatch(
+            r"/doi/(?:abs|full|pdf|epdf)/(10\.\d{4,9}/.+)",
+            urllib.parse.unquote(parts.path),
+            flags=re.IGNORECASE,
+        )
+        if match:
+            return normalize_doi(match.group(1))
+    return None
+
+
 def record_needs_authors(record: dict[str, Any]) -> bool:
     authors = record.get("authors")
     if not authors:
@@ -234,7 +262,7 @@ def load_daily_candidates(
         for record in payload:
             if not isinstance(record, dict):
                 continue
-            doi = normalize_doi(record.get("doi"))
+            doi = doi_for_recovery(record)
             if not doi:
                 continue
             records_by_doi[doi].append((path, record))
