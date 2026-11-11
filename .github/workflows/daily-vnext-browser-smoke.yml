@@ -49,8 +49,10 @@ jobs:
           node-version: 22
       - name: Install Playwright
         run: npm install --no-save --no-package-lock playwright@1.55.0
+      # Avoid intermittent GitHub Ubuntu mirror DNS failures during apt install.
+      # The browser smoke itself still verifies that Chromium can launch.
       - name: Install Chromium
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install chromium
       - name: Generate local site fixtures
         if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
         shell: bash
