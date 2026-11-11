@@ -110,7 +110,12 @@ def is_placeholder_abstract(value: Any) -> bool:
 
 
 def record_needs_abstract(record: dict[str, Any]) -> bool:
-    return is_placeholder_abstract(record.get("abstract"))
+    """Empty abstracts and explicitly marked previews are recovery candidates."""
+    return (
+        is_placeholder_abstract(record.get("abstract"))
+        or str(record.get("abstract_completeness") or "").casefold() == "preview"
+        or record.get("abstract_truncated") is True
+    )
 
 
 def record_needs_authors(record: dict[str, Any]) -> bool:
@@ -798,6 +803,11 @@ def apply_recovery(
         and str(record.get("abstract") or "").strip()
     )
 
+    prior_abstract = clean_abstract_text(record.get("abstract"))
+    is_preview = bool(prior_abstract) and (
+        str(record.get("abstract_completeness") or "").casefold() == "preview"
+        or record.get("abstract_truncated") is True
+    )
     if needs_abs and not manual_abstract:
         for source, metadata in (
             ("openalex", providers.get("openalex", {})),
@@ -807,6 +817,14 @@ def apply_recovery(
         ):
             abstract = clean_abstract_text(metadata.get("abstract"))
             if is_placeholder_abstract(abstract):
+                continue
+            if is_preview and (
+                len(abstract) < len(prior_abstract) + 80
+                or re.search(r"(?:\\.{3,}|…+)\\s*$", abstract)
+                or "preview of subscription content" in abstract.casefold()
+            ):
+                # Keep the honest preview unless the DOI-indexed source
+                # supplies a substantially longer, non-truncated abstract.
                 continue
             record["abstract"] = abstract
             record["abstract_source"] = metadata.get("abstract_source", source)
