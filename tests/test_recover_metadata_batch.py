@@ -1179,3 +1179,61 @@ def test_preview_abstract_recovery_requires_genuinely_longer_indexed_text(tmp_pa
     assert recover_metadata_batch.recovered_field_provider(
         "abstract", alternate, providers
     ) == "crossref"
+
+
+def test_doi_from_informs_and_tandf_rss_url_is_lookup_only(tmp_path: Path) -> None:
+    """Missing DOI field must not hide a DOI already in the publisher RSS URL."""
+    records = [
+        sample_record(
+            doi=None,
+            url="https://pubsonline.informs.org/doi/abs/10.1287/mnsc.2023.04026?af=R",
+            detail_key="informs-record-a",
+            authors=["Original Author"],
+            date_confidence="A",
+        ),
+        sample_record(
+            doi=None,
+            url="https://www.tandfonline.com/doi/full/10.1080/00036846.2025.2514091?af=R",
+            detail_key="tandf-record-b",
+            authors=["Original Author"],
+            date_confidence="A",
+        ),
+        sample_record(
+            doi=None,
+            url="https://untrusted.example/doi/abs/10.1287/mnsc.2023.04026",
+            detail_key="external-record-c",
+            authors=["Original Author"],
+            date_confidence="A",
+        ),
+    ]
+    write_json(tmp_path / "2026-08-29.json", records)
+    selected, by_doi, _ = load_daily_candidates(
+        tmp_path, limit=10, recent_days=0
+    )
+    assert len(selected) == 2
+    assert set(by_doi) == {
+        "10.1287/mnsc.2023.04026",
+        "10.1080/00036846.2025.2514091",
+    }
+    assert all(record["doi"] is None for record in records)
+
+    # The same canonical detail identity can be updated in seen.json without
+    # assigning a new DOI, changing URL, or moving first discovery.
+    example = records[0]
+    full = (
+        "This study uses original data to identify demand heterogeneity and "
+        "estimates a new model of pricing across competitive markets. "
+        "The empirical findings are robust to alternative estimation methods."
+    )
+    seen_record = dict(example)
+    seen_payload = {"papers": {"url-identity-a": seen_record}}
+    providers = {"10.1287/mnsc.2023.04026": {"openalex": {"abstract": full}}}
+    changed, count = recover_metadata_batch.update_seen_records(
+        seen_payload, by_doi, providers
+    )
+    assert changed
+    assert count == 1
+    assert seen_record["abstract"] == full
+    assert seen_record["doi"] is None
+    assert seen_record["url"] == example["url"]
+    assert seen_record["first_seen"] == example["first_seen"]
