@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 3
   },
-  "checked_at": "2026-11-11T14:00:04.768607+08:00",
+  "checked_at": "2026-11-11T14:21:52.315579+08:00",
   "source_health_degraded_count": 3,
   "source_status_failures": [
     {
@@ -31,13 +31,8 @@
       "source": "working-paper:cepr-dp"
     },
     {
-      "category": "transient_network",
-      "sample_error": "URLError: <urlopen error timed out>",
-      "source": "working-paper:iza"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "partial_success failures=2; nber: 12 via specialized-api; iza: URLError: <urlopen error timed out>; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEP",
+      "category": "needs_investigation",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
       "source": "working-papers"
     }
   ],
@@ -90,7 +85,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 7
+    "degraded_source_failures": 6
   },
   "total_degraded": 3
 }
