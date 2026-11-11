@@ -37,5 +37,6 @@ def test_public_product_audit_stays_on_existing_browser_smoke_lane() -> None:
     # rather than an auto-upgraded ubuntu-latest that may become unsupported.
     assert "runs-on: ubuntu-24.04" in workflow
     assert "playwright@1.55.0" in workflow
-    assert "npx playwright install --with-deps chromium" in workflow
+    assert "npx playwright install chromium" in workflow
+    assert "npx playwright install --with-deps chromium" not in workflow
     assert "schedule:" not in workflow
