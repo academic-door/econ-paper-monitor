@@ -1159,3 +1159,23 @@ def test_preview_abstract_recovery_requires_genuinely_longer_indexed_text(tmp_pa
     assert not changed
     assert not fields
     assert untouched["abstract"] == preview
+
+
+    # Correct provenance when the first provider offers only another excerpt.
+    alternate = sample_record(
+        abstract=preview,
+        abstract_completeness="preview",
+        authors=["Original Author"],
+        date_confidence="A",
+    )
+    providers = {
+        "openalex": {"abstract": preview + " Brief note."},
+        "crossref": {"abstract": full},
+    }
+    changed, fields = apply_recovery(alternate, providers)
+    assert changed
+    assert fields == ["abstract"]
+    assert alternate["abstract_source"] == "crossref"
+    assert recover_metadata_batch.recovered_field_provider(
+        "abstract", alternate, providers
+    ) == "crossref"
