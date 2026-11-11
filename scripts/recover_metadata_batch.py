@@ -110,7 +110,40 @@ def is_placeholder_abstract(value: Any) -> bool:
 
 
 def record_needs_abstract(record: dict[str, Any]) -> bool:
-    return is_placeholder_abstract(record.get("abstract"))
+    """Empty abstracts and explicitly marked previews are recovery candidates."""
+    return (
+        is_placeholder_abstract(record.get("abstract"))
+        or str(record.get("abstract_completeness") or "").casefold() == "preview"
+        or record.get("abstract_truncated") is True
+    )
+
+
+def doi_for_recovery(record: dict[str, Any]) -> str | None:
+    """Lookup-only DOI in two publisher RSS URL families; never mutate identity."""
+    explicit = normalize_doi(record.get("doi"))
+    if explicit:
+        return explicit
+    for field in ("url", "source_url"):
+        raw_url = str(record.get(field) or "")
+        if not raw_url or len(raw_url) > 2048:
+            continue
+        parts = urllib.parse.urlsplit(raw_url)
+        # These RSS families commonly omit the DOI field while the publisher
+        # link already embeds the authoritative DOI.
+        if (parts.hostname or "").casefold() not in {
+            "pubsonline.informs.org",
+            "www.tandfonline.com",
+            "tandfonline.com",
+        }:
+            continue
+        match = re.fullmatch(
+            r"/doi/(?:abs|full|pdf|epdf)/(10\.\d{4,9}/.+)",
+            urllib.parse.unquote(parts.path),
+            flags=re.IGNORECASE,
+        )
+        if match:
+            return normalize_doi(match.group(1))
+    return None
 
 
 def record_needs_authors(record: dict[str, Any]) -> bool:
@@ -229,7 +262,7 @@ def load_daily_candidates(
         for record in payload:
             if not isinstance(record, dict):
                 continue
-            doi = normalize_doi(record.get("doi"))
+            doi = doi_for_recovery(record)
             if not doi:
                 continue
             records_by_doi[doi].append((path, record))
@@ -762,9 +795,12 @@ def recovered_field_provider(
 ) -> str:
     """Attribute applied fields, never raw provider response availability."""
     if field == "abstract":
+        # A preview may reject one provider's excerpt and accept another's
+        # longer body: attribute the actual saved text, not the first reply.
+        saved = clean_abstract_text(record.get("abstract"))
         for name in ("openalex", "crossref", "semantic-scholar", "elsevier"):
             value = clean_abstract_text((providers.get(name) or {}).get("abstract"))
-            if not is_placeholder_abstract(value):
+            if saved and value == saved:
                 return name
     if field == "authors":
         for name in ("openalex", "crossref", "semantic-scholar"):
@@ -798,6 +834,11 @@ def apply_recovery(
         and str(record.get("abstract") or "").strip()
     )
 
+    prior_abstract = clean_abstract_text(record.get("abstract"))
+    is_preview = bool(prior_abstract) and (
+        str(record.get("abstract_completeness") or "").casefold() == "preview"
+        or record.get("abstract_truncated") is True
+    )
     if needs_abs and not manual_abstract:
         for source, metadata in (
             ("openalex", providers.get("openalex", {})),
@@ -807,6 +848,14 @@ def apply_recovery(
         ):
             abstract = clean_abstract_text(metadata.get("abstract"))
             if is_placeholder_abstract(abstract):
+                continue
+            if is_preview and (
+                len(abstract) < len(prior_abstract) + 80
+                or re.search(r"(?:\.{3,}|…+)\s*$", abstract)
+                or "preview of subscription content" in abstract.casefold()
+            ):
+                # Keep the honest preview unless the DOI-indexed source
+                # supplies a substantially longer, non-truncated abstract.
                 continue
             record["abstract"] = abstract
             record["abstract_source"] = metadata.get("abstract_source", source)

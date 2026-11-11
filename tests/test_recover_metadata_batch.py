@@ -1080,3 +1080,160 @@ def test_s2_still_allowed_when_only_issue_date_exists(tmp_path: Path) -> None:
     assert actual["date_confidence"] == "C"
     assert actual["issue_date"] == "2026-07-01"
     assert actual["first_seen"] == record["first_seen"]
+
+
+def test_preview_abstract_recovery_requires_genuinely_longer_indexed_text(tmp_path: Path) -> None:
+    """A DOI-indexed full abstract may upgrade a preview, never truncate it."""
+    preview = (
+        "We study the effects of fiscal policy on labor markets across regions. "
+        "Our baseline analysis identifies different patterns for affected firms. "
+    ) * 3
+    record = sample_record(
+        abstract=preview,
+        abstract_completeness="preview",
+        abstract_truncated=True,
+        authors=["Original Author"],
+        date_confidence="A",
+    )
+    first_seen = record["first_seen"]
+    write_json(tmp_path / "2026-07-04.json", [record])
+    selected, by_doi, _ = load_daily_candidates(
+        tmp_path, limit=10, recent_days=0
+    )
+    assert len(selected) == 1
+    assert "10.1234/test" in by_doi
+    assert recover_metadata_batch.record_needs_abstract(record)
+
+    # A slightly longer API excerpt must not be mislabeled as a full abstract.
+    changed, fields = apply_recovery(
+        record, {"openalex": {"abstract": preview + " Minor additional detail."}}
+    )
+    assert not changed
+    assert not fields
+    assert record["abstract_completeness"] == "preview"
+
+    # A truncated excerpt, even a long one, must remain classified as preview.
+    changed, fields = apply_recovery(
+        record, {"crossref": {"abstract": preview + (" Further context." * 14) + "..."}}
+    )
+    assert not changed
+    assert not fields
+
+    full = preview + (
+        " Independent evidence supports a lasting effect on employment and wages."
+        " The robustness analysis confirms that these results persist across samples."
+    )
+    changed, fields = apply_recovery(record, {"openalex": {"abstract": full}})
+    assert changed
+    assert fields == ["abstract"]
+    assert record["abstract_completeness"] == "full"
+    assert record["abstract_status_code"] == "available"
+    assert record.get("abstract_truncated") is None
+    assert record["abstract_source"] == "openalex"
+    assert record["first_seen"] == first_seen
+    assert record["authors"] == ["Original Author"]
+    assert record["date_confidence"] == "A"
+    assert not recover_metadata_batch.record_needs_abstract(record)
+
+    # Full and manually supplied abstracts must never be replaced by this pass.
+    manual = sample_record(
+        abstract=preview,
+        abstract_completeness="preview",
+        abstract_truncated=True,
+        abstract_source="manual-verified",
+        authors=["Original Author"],
+        date_confidence="A",
+    )
+    changed, fields = apply_recovery(manual, {"openalex": {"abstract": full}})
+    assert not changed
+    assert not fields
+    assert manual["abstract_completeness"] == "preview"
+
+    untouched = sample_record(
+        abstract=preview,
+        abstract_completeness="full",
+        authors=["Original Author"],
+        date_confidence="A",
+    )
+    changed, fields = apply_recovery(untouched, {"openalex": {"abstract": full}})
+    assert not changed
+    assert not fields
+    assert untouched["abstract"] == preview
+
+
+    # Correct provenance when the first provider offers only another excerpt.
+    alternate = sample_record(
+        abstract=preview,
+        abstract_completeness="preview",
+        authors=["Original Author"],
+        date_confidence="A",
+    )
+    providers = {
+        "openalex": {"abstract": preview + " Brief note."},
+        "crossref": {"abstract": full},
+    }
+    changed, fields = apply_recovery(alternate, providers)
+    assert changed
+    assert fields == ["abstract"]
+    assert alternate["abstract_source"] == "crossref"
+    assert recover_metadata_batch.recovered_field_provider(
+        "abstract", alternate, providers
+    ) == "crossref"
+
+
+def test_doi_from_informs_and_tandf_rss_url_is_lookup_only(tmp_path: Path) -> None:
+    """Missing DOI field must not hide a DOI already in the publisher RSS URL."""
+    records = [
+        sample_record(
+            doi=None,
+            url="https://pubsonline.informs.org/doi/abs/10.1287/mnsc.2023.04026?af=R",
+            detail_key="informs-record-a",
+            authors=["Original Author"],
+            date_confidence="A",
+        ),
+        sample_record(
+            doi=None,
+            url="https://www.tandfonline.com/doi/full/10.1080/00036846.2025.2514091?af=R",
+            detail_key="tandf-record-b",
+            authors=["Original Author"],
+            date_confidence="A",
+        ),
+        sample_record(
+            doi=None,
+            url="https://untrusted.example/doi/abs/10.1287/mnsc.2023.04026",
+            detail_key="external-record-c",
+            authors=["Original Author"],
+            date_confidence="A",
+        ),
+    ]
+    write_json(tmp_path / "2026-08-29.json", records)
+    selected, by_doi, _ = load_daily_candidates(
+        tmp_path, limit=10, recent_days=0
+    )
+    assert len(selected) == 2
+    assert set(by_doi) == {
+        "10.1287/mnsc.2023.04026",
+        "10.1080/00036846.2025.2514091",
+    }
+    assert all(record["doi"] is None for record in records)
+
+    # The same canonical detail identity can be updated in seen.json without
+    # assigning a new DOI, changing URL, or moving first discovery.
+    example = records[0]
+    full = (
+        "This study uses original data to identify demand heterogeneity and "
+        "estimates a new model of pricing across competitive markets. "
+        "The empirical findings are robust to alternative estimation methods."
+    )
+    seen_record = dict(example)
+    seen_payload = {"papers": {"url-identity-a": seen_record}}
+    providers = {"10.1287/mnsc.2023.04026": {"openalex": {"abstract": full}}}
+    changed, count = recover_metadata_batch.update_seen_records(
+        seen_payload, by_doi, providers
+    )
+    assert changed
+    assert count == 1
+    assert seen_record["abstract"] == full
+    assert seen_record["doi"] is None
+    assert seen_record["url"] == example["url"]
+    assert seen_record["first_seen"] == example["first_seen"]
