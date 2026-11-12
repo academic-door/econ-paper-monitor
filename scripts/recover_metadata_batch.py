@@ -232,6 +232,7 @@ def load_daily_candidates(
     *,
     limit: int,
     recent_days: int,
+    rotation_slot: int = 0,
 ) -> tuple[
     list[tuple[Path, dict[str, Any]]],
     dict[str, list[tuple[Path, dict[str, Any]]]],
@@ -274,9 +275,41 @@ def load_daily_candidates(
             seen_dois.add(doi)
             candidate_dois.append(doi)
 
-    # Deterministic, recovery-priority sort, then apply the limit.
+    # Keep the highest-priority candidates on every FULL pass, but rotate
+    # the remaining third through older debt. Without this, the same first
+    # 150 DOIs consume every pass and older recoverable records never run.
     candidate_dois.sort(key=lambda doi: record_priority(records_by_doi[doi][0][1]))
-    selected = candidate_dois if limit <= 0 else candidate_dois[: max(0, limit)]
+    if limit >= 30 and len(candidate_dois) > limit:
+        backlog_quota = limit // 3
+        priority_count = limit - backlog_quota
+        remaining = candidate_dois[priority_count:]
+        # Date-only recovery already has a separate FULL step. Allocate this
+        # rotating slice to missing/preview abstracts first.
+        abstract_pool = sorted(
+            doi for doi in remaining
+            if record_needs_abstract(records_by_doi[doi][0][1])
+        )
+        if len(abstract_pool) >= backlog_quota:
+            start = (rotation_slot * backlog_quota) % len(abstract_pool)
+            rotated = [
+                abstract_pool[(start + offset) % len(abstract_pool)]
+                for offset in range(backlog_quota)
+            ]
+        else:
+            rotated = abstract_pool
+            other_pool = sorted(
+                doi for doi in remaining
+                if not record_needs_abstract(records_by_doi[doi][0][1])
+            )
+            remaining_quota = backlog_quota - len(rotated)
+            start = (rotation_slot * remaining_quota) % len(other_pool)
+            rotated += [
+                other_pool[(start + offset) % len(other_pool)]
+                for offset in range(remaining_quota)
+            ]
+        selected = candidate_dois[:priority_count] + rotated
+    else:
+        selected = candidate_dois if limit <= 0 else candidate_dois[:max(0, limit)]
     records_by_doi = {
         doi: records_by_doi[doi]
         for doi in selected
@@ -1083,10 +1116,13 @@ def run_recovery(
     seen_path = data_dir / "seen.json"
     queue_path = data_dir / "metadata_retry_queue.json"
 
+    # Four natural FULL slots per day; no persisted queue or new scheduler.
+    rotation_slot = int(time.time() // (6 * 60 * 60))
     candidates, records_by_doi, payloads_by_path = load_daily_candidates(
         daily_dir,
         limit=limit,
         recent_days=recent_days,
+        rotation_slot=rotation_slot,
     )
     pii_candidates, records_by_pii, payloads_by_path = load_elsevier_pii_candidates(
         daily_dir,
