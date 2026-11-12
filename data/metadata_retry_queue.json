@@ -7,7 +7,7 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 78,
+    "missing_abstract": 76,
     "missing_authors": 2,
     "weak_date_evidence": 495
   },
@@ -15,54 +15,6 @@
   "recent_candidates_before_limit": 508,
   "recent_window_start": "2026-10-14",
   "records": [
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.landusepol.2026.108420",
-      "first_seen": "2026-11-12T01:16:57+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.landusepol.2026.108420",
-      "journal": "Land Use Policy",
-      "official_date": "2026-11-12",
-      "priority": [
-        0,
-        0,
-        1,
-        0
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Understanding interactions among urbanization, land use and land cover change, and climate impacts: Implications for climate-resilient urban planning",
-      "url": "https://doi.org/10.1016/j.landusepol.2026.108420"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.landusepol.2026.108426",
-      "first_seen": "2026-11-12T01:16:57+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.landusepol.2026.108426",
-      "journal": "Land Use Policy",
-      "official_date": "2026-11-12",
-      "priority": [
-        0,
-        0,
-        1,
-        0
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Transitioning to low-carbon agriculture: Institutional misalignment and constraints in South Africa’s extension systems",
-      "url": "https://doi.org/10.1016/j.landusepol.2026.108426"
-    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -1931,6 +1883,52 @@
       "url": "https://www.restud.com/limits-of-disclosure-in-search-markets/"
     },
     {
+      "date_confidence": "C",
+      "doi": "10.1016/j.landusepol.2026.108420",
+      "first_seen": "2026-11-12T01:16:57+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.landusepol.2026.108420",
+      "journal": "Land Use Policy",
+      "official_date": "2026-11-12",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Understanding interactions among urbanization, land use and land cover change, and climate impacts: Implications for climate-resilient urban planning",
+      "url": "https://doi.org/10.1016/j.landusepol.2026.108420"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.landusepol.2026.108426",
+      "first_seen": "2026-11-12T01:16:57+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.landusepol.2026.108426",
+      "journal": "Land Use Policy",
+      "official_date": "2026-11-12",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Transitioning to low-carbon agriculture: Institutional misalignment and constraints in South Africa’s extension systems",
+      "url": "https://doi.org/10.1016/j.landusepol.2026.108426"
+    },
+    {
       "date_confidence": "D",
       "doi": "10.1257/jep.20251476",
       "first_seen": "2026-11-06T16:20:37+00:00",
@@ -2714,29 +2712,6 @@
       "source_type": "journal",
       "title": "Tantalus curse? Multigenerational persistence of welfare dependency in Switzerland",
       "url": "https://doi.org/10.1016/j.jebo.2026.107833"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.jeconom.2026.106353",
-      "first_seen": "2026-11-07T01:40:44+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.jeconom.2026.106353",
-      "journal": "Journal of Econometrics",
-      "official_date": "2026-11-06",
-      "priority": [
-        0,
-        1,
-        1,
-        6
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "The canonical decomposition of factor models: weak factors are everywhere",
-      "url": "https://doi.org/10.1016/j.jeconom.2026.106353"
     },
     {
       "date_confidence": "C",
@@ -4793,6 +4768,29 @@
       "source_type": "journal",
       "title": "Motivated beliefs under delayed uncertainty resolution",
       "url": "https://doi.org/10.1016/j.jebo.2026.107805"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.jeconom.2026.106353",
+      "first_seen": "2026-11-07T01:40:44+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jeconom.2026.106353",
+      "journal": "Journal of Econometrics",
+      "official_date": "2026-11-01",
+      "priority": [
+        0,
+        1,
+        1,
+        11
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "The canonical decomposition of factor models: weak factors are everywhere",
+      "url": "https://doi.org/10.1016/j.jeconom.2026.106353"
     },
     {
       "date_confidence": "F",
