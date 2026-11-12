@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 3
   },
-  "checked_at": "2026-11-12T12:41:54.483068+08:00",
+  "checked_at": "2026-11-12T13:52:17.118654+08:00",
   "source_health_degraded_count": 3,
   "source_status_failures": [
     {
@@ -11,18 +11,23 @@
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Journal of Finance: 5; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 12; Economic Development and Cultural Change: 0;",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
       "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
       "source": "priority-toc:jare"
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=12; seen Journal of the Association of Environmental and Resource Economists: abstract-route-missing; seen Journal of the Association of Environmental and Resource Economists: abstract-route",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
       "source": "publisher-detail"
     },
     {
-      "category": "page_structure_change",
-      "sample_error": "feeds=88/123; Canadian Journal of Agricultural Economics: 12 via official-generated; Australian Journal of Agricultural and Resource Economics: 58 via official-generated; Applied Economic Perspectives",
+      "category": "needs_investigation",
+      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 44 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -32,7 +37,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
       "source": "working-papers"
     }
   ],
@@ -60,8 +65,8 @@
       "journal_id": "quantitative-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Quantitative Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "rate_limited",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -85,7 +90,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 7
   },
   "total_degraded": 3
 }
