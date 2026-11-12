@@ -7,12 +7,12 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 80,
-    "missing_authors": 1,
+    "missing_abstract": 81,
+    "missing_authors": 2,
     "weak_date_evidence": 497
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 524,
+  "recent_candidates_before_limit": 528,
   "recent_window_start": "2026-10-15",
   "records": [
     {
@@ -39,6 +39,31 @@
       "source_type": "journal",
       "title": "“《管理世界》AI工作坊”系列培训课程",
       "url": "https://glsj.cbpt.cnki.net/WKB2/WebPublication/paperDigest.aspx?paperID=30fe9ff3-0f09-44cb-b064-bffa3b465618"
+    },
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-11-12T17:54:50+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://www.iza.org/publications/dp/19081/the-effects-of-coerced-sterilization-evidence-from-native-american-women",
+      "journal": "IZA Discussion Papers",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "reasons": [
+        "missing_abstract",
+        "missing_authors",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": "iza",
+      "source_type": "working_paper",
+      "title": "The Effects of Coerced Sterilization: Evidence from Native American Women",
+      "url": "https://www.iza.org/publications/dp/19081/the-effects-of-coerced-sterilization-evidence-from-native-american-women"
     },
     {
       "date_confidence": "F",
@@ -1958,10 +1983,10 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.euroecorev.2026.105518",
-      "first_seen": "2026-11-12T09:32:57+00:00",
+      "doi": "10.1016/j.euroecorev.2026.105517",
+      "first_seen": "2026-11-12T16:39:10+00:00",
       "historical_backfill": false,
-      "identity": "doi:10.1016/j.euroecorev.2026.105518",
+      "identity": "doi:10.1016/j.euroecorev.2026.105517",
       "journal": "European Economic Review",
       "official_date": "2026-11-12",
       "priority": [
@@ -1976,8 +2001,31 @@
       "recency_basis": "official_date",
       "source_id": null,
       "source_type": "journal",
-      "title": "Deep trade agreements and heterogeneous firms’ exports",
-      "url": "https://doi.org/10.1016/j.euroecorev.2026.105518"
+      "title": "Paving the road to prosperity: Productive government spending, takeoff and robust endogenous growth",
+      "url": "https://doi.org/10.1016/j.euroecorev.2026.105517"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.geb.2026.104082",
+      "first_seen": "2026-11-12T16:37:31+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.geb.2026.104082",
+      "journal": "Games and Economic Behavior",
+      "official_date": "2026-11-12",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Sequential Non-Bayesian Persuasion",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0899825626001788?dgcid=api_sd_search-api-endpoint"
     },
     {
       "date_confidence": "C",
@@ -2763,6 +2811,52 @@
       "source_type": "journal",
       "title": "The impact of ozone pollution on hospitalizations",
       "url": "https://doi.org/10.1086/744909"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1093/ej/ueag142",
+      "first_seen": "2026-11-12T17:36:54+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1093/ej/ueag142",
+      "journal": "Economic Journal",
+      "official_date": "2026-11-11",
+      "priority": [
+        0,
+        1,
+        1,
+        2
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Happy Pills? The Health Consequences of the Dramatic Increase in Antidepressant Use",
+      "url": "https://doi.org/10.1093/ej/ueag142"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1093/ej/ueag144",
+      "first_seen": "2026-11-12T17:36:54+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1093/ej/ueag144",
+      "journal": "Economic Journal",
+      "official_date": "2026-11-11",
+      "priority": [
+        0,
+        1,
+        1,
+        2
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Tilting at Windmills: Evidence on Momentum and Hot Hands",
+      "url": "https://doi.org/10.1093/ej/ueag144"
     },
     {
       "date_confidence": "C",
@@ -11521,101 +11615,9 @@
       "source_type": "journal",
       "title": "The welfare effects of explicit and implicit subsidies on fossil fuels",
       "url": "https://www.sciencedirect.com/science/article/pii/S0047272726002409?dgcid=api_sd_search-api-endpoint"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1016/j.landusepol.2026.108370",
-      "first_seen": "2026-10-16T16:29:43+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.landusepol.2026.108370",
-      "journal": "Land Use Policy",
-      "official_date": "2026-10-16",
-      "priority": [
-        0,
-        1,
-        1,
-        28
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Shaping street rhythms: Spatial context and the temporal patterns of pedestrian activity",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0264837726004540?dgcid=api_sd_search-api-endpoint"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2739567",
-      "first_seen": "2026-10-16T14:47:30+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2739567",
-      "journal": "Applied Economics",
-      "official_date": "2026-10-16",
-      "priority": [
-        0,
-        1,
-        1,
-        28
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "What do inflation forecasts reveal after two decades of inflation targeting in Mexico?",
-      "url": "https://doi.org/10.1080/00036846.2026.2739567"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2740784",
-      "first_seen": "2026-10-16T14:47:30+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2740784",
-      "journal": "Applied Economics",
-      "official_date": "2026-10-16",
-      "priority": [
-        0,
-        1,
-        1,
-        28
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Information as a shield: does China’s new air quality standards mitigate health damage and inequality?",
-      "url": "https://doi.org/10.1080/00036846.2026.2740784"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2748519",
-      "first_seen": "2026-10-16T16:31:37+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2748519",
-      "journal": "Applied Economics",
-      "official_date": "2026-10-16",
-      "priority": [
-        0,
-        1,
-        1,
-        28
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "The carbon reduction effect evaluation of technology-finance pilot policy: evidence from 226 Chinese cities",
-      "url": "https://doi.org/10.1080/00036846.2026.2748519"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5549,
+  "total_candidates_before_limit": 5553,
   "truncated": true
 }
