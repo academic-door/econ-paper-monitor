@@ -283,20 +283,30 @@ def load_daily_candidates(
         backlog_quota = limit // 3
         priority_count = limit - backlog_quota
         remaining = candidate_dois[priority_count:]
-        # Spend historical slots on missing/preview abstracts before weak
-        # dates; date-only retries already have a separate FULL pipeline step.
-        backlog_pool = sorted(
+        # Date-only recovery already has a separate FULL step. Allocate this
+        # rotating slice to missing/preview abstracts first.
+        abstract_pool = sorted(
             doi for doi in remaining
             if record_needs_abstract(records_by_doi[doi][0][1])
-        ) + sorted(
-            doi for doi in remaining
-            if not record_needs_abstract(records_by_doi[doi][0][1])
         )
-        start = (rotation_slot * backlog_quota) % len(backlog_pool)
-        rotated = [
-            backlog_pool[(start + offset) % len(backlog_pool)]
-            for offset in range(backlog_quota)
-        ]
+        if len(abstract_pool) >= backlog_quota:
+            start = (rotation_slot * backlog_quota) % len(abstract_pool)
+            rotated = [
+                abstract_pool[(start + offset) % len(abstract_pool)]
+                for offset in range(backlog_quota)
+            ]
+        else:
+            rotated = abstract_pool
+            other_pool = sorted(
+                doi for doi in remaining
+                if not record_needs_abstract(records_by_doi[doi][0][1])
+            )
+            remaining_quota = backlog_quota - len(rotated)
+            start = (rotation_slot * remaining_quota) % len(other_pool)
+            rotated += [
+                other_pool[(start + offset) % len(other_pool)]
+                for offset in range(remaining_quota)
+            ]
         selected = candidate_dois[:priority_count] + rotated
     else:
         selected = candidate_dois if limit <= 0 else candidate_dois[:max(0, limit)]
