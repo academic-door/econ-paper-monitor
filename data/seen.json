@@ -59141,11 +59141,11 @@
         "Benjamin K. Sovacool"
       ],
       "authors_status_code": "available",
-      "available_online": "2026-11-11",
+      "available_online": "2026-11-12",
       "china_relevance_reason": "摘要仅出现一次中国相关表述，需确认中国是否为核心研究对象",
       "china_relevance_status": "candidate",
-      "date_confidence": "A",
-      "date_source": "elsevier_article_api",
+      "date_confidence": "C",
+      "date_source": "crossref_doi_elsevier_created_online",
       "detail_key": "risk-time-and-social-preferences-shape-cross-country-support-for-carbon-dioxide-removal-210f80702da6",
       "detected_at": "2026-11-12T03:09:19+00:00",
       "doi": "10.1016/j.eneco.2026.109696",
@@ -59165,13 +59165,20 @@
       "journal_short": "EnEcon",
       "official_date_status": "available",
       "pii": "S0140988326005761",
-      "published_online": "2026-11-11",
+      "published_online": "2026-11-12",
       "publisher": "Elsevier BV",
       "raw_data": {
         "crossref_date_source": "crossref_elsevier_created_online",
         "date_evidence": [
           {
             "source": "semantic-scholar"
+          },
+          {
+            "available_online": "2026-11-12",
+            "date_confidence": "C",
+            "date_source": "crossref_doi_elsevier_created_online",
+            "published_online": "2026-11-12",
+            "source": "crossref-doi"
           }
         ]
       },
@@ -113930,10 +113937,10 @@
         "Manfred Deistler"
       ],
       "authors_status_code": "available",
-      "available_online": "2026-11-01",
+      "available_online": "2026-11-06",
       "china_relevance_status": "none",
       "date_confidence": "C",
-      "date_source": "crossref_elsevier_created_online",
+      "date_source": "crossref_doi_elsevier_created_online",
       "detail_key": "the-canonical-decomposition-of-factor-models-weak-factors-are-everywhere-ec0d97c619e3",
       "detected_at": "2026-11-07T01:40:44+00:00",
       "doi": "10.1016/j.jeconom.2026.106353",
@@ -185732,8 +185739,8 @@
       "authors_status_code": "available",
       "available_online": "2026-11-09",
       "china_relevance_status": "none",
-      "date_confidence": "A",
-      "date_source": "publisher_meta:citation_online_date",
+      "date_confidence": "C",
+      "date_source": "crossref_published_online",
       "detail_key": "public-information-and-coordination-with-a-divided-majority-erratum-506363d1b7f4",
       "detected_at": "2026-11-09T16:44:51+00:00",
       "doi": "10.1017/eec.2026.10060",
@@ -186016,8 +186023,8 @@
       "authors_status_code": "available",
       "available_online": "2026-11-06",
       "china_relevance_status": "none",
-      "date_confidence": "A",
-      "date_source": "publisher_meta:citation_online_date",
+      "date_confidence": "C",
+      "date_source": "crossref_published_online",
       "detail_key": "real-incentives-really-matter-2a945627ec64",
       "detected_at": "2026-11-06T10:31:23+00:00",
       "doi": "10.1017/eec.2026.10068",
@@ -186063,8 +186070,8 @@
       "authors_status_code": "available",
       "available_online": "2026-11-06",
       "china_relevance_status": "none",
-      "date_confidence": "A",
-      "date_source": "publisher_meta:citation_online_date",
+      "date_confidence": "C",
+      "date_source": "crossref_published_online",
       "detail_key": "sustaining-cooperation-with-correlated-information-an-experimental-test-b88765301e86",
       "detected_at": "2026-11-06T10:31:23+00:00",
       "doi": "10.1017/eec.2026.10069",
@@ -190770,8 +190777,8 @@
       "authors_status_code": "available",
       "available_online": "2026-11-09",
       "china_relevance_status": "none",
-      "date_confidence": "A",
-      "date_source": "publisher_meta:citation_online_date",
+      "date_confidence": "C",
+      "date_source": "crossref_published_online",
       "detail_key": "u-s-banks-exposures-to-climate-transition-risks-5caa441d76b0",
       "detected_at": "2026-11-09T10:55:08+00:00",
       "doi": "10.1017/s0022109026103226",
@@ -191533,8 +191540,8 @@
       "china_related_source": "rule",
       "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
       "china_relevance_status": "confirmed",
-      "date_confidence": "A",
-      "date_source": "publisher_meta:citation_online_date",
+      "date_confidence": "C",
+      "date_source": "crossref_published_online",
       "detail_key": "countercyclical-risk-aversion-evidence-from-10-million-auto-insurance-transactions-in-ch-6504573f2e93",
       "detected_at": "2026-11-09T10:55:08+00:00",
       "doi": "10.1017/s0022109026103500",
@@ -240463,9 +240470,10 @@
       "url": "https://doi.org/10.1080/07350015.2026.2703863"
     },
     "doi:10.1080/07350015.2026.2704969": {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract": "This article revisits the multiple threshold regression model, wherein coefficient parameters shift across regimes in accordance with the value of a threshold variable. We focus on developing a post-Lasso inference framework to resolve the selection uncertainty—particularly pronounced when threshold effects are weak—intrinsic to the group Lasso-based procedure that jointly estimates the number and locations of multiple thresholds. This objective is accomplished by characterizing the sampling distribution of threshold effect estimators conditional on the selected model, which facilitates the construction of unified confidence intervals with valid coverage properties for both large and small threshold effects. Monte Carlo simulation results verify the satisfactory finite-sample performance of the proposed post-Lasso inference method. An empirical application to stock return prediction further exemplifies its practical applicability.",
+      "abstract_completeness": "full",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Chenchen Ma",
         "Yundong Tu"
@@ -240979,10 +240987,11 @@
       "url": "https://doi.org/10.1080/07350015.2026.2715055"
     },
     "doi:10.1080/07350015.2026.2718882": {
-      "abstract_completeness": "missing",
+      "abstract": "In this article, we propose STRAP (Smooth Tests using RAndom Projections), projected smooth tests for the equality of two multivariate distributions. We employ random projections to map the multivariate data into one-dimensional data and transform the projected data via the probability integral transformation. Under the null hypothesis of homogeneity, the transformed data follow the standard uniform distribution, reducing the problem to testing for uniformity. Building on Neyman’s smooth test for uniformity, we show that STRAP is asymptotically χ2 distributed under the null hypothesis and has nontrivial power against local alternatives converging to the null at the two-sample rate [mn/(m+n)]−1/2, where m and n are the sample sizes. A data-driven procedure is proposed to automatically select the testing order of the proposed test. Moreover, our method is applicable to discrete and heavy-tailed distributions, which is a key advantage over many existing tests. The empirical size and power of STRAP in finite samples are demonstrated through numerical simulations. The advantages of STRAP are further illustrated through an empirical analysis that assesses the effect of pricing on residential gas consumption.",
+      "abstract_completeness": "full",
       "abstract_enrichment_status": "metadata-only:proxy-request-failed",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Shiyao Huang",
         "Xiaojun Song"
@@ -242482,9 +242491,10 @@
       "url": "https://doi.org/10.1086/734087"
     },
     "doi:10.1086/734527": {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract": "I investigate the mechanisms that drive sorting into entrepreneurship and entrepreneurial success among young individuals. I use Canadian matched owner-employeremployee data to conduct my investigation. Empirically, older entrepreneurs and entrepreneurs who have previously worked in high-wage firms tend to do better. To explain these findings, I develop a dynamic Roy model of career choice that features heterogeneous employers, human capital accumulation, and unobserved heterogeneity across individuals. Among other things, I find that prior work experience is particularly valuable for \"subsistence\" entrepreneurs. I use the estimated model to evaluate policies designed to promote entrepreneurship.",
+      "abstract_completeness": "full",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Nicolas Gendron-Carrier"
       ],
@@ -242544,9 +242554,10 @@
       "url": "https://www.journals.uchicago.edu/doi/abs/10.1086/734527?af=R"
     },
     "doi:10.1086/734845": {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract": "This paper studies gender difference in innovation recognition using patent citations. We propose a method to quantify under-citation based on pairwise textual similarity of patents. Both male and female inventors exhibit homophily, under-citing patents by inventors of the opposite gender, and this tendency is stronger among female inventors than male inventors. However, female inventors' patents are 12% less likely to be cited overall because female inventors are outnumbered by male inventors (i.e., composition effect dominates). By contrast, citations added by patent examiners show little gender difference. Past under-citations negatively impact future patenting activities, more so for female inventors.",
+      "abstract_completeness": "full",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Zihao Li",
         "Shaoyu Liu"
@@ -243234,9 +243245,10 @@
       "url": "https://www.journals.uchicago.edu/doi/abs/10.1086/737771?af=R"
     },
     "doi:10.1086/737772": {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract": "We provide evidence that the social norm (expectation) that adults work has a substantial detrimental causal effect on the mental well-being of unemployed men in mid-life, as substantial as, e.g., the detriment of being widowed. As their peers in age retire and the social norm weakens, the mental well-being of the unemployed improves. Using data on individuals aged 50+ from 10 European countries, we identify the social norm of work effect using exogenous variation in the earliest eligibility age for old-age public pensions across countries and birth cohorts.",
+      "abstract_completeness": "full",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Coen van de Kraats",
         "Titus Galama",
@@ -243301,9 +243313,10 @@
       "url": "https://www.journals.uchicago.edu/doi/abs/10.1086/737772?af=R"
     },
     "doi:10.1086/737992": {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract": "We analyze how higher task rewards affect the gender performance gap using data from a selective Brazilian university's admission exam. Our data allow us to control for applicants' major-choice self-selection issues flexibly and to track applicants' labor market outcomes years later. We find that women's performance decreases relative to men's in higher-reward subjects due to differing exam strategies. Looking at future labor market outcomes, we find that performing well on higher-reward subjects positively relates to wages. However, our findings cast doubt on whether gender differences in prioritizing rewarding tasks in an exam environment can explain the gender wage gap.",
+      "abstract_completeness": "full",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Bruna Borges",
         "Fernanda Estevan",
@@ -243410,10 +243423,11 @@
       "url": "https://www.journals.uchicago.edu/doi/abs/10.1086/738353?af=R"
     },
     "doi:10.1086/738355": {
-      "abstract_completeness": "missing",
+      "abstract": "I analyze a two-stage game of incomplete information in which a supplier is uncertain regarding a retailer’s propensity to sue. In the first stage, the retailer decides whether to file an antitrust claim against its supplier. In the second stage, the supplier decides whether to retaliate by refusing to supply the input. Choosing to sue in the first stage signals a high propensity to bring additional costly litigation in the future. When the retailer’s claim is relatively small, the threat of a refusal to deal can deter the retailer from initiating litigation against the supplier. Permitting indirect purchaser suits may strengthen private antitrust enforcement in these settings. However, when the retailer’s claim is large, the supplier does not retaliate. A reversal of the Illinois Brick rule weakens private antitrust enforcement in this case by dividing the right to sue between direct and indirect purchasers.",
+      "abstract_completeness": "full",
       "abstract_enrichment_status": "metadata-only",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Douglas C. Turner"
       ],
@@ -243616,10 +243630,11 @@
       "url": "https://www.journals.uchicago.edu/doi/abs/10.1086/738358?af=R"
     },
     "doi:10.1086/738359": {
-      "abstract_completeness": "missing",
+      "abstract": "We analyze the risk of mafia capture of firms operating in the legal economy. To overcome possible endogeneity concerns we exploit the abrupt drop in revenues caused by the COVID-19-related closures imposed in spring 2020 in Italy. We find that the induced sudden and significant worsening of affected firms’ financial conditions increased the likelihood of them being infiltrated by mafia-connected entrepreneurs: A 10 percent drop in revenues leads to a 4.9 percent increase in the probability of mafia entry. We further show that firms are more likely to resort to mafia lending when they face temporary difficulties in repaying their debts.",
+      "abstract_completeness": "full",
       "abstract_enrichment_status": "metadata-only",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Marco Castelluccio",
         "Lucia Rizzica"
@@ -245121,10 +245136,11 @@
     "doi:10.1086/740222": {
       "_provider": "semantic-scholar",
       "_status": "not_found",
-      "abstract_completeness": "missing",
+      "abstract": "Using rich data on hourly physical productivity and thousands of ownership changes from US power plants, we study the effects of acquisitions on efficiency and underlying mechanisms. We find a 2% average increase in efficiency for acquired plants, beginning five months after acquisitions. Efficiency gains rise to 5% under direct ownership changes, with no significant change when only parent ownership changes. Investigating the mechanisms, three-quarters of the efficiency gain is attributed to increased productive efficiency, while the rest comes from dynamic efficiency through changes in production allocation. Our evidence suggests that high-productivity firms buy underperforming assets from low-productivity firms and make them as productive as their existing assets through operational improvements. Finally, acquired plants improve their performance beyond efficiency by increasing output and reducing outages.",
+      "abstract_completeness": "full",
       "abstract_enrichment_status": "abstract-route-missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Mert Demirer",
         "Ömer Karaduman"
@@ -245806,9 +245822,10 @@
       "url": "https://doi.org/10.1086/740839"
     },
     "doi:10.1086/740877": {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract": "We examine how the supply of offenses respond to a large environmental shock in the urban space. We focus on blackouts which can abruptly change the provision of light, and potentially the distribution of criminal opportunities. Using high-frequency administrative data on more than 370,000 power outage incidents reported in Chile during 2014-2015, we analyze how they affect crime along several dimensions. We find no significant effect on the aggregate crime rate, but we also .find two offsetting reactions driving this result: a positive increase in burglary, and a negative effect on robbery. By exploiting unique features of the data, we analyze several dimensions of treatment effect heterogeneity regarding the magnitude, size and duration of the blackout. In addition, we find that crime responses differ by municipality socioeconomic status. We validate our findings by conducting a set of placebo exercises where we find no meaningful variation across different crime types and treatment definitions. Our results suggest that criminals react to changes in incentives by carrying out crimes that yield a higher expected return.",
+      "abstract_completeness": "full",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Patricio Domínguez",
         "Pedro Rodriguez-Martinez"
@@ -245955,9 +245972,10 @@
       "url": "https://doi.org/10.1086/740953"
     },
     "doi:10.1086/741020": {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract": "The gender education gap has been narrowing worldwide in recent decades. We provide the first causal evidence on how foreign direct investment (FDI) affects the gender education gap. By exploiting the quasi-exogenous deregulation of FDI entry in China upon its WTO accession, we find that prefectures that experienced greater FDI deregulation tend to have a lower gender education gap for the exposed cohorts. This finding is robust to various identification challenges. We further show that FDI shapes the gender education gap through both the job-opportunity channel, which disproportionately increases the demand for unskilled males and reduces the high school attendance of male students; and the culture-spillover channel, which transmits gender-equal social norms and increases the high school attendance of female students. In addition, FDI deregulation also has a persistent effect on gender equality by empowering women’s careers.",
+      "abstract_completeness": "full",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Rufei Guo",
         "Haiji Lin",
@@ -245966,7 +245984,10 @@
       ],
       "authors_status_code": "available",
       "available_online": "2026-02-16",
-      "china_relevance_status": "none",
+      "china_related": true,
+      "china_related_source": "rule",
+      "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
+      "china_relevance_status": "confirmed",
       "date_confidence": "A",
       "date_source": "rss_published",
       "detail_key": "foreign-direct-investment-and-gender-education-gap-1b7002f74649",
@@ -246260,9 +246281,10 @@
       "url": "https://www.journals.uchicago.edu/doi/abs/10.1086/741274?af=R"
     },
     "doi:10.1086/741288": {
-      "abstract_completeness": "missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract": "Research and Development/Tech Change/Emerging Technologies, International Development, Labor and Human Capital",
+      "abstract_completeness": "full",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Kenichi Kuroiwa",
         "Prakashan Chellattan Veettil",
@@ -246944,10 +246966,11 @@
     "doi:10.1086/741622": {
       "_provider": "semantic-scholar",
       "_status": "not_found",
-      "abstract_completeness": "missing",
+      "abstract": "We study optimal service allocation through queues when agents have homogeneous preferences and must be incentivized to enter and remain in the queue. The designer controls entry, exit, service priority, and information about queue priorities. Under a mild regularity condition, the optimal mechanism admits agents only up to a cutoff queue length, never removes admitted agents, serves them according to a first-come, first-served (FCFS) rule, and provides no information beyond recommendations. FCFS is also necessary for optimality in a rich domain. The result identifies a new role for queue disciplines in regulating agents’ beliefs and dynamic incentives, and uncovers a hitherto unrecognized virtue of FCFS in this regard.",
+      "abstract_completeness": "full",
       "abstract_enrichment_status": "abstract-route-missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract_source": "openalex",
+      "abstract_status_code": "available",
       "authors": [
         "Yeon-Koo Che",
         "Olivier Tercieux"
@@ -252708,7 +252731,7 @@
       "available_online": "2026-10-09",
       "china_relevance_status": "none",
       "date_confidence": "C",
-      "date_source": "openalex+crossref_crossvalidated",
+      "date_source": "crossref_published_online",
       "detail_key": "policy-interactions-and-the-cost-of-decarbonizing-aviation-5cd897a24f35",
       "detected_at": "2026-10-10T01:01:25+00:00",
       "doi": "10.1086/744324",
@@ -293215,6 +293238,62 @@
       "translation_status": "title_translated",
       "url": "https://doi.org/10.1111/jmcb.70106"
     },
+    "doi:10.1111/jmcb.70107": {
+      "abstract": "This paper uses global mutual funds to study foreign information dissemination across countries into multinationals’ stock prices. To invest internationally, these funds collect information from foreign countries where they invest. Such foreign information helps funds invest in U.S. multinationals operating in those same foreign countries. Global funds overweight and outperform on the selected multinationals’ stocks. They exploit market‐level, industry‐level, and firm‐specific foreign information. The trading activities of these funds accelerate the incorporation of foreign information into the selected multinationals’ prices. Our findings suggest that global mutual funds are important mechanisms for information dissemination into multinationals’ asset prices in global markets.",
+      "abstract_completeness": "full",
+      "abstract_enrichment_status": "available",
+      "abstract_source": "crossref_doi",
+      "abstract_status_code": "available",
+      "authors": [
+        "Wei Jiao"
+      ],
+      "authors_status_code": "available",
+      "available_online": "2026-11-11",
+      "china_relevance_status": "none",
+      "date_confidence": "C",
+      "date_source": "crossref_doi_published_online",
+      "detail_key": "the-added-bonus-of-foreign-investments-global-mutual-funds-and-multinational-firm-return-711ad460c3d3",
+      "detected_at": "2026-11-12T04:37:19+00:00",
+      "doi": "10.1111/jmcb.70107",
+      "fields": [
+        "macroeconomics"
+      ],
+      "first_seen": "2026-11-12T04:37:19+00:00",
+      "id": "doi:10.1111/jmcb.70107",
+      "identity_aliases": [
+        "10.1111/jmcb.70107",
+        "https://doi.org/10.1111/jmcb.70107",
+        "the-added-bonus-of-foreign-investments-global-mutual-funds-and-multinational-firm-return-711ad460c3d3"
+      ],
+      "issue_date": "2026-11-11",
+      "journal": "Journal of Money, Credit and Banking",
+      "journal_id": "journal-of-money-credit-and-banking",
+      "journal_short": "JMCB",
+      "official_date_status": "available",
+      "published_online": "2026-11-11",
+      "publisher": "Wiley",
+      "raw_data": {
+        "crossref_date_source": "crossref_published_online",
+        "date_evidence": [
+          {
+            "available_online": "2026-11-11",
+            "date_confidence": "C",
+            "date_source": "crossref_doi_published_online",
+            "published_online": "2026-11-11",
+            "source": "crossref-doi"
+          },
+          {
+            "source": "semantic-scholar"
+          }
+        ]
+      },
+      "source": "crossref",
+      "source_type": "journal",
+      "source_url": "https://api.crossref.org",
+      "title": "The Added Bonus of Foreign Investments: Global Mutual Funds and Multinational Firm Returns",
+      "translation_status": "skipped",
+      "url": "https://doi.org/10.1111/jmcb.70107"
+    },
     "doi:10.1111/jmcb.70108": {
       "abstract": "This paper investigates how firm‐level financial constraints affect individual wages and aggregate labor market dynamics during financial recessions. We derive testable predictions from competing theoretical mechanisms and assess them empirically using German administrative worker data matched to firm balance sheets. Embedding these microlevel estimates in a macroeconomic model with labor and financial frictions, we demonstrate how small ceteris paribus effects align with large aggregate dynamics. Tighter financial conditions amplify wage and unemployment volatility, weakening the tight link between wage rigidity and the volatility of unemployment discussed in the literature. Financial constraints reduce the effectiveness of hiring subsidies during recessions.",
       "abstract_completeness": "full",
@@ -293260,6 +293339,64 @@
       "title": "Financial Constraints, Wages, and Macroeconomic Implications",
       "translation_status": "skipped",
       "url": "https://doi.org/10.1111/jmcb.70108"
+    },
+    "doi:10.1111/jmcb.70109": {
+      "abstract": "This paper analyzes how collateral quality shocks affect banks' liquidity management and the risk‐free rate. We develop a model where banks manage liquidity through near‐cash assets and marketable securities subject to idiosyncratic and/or aggregate shocks. Collateral quality deterioration leads to nonmonotonic changes in liquidity holdings: moderate declines reduce cash holdings via lower market returns, while severe declines cause precautionary hoarding and market freezes. Reduced collateral quality depresses the risk‐free rate. Liquidity regulation and negative interest rate policies can mitigate these effects. Our findings highlight the risks of collateral quality shocks and the importance of policy complementarities in addressing liquidity issues.",
+      "abstract_completeness": "full",
+      "abstract_enrichment_status": "available",
+      "abstract_source": "crossref_doi",
+      "abstract_status_code": "available",
+      "authors": [
+        "JUNG‐HYUN AHN",
+        "VINCENT BIGNON",
+        "RÉGIS BRETON",
+        "ANTOINE MARTIN"
+      ],
+      "authors_status_code": "available",
+      "available_online": "2026-11-11",
+      "china_relevance_status": "none",
+      "date_confidence": "C",
+      "date_source": "crossref_doi_published_online",
+      "detail_key": "liquidity-collateral-quality-and-interest-rates-a-5b36a4ddb35f",
+      "detected_at": "2026-11-12T04:37:19+00:00",
+      "doi": "10.1111/jmcb.70109",
+      "fields": [
+        "macroeconomics"
+      ],
+      "first_seen": "2026-11-12T04:37:19+00:00",
+      "id": "doi:10.1111/jmcb.70109",
+      "identity_aliases": [
+        "10.1111/jmcb.70109",
+        "https://doi.org/10.1111/jmcb.70109",
+        "liquidity-collateral-quality-and-interest-rates-a-5b36a4ddb35f"
+      ],
+      "issue_date": "2026-11-11",
+      "journal": "Journal of Money, Credit and Banking",
+      "journal_id": "journal-of-money-credit-and-banking",
+      "journal_short": "JMCB",
+      "official_date_status": "available",
+      "published_online": "2026-11-11",
+      "publisher": "Wiley",
+      "raw_data": {
+        "crossref_date_source": "crossref_published_online",
+        "date_evidence": [
+          {
+            "available_online": "2026-11-11",
+            "date_confidence": "C",
+            "date_source": "crossref_doi_published_online",
+            "published_online": "2026-11-11",
+            "source": "crossref-doi"
+          },
+          {
+            "source": "semantic-scholar"
+          }
+        ]
+      },
+      "source": "crossref",
+      "source_type": "journal",
+      "source_url": "https://api.crossref.org",
+      "title": "Liquidity, Collateral Quality, and Interest Rates\n                    <sup>a</sup>",
+      "url": "https://doi.org/10.1111/jmcb.70109"
     },
     "doi:10.1111/jofi.70040": {
       "abstract": "Combining a randomized controlled trial with administrative and survey data, this paper shows that credit limit extensions significantly increase total spending and income expectations. By controlling for changes in personal income expectations, the spending response to credit limit extensions weakens by approximately 30%. For financially unconstrained consumers, expectation changes account for around two‐thirds of the spending responses to limit extensions. These findings are consistent with consumers inferring future income from credit supply.",
@@ -395920,7 +396057,8 @@
       "first_seen": "2026-11-12T04:11:14+00:00",
       "id": "url:01001d8fd57a41c7",
       "identity_aliases": [
-        "https://kns.cnki.net/kcms2/article/abstract?v=G1GIFP_B-qVmzzV-VzmefaF0VLD89DzmsIX_SG6be9B4uakIuL28NhA9ieyDETSCPerf16Lm36M7s-1ECQ6KjTrPK1iVlaqcfQGd6IRnVNw4Cna54eIRclFt0q44DQPP95tqik1rm1t1dL1DCdHzembs9richO7a0QaCJviLm5c8ttqgoA9z2w=="
+        "https://kns.cnki.net/kcms2/article/abstract?v=G1GIFP_B-qVmzzV-VzmefaF0VLD89DzmsIX_SG6be9B4uakIuL28NhA9ieyDETSCPerf16Lm36M7s-1ECQ6KjTrPK1iVlaqcfQGd6IRnVNw4Cna54eIRclFt0q44DQPP95tqik1rm1t1dL1DCdHzembs9richO7a0QaCJviLm5c8ttqgoA9z2w==",
+        "paper-01001d8fd57a"
       ],
       "journal": "管理世界",
       "journal_id": "journal-379b4022ce",
@@ -422539,7 +422677,8 @@
       "first_seen": "2026-11-12T04:11:14+00:00",
       "id": "url:1d845b7c3d6fc7bd",
       "identity_aliases": [
-        "https://kns.cnki.net/kcms2/article/abstract?v=G1GIFP_B-qV7P652bWxMG61Zess42A_eW-DgIhim2C-epCtjWg2aGXbMqOE2qdWZ9bK15fAnPJlVZ7hVWDooBEsC3_WoV3rSjvgGNPn0FK0aME46kCnEU8GXPduZvLF_jCRLJY8b5RjWBXPMcbLjmohdPvFzYOI8Ysi5HBhyefON60lM5XXPlA=="
+        "https://kns.cnki.net/kcms2/article/abstract?v=G1GIFP_B-qV7P652bWxMG61Zess42A_eW-DgIhim2C-epCtjWg2aGXbMqOE2qdWZ9bK15fAnPJlVZ7hVWDooBEsC3_WoV3rSjvgGNPn0FK0aME46kCnEU8GXPduZvLF_jCRLJY8b5RjWBXPMcbLjmohdPvFzYOI8Ysi5HBhyefON60lM5XXPlA==",
+        "paper-1d845b7c3d6f"
       ],
       "journal": "管理世界",
       "journal_id": "journal-379b4022ce",
@@ -435013,7 +435152,8 @@
       "first_seen": "2026-11-12T04:11:14+00:00",
       "id": "url:2b9e2ebd4989fe41",
       "identity_aliases": [
-        "https://kns.cnki.net/kcms2/article/abstract?v=G1GIFP_B-qXYpnBel9UXYfsrwVdOIhPEcgycvLhzMyLV5Uhfuu88zPwHGBS50EquVPSIJDNYB2h4J8PjYrHHx34GSsGr-kGWwgY6Gq9ElnDrDPF7PFEUtusQoi61NVNc844Gl2pPwBCHc_e3FbNEvNDEU-eW9Oj4KzQY3GCWJ47z3D0xDF6zqA=="
+        "https://kns.cnki.net/kcms2/article/abstract?v=G1GIFP_B-qXYpnBel9UXYfsrwVdOIhPEcgycvLhzMyLV5Uhfuu88zPwHGBS50EquVPSIJDNYB2h4J8PjYrHHx34GSsGr-kGWwgY6Gq9ElnDrDPF7PFEUtusQoi61NVNc844Gl2pPwBCHc_e3FbNEvNDEU-eW9Oj4KzQY3GCWJ47z3D0xDF6zqA==",
+        "paper-2b9e2ebd4989"
       ],
       "journal": "管理世界",
       "journal_id": "journal-379b4022ce",
@@ -495947,7 +496087,8 @@
       "first_seen": "2026-11-12T04:11:14+00:00",
       "id": "url:71d98bb58f0637a7",
       "identity_aliases": [
-        "https://kns.cnki.net/kcms2/article/abstract?v=G1GIFP_B-qV6iWgm6bYo9fAYgVIxnZimbWwlKPSfWH6zX280FQtVLbNx2T9UPTdEjGYjMHQ42WKCFAXOLr308syAbYy0Dg6SylpsmPxWsLTSKTvD6NtFXdVnWahjxod7hsujvuj5ch38tVf0IdHO00bKo_hYkvzcAYE-3n8H4e88S7AUe2H5AA=="
+        "https://kns.cnki.net/kcms2/article/abstract?v=G1GIFP_B-qV6iWgm6bYo9fAYgVIxnZimbWwlKPSfWH6zX280FQtVLbNx2T9UPTdEjGYjMHQ42WKCFAXOLr308syAbYy0Dg6SylpsmPxWsLTSKTvD6NtFXdVnWahjxod7hsujvuj5ch38tVf0IdHO00bKo_hYkvzcAYE-3n8H4e88S7AUe2H5AA==",
+        "paper-71d98bb58f06"
       ],
       "journal": "管理世界",
       "journal_id": "journal-379b4022ce",
@@ -578624,7 +578765,8 @@
       "first_seen": "2026-11-12T04:11:14+00:00",
       "id": "url:d3a9987bd62e3c1d",
       "identity_aliases": [
-        "https://kns.cnki.net/kcms2/article/abstract?v=G1GIFP_B-qVmzzV-VzmefaF0VLD89DzmsIX_SG6be9B4uakIuL28NhA9ieyDETSCk16mXfhqXLWlofRtCa9AntpQtaYiJ_W8D2gLeg_ayh9O4qmn65gdZxW96Mz-3WMqFu9F2TttHu-zmkGp3xLhLJHxMf1xsoWm41lBPXgMfvHOBDIe5BYtMg=="
+        "https://kns.cnki.net/kcms2/article/abstract?v=G1GIFP_B-qVmzzV-VzmefaF0VLD89DzmsIX_SG6be9B4uakIuL28NhA9ieyDETSCk16mXfhqXLWlofRtCa9AntpQtaYiJ_W8D2gLeg_ayh9O4qmn65gdZxW96Mz-3WMqFu9F2TttHu-zmkGp3xLhLJHxMf1xsoWm41lBPXgMfvHOBDIe5BYtMg==",
+        "paper-d3a9987bd62e"
       ],
       "journal": "管理世界",
       "journal_id": "journal-379b4022ce",
