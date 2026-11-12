@@ -109512,6 +109512,7 @@
         "crossref_date_source": "crossref_elsevier_created_online"
       },
       "source": "crossref",
+      "source_issue": "Journal of Economic Behavior & Organization, Volume 252",
       "source_type": "journal",
       "source_url": "https://api.crossref.org",
       "title": "Decomposing the ideological divide in perceptions of inequality: a signal detection approach",
@@ -156157,6 +156158,9 @@
         "sciencedirect_search_journal": "Labour Economics",
         "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
       },
+      "related_versions": [
+        "taxing-high-skill-immigration-fundamental-problems-in-evaluating-immigrant-native-wage-g-3d8efc7dffc9"
+      ],
       "source": "sciencedirect_search",
       "source_issue": "Labour Economics",
       "source_type": "journal",
@@ -156164,7 +156168,8 @@
       "title": "Taxing high-skill immigration: Fundamental problems in evaluating immigrant-native wage gaps and the H-1B visa tax",
       "title_zh": "对高技能移民征税：评估移民与本土工资差距及H-1B签证税的根本问题",
       "translation_status": "missing_abstract",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0927537126001363?dgcid=api_sd_search-api-endpoint"
+      "url": "https://www.sciencedirect.com/science/article/pii/S0927537126001363?dgcid=api_sd_search-api-endpoint",
+      "version_group_key": "version:b3a003187dfd86cf"
     },
     "doi:10.1016/j.labeco.2026.102987": {
       "abstract": "We quantify how the gender wage gap emerges over the working life across 29 European countries using a life-cycle accounting approach. The framework separates the gender wage gap already present before first childbirth from a childbirth-related component and a post-childbirth-related component. The pre-childbirth component accounts for a large share of the gap in Central and Eastern as well as Southern European countries, while the childbirth-related component is by far the largest in Northern and Western European ones. We complement these findings using an alternative approach that relates the gender wage gap directly to worker, job and firm characteristics. The complementary proximate-characteristics approach shows that part-time work accounts for a substantial share of the gender wage gap in Northern and Western European countries, whereas a larger share remains unexplained by the observed worker, job and firm characteristics in Central and Eastern and Southern European countries. Although the results are descriptive rather than identifying causal mechanisms, they nonetheless suggest that further prioritising family policies and encouraging wider acceptance of flexible work schedules are particularly relevant in Northern and Western Europe. In Central and Eastern as well as Southern Europe, anti-discrimination policies and measures addressing gender stereotypes may also remain relevant.",
@@ -254259,10 +254264,10 @@
       "_error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)>",
       "_provider": "semantic-scholar",
       "_status": "error",
-      "abstract_completeness": "missing",
+      "abstract": "Abstract Associations between pollution and life expectancy, infant mortality, and cardiorespiratory disease are documented in China. Yet, less is known about environmental drivers of Chinese cancers. Here, we systematically link polluting industrial activity to cancer incidence, cancer mortality, and cancer cluster designations. We investigate county-level associations between industrial production and age-adjusted incidence and mortality reported in official cancer registries. We then combine the locations of roughly 3 million enterprises with administrative data from roughly 600,000 villages and cancer cluster documentation from 380 villages. We show that county-level value-added from industry is associated with age-adjusted incidence and mortality for all cancers; bronchus, trachea, and lung cancers; stomach cancers; and esophageal cancers. We show that the odds that a village contains a documented cancer cluster increase 3-4 times if the village contains a pollution-intensive industrial facility. Leather, chemical, and dye enterprises appear to drive results. All else equal, smaller facilities increase the odds of cancer clusters.",
+      "abstract_completeness": "full",
       "abstract_enrichment_status": "abstract-route-missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract_status_code": "available",
       "authors": [
         "Xuemei Zhang",
         "Haitao Yin",
@@ -254322,10 +254327,10 @@
       "_error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)>",
       "_provider": "semantic-scholar",
       "_status": "error",
-      "abstract_completeness": "missing",
+      "abstract": "This paper estimates the impacts of ozone pollution on hospitalizations, medical expenditure, and in-hospital mortality using inpatient admission records from 1,087 hospitals in China between 2017 and 2021. Leveraging an instrumental variable based on ozone concentrations in nearby upwind cities, we find that ozone significantly increases all-cause hospitalizations and medical expenditure. Ozone elevates hospital admissions across a broader range of diseases than previously documented, and the hospitalization cost of 1-standard deviation increase in ozone is larger than that of PM2.5. Ozone reduces the average number of doctors per inpatient and increases the all-cause in-hospital mortality rate in emergency departments, suggesting that ozone-induced surges in healthcare demand generate hospital crowding, which lowers the quality of care and worsens patient outcomes.",
+      "abstract_completeness": "full",
       "abstract_enrichment_status": "abstract-route-missing",
-      "abstract_status": "摘要暂未公开，系统将自动重试",
-      "abstract_status_code": "missing_retry",
+      "abstract_status_code": "available",
       "authors": [
         "Meng Liu",
         "Yun Qiu",
@@ -254334,8 +254339,10 @@
       ],
       "authors_status_code": "available",
       "available_online": "2026-11-11",
-      "china_relevance_reason": "3 位疑似中文姓名作者，且题名或元数据包含中国研究常见主题词，需要 AI 确认",
-      "china_relevance_status": "candidate",
+      "china_related": true,
+      "china_related_source": "rule",
+      "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
+      "china_relevance_status": "confirmed",
       "date_confidence": "C",
       "date_source": "crossref_doi_published_online",
       "detail_key": "the-impact-of-ozone-pollution-on-hospitalizations-bf6183a6c496",
@@ -399845,6 +399852,51 @@
       "translation_status": "abstract_translated",
       "url": "https://cepr.org/publications/dp21439"
     },
+    "url:03e18ee4b88b6612": {
+      "abstract": "Nine in ten children in Sub-Saharan Africa cannot read a simple text by the age of ten, and most are taught in a language they do not speak at home. The dominant policy response is home language instruction. Using a unique dataset of 1,718 formerly out-of-school children in an accelerated learning programme in Ghana and Liberia, we compared matched pupils, who spoke the language of instruction at home, with mismatched pupils, who did not. First, understanding of the language of instruction is a better predictor of reading progress across countries than language match. Second, reading is shaped by classroom characteristics: the more classmates shared a mismatched pupil’s home language, the worse that pupil read. Third, language understanding can be built: most mismatched pupils developed oral proficiency in the language of instruction within a single programme cycle, the classroom’s language mix predicted whether they did, and those who did read better. No language policy can match the home language of every child, but every child should be taught to understand the language of the classroom.",
+      "abstract_completeness": "full",
+      "abstract_status_code": "available",
+      "authors": [
+        "Ernesta Orlovaite",
+        "Arnaud Chevalier",
+        "Kathy Rastle"
+      ],
+      "authors_status_code": "available",
+      "available_online": "2026-11-01",
+      "china_relevance_status": "none",
+      "date_confidence": "B",
+      "date_precision": "month",
+      "date_source": "iza_detail_month",
+      "detail_key": "language-match-is-fixed-language-understanding-can-be-built-rethinking-home-language-ins-03e18ee4b88b",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:03e18ee4b88b6612",
+      "identity_aliases": [
+        "https://www.iza.org/publications/dp/19079/language-match-is-fixed-language-understanding-can-be-built-rethinking-home-language-instruction-in-sub-saharan-africa",
+        "language-match-is-fixed-language-understanding-can-be-built-rethinking-home-language-ins-03e18ee4b88b"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "available",
+      "paper_number": "19079",
+      "published_online": "2026-11-01",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "Language Match Is Fixed, Language Understanding Can Be Built: Rethinking Home Language Instruction in Sub-Saharan Africa",
+      "url": "https://www.iza.org/publications/dp/19079/language-match-is-fixed-language-understanding-can-be-built-rethinking-home-language-instruction-in-sub-saharan-africa"
+    },
     "url:03e1c431915e39dd": {
       "abstract": "States are major international financiers, but their role is poorly understood. We study state-driven cross-border lending over two centuries using a new database covering 1.2 million official loans and grants by 134 governments and 70 multilateral institutions since 1790. We document a dual, state-contingent structure of international credit. In normal times, private creditors dominate cross-border lending. In adverse states of the world, such as wars and financial crises, official creditors step in, at times on a massive scale. These official flows are driven by great powers, are highly subsidized, and are largely absent from canonical models in international macroeconomics.",
       "abstract_completeness": "full",
@@ -409413,6 +409465,45 @@
       "title_zh": "压力之下？强制迁移与公共卫生",
       "translation_status": "abstract_translated",
       "url": "https://nep.repec.org/nep-hea/2026-06-15#p17"
+    },
+    "url:0dfa354761b823db": {
+      "abstract_completeness": "missing",
+      "abstract_status": "摘要暂未公开，系统将自动重试",
+      "abstract_status_code": "missing_retry",
+      "authors": [],
+      "authors_status": "作者信息待核验",
+      "authors_status_code": "missing_retry",
+      "china_relevance_status": "none",
+      "date_confidence": "F",
+      "date_source": "unknown",
+      "detail_key": "rebellious-teenagers-parental-advice-and-the-occupational-preferences-of-their-children-0dfa354761b8",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:0dfa354761b823db",
+      "identity_aliases": [
+        "https://www.iza.org/publications/dp/19074/rebellious-teenagers-parental-advice-and-the-occupational-preferences-of-their-children",
+        "rebellious-teenagers-parental-advice-and-the-occupational-preferences-of-their-children-0dfa354761b8"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "missing_retry",
+      "paper_number": "19074",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "Rebellious Teenagers? Parental Advice and the Occupational Preferences of Their Children",
+      "url": "https://www.iza.org/publications/dp/19074/rebellious-teenagers-parental-advice-and-the-occupational-preferences-of-their-children"
     },
     "url:0dfb112695e6845d": {
       "abstract": "脱贫地区乡村创业面临机会识别不足、要素动员受阻与集体协同乏力三重约束，根源在于传统乡土社会资本结构失衡与功能失效。网红直播“大篷车”作为整合式数字嵌入的新型载体，为乡土社会资本重构与创业培育提供了新路径。本文通过对河北省青龙满族自治县的纵向案例追踪，解构网红直播“大篷车”牵引多元主体实现整合式数字嵌入、融入乡土场域的内在机理，揭示其逐级重构乡土社会资本、驱动乡村创业阶段性演化的过程逻辑。研究发现：其一，网红直播“大篷车”依托数字意见领袖、数字平台和基层政府实现整合式嵌入，改造乡土社会原生固化的关系基础，打破封闭圈层，破解单一主体赋能悬浮化与碎片化难题；其二，网红直播“大篷车”凭借实时互动性、可视化、社群建构力，经由“数字信任－情感行动”“网络桥接－工具行动”“乡土赋权－制度行动”的微观路径，依次重构粘合型、桥接型、连接型社会资本，破解三层创业约束，推动创业从启动持续迈向规模化扩散；其三，网红直播“大篷车”通过“场域再造－融通转化”路径实现外部嵌入资源的内化，破解数字下乡落地难、扎根难的现实困境。本文研究构建了数字情境下乡土社会资本跨类型重构与跨层级转化的分析框架，可为数字赋能脱贫地区创业提供理论支撑与实践借鉴。",
@@ -427831,6 +427922,51 @@
       "title_zh": "劳动力市场紧俏与招聘结果：来自求职申请数据的证据",
       "translation_status": "abstract_translated_cached",
       "url": "https://www.iza.org/publications/dp/18778/labor-market-tightness-and-hiring-outcomes-evidence-from-job-application-data"
+    },
+    "url:21c0a799122cf857": {
+      "abstract": "We estimate the effects of introducing paid parental leave on infant health and health care use in a setting with universal access to health care. We exploit Australia’s 2011 reform through a regression discontinuity difference-in-differences design and administrative records covering all New South Wales births. We find a 1.3 and 1.2 percentage points decline in probability of any specialist visits and any prescription medications in the first year, and no effects on hospital and emergency presentations. The reduction in any medication use persists until age five and the reduction in specialist visits is concentrated among young mothers who were least likely to have had employer leave and among clinically high-risk births. Survey data suggest that the reform eased financial strain and preserved employment, pointing to improved parental resources and time.",
+      "abstract_completeness": "full",
+      "abstract_status_code": "available",
+      "authors": [
+        "Alexandra de Gendre",
+        "Maryam Naghsh Nejad",
+        "Serena Yu"
+      ],
+      "authors_status_code": "available",
+      "available_online": "2026-11-01",
+      "china_relevance_status": "none",
+      "date_confidence": "B",
+      "date_precision": "month",
+      "date_source": "iza_detail_month",
+      "detail_key": "time-money-and-infant-health-the-consequences-of-paid-parental-leave-21c0a799122c",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:21c0a799122cf857",
+      "identity_aliases": [
+        "https://www.iza.org/publications/dp/19083/time-money-and-infant-health-the-consequences-of-paid-parental-leave",
+        "time-money-and-infant-health-the-consequences-of-paid-parental-leave-21c0a799122c"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "available",
+      "paper_number": "19083",
+      "published_online": "2026-11-01",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "Time, Money, and Infant Health: The Consequences of Paid Parental Leave",
+      "url": "https://www.iza.org/publications/dp/19083/time-money-and-infant-health-the-consequences-of-paid-parental-leave"
     },
     "url:21cbf6cf86189665": {
       "_raw_file": "2026-07-20.json",
@@ -452393,6 +452529,53 @@
       "translation_status": "abstract_translated",
       "url": "https://econpapers.repec.org/RePEc:ags:aaea26:404873"
     },
+    "url:3d8efc7dffc9a8d5": {
+      "abstract": "The world's top destination country for migrant workers, the United States, is enacting a set of unprecedented taxes on high-skill immigration that include charging employers roughly $100,000 for each foreign worker they hire using the H-1B visa. The US government has relied on one academic study to design the tax and evaluate its impact on high-skill immigration under the H-1B quota, an impact the study estimates at zero by measuring the wage differences between H-1B and native workers. This paper precisely replicates the study's method and finds that its conclusion rests on three major flaws, each of which renders its results difficult to interpret. The study mismeasures the wage gap between H-1B and native workers, misinterprets any negative wage gap as reflecting markdowns rather than task specialization, and carries the wage results into a policy simulation whose central estimates are invariant to the wage gap: they predict an identical (null) effect on immigration for any H-1B wage gap including zero. Improved methods are required to offer regulators useful information on the effects of this large shift in immigration policy.",
+      "abstract_completeness": "full",
+      "abstract_status_code": "available",
+      "authors": [
+        "Michael A. Clemens"
+      ],
+      "authors_status_code": "available",
+      "available_online": "2026-11-01",
+      "china_relevance_status": "none",
+      "date_confidence": "B",
+      "date_precision": "month",
+      "date_source": "iza_detail_month",
+      "detail_key": "taxing-high-skill-immigration-fundamental-problems-in-evaluating-immigrant-native-wage-g-3d8efc7dffc9",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:3d8efc7dffc9a8d5",
+      "identity_aliases": [
+        "https://www.iza.org/publications/dp/19080/taxing-high-skill-immigration-fundamental-problems-in-evaluating-immigrant-native-wage-gaps-and-the-h-1b-visa-tax",
+        "taxing-high-skill-immigration-fundamental-problems-in-evaluating-immigrant-native-wage-g-3d8efc7dffc9"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "available",
+      "paper_number": "19080",
+      "published_online": "2026-11-01",
+      "publisher": "IZA Discussion Papers",
+      "related_versions": [
+        "taxing-high-skill-immigration-fundamental-problems-in-evaluating-immigrant-native-wage-g-e73f3885d79d"
+      ],
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "Taxing High-Skill Immigration: Fundamental Problems in Evaluating Immigrant-Native Wage Gaps and the H-1B Visa Tax",
+      "url": "https://www.iza.org/publications/dp/19080/taxing-high-skill-immigration-fundamental-problems-in-evaluating-immigrant-native-wage-gaps-and-the-h-1b-visa-tax",
+      "version_group_key": "version:b3a003187dfd86cf"
+    },
     "url:3d98a1b4204c9716": {
       "abstract": "In 2020, the U.S. enacted the Holding Foreign Companies Accountable Act (HFCAA), requiring U.S.-listed foreign firms to submit audit working papers and verify the absence of government control, with delisting as a penalty for noncompliance. Using an event study approach, we document significantly negative stock market reactions to HFCAA legislative events among U.S.-listed Chinese firms. The effects are more pronounced for data-sensitive firms and state-owned enterprises, as well as for firms listed only in the United States and those facing larger financing constraints. Overall, our findings show that cross-border listing can impose significant regulatory costs stemming from cross-border enforcement frictions.",
       "abstract_completeness": "full",
@@ -459071,6 +459254,50 @@
       "title_zh": "西班牙后大衰退时期劳动力市场动态：不同数据集的比较",
       "translation_status": "abstract_translated_cached",
       "url": "https://www.iza.org/publications/dp/18755/post-great-recession-labor-market-dynamics-in-spain-a-comparison-of-alternative-datasets"
+    },
+    "url:458d0242ff3ca8fc": {
+      "abstract": "This chapter provides an overview of the rapidly evolving economics literature on mental health, focusing on research published since 2015. This literature has grown substantially, reflecting the increased recognition of the prevalence and economic costs of mental illness, declining stigma, and the growing availability of data on mental health. In addition to the economic costs of mental illness, the review focuses on four broad classes of determinants of mental health: endowments, economic resources, education, and trauma. We also examine the determinants and effects of mental health treatment. Finally, we discuss how certain features of mental illness, including its episodic and recurrent nature, pose challenges for the canonical health capital model.",
+      "abstract_completeness": "full",
+      "abstract_status_code": "available",
+      "authors": [
+        "Janet Currie",
+        "N. Meltem Daysal"
+      ],
+      "authors_status_code": "available",
+      "available_online": "2026-11-01",
+      "china_relevance_status": "none",
+      "date_confidence": "B",
+      "date_precision": "month",
+      "date_source": "iza_detail_month",
+      "detail_key": "economics-of-mental-health-458d0242ff3c",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:458d0242ff3ca8fc",
+      "identity_aliases": [
+        "economics-of-mental-health-458d0242ff3c",
+        "https://www.iza.org/publications/dp/19084/economics-of-mental-health"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "available",
+      "paper_number": "19084",
+      "published_online": "2026-11-01",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "Economics of Mental Health",
+      "url": "https://www.iza.org/publications/dp/19084/economics-of-mental-health"
     },
     "url:45b2f3e1f5a65824": {
       "abstract": "This paper provides the first systematic and comprehensive empirical study of management and strategy consulting. We unveil the workings of this opaque industry by drawing on universal administrative business-to-business transaction data based on value-added tax links from Belgium (2002-2023). These data permit us to document the nature of consulting engagements, take-up patterns, and the effects on client firms. We document that consulting take-up is concentrated among large, high-labor-productivity firms. For TFP and profitability, we find a U-shaped pattern: both high and low performers hire consultants. New clients spend on average 3% of payroll on consulting, typically in episodic engagements lasting less than one year. Using difference-in- differences designs exploiting these sharp consulting events, we find positive effects on labor productivity of 3.6% over five years, driven by modest employment reductions alongside stable or growing revenue. Average wages rise by 2.7% with no decline in labor’s share of value added, suggesting productivity gains do not come at workers’ expense through rent-shifting. We do observe organizational restructuring with small increases in dismissal rates, and higher services procurement but reduced labor outsourcing. Our heterogeneity analysis reveals larger productivity gains for initially less productive firms, suggesting improvements in allocative efficiency. Our findings broadly align with ex-ante predictions from surveyed academic economists and consulting professionals, validating the productivity-enhancing view of consulting endorsed by most practitioners though only half of academics, while lending less support to a rent-shifting view favored by many economists.",
@@ -482133,6 +482360,53 @@
       "source_issue": "Journal of Financial Economics, Volume 186",
       "title": "China Walls",
       "url": "https://www.sciencedirect.com/science/article/pii/S0304405X26001741?dgcid=rss_sd_all"
+    },
+    "url:5f90c01225bd5ae8": {
+      "abstract": "Students must allocate their time during tertiary education, but the evidence on the earnings value of their achievements and experiences is dispersed across separate literatures. We systematically reviewed 38 quantitative studies examining academic performance, delayed graduation, internship experience, student employment, and student leadership in relation to earnings during the first five years after graduation. We distinguish correlational evidence from quasi-experimental estimates and interpret the findings against theoretical mechanisms linking credentials to earnings. We find that academic performance is generally positively associated with earnings and has the most consistent quasi-experimental support for earnings premiums, especially at labour market entry. Internships can also yield substantial earnings gains, but estimates vary more across programmes and research designs. Student employment is generally associated with higher earnings when field-related, but the evidence does not establish a general causal premium. Delayed graduation and student leadership remain comparatively understudied.",
+      "abstract_completeness": "full",
+      "abstract_status_code": "available",
+      "authors": [
+        "Victor Debruyne",
+        "Louise Devos",
+        "Dieter Verhaest",
+        "Elsy Verhofstadt",
+        "Stijn Baert"
+      ],
+      "authors_status_code": "available",
+      "available_online": "2026-11-01",
+      "china_relevance_status": "none",
+      "date_confidence": "B",
+      "date_precision": "month",
+      "date_source": "iza_detail_month",
+      "detail_key": "what-pays-beyond-the-degree-a-systematic-review-of-educational-credentials-and-early-car-5f90c01225bd",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:5f90c01225bd5ae8",
+      "identity_aliases": [
+        "https://www.iza.org/publications/dp/19078/what-pays-beyond-the-degree-a-systematic-review-of-educational-credentials-and-early-career-earnings",
+        "what-pays-beyond-the-degree-a-systematic-review-of-educational-credentials-and-early-car-5f90c01225bd"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "available",
+      "paper_number": "19078",
+      "published_online": "2026-11-01",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "What Pays beyond the Degree? A Systematic Review of Educational Credentials and Early-Career Earnings",
+      "url": "https://www.iza.org/publications/dp/19078/what-pays-beyond-the-degree-a-systematic-review-of-educational-credentials-and-early-career-earnings"
     },
     "url:5fa25a4ef3f55f16": {
       "abstract_completeness": "missing",
@@ -508980,6 +509254,45 @@
       "translation_status": "abstract_translated",
       "url": "https://cepr.org/publications/dp21074"
     },
+    "url:801b777d5b40bebb": {
+      "abstract_completeness": "missing",
+      "abstract_status": "摘要暂未公开，系统将自动重试",
+      "abstract_status_code": "missing_retry",
+      "authors": [],
+      "authors_status": "作者信息待核验",
+      "authors_status_code": "missing_retry",
+      "china_relevance_status": "none",
+      "date_confidence": "F",
+      "date_source": "unknown",
+      "detail_key": "ai-implementation-at-work-worker-preferences-for-task-changes-801b777d5b40",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:801b777d5b40bebb",
+      "identity_aliases": [
+        "ai-implementation-at-work-worker-preferences-for-task-changes-801b777d5b40",
+        "https://www.iza.org/publications/dp/19076/ai-implementation-at-work-worker-preferences-for-task-changes"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "missing_retry",
+      "paper_number": "19076",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "AI Implementation at Work: Worker Preferences for Task Changes",
+      "url": "https://www.iza.org/publications/dp/19076/ai-implementation-at-work-worker-preferences-for-task-changes"
+    },
     "url:801eade8881660f0": {
       "abstract": "We study countries' compliance with the targets pledged in international climate-change agreements and the impact of those agreements and specific climate laws and policies on greenhouse-gas emissions and economic outcomes. To do so, we compile and codify data on international agreements and measures enacted at the national and sub-national levels. We find that compliance with targets has been mixed. Still, countries that signed the Kyoto Protocol or the Copenhagen Accord experienced significant reductions in emissions when compared to non-signatories. Having quantifiable targets led to further reductions. Effects from the Paris Agreement are not yet evident in the data. Carbon taxes and the introduction of emission-trading schemes led to material reductions in emissions. Other climate laws or policies do not appear to have had, individually, a material effect on emissions. The impact on GDP growth or inflation from most measures was largely insignificant. Overall, much more ambitious targets would be needed to offset the impact of economic and population growth on emissions and contain the expansion of the stock of gases.",
       "abstract_completeness": "full",
@@ -519926,6 +520239,50 @@
       "title_zh": "货币溢价之谜",
       "translation_status": "abstract_translated",
       "url": "https://cepr.org/publications/dp21816"
+    },
+    "url:8b2be83d71c31b0b": {
+      "abstract": "We complement existing literature by estimating determinants of the total fertility rate for 183 economies between 2000 and 2023. Methodologically, we utilise pooled OLS and economy/country fixed-effects regressions and complement them with exploratory random forests, which take into account non-linearities and interaction effects. Variable importance measures suggest that after two indicators for life expectancy, GDP per capita, and schooling, pension coverage is among the more important predictors of fertility. Our results suggest that acknowledging the costs of childbearing and childrearing in pension systems may be a method to address declining fertility.",
+      "abstract_completeness": "full",
+      "abstract_status_code": "available",
+      "authors": [
+        "Anika Ewald",
+        "Patrick A. Puhani"
+      ],
+      "authors_status_code": "available",
+      "available_online": "2026-11-01",
+      "china_relevance_status": "none",
+      "date_confidence": "B",
+      "date_precision": "month",
+      "date_source": "iza_detail_month",
+      "detail_key": "does-pension-coverage-predict-fertility-international-evidence-from-ols-fixed-effects-an-8b2be83d71c3",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:8b2be83d71c31b0b",
+      "identity_aliases": [
+        "does-pension-coverage-predict-fertility-international-evidence-from-ols-fixed-effects-an-8b2be83d71c3",
+        "https://www.iza.org/publications/dp/19082/does-pension-coverage-predict-fertility-international-evidence-from-ols-fixed-effects-and-machine-learning-random-forests"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "available",
+      "paper_number": "19082",
+      "published_online": "2026-11-01",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "Does Pension Coverage Predict Fertility? International Evidence from OLS, Fixed Effects and Machine Learning Random Forests",
+      "url": "https://www.iza.org/publications/dp/19082/does-pension-coverage-predict-fertility-international-evidence-from-ols-fixed-effects-and-machine-learning-random-forests"
     },
     "url:8b34f717c8a66986": {
       "abstract": "Frontline state agents wield broad discretion over citizens’ access to public services, yet whether the attitudes shaping it can be changed among incu...",
@@ -533886,6 +534243,45 @@
       "translation_status": "abstract_translated",
       "url": "https://le.uwpress.org/cgi/content/short/wple.97.1.112118-0157R2v1?rss=1"
     },
+    "url:9b1306b5695ff84d": {
+      "abstract_completeness": "missing",
+      "abstract_status": "摘要暂未公开，系统将自动重试",
+      "abstract_status_code": "missing_retry",
+      "authors": [],
+      "authors_status": "作者信息待核验",
+      "authors_status_code": "missing_retry",
+      "china_relevance_status": "none",
+      "date_confidence": "F",
+      "date_source": "unknown",
+      "detail_key": "from-cheap-answers-to-lasting-learning-ai-tutoring-and-educational-inequality-9b1306b5695f",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:9b1306b5695ff84d",
+      "identity_aliases": [
+        "from-cheap-answers-to-lasting-learning-ai-tutoring-and-educational-inequality-9b1306b5695f",
+        "https://www.iza.org/publications/dp/19072/from-cheap-answers-to-lasting-learning-ai-tutoring-and-educational-inequality"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "missing_retry",
+      "paper_number": "19072",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "From Cheap Answers to Lasting Learning: AI Tutoring and Educational Inequality",
+      "url": "https://www.iza.org/publications/dp/19072/from-cheap-answers-to-lasting-learning-ai-tutoring-and-educational-inequality"
+    },
     "url:9b18483fa9ae15ab": {
       "abstract_completeness": "missing",
       "abstract_enrichment_status": "abstract-route-missing",
@@ -538931,6 +539327,45 @@
       "title_zh": "小即是美2050：欧洲数字经济应呈网状而非中心辐射状",
       "translation_status": "title_translated_cached",
       "url": "https://cepr.org/voxeu/columns/small-beautiful-2050-europes-digital-economy-mesh-not-hub"
+    },
+    "url:a0ae4aa8d0ddd250": {
+      "abstract_completeness": "missing",
+      "abstract_status": "摘要暂未公开，系统将自动重试",
+      "abstract_status_code": "missing_retry",
+      "authors": [],
+      "authors_status": "作者信息待核验",
+      "authors_status_code": "missing_retry",
+      "china_relevance_status": "none",
+      "date_confidence": "F",
+      "date_source": "unknown",
+      "detail_key": "knock-knock-knocking-on-the-glass-door-socio-economic-inequalities-in-access-to-high-pay-a0ae4aa8d0dd",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:a0ae4aa8d0ddd250",
+      "identity_aliases": [
+        "https://www.iza.org/publications/dp/19075/knock-knock-knocking-on-the-glass-door-socio-economic-inequalities-in-access-to-high-pay-careers",
+        "knock-knock-knocking-on-the-glass-door-socio-economic-inequalities-in-access-to-high-pay-a0ae4aa8d0dd"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "missing_retry",
+      "paper_number": "19075",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "(Knock, Knock) Knocking on the Glass Door: Socio-economic Inequalities in Access to High-Pay Careers",
+      "url": "https://www.iza.org/publications/dp/19075/knock-knock-knocking-on-the-glass-door-socio-economic-inequalities-in-access-to-high-pay-careers"
     },
     "url:a0b0cf26636efd21": {
       "abstract": "本文以生成式人工智能为研究对象,基于招聘平台岗位大数据,采用双重差分方法考察其对中国劳动力市场的影响。研究发现,生成式人工智能应用显著降低了岗位平均薪资。机制研究表明,现阶段其岗位替代效应大于生产率提升效应,是构成薪资下行的主要渠道。异质性分析发现,对软技能要求不高、认知型的岗位薪资下降更为明显;相比之下,依赖现场服务与人际交互的岗位薪资则有所上升。生成式人工智能在替代部分岗位的同时,亦带动了云网智能运维员、生成式人工智能系统应用员等新兴职业的岗位需求增长,体现出技术变革的创造性破坏特征。本文建议,应强化就业动态监测与完善多层次社会保障体系,积极培育新质生产力所需的职业类型,促进劳动力市场平稳转型。",
@@ -551714,7 +552149,6 @@
       ],
       "authors_status_code": "available",
       "available_online": "2026-06-15",
-      "china_relevance_reason": "摘要仅出现一次中国相关表述，需确认中国是否为核心研究对象",
       "china_relevance_status": "none",
       "date_confidence": "D",
       "date_source": "nep_issue_date",
@@ -559368,6 +559802,45 @@
       "title_zh": "不确定条件下汇率与基本面的关联",
       "translation_status": "abstract_translated",
       "url": "https://cepr.org/publications/dp19744"
+    },
+    "url:b96fb3bd6e39370b": {
+      "abstract_completeness": "missing",
+      "abstract_status": "摘要暂未公开，系统将自动重试",
+      "abstract_status_code": "missing_retry",
+      "authors": [],
+      "authors_status": "作者信息待核验",
+      "authors_status_code": "missing_retry",
+      "china_relevance_status": "none",
+      "date_confidence": "F",
+      "date_source": "unknown",
+      "detail_key": "how-do-top-earners-respond-to-taxation-own-and-cross-tax-base-responses-efficiency-and-i-b96fb3bd6e39",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:b96fb3bd6e39370b",
+      "identity_aliases": [
+        "how-do-top-earners-respond-to-taxation-own-and-cross-tax-base-responses-efficiency-and-i-b96fb3bd6e39",
+        "https://www.iza.org/publications/dp/19077/how-do-top-earners-respond-to-taxation-own-and-cross-tax-base-responses-efficiency-and-inequality"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "missing_retry",
+      "paper_number": "19077",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "How Do Top Earners Respond to Taxation? Own- and Cross-Tax Base Responses, Efficiency, and Inequality",
+      "url": "https://www.iza.org/publications/dp/19077/how-do-top-earners-respond-to-taxation-own-and-cross-tax-base-responses-efficiency-and-inequality"
     },
     "url:b97084312f749e3a": {
       "abstract_completeness": "missing",
@@ -591331,6 +591804,45 @@
       "title_zh": "全国暂停后恢复ABAWD工作要求对SNAP参与和就业的影响",
       "translation_status": "abstract_translated",
       "url": "https://econpapers.repec.org/RePEc:ags:aaea26:404777"
+    },
+    "url:e116c1092cc8e994": {
+      "abstract_completeness": "missing",
+      "abstract_status": "摘要暂未公开，系统将自动重试",
+      "abstract_status_code": "missing_retry",
+      "authors": [],
+      "authors_status": "作者信息待核验",
+      "authors_status_code": "missing_retry",
+      "china_relevance_status": "none",
+      "date_confidence": "F",
+      "date_source": "unknown",
+      "detail_key": "shorter-hours-lower-output-evidence-from-a-century-of-working-time-legislation-e116c1092cc8",
+      "detected_at": "2026-11-12T14:08:03+00:00",
+      "doi": null,
+      "fields": [
+        "labor",
+        "education",
+        "health",
+        "development"
+      ],
+      "first_seen": "2026-11-12T14:08:03+00:00",
+      "id": "url:e116c1092cc8e994",
+      "identity_aliases": [
+        "https://www.iza.org/publications/dp/19073/shorter-hours-lower-output-evidence-from-a-century-of-working-time-legislation",
+        "shorter-hours-lower-output-evidence-from-a-century-of-working-time-legislation-e116c1092cc8"
+      ],
+      "journal": "IZA Discussion Papers",
+      "journal_id": "source-iza",
+      "official_date_status": "missing_retry",
+      "paper_number": "19073",
+      "publisher": "IZA Discussion Papers",
+      "series": "IZA Discussion Papers",
+      "source": "working_papers",
+      "source_id": "iza",
+      "source_name": "IZA Discussion Papers",
+      "source_type": "working_paper",
+      "source_url": "https://www.iza.org/publications/dp",
+      "title": "Shorter Hours, Lower Output? Evidence from a Century of Working-Time Legislation",
+      "url": "https://www.iza.org/publications/dp/19073/shorter-hours-lower-output-evidence-from-a-century-of-working-time-legislation"
     },
     "url:e12487c65ce1ee5a": {
       "abstract": "Globally declining birth rates have, over the last seven decades, slowed population growth and raised average ages. This column argues that despite widespread economic pessimism, historical cross-country and US commuting zone data point to no impact of ageing populations on aggregate GDP or earnings growth. Countries with lower birth rates have higher GDP growth per working-age adult, and US commuting zones with lower birth rates have faster wage growth. The growth-reducing potential of demographic slowdowns is countered by faster technological change. While future demographic changes will occur at greater speed and scale, the economic record suggests that current pessimism is premature.",
