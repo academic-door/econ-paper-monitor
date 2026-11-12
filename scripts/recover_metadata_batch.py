@@ -282,7 +282,16 @@ def load_daily_candidates(
     if limit >= 30 and len(candidate_dois) > limit:
         backlog_quota = limit // 3
         priority_count = limit - backlog_quota
-        backlog_pool = sorted(candidate_dois[priority_count:])
+        remaining = candidate_dois[priority_count:]
+        # Spend historical slots on missing/preview abstracts before weak
+        # dates; date-only retries already have a separate FULL pipeline step.
+        backlog_pool = sorted(
+            doi for doi in remaining
+            if record_needs_abstract(records_by_doi[doi][0][1])
+        ) + sorted(
+            doi for doi in remaining
+            if not record_needs_abstract(records_by_doi[doi][0][1])
+        )
         start = (rotation_slot * backlog_quota) % len(backlog_pool)
         rotated = [
             backlog_pool[(start + offset) % len(backlog_pool)]
