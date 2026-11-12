@@ -7,14 +7,64 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 80,
-    "missing_authors": 2,
+    "missing_abstract": 82,
+    "missing_authors": 4,
     "weak_date_evidence": 495
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 525,
+  "recent_candidates_before_limit": 528,
   "recent_window_start": "2026-10-14",
   "records": [
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-11-12T11:52:33+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://glsj.cbpt.cnki.net/wkb2/webpublication/paperdigest.aspx?paperid=30fe9ff3-0f09-44cb-b064-bffa3b465618",
+      "journal": "管理世界",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "missing_authors",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "“《管理世界》AI工作坊”系列培训课程",
+      "url": "https://glsj.cbpt.cnki.net/WKB2/WebPublication/paperDigest.aspx?paperID=30fe9ff3-0f09-44cb-b064-bffa3b465618"
+    },
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-11-12T11:53:30+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://www.iza.org/publications/dp/19060/does-war-destroy-institutions-or-reinvent-them-a-spatial-econometric-analysis-of-regional-governance-in-ukraine-and-russia-within-the-eurasian-political-economy",
+      "journal": "IZA Discussion Papers",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "missing_authors",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": "iza",
+      "source_type": "working_paper",
+      "title": "Does War Destroy Institutions or Reinvent Them? A Spatial Econometric Analysis of Regional Governance in Ukraine and Russia within the Eurasian Political Economy",
+      "url": "https://www.iza.org/publications/dp/19060/does-war-destroy-institutions-or-reinvent-them-a-spatial-econometric-analysis-of-regional-governance-in-ukraine-and-russia-within-the-eurasian-political-economy"
+    },
     {
       "date_confidence": "C",
       "doi": "10.1080/00036846.2026.2759805",
@@ -2000,6 +2050,29 @@
       "source_type": "journal",
       "title": "Risk, time and social preferences shape cross-country support for carbon dioxide removal technologies",
       "url": "https://doi.org/10.1016/j.eneco.2026.109696"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.euroecorev.2026.105518",
+      "first_seen": "2026-11-12T09:32:57+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.euroecorev.2026.105518",
+      "journal": "European Economic Review",
+      "official_date": "2026-11-12",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Deep trade agreements and heterogeneous firms’ exports",
+      "url": "https://doi.org/10.1016/j.euroecorev.2026.105518"
     },
     {
       "date_confidence": "C",
@@ -11543,78 +11616,9 @@
       "source_type": "journal",
       "title": "The Equilibrium Effect of Information in Consumer Credit Markets: Public Records and Credit Redistribution",
       "url": "https://doi.org/10.1162/rest.a.1880"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1162/rest.a.1881",
-      "first_seen": "2026-10-22T23:57:54+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1162/rest.a.1881",
-      "journal": "Review of Economics and Statistics",
-      "official_date": "2026-10-16",
-      "priority": [
-        0,
-        1,
-        1,
-        27
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Contracting Structures in Public Procurement: Evidence from Donor-Funded Electrification in Kenya",
-      "url": "https://doi.org/10.1162/rest.a.1881"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1162/rest.a.1882",
-      "first_seen": "2026-10-22T23:57:54+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1162/rest.a.1882",
-      "journal": "Review of Economics and Statistics",
-      "official_date": "2026-10-16",
-      "priority": [
-        0,
-        1,
-        1,
-        27
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "How Credible Are the Findings from Online Experiments?",
-      "url": "https://doi.org/10.1162/rest.a.1882"
-    },
-    {
-      "date_confidence": "F",
-      "doi": null,
-      "first_seen": "2026-10-16T19:38:06+00:00",
-      "historical_backfill": false,
-      "identity": "url:https://www.iza.org/publications/dp/18991/ai-adoption-by-firms-insights-from-the-literature-and-the-german-innovation-survey",
-      "journal": "IZA Discussion Papers",
-      "official_date": null,
-      "priority": [
-        0,
-        1,
-        1,
-        27
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "first_seen",
-      "source_id": "iza",
-      "source_type": "working_paper",
-      "title": "AI Adoption by Firms: Insights from the Literature and the German Innovation Survey",
-      "url": "https://www.iza.org/publications/dp/18991/ai-adoption-by-firms-insights-from-the-literature-and-the-german-innovation-survey"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5555,
+  "total_candidates_before_limit": 5558,
   "truncated": true
 }
