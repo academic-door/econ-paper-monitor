@@ -1237,3 +1237,46 @@ def test_doi_from_informs_and_tandf_rss_url_is_lookup_only(tmp_path: Path) -> No
     assert seen_record["doi"] is None
     assert seen_record["url"] == example["url"]
     assert seen_record["first_seen"] == example["first_seen"]
+
+
+def test_recovery_rotates_historical_candidates_without_starving_priority(tmp_path: Path) -> None:
+    """Each six-hour slot uses the same bounded budget but a new debt slice."""
+    records = [
+        sample_record(
+            doi=f"10.1234/rotation-{index:03d}",
+            detail_key=f"rotation-{index:03d}",
+            first_seen=(
+                f"2026-08-{(index // 24) + 1:02d}"
+                f"T{index % 24:02d}:00:00+00:00"
+            ),
+            authors=["Existing Author"],
+            date_confidence="A",
+        )
+        for index in range(65)
+    ]
+    write_json(tmp_path / "2026-08-29.json", records)
+
+    def selected(slot: int, limit: int = 30) -> list[str]:
+        candidates, by_doi, _ = load_daily_candidates(
+            tmp_path, limit=limit, recent_days=0, rotation_slot=slot
+        )
+        assert len(candidates) == len(by_doi)
+        return list(by_doi)
+
+    slot0 = selected(0)
+    slot1 = selected(1)
+    assert len(slot0) == len(slot1) == 30
+    assert len(set(slot0)) == len(set(slot1)) == 30
+
+    # The most recent 20 DOI records keep their priority in both runs.
+    assert slot0[:20] == slot1[:20]
+    assert slot0[20:] != slot1[20:]
+    assert not set(slot0[20:]).intersection(slot1[20:])
+    assert set().union(*(set(selected(slot)[20:]) for slot in range(5))) == (
+        {f"10.1234/rotation-{index:03d}" for index in range(65)}
+        - set(slot0[:20])
+    )
+
+    # Small diagnostics and unrestricted runs retain their existing semantics.
+    assert selected(0, limit=10) == selected(3, limit=10)
+    assert len(selected(8, limit=0)) == 65
