@@ -1280,3 +1280,33 @@ def test_recovery_rotates_historical_candidates_without_starving_priority(tmp_pa
     # Small diagnostics and unrestricted runs retain their existing semantics.
     assert selected(0, limit=10) == selected(3, limit=10)
     assert len(selected(8, limit=0)) == 65
+
+
+def test_rotated_backlog_prioritizes_missing_or_preview_abstracts(tmp_path: Path) -> None:
+    """Historical abstract debt outranks date-only debt in the rotated slice."""
+    full = (
+        "The paper describes new empirical evidence on economic policies. "
+        "Our analysis compares treatment and control groups in multiple settings."
+    )
+    records = [
+        sample_record(
+            doi=f"10.1234/focus-{index:03d}",
+            detail_key=f"focus-{index:03d}",
+            first_seen=(
+                f"2026-08-{(index // 24) + 1:02d}"
+                f"T{index % 24:02d}:00:00+00:00"
+            ),
+            abstract=None if index < 40 else full,
+            authors=["Author"],
+            date_confidence="C",
+        )
+        for index in range(80)
+    ]
+    write_json(tmp_path / "2026-08-29.json", records)
+    for slot in (0, 1):
+        selected, by_doi, _ = load_daily_candidates(
+            tmp_path, limit=30, recent_days=0, rotation_slot=slot
+        )
+        assert len(selected) == len(by_doi) == 30
+        # All 40 abstract-missing candidates are handled before date-only debt.
+        assert all(int(doi.rsplit("-", 1)[-1]) < 40 for doi in by_doi)
