@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 4
+    "needs_investigation": 12
   },
-  "checked_at": "2026-11-14T00:03:42.638773+08:00",
-  "source_health_degraded_count": 4,
+  "checked_at": "2026-11-14T01:15:08.914476+08:00",
+  "source_health_degraded_count": 12,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,7 +12,7 @@
     },
     {
       "category": "transient_network",
-      "sample_error": "partial_success failures=1; Econometrica: 0; American Economic Review: 10; Review of Economic Studies: 6; Journal of Political Economy: 5; Quarterly Journal of Economics: 5; Economic Journal: 5; Journ",
+      "sample_error": "partial_success failures=9; Agricultural Economics: 5; Journal of the Association of Environmental and Resource Economists: 17; Land Economics: 7; Land Use Policy: 40; European Review of Agricultural ",
       "source": "crossref"
     },
     {
@@ -21,13 +21,8 @@
       "source": "priority-toc:jare"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
-      "source": "publisher-detail"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "feeds=34/45; Journal of Economic History: 12 via configured; Journal of International Economics: 44 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
+      "category": "page_structure_change",
+      "sample_error": "feeds=88/123; Canadian Journal of Agricultural Economics: 12 via official-generated; Australian Journal of Agricultural and Resource Economics: 58 via official-generated; Applied Economic Perspectives",
       "source": "rss"
     },
     {
@@ -37,7 +32,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 19 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
       "source": "working-papers"
     }
   ],
@@ -47,11 +42,41 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "environmental-and-resource-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Environmental and Resource Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "experimental-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Experimental Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "NETWORK_FAILURE",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "needs_investigation",
-      "status_source": "priority-toc:jare",
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -62,9 +87,84 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-monetary-economics",
+      "journal_id": "journal-of-business-and-economic-statistics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Monetary Economics",
+      "source": "Journal of Business & Economic Statistics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-development-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Development Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-economics-and-management-strategy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economics & Management Strategy",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-environmental-economics-and-management",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Environmental Economics and Management",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-industrial-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Industrial Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-risk-and-uncertainty",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Risk and Uncertainty",
       "status_category": "transient_network",
       "status_source": "crossref",
       "usable_paths": [
@@ -92,6 +192,20 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "review-of-economics-and-statistics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
+      "source": "Review of Economics and Statistics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "theoretical-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Theoretical Economics",
@@ -105,7 +219,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 7
+    "degraded_source_failures": 6
   },
-  "total_degraded": 4
+  "total_degraded": 12
 }
