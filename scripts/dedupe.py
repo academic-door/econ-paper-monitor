@@ -90,6 +90,15 @@ def is_source_navigation_noise(record: dict[str, Any]) -> bool:
     doi = normalize_doi(record.get("doi"))
     # This DOI prefix belongs to an unrelated Indonesian journal that was
     # previously misclassified as Chicago's Journal of Law & Economics.
+    # Official 管理世界 issue feed may expose a promotional training-course
+    # notice as a journal record. Quarantine only the exact evidenced notice;
+    # broad "AI工作坊" terms could exclude real research on AI training.
+    if (
+        str(record.get("journal") or "").strip() == "管理世界"
+        and title == "“《管理世界》ai工作坊”系列培训课程"
+        and "paperid=30fe9ff3-0f09-44cb-b064-bffa3b465618" in url
+    ):
+        return True
     if doi and doi.startswith("10.56347/jle."):
         return True
     if not title and not url and not doi:
