@@ -76,3 +76,9 @@ def test_exact_notice_quarantined_idempotently_with_first_seen_preserved(tmp_pat
     assert clean_nonpaper_records(daily_dir, seen_path, ledger_path) == {
         "daily": 0, "seen": 0, "ledger_added": 0,
     }
+
+
+def test_fast_discovery_commits_exclusion_evidence_with_canonical_data():
+    workflow = (ROOT / ".github/workflows/fast-discovery.yml").read_text(encoding="utf-8")
+    assert "git diff --quiet -- data/seen.json data/daily data/ingestion_exclusion_ledger.json" in workflow
+    assert "git add data/seen.json data/daily data/ingestion_exclusion_ledger.json" in workflow
