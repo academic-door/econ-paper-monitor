@@ -71,28 +71,40 @@ def clean_nonpaper_records(daily_dir: Path, seen_path: Path, ledger_path: Path) 
             ledger = {"records": []}
         records = ledger.setdefault("records", [])
         existing = {
-            quarantine_identity(record)
+            quarantine_identity(record): record
             for record in records
             if isinstance(record, dict) and quarantine_identity(record)
         }
         removed_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+        ledger_updated = 0
         for identity, record in sorted(removed.items()):
-            if not identity or identity in existing:
+            if not identity:
                 continue
-            record.update(
-                {
-                    "seen": False,
-                    "duplicate": False,
-                    "stage": "source_rule",
-                    "reason": "publisher navigation or non-article source noise",
-                    "exclusion_status": "confirmed_nonpaper",
-                    "removed_from_canonical_at": removed_at,
-                }
-            )
+            audit_fields = {
+                "seen": False,
+                "duplicate": False,
+                "stage": "source_rule",
+                "reason": "publisher navigation or non-article source noise",
+                "exclusion_status": "confirmed_nonpaper",
+                "removed_from_canonical_at": removed_at,
+            }
+            prior = existing.get(identity)
+            if prior is not None:
+                if prior.get("exclusion_status") != "confirmed_nonpaper":
+                    # A raw candidate can already be in the ledger as a
+                    # duplicate of seen. Upgrade that same identity to an
+                    # audited source exclusion without losing raw provenance.
+                    prior.setdefault("prior_exclusion_reason", prior.get("reason"))
+                    prior.setdefault("prior_exclusion_stage", prior.get("stage"))
+                    prior.update(record)
+                    prior.update(audit_fields)
+                    ledger_updated += 1
+                continue
+            record.update(audit_fields)
             records.append(record)
-            existing.add(identity)
+            existing[identity] = record
             ledger_added += 1
-        if ledger_added:
+        if ledger_added or ledger_updated:
             ledger["excluded_count"] = len(records)
             ledger["candidate_count"] = max(int(ledger.get("candidate_count") or 0), len(records))
             ledger["reason_counts"] = dict(
