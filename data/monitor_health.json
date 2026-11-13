@@ -10,21 +10,21 @@
     "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 12392,
+    "seen": 12393,
     "source_crossref_only": 0,
-    "source_degraded": 3,
-    "source_healthy": 100,
+    "source_degraded": 4,
+    "source_healthy": 99,
     "today": 0
   },
   "date": "2026-11-14",
   "failures": [],
-  "generated_at": "2026-11-13T22:16:18+00:00",
+  "generated_at": "2026-11-13T23:19:59+00:00",
   "local_cnki": {
-    "age_hours": 6.06,
+    "age_hours": 1.12,
     "count": 94,
     "fresh": true,
     "freshness_code": "fresh",
-    "last_success_at": "2026-11-13T16:12:46+00:00",
+    "last_success_at": "2026-11-13T22:12:53+00:00",
     "ok": true,
     "source_health": {
       "failed_sources": 0,
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-11-13T22:10:51+00:00",
+    "checked_at": "2026-11-13T23:18:51+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -116,6 +116,15 @@
           "next_action": "add or verify an independent fallback path",
           "usable_paths": [
             "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "Journal of Economic Behavior and Organization",
+          "journal_id": "journal-of-economic-behavior-and-organization",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "rss",
             "openalex-recall"
           ]
         },
