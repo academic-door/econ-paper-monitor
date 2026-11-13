@@ -7,39 +7,13 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 81,
-    "missing_authors": 1,
+    "missing_abstract": 80,
     "weak_date_evidence": 497
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 547,
+  "recent_candidates_before_limit": 548,
   "recent_window_start": "2026-10-15",
   "records": [
-    {
-      "date_confidence": "F",
-      "doi": null,
-      "first_seen": "2026-11-12T11:52:33+00:00",
-      "historical_backfill": false,
-      "identity": "url:https://glsj.cbpt.cnki.net/wkb2/webpublication/paperdigest.aspx?paperid=30fe9ff3-0f09-44cb-b064-bffa3b465618",
-      "journal": "管理世界",
-      "official_date": null,
-      "priority": [
-        0,
-        0,
-        0,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "missing_authors",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "first_seen",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "“《管理世界》AI工作坊”系列培训课程",
-      "url": "https://glsj.cbpt.cnki.net/WKB2/WebPublication/paperDigest.aspx?paperID=30fe9ff3-0f09-44cb-b064-bffa3b465618"
-    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -2074,6 +2048,29 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1016/j.geb.2026.104084",
+      "first_seen": "2026-11-13T02:02:21+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.geb.2026.104084",
+      "journal": "Games and Economic Behavior",
+      "official_date": "2026-11-13",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Multidimensional mechanism design and robust revenue maximization in multi-object auctions",
+      "url": "https://doi.org/10.1016/j.geb.2026.104084"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1016/j.jedc.2026.105461",
       "first_seen": "2026-11-13T02:48:29+00:00",
       "historical_backfill": false,
@@ -2347,6 +2344,29 @@
       "source_type": "journal",
       "title": "Paving the road to prosperity: Productive government spending, takeoff and robust endogenous growth",
       "url": "https://doi.org/10.1016/j.euroecorev.2026.105517"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.euroecorev.2026.105519",
+      "first_seen": "2026-11-13T01:36:50+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.euroecorev.2026.105519",
+      "journal": "European Economic Review",
+      "official_date": "2026-11-12",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "For whom the bill tolls: Redistributive consequences of a monetary–fiscal stimulus",
+      "url": "https://doi.org/10.1016/j.euroecorev.2026.105519"
     },
     {
       "date_confidence": "C",
@@ -11588,32 +11608,9 @@
       "source_type": "journal",
       "title": "Interim Information Design And Buyer-Optimal Pricing",
       "url": "https://www.aeaweb.org/articles?id=10.1257/aeri.20260061"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2748526",
-      "first_seen": "2026-10-18T22:31:34+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2748526",
-      "journal": "Applied Economics",
-      "official_date": "2026-10-18",
-      "priority": [
-        0,
-        1,
-        1,
-        26
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Managerial overconfidence and environmental sustainability disclosure: a signalling game with three disclosure choices",
-      "url": "https://doi.org/10.1080/00036846.2026.2748526"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5503,
+  "total_candidates_before_limit": 5504,
   "truncated": true
 }
