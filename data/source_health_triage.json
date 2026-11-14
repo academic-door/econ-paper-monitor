@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 4
+    "needs_investigation": 3
   },
-  "checked_at": "2026-11-14T07:18:51.765157+08:00",
-  "source_health_degraded_count": 4,
+  "checked_at": "2026-11-14T08:36:32.129911+08:00",
+  "source_health_degraded_count": 3,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,7 +12,7 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=3; Journal of Finance: 3; Journal of Financial Economics: 9; Review of Financial Studies: 4; Journal of Development Economics: 11; Economic Development and Cultural Change: 0;",
+      "sample_error": "partial_success failures=2; Journal of Finance: 3; Journal of Financial Economics: 9; Review of Financial Studies: 4; Journal of Development Economics: 11; Economic Development and Cultural Change: 0;",
       "source": "crossref"
     },
     {
@@ -62,21 +62,6 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-economic-behavior-and-organization",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Economic Behavior and Organization",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "quantitative-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Quantitative Economics",
@@ -107,5 +92,5 @@
     "aligned": true,
     "degraded_source_failures": 7
   },
-  "total_degraded": 4
+  "total_degraded": 3
 }
