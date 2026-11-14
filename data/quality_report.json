@@ -1,7 +1,7 @@
 {
   "abstracts": {
-    "available": 10186,
-    "missing": 291,
+    "available": 10207,
+    "missing": 271,
     "missing_by_journal_top": {
       "American Economic Review": 3,
       "Applied Economics": 12,
@@ -29,54 +29,54 @@
       "Journal of the Association of Environmental and Resource Economists": 6,
       "Land Economics": 20,
       "Land Use Policy": 8,
-      "Management Science": 42,
+      "Management Science": 22,
       "Public Choice": 20,
       "Review of Economic Design": 2,
       "World Development": 5
     },
-    "missing_rate": 0.0278,
+    "missing_rate": 0.0259,
     "missing_recent": 19,
     "missing_recent_actionable": 15,
     "missing_recent_expected": 4,
     "missing_today": 3,
-    "total": 10477
+    "total": 10478
   },
   "authors": {
-    "available": 10466,
+    "available": 10467,
     "missing": 11,
     "missing_recent": 0,
     "missing_recent_actionable": 0,
     "missing_recent_expected": 0,
     "missing_today": 0,
     "missing_today_journals": 0,
-    "total": 10477
+    "total": 10478
   },
   "date_confidence": {
-    "A": 6302,
+    "A": 6304,
     "B": 98,
-    "C": 2971,
-    "D": 519,
-    "F": 587
+    "C": 2970,
+    "D": 518,
+    "F": 588
   },
   "date_source_top": {
-    "aea_current_issue": 29,
+    "aea_current_issue": 28,
     "cepr_published_time": 39,
     "cnki_rss_pubdate": 331,
     "crossref_created": 21,
-    "crossref_doi_elsevier_created_online": 648,
+    "crossref_doi_elsevier_created_online": 644,
     "crossref_doi_published": 65,
-    "crossref_doi_published_online": 323,
+    "crossref_doi_published_online": 322,
     "crossref_elsevier_created_online": 777,
     "crossref_issue": 71,
-    "crossref_published_online": 611,
+    "crossref_published_online": 609,
     "iza_detail_month": 96,
     "nep_issue_date": 406,
-    "openalex+crossref_crossvalidated": 423,
-    "openalex_publication_date": 81,
+    "openalex+crossref_crossvalidated": 428,
+    "openalex_publication_date": 82,
     "publisher_detail": 1234,
     "publisher_published_online": 138,
-    "rss_description_online": 1243,
-    "rss_published": 3210,
+    "rss_description_online": 1244,
+    "rss_published": 3211,
     "unknown": 513,
     "world_bank_detail_api": 84
   },
@@ -1730,7 +1730,18 @@
     "nonpaper_records": [],
     "source_type_errors": [],
     "today_cn_issue_only": [],
-    "today_low_confidence": [],
+    "today_low_confidence": [
+      {
+        "date": "2026-11-14",
+        "date_confidence": "F",
+        "date_source": "sciencedirect_api_load_date",
+        "journal": "Land Use Policy",
+        "official_date": "2026-11-14",
+        "source_issue": null,
+        "title": "Urban-driven second-home expansion and uneven transformation in peri-urban settlements: Socio-economic implications and planning challenges",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0264837726005077?dgcid=api_sd_search-api-endpoint"
+      }
+    ],
     "untranslated_recent": [
       {
         "date": "2026-11-14",
@@ -1745,7 +1756,7 @@
       {
         "date": "2026-11-14",
         "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_source": "rss_description_online",
         "journal": "Structural Change and Economic Dynamics",
         "official_date": "2026-11-14",
         "source_issue": "Structural Change and Economic Dynamics",
@@ -1863,6 +1874,16 @@
         "url": "https://doi.org/10.1016/j.euroecorev.2026.105521"
       },
       {
+        "date": "2026-11-14",
+        "date_confidence": "F",
+        "date_source": "sciencedirect_api_load_date",
+        "journal": "Land Use Policy",
+        "official_date": "2026-11-14",
+        "source_issue": null,
+        "title": "Urban-driven second-home expansion and uneven transformation in peri-urban settlements: Socio-economic implications and planning challenges",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0264837726005077?dgcid=api_sd_search-api-endpoint"
+      },
+      {
         "date": "2026-11-13",
         "date_confidence": "C",
         "date_source": "crossref_doi_published_online",
@@ -1884,8 +1905,8 @@
       },
       {
         "date": "2026-11-13",
-        "date_confidence": "C",
-        "date_source": "crossref_doi_published_online",
+        "date_confidence": "A",
+        "date_source": "rss_published",
         "journal": "Review of International Economics",
         "official_date": "2026-11-13",
         "source_issue": null,
@@ -2114,8 +2135,8 @@
       },
       {
         "date": "2026-11-13",
-        "date_confidence": "C",
-        "date_source": "crossref_doi_elsevier_created_online",
+        "date_confidence": "A",
+        "date_source": "elsevier_article_api",
         "journal": "Journal of Economic Theory",
         "official_date": "2026-11-13",
         "source_issue": null,
@@ -2221,16 +2242,6 @@
         "source_issue": "Economics Letters",
         "title": "Ownership premia and optimal k-double auctions",
         "url": "https://www.sciencedirect.com/science/article/pii/S0165176526005483?dgcid=rss_sd_all"
-      },
-      {
-        "date": "2026-11-13",
-        "date_confidence": "A",
-        "date_source": "rss_published",
-        "journal": "VoxEU / CEPR Columns",
-        "official_date": "2026-11-13",
-        "source_issue": null,
-        "title": "AI and the geography of expert work: Evidence from radiology",
-        "url": "https://cepr.org/voxeu/columns/ai-and-geography-expert-work-evidence-radiology"
       }
     ]
   },
@@ -2240,7 +2251,7 @@
       {
         "date": "2026-11-14",
         "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_source": "rss_description_online",
         "journal": "Structural Change and Economic Dynamics",
         "official_date": "2026-11-14",
         "source_issue": "Structural Change and Economic Dynamics",
@@ -2399,13 +2410,13 @@
     "priority_crossref_fallback": 143,
     "priority_toc": 62,
     "rss": 2292,
-    "sciencedirect_search": 328,
+    "sciencedirect_search": 329,
     "unknown": 234,
     "working_papers": 2227
   },
   "totals": {
-    "china_candidates": 296,
-    "china_related_public": 1702,
+    "china_candidates": 298,
+    "china_related_public": 1708,
     "cnki_rss_today": 0,
     "crossref_created_today": 6,
     "crossref_fallback_today": 9,
@@ -2414,7 +2425,7 @@
     "historical_records_in_bucket": 75,
     "invalid_journal_ids": 0,
     "malformed_first_seen": 0,
-    "missing_abstract": 291,
+    "missing_abstract": 271,
     "missing_abstract_recent": 19,
     "missing_abstract_recent_actionable": 15,
     "missing_abstract_recent_expected": 4,
@@ -2428,10 +2439,10 @@
     "missing_required_fields": 239,
     "nonpaper_records": 0,
     "recent_sample_records": 500,
-    "records": 10477,
+    "records": 10478,
     "source_type_errors": 0,
-    "today_journal_records": 12,
-    "today_records": 13,
+    "today_journal_records": 13,
+    "today_records": 14,
     "today_working_papers": 1
   }
 }
