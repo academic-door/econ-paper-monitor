@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 4
+    "needs_investigation": 3
   },
-  "checked_at": "2026-11-15T20:17:24.572742+08:00",
-  "source_health_degraded_count": 4,
+  "checked_at": "2026-11-16T00:54:48.309857+08:00",
+  "source_health_degraded_count": 3,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -14,11 +14,6 @@
       "category": "needs_investigation",
       "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
       "source": "priority-toc:jare"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
-      "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
@@ -81,26 +76,11 @@
         "crossref",
         "openalex-recall"
       ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
-  "total_degraded": 4
+  "total_degraded": 3
 }

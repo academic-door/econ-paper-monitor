@@ -10,23 +10,27 @@
     "missing_abstract_today": 0,
     "missing_authors_today_journals": 0,
     "recent72_missing": 0,
-    "seen": 12430,
+    "seen": 12434,
     "source_crossref_only": 0,
-    "source_degraded": 4,
-    "source_healthy": 99,
+    "source_degraded": 3,
+    "source_healthy": 100,
     "today": 0
   },
   "date": "2026-11-16",
   "failures": [],
-  "generated_at": "2026-11-15T16:25:31+00:00",
+  "generated_at": "2026-11-15T16:59:34+00:00",
   "local_cnki": {
-    "age_hours": 42.21,
+    "age_hours": 0.56,
     "count": 94,
-    "fresh": false,
-    "freshness_code": "stale",
-    "last_success_at": "2026-11-13T22:12:53+00:00",
+    "fresh": true,
+    "freshness_code": "fresh",
+    "last_success_at": "2026-11-15T16:25:46+00:00",
     "ok": true,
-    "source_health": null,
+    "source_health": {
+      "failed_sources": 0,
+      "selected_sources": 6,
+      "successful_sources": 6
+    },
     "state": "published"
   },
   "ok": true,
@@ -40,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-11-15T12:17:24+00:00",
+    "checked_at": "2026-11-15T16:54:48+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -95,16 +99,6 @@
           ]
         },
         {
-          "journal": "数量经济技术经济研究",
-          "journal_id": "journal-edcb877d78",
-          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
-          "publisher": "中国社会科学院数量经济与技术经济研究所",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
-        },
-        {
           "journal": "Journal of Human Resources",
           "journal_id": "journal-of-human-resources",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
@@ -142,15 +136,6 @@
             "crossref",
             "openalex-recall"
           ]
-        },
-        {
-          "journal": "数量经济技术经济研究",
-          "journal_id": "journal-edcb877d78",
-          "next_action": "add or verify an independent fallback path",
-          "usable_paths": [
-            "crossref",
-            "openalex-recall"
-          ]
         }
       ]
     }
@@ -158,12 +143,7 @@
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 7
-    },
-    {
-      "age_hours": 42.21,
-      "code": "local_cnki_stale",
-      "state": "stale"
+      "count": 6
     }
   ]
 }
