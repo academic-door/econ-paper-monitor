@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 3
+    "needs_investigation": 4
   },
-  "checked_at": "2026-11-15T12:04:54.708335+08:00",
-  "source_health_degraded_count": 3,
+  "checked_at": "2026-11-15T18:57:53.392462+08:00",
+  "source_health_degraded_count": 4,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -81,11 +81,26 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 3
+  "total_degraded": 4
 }
