@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 3
   },
-  "checked_at": "2026-11-16T00:54:48.309857+08:00",
+  "checked_at": "2026-11-16T01:24:35.385599+08:00",
   "source_health_degraded_count": 3,
   "source_status_failures": [
     {
@@ -14,6 +14,11 @@
       "category": "needs_investigation",
       "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
       "source": "priority-toc:jare"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
+      "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
@@ -80,7 +85,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
   "total_degraded": 3
 }
