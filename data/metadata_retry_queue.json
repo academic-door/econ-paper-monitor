@@ -1,21 +1,21 @@
 {
   "expected_metadata_gap_counts": {
     "abstract:book_review": 3,
-    "abstract:correction_notice": 2
+    "abstract:correction_notice": 3
   },
   "generated_for": "2026-11-16",
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
     "missing_abstract": 72,
-    "weak_date_evidence": 498
+    "weak_date_evidence": 497
   },
   "recent_candidates": 500,
   "recent_candidates_before_limit": 522,
   "recent_window_start": "2026-10-18",
   "records": [
     {
-      "date_confidence": "C",
+      "date_confidence": "A",
       "doi": "10.1016/j.jmoneco.2026.104028",
       "first_seen": "2026-11-16T08:36:02+00:00",
       "historical_backfill": false,
@@ -29,8 +29,7 @@
         0
       ],
       "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
+        "missing_abstract"
       ],
       "recency_basis": "official_date",
       "source_id": null,
@@ -1788,11 +1787,14 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.jinteco.2026.104351",
-      "first_seen": "2026-11-16T08:34:58+00:00",
+      "doi": "10.1016/j.foodpol.2026.103200",
+      "expected_metadata_gaps": {
+        "abstract": "correction_notice"
+      },
+      "first_seen": "2026-11-16T14:14:25+00:00",
       "historical_backfill": false,
-      "identity": "doi:10.1016/j.jinteco.2026.104351",
-      "journal": "Journal of International Economics",
+      "identity": "doi:10.1016/j.foodpol.2026.103200",
+      "journal": "Food Policy",
       "official_date": "2026-11-16",
       "priority": [
         0,
@@ -1806,8 +1808,8 @@
       "recency_basis": "official_date",
       "source_id": null,
       "source_type": "journal",
-      "title": "Fiscal cyclicality and the information channel of government spending shocks",
-      "url": "https://doi.org/10.1016/j.jinteco.2026.104351"
+      "title": "Corrigendum to “Feeding a fifth of the world under land constraints: Agricultural innovation and grain yield growth in China” [Food Policy 143 (2026) 103164]",
+      "url": "https://doi.org/10.1016/j.foodpol.2026.103200"
     },
     {
       "date_confidence": "C",

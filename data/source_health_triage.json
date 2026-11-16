@@ -1,15 +1,10 @@
 {
   "categories": {
-    "needs_investigation": 18
+    "needs_investigation": 11
   },
-  "checked_at": "2026-11-16T20:54:35.787910+08:00",
-  "source_health_degraded_count": 18,
+  "checked_at": "2026-11-16T22:17:34.379585+08:00",
+  "source_health_degraded_count": 11,
   "source_status_failures": [
-    {
-      "category": "transient_network",
-      "sample_error": "partial_success failures=3; Econometrica: 0; American Economic Review: 0; Review of Economic Studies: 6; Journal of Political Economy: 6; Quarterly Journal of Economics: 4; Economic Journal: 4; Journa",
-      "source": "crossref"
-    },
     {
       "category": "needs_investigation",
       "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
@@ -22,7 +17,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 44 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
+      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 45 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -37,36 +32,6 @@
     }
   ],
   "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "american-economic-journal-applied-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
-      "source": "American Economic Journal: Applied Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "aea-toc",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "american-economic-journal-microeconomics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
-      "source": "American Economic Journal: Microeconomics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "aea-toc",
-        "openalex-recall"
-      ]
-    },
     {
       "category": "needs_investigation",
       "category_counts": {
@@ -102,21 +67,6 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "games-and-economic-behavior",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Games and Economic Behavior",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "NETWORK_FAILURE",
       "source": "Journal of Agricultural and Resource Economics",
@@ -132,56 +82,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-development-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Development Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "journal-of-economic-psychology",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Journal of Economic Psychology",
       "status_category": null,
       "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-economic-theory",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Economic Theory",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-financial-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Financial Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -267,21 +172,6 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "rand-journal-of-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "RAND Journal of Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "review-of-economic-design",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Review of Economic Design",
@@ -309,7 +199,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
-  "total_degraded": 18
+  "total_degraded": 11
 }
