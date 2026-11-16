@@ -8,14 +8,14 @@
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
     "missing_abstract": 72,
-    "weak_date_evidence": 497
+    "weak_date_evidence": 498
   },
   "recent_candidates": 500,
   "recent_candidates_before_limit": 522,
   "recent_window_start": "2026-10-18",
   "records": [
     {
-      "date_confidence": "A",
+      "date_confidence": "C",
       "doi": "10.1016/j.jmoneco.2026.104028",
       "first_seen": "2026-11-16T08:36:02+00:00",
       "historical_backfill": false,
@@ -29,7 +29,8 @@
         0
       ],
       "reasons": [
-        "missing_abstract"
+        "missing_abstract",
+        "weak_date_evidence"
       ],
       "recency_basis": "official_date",
       "source_id": null,
@@ -1787,6 +1788,29 @@
     },
     {
       "date_confidence": "C",
+      "doi": "10.1016/j.jinteco.2026.104351",
+      "first_seen": "2026-11-16T08:34:58+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jinteco.2026.104351",
+      "journal": "Journal of International Economics",
+      "official_date": "2026-11-16",
+      "priority": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Fiscal cyclicality and the information channel of government spending shocks",
+      "url": "https://doi.org/10.1016/j.jinteco.2026.104351"
+    },
+    {
+      "date_confidence": "C",
       "doi": "10.1016/j.worlddev.2026.107609",
       "first_seen": "2026-11-16T10:50:26+00:00",
       "historical_backfill": false,
@@ -1968,29 +1992,6 @@
       "source_type": "journal",
       "title": "Mobility, coupled constraints, and equilibrium selection in a three-tier health system with two strategic layers",
       "url": "https://doi.org/10.1016/j.jebo.2026.107836"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1111/iere.70120",
-      "first_seen": "2026-11-16T08:34:09+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1111/iere.70120",
-      "journal": "International Economic Review",
-      "official_date": "2026-11-15",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Human Capital as a Driver of Automation: Theory and Evidence From China's College Expansion",
-      "url": "https://doi.org/10.1111/iere.70120"
     },
     {
       "date_confidence": "C",
