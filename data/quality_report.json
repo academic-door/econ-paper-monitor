@@ -1,7 +1,7 @@
 {
   "abstracts": {
-    "available": 10255,
-    "missing": 253,
+    "available": 10256,
+    "missing": 252,
     "missing_by_journal_top": {
       "American Economic Review": 3,
       "Applied Economics": 6,
@@ -18,7 +18,7 @@
       "International Journal of Game Theory": 3,
       "International Tax and Public Finance": 2,
       "Journal of Accounting and Economics": 4,
-      "Journal of Development Economics": 4,
+      "Journal of Development Economics": 3,
       "Journal of Economic Behavior and Organization": 3,
       "Journal of Economic Literature": 17,
       "Journal of Financial and Quantitative Analysis": 2,
@@ -34,7 +34,7 @@
       "Review of Economic Design": 2,
       "World Development": 5
     },
-    "missing_rate": 0.0241,
+    "missing_rate": 0.024,
     "missing_recent": 13,
     "missing_recent_actionable": 9,
     "missing_recent_expected": 4,
@@ -54,25 +54,25 @@
   "date_confidence": {
     "A": 6324,
     "B": 98,
-    "C": 2981,
+    "C": 2980,
     "D": 518,
-    "F": 587
+    "F": 588
   },
   "date_source_top": {
     "aea_current_issue": 28,
     "cepr_published_time": 39,
     "cnki_rss_pubdate": 331,
     "crossref_created": 21,
-    "crossref_doi_elsevier_created_online": 642,
+    "crossref_doi_elsevier_created_online": 645,
     "crossref_doi_published": 65,
-    "crossref_doi_published_online": 327,
-    "crossref_elsevier_created_online": 782,
+    "crossref_doi_published_online": 326,
+    "crossref_elsevier_created_online": 777,
     "crossref_issue": 71,
-    "crossref_published_online": 620,
+    "crossref_published_online": 613,
     "iza_detail_month": 96,
     "nep_issue_date": 406,
-    "openalex+crossref_crossvalidated": 419,
-    "openalex_publication_date": 83,
+    "openalex+crossref_crossvalidated": 426,
+    "openalex_publication_date": 85,
     "publisher_detail": 1234,
     "publisher_published_online": 139,
     "rss_description_online": 1264,
@@ -635,7 +635,7 @@
       {
         "date": "2026-11-14",
         "date_confidence": "C",
-        "date_source": "crossref_elsevier_created_online",
+        "date_source": "openalex+crossref_crossvalidated",
         "journal": "Food Policy",
         "official_date": "2026-11-14",
         "source_issue": "Food Policy, Volume 145",
@@ -645,7 +645,7 @@
       {
         "date": "2026-11-13",
         "date_confidence": "C",
-        "date_source": "crossref_doi_published_online",
+        "date_source": "openalex+crossref_crossvalidated",
         "journal": "Journal of Political Economy",
         "official_date": "2026-11-13",
         "source_issue": null,
@@ -767,7 +767,7 @@
       {
         "date": "2026-11-14",
         "date_confidence": "C",
-        "date_source": "crossref_elsevier_created_online",
+        "date_source": "openalex+crossref_crossvalidated",
         "journal": "Food Policy",
         "official_date": "2026-11-14",
         "source_issue": "Food Policy, Volume 145",
@@ -777,7 +777,7 @@
       {
         "date": "2026-11-13",
         "date_confidence": "C",
-        "date_source": "crossref_doi_published_online",
+        "date_source": "openalex+crossref_crossvalidated",
         "journal": "Journal of Political Economy",
         "official_date": "2026-11-13",
         "source_issue": null,
@@ -1579,7 +1579,18 @@
     "nonpaper_records": [],
     "source_type_errors": [],
     "today_cn_issue_only": [],
-    "today_low_confidence": [],
+    "today_low_confidence": [
+      {
+        "date": "2026-11-16",
+        "date_confidence": "F",
+        "date_source": "sciencedirect_api_load_date",
+        "journal": "Energy Policy",
+        "official_date": "2026-11-16",
+        "source_issue": null,
+        "title": "Relationship between project delivery system and historic nuclear power plant construction performance in the United States",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0301421526006385?dgcid=api_sd_search-api-endpoint"
+      }
+    ],
     "untranslated_recent": [
       {
         "date": "2026-11-16",
@@ -1610,6 +1621,16 @@
         "source_issue": null,
         "title": "The effects of inflation on euro area public debt",
         "url": "https://cepr.org/voxeu/columns/effects-inflation-euro-area-public-debt"
+      },
+      {
+        "date": "2026-11-16",
+        "date_confidence": "F",
+        "date_source": "sciencedirect_api_load_date",
+        "journal": "Energy Policy",
+        "official_date": "2026-11-16",
+        "source_issue": null,
+        "title": "Relationship between project delivery system and historic nuclear power plant construction performance in the United States",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0301421526006385?dgcid=api_sd_search-api-endpoint"
       },
       {
         "date": "2026-11-15",
@@ -2070,16 +2091,6 @@
         "source_issue": "Economics Letters",
         "title": "Perceived Central Bank Partisanship and the Anchoring of Inflation Expectations",
         "url": "https://doi.org/10.1016/j.econlet.2026.113345"
-      },
-      {
-        "date": "2026-11-07",
-        "date_confidence": "A",
-        "date_source": "rss_description_online",
-        "journal": "Economics Letters",
-        "official_date": "2026-11-07",
-        "source_issue": "Economics Letters",
-        "title": "R&D subsidies, commercialization, and growth",
-        "url": "https://doi.org/10.1016/j.econlet.2026.113346"
       }
     ]
   },
@@ -2096,8 +2107,8 @@
     "priority_crossref_fallback": 143,
     "priority_toc": 62,
     "rss": 2293,
-    "sciencedirect_search": 342,
-    "unknown": 235,
+    "sciencedirect_search": 343,
+    "unknown": 234,
     "working_papers": 2231
   },
   "totals": {
@@ -2108,10 +2119,10 @@
     "crossref_fallback_today": 0,
     "duplicates_by_url_or_doi": 0,
     "future_official_date_in_bucket": 0,
-    "historical_records_in_bucket": 76,
+    "historical_records_in_bucket": 75,
     "invalid_journal_ids": 0,
     "malformed_first_seen": 0,
-    "missing_abstract": 253,
+    "missing_abstract": 252,
     "missing_abstract_recent": 13,
     "missing_abstract_recent_actionable": 9,
     "missing_abstract_recent_expected": 4,
@@ -2122,13 +2133,13 @@
     "missing_authors_recent_expected": 0,
     "missing_authors_today": 0,
     "missing_authors_today_journals": 0,
-    "missing_required_fields": 240,
+    "missing_required_fields": 239,
     "nonpaper_records": 0,
     "recent_sample_records": 500,
     "records": 10508,
     "source_type_errors": 0,
-    "today_journal_records": 0,
-    "today_records": 3,
+    "today_journal_records": 1,
+    "today_records": 4,
     "today_working_papers": 3
   }
 }
