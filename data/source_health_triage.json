@@ -2,9 +2,14 @@
   "categories": {
     "needs_investigation": 3
   },
-  "checked_at": "2026-11-17T13:55:12.744295+08:00",
+  "checked_at": "2026-11-17T15:11:14.880583+08:00",
   "source_health_degraded_count": 3,
   "source_status_failures": [
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=1; Journal of Finance: 2; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 11; Economic Development and Cultural Change: 2;",
+      "source": "crossref"
+    },
     {
       "category": "needs_investigation",
       "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
@@ -21,18 +26,18 @@
       "source": "rss"
     },
     {
+      "category": "permanently_unavailable",
+      "sample_error": "VERIFICATION_BLOCKED: TimeoutError: The read operation timed out",
+      "source": "sjjj-online-first"
+    },
+    {
       "category": "needs_investigation",
       "sample_error": "RuntimeError: CEPR current listing unavailable: https://cepr.org/publications/discussion-papers/search-discussion-papers: HTTPError; https://cepr.org/publications: HTTPError; https://cepr.org/publicat",
       "source": "working-paper:cepr-dp"
     },
     {
-      "category": "transient_network",
-      "sample_error": "URLError: <urlopen error timed out>",
-      "source": "working-paper:iza"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "partial_success failures=2; nber: 12 via specialized-api; iza: URLError: <urlopen error timed out>; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEP",
+      "category": "needs_investigation",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
       "source": "working-papers"
     }
   ],
@@ -58,12 +63,11 @@
         "needs_investigation": 1
       },
       "journal_id": "quantitative-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
       "source": "Quantitative Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
-        "crossref",
         "openalex-recall"
       ]
     },
@@ -85,7 +89,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 7
   },
   "total_degraded": 3
 }
