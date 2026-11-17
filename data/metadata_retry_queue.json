@@ -8,7 +8,7 @@
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
     "missing_abstract": 77,
-    "weak_date_evidence": 497
+    "weak_date_evidence": 498
   },
   "recent_candidates": 500,
   "recent_candidates_before_limit": 572,
@@ -447,7 +447,7 @@
       "url": "https://www.sciencedirect.com/science/article/pii/S0954349X26001785?dgcid=rss_sd_all"
     },
     {
-      "date_confidence": "A",
+      "date_confidence": "C",
       "doi": "10.1016/j.jmoneco.2026.104025",
       "first_seen": "2026-11-17T16:56:19+00:00",
       "historical_backfill": false,
@@ -461,7 +461,8 @@
         1
       ],
       "reasons": [
-        "missing_abstract"
+        "missing_abstract",
+        "weak_date_evidence"
       ],
       "recency_basis": "official_date",
       "source_id": null,
