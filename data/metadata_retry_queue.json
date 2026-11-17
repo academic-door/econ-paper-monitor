@@ -7,13 +7,37 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 84,
+    "missing_abstract": 85,
     "weak_date_evidence": 497
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 567,
+  "recent_candidates_before_limit": 568,
   "recent_window_start": "2026-10-19",
   "records": [
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.chieco.2026.102792",
+      "first_seen": "2026-11-17T02:52:43+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.chieco.2026.102792",
+      "journal": "China Economic Review",
+      "official_date": "2026-11-17",
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Upset losses and political attitudes: Evidence from Chinese football",
+      "url": "https://doi.org/10.1016/j.chieco.2026.102792"
+    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -11589,32 +11613,9 @@
       "source_type": "journal",
       "title": "From supply chain coordination to carbon transparency: how green supply chain governance drives corporate carbon disclosure",
       "url": "https://doi.org/10.1080/00036846.2026.2753670"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1086/744668",
-      "first_seen": "2026-10-23T20:04:02+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1086/744668",
-      "journal": "Journal of Labor Economics",
-      "official_date": "2026-10-23",
-      "priority": [
-        0,
-        1,
-        1,
-        25
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Effect of State and Local Sexual Orientation Anti-Discrimination Laws on Labor Market Differentials",
-      "url": "https://doi.org/10.1086/744668"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5515,
+  "total_candidates_before_limit": 5516,
   "truncated": true
 }
