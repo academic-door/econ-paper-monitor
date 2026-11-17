@@ -1,13 +1,13 @@
 {
   "categories": {
-    "needs_investigation": 3
+    "needs_investigation": 7
   },
-  "checked_at": "2026-11-17T15:11:14.880583+08:00",
-  "source_health_degraded_count": 3,
+  "checked_at": "2026-11-17T16:36:26.106720+08:00",
+  "source_health_degraded_count": 7,
   "source_status_failures": [
     {
       "category": "transient_network",
-      "sample_error": "partial_success failures=1; Journal of Finance: 2; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 11; Economic Development and Cultural Change: 2;",
+      "sample_error": "partial_success failures=4; Journal of Finance: 2; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 11; Economic Development and Cultural Change: 2;",
       "source": "crossref"
     },
     {
@@ -26,11 +26,6 @@
       "source": "rss"
     },
     {
-      "category": "permanently_unavailable",
-      "sample_error": "VERIFICATION_BLOCKED: TimeoutError: The read operation timed out",
-      "source": "sjjj-online-first"
-    },
-    {
       "category": "needs_investigation",
       "sample_error": "RuntimeError: CEPR current listing unavailable: https://cepr.org/publications/discussion-papers/search-discussion-papers: HTTPError; https://cepr.org/publications: HTTPError; https://cepr.org/publicat",
       "source": "working-paper:cepr-dp"
@@ -42,6 +37,21 @@
     }
   ],
   "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "food-policy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Food Policy",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
     {
       "category": "needs_investigation",
       "category_counts": {
@@ -62,12 +72,43 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "journal-of-environmental-economics-and-management",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Environmental Economics and Management",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-international-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of International Economics",
+      "status_category": "needs_investigation",
+      "status_source": "rss",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "quantitative-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Quantitative Economics",
       "status_category": "transient_network",
       "status_source": "crossref",
       "usable_paths": [
+        "crossref",
         "openalex-recall"
       ]
     },
@@ -85,11 +126,26 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "world-development",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "World Development",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 7
+    "degraded_source_failures": 6
   },
-  "total_degraded": 3
+  "total_degraded": 7
 }
