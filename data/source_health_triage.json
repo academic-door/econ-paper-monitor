@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 7
+    "needs_investigation": 9
   },
-  "checked_at": "2026-11-17T16:36:26.106720+08:00",
-  "source_health_degraded_count": 7,
+  "checked_at": "2026-11-17T17:51:57.179565+08:00",
+  "source_health_degraded_count": 9,
   "source_status_failures": [
     {
       "category": "transient_network",
@@ -21,8 +21,8 @@
       "source": "publisher-detail"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 45 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
+      "category": "permanently_unavailable",
+      "sample_error": "feeds=32/43; Journal of International Economics: 45 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economics: 14 via official-generated; Review of Financia",
       "source": "rss"
     },
     {
@@ -37,6 +37,21 @@
     }
   ],
   "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "american-journal-of-agricultural-economics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "American Journal of Agricultural Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
     {
       "category": "needs_investigation",
       "category_counts": {
@@ -90,7 +105,7 @@
       "journal_id": "journal-of-international-economics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Journal of International Economics",
-      "status_category": "needs_investigation",
+      "status_category": "permanently_unavailable",
       "status_source": "rss",
       "usable_paths": [
         "rss",
@@ -107,6 +122,21 @@
       "source": "Quantitative Economics",
       "status_category": "transient_network",
       "status_source": "crossref",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "rand-journal-of-economics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "RAND Journal of Economics",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -147,5 +177,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 7
+  "total_degraded": 9
 }

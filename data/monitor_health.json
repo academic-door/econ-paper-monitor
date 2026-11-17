@@ -12,15 +12,15 @@
     "recent72_missing": 0,
     "seen": 12543,
     "source_crossref_only": 0,
-    "source_degraded": 7,
-    "source_healthy": 96,
+    "source_degraded": 9,
+    "source_healthy": 94,
     "today": 4
   },
   "date": "2026-11-17",
   "failures": [],
-  "generated_at": "2026-11-17T08:37:20+00:00",
+  "generated_at": "2026-11-17T09:52:51+00:00",
   "local_cnki": {
-    "age_hours": 4.4,
+    "age_hours": 5.66,
     "count": 97,
     "fresh": true,
     "freshness_code": "fresh",
@@ -44,7 +44,7 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-11-17T08:36:26+00:00",
+    "checked_at": "2026-11-17T09:51:57+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
@@ -53,6 +53,16 @@
           "journal_id": "theoretical-economics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
           "publisher": "The Econometric Society",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "RAND Journal of Economics",
+          "journal_id": "rand-journal-of-economics",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Wiley (Blackwell Publishing)",
           "usable_paths": [
             "crossref",
             "openalex-recall"
@@ -73,6 +83,16 @@
           "journal_id": "quantitative-economics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
           "publisher": "The Econometric Society",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "American Journal of Agricultural Economics",
+          "journal_id": "american-journal-of-agricultural-economics",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Wiley (Blackwell Publishing)",
           "usable_paths": [
             "crossref",
             "openalex-recall"
@@ -120,6 +140,15 @@
           ]
         },
         {
+          "journal": "RAND Journal of Economics",
+          "journal_id": "rand-journal-of-economics",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
           "journal": "Journal of International Economics",
           "journal_id": "journal-of-international-economics",
           "next_action": "add or verify an independent fallback path",
@@ -156,6 +185,15 @@
           ]
         },
         {
+          "journal": "American Journal of Agricultural Economics",
+          "journal_id": "american-journal-of-agricultural-economics",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
           "journal": "Food Policy",
           "journal_id": "food-policy",
           "next_action": "add or verify an independent fallback path",
@@ -179,7 +217,7 @@
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 6
+      "count": 8
     }
   ]
 }
