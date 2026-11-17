@@ -144,6 +144,24 @@ class AppliedEconomicsFirstPartyTests(unittest.TestCase):
         for doi, title in expected.items():
             self.assertEqual(tandf.APPLIED_ECONOMICS_EXACT.get(doi), title)
 
+    def test_seven_nov_2026_official_abstracts_are_exactly_scoped(self):
+        # DOI/title pairs independently matched the first-party T&F page
+        # and public full ABSTRACT on 2026-11-17. Never ingest an
+        # abstract from a different version or article identity.
+        expected = {
+            "10.1080/00036846.2026.2764806": "Digital economy and industrial labour productivity: dynamic adjustment and partial-recovery evidence from China’s provincial panel data",
+            "10.1080/00036846.2026.2763028": "Corporate AI intensity and climate risk exposure",
+            "10.1080/00036846.2026.2754982": "User preferences for platform attributes in online food delivery: a conjoint analysis of experience goods platforms",
+            "10.1080/00036846.2026.2763089": "Energy market volatility and global equity returns: trade-linked dependence across economies",
+            "10.1080/00036846.2026.2763030": "Cross-regional environmental cooperation under crisis and firm pollution behaviour: evidence from China’s Lake Tai water Basin",
+            "10.1080/00036846.2026.2761037": "Does retail investors’ activism promote corporate digitalization? Evidence from China",
+            "10.1080/00036846.2026.2763084": "House prices and major flood events in New Zealand",
+        }
+        for doi, title in expected.items():
+            with self.subTest(doi=doi):
+                self.assertEqual(tandf.APPLIED_ECONOMICS_EXACT[doi], title)
+        self.assertEqual(len(expected), 7)
+
     @patch("builtins.print")
     @patch.object(tandf.urllib.request, "urlopen")
     def test_hosted_http_block_reports_only_bounded_outcome(self, urlopen, printed):
