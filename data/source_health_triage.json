@@ -1,13 +1,13 @@
 {
   "categories": {
-    "needs_investigation": 22
+    "needs_investigation": 13
   },
-  "checked_at": "2026-11-17T23:59:24.150936+08:00",
-  "source_health_degraded_count": 22,
+  "checked_at": "2026-11-18T00:28:17.655715+08:00",
+  "source_health_degraded_count": 13,
   "source_status_failures": [
     {
       "category": "transient_network",
-      "sample_error": "partial_success failures=19; Journal of Finance: 2; Journal of Financial Economics: 8; Review of Financial Studies: error TimeoutError: The read operation timed out; Journal of Development Economics: ",
+      "sample_error": "partial_success failures=10; Journal of Finance: error TimeoutError: The read operation timed out; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: ",
       "source": "crossref"
     },
     {
@@ -42,11 +42,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "american-economic-journal-applied-economics",
+      "journal_id": "american-economic-review-insights",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
-      "source": "American Economic Journal: Applied Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "source": "American Economic Review: Insights",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "aea-toc",
         "openalex-recall"
@@ -57,41 +57,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "american-economic-journal-economic-policy",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
-      "source": "American Economic Journal: Economic Policy",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "aea-toc",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "american-economic-journal-macroeconomics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
-      "source": "American Economic Journal: Macroeconomics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "aea-toc",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "american-journal-of-agricultural-economics",
+      "journal_id": "european-economic-review",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "American Journal of Agricultural Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "source": "European Economic Review",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -102,41 +72,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "china-economic-review",
+      "journal_id": "international-economic-review",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "China Economic Review",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "economic-development-and-cultural-change",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Economic Development and Cultural Change",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "food-policy",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Food Policy",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "source": "International Economic Review",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -162,9 +102,24 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-development-economics",
+      "journal_id": "journal-of-economic-history",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Development Economics",
+      "source": "Journal of Economic History",
+      "status_category": "needs_investigation",
+      "status_source": "rss",
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-finance",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Finance",
       "status_category": "transient_network",
       "status_source": "crossref",
       "usable_paths": [
@@ -177,11 +132,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-econometrics",
+      "journal_id": "journal-of-international-economics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Econometrics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "source": "Journal of International Economics",
+      "status_category": "needs_investigation",
+      "status_source": "rss",
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -192,100 +147,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-environmental-economics-and-management",
+      "journal_id": "journal-of-public-economics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Environmental Economics and Management",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-labor-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Labor Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-monetary-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Monetary Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-urban-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Urban Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-the-association-of-environmental-and-resource-economists",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
-      "source": "Journal of the Association of Environmental and Resource Economists",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "land-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Land Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "land-use-policy",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Land Use Policy",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "source": "Journal of Public Economics",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -311,11 +177,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "review-of-financial-studies",
+      "journal_id": "quarterly-journal-of-economics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Review of Financial Studies",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "source": "Quarterly Journal of Economics",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -326,11 +192,26 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "the-world-economy",
+      "journal_id": "rand-journal-of-economics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "The World Economy",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "source": "RAND Journal of Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-economic-studies",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Review of Economic Studies",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -350,26 +231,11 @@
         "crossref",
         "openalex-recall"
       ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "world-development",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "World Development",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
     }
   ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 22
+  "total_degraded": 13
 }
