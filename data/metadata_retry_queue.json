@@ -7,7 +7,7 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 79,
+    "missing_abstract": 78,
     "weak_date_evidence": 498
   },
   "recent_candidates": 500,
@@ -541,30 +541,6 @@
       "source_type": "journal",
       "title": "Changes in time discount rates associated with marriage and childbirth: evidence from Japanese panel data",
       "url": "https://doi.org/10.1080/00036846.2026.2763780"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1086/744996",
-      "first_seen": "2026-11-17T20:34:06+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1086/744996",
-      "journal": "Journal of Labor Economics",
-      "official_date": "2026-11-17",
-      "priority": [
-        0,
-        0,
-        1,
-        1
-      ],
-      "reasons": [
-        "missing_abstract",
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Automation and Gender: Implications for Occupational Segregation and the Gender Skill Gap",
-      "url": "https://doi.org/10.1086/744996"
     },
     {
       "date_confidence": "A",
@@ -2390,6 +2366,29 @@
       "source_type": "journal",
       "title": "Funding Justice: Movement-led philanthropy",
       "url": "https://doi.org/10.1016/j.worlddev.2026.107607"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1086/744996",
+      "first_seen": "2026-11-17T20:34:06+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1086/744996",
+      "journal": "Journal of Labor Economics",
+      "official_date": "2026-11-17",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Automation and Gender: Implications for Occupational Segregation and the Gender Skill Gap",
+      "url": "https://doi.org/10.1086/744996"
     },
     {
       "date_confidence": "C",
