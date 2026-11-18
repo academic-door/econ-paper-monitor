@@ -3,6 +3,7 @@
     "_raw_file": "data/raw/crossref-priority/2026-11-18.json",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "abstract-route-missing",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -15,8 +16,8 @@
     "authors_status_code": "available",
     "available_online": "2026-11-18",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "scaling-up-agricultural-insurance-5aa1f2c21d62",
     "detected_at": "2026-11-18T08:31:18+00:00",
     "doi": "10.1016/j.jmoneco.2026.104019",
@@ -36,10 +37,27 @@
     "journal_short": "JME",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0304393226001340",
     "published_online": "2026-11-18",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-11-18",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-11-18",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-11-18",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-11-18",
+          "source": "elsevier-article-api"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
