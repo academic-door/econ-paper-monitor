@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-11-19T21:38:27+00:00",
+  "checked_at": "2026-11-19T22:42:46+00:00",
   "counts": {
-    "degraded": 4,
-    "healthy": 100,
+    "degraded": 3,
+    "healthy": 101,
     "stale": 0,
     "supplemental-closed": 2,
     "unavailable": 0
@@ -42,6 +42,7 @@
         "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
         "publisher": "Western Agricultural Economics Association",
         "usable_paths": [
+          "crossref",
           "openalex-recall"
         ]
       }
@@ -70,15 +71,7 @@
         "journal_id": "journal-of-agricultural-and-resource-economics",
         "next_action": "add or verify an independent fallback path",
         "usable_paths": [
-          "openalex-recall"
-        ]
-      },
-      {
-        "journal": "Economic Modelling",
-        "journal_id": "economic-modelling",
-        "next_action": "add or verify an independent fallback path",
-        "usable_paths": [
-          "rss",
+          "crossref",
           "openalex-recall"
         ]
       }
@@ -139,11 +132,11 @@
       "checked_age_days": 0.0,
       "coverage": "supplemental",
       "crossref_count": 0,
-      "crossref_status": "rate_limited",
+      "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "NETWORK_FAILURE",
+          "message": "CHALLENGE",
           "path": "priority-toc"
         }
       ],
@@ -161,31 +154,7 @@
         "openalex-recall"
       ],
       "usable_paths": [
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.0,
-      "coverage": "official_or_specialized",
-      "crossref_count": 0,
-      "crossref_status": "rate_limited",
-      "degradation_reason": "single_path",
-      "failed_paths": [],
-      "journal": "Economic Modelling",
-      "journal_id": "economic-modelling",
-      "last_checked_at": "2026-11-20",
-      "level": "degraded",
-      "publisher": "Elsevier",
-      "registry_age_days": 0,
-      "rss_count": 78,
-      "rss_status": "official-generated",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
+        "crossref",
         "openalex-recall"
       ]
     }
@@ -195,7 +164,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 17,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -224,7 +193,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
+      "crossref_count": 10,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -252,7 +221,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 17,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
@@ -283,7 +252,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 23,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -309,7 +278,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 4,
+      "crossref_count": 8,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
@@ -340,7 +309,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 6,
+      "crossref_count": 22,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
@@ -371,7 +340,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 2,
+      "crossref_count": 12,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
@@ -402,7 +371,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 14,
+      "crossref_count": 40,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -428,7 +397,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 12,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -642,7 +611,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 10,
+      "crossref_count": 38,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -699,7 +668,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 9,
+      "crossref_count": 19,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -914,7 +883,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
+      "crossref_count": 16,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1050,7 +1019,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 5,
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
@@ -1081,7 +1050,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 4,
+      "crossref_count": 34,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1200,7 +1169,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1278,7 +1247,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 10,
+      "crossref_count": 35,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1356,7 +1325,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 14,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1382,7 +1351,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 36,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1408,7 +1377,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 2,
+      "crossref_count": 11,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
@@ -1439,7 +1408,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 10,
+      "crossref_count": 40,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1465,7 +1434,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 2,
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1491,7 +1460,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 12,
+      "crossref_count": 41,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1517,7 +1486,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 3,
+      "crossref_count": 17,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1543,7 +1512,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 2,
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1569,7 +1538,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 0,
+      "crossref_count": 31,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
@@ -1627,7 +1596,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
+      "crossref_count": 16,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1766,7 +1735,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 11,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1792,7 +1761,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 11,
+      "crossref_count": 34,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2011,7 +1980,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 10,
+      "crossref_count": 17,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2063,7 +2032,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
+      "crossref_count": 29,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2089,7 +2058,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 11,
+      "crossref_count": 24,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2193,7 +2162,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 2,
+      "crossref_count": 8,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2219,7 +2188,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 12,
+      "crossref_count": 40,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2297,7 +2266,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 7,
+      "crossref_count": 19,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
@@ -2353,7 +2322,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 13,
+      "crossref_count": 40,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2410,7 +2379,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 2,
+      "crossref_count": 9,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
@@ -2494,11 +2463,11 @@
       "checked_age_days": 0.0,
       "coverage": "supplemental",
       "crossref_count": 0,
-      "crossref_status": "rate_limited",
+      "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
-          "message": "NETWORK_FAILURE",
+          "message": "CHALLENGE",
           "path": "priority-toc"
         }
       ],
@@ -2516,6 +2485,7 @@
         "openalex-recall"
       ],
       "usable_paths": [
+        "crossref",
         "openalex-recall"
       ]
     },
@@ -2549,7 +2519,7 @@
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
-      "crossref_status": "rate_limited",
+      "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "经济研究",
@@ -2569,6 +2539,7 @@
         "openalex-recall"
       ],
       "usable_paths": [
+        "crossref",
         "cn-journals",
         "cnki-rss",
         "openalex-recall"
@@ -2578,7 +2549,7 @@
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
-      "crossref_status": "ok",
+      "crossref_status": "rate_limited",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "管理世界",
@@ -2598,7 +2569,6 @@
         "openalex-recall"
       ],
       "usable_paths": [
-        "crossref",
         "cn-journals",
         "cnki-rss",
         "openalex-recall"
@@ -2608,7 +2578,7 @@
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
-      "crossref_status": "ok",
+      "crossref_status": "rate_limited",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "世界经济",
@@ -2618,7 +2588,7 @@
       "publisher": "中国社会科学院、中国世界经济学会与世界经济与政治研究所",
       "registry_age_days": 0,
       "rss_count": 0,
-      "rss_status": "none",
+      "rss_status": "discovered",
       "specialized_paths": [
         "cn-journals",
         "cnki-rss"
@@ -2628,7 +2598,6 @@
         "openalex-recall"
       ],
       "usable_paths": [
-        "crossref",
         "cn-journals",
         "cnki-rss",
         "openalex-recall"
@@ -2696,7 +2665,7 @@
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
-      "crossref_status": "rate_limited",
+      "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "中国农村经济",
@@ -2716,6 +2685,7 @@
         "openalex-recall"
       ],
       "usable_paths": [
+        "crossref",
         "cn-journals",
         "cnki-rss",
         "openalex-recall"
@@ -2724,7 +2694,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 41,
+      "crossref_count": 40,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -3001,14 +2971,14 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
-      "crossref_status": "rate_limited",
-      "degradation_reason": "single_path",
+      "crossref_count": 43,
+      "crossref_status": "ok",
+      "degradation_reason": null,
       "failed_paths": [],
       "journal": "Economic Modelling",
       "journal_id": "economic-modelling",
       "last_checked_at": "2026-11-20",
-      "level": "degraded",
+      "level": "healthy",
       "publisher": "Elsevier",
       "registry_age_days": 0,
       "rss_count": 78,
@@ -3020,6 +2990,7 @@
       ],
       "usable_paths": [
         "rss",
+        "crossref",
         "openalex-recall"
       ]
     },
@@ -3108,7 +3079,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 0,
+      "crossref_count": 31,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
@@ -3138,7 +3109,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 7,
+      "crossref_count": 19,
       "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
