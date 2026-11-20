@@ -12,15 +12,15 @@
     "recent72_missing": 0,
     "seen": 12706,
     "source_crossref_only": 0,
-    "source_degraded": 2,
-    "source_healthy": 102,
+    "source_degraded": 7,
+    "source_healthy": 97,
     "today": 16
   },
   "date": "2026-11-20",
   "failures": [],
-  "generated_at": "2026-11-20T08:27:52+00:00",
+  "generated_at": "2026-11-20T09:35:55+00:00",
   "local_cnki": {
-    "age_hours": 3.93,
+    "age_hours": 5.06,
     "count": 88,
     "fresh": true,
     "freshness_code": "fresh",
@@ -44,15 +44,65 @@
     }
   },
   "source_health": {
-    "checked_at": "2026-11-20T08:26:55+00:00",
+    "checked_at": "2026-11-20T09:34:57+00:00",
     "coverage_debt": {
       "crossref_only": [],
       "crossref_plus_supplemental": [
+        {
+          "journal": "International Economic Review",
+          "journal_id": "international-economic-review",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Wiley (Blackwell Publishing)",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "RAND Journal of Economics",
+          "journal_id": "rand-journal-of-economics",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Wiley (Blackwell Publishing)",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "Journal of Finance",
+          "journal_id": "journal-of-finance",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Wiley / American Finance Association",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "The World Economy",
+          "journal_id": "the-world-economy",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Wiley",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
         {
           "journal": "Review of Economics and Statistics",
           "journal_id": "review-of-economics-and-statistics",
           "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
           "publisher": "MIT Press",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "American Journal of Agricultural Economics",
+          "journal_id": "american-journal-of-agricultural-economics",
+          "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+          "publisher": "Wiley (Blackwell Publishing)",
           "usable_paths": [
             "crossref",
             "openalex-recall"
@@ -80,6 +130,51 @@
       ],
       "single_path_degraded": [
         {
+          "journal": "International Economic Review",
+          "journal_id": "international-economic-review",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "RAND Journal of Economics",
+          "journal_id": "rand-journal-of-economics",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "Journal of Finance",
+          "journal_id": "journal-of-finance",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "The World Economy",
+          "journal_id": "the-world-economy",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
+          "journal": "American Journal of Agricultural Economics",
+          "journal_id": "american-journal-of-agricultural-economics",
+          "next_action": "add or verify an independent fallback path",
+          "usable_paths": [
+            "crossref",
+            "openalex-recall"
+          ]
+        },
+        {
           "journal": "Journal of Agricultural and Resource Economics",
           "journal_id": "journal-of-agricultural-and-resource-economics",
           "next_action": "add or verify an independent fallback path",
@@ -102,7 +197,7 @@
   "warnings": [
     {
       "code": "formal_sources_crossref_plus_recall",
-      "count": 3
+      "count": 8
     },
     {
       "code": "missing_abstract_today",
