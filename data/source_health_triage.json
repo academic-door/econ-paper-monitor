@@ -1,13 +1,13 @@
 {
   "categories": {
-    "needs_investigation": 4
+    "needs_investigation": 3
   },
-  "checked_at": "2026-11-20T22:12:36.512687+08:00",
-  "source_health_degraded_count": 4,
+  "checked_at": "2026-11-20T23:38:01.707207+08:00",
+  "source_health_degraded_count": 3,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=5; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 10; Economic Development and Cultural Change: 2;",
+      "sample_error": "partial_success failures=5; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 10; Economic Development and Cultural Change: 2;",
       "source": "crossref"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 45 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
+      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 46 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -71,21 +71,6 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-economic-behavior-and-organization",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Economic Behavior and Organization",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "structural-change-and-economic-dynamics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Structural Change and Economic Dynamics",
@@ -101,5 +86,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 4
+  "total_degraded": 3
 }
