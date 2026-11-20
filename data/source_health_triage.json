@@ -1,13 +1,13 @@
 {
   "categories": {
-    "needs_investigation": 4
+    "needs_investigation": 9
   },
-  "checked_at": "2026-11-21T00:40:44.352751+08:00",
-  "source_health_degraded_count": 4,
+  "checked_at": "2026-11-21T01:49:52.799563+08:00",
+  "source_health_degraded_count": 9,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=7; Agricultural Economics: 6; Journal of the Association of Environmental and Resource Economists: 19; Land Economics: 0; Land Use Policy: 41; European Review of Agricultural ",
+      "sample_error": "partial_success failures=3; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 11; Economic Development and Cultural Change: 2;",
       "source": "crossref"
     },
     {
@@ -16,8 +16,13 @@
       "source": "priority-toc:jare"
     },
     {
-      "category": "page_structure_change",
-      "sample_error": "feeds=88/123; Canadian Journal of Agricultural Economics: 12 via official-generated; Australian Journal of Agricultural and Resource Economics: 62 via official-generated; Applied Economic Perspectives",
+      "category": "needs_investigation",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
+      "source": "publisher-detail"
+    },
+    {
+      "category": "permanently_unavailable",
+      "sample_error": "feeds=28/46; Journal of Finance: 0 via official-generated; Journal of Financial Economics: 15 via official-generated; Review of Financial Studies: 2 via configured; Journal of Development Economics: 7",
       "source": "rss"
     },
     {
@@ -27,7 +32,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
       "source": "working-papers"
     }
   ],
@@ -37,13 +42,43 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "economic-modelling",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Economic Modelling",
+      "journal_id": "american-journal-of-agricultural-economics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "American Journal of Agricultural Economics",
       "status_category": "rate_limited",
       "status_source": "crossref",
       "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "economic-modelling",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Economic Modelling",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
         "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "international-economic-review",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "International Economic Review",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
         "openalex-recall"
       ]
     },
@@ -55,8 +90,8 @@
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "NETWORK_FAILURE",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
+      "status_category": "needs_investigation",
+      "status_source": "priority-toc:jare",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -82,6 +117,36 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "journal-of-finance",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "Journal of Finance",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "rand-journal-of-economics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "RAND Journal of Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "structural-change-and-economic-dynamics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Structural Change and Economic Dynamics",
@@ -91,11 +156,26 @@
         "rss",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "the-world-economy",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "The World Economy",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
-  "total_degraded": 4
+  "total_degraded": 9
 }
