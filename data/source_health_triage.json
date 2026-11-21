@@ -1,13 +1,13 @@
 {
   "categories": {
-    "needs_investigation": 7
+    "needs_investigation": 4
   },
-  "checked_at": "2026-11-21T15:06:29.733354+08:00",
-  "source_health_degraded_count": 7,
+  "checked_at": "2026-11-21T16:18:34.395515+08:00",
+  "source_health_degraded_count": 4,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=10; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 12; Economic Development and Cultural Change: 2",
+      "sample_error": "partial_success failures=7; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 12; Economic Development and Cultural Change: 2;",
       "source": "crossref"
     },
     {
@@ -37,21 +37,6 @@
     }
   ],
   "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "china-economic-review",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "China Economic Review",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
     {
       "category": "needs_investigation",
       "category_counts": {
@@ -102,36 +87,6 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "rand-journal-of-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "RAND Journal of Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "the-world-economy",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "The World Economy",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "theoretical-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Theoretical Economics",
@@ -147,5 +102,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 7
+  "total_degraded": 4
 }
