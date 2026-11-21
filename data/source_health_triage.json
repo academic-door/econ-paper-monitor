@@ -2,23 +2,18 @@
   "categories": {
     "needs_investigation": 6
   },
-  "checked_at": "2026-11-22T05:49:27.079417+08:00",
+  "checked_at": "2026-11-22T06:44:59.494191+08:00",
   "source_health_degraded_count": 6,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=10; Agricultural Economics: 6; Journal of the Association of Environmental and Resource Economists: 19; Land Economics: 0; Land Use Policy: 40; European Review of Agricultural",
+      "sample_error": "partial_success failures=9; Agricultural Economics: 6; Journal of the Association of Environmental and Resource Economists: 19; Land Economics: 0; Land Use Policy: 40; European Review of Agricultural ",
       "source": "crossref"
     },
     {
       "category": "needs_investigation",
       "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
       "source": "priority-toc:jare"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
-      "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
@@ -129,7 +124,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
   "total_degraded": 6
 }
