@@ -1,13 +1,13 @@
 {
   "categories": {
-    "needs_investigation": 7
+    "needs_investigation": 8
   },
-  "checked_at": "2026-11-21T21:42:39.399564+08:00",
-  "source_health_degraded_count": 7,
+  "checked_at": "2026-11-21T22:48:31.787724+08:00",
+  "source_health_degraded_count": 8,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=4; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 12; Economic Development and Cultural Change: 2;",
+      "sample_error": "partial_success failures=8; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 12; Economic Development and Cultural Change: 2;",
       "source": "crossref"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 46 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
+      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 47 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -37,6 +37,21 @@
     }
   ],
   "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "american-economic-journal-macroeconomics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Journal: Macroeconomics",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "aea-toc",
+        "openalex-recall"
+      ]
+    },
     {
       "category": "needs_investigation",
       "category_counts": {
@@ -146,5 +161,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 7
+  "total_degraded": 8
 }
