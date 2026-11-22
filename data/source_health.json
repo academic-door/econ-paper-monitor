@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-11-22T18:41:03+00:00",
+  "checked_at": "2026-11-22T20:06:58+00:00",
   "counts": {
-    "degraded": 5,
-    "healthy": 98,
+    "degraded": 6,
+    "healthy": 97,
     "stale": 0,
     "supplemental-closed": 3,
     "unavailable": 0
@@ -120,6 +120,15 @@
         "next_action": "add or verify an independent fallback path",
         "usable_paths": [
           "crossref",
+          "openalex-recall"
+        ]
+      },
+      {
+        "journal": "世界经济",
+        "journal_id": "journal-679eaa2a0c",
+        "next_action": "add or verify an independent fallback path",
+        "usable_paths": [
+          "cnki-rss",
           "openalex-recall"
         ]
       }
@@ -255,6 +264,38 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 0,
+      "crossref_status": "rate_limited",
+      "degradation_reason": "failed_path",
+      "failed_paths": [
+        {
+          "message": "missing output",
+          "path": "cn-journals"
+        }
+      ],
+      "journal": "世界经济",
+      "journal_id": "journal-679eaa2a0c",
+      "last_checked_at": "2026-11-23",
+      "level": "degraded",
+      "publisher": "中国社会科学院、中国世界经济学会与世界经济与政治研究所",
+      "registry_age_days": 0,
+      "rss_count": 0,
+      "rss_status": "none",
+      "specialized_paths": [
+        "cnki-rss"
+      ],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
     }
   ],
   "formal_journals": 106,
@@ -316,7 +357,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 4,
+      "crossref_count": 7,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -368,7 +409,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 4,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -394,7 +435,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 4,
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -748,7 +789,7 @@
       "level": "healthy",
       "publisher": "Elsevier",
       "registry_age_days": 0,
-      "rss_count": 33,
+      "rss_count": 22,
       "rss_status": "official-generated",
       "specialized_paths": [],
       "supplemental_closed_note": null,
@@ -1362,7 +1403,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
+      "crossref_count": 1,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1414,7 +1455,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 2,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1518,7 +1559,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 2,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1989,7 +2030,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 9,
+      "crossref_count": 10,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2275,7 +2316,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 5,
+      "crossref_count": 7,
       "crossref_status": "ok",
       "degradation_reason": "single_path",
       "failed_paths": [],
@@ -2572,18 +2613,22 @@
       "coverage": "official_or_specialized",
       "crossref_count": 0,
       "crossref_status": "rate_limited",
-      "degradation_reason": null,
-      "failed_paths": [],
+      "degradation_reason": "failed_path",
+      "failed_paths": [
+        {
+          "message": "missing output",
+          "path": "cn-journals"
+        }
+      ],
       "journal": "世界经济",
       "journal_id": "journal-679eaa2a0c",
       "last_checked_at": "2026-11-23",
-      "level": "healthy",
+      "level": "degraded",
       "publisher": "中国社会科学院、中国世界经济学会与世界经济与政治研究所",
       "registry_age_days": 0,
       "rss_count": 0,
       "rss_status": "none",
       "specialized_paths": [
-        "cn-journals",
         "cnki-rss"
       ],
       "supplemental_closed_note": null,
@@ -2591,7 +2636,6 @@
         "openalex-recall"
       ],
       "usable_paths": [
-        "cn-journals",
         "cnki-rss",
         "openalex-recall"
       ]
@@ -3078,7 +3122,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 5,
+      "crossref_count": 7,
       "crossref_status": "ok",
       "degradation_reason": "single_path",
       "failed_paths": [],
