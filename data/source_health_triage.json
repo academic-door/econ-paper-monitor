@@ -1,13 +1,13 @@
 {
   "categories": {
-    "needs_investigation": 7
+    "needs_investigation": 5
   },
-  "checked_at": "2026-11-22T09:03:49.770097+08:00",
-  "source_health_degraded_count": 7,
+  "checked_at": "2026-11-22T09:25:07.915436+08:00",
+  "source_health_degraded_count": 5,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=7; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 12; Economic Development and Cultural Change: 2;",
+      "sample_error": "partial_success failures=5; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 12; Economic Development and Cultural Change: 2;",
       "source": "crossref"
     },
     {
@@ -71,21 +71,6 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-economic-behavior-and-organization",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Economic Behavior and Organization",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "quantitative-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Quantitative Economics",
@@ -93,21 +78,6 @@
       "status_source": "crossref",
       "usable_paths": [
         "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "rand-journal-of-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "RAND Journal of Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
         "openalex-recall"
       ]
     },
@@ -146,5 +116,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 7
+  "total_degraded": 5
 }
