@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 6
+    "needs_investigation": 7
   },
-  "checked_at": "2026-11-22T07:48:25.833331+08:00",
-  "source_health_degraded_count": 6,
+  "checked_at": "2026-11-22T09:03:49.770097+08:00",
+  "source_health_degraded_count": 7,
   "source_status_failures": [
     {
       "category": "rate_limited",
@@ -101,6 +101,21 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "rand-journal-of-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "RAND Journal of Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "structural-change-and-economic-dynamics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Structural Change and Economic Dynamics",
@@ -131,5 +146,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 6
+  "total_degraded": 7
 }
