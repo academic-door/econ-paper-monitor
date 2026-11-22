@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-11-22T16:20:29+00:00",
+  "checked_at": "2026-11-22T17:00:50+00:00",
   "counts": {
-    "degraded": 6,
-    "healthy": 97,
+    "degraded": 5,
+    "healthy": 98,
     "stale": 0,
     "supplemental-closed": 3,
     "unavailable": 0
@@ -62,6 +62,7 @@
         "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
         "publisher": "Western Agricultural Economics Association",
         "usable_paths": [
+          "crossref",
           "openalex-recall"
         ]
       },
@@ -83,24 +84,6 @@
         "next_action": "add or verify an independent fallback path",
         "usable_paths": [
           "crossref",
-          "openalex-recall"
-        ]
-      },
-      {
-        "journal": "Journal of Economic Behavior and Organization",
-        "journal_id": "journal-of-economic-behavior-and-organization",
-        "next_action": "add or verify an independent fallback path",
-        "usable_paths": [
-          "rss",
-          "openalex-recall"
-        ]
-      },
-      {
-        "journal": "Economic Development and Cultural Change",
-        "journal_id": "economic-development-and-cultural-change",
-        "next_action": "add or verify an independent fallback path",
-        "usable_paths": [
-          "rss",
           "openalex-recall"
         ]
       },
@@ -127,6 +110,16 @@
         "journal_id": "journal-of-agricultural-and-resource-economics",
         "next_action": "add or verify an independent fallback path",
         "usable_paths": [
+          "crossref",
+          "openalex-recall"
+        ]
+      },
+      {
+        "journal": "Economic Modelling",
+        "journal_id": "economic-modelling",
+        "next_action": "add or verify an independent fallback path",
+        "usable_paths": [
+          "rss",
           "openalex-recall"
         ]
       }
@@ -134,7 +127,7 @@
   },
   "degraded": [
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "supplemental",
       "crossref_count": 0,
       "crossref_status": "ok",
@@ -142,10 +135,10 @@
       "failed_paths": [],
       "journal": "Theoretical Economics",
       "journal_id": "theoretical-economics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "degraded",
       "publisher": "The Econometric Society",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 0,
       "rss_status": "none",
       "specialized_paths": [],
@@ -155,56 +148,6 @@
       ],
       "usable_paths": [
         "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.0,
-      "coverage": "official_or_specialized",
-      "crossref_count": 0,
-      "crossref_status": "rate_limited",
-      "degradation_reason": "single_path",
-      "failed_paths": [],
-      "journal": "Journal of Economic Behavior and Organization",
-      "journal_id": "journal-of-economic-behavior-and-organization",
-      "last_checked_at": "2026-11-23",
-      "level": "degraded",
-      "publisher": "Elsevier",
-      "registry_age_days": 0,
-      "rss_count": 27,
-      "rss_status": "official-generated",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.0,
-      "coverage": "official_or_specialized",
-      "crossref_count": 0,
-      "crossref_status": "rate_limited",
-      "degradation_reason": "single_path",
-      "failed_paths": [],
-      "journal": "Economic Development and Cultural Change",
-      "journal_id": "economic-development-and-cultural-change",
-      "last_checked_at": "2026-11-23",
-      "level": "degraded",
-      "publisher": "The University of Chicago Press",
-      "registry_age_days": 0,
-      "rss_count": 13,
-      "rss_status": "configured",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
         "openalex-recall"
       ]
     },
@@ -234,7 +177,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
       "crossref_status": "rate_limited",
@@ -242,10 +185,10 @@
       "failed_paths": [],
       "journal": "Structural Change and Economic Dynamics",
       "journal_id": "structural-change-and-economic-dynamics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "degraded",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 42,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -259,10 +202,10 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "supplemental",
       "crossref_count": 0,
-      "crossref_status": "rate_limited",
+      "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
@@ -272,10 +215,10 @@
       ],
       "journal": "Journal of Agricultural and Resource Economics",
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "degraded",
       "publisher": "Western Agricultural Economics Association",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 0,
       "rss_status": "none",
       "specialized_paths": [],
@@ -284,6 +227,32 @@
         "openalex-recall"
       ],
       "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 0,
+      "crossref_status": "rate_limited",
+      "degradation_reason": "single_path",
+      "failed_paths": [],
+      "journal": "Economic Modelling",
+      "journal_id": "economic-modelling",
+      "last_checked_at": "2026-11-23",
+      "level": "degraded",
+      "publisher": "Elsevier",
+      "registry_age_days": 0,
+      "rss_count": 81,
+      "rss_status": "official-generated",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
         "openalex-recall"
       ]
     }
@@ -293,7 +262,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 17,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -319,7 +288,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
+      "crossref_count": 10,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -347,7 +316,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 7,
+      "crossref_count": 15,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -373,7 +342,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 24,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -399,7 +368,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 4,
+      "crossref_count": 8,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -425,7 +394,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 6,
+      "crossref_count": 17,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -451,7 +420,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 2,
+      "crossref_count": 12,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -477,7 +446,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 12,
+      "crossref_count": 42,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -503,7 +472,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 11,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -527,7 +496,7 @@
       ]
     },
     {
-      "checked_age_days": 0.007261222523148148,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 10,
       "crossref_status": "ok",
@@ -535,10 +504,10 @@
       "failed_paths": [],
       "journal": "Journal of Economic Perspectives",
       "journal_id": "journal-of-economic-perspectives",
-      "last_checked_at": "2026-11-22T16:10:02+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "American Economic Association",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 0,
       "rss_status": "none",
       "specialized_paths": [
@@ -555,7 +524,7 @@
       ]
     },
     {
-      "checked_age_days": 0.007261222523148148,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
       "crossref_status": "ok",
@@ -563,10 +532,10 @@
       "failed_paths": [],
       "journal": "Journal of Economic Literature",
       "journal_id": "journal-of-economic-literature",
-      "last_checked_at": "2026-11-22T16:10:02+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "American Economic Association",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 0,
       "rss_status": "none",
       "specialized_paths": [
@@ -583,7 +552,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 41,
       "crossref_status": "ok",
@@ -591,10 +560,10 @@
       "failed_paths": [],
       "journal": "Economics Letters",
       "journal_id": "economics-letters",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 100,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -609,18 +578,18 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 3,
+      "crossref_count": 1,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "Economic Inquiry",
       "journal_id": "economic-inquiry",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 24,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -635,7 +604,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 7,
       "crossref_status": "ok",
@@ -643,10 +612,10 @@
       "failed_paths": [],
       "journal": "Economica",
       "journal_id": "economica",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 31,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -689,7 +658,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 7,
       "crossref_status": "ok",
@@ -697,10 +666,10 @@
       "failed_paths": [],
       "journal": "Scandinavian Journal of Economics",
       "journal_id": "scandinavian-journal-of-economics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 36,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -717,12 +686,115 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 10,
+      "crossref_count": 40,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "Games and Economic Behavior",
       "journal_id": "games-and-economic-behavior",
+      "last_checked_at": "2026-11-23",
+      "level": "healthy",
+      "publisher": "Elsevier",
+      "registry_age_days": 0,
+      "rss_count": 40,
+      "rss_status": "official-generated",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 6,
+      "crossref_status": "ok",
+      "degradation_reason": null,
+      "failed_paths": [],
+      "journal": "International Journal of Game Theory",
+      "journal_id": "international-journal-of-game-theory",
+      "last_checked_at": "2026-11-23",
+      "level": "healthy",
+      "publisher": "Springer-Verlag",
+      "registry_age_days": 0,
+      "rss_count": 20,
+      "rss_status": "configured",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 22,
+      "crossref_status": "ok",
+      "degradation_reason": null,
+      "failed_paths": [],
+      "journal": "Journal of Economic Theory",
+      "journal_id": "journal-of-economic-theory",
+      "last_checked_at": "2026-11-23",
+      "level": "healthy",
+      "publisher": "Elsevier",
+      "registry_age_days": 0,
+      "rss_count": 22,
+      "rss_status": "official-generated",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "supplemental",
+      "crossref_count": 0,
+      "crossref_status": "ok",
+      "degradation_reason": "single_path",
+      "failed_paths": [],
+      "journal": "Theoretical Economics",
+      "journal_id": "theoretical-economics",
+      "last_checked_at": "2026-11-23",
+      "level": "degraded",
+      "publisher": "The Econometric Society",
+      "registry_age_days": 0,
+      "rss_count": 0,
+      "rss_status": "none",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 22,
+      "crossref_status": "ok",
+      "degradation_reason": null,
+      "failed_paths": [],
+      "journal": "Journal of Mathematical Economics",
+      "journal_id": "journal-of-mathematical-economics",
       "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
@@ -741,18 +813,18 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 6,
+      "crossref_count": 11,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
-      "journal": "International Journal of Game Theory",
-      "journal_id": "international-journal-of-game-theory",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "journal": "Economic Theory",
+      "journal_id": "economic-theory",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Springer-Verlag",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 20,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -773,115 +845,12 @@
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
-      "journal": "Journal of Economic Theory",
-      "journal_id": "journal-of-economic-theory",
+      "journal": "Mathematical Social Sciences",
+      "journal_id": "mathematical-social-sciences",
       "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
       "registry_age_days": 0,
-      "rss_count": 33,
-      "rss_status": "official-generated",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008904741041666667,
-      "coverage": "supplemental",
-      "crossref_count": 0,
-      "crossref_status": "ok",
-      "degradation_reason": "single_path",
-      "failed_paths": [],
-      "journal": "Theoretical Economics",
-      "journal_id": "theoretical-economics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
-      "level": "degraded",
-      "publisher": "The Econometric Society",
-      "registry_age_days": 1,
-      "rss_count": 0,
-      "rss_status": "none",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008904741041666667,
-      "coverage": "official_or_specialized",
-      "crossref_count": 22,
-      "crossref_status": "ok",
-      "degradation_reason": null,
-      "failed_paths": [],
-      "journal": "Journal of Mathematical Economics",
-      "journal_id": "journal-of-mathematical-economics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
-      "level": "healthy",
-      "publisher": "Elsevier",
-      "registry_age_days": 1,
-      "rss_count": 41,
-      "rss_status": "official-generated",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008904741041666667,
-      "coverage": "official_or_specialized",
-      "crossref_count": 12,
-      "crossref_status": "ok",
-      "degradation_reason": null,
-      "failed_paths": [],
-      "journal": "Economic Theory",
-      "journal_id": "economic-theory",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
-      "level": "healthy",
-      "publisher": "Springer-Verlag",
-      "registry_age_days": 1,
-      "rss_count": 20,
-      "rss_status": "configured",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008904741041666667,
-      "coverage": "official_or_specialized",
-      "crossref_count": 11,
-      "crossref_status": "ok",
-      "degradation_reason": null,
-      "failed_paths": [],
-      "journal": "Mathematical Social Sciences",
-      "journal_id": "mathematical-social-sciences",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
-      "level": "healthy",
-      "publisher": "Elsevier",
-      "registry_age_days": 1,
       "rss_count": 27,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -922,7 +891,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 20,
       "crossref_status": "ok",
@@ -930,10 +899,10 @@
       "failed_paths": [],
       "journal": "International Journal of Industrial Organization",
       "journal_id": "international-journal-of-industrial-organization",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 28,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -948,7 +917,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 2,
       "crossref_status": "ok",
@@ -956,10 +925,10 @@
       "failed_paths": [],
       "journal": "Journal of Industrial Economics",
       "journal_id": "journal-of-industrial-economics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 27,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -976,7 +945,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
+      "crossref_count": 16,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1002,7 +971,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 5,
       "crossref_status": "ok",
@@ -1010,10 +979,10 @@
       "failed_paths": [],
       "journal": "Review of Economic Design",
       "journal_id": "review-of-economic-design",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Springer-Verlag",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 20,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -1030,14 +999,14 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
-      "crossref_status": "rate_limited",
-      "degradation_reason": "single_path",
+      "crossref_count": 40,
+      "crossref_status": "ok",
+      "degradation_reason": null,
       "failed_paths": [],
       "journal": "Journal of Economic Behavior and Organization",
       "journal_id": "journal-of-economic-behavior-and-organization",
       "last_checked_at": "2026-11-23",
-      "level": "degraded",
+      "level": "healthy",
       "publisher": "Elsevier",
       "registry_age_days": 0,
       "rss_count": 27,
@@ -1049,11 +1018,12 @@
       ],
       "usable_paths": [
         "rss",
+        "crossref",
         "openalex-recall"
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 10,
       "crossref_status": "ok",
@@ -1061,10 +1031,10 @@
       "failed_paths": [],
       "journal": "Journal of Economic Psychology",
       "journal_id": "journal-of-economic-psychology",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 21,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -1079,7 +1049,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 4,
       "crossref_status": "ok",
@@ -1087,10 +1057,10 @@
       "failed_paths": [],
       "journal": "Journal of Economics & Management Strategy",
       "journal_id": "journal-of-economics-and-management-strategy",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley Periodicals, LLC",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 30,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -1105,7 +1075,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 6,
       "crossref_status": "ok",
@@ -1113,10 +1083,10 @@
       "failed_paths": [],
       "journal": "Journal of Law, Economics & Organization",
       "journal_id": "journal-of-law-economics-and-organization",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Oxford University Press",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 2,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -1133,7 +1103,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 5,
+      "crossref_count": 35,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1157,70 +1127,18 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 7,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "Social Choice and Welfare",
       "journal_id": "social-choice-and-welfare",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Springer-Verlag",
-      "registry_age_days": 1,
-      "rss_count": 20,
-      "rss_status": "configured",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008904741041666667,
-      "coverage": "official_or_specialized",
-      "crossref_count": 6,
-      "crossref_status": "ok",
-      "degradation_reason": null,
-      "failed_paths": [],
-      "journal": "Public Choice",
-      "journal_id": "public-choice",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
-      "level": "healthy",
-      "publisher": "Springer-Verlag",
-      "registry_age_days": 1,
-      "rss_count": 20,
-      "rss_status": "configured",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008904741041666667,
-      "coverage": "official_or_specialized",
-      "crossref_count": 15,
-      "crossref_status": "ok",
-      "degradation_reason": null,
-      "failed_paths": [],
-      "journal": "International Tax and Public Finance",
-      "journal_id": "international-tax-and-public-finance",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
-      "level": "healthy",
-      "publisher": "Springer-Verlag",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 20,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -1237,7 +1155,59 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
+      "crossref_count": 6,
+      "crossref_status": "ok",
+      "degradation_reason": null,
+      "failed_paths": [],
+      "journal": "Public Choice",
+      "journal_id": "public-choice",
+      "last_checked_at": "2026-11-23",
+      "level": "healthy",
+      "publisher": "Springer-Verlag",
+      "registry_age_days": 0,
+      "rss_count": 20,
+      "rss_status": "configured",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 14,
+      "crossref_status": "ok",
+      "degradation_reason": null,
+      "failed_paths": [],
+      "journal": "International Tax and Public Finance",
+      "journal_id": "international-tax-and-public-finance",
+      "last_checked_at": "2026-11-23",
+      "level": "healthy",
+      "publisher": "Springer-Verlag",
+      "registry_age_days": 0,
+      "rss_count": 20,
+      "rss_status": "configured",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1261,7 +1231,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 3,
       "crossref_status": "ok",
@@ -1269,10 +1239,10 @@
       "failed_paths": [],
       "journal": "Explorations in Economic History",
       "journal_id": "explorations-in-economic-history",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 15,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -1287,7 +1257,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 9,
       "crossref_status": "ok",
@@ -1295,10 +1265,10 @@
       "failed_paths": [],
       "journal": "Economic History Review",
       "journal_id": "economic-history-review",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 69,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -1315,7 +1285,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 11,
+      "crossref_count": 36,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1339,7 +1309,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 2,
       "crossref_status": "ok",
@@ -1347,10 +1317,10 @@
       "failed_paths": [],
       "journal": "Canadian Journal of Economics",
       "journal_id": "canadian-journal-of-economics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 22,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -1365,7 +1335,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 9,
       "crossref_status": "ok",
@@ -1373,10 +1343,10 @@
       "failed_paths": [],
       "journal": "Review of International Economics",
       "journal_id": "review-of-international-economics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 36,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -1393,7 +1363,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 8,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1419,7 +1389,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 8,
+      "crossref_count": 37,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1445,7 +1415,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 2,
+      "crossref_count": 9,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1471,7 +1441,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 12,
+      "crossref_count": 42,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1497,14 +1467,14 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
-      "crossref_status": "rate_limited",
-      "degradation_reason": "single_path",
+      "crossref_count": 6,
+      "crossref_status": "ok",
+      "degradation_reason": null,
       "failed_paths": [],
       "journal": "Economic Development and Cultural Change",
       "journal_id": "economic-development-and-cultural-change",
       "last_checked_at": "2026-11-23",
-      "level": "degraded",
+      "level": "healthy",
       "publisher": "The University of Chicago Press",
       "registry_age_days": 0,
       "rss_count": 13,
@@ -1516,13 +1486,14 @@
       ],
       "usable_paths": [
         "rss",
+        "crossref",
         "openalex-recall"
       ]
     },
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 13,
+      "crossref_count": 41,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1548,7 +1519,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 2,
+      "crossref_count": 16,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1574,7 +1545,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 6,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1600,7 +1571,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 0,
+      "crossref_count": 40,
       "crossref_status": "ok",
       "degradation_reason": "single_path",
       "failed_paths": [],
@@ -1653,7 +1624,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 0,
+      "crossref_count": 16,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1704,7 +1675,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 1,
       "crossref_status": "ok",
@@ -1712,10 +1683,10 @@
       "failed_paths": [],
       "journal": "Journal of Applied Econometrics",
       "journal_id": "journal-of-applied-econometrics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (John Wiley & Sons)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 31,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -1730,7 +1701,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 8,
       "crossref_status": "ok",
@@ -1738,10 +1709,10 @@
       "failed_paths": [],
       "journal": "Oxford Bulletin of Economics and Statistics",
       "journal_id": "oxford-bulletin-of-economics-and-statistics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (John Wiley & Sons)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 71,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -1756,7 +1727,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 40,
       "crossref_status": "ok",
@@ -1764,10 +1735,10 @@
       "failed_paths": [],
       "journal": "Applied Economics",
       "journal_id": "applied-economics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Informa UK (Taylor & Francis)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 120,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -1784,7 +1755,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 11,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1810,7 +1781,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 10,
+      "crossref_count": 35,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -1862,7 +1833,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008904741041666667,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 4,
       "crossref_status": "ok",
@@ -1870,139 +1841,10 @@
       "failed_paths": [],
       "journal": "Journal of Economic Growth",
       "journal_id": "journal-of-economic-growth",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Springer-Verlag",
-      "registry_age_days": 1,
-      "rss_count": 20,
-      "rss_status": "configured",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008904741041666667,
-      "coverage": "official_or_specialized",
-      "crossref_count": 12,
-      "crossref_status": "ok",
-      "degradation_reason": null,
-      "failed_paths": [],
-      "journal": "Journal of Money, Credit and Banking",
-      "journal_id": "journal-of-money-credit-and-banking",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
-      "level": "healthy",
-      "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
-      "rss_count": 72,
-      "rss_status": "official-generated",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008904741041666667,
-      "coverage": "official_or_specialized",
-      "crossref_count": 9,
-      "crossref_status": "ok",
-      "degradation_reason": null,
-      "failed_paths": [],
-      "journal": "Review of Economic Dynamics",
-      "journal_id": "review-of-economic-dynamics",
-      "last_checked_at": "2026-11-22T16:07:40+00:00",
-      "level": "healthy",
-      "publisher": "Elsevier",
-      "registry_age_days": 1,
-      "rss_count": 22,
-      "rss_status": "official-generated",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008893166967592594,
-      "coverage": "official_or_specialized",
-      "crossref_count": 38,
-      "crossref_status": "ok",
-      "degradation_reason": null,
-      "failed_paths": [],
-      "journal": "Journal of Economic Dynamics and Control",
-      "journal_id": "journal-of-economic-dynamics-and-control",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
-      "level": "healthy",
-      "publisher": "Elsevier",
-      "registry_age_days": 1,
-      "rss_count": 27,
-      "rss_status": "official-generated",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008893166967592594,
-      "coverage": "official_or_specialized",
-      "crossref_count": 0,
-      "crossref_status": "rate_limited",
-      "degradation_reason": "single_path",
-      "failed_paths": [],
-      "journal": "Structural Change and Economic Dynamics",
-      "journal_id": "structural-change-and-economic-dynamics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
-      "level": "degraded",
-      "publisher": "Elsevier",
-      "registry_age_days": 1,
-      "rss_count": 42,
-      "rss_status": "official-generated",
-      "specialized_paths": [],
-      "supplemental_closed_note": null,
-      "supplemental_paths": [
-        "openalex-recall"
-      ],
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "checked_age_days": 0.008893166967592594,
-      "coverage": "official_or_specialized",
-      "crossref_count": 10,
-      "crossref_status": "ok",
-      "degradation_reason": null,
-      "failed_paths": [],
-      "journal": "Journal of Population Economics",
-      "journal_id": "journal-of-population-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
-      "level": "healthy",
-      "publisher": "Springer-Verlag",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 20,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2019,7 +1861,136 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
+      "crossref_count": 12,
+      "crossref_status": "ok",
+      "degradation_reason": null,
+      "failed_paths": [],
+      "journal": "Journal of Money, Credit and Banking",
+      "journal_id": "journal-of-money-credit-and-banking",
+      "last_checked_at": "2026-11-23",
+      "level": "healthy",
+      "publisher": "Wiley (Blackwell Publishing)",
+      "registry_age_days": 0,
+      "rss_count": 72,
+      "rss_status": "official-generated",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 9,
+      "crossref_status": "ok",
+      "degradation_reason": null,
+      "failed_paths": [],
+      "journal": "Review of Economic Dynamics",
+      "journal_id": "review-of-economic-dynamics",
+      "last_checked_at": "2026-11-23",
+      "level": "healthy",
+      "publisher": "Elsevier",
+      "registry_age_days": 0,
+      "rss_count": 22,
+      "rss_status": "official-generated",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 38,
+      "crossref_status": "ok",
+      "degradation_reason": null,
+      "failed_paths": [],
+      "journal": "Journal of Economic Dynamics and Control",
+      "journal_id": "journal-of-economic-dynamics-and-control",
+      "last_checked_at": "2026-11-23",
+      "level": "healthy",
+      "publisher": "Elsevier",
+      "registry_age_days": 0,
+      "rss_count": 27,
+      "rss_status": "official-generated",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 0,
+      "crossref_status": "rate_limited",
+      "degradation_reason": "single_path",
+      "failed_paths": [],
+      "journal": "Structural Change and Economic Dynamics",
+      "journal_id": "structural-change-and-economic-dynamics",
+      "last_checked_at": "2026-11-23",
+      "level": "degraded",
+      "publisher": "Elsevier",
+      "registry_age_days": 0,
+      "rss_count": 42,
+      "rss_status": "official-generated",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
       "crossref_count": 10,
+      "crossref_status": "ok",
+      "degradation_reason": null,
+      "failed_paths": [],
+      "journal": "Journal of Population Economics",
+      "journal_id": "journal-of-population-economics",
+      "last_checked_at": "2026-11-23",
+      "level": "healthy",
+      "publisher": "Springer-Verlag",
+      "registry_age_days": 0,
+      "rss_count": 20,
+      "rss_status": "configured",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 17,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2043,7 +2014,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 27,
       "crossref_status": "ok",
@@ -2051,10 +2022,10 @@
       "failed_paths": [],
       "journal": "Labour Economics",
       "journal_id": "labour-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 59,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -2071,7 +2042,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 30,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2097,7 +2068,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 11,
+      "crossref_count": 25,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2121,7 +2092,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 9,
       "crossref_status": "ok",
@@ -2129,10 +2100,10 @@
       "failed_paths": [],
       "journal": "Experimental Economics",
       "journal_id": "experimental-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Cambridge University Press",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 7,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2147,7 +2118,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 7,
       "crossref_status": "ok",
@@ -2155,10 +2126,10 @@
       "failed_paths": [],
       "journal": "Journal of Law & Economics",
       "journal_id": "journal-of-law-and-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "The University of Chicago Press",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 8,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2173,7 +2144,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
       "crossref_status": "ok",
@@ -2181,10 +2152,10 @@
       "failed_paths": [],
       "journal": "Journal of Comparative Economics",
       "journal_id": "journal-of-comparative-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 62,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -2201,7 +2172,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 8,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2227,7 +2198,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 12,
+      "crossref_count": 40,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2251,7 +2222,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 11,
       "crossref_status": "ok",
@@ -2259,10 +2230,10 @@
       "failed_paths": [],
       "journal": "Journal of Agricultural Economics",
       "journal_id": "journal-of-agricultural-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 47,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -2277,7 +2248,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 6,
       "crossref_status": "ok",
@@ -2285,10 +2256,10 @@
       "failed_paths": [],
       "journal": "Agricultural Economics",
       "journal_id": "agricultural-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 2,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -2305,7 +2276,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 7,
+      "crossref_count": 19,
       "crossref_status": "ok",
       "degradation_reason": "single_path",
       "failed_paths": [],
@@ -2356,7 +2327,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 10,
+      "crossref_count": 40,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2380,7 +2351,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 4,
       "crossref_status": "ok",
@@ -2388,10 +2359,10 @@
       "failed_paths": [],
       "journal": "European Review of Agricultural Economics",
       "journal_id": "european-review-of-agricultural-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Oxford University Press",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 2,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2408,7 +2379,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 1,
+      "crossref_count": 9,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
@@ -2432,7 +2403,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
       "crossref_status": "ok",
@@ -2440,10 +2411,10 @@
       "failed_paths": [],
       "journal": "Canadian Journal of Agricultural Economics",
       "journal_id": "canadian-journal-of-agricultural-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 12,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -2458,7 +2429,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 13,
       "crossref_status": "ok",
@@ -2466,10 +2437,10 @@
       "failed_paths": [],
       "journal": "Australian Journal of Agricultural and Resource Economics",
       "journal_id": "australian-journal-of-agricultural-and-resource-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (Blackwell Publishing)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 63,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -2484,10 +2455,10 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "supplemental",
       "crossref_count": 0,
-      "crossref_status": "rate_limited",
+      "crossref_status": "ok",
       "degradation_reason": "failed_path",
       "failed_paths": [
         {
@@ -2497,10 +2468,10 @@
       ],
       "journal": "Journal of Agricultural and Resource Economics",
       "journal_id": "journal-of-agricultural-and-resource-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "degraded",
       "publisher": "Western Agricultural Economics Association",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 0,
       "rss_status": "none",
       "specialized_paths": [],
@@ -2509,11 +2480,12 @@
         "openalex-recall"
       ],
       "usable_paths": [
+        "crossref",
         "openalex-recall"
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 11,
       "crossref_status": "ok",
@@ -2521,10 +2493,10 @@
       "failed_paths": [],
       "journal": "Applied Economic Perspectives and Policy",
       "journal_id": "applied-economic-perspectives-and-policy",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Wiley (John Wiley & Sons)",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 49,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -2542,7 +2514,7 @@
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
-      "crossref_status": "rate_limited",
+      "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "经济研究",
@@ -2562,6 +2534,7 @@
         "openalex-recall"
       ],
       "usable_paths": [
+        "crossref",
         "cn-journals",
         "cnki-rss",
         "openalex-recall"
@@ -2571,7 +2544,7 @@
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
-      "crossref_status": "rate_limited",
+      "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "管理世界",
@@ -2591,6 +2564,7 @@
         "openalex-recall"
       ],
       "usable_paths": [
+        "crossref",
         "cn-journals",
         "cnki-rss",
         "openalex-recall"
@@ -2610,7 +2584,7 @@
       "publisher": "中国社会科学院、中国世界经济学会与世界经济与政治研究所",
       "registry_age_days": 0,
       "rss_count": 0,
-      "rss_status": "none",
+      "rss_status": "discovered",
       "specialized_paths": [
         "cn-journals",
         "cnki-rss"
@@ -2629,7 +2603,7 @@
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
-      "crossref_status": "rate_limited",
+      "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "数量经济技术经济研究",
@@ -2649,6 +2623,7 @@
         "openalex-recall"
       ],
       "usable_paths": [
+        "crossref",
         "cn-journals",
         "cnki-rss",
         "openalex-recall"
@@ -2658,7 +2633,7 @@
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
-      "crossref_status": "rate_limited",
+      "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "中国工业经济",
@@ -2678,6 +2653,7 @@
         "openalex-recall"
       ],
       "usable_paths": [
+        "crossref",
         "cn-journals",
         "cnki-rss",
         "openalex-recall"
@@ -2713,7 +2689,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 40,
       "crossref_status": "ok",
@@ -2721,10 +2697,10 @@
       "failed_paths": [],
       "journal": "Management Science",
       "journal_id": "management-science",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "INFORMS",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 120,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2739,7 +2715,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 17,
       "crossref_status": "ok",
@@ -2747,10 +2723,10 @@
       "failed_paths": [],
       "journal": "Journal of Accounting and Economics",
       "journal_id": "journal-of-accounting-and-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 58,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2765,7 +2741,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 16,
       "crossref_status": "ok",
@@ -2773,10 +2749,10 @@
       "failed_paths": [],
       "journal": "Journal of Health Economics",
       "journal_id": "journal-of-health-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 23,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2791,7 +2767,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 13,
       "crossref_status": "ok",
@@ -2799,10 +2775,10 @@
       "failed_paths": [],
       "journal": "Journal of Financial and Quantitative Analysis",
       "journal_id": "journal-of-financial-and-quantitative-analysis",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Cambridge University Press",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 20,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2817,18 +2793,18 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 6,
+      "crossref_count": 4,
       "crossref_status": "ok",
       "degradation_reason": "single_path",
       "failed_paths": [],
       "journal": "Journal of Human Resources",
       "journal_id": "journal-of-human-resources",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "supplemental-closed",
       "publisher": "University of Wisconsin Press",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 0,
       "rss_status": "discovered",
       "specialized_paths": [],
@@ -2842,7 +2818,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 8,
       "crossref_status": "ok",
@@ -2850,10 +2826,10 @@
       "failed_paths": [],
       "journal": "Journal of Business & Economic Statistics",
       "journal_id": "journal-of-business-and-economic-statistics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Taylor & Francis",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 73,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2868,7 +2844,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 0,
       "crossref_status": "ok",
@@ -2876,10 +2852,10 @@
       "failed_paths": [],
       "journal": "Journal of Financial Intermediation",
       "journal_id": "journal-of-financial-intermediation",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 15,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2894,7 +2870,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 4,
       "crossref_status": "ok",
@@ -2902,10 +2878,10 @@
       "failed_paths": [],
       "journal": "Review of Accounting Studies",
       "journal_id": "review-of-accounting-studies",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Springer",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 20,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2920,7 +2896,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 4,
       "crossref_status": "ok",
@@ -2928,10 +2904,10 @@
       "failed_paths": [],
       "journal": "Journal of Risk and Uncertainty",
       "journal_id": "journal-of-risk-and-uncertainty",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Springer",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 20,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2946,7 +2922,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 28,
       "crossref_status": "ok",
@@ -2954,10 +2930,10 @@
       "failed_paths": [],
       "journal": "Journal of Corporate Finance",
       "journal_id": "journal-of-corporate-finance",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 53,
       "rss_status": "configured",
       "specialized_paths": [],
@@ -2972,18 +2948,18 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 46,
-      "crossref_status": "ok",
-      "degradation_reason": null,
+      "crossref_count": 0,
+      "crossref_status": "rate_limited",
+      "degradation_reason": "single_path",
       "failed_paths": [],
       "journal": "Economic Modelling",
       "journal_id": "economic-modelling",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
-      "level": "healthy",
+      "last_checked_at": "2026-11-23",
+      "level": "degraded",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 81,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -2993,12 +2969,11 @@
       ],
       "usable_paths": [
         "rss",
-        "crossref",
         "openalex-recall"
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 21,
       "crossref_status": "ok",
@@ -3006,10 +2981,10 @@
       "failed_paths": [],
       "journal": "Economics of Education Review",
       "journal_id": "economics-of-education-review",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 32,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -3024,19 +2999,19 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 56,
+      "crossref_count": 55,
       "crossref_status": "ok",
       "degradation_reason": null,
       "failed_paths": [],
       "journal": "Energy Economics",
       "journal_id": "energy-economics",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
-      "rss_count": 69,
+      "registry_age_days": 0,
+      "rss_count": 73,
       "rss_status": "official-generated",
       "specialized_paths": [],
       "supplemental_closed_note": null,
@@ -3050,7 +3025,7 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
       "crossref_count": 40,
       "crossref_status": "ok",
@@ -3058,10 +3033,10 @@
       "failed_paths": [],
       "journal": "Energy Policy",
       "journal_id": "energy-policy",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "healthy",
       "publisher": "Elsevier",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 100,
       "rss_status": "official-generated",
       "specialized_paths": [],
@@ -3082,7 +3057,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 0,
+      "crossref_count": 40,
       "crossref_status": "ok",
       "degradation_reason": "single_path",
       "failed_paths": [],
@@ -3107,7 +3082,7 @@
     {
       "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 7,
+      "crossref_count": 19,
       "crossref_status": "ok",
       "degradation_reason": "single_path",
       "failed_paths": [],
@@ -3130,18 +3105,18 @@
       ]
     },
     {
-      "checked_age_days": 0.008893166967592594,
+      "checked_age_days": 0.0,
       "coverage": "supplemental",
-      "crossref_count": 6,
+      "crossref_count": 4,
       "crossref_status": "ok",
       "degradation_reason": "single_path",
       "failed_paths": [],
       "journal": "Journal of Human Resources",
       "journal_id": "journal-of-human-resources",
-      "last_checked_at": "2026-11-22T16:07:41+00:00",
+      "last_checked_at": "2026-11-23",
       "level": "supplemental-closed",
       "publisher": "University of Wisconsin Press",
-      "registry_age_days": 1,
+      "registry_age_days": 0,
       "rss_count": 0,
       "rss_status": "discovered",
       "specialized_paths": [],
