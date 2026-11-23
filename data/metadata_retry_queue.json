@@ -7,12 +7,12 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 74,
+    "missing_abstract": 75,
     "missing_authors": 3,
     "weak_date_evidence": 493
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 525,
+  "recent_candidates_before_limit": 524,
   "recent_window_start": "2026-10-25",
   "records": [
     {
@@ -110,6 +110,30 @@
       "source_type": "journal",
       "title": "Regional R&amp;D intensity and economic resilience: evidence from EU NUTS-2 regions during the COVID-19 shock",
       "url": "https://doi.org/10.1080/00036846.2026.2768400"
+    },
+    {
+      "date_confidence": "F",
+      "doi": "10.1257/aer.20241746",
+      "first_seen": "2026-11-23T15:36:52+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1257/aer.20241746",
+      "journal": "American Economic Review",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Search Costs, Intermediation, and Trade: Experimental Evidence from Ugandan Agricultural Markets",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/aer.20241746"
     },
     {
       "date_confidence": "F",
@@ -1904,29 +1928,6 @@
     },
     {
       "date_confidence": "C",
-      "doi": "10.1016/j.euroecorev.2026.105531",
-      "first_seen": "2026-11-23T08:19:26+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1016/j.euroecorev.2026.105531",
-      "journal": "European Economic Review",
-      "official_date": "2026-11-23",
-      "priority": [
-        0,
-        1,
-        1,
-        0
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Rent control? Bad in theory, not always in practice",
-      "url": "https://doi.org/10.1016/j.euroecorev.2026.105531"
-    },
-    {
-      "date_confidence": "F",
       "doi": "10.1016/j.jfineco.2026.104417",
       "first_seen": "2026-11-23T14:31:32+00:00",
       "historical_backfill": false,
@@ -1970,29 +1971,6 @@
       "source_type": "journal",
       "title": "Trickle-down housing economics",
       "url": "https://doi.org/10.1016/j.jue.2026.103926"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1093/rfs/hhag099",
-      "first_seen": "2026-11-23T14:33:52+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1093/rfs/hhag099",
-      "journal": "Review of Financial Studies",
-      "official_date": "2026-11-23",
-      "priority": [
-        0,
-        1,
-        1,
-        0
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Collateral Demand in Wholesale Funding Markets",
-      "url": "https://doi.org/10.1093/rfs/hhag099"
     },
     {
       "date_confidence": "C",
@@ -11596,9 +11574,32 @@
       "source_type": "journal",
       "title": "The land use challenge in the United Kingdom: Finding space for food production and biodiversity",
       "url": "https://doi.org/10.1016/j.landusepol.2026.108391"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.landusepol.2026.108394",
+      "first_seen": "2026-10-27T15:40:39+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.landusepol.2026.108394",
+      "journal": "Land Use Policy",
+      "official_date": "2026-10-27",
+      "priority": [
+        0,
+        1,
+        1,
+        27
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Global soybean markets and land-use emissions: Evidence from the China–Brazil soybean trade relationship",
+      "url": "https://doi.org/10.1016/j.landusepol.2026.108394"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5572,
+  "total_candidates_before_limit": 5571,
   "truncated": true
 }
