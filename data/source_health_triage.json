@@ -1,13 +1,13 @@
 {
   "categories": {
-    "needs_investigation": 9
+    "needs_investigation": 10
   },
-  "checked_at": "2026-11-23T13:50:53.284418+08:00",
-  "source_health_degraded_count": 9,
+  "checked_at": "2026-11-23T15:08:37.111594+08:00",
+  "source_health_degraded_count": 10,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=3; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 12; Economic Development and Cultural Change: 2;",
+      "sample_error": "partial_success failures=6; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 2; Journal of Development Economics: 12; Economic Development and Cultural Change: 2;",
       "source": "crossref"
     },
     {
@@ -131,6 +131,21 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Behavior and Organization",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "journal-of-industrial-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Journal of Industrial Economics",
@@ -176,5 +191,5 @@
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 9
+  "total_degraded": 10
 }
