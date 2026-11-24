@@ -2,12 +2,12 @@
   "categories": {
     "needs_investigation": 4
   },
-  "checked_at": "2026-11-25T02:07:13.284068+08:00",
+  "checked_at": "2026-11-25T03:04:21.373308+08:00",
   "source_health_degraded_count": 4,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=7; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 5; Journal of Development Economics: 11; Economic Development and Cultural Change: 3;",
+      "sample_error": "partial_success failures=3; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 11; Economic Development and Cultural Change: 3;",
       "source": "crossref"
     },
     {
@@ -32,7 +32,12 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "working-paper:iza"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "partial_success failures=2; nber: 12 via specialized-api; iza: HTTPError: HTTP Error 502: Bad Gateway; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: ",
       "source": "working-papers"
     }
   ],
@@ -99,7 +104,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 7
   },
   "total_degraded": 4
 }
