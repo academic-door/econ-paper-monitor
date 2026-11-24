@@ -2,27 +2,27 @@
   "categories": {
     "needs_investigation": 5
   },
-  "checked_at": "2026-11-24T17:49:25.629447+08:00",
+  "checked_at": "2026-11-24T18:41:24.403000+08:00",
   "source_health_degraded_count": 5,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=4; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 12; Economic Development and Cultural Change: 2;",
+      "sample_error": "partial_success failures=5; Agricultural Economics: 7; Journal of the Association of Environmental and Resource Economists: 17; Land Economics: 0; Land Use Policy: 40; European Review of Agricultural ",
       "source": "crossref"
     },
     {
       "category": "needs_investigation",
-      "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: CHALLENGE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
+      "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
       "source": "priority-toc:jare"
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
+      "sample_error": "attempted=13; 2026-11-24 World Development: abstract-route-missing; 2026-11-24 Journal of Development Economics: abstract-route-missing; seen Applied Economics: abstract-route-missing; seen The World ",
       "source": "publisher-detail"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "feeds=34/46; Journal of Economic History: 12 via configured; Journal of International Economics: 47 via official-generated; Journal of Finance: 45 via official-generated; Journal of Financial Economic",
+      "category": "page_structure_change",
+      "sample_error": "feeds=88/123; Canadian Journal of Agricultural Economics: 12 via official-generated; Australian Journal of Agricultural and Resource Economics: 63 via official-generated; Applied Economic Perspectives",
       "source": "rss"
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
       "source": "working-papers"
     }
   ],
@@ -42,9 +42,23 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "economic-modelling",
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "NETWORK_FAILURE",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-economic-behavior-and-organization",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Economic Modelling",
+      "source": "Journal of Economic Behavior and Organization",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
@@ -57,25 +71,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "CHALLENGE",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "needs_investigation",
-      "status_source": "priority-toc:jare",
-      "usable_paths": [
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "quantitative-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Quantitative Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
         "openalex-recall"

@@ -1,25 +1,25 @@
 {
   "after": {
     "abstracts": {
-      "full": 10316,
-      "missing": 265,
+      "full": 10326,
+      "missing": 266,
       "preview": 348
     },
     "authors": {
-      "available": 10914,
+      "available": 10925,
       "missing": 15
     },
-    "canonical_records": 10929,
-    "checked_at": "2026-11-24T06:15:15+00:00",
+    "canonical_records": 10940,
+    "checked_at": "2026-11-24T10:44:22+00:00",
     "integrity": {
       "boilerplate_abstracts": 0,
       "canonical_detail_key_duplicate": 0,
       "canonical_detail_key_missing": 0,
-      "daily_records": 10929,
+      "daily_records": 10940,
       "daily_same_source_title_duplicate_records": 0,
       "daily_seen_orphan_keys": 0,
       "ledger_orphan_keys": 0,
-      "machine_path_leaks": 5332,
+      "machine_path_leaks": 5340,
       "metadata_missing_status": {
         "abstract": 0,
         "authors": 0,
@@ -31,16 +31,16 @@
       "same_source_title_duplicate_records": 0,
       "seen_detail_key_duplicate": 3,
       "seen_detail_key_missing": 0,
-      "seen_records": 12868,
+      "seen_records": 12879,
       "seen_same_source_title_duplicate_records": 0,
       "title_zh_number_prefixes": 0,
       "version_relationship_groups": 111
     },
     "official_dates": {
-      "available": 10683,
+      "available": 10694,
       "confidence_counts": {
-        "A": 6611,
-        "B": 134,
+        "A": 6618,
+        "B": 138,
         "C": 3046,
         "D": 518,
         "F": 620
@@ -51,8 +51,8 @@
     "retry_queues": {
       "ingestion_pending": 1,
       "ingestion_resolved": 10,
-      "metadata_pending": 500,
-      "metadata_total_before_limit": 5592
+      "metadata_pending": 498,
+      "metadata_total_before_limit": 5597
     },
     "source_health": {
       "counts": {
@@ -72,25 +72,25 @@
   },
   "before": {
     "abstracts": {
-      "full": 10316,
-      "missing": 265,
+      "full": 10321,
+      "missing": 271,
       "preview": 348
     },
     "authors": {
-      "available": 10914,
+      "available": 10925,
       "missing": 15
     },
-    "canonical_records": 10929,
-    "checked_at": "2026-11-24T06:13:42+00:00",
+    "canonical_records": 10940,
+    "checked_at": "2026-11-24T10:43:09+00:00",
     "integrity": {
       "boilerplate_abstracts": 0,
       "canonical_detail_key_duplicate": 0,
       "canonical_detail_key_missing": 0,
-      "daily_records": 10929,
+      "daily_records": 10940,
       "daily_same_source_title_duplicate_records": 0,
       "daily_seen_orphan_keys": 0,
       "ledger_orphan_keys": 0,
-      "machine_path_leaks": 5332,
+      "machine_path_leaks": 5340,
       "metadata_missing_status": {
         "abstract": 0,
         "authors": 0,
@@ -102,28 +102,28 @@
       "same_source_title_duplicate_records": 0,
       "seen_detail_key_duplicate": 3,
       "seen_detail_key_missing": 0,
-      "seen_records": 12868,
+      "seen_records": 12879,
       "seen_same_source_title_duplicate_records": 0,
       "title_zh_number_prefixes": 0,
       "version_relationship_groups": 111
     },
     "official_dates": {
-      "available": 10683,
+      "available": 10694,
       "confidence_counts": {
-        "A": 6611,
+        "A": 6618,
         "B": 104,
-        "C": 3076,
+        "C": 3080,
         "D": 518,
         "F": 620
       },
       "missing": 246,
-      "weak_confidence": 4214
+      "weak_confidence": 4218
     },
     "retry_queues": {
       "ingestion_pending": 1,
       "ingestion_resolved": 10,
       "metadata_pending": 500,
-      "metadata_total_before_limit": 5592
+      "metadata_total_before_limit": 5597
     },
     "source_health": {
       "counts": {
@@ -142,10 +142,10 @@
     }
   },
   "candidates": 200,
-  "checked_at": "2026-11-24T06:15:15+00:00",
+  "checked_at": "2026-11-24T10:44:22+00:00",
   "daily_occurrences": 200,
   "date_confidence_changes": {
-    "B": 30
+    "B": 34
   },
   "doi_candidates": 150,
   "errors": {
@@ -154,19 +154,22 @@
     "pii_only": 50
   },
   "failure_reasons": {
-    "api_no_usable_metadata": 120,
+    "api_no_usable_metadata": 111,
     "pii_no_usable_metadata": 50
   },
   "field_attribution": {
+    "abstract": {
+      "elsevier": 5
+    },
     "date_quality_upgrade": {
-      "openalex+crossref": 30
+      "openalex+crossref": 34
     }
   },
   "files": {
-    "daily_changed": 28,
+    "daily_changed": 29,
     "ledger_resolved": 0,
-    "queue_resolved": 0,
-    "seen_updated": 30
+    "queue_resolved": 2,
+    "seen_updated": 39
   },
   "mode": "write",
   "pii_candidates": 50,
@@ -174,8 +177,8 @@
   "provider_health": {
     "crossref": {
       "attempts": 150,
-      "available": 113,
-      "empty": 37,
+      "available": 101,
+      "empty": 49,
       "empty_burst": false,
       "failed": 0,
       "rate_limited": 0,
@@ -187,8 +190,8 @@
     "elsevier": {
       "api_key_configured": true,
       "attempts": 150,
-      "available": 61,
-      "empty": 89,
+      "available": 66,
+      "empty": 84,
       "empty_burst": false,
       "failed": 0,
       "inst_token_configured": true,
@@ -197,7 +200,7 @@
       "skipped": 0,
       "skipped_not_needed": 0,
       "statuses": {
-        "available": 61
+        "available": 66
       }
     },
     "elsevier-pii": {
@@ -212,8 +215,8 @@
     },
     "openalex": {
       "attempts": 150,
-      "available": 120,
-      "empty": 30,
+      "available": 106,
+      "empty": 44,
       "empty_burst": false,
       "failed": 0,
       "rate_limited": 0,
@@ -225,7 +228,7 @@
     "semantic-scholar": {
       "api_key_configured": true,
       "attempts": 150,
-      "available": 4,
+      "available": 2,
       "control": {
         "circuit_open": true,
         "client_target_rps": 0.2,
@@ -240,9 +243,9 @@
         "min_interval_seconds": 5.0,
         "provider": "semantic-scholar",
         "provider_rate_limit_rps": 1.0,
-        "rate_limited_count": 4,
-        "recent_attempts": 8,
-        "recent_rate_limited": 4,
+        "rate_limited_count": 2,
+        "recent_attempts": 4,
+        "recent_rate_limited": 2,
         "recent_rate_limited_ratio": 0.5,
         "recent_window": 20,
         "skip_after": 20,
@@ -250,30 +253,31 @@
       },
       "empty": 0,
       "empty_burst": false,
-      "failed": 146,
-      "rate_limited": 4,
+      "failed": 148,
+      "rate_limited": 2,
       "retried_after_empty": false,
-      "skipped": 142,
+      "skipped": 146,
       "skipped_not_needed": 0,
       "statuses": {
-        "rate_limited": 4,
-        "skipped_rate_limited": 142
+        "rate_limited": 2,
+        "skipped_rate_limited": 146
       }
     }
   },
   "providers": {
-    "crossref": 113,
-    "elsevier": 61,
-    "openalex": 120,
-    "semantic-scholar": 4
+    "crossref": 101,
+    "elsevier": 66,
+    "openalex": 106,
+    "semantic-scholar": 2
   },
   "recovered": {
-    "date": 30
+    "abstract": 5,
+    "date": 34
   },
   "shortfall": {
-    "abstract_not_recovered": 150,
+    "abstract_not_recovered": 145,
     "authors_not_recovered": 5,
-    "date_not_recovered": 46,
+    "date_not_recovered": 37,
     "pii_abstract_not_recovered": 6,
     "pii_date_not_recovered": 47
   }
