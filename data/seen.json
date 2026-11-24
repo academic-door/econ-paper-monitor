@@ -107773,6 +107773,7 @@
     },
     "doi:10.1016/j.jdeveco.2026.103974": {
       "abstract_completeness": "missing",
+      "abstract_enrichment_status": "abstract-route-missing",
       "abstract_status": "摘要暂未公开，系统将自动重试",
       "abstract_status_code": "missing_retry",
       "authors": [
@@ -107782,8 +107783,8 @@
       "authors_status_code": "available",
       "available_online": "2026-11-24",
       "china_relevance_status": "none",
-      "date_confidence": "C",
-      "date_source": "crossref_elsevier_created_online",
+      "date_confidence": "A",
+      "date_source": "elsevier_article_api",
       "detail_key": "trade-liberalisation-and-intergenerational-educational-mobility-in-india-11f198bc7725",
       "detected_at": "2026-11-24T08:21:40+00:00",
       "doi": "10.1016/j.jdeveco.2026.103974",
@@ -107803,6 +107804,7 @@
       "journal_id": "journal-of-development-economics",
       "journal_short": "JDE",
       "official_date_status": "available",
+      "pii": "S0304387826002579",
       "published_online": "2026-11-24",
       "publisher": "Elsevier BV",
       "raw_data": {
@@ -197301,6 +197303,7 @@
     },
     "doi:10.1016/j.worlddev.2026.107616": {
       "abstract_completeness": "missing",
+      "abstract_enrichment_status": "abstract-route-missing",
       "abstract_status": "摘要暂未公开，系统将自动重试",
       "abstract_status_code": "missing_retry",
       "authors": [
@@ -289939,6 +289942,8 @@
     "doi:10.1093/rfs/hhag100": {
       "abstract": "We introduce CHILE, an asset-pricing framework with asymmetric information, general utility functions, and arbitrary payoffs. It features a large economy (LE) with continuous-and-heterogeneous information (CHI). The defining feature of this information structure is that the total amount of information stays finite as the economy grows large. We use the framework to study how concentration—the presence of market participants of different sizes—affects market quality, namely liquidity and information efficiency. Greater concentration proves a double-edged sword: it raises liquidity but harms information efficiency. (JEL D01, D53, D82, E19, G12, G14)",
       "abstract_completeness": "full",
+      "abstract_enrichment_status": "available",
+      "abstract_source": "crossref_doi",
       "abstract_status_code": "available",
       "authors": [
         "Efstathios Avdis",
@@ -289948,7 +289953,7 @@
       "available_online": "2026-11-23",
       "china_relevance_status": "none",
       "date_confidence": "C",
-      "date_source": "crossref_published_online",
+      "date_source": "crossref_doi_published_online",
       "detail_key": "chile-8ceb1e18abd5",
       "detected_at": "2026-11-24T06:20:00+00:00",
       "doi": "10.1093/rfs/hhag100",
@@ -289970,7 +289975,19 @@
       "published_online": "2026-11-23",
       "publisher": "Oxford University Press (OUP)",
       "raw_data": {
-        "crossref_date_source": "crossref_published_online"
+        "crossref_date_source": "crossref_published_online",
+        "date_evidence": [
+          {
+            "available_online": "2026-11-23",
+            "date_confidence": "C",
+            "date_source": "crossref_doi_published_online",
+            "published_online": "2026-11-23",
+            "source": "crossref-doi"
+          },
+          {
+            "source": "semantic-scholar"
+          }
+        ]
       },
       "source": "crossref",
       "source_type": "journal",
@@ -331586,6 +331603,8 @@
     "doi:10.1111/twec.70181": {
       "abstract": "This paper presents a novel analysis of the impact of environmental regulations aimed at reducing emissions in international trade in goods. Using a panel dataset of OECD and non‐OECD countries spanning from 2007 to 2018, we estimate a gravity model of trade using a Poisson pseudo‐maximum likelihood estimator with high‐dimensional fixed effects, controlling for potential confounding factors. Our empirical analysis integrates emissions intensity data with detailed international trade information at the industry level, considering both market‐based and non‐market‐based environmental policies. We estimate models for disaggregated trade flows, distinguishing between dirty and non‐dirty industries, and among heterogeneous groups of countries. Our findings indicate that stricter environmental regulations tend to increase imports of OECD countries from non‐OECD countries mostly in pollution‐intensive industries.",
       "abstract_completeness": "full",
+      "abstract_enrichment_status": "available",
+      "abstract_source": "crossref_doi",
       "abstract_status_code": "available",
       "authors": [
         "Bojan Shimbov",
@@ -331596,7 +331615,7 @@
       "available_online": "2026-11-23",
       "china_relevance_status": "none",
       "date_confidence": "C",
-      "date_source": "crossref_published_online",
+      "date_source": "crossref_doi_published_online",
       "detail_key": "environmental-stringency-and-international-trade-632b3c783adc",
       "detected_at": "2026-11-24T06:20:06+00:00",
       "doi": "10.1111/twec.70181",
@@ -331620,7 +331639,19 @@
       "published_online": "2026-11-23",
       "publisher": "Wiley",
       "raw_data": {
-        "crossref_date_source": "crossref_published_online"
+        "crossref_date_source": "crossref_published_online",
+        "date_evidence": [
+          {
+            "available_online": "2026-11-23",
+            "date_confidence": "C",
+            "date_source": "crossref_doi_published_online",
+            "published_online": "2026-11-23",
+            "source": "crossref-doi"
+          },
+          {
+            "source": "semantic-scholar"
+          }
+        ]
       },
       "source": "crossref",
       "source_type": "journal",
@@ -581676,7 +581707,6 @@
       ],
       "authors_status_code": "available",
       "available_online": "2026-06-15",
-      "china_relevance_reason": "摘要仅出现一次中国相关表述，需确认中国是否为核心研究对象",
       "china_relevance_status": "none",
       "date_confidence": "D",
       "date_source": "nep_issue_date",
