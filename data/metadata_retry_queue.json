@@ -7,38 +7,14 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 77,
-    "missing_authors": 5,
-    "weak_date_evidence": 491
+    "missing_abstract": 76,
+    "missing_authors": 4,
+    "weak_date_evidence": 492
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 547,
+  "recent_candidates_before_limit": 545,
   "recent_window_start": "2026-10-26",
   "records": [
-    {
-      "date_confidence": "A",
-      "doi": "10.1093/rfs/hhag101",
-      "first_seen": "2026-11-24T12:51:12+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1093/rfs/hhag101",
-      "journal": "Review of Financial Studies",
-      "official_date": "2026-11-24",
-      "priority": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "reasons": [
-        "missing_abstract",
-        "missing_authors"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Fintech Expansion",
-      "url": "https://academic.oup.com/rfs/advance-article/doi/10.1093/rfs/hhag101/9121067?rss=1"
-    },
     {
       "date_confidence": "C",
       "doi": "10.1080/00036846.2026.2765396",
@@ -2525,29 +2501,6 @@
       "source_type": "journal",
       "title": "Behavior‐Based Price Discrimination in Elastic Demand Markets",
       "url": "https://doi.org/10.1111/joie.70053"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1111/twec.70181",
-      "first_seen": "2026-11-24T06:20:06+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1111/twec.70181",
-      "journal": "The World Economy",
-      "official_date": "2026-11-23",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Environmental Stringency and International Trade",
-      "url": "https://doi.org/10.1111/twec.70181"
     },
     {
       "date_confidence": "F",
@@ -11602,9 +11555,55 @@
       "source_type": "journal",
       "title": "Retirement and household consumption: evidence from China",
       "url": "https://doi.org/10.1080/00036846.2026.2747147"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1080/00036846.2026.2748520",
+      "first_seen": "2026-10-28T10:37:43+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2748520",
+      "journal": "Applied Economics",
+      "official_date": "2026-10-28",
+      "priority": [
+        0,
+        1,
+        1,
+        27
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "From uncertainty to innovation: how energy uncertainty fuels R&amp;D activities",
+      "url": "https://doi.org/10.1080/00036846.2026.2748520"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1080/00036846.2026.2752125",
+      "first_seen": "2026-10-28T16:28:22+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1080/00036846.2026.2752125",
+      "journal": "Applied Economics",
+      "official_date": "2026-10-28",
+      "priority": [
+        0,
+        1,
+        1,
+        27
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Do investors value the separation of disclosure duties from managerial roles? Evidence from China’s Board Secretary Regulation",
+      "url": "https://doi.org/10.1080/00036846.2026.2752125"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5593,
+  "total_candidates_before_limit": 5591,
   "truncated": true
 }
