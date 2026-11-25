@@ -2,14 +2,9 @@
   "categories": {
     "needs_investigation": 3
   },
-  "checked_at": "2026-11-25T15:38:46.391729+08:00",
+  "checked_at": "2026-11-25T17:00:58.431736+08:00",
   "source_health_degraded_count": 3,
   "source_status_failures": [
-    {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 5; Journal of Development Economics: 12; Economic Development and Cultural Change: 4;",
-      "source": "crossref"
-    },
     {
       "category": "needs_investigation",
       "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
@@ -31,13 +26,8 @@
       "source": "working-paper:cepr-dp"
     },
     {
-      "category": "transient_network",
-      "sample_error": "TimeoutError: The read operation timed out",
-      "source": "working-paper:iza"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "partial_success failures=2; nber: 12 via specialized-api; iza: TimeoutError: The read operation timed out; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeErr",
+      "category": "needs_investigation",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: RuntimeError: CEPR current listing unavai",
       "source": "working-papers"
     }
   ],
@@ -65,8 +55,8 @@
       "journal_id": "quantitative-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Quantitative Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -90,7 +80,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 7
+    "degraded_source_failures": 5
   },
   "total_degraded": 3
 }
