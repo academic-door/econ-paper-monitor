@@ -1,18 +1,18 @@
 {
   "expected_metadata_gap_counts": {
     "abstract:book_review": 3,
-    "abstract:correction_notice": 2
+    "abstract:correction_notice": 3
   },
   "generated_for": "2026-11-26",
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 71,
-    "missing_authors": 3,
-    "weak_date_evidence": 493
+    "missing_abstract": 72,
+    "missing_authors": 2,
+    "weak_date_evidence": 494
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 520,
+  "recent_candidates_before_limit": 522,
   "recent_window_start": "2026-10-28",
   "records": [
     {
@@ -398,6 +398,30 @@
       "source_type": null,
       "title": "Urban geopolitical risk exposure and energy justice: Evidence from 278 Chinese cities",
       "url": "https://www.sciencedirect.com/science/article/pii/S0301421526005239?dgcid=rss_sd_all"
+    },
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-11-25T17:07:21+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://www.sciencedirect.com/science/article/pii/s0304405x2600173x?dgcid=rss_sd_all",
+      "journal": "Journal of Financial Economics",
+      "official_date": "2027-01-01",
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": null,
+      "title": "Carbon home bias",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0304405X2600173X?dgcid=rss_sd_all"
     },
     {
       "date_confidence": "F",
@@ -1720,29 +1744,6 @@
       "doi": null,
       "first_seen": "2026-11-20T10:24:30+00:00",
       "historical_backfill": false,
-      "identity": "url:https://www.restud.com/fine-stratification-of-survey-experiments/",
-      "journal": "Review of Economic Studies",
-      "official_date": "2026-11-20",
-      "priority": [
-        0,
-        1,
-        0,
-        6
-      ],
-      "reasons": [
-        "missing_authors"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Fine Stratification of Survey Experiments",
-      "url": "https://www.restud.com/fine-stratification-of-survey-experiments/"
-    },
-    {
-      "date_confidence": "A",
-      "doi": null,
-      "first_seen": "2026-11-20T10:24:30+00:00",
-      "historical_backfill": false,
       "identity": "url:https://www.restud.com/juking-the-stats-policing-misreporting-and-policy-evaluation/",
       "journal": "Review of Economic Studies",
       "official_date": "2026-11-20",
@@ -2059,6 +2060,32 @@
       "source_type": "journal",
       "title": "Building the collective layer: Regulatory pathways for energy communities in Costa Rica and Spain",
       "url": "https://doi.org/10.1016/j.enpol.2026.115736"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.jeem.2026.103446",
+      "expected_metadata_gaps": {
+        "abstract": "correction_notice"
+      },
+      "first_seen": "2026-11-25T14:23:58+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.jeem.2026.103446",
+      "journal": "Journal of Environmental Economics and Management",
+      "official_date": "2026-11-25",
+      "priority": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Corrigendum to “Fires and local labor markets” [J. Environ. Econ. Manag. 130 (2025) 103109]",
+      "url": "https://doi.org/10.1016/j.jeem.2026.103446"
     },
     {
       "date_confidence": "C",
@@ -3258,6 +3285,29 @@
       "source_type": "journal",
       "title": "Structural monetary policy and firms’ customer credit risk: evidence from China’s Technology Innovation Relending Facility",
       "url": "https://doi.org/10.1080/00036846.2026.2766329"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1093/restud/rdag131",
+      "first_seen": "2026-11-20T10:24:30+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1093/restud/rdag131",
+      "journal": "Review of Economic Studies",
+      "official_date": "2026-11-20",
+      "priority": [
+        0,
+        1,
+        1,
+        6
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Fine Stratification of Survey Experiments",
+      "url": "https://www.restud.com/fine-stratification-of-survey-experiments/"
     },
     {
       "date_confidence": "F",
@@ -11550,55 +11600,9 @@
       "source_type": "journal",
       "title": "Political mood, government support, and tax morale: evidence from stated willingness to pay for tax-financed projects",
       "url": "https://doi.org/10.1080/00036846.2026.2750282"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2750976",
-      "first_seen": "2026-10-29T10:31:33+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2750976",
-      "journal": "Applied Economics",
-      "official_date": "2026-10-29",
-      "priority": [
-        0,
-        1,
-        1,
-        28
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Artificial Intelligence and firm total factor productivity: evidence from digital capital accumulation and labour structure adjustment",
-      "url": "https://doi.org/10.1080/00036846.2026.2750976"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1080/00036846.2026.2752131",
-      "first_seen": "2026-10-29T14:11:42+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1080/00036846.2026.2752131",
-      "journal": "Applied Economics",
-      "official_date": "2026-10-29",
-      "priority": [
-        0,
-        1,
-        1,
-        28
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Breaking the marriage trap: unilateral divorce and its effects on labor supply of married women",
-      "url": "https://doi.org/10.1080/00036846.2026.2752131"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5599,
+  "total_candidates_before_limit": 5601,
   "truncated": true
 }
