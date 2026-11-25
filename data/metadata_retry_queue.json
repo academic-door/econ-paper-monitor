@@ -7,14 +7,38 @@
   "historical_backfill_candidates": 0,
   "note": "Retry queue only. Missing fields remain unmodified until an authoritative source supplies evidence. Confidently expected content-type gaps do not consume retry reasons, but remain transparent on records that are queued for another actionable reason.",
   "reason_counts": {
-    "missing_abstract": 72,
+    "missing_abstract": 73,
     "missing_authors": 4,
     "weak_date_evidence": 492
   },
   "recent_candidates": 500,
-  "recent_candidates_before_limit": 534,
+  "recent_candidates_before_limit": 533,
   "recent_window_start": "2026-10-27",
   "records": [
+    {
+      "date_confidence": "F",
+      "doi": null,
+      "first_seen": "2026-11-25T00:21:50+00:00",
+      "historical_backfill": false,
+      "identity": "url:https://www.econometricsociety.org/publications/econometrica/forthcoming-papers/0000/00/00/gender-disparities-in-the-welfare-effect-of-the-minimum-wage/file/23088-4.pdf",
+      "journal": "Econometrica",
+      "official_date": null,
+      "priority": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "reasons": [
+        "missing_abstract",
+        "weak_date_evidence"
+      ],
+      "recency_basis": "first_seen",
+      "source_id": null,
+      "source_type": null,
+      "title": "Gender Disparities in the Welfare Effect of the Minimum Wage",
+      "url": "https://www.econometricsociety.org/publications/econometrica/forthcoming-papers/0000/00/00/Gender-Disparities-in-the-Welfare-Effect-of-the-Minimum-Wage/file/23088-4.pdf"
+    },
     {
       "date_confidence": "F",
       "doi": null,
@@ -2221,52 +2245,6 @@
       "source_type": "journal",
       "title": "Dictator face can aid",
       "url": "https://doi.org/10.1016/j.worlddev.2026.107616"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1093/ej/ueag148",
-      "first_seen": "2026-11-24T23:21:34+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1093/ej/ueag148",
-      "journal": "Economic Journal",
-      "official_date": "2026-11-24",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Selective Recommendation and Credible Exaggeration in Multidimensional Communication",
-      "url": "https://doi.org/10.1093/ej/ueag148"
-    },
-    {
-      "date_confidence": "C",
-      "doi": "10.1093/qje/qjag058",
-      "first_seen": "2026-11-24T23:21:32+00:00",
-      "historical_backfill": false,
-      "identity": "doi:10.1093/qje/qjag058",
-      "journal": "Quarterly Journal of Economics",
-      "official_date": "2026-11-24",
-      "priority": [
-        0,
-        1,
-        1,
-        1
-      ],
-      "reasons": [
-        "weak_date_evidence"
-      ],
-      "recency_basis": "official_date",
-      "source_id": null,
-      "source_type": "journal",
-      "title": "Generative AI And Creative Goods: Market Expansion, Crowd-Out, and Copyright",
-      "url": "https://doi.org/10.1093/qje/qjag058"
     },
     {
       "date_confidence": "C",
@@ -11597,9 +11575,32 @@
       "source_type": "journal",
       "title": "Renewable fuels for hard-to-abate transportation: Exploring the impact of biomass availability and variable renewable potentials",
       "url": "https://doi.org/10.1016/j.enpol.2026.115683"
+    },
+    {
+      "date_confidence": "C",
+      "doi": "10.1016/j.enpol.2026.115695",
+      "first_seen": "2026-10-29T04:36:22+00:00",
+      "historical_backfill": false,
+      "identity": "doi:10.1016/j.enpol.2026.115695",
+      "journal": "Energy Policy",
+      "official_date": "2026-10-28",
+      "priority": [
+        0,
+        1,
+        1,
+        28
+      ],
+      "reasons": [
+        "weak_date_evidence"
+      ],
+      "recency_basis": "official_date",
+      "source_id": null,
+      "source_type": "journal",
+      "title": "Do charging infrastructure and electric vehicle adoption drive each other? The limits of time-series evidence for policy in an emerging electromobility market",
+      "url": "https://doi.org/10.1016/j.enpol.2026.115695"
     }
   ],
   "total_candidates": 500,
-  "total_candidates_before_limit": 5601,
+  "total_candidates_before_limit": 5600,
   "truncated": true
 }
