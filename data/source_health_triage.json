@@ -2,12 +2,12 @@
   "categories": {
     "needs_investigation": 4
   },
-  "checked_at": "2026-11-25T12:36:43.076040+08:00",
+  "checked_at": "2026-11-25T13:12:22.749646+08:00",
   "source_health_degraded_count": 4,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=8; Agricultural Economics: 6; Journal of the Association of Environmental and Resource Economists: 17; Land Economics: 0; Land Use Policy: 40; European Review of Agricultural ",
+      "sample_error": "partial_success failures=2; Agricultural Economics: 6; Journal of the Association of Environmental and Resource Economists: 17; Land Economics: 0; Land Use Policy: 40; European Review of Agricultural ",
       "source": "crossref"
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=11; 2026-11-25 Land Use Policy: abstract-route-missing; seen Econometrica: abstract-route-missing; 2026-11-25 VoxEU / CEPR Columns: abstract-present; 2026-11-25 VoxEU / CEPR Columns: abstrac",
+      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
       "source": "publisher-detail"
     },
     {
@@ -48,6 +48,22 @@
       "status_category": "rate_limited",
       "status_source": "crossref",
       "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Behavior and Organization",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
         "openalex-recall"
       ]
     },
@@ -63,21 +79,6 @@
       "status_source": null,
       "usable_paths": [
         "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "structural-change-and-economic-dynamics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Structural Change and Economic Dynamics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
         "openalex-recall"
       ]
     },
