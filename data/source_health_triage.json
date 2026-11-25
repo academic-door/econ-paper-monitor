@@ -1,10 +1,15 @@
 {
   "categories": {
-    "needs_investigation": 6
+    "needs_investigation": 7
   },
-  "checked_at": "2026-11-26T02:04:58.750209+08:00",
-  "source_health_degraded_count": 6,
+  "checked_at": "2026-11-26T03:21:44.915246+08:00",
+  "source_health_degraded_count": 7,
   "source_status_failures": [
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=6; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 5; Journal of Development Economics: 12; Economic Development and Cultural Change: 6;",
+      "source": "crossref"
+    },
     {
       "category": "needs_investigation",
       "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
@@ -66,6 +71,21 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Behavior and Organization",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "journal-of-economic-growth",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Journal of Economic Growth",
@@ -84,8 +104,8 @@
       "journal_id": "quantitative-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Quantitative Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "rate_limited",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -124,7 +144,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 6
   },
-  "total_degraded": 6
+  "total_degraded": 7
 }
