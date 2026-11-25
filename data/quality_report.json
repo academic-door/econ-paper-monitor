@@ -52,9 +52,9 @@
     "total": 10989
   },
   "date_confidence": {
-    "A": 6662,
+    "A": 6660,
     "B": 104,
-    "C": 3083,
+    "C": 3085,
     "D": 518,
     "F": 622
   },
@@ -66,12 +66,12 @@
     "crossref_doi_elsevier_created_online": 696,
     "crossref_doi_published": 65,
     "crossref_doi_published_online": 353,
-    "crossref_elsevier_created_online": 787,
+    "crossref_elsevier_created_online": 789,
     "crossref_issue": 71,
-    "crossref_published_online": 621,
+    "crossref_published_online": 626,
     "iza_detail_month": 102,
     "nep_issue_date": 406,
-    "openalex+crossref_crossvalidated": 436,
+    "openalex+crossref_crossvalidated": 431,
     "openalex_publication_date": 82,
     "publisher_detail": 1292,
     "publisher_published_online": 148,
@@ -645,7 +645,7 @@
       {
         "date": "2026-11-20",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Journal of Political Economy",
         "official_date": "2026-11-20",
         "source_issue": null,
@@ -705,7 +705,7 @@
       {
         "date": "2026-11-16",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Journal of Labor Economics",
         "official_date": "2026-11-16",
         "source_issue": null,
@@ -715,7 +715,7 @@
       {
         "date": "2026-11-16",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Journal of Labor Economics",
         "official_date": "2026-11-16",
         "source_issue": null,
@@ -745,7 +745,7 @@
       {
         "date": "2026-11-16",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Economic Development and Cultural Change",
         "official_date": "2026-11-16",
         "source_issue": null,
@@ -827,7 +827,7 @@
       {
         "date": "2026-11-20",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Journal of Political Economy",
         "official_date": "2026-11-20",
         "source_issue": null,
@@ -877,7 +877,7 @@
       {
         "date": "2026-11-16",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Journal of Labor Economics",
         "official_date": "2026-11-16",
         "source_issue": null,
@@ -887,7 +887,7 @@
       {
         "date": "2026-11-16",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Journal of Labor Economics",
         "official_date": "2026-11-16",
         "source_issue": null,
@@ -917,7 +917,7 @@
       {
         "date": "2026-11-16",
         "date_confidence": "C",
-        "date_source": "openalex+crossref_crossvalidated",
+        "date_source": "crossref_published_online",
         "journal": "Economic Development and Cultural Change",
         "official_date": "2026-11-16",
         "source_issue": null,
@@ -1834,8 +1834,8 @@
       },
       {
         "date": "2026-11-25",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_elsevier_created_online",
         "journal": "Journal of Development Economics",
         "official_date": "2026-11-24",
         "source_issue": null,
@@ -1844,8 +1844,8 @@
       },
       {
         "date": "2026-11-25",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_elsevier_created_online",
         "journal": "Journal of Economic Theory",
         "official_date": "2026-11-24",
         "source_issue": null,
@@ -2266,8 +2266,50 @@
   },
   "risk_signals": {
     "cnki_rss_today": [],
-    "crossref_created_today": [],
-    "crossref_fallback_today": []
+    "crossref_created_today": [
+      {
+        "date": "2026-11-25",
+        "date_confidence": "C",
+        "date_source": "crossref_elsevier_created_online",
+        "journal": "Journal of Development Economics",
+        "official_date": "2026-11-24",
+        "source_issue": null,
+        "title": "The limits of commitment: Who benefits from illiquid savings products?",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0304387826001859?dgcid=api_sd_search-api-endpoint"
+      },
+      {
+        "date": "2026-11-25",
+        "date_confidence": "C",
+        "date_source": "crossref_elsevier_created_online",
+        "journal": "Journal of Economic Theory",
+        "official_date": "2026-11-24",
+        "source_issue": null,
+        "title": "Anonymous and Strategy-Proof Social Choice under Uncertainty",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0022053126001468?dgcid=api_sd_search-api-endpoint"
+      }
+    ],
+    "crossref_fallback_today": [
+      {
+        "date": "2026-11-25",
+        "date_confidence": "C",
+        "date_source": "crossref_elsevier_created_online",
+        "journal": "Journal of Development Economics",
+        "official_date": "2026-11-24",
+        "source_issue": null,
+        "title": "The limits of commitment: Who benefits from illiquid savings products?",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0304387826001859?dgcid=api_sd_search-api-endpoint"
+      },
+      {
+        "date": "2026-11-25",
+        "date_confidence": "C",
+        "date_source": "crossref_elsevier_created_online",
+        "journal": "Journal of Economic Theory",
+        "official_date": "2026-11-24",
+        "source_issue": null,
+        "title": "Anonymous and Strategy-Proof Social Choice under Uncertainty",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0022053126001468?dgcid=api_sd_search-api-endpoint"
+      }
+    ]
   },
   "source_top": {
     "aea_toc": 198,
@@ -2285,8 +2327,8 @@
     "china_candidates": 306,
     "china_related_public": 1808,
     "cnki_rss_today": 0,
-    "crossref_created_today": 0,
-    "crossref_fallback_today": 0,
+    "crossref_created_today": 2,
+    "crossref_fallback_today": 2,
     "duplicates_by_url_or_doi": 0,
     "future_official_date_in_bucket": 0,
     "historical_records_in_bucket": 81,
