@@ -1,24 +1,19 @@
 {
   "categories": {
-    "needs_investigation": 5
+    "needs_investigation": 4
   },
-  "checked_at": "2026-11-26T23:17:20.887160+08:00",
-  "source_health_degraded_count": 5,
+  "checked_at": "2026-11-27T00:28:45.437217+08:00",
+  "source_health_degraded_count": 4,
   "source_status_failures": [
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=7; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 12; Economic Development and Cultural Change: 6;",
+      "sample_error": "partial_success failures=2; Journal of Finance: 0; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 12; Economic Development and Cultural Change: 6;",
       "source": "crossref"
     },
     {
       "category": "needs_investigation",
       "sample_error": "journal-of-agricultural-and-resource-economics/jare_rest: NETWORK_FAILURE; crossref fallback 0; journal-of-agricultural-and-resource-economics: 0",
       "source": "priority-toc:jare"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "attempted=120; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-only; seen Energy Economics: elsevier-metadata-onl",
-      "source": "publisher-detail"
     },
     {
       "category": "needs_investigation",
@@ -72,21 +67,6 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-economic-behavior-and-organization",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Economic Behavior and Organization",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "quantitative-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Quantitative Economics",
@@ -115,7 +95,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
-  "total_degraded": 5
+  "total_degraded": 4
 }
