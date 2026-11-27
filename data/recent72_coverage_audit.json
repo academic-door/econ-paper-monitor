@@ -1,30 +1,48 @@
 {
-  "already_seen_candidates": 1872,
-  "covered_candidates": 58,
+  "already_seen_candidates": 5131,
+  "covered_candidates": 166,
   "daily_by_source": {
     "cn_journals": 11,
-    "crossref": 43,
+    "crossref": 45,
     "rss": 10,
     "sciencedirect_search": 10,
     "working_papers": 7
   },
-  "daily_records": 81,
+  "daily_records": 83,
   "dates": [
     "2026-11-28",
     "2026-11-27",
     "2026-11-26"
   ],
-  "eligible_missing_candidates": 0,
-  "missing_by_source": [],
-  "other_archive_date_candidates": 0,
+  "eligible_missing_candidates": 2,
+  "missing_by_source": [
+    {
+      "count": 1,
+      "examples": [
+        "Journal of Accounting and Economics: Editorial data"
+      ],
+      "reason": "raw candidate was not seen before and should belong to the recent 72-hour window, but is absent from public daily files",
+      "source": "Journal of Accounting and Economics"
+    },
+    {
+      "count": 1,
+      "examples": [
+        "Economica: De jure versus de facto lockdown measures and domestic violence: evidence from Italy"
+      ],
+      "reason": "raw candidate was not seen before and should belong to the recent 72-hour window, but is absent from public daily files",
+      "source": "Economica"
+    }
+  ],
+  "other_archive_date_candidates": 1,
   "raw_by_source": {
     "aea_toc": 248,
-    "cn_journals": 91,
-    "crossref": 293,
+    "cn_journals": 176,
+    "crossref": 1481,
     "openalex_recall": 89,
-    "rss": 1222,
-    "working_papers": 48
+    "rss": 3222,
+    "sciencedirect_search": 32,
+    "working_papers": 187
   },
-  "raw_candidates": 1991,
-  "suppressed_candidates": 61
+  "raw_candidates": 5435,
+  "suppressed_candidates": 135
 }
