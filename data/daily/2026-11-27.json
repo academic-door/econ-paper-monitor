@@ -1,9 +1,76 @@
 [
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "abstract": "Using a unique panel dataset of Brazilian higher education graduates from the 2004–2006 cohort and their labor market trajectories through 2024, we examine the association between education–occupation alignment and wages. We construct a continuous major–job match index by combining the direct association between each field of study and its closest occupations with similarity scores derived from a pre-trained Natural Language Processing (NLP) model applied to occupational task descriptions. Exploiting within-worker variation through individual fixed-effects models, we find that greater major–job alignment is positively associated with wages. This relationship remains robust after controlling for job-to-job match, which captures the similarity between workers’ previous and current occupations. We also find substantial heterogeneity over the career cycle: the association between major–job match and wages is strongest among junior workers and declines with experience. These findings suggest that educational alignment is particularly important early in workers’ careers, while prior-experience match becomes increasingly relevant over time.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Anaely Machado",
+      "Ana Carolina Zoghbi",
+      "Rafael Terra",
+      "Maria Tannuri-Pianto"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-11-27",
+    "china_relevance_status": "none",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
+    "detail_key": "returns-to-major-job-match-evidence-from-brazilian-higher-education-0fbf7c87d2a0",
+    "detected_at": "2026-11-27T16:53:44+00:00",
+    "doi": "10.1016/j.labeco.2026.102990",
+    "fields": [
+      "labor"
+    ],
+    "first_seen": "2026-11-27T16:53:44+00:00",
+    "id": "doi:10.1016/j.labeco.2026.102990",
+    "identity_aliases": [
+      "10.1016/j.labeco.2026.102990",
+      "https://doi.org/10.1016/j.labeco.2026.102990",
+      "returns-to-major-job-match-evidence-from-brazilian-higher-education-0fbf7c87d2a0"
+    ],
+    "issue_date": "2026-11-27",
+    "journal": "Labour Economics",
+    "journal_id": "labour-economics",
+    "journal_short": "LabEcon",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0927537126001429",
+    "published_online": "2026-11-27",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-11-27",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-11-27",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Returns to major–job match: Evidence from Brazilian higher education",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://doi.org/10.1016/j.labeco.2026.102990"
+  },
+  {
+    "abstract": "This paper examines how local economic shocks affect entrepreneurship, considering both the entry into entrepreneurship and the survival and performance of existing firms. Exploiting Sweden’s 2004 mining boom as an exogenous shock, we use administrative data (2000–2015) and difference-in-differences estimates comparing individuals within 80 km of a mine to those 80–150 km away. The boom increased entrepreneurial entry but not the number of new firms, as many entrants were hybrid entrepreneurs reallocating effort to existing ventures. Incumbents gained through higher capital income, while treated firms expanded employment and wage costs without improving operating profits.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -15,7 +82,7 @@
     "available_online": "2026-11-27",
     "china_relevance_status": "none",
     "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_source": "crossref_doi_elsevier_created_online",
     "detail_key": "local-economic-shocks-and-entrepreneurship-dynamics-e4b69ffd36e0",
     "detected_at": "2026-11-27T16:16:23+00:00",
     "doi": "10.1016/j.jebo.2026.107848",
@@ -35,10 +102,23 @@
     "journal_short": "JEBO",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S016726812600435X",
     "published_online": "2026-11-27",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-11-27",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-11-27",
+          "source": "crossref-doi"
+        },
+        {
+          "source": "elsevier-article-api"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
@@ -179,7 +259,7 @@
   {
     "abstract": "With massive datasets, making predictions using the full data is often computationally infeasible. In this paper, we verify that the full-data-based prediction is not necessarily optimal. Accordingly, we develop a new feasible aggregation prediction approach. To obtain the data-driven weights for averaging, an unbiased estimator of the squared prediction risk is derived as the weight choice criterion. The proposed distributed prediction is obtained by combining the local predictions using the weights that minimize this criterion. Our proposed framework (i) handles heteroskedastic/heterogeneous sites, (ii) accommodates model misspecification across sites, and (iii) supports a broad class of local estimators (e.g., OLS, penalized methods, and nonlinear estimators). The proposed method is shown to be asymptotically optimal in terms of squared loss and the convergence rate is also established. Simulation and real data analyses show that the prediction based on the new method is remarkably superior to that based on the naive divide-and-conquer averaging method, and usually has performance close to the full-data-based prediction. Moreover, our method even leads to better results than the prediction using the full data.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -577,6 +657,141 @@
     "url": "https://doi.org/10.1111/jems.70052"
   },
   {
+    "abstract": "Oil-price shocks raise production costs in energy-importing developing economies and push governments to shield domestic fuel prices. This paper asks how such a shield should be financed, by crisis borrowing or from a stabilization fund, and how quickly a fund should be rebuilt after a crisis. A monthly macro-fiscal simulation model of Ghana, calibrated to Brent prices for 2000–2026 and to Ghana's energy, fiscal and debt data, compares market pricing, debt-financed relief and fund-financed relief under gross-debt and net-debt fiscal rules. A temporary shield reduces the fall in real GDP on impact from 1.10 to 0.95 percent, and most of the rise in debt after the shock comes from a smaller tax base rather than the subsidy. A fund does not by itself strengthen the balance sheet: under a gross-debt rule, rebuilding it raises taxes and net liabilities by more than crisis borrowing would. Rebuilding it aggressively also lowers investment and output while reducing net liabilities, a trade-off called here the Capitalization Paradox. Its output cost is at the materiality threshold at baseline when shocks recur, larger with a bigger fund or a deeper shield, and negligible under a net-debt rule. Funds are a better buffer when they are rebuilt gradually and monitored against net debt. Because the model has no household block, the results are cost measures rather than welfare.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Kennedy Kwabena Abrokwa",
+      "Mustapha Abdul Hameed"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-11-27",
+    "china_relevance_status": "none",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
+    "detail_key": "fuel-price-stabilization-sovereign-debt-and-the-capitalization-paradox-evidence-from-gha-aa6a419f5fdc",
+    "detected_at": "2026-11-27T13:51:31+00:00",
+    "doi": "10.1016/j.enpol.2026.115740",
+    "fields": [
+      "environmental"
+    ],
+    "first_seen": "2026-11-27T13:51:31+00:00",
+    "id": "doi:10.1016/j.enpol.2026.115740",
+    "identity_aliases": [
+      "10.1016/j.enpol.2026.115740",
+      "fuel-price-stabilization-sovereign-debt-and-the-capitalization-paradox-evidence-from-gha-aa6a419f5fdc",
+      "https://www.sciencedirect.com/science/article/pii/S0301421526006749?dgcid=api_sd_search-api-endpoint"
+    ],
+    "issue_date": "2026-11-27",
+    "journal": "Energy Policy",
+    "journal_id": "energy-policy",
+    "journal_short": "EnPol",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0301421526006749",
+    "published_online": "2026-11-27",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-11-27",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-11-27",
+          "source": "crossref-doi"
+        }
+      ],
+      "pii": "S0301421526006749",
+      "sciencedirect_api_load_date": "2026-11-27T00:00:00.000Z",
+      "sciencedirect_search_issn": "0301-4215",
+      "sciencedirect_search_journal": "Energy Policy",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Fuel price stabilization, sovereign debt, and the capitalization paradox: Evidence from Ghana",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0301421526006749?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "abstract": "Local social acceptance of renewable energy infrastructures is typically studied through the lens of visible conflict, privileging supporters and opponents while leaving a third position — neutrality — analytically underexplored. This article argues that respondents who select the neutral midpoint on a biogas acceptance item should not be treated as a residual category but as a substantively meaningful and internally heterogeneous group. Drawing on a purpose-built survey of 2000 residents of metropolitan-French municipalities hosting operational biogas installations, we combine latent class analysis and multinomial logistic regression to ask which respondents select neutrality, what attitudinal configurations accompany this response, and what distinguishes support and opposition relative to neutrality. The latent class solution identifies four profiles and shows that neutral respondents are concentrated across three structurally distinct configurations: a profile consistent with limited attitudinal crystallisation, a broadly positive but unconsolidated profile, and a sceptical profile focused on the concrete benefits of the technology. The multinomial model further shows that support and opposition are associated with different attitudinal configurations relative to neutrality: support is associated with a broader set of favourable evaluations of the energy transition and farmers’ role, whereas opposition is associated mainly with doubts about two performance claims. These findings show that a neutral survey response should not be equated with robust acceptance and highlight the analytical value of examining the middle category of renewable energy acceptance scales.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Sebastien Bourdin"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-11-27",
+    "china_relevance_status": "none",
+    "date_confidence": "C",
+    "date_source": "crossref_doi_elsevier_created_online",
+    "detail_key": "neither-for-nor-against-renewable-energy-exploring-neutrality-in-social-acceptance-e536f6bd3d10",
+    "detected_at": "2026-11-27T13:51:31+00:00",
+    "doi": "10.1016/j.enpol.2026.115745",
+    "fields": [
+      "environmental"
+    ],
+    "first_seen": "2026-11-27T13:51:31+00:00",
+    "id": "doi:10.1016/j.enpol.2026.115745",
+    "identity_aliases": [
+      "10.1016/j.enpol.2026.115745",
+      "https://www.sciencedirect.com/science/article/pii/S0301421526006798?dgcid=api_sd_search-api-endpoint",
+      "neither-for-nor-against-renewable-energy-exploring-neutrality-in-social-acceptance-e536f6bd3d10"
+    ],
+    "issue_date": "2026-11-27",
+    "journal": "Energy Policy",
+    "journal_id": "energy-policy",
+    "journal_short": "EnPol",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0301421526006798",
+    "published_online": "2026-11-27",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-11-27",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-11-27",
+          "source": "crossref-doi"
+        }
+      ],
+      "pii": "S0301421526006798",
+      "sciencedirect_api_load_date": "2026-11-27T00:00:00.000Z",
+      "sciencedirect_search_issn": "0301-4215",
+      "sciencedirect_search_journal": "Energy Policy",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Neither for nor against renewable energy: Exploring neutrality in social acceptance",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0301421526006798?dgcid=api_sd_search-api-endpoint"
+  },
+  {
     "_raw_file": "data/raw/rss/2026-11-27.json",
     "abstract": "Age-based restrictions on addictive goods are partly motivated by the view that young people have time-inconsistent preferences. We test this hypothesis using longitudinal data on individual cigarette consumption from the Russia Longitudinal Monitoring Survey for 1994–2020. We estimate a rational-addiction model with quasi-hyperbolic discounting separately for young and adult smokers. We find no evidence of present bias in either group: the estimates are close to the time-consistent benchmark for both. However, the estimated long-run discount factor is substantially lower for young smokers (0.54) than for adults (0.97), indicating much greater impatience early in the life cycle. The age gradient persists across selected alternative age windows, pointing to substantial life-cycle heterogeneity in patience that would be obscured by models imposing a common long-run discount factor across ages.",
     "abstract_completeness": "full",
@@ -634,7 +849,7 @@
   {
     "abstract": "How individuals evaluate different dimensions of tax fairness plays a critical yet understudied role in shaping tax attitudes. We employ a multidimensional framework of distributive tax fairness (vertical, horizontal, and exchange equity) and test how citizens respond to experimental attributes designed to represent these dimensions in a conjoint survey experiment. We embed the experiment in a nationally representative survey of 1,264 Canadian adults, asking respondents to select which of two hypothetical tax profiles is fairer. We estimate average marginal component effects (AMCEs) of varying tax rates, differential effective tax treatment, and tax-benefit relationships on fairness judgments. The results show that the vertical-equity attribute dominates how individuals evaluate tax policies as fair: respondents rated progressive tax structures as substantially fairer than flat or regressive structures. The exchange-equity attribute, a simplified stated tax-benefit relationship, produced more moderate effects: respondents penalized stated tax-benefit relationships in which benefits fell substantially below or exceeded taxes paid. The effect of the horizontal-equity attribute on fairness judgments is consistently small and statistically significant only for the most extreme disparities between similar earners. We perform additional analyses across key social and political segments, including income and political ideology, to evaluate how different subgroups assess tax fairness concerns.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -741,7 +956,8 @@
     "url": "https://www.bis.org/publications/working-paper-1399-inflation-expectations-context-climate-change-and-green-transition"
   },
   {
-    "abstract": "Oil-price shocks raise production costs in energy-importing developing economies and push governments to shield domestic fuel prices. This paper asks how such a shield should be financed, by crisis borrowing or from a stabilization fund, and how quickly a fund should be rebuilt after a crisis. A monthly macro-fiscal simulation model of Ghana, calibrated to Brent prices for 2000–2026 and to Ghana's energy, fiscal and debt data, compares market pricing, debt-financed relief and fund-financed relief under gross-debt and net-debt fiscal rules. A temporary shield reduces the fall in real GDP on impact from 1.10 to 0.95 percent, and most of the rise in debt after the shock comes from a smaller tax base rather than the subsidy. A fund does not by itself strengthen the balance sheet: under a gross-debt rule, rebuilding it raises taxes and net liabilities by more than crisis borrowing would. Rebuilding it aggressively also lowers investment and output while reducing net liabilities, a trade-off called here the Capitalization Paradox. Its output cost is at the materiality threshold at baseline when shocks recur, larger with a bigger fund or a deeper shield, and negligible under a net-debt rule. Funds are a better buffer when they are rebuilt gradually and monitored against net debt. Because the model has no household block, the results are cost measures rather than welfare.",
+    "_restored_from_backflow": "2026-11-28",
+    "abstract": "This study investigates the pricing of convertible bonds by focusing on the underlying stocks price limits, a market-specific trading mechanism overlooked in conventional models. We propose a Monte Carlo pricing framework incorporating Heston stochastic volatility, price limits, and embedded options (including conversion, call, put and reset clauses). Numerical analysis reveals that price limits barely affect convertible bond values at low volatility but significantly suppress valuations in high-volatility regimes, and reverse the positive effect of volatility-of-volatility on bond prices. Empirical tests on Chinese convertible bonds during 2018–2024 document an average market overvaluation, with more severe overvaluation for deep out-of-the-money bonds and underlying stocks with frequent limit hits. A pricing-error-based trading strategy generates robust positive returns, confirming the model’s practical applicability.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "abstract-route-missing",
     "abstract_source": "elsevier_article_api_full",
@@ -750,59 +966,68 @@
     "accepted_date": null,
     "ai_tags": [],
     "authors": [
-      "Kennedy Kwabena Abrokwa",
-      "Mustapha Abdul Hameed"
+      "Binghua Huang",
+      "Rui Li",
+      "Lingli Qing"
     ],
     "authors_status_code": "available",
     "available_online": "2026-11-27",
-    "china_relevance_status": "none",
-    "date_confidence": "F",
-    "date_source": "sciencedirect_api_load_date",
-    "detail_key": "fuel-price-stabilization-sovereign-debt-and-the-capitalization-paradox-evidence-from-gha-aa6a419f5fdc",
-    "detected_at": "2026-11-27T13:51:31+00:00",
-    "doi": "10.1016/j.enpol.2026.115740",
+    "china_related": true,
+    "china_related_source": "rule",
+    "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
+    "china_relevance_status": "confirmed",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "pricing-convertible-bonds-with-underlying-stocks-price-limits-evidence-from-china-45f8b19a0544",
+    "detected_at": "2026-11-27T16:51:53+00:00",
+    "doi": "10.1016/j.econmod.2026.107936",
     "fields": [
-      "environmental"
+      "applied_empirical"
     ],
-    "first_seen": "2026-11-27T13:51:31+00:00",
-    "id": "doi:10.1016/j.enpol.2026.115740",
+    "first_seen": "2026-11-27T16:51:53+00:00",
+    "id": "doi:10.1016/j.econmod.2026.107936",
     "identity_aliases": [
-      "10.1016/j.enpol.2026.115740",
-      "fuel-price-stabilization-sovereign-debt-and-the-capitalization-paradox-evidence-from-gha-aa6a419f5fdc",
-      "https://www.sciencedirect.com/science/article/pii/S0301421526006749?dgcid=api_sd_search-api-endpoint"
+      "10.1016/j.econmod.2026.107936",
+      "https://www.sciencedirect.com/science/article/pii/S0264999326004657?dgcid=api_sd_search-api-endpoint",
+      "pricing-convertible-bonds-with-underlying-stocks-price-limits-evidence-from-china-45f8b19a0544"
     ],
     "issue_date": null,
-    "journal": "Energy Policy",
-    "journal_id": "energy-policy",
-    "journal_short": "EnPol",
+    "journal": "Economic Modelling",
+    "journal_id": "economic-modelling",
+    "journal_short": "EconMod",
     "official_date_status": "available",
     "pdf_url": null,
-    "pii": "S0301421526006749",
-    "published_online": null,
+    "pii": "S0264999326004657",
+    "published_online": "2026-11-27",
     "publisher": "Elsevier",
     "raw_data": {
       "date_evidence": [
         {
+          "available_online": "2026-11-27",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-11-27",
           "source": "elsevier-article-api"
         }
       ],
-      "pii": "S0301421526006749",
+      "pii": "S0264999326004657",
       "sciencedirect_api_load_date": "2026-11-27T00:00:00.000Z",
-      "sciencedirect_search_issn": "0301-4215",
-      "sciencedirect_search_journal": "Energy Policy",
+      "sciencedirect_search_issn": "0264-9993",
+      "sciencedirect_search_journal": "Economic Modelling",
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
     "source_issue": null,
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
-    "title": "Fuel price stabilization, sovereign debt, and the capitalization paradox: Evidence from Ghana",
+    "title": "Pricing convertible bonds with underlying stocks price limits: Evidence from China",
     "title_zh": null,
     "translation_status": "missing_abstract",
-    "url": "https://www.sciencedirect.com/science/article/pii/S0301421526006749?dgcid=api_sd_search-api-endpoint"
+    "url": "https://www.sciencedirect.com/science/article/pii/S0264999326004657?dgcid=api_sd_search-api-endpoint"
   },
   {
-    "abstract": "Local social acceptance of renewable energy infrastructures is typically studied through the lens of visible conflict, privileging supporters and opponents while leaving a third position — neutrality — analytically underexplored. This article argues that respondents who select the neutral midpoint on a biogas acceptance item should not be treated as a residual category but as a substantively meaningful and internally heterogeneous group. Drawing on a purpose-built survey of 2000 residents of metropolitan-French municipalities hosting operational biogas installations, we combine latent class analysis and multinomial logistic regression to ask which respondents select neutrality, what attitudinal configurations accompany this response, and what distinguishes support and opposition relative to neutrality. The latent class solution identifies four profiles and shows that neutral respondents are concentrated across three structurally distinct configurations: a profile consistent with limited attitudinal crystallisation, a broadly positive but unconsolidated profile, and a sceptical profile focused on the concrete benefits of the technology. The multinomial model further shows that support and opposition are associated with different attitudinal configurations relative to neutrality: support is associated with a broader set of favourable evaluations of the energy transition and farmers’ role, whereas opposition is associated mainly with doubts about two performance claims. These findings show that a neutral survey response should not be equated with robust acceptance and highlight the analytical value of examining the middle category of renewable energy acceptance scales.",
+    "_restored_from_backflow": "2026-11-28",
+    "abstract": "Talent subsidies target high-skilled labor, but their spillovers to low-skilled migrants have received limited attention. We use data from the China Migrants Dynamic Survey to examine the effects of talent subsidies on low-skilled migrants. The baseline result implies that policy adoption raises low-skilled migrants’ wages by 1.7%. The positive wage effect remains robust when we account for heterogeneous treatment effects, changes in migrant composition and other labor market policies. Consistent with predictions from a multi-sector model, wage gains are larger in cities with a lower supply of high-skilled labor. In small cities, where labor markets are thinner, talent subsidies shift low-skilled migrants toward manufacturing, and the wage gains are larger. These patterns suggest that skill endowments and the size of labor market shape the spillovers of talent subsidies. When designing talent policies, governments should account for local labor-market conditions to generate positive spillovers for low-skilled migrants.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "abstract-route-missing",
     "abstract_source": "elsevier_article_api_full",
@@ -811,54 +1036,397 @@
     "accepted_date": null,
     "ai_tags": [],
     "authors": [
-      "Sebastien Bourdin"
+      "Mingrui Gu",
+      "Yujun Lian",
+      "Cunyi Yang"
     ],
     "authors_status_code": "available",
     "available_online": "2026-11-27",
-    "china_relevance_status": "none",
-    "date_confidence": "F",
-    "date_source": "sciencedirect_api_load_date",
-    "detail_key": "neither-for-nor-against-renewable-energy-exploring-neutrality-in-social-acceptance-e536f6bd3d10",
-    "detected_at": "2026-11-27T13:51:31+00:00",
-    "doi": "10.1016/j.enpol.2026.115745",
+    "china_related": true,
+    "china_related_source": "rule",
+    "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
+    "china_relevance_status": "confirmed",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "the-effects-of-talent-subsidies-on-low-skilled-migrant-wages-evidence-from-china-5bc1ecbfd8fd",
+    "detected_at": "2026-11-27T16:51:53+00:00",
+    "doi": "10.1016/j.econmod.2026.107947",
     "fields": [
-      "environmental"
+      "applied_empirical"
     ],
-    "first_seen": "2026-11-27T13:51:31+00:00",
-    "id": "doi:10.1016/j.enpol.2026.115745",
+    "first_seen": "2026-11-27T16:51:53+00:00",
+    "id": "doi:10.1016/j.econmod.2026.107947",
     "identity_aliases": [
-      "10.1016/j.enpol.2026.115745",
-      "https://www.sciencedirect.com/science/article/pii/S0301421526006798?dgcid=api_sd_search-api-endpoint",
-      "neither-for-nor-against-renewable-energy-exploring-neutrality-in-social-acceptance-e536f6bd3d10"
+      "10.1016/j.econmod.2026.107947",
+      "https://www.sciencedirect.com/science/article/pii/S0264999326004761?dgcid=api_sd_search-api-endpoint",
+      "the-effects-of-talent-subsidies-on-low-skilled-migrant-wages-evidence-from-china-5bc1ecbfd8fd"
     ],
     "issue_date": null,
-    "journal": "Energy Policy",
-    "journal_id": "energy-policy",
-    "journal_short": "EnPol",
+    "journal": "Economic Modelling",
+    "journal_id": "economic-modelling",
+    "journal_short": "EconMod",
     "official_date_status": "available",
     "pdf_url": null,
-    "pii": "S0301421526006798",
-    "published_online": null,
+    "pii": "S0264999326004761",
+    "published_online": "2026-11-27",
     "publisher": "Elsevier",
     "raw_data": {
       "date_evidence": [
         {
+          "available_online": "2026-11-27",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-11-27",
           "source": "elsevier-article-api"
         }
       ],
-      "pii": "S0301421526006798",
+      "pii": "S0264999326004761",
       "sciencedirect_api_load_date": "2026-11-27T00:00:00.000Z",
-      "sciencedirect_search_issn": "0301-4215",
-      "sciencedirect_search_journal": "Energy Policy",
+      "sciencedirect_search_issn": "0264-9993",
+      "sciencedirect_search_journal": "Economic Modelling",
       "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
     },
     "source": "sciencedirect_search",
     "source_issue": null,
     "source_type": "journal",
     "source_url": "https://api.elsevier.com/content/search/sciencedirect",
-    "title": "Neither for nor against renewable energy: Exploring neutrality in social acceptance",
+    "title": "The effects of talent subsidies on low-skilled migrant wages: Evidence from China",
     "title_zh": null,
     "translation_status": "missing_abstract",
-    "url": "https://www.sciencedirect.com/science/article/pii/S0301421526006798?dgcid=api_sd_search-api-endpoint"
+    "url": "https://www.sciencedirect.com/science/article/pii/S0264999326004761?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_restored_from_backflow": "2026-11-28",
+    "abstract": "We examine how cross-regional computing power dispatching (CCPD) affects corporate ESG ratings using China's 2022 Eastern Data and Western Computing (EDWC) project as a quasi-natural experiment. EDWC designates Data Center Clusters (DCC) as local implementation units to coordinate computing resources across regions. A difference-in-differences analysis of Chinese A-share listed firms during 2015–2024 shows that firms in DCC cities experience a 1.089-point increase in ESG scores relative to control firms following local DCC establishment, equivalent to 4.14% of treated firms' pre-treatment mean ESG score. Gains are concentrated in environmental and governance ratings. Environmental evidence is consistent with carbon emission reduction and energy conservation, while supplementary analyses suggest potential organizational channels related to corporate agility, operational performance, and resilience. Heterogeneity analysis shows larger ESG rating responses among firms in real-time-oriented DCC cities than in non-real-time-oriented DCC cities. Positive spillover estimates are concentrated mainly within approximately 250 km of DCC cities. These findings extend research on CCPD beyond data-center operations by documenting ESG rating responses to local DCC exposure and their regional distribution.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Ao Zhou",
+      "Jie Zhang",
+      "Fanglin Chen"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-11-27",
+    "china_related": true,
+    "china_related_source": "rule",
+    "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
+    "china_relevance_status": "confirmed",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "cross-regional-computing-power-dispatching-and-corporate-esg-evidence-from-china-40eaa4a14886",
+    "detected_at": "2026-11-27T16:51:53+00:00",
+    "doi": "10.1016/j.eneco.2026.109735",
+    "fields": [
+      "environmental"
+    ],
+    "first_seen": "2026-11-27T16:51:53+00:00",
+    "id": "doi:10.1016/j.eneco.2026.109735",
+    "identity_aliases": [
+      "10.1016/j.eneco.2026.109735",
+      "cross-regional-computing-power-dispatching-and-corporate-esg-evidence-from-china-40eaa4a14886",
+      "https://www.sciencedirect.com/science/article/pii/S0140988326006158?dgcid=api_sd_search-api-endpoint"
+    ],
+    "issue_date": null,
+    "journal": "Energy Economics",
+    "journal_id": "energy-economics",
+    "journal_short": "EnEcon",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0140988326006158",
+    "published_online": "2026-11-27",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-11-27",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-11-27",
+          "source": "elsevier-article-api"
+        }
+      ],
+      "pii": "S0140988326006158",
+      "sciencedirect_api_load_date": "2026-11-27T00:00:00.000Z",
+      "sciencedirect_search_issn": "0140-9883",
+      "sciencedirect_search_journal": "Energy Economics",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Cross-regional computing power dispatching and corporate ESG: Evidence from China",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0140988326006158?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_restored_from_backflow": "2026-11-28",
+    "abstract": "The effects of non-tariff measures (NTMs) are often summarized as ad-valorem equivalents inferred from their impact on imports. We combine a novel, disaggregated dataset of Indonesian NTMs with transaction-level customs data and plant-level inventory data. Using a dynamic trade model, we map import values, ordering frequency, and inventories into fixed ordering costs, delivery delays, and ad valorem costs. Pre-shipment inspections primarily raise fixed ordering costs, whereas product standards and import authorization requirements raise both fixed costs and delivery delays. In the presence of NTMs, supply disruptions produce more persistent price increases, and temporary tariff shocks have more persistent effects.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Devaki Ghose",
+      "Shafaat Yar Khan",
+      "Angella Faith Montfaucon"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-11-27",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "unpacking-non-tariff-measures-beyond-the-tip-of-the-iceberg-9a0cb8d6f51d",
+    "detected_at": "2026-11-27T16:51:32+00:00",
+    "doi": "10.1016/j.jmoneco.2026.104026",
+    "fields": [
+      "macroeconomics"
+    ],
+    "first_seen": "2026-11-27T16:51:32+00:00",
+    "id": "doi:10.1016/j.jmoneco.2026.104026",
+    "identity_aliases": [
+      "10.1016/j.jmoneco.2026.104026",
+      "https://www.sciencedirect.com/science/article/pii/S0304393226001418?dgcid=api_sd_search-api-endpoint",
+      "unpacking-non-tariff-measures-beyond-the-tip-of-the-iceberg-9a0cb8d6f51d"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Monetary Economics",
+    "journal_id": "journal-of-monetary-economics",
+    "journal_short": "JME",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0304393226001418",
+    "published_online": "2026-11-27",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-11-27",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-11-27",
+          "source": "elsevier-article-api"
+        }
+      ],
+      "pii": "S0304393226001418",
+      "sciencedirect_api_load_date": "2026-11-27T00:00:00.000Z",
+      "sciencedirect_search_issn": "0304-3932",
+      "sciencedirect_search_journal": "Journal of Monetary Economics",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Unpacking non-tariff measures: Beyond the tip of the iceberg",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0304393226001418?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_restored_from_backflow": "2026-11-28",
+    "abstract": "The indefinitely repeated prisoner’s dilemma game provides a paradigm for long-term cooperation in the face of short-term incentives for free riding. However, the extent to which players cooperate in the laboratory depends on the parameters of the game. To understand this, I take a simple, direct approach motivated by theory. I hypothesize that players tremble and that they find the best perfect public equilibrium of the induced game of imperfect public information. This is an as-if theory. I calibrate the probability of trembling, using no data from repeated game experiments. This model makes sharp predictions and does a good job both qualitatively and quantitatively in predicting welfare and cooperation rates.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "David K. Levine"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-11-27",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "predicting-cooperation-with-welfare-maximization-and-trembles-395bf778bd02",
+    "detected_at": "2026-11-27T16:51:13+00:00",
+    "doi": "10.1016/j.geb.2026.104087",
+    "fields": [
+      "game_theory"
+    ],
+    "first_seen": "2026-11-27T16:51:13+00:00",
+    "id": "doi:10.1016/j.geb.2026.104087",
+    "identity_aliases": [
+      "10.1016/j.geb.2026.104087",
+      "https://www.sciencedirect.com/science/article/pii/S0899825626001831?dgcid=api_sd_search-api-endpoint",
+      "predicting-cooperation-with-welfare-maximization-and-trembles-395bf778bd02"
+    ],
+    "issue_date": null,
+    "journal": "Games and Economic Behavior",
+    "journal_id": "games-and-economic-behavior",
+    "journal_short": "GEB",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0899825626001831",
+    "published_online": "2026-11-27",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-11-27",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-11-27",
+          "source": "elsevier-article-api"
+        }
+      ],
+      "pii": "S0899825626001831",
+      "sciencedirect_api_load_date": "2026-11-27T00:00:00.000Z",
+      "sciencedirect_search_issn": "0899-8256",
+      "sciencedirect_search_journal": "Games and Economic Behavior",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Predicting Cooperation with Welfare Maximization and Trembles",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0899825626001831?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_restored_from_backflow": "2026-11-28",
+    "abstract": "This paper examines the relationship between candidates’ ideological consistency and electoral participation. I consider an electoral competition model where candidates can strategically adjust their platform to attract voters and potentially improve their vote share, a strategy known as flip-flopping. However, citizens have an intrinsic preference for consistent candidates, and abstain when their utility for their preferred candidate falls below a common threshold. I show how this threshold shapes candidates’ flip-flopping strategy: the possibility of abstention disciplines platform adjustments, yielding more polarized platforms at equilibrium than if all citizens voted. Finally, I find that high-turnout elections tend to be associated with more flip-flopping, despite voters’ preference for consistent candidates.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Alexandre Arnout"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-11-27",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "flip-flopping-and-endogenous-turnout-09d0328742e7",
+    "detected_at": "2026-11-27T16:51:13+00:00",
+    "doi": "10.1016/j.geb.2026.104088",
+    "fields": [
+      "game_theory"
+    ],
+    "first_seen": "2026-11-27T16:51:13+00:00",
+    "id": "doi:10.1016/j.geb.2026.104088",
+    "identity_aliases": [
+      "10.1016/j.geb.2026.104088",
+      "flip-flopping-and-endogenous-turnout-09d0328742e7",
+      "https://www.sciencedirect.com/science/article/pii/S0899825626001843?dgcid=api_sd_search-api-endpoint"
+    ],
+    "issue_date": null,
+    "journal": "Games and Economic Behavior",
+    "journal_id": "games-and-economic-behavior",
+    "journal_short": "GEB",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0899825626001843",
+    "published_online": "2026-11-27",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-11-27",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-11-27",
+          "source": "elsevier-article-api"
+        }
+      ],
+      "pii": "S0899825626001843",
+      "sciencedirect_api_load_date": "2026-11-27T00:00:00.000Z",
+      "sciencedirect_search_issn": "0899-8256",
+      "sciencedirect_search_journal": "Games and Economic Behavior",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Flip-flopping and Endogenous Turnout",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0899825626001843?dgcid=api_sd_search-api-endpoint"
+  },
+  {
+    "_restored_from_backflow": "2026-11-28",
+    "abstract": "We study stochastic weighted congestion games in which players participate independently and resource costs are shared through proportional sharing (PS) or the Shapley value (SV). Our main result is an exact characterization of the worst-case Price of Anarchy under quadratic resource costs and homogeneous participation probability p, taking the supremum over all finite population sizes. The bound is strictly below the deterministic benchmark for every p < 1. We establish a matching lower bound through finite tree constructions, including a mixed-branch construction that proves tightness in the low-participation regime. For heterogeneous participation probabilities, the same formula evaluated at the largest participation probability remains a valid upper bound. For higher-degree monomial costs, we derive rule-specific, population-independent upper bounds through one-dimensional maximizations and scalar fixed-point equations, together with explicit tree-based lower bounds. These upper bounds strictly improve on their respective deterministic benchmarks whenever p < 1. General tightness remains open, but for PS we establish exactness under an explicit sufficient condition that holds for participation probabilities sufficiently close to one. The analysis uses a unilateral edge-wise smoothness framework. SV always admits a pure-strategy Bayes–Nash equilibrium; PS coincides with SV under quadratic costs but can fail to admit such an equilibrium under cubic costs. Higher-degree PS efficiency bounds apply to instances admitting a pure equilibrium.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "abstract-route-missing",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Weicheng Wang",
+      "Xuan Vinh Doan",
+      "Bo Chen"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-11-27",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "equilibria-and-efficiency-under-random-participation-stochastic-weighted-congestion-game-bdf5230c209d",
+    "detected_at": "2026-11-27T16:51:13+00:00",
+    "doi": "10.1016/j.geb.2026.104092",
+    "fields": [
+      "game_theory"
+    ],
+    "first_seen": "2026-11-27T16:51:13+00:00",
+    "id": "doi:10.1016/j.geb.2026.104092",
+    "identity_aliases": [
+      "10.1016/j.geb.2026.104092",
+      "equilibria-and-efficiency-under-random-participation-stochastic-weighted-congestion-game-bdf5230c209d",
+      "https://www.sciencedirect.com/science/article/pii/S0899825626001880?dgcid=api_sd_search-api-endpoint"
+    ],
+    "issue_date": null,
+    "journal": "Games and Economic Behavior",
+    "journal_id": "games-and-economic-behavior",
+    "journal_short": "GEB",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0899825626001880",
+    "published_online": "2026-11-27",
+    "publisher": "Elsevier",
+    "raw_data": {
+      "date_evidence": [
+        {
+          "available_online": "2026-11-27",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-11-27",
+          "source": "elsevier-article-api"
+        }
+      ],
+      "pii": "S0899825626001880",
+      "sciencedirect_api_load_date": "2026-11-27T00:00:00.000Z",
+      "sciencedirect_search_issn": "0899-8256",
+      "sciencedirect_search_journal": "Games and Economic Behavior",
+      "sciencedirect_search_route": "official_api_v2_put_title_wildcard"
+    },
+    "source": "sciencedirect_search",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.elsevier.com/content/search/sciencedirect",
+    "title": "Equilibria and Efficiency under Random Participation: Stochastic Weighted Congestion Games with Polynomial Costs",
+    "title_zh": null,
+    "translation_status": "missing_abstract",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0899825626001880?dgcid=api_sd_search-api-endpoint"
   }
 ]
