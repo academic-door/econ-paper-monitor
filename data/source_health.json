@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-11-27T20:51:35+00:00",
+  "checked_at": "2026-11-27T22:03:30+00:00",
   "counts": {
-    "degraded": 5,
-    "healthy": 98,
+    "degraded": 6,
+    "healthy": 97,
     "stale": 0,
     "supplemental-closed": 3,
     "unavailable": 0
@@ -87,6 +87,15 @@
         ]
       },
       {
+        "journal": "Journal of Economic Behavior and Organization",
+        "journal_id": "journal-of-economic-behavior-and-organization",
+        "next_action": "add or verify an independent fallback path",
+        "usable_paths": [
+          "rss",
+          "openalex-recall"
+        ]
+      },
+      {
         "journal": "Quantitative Economics",
         "journal_id": "quantitative-economics",
         "next_action": "add or verify an independent fallback path",
@@ -146,6 +155,31 @@
       ],
       "usable_paths": [
         "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "checked_age_days": 0.0,
+      "coverage": "official_or_specialized",
+      "crossref_count": 0,
+      "crossref_status": "rate_limited",
+      "degradation_reason": "single_path",
+      "failed_paths": [],
+      "journal": "Journal of Economic Behavior and Organization",
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "last_checked_at": "2026-11-28",
+      "level": "degraded",
+      "publisher": "Elsevier",
+      "registry_age_days": 0,
+      "rss_count": 29,
+      "rss_status": "official-generated",
+      "specialized_paths": [],
+      "supplemental_closed_note": null,
+      "supplemental_paths": [
+        "openalex-recall"
+      ],
+      "usable_paths": [
+        "rss",
         "openalex-recall"
       ]
     },
@@ -996,14 +1030,14 @@
     {
       "checked_age_days": 0.0,
       "coverage": "official_or_specialized",
-      "crossref_count": 9,
-      "crossref_status": "ok",
-      "degradation_reason": null,
+      "crossref_count": 0,
+      "crossref_status": "rate_limited",
+      "degradation_reason": "single_path",
       "failed_paths": [],
       "journal": "Journal of Economic Behavior and Organization",
       "journal_id": "journal-of-economic-behavior-and-organization",
       "last_checked_at": "2026-11-28",
-      "level": "healthy",
+      "level": "degraded",
       "publisher": "Elsevier",
       "registry_age_days": 0,
       "rss_count": 29,
@@ -1015,7 +1049,6 @@
       ],
       "usable_paths": [
         "rss",
-        "crossref",
         "openalex-recall"
       ]
     },
