@@ -52,9 +52,9 @@
     "total": 11127
   },
   "date_confidence": {
-    "A": 6785,
+    "A": 6784,
     "B": 104,
-    "C": 3097,
+    "C": 3098,
     "D": 518,
     "F": 623
   },
@@ -66,7 +66,7 @@
     "crossref_doi_elsevier_created_online": 709,
     "crossref_doi_published": 65,
     "crossref_doi_published_online": 362,
-    "crossref_elsevier_created_online": 787,
+    "crossref_elsevier_created_online": 788,
     "crossref_issue": 71,
     "crossref_published_online": 624,
     "iza_detail_month": 102,
@@ -75,7 +75,7 @@
     "openalex_publication_date": 82,
     "publisher_detail": 1301,
     "publisher_published_online": 155,
-    "rss_description_online": 1411,
+    "rss_description_online": 1413,
     "rss_published": 3409,
     "unknown": 556,
     "world_bank_detail_api": 92
@@ -665,7 +665,7 @@
       {
         "date": "2026-11-26",
         "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_source": "rss_description_online",
         "journal": "Journal of Monetary Economics",
         "official_date": "2026-11-26",
         "source_issue": "Journal of Monetary Economics",
@@ -765,7 +765,7 @@
       {
         "date": "2026-11-25",
         "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_source": "rss_description_online",
         "journal": "Journal of Environmental Economics and Management",
         "official_date": "2026-11-25",
         "source_issue": "Journal of Environmental Economics and Management",
@@ -967,7 +967,7 @@
       {
         "date": "2026-11-26",
         "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_source": "rss_description_online",
         "journal": "Journal of Monetary Economics",
         "official_date": "2026-11-26",
         "source_issue": "Journal of Monetary Economics",
@@ -1179,7 +1179,7 @@
       {
         "date": "2026-11-25",
         "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_source": "rss_description_online",
         "expectation_reason": "correction_notice",
         "journal": "Journal of Environmental Economics and Management",
         "official_date": "2026-11-25",
@@ -1972,8 +1972,8 @@
       },
       {
         "date": "2026-11-28",
-        "date_confidence": "A",
-        "date_source": "elsevier_article_api",
+        "date_confidence": "C",
+        "date_source": "crossref_elsevier_created_online",
         "journal": "European Economic Review",
         "official_date": "2026-11-27",
         "source_issue": null,
@@ -2424,8 +2424,30 @@
   },
   "risk_signals": {
     "cnki_rss_today": [],
-    "crossref_created_today": [],
-    "crossref_fallback_today": []
+    "crossref_created_today": [
+      {
+        "date": "2026-11-28",
+        "date_confidence": "C",
+        "date_source": "crossref_elsevier_created_online",
+        "journal": "European Economic Review",
+        "official_date": "2026-11-27",
+        "source_issue": null,
+        "title": "Making the cut: Close elections and local welfare policy",
+        "url": "https://www.sciencedirect.com/science/article/pii/S001429212600276X?dgcid=api_sd_search-api-endpoint"
+      }
+    ],
+    "crossref_fallback_today": [
+      {
+        "date": "2026-11-28",
+        "date_confidence": "C",
+        "date_source": "crossref_elsevier_created_online",
+        "journal": "European Economic Review",
+        "official_date": "2026-11-27",
+        "source_issue": null,
+        "title": "Making the cut: Close elections and local welfare policy",
+        "url": "https://www.sciencedirect.com/science/article/pii/S001429212600276X?dgcid=api_sd_search-api-endpoint"
+      }
+    ]
   },
   "source_top": {
     "aea_toc": 199,
@@ -2443,8 +2465,8 @@
     "china_candidates": 312,
     "china_related_public": 1841,
     "cnki_rss_today": 0,
-    "crossref_created_today": 0,
-    "crossref_fallback_today": 0,
+    "crossref_created_today": 1,
+    "crossref_fallback_today": 1,
     "duplicates_by_url_or_doi": 0,
     "future_official_date_in_bucket": 0,
     "historical_records_in_bucket": 90,
