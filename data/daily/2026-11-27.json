@@ -82,8 +82,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_confidence": "A",
+    "date_source": "rss_published",
     "detail_key": "outward-fdi-and-tightening-environmental-regulations-the-case-of-china-b025610cb7cf",
     "detected_at": "2026-11-28T11:07:49+00:00",
     "doi": "10.1111/ecin.70094",
@@ -259,10 +259,10 @@
     "url": "https://doi.org/10.1287/mnsc.2025.03691"
   },
   {
-    "abstract": "We study the complexity of computing pure Nash equilibria in binary public goods games on undirected graphs. In such a game, agents correspond to vertices of a graph and face a binary choice of performing an action, or not. Each agent’s decision depends only on the number of neighbors in the graph who perform the action and is encoded by a per-agent binary pattern. Such a pattern is finite if there is a threshold of active neighbors above which the agent always wants to be inactive, and monotone if the agent prefers to be active everywhere below that threshold. We demonstrate the following complexity dichotomy: While games with monotone patterns are guaranteed to admit equilibria, and it is possible to compute one in polynomial time, deciding the existence of equilibria for all other finite patterns is an NP -complete problem on general graphs, even when a single pattern is shared by all agents. We further generalize the model to connections of varying strength: an edge with weight w behaves as w parallel edges. While pure Nash equilibria still exist for monotone patterns, we show that the task of computing one becomes PLS -complete.",
+    "abstract": "We study the complexity of computing pure Nash equilibria in binary public goods games on undirected graphs. In such a game, agents correspond to vertices of a graph and face a binary choice of performing an action, or not. Each agent’s decision depends only on the number of neighbors in the graph who perform the action and is encoded by a per-agent binary pattern. Such a pattern is finite if there is a threshold of active neighbors above which the agent always wants to be inactive, and monotone if the agent prefers to be active everywhere below that threshold. We demonstrate the following complexity dichotomy: While games with monotone patterns are guaranteed to admit equilibria, and it is possible to compute one in polynomial time, deciding the existence of equilibria for all other finite patterns is an 𝖭 𝖯 -complete problem on general graphs, even when a single pattern is shared by all agents. We further generalize the model to connections of varying strength: an edge with weight w behaves as w parallel edges. While pure Nash equilibria still exist for monotone patterns, we show that the task of computing one becomes 𝖯 𝖫 𝖲 -complete.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -318,6 +318,13 @@
           "date_source": "elsevier_article_api",
           "published_online": "2026-11-27",
           "source": "elsevier-article-api"
+        },
+        {
+          "available_online": "2026-11-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-11-01",
+          "source": "openalex"
         }
       ]
     },
@@ -578,8 +585,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "cross-regional-computing-power-dispatching-and-corporate-esg-evidence-from-china-40eaa4a14886",
     "detected_at": "2026-11-27T16:51:53+00:00",
     "doi": "10.1016/j.eneco.2026.109735",
@@ -617,6 +624,16 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-11-27",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-11-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-11-01",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
         }
       ],
       "pii": "S0140988326006158",
@@ -723,7 +740,7 @@
     "abstract": "The indefinitely repeated prisoner’s dilemma game provides a paradigm for long-term cooperation in the face of short-term incentives for free riding. However, the extent to which players cooperate in the laboratory depends on the parameters of the game. To understand this, I take a simple, direct approach motivated by theory. I hypothesize that players tremble and that they find the best perfect public equilibrium of the induced game of imperfect public information. This is an as-if theory. I calibrate the probability of trembling, using no data from repeated game experiments. This model makes sharp predictions and does a good job both qualitatively and quantitatively in predicting welfare and cooperation rates.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -773,6 +790,16 @@
           "date_source": "crossref_doi_elsevier_created_online",
           "published_online": "2026-11-27",
           "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-11-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-11-01",
+          "source": "openalex"
+        },
+        {
+          "source": "semantic-scholar"
         }
       ],
       "pii": "S0899825626001831",
@@ -876,10 +903,10 @@
     "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-11-28",
     "_status": "not_found",
-    "abstract": "We study stochastic weighted congestion games in which players participate independently and resource costs are shared through proportional sharing (PS) or the Shapley value (SV). Our main result is an exact characterization of the worst-case Price of Anarchy under quadratic resource costs and homogeneous participation probability p, taking the supremum over all finite population sizes. The bound is strictly below the deterministic benchmark for every p < 1. We establish a matching lower bound through finite tree constructions, including a mixed-branch construction that proves tightness in the low-participation regime. For heterogeneous participation probabilities, the same formula evaluated at the largest participation probability remains a valid upper bound. For higher-degree monomial costs, we derive rule-specific, population-independent upper bounds through one-dimensional maximizations and scalar fixed-point equations, together with explicit tree-based lower bounds. These upper bounds strictly improve on their respective deterministic benchmarks whenever p < 1. General tightness remains open, but for PS we establish exactness under an explicit sufficient condition that holds for participation probabilities sufficiently close to one. The analysis uses a unilateral edge-wise smoothness framework. SV always admits a pure-strategy Bayes–Nash equilibrium; PS coincides with SV under quadratic costs but can fail to admit such an equilibrium under cubic costs. Higher-degree PS efficiency bounds apply to instances admitting a pure equilibrium.",
+    "abstract": "We study stochastic weighted congestion games in which players participate independently and resource costs are shared through proportional sharing (PS) or the Shapley value (SV). Our main result is an exact characterization of the worst-case Price of Anarchy under quadratic resource costs and homogeneous participation probability p , taking the supremum over all finite population sizes. The bound is strictly below the deterministic benchmark for every p < 1. We establish a matching lower bound through finite tree constructions, including a mixed-branch construction that proves tightness in the low-participation regime. For heterogeneous participation probabilities, the same formula evaluated at the largest participation probability remains a valid upper bound. For higher-degree monomial costs, we derive rule-specific, population-independent upper bounds through one-dimensional maximizations and scalar fixed-point equations, together with explicit tree-based lower bounds. These upper bounds strictly improve on their respective deterministic benchmarks whenever p < 1. General tightness remains open, but for PS we establish exactness under an explicit sufficient condition that holds for participation probabilities sufficiently close to one. The analysis uses a unilateral edge-wise smoothness framework. SV always admits a pure-strategy Bayes–Nash equilibrium; PS coincides with SV under quadratic costs but can fail to admit such an equilibrium under cubic costs. Higher-degree PS efficiency bounds apply to instances admitting a pure equilibrium.",
     "abstract_completeness": "full",
     "abstract_enrichment_status": "available",
-    "abstract_source": "elsevier_article_api_full",
+    "abstract_source": "openalex",
     "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
@@ -934,6 +961,13 @@
         },
         {
           "source": "semantic-scholar"
+        },
+        {
+          "available_online": "2026-11-01",
+          "date_confidence": "C",
+          "date_source": "openalex_publication_date",
+          "published_online": "2026-11-01",
+          "source": "openalex"
         }
       ],
       "pii": "S0899825626001880",
@@ -1464,8 +1498,8 @@
     "authors_status_code": "available",
     "available_online": "2026-11-27",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_doi_published_online",
+    "date_confidence": "A",
+    "date_source": "rss_published",
     "detail_key": "nested-targeting-informative-advertising-strategies-of-entrants-621aab8b6bd4",
     "detected_at": "2026-11-27T13:52:51+00:00",
     "doi": "10.1111/jems.70052",
